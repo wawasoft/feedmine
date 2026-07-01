@@ -10,6 +10,10 @@ final class NetworkMonitor {
     private(set) var isConnected = true
     var wasDisconnected = false
 
+    deinit {
+        monitor.cancel()
+    }
+
     func start() {
         monitor.pathUpdateHandler = { [weak self] path in
             Task { @MainActor in
