@@ -15,6 +15,19 @@ struct FeedScreen: View {
     @State private var showSettings = false
     @State private var showSources = false
     @AppStorage("showDebugBar") private var showDebugBar = true
+    @AppStorage("accentColorName") private var accentColorName = "blue"
+
+    private var accentColor: Color {
+        switch accentColorName {
+        case "indigo": return .indigo
+        case "purple": return .purple
+        case "pink": return .pink
+        case "orange": return .orange
+        case "green": return .green
+        case "teal": return .teal
+        default: return .blue
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -35,10 +48,10 @@ struct FeedScreen: View {
                         Text("Sources")
                             .font(.caption)
                     }
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(accentColor)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 5)
-                    .background(Color.blue.opacity(0.1))
+                    .background(accentColor.opacity(0.1))
                     .clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
@@ -187,6 +200,10 @@ struct FeedScreen: View {
         }
         .task {
             await loader.start()
+            updateBadge()
+        }
+        .onChange(of: loader.readItemIDs.count) { _, _ in
+            updateBadge()
         }
         .refreshable {
             let impact = UIImpactFeedbackGenerator(style: .medium)
@@ -201,6 +218,14 @@ struct FeedScreen: View {
         }
         .sheet(isPresented: $showSources) {
             SourceManagementView()
+        }
+        .tint(accentColor)
+    }
+
+    private func updateBadge() {
+        let unread = loader.items.count - loader.readItemIDs.count
+        Task { @MainActor in
+            UIApplication.shared.applicationIconBadgeNumber = max(0, unread)
         }
     }
 }
