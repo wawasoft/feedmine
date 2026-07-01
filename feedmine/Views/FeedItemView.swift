@@ -7,6 +7,7 @@ struct FeedItemView: View {
     let item: FeedItem
     let index: Int
     var onOpen: (() -> Void)?
+    var onCopy: (() -> Void)?
 
     var body: some View {
         Group {
@@ -83,6 +84,7 @@ struct FeedItemView: View {
 
             Button {
                 UIPasteboard.general.url = URL(string: item.url)
+                onCopy?()
             } label: {
                 Label("Copy Link", systemImage: "doc.on.doc")
             }
