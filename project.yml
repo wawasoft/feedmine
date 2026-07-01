@@ -27,6 +27,7 @@ targets:
       path: feedmine/Info.plist
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.feedmine.app
+      TARGETED_DEVICE_FAMILY: "1"  # iPhone only
       DEVELOPMENT_TEAM: ""
     dependencies:
       - package: FeedKit
