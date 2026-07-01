@@ -15,13 +15,16 @@ struct FeedScreen: View {
     var body: some View {
         VStack(spacing: 0) {
             DebugStatusBar()
+            CategoryFilterBar()
 
             if loader.loadingState == .initial && loader.items.isEmpty {
                 SkeletonLoadingView()
+            } else if loader.filteredItems.isEmpty && !loader.items.isEmpty {
+                EmptyFilterView(category: loader.selectedCategory ?? "selected")
             } else {
                 ScrollView {
                     LazyVStack(spacing: 12) {
-                        ForEach(Array(loader.items.enumerated()), id: \.element.id) { index, item in
+                        ForEach(Array(loader.filteredItems.enumerated()), id: \.element.id) { index, item in
                             FeedItemCardView(item: item)
                                 .padding(.horizontal, 12)
                                 .scrollTransition(.animated(.spring(duration: 0.4))) { content, phase in
@@ -139,6 +142,21 @@ struct SkeletonCardView: View {
             startPoint: isAnimating ? .topTrailing : .topLeading,
             endPoint: isAnimating ? .bottomLeading : .bottomTrailing
         )
+    }
+}
+
+// MARK: - Empty Filter State
+
+struct EmptyFilterView: View {
+    let category: String
+
+    var body: some View {
+        ContentUnavailableView(
+            "No \(category) articles",
+            systemImage: "rectangle.stack.fill",
+            description: Text("This category has articles in the feed, but they may have been trimmed from the visible buffer. Try scrolling through All first.")
+        )
+        .padding(.top, 80)
     }
 }
 

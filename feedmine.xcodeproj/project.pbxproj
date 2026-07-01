@@ -25,6 +25,7 @@
 		C45F9D00A3268B1250B39812 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B89B6467E341514F26C040B /* FeedLoader.swift */; };
 		CECBF1D00FA07F3ADAB895AB /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B17523EA785A32CBF906D42 /* FeedItem.swift */; };
 		CF36595BD78C6471862CCDFA /* Feeds in Resources */ = {isa = PBXBuildFile; fileRef = C9D10487C40978550CFC89E0 /* Feeds */; };
+		D5D54228348DEFECE4D00217 /* CategoryFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A7D55AFC80E67D103AC583 /* CategoryFilterBar.swift */; };
 		DBBC1286841062334CDB639C /* FeedKit in Frameworks */ = {isa = PBXBuildFile; productRef = A9AA7E85F9B0F0D222C6EE4E /* FeedKit */; };
 		EB498E6F3FBB5C54A7BA0212 /* feedmineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F27D4A089C0A2A81E64B2BC /* feedmineApp.swift */; };
 /* End PBXBuildFile section */
@@ -50,6 +51,7 @@
 		E9887174DAFF5C97D2E39933 /* feedmine.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = feedmine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE27C8C93B1630F6121E3AB9 /* news.opml */ = {isa = PBXFileReference; path = news.opml; sourceTree = "<group>"; };
 		F30391A30EB01CF526317DA2 /* DebugStatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugStatusBar.swift; sourceTree = "<group>"; };
+		F9A7D55AFC80E67D103AC583 /* CategoryFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterBar.swift; sourceTree = "<group>"; };
 		FDCAD69EEAB8FAB8FB974935 /* FeedFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFetchResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 		4A4F050A898BB40B15DE74DE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F9A7D55AFC80E67D103AC583 /* CategoryFilterBar.swift */,
 				F30391A30EB01CF526317DA2 /* DebugStatusBar.swift */,
 				87F611B28256E9442168C776 /* FeedItemCardView.swift */,
 				699695CC102526CA59DD5315 /* FeedScreen.swift */,
@@ -181,7 +184,7 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					057DBDD4C964DDBA254C0BA5 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = BU5227WFYX;
 					};
 				};
 			};
@@ -228,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D54228348DEFECE4D00217 /* CategoryFilterBar.swift in Sources */,
 				0D7D2F35B303B7FA834EE8B5 /* ContentView.swift in Sources */,
 				0D172F74FC571B2B1C682C66 /* DebugStatusBar.swift in Sources */,
 				72D004892A528079D059F577 /* FeedFetchBatch.swift in Sources */,
@@ -375,7 +379,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BU5227WFYX;
 				INFOPLIST_FILE = feedmine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -393,7 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = BU5227WFYX;
 				INFOPLIST_FILE = feedmine/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
