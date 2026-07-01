@@ -65,6 +65,17 @@ struct FeedItemCardView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
+                if isNew {
+                    Text("NEW")
+                        .font(.caption2)
+                        .fontWeight(.heavy)
+                        .foregroundStyle(.blue)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 1)
+                        .background(Color.blue.opacity(0.1))
+                        .clipShape(Capsule())
+                }
+
                 Spacer()
 
                 if isRead {
@@ -150,6 +161,10 @@ struct FeedItemCardView: View {
                 appeared = true
             }
         }
+    }
+
+    private var isNew: Bool {
+        Date().timeIntervalSince(item.publishedAt) < 3600 // < 1 hour
     }
 
     private var readingTime: String {
