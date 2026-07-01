@@ -16,6 +16,9 @@ actor RSSFetcher {
 
     /// Fetch and parse a single feed. Never throws — returns FeedFetchResult with status.
     func fetch(_ source: FeedSource) async -> FeedFetchResult {
+        guard !Task.isCancelled else {
+            return FeedFetchResult(source: source, items: [], status: .failed)
+        }
         guard let url = URL(string: source.url) else {
             print("[RSSFetcher] Invalid URL for \(source.title): \(source.url)")
             return FeedFetchResult(source: source, items: [], status: .failed)
@@ -60,7 +63,7 @@ actor RSSFetcher {
 
         // Process in chunks to enforce concurrency cap
         var remaining = sources
-        while !remaining.isEmpty {
+        while !remaining.isEmpty && !Task.isCancelled {
             let chunk = Array(remaining.prefix(maxConcurrent))
             remaining.removeFirst(chunk.count)
 

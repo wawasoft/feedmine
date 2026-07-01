@@ -212,6 +212,8 @@ final class FeedLoader {
     static let initialWindowSize = 50
     static let reservoirLowWatermark = 20
     static let safetyZoneRadius = 50
+    static let maxLoadedIDs = 5000        // prevent unbounded memory growth
+    static let maxReservoirSize = 500     // cap reservoir to avoid memory pressure
 
     // MARK: - Public methods
 
@@ -290,8 +292,14 @@ final class FeedLoader {
 
         let actualNew = batch.items.filter { !loadedIDs.contains($0.id) }
         loadedIDs.formUnion(actualNew.map(\.id))
+        if loadedIDs.count > Self.maxLoadedIDs {
+            loadedIDs = Set(loadedIDs.suffix(Self.maxLoadedIDs))  // cap to prevent unbounded growth
+        }
 
         reservoir = actualNew.sorted { $0.publishedAt > $1.publishedAt }
+        if reservoir.count > Self.maxReservoirSize {
+            reservoir = Array(reservoir.prefix(Self.maxReservoirSize))
+        }
 
         let windowSize = min(Self.initialWindowSize, reservoir.count)
         items = Array(reservoir.prefix(windowSize))
@@ -391,10 +399,16 @@ final class FeedLoader {
 
         let actualNew = batch.items.filter { !loadedIDs.contains($0.id) }
         loadedIDs.formUnion(actualNew.map(\.id))
+        if loadedIDs.count > Self.maxLoadedIDs {
+            loadedIDs = Set(loadedIDs.suffix(Self.maxLoadedIDs))
+        }
 
         let sorted = actualNew.sorted { $0.publishedAt > $1.publishedAt }
         reservoir.append(contentsOf: sorted)
         reservoir.sort { $0.publishedAt > $1.publishedAt }
+        if reservoir.count > Self.maxReservoirSize {
+            reservoir = Array(reservoir.prefix(Self.maxReservoirSize))
+        }
         reservoirCount = reservoir.count
     }
 }
