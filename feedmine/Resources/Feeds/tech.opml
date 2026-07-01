@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+  <head><title>Tech Feeds</title></head>
+  <body>
+    <outline text="Tech">
+      <outline title="Ars Technica" xmlUrl="https://feeds.arstechnica.com/arstechnica/index" type="rss"/>
+      <outline title="The Verge" xmlUrl="https://www.theverge.com/rss/index.xml" type="rss"/>
+      <outline title="Hacker News" xmlUrl="https://hnrss.org/frontpage" type="rss"/>
+    </outline>
+  </body>
+</opml>

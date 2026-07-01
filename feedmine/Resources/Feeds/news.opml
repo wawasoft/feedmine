@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+  <head><title>News Feeds</title></head>
+  <body>
+    <outline text="News">
+      <outline title="Reuters" xmlUrl="https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&amp;hl=en-US&amp;gl=US&amp;ceid=US:en" type="rss"/>
+      <outline title="AP News" xmlUrl="https://news.google.com/rss/search?q=when:24h+allinurl:apnews.com&amp;hl=en-US&amp;gl=US&amp;ceid=US:en" type="rss"/>
+      <outline title="NPR Top Stories" xmlUrl="https://feeds.npr.org/1001/rss.xml" type="rss"/>
+    </outline>
+  </body>
+</opml>

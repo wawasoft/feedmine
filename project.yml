@@ -23,6 +23,8 @@ targets:
     deploymentTarget: "18.0"
     sources:
       - path: feedmine
+      - path: feedmine/Resources/Feeds
+        type: folder
     info:
       path: feedmine/Info.plist
     settings:
