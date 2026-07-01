@@ -6,6 +6,7 @@
       <outline title="This Is Colossal" xmlUrl="https://www.thisiscolossal.com/feed/" type="rss"/>
       <outline title="It's Nice That" xmlUrl="https://www.itsnicethat.com/feed" type="rss"/>
       <outline title="A List Apart" xmlUrl="https://alistapart.com/main/feed/" type="rss"/>
+      <outline title="Smashing Magazine" xmlUrl="https://www.smashingmagazine.com/feed/" type="rss"/>
     </outline>
   </body>
 </opml>
