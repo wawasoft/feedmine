@@ -14,6 +14,19 @@ final class FeedLoader {
     // MARK: - Public state (observed by views)
     private(set) var items: [FeedItem] = []
     private(set) var loadingState: FeedLoadingState = .idle
+    private(set) var selectedCategory: String? = nil
+
+    /// Items filtered by selected category (nil = all)
+    var filteredItems: [FeedItem] {
+        guard let category = selectedCategory else { return items }
+        return items.filter { $0.category.lowercased() == category.lowercased() }
+    }
+
+    /// Available categories from loaded sources
+    var availableCategories: [String] {
+        let cats = Set(sources.map { $0.category }).sorted()
+        return cats
+    }
 
     // Debug counters
     private(set) var opmlFileCount = 0
@@ -44,6 +57,10 @@ final class FeedLoader {
     static let safetyZoneRadius = 50
 
     // MARK: - Public methods
+
+    func selectCategory(_ category: String?) {
+        selectedCategory = (selectedCategory == category) ? nil : category
+    }
 
     func start() async {
         guard !hasStarted else { return }
