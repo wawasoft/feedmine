@@ -233,10 +233,21 @@ struct FeedItemCardView: View {
                     )
                 )
 
-            // Category icon watermark
-            Image(systemName: placeholderIcon)
-                .font(.system(size: 48))
-                .foregroundStyle(.white.opacity(0.3))
+            VStack(spacing: 8) {
+                // Source initial in a circle
+                Text(String(item.sourceTitle.prefix(1)))
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white.opacity(0.8))
+                    .frame(width: 56, height: 56)
+                    .background(.white.opacity(0.2))
+                    .clipShape(Circle())
+
+                Text(item.sourceTitle)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.white.opacity(0.6))
+            }
         }
     }
 
