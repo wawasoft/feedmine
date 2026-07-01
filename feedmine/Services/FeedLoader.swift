@@ -145,10 +145,21 @@ final class FeedLoader {
 
     func markAsRead(_ itemID: String) {
         readItemIDs.insert(itemID)
+        capReadIDsIfNeeded()
     }
 
     func markAllAsRead() {
         readItemIDs.formUnion(items.map(\.id))
+        capReadIDsIfNeeded()
+    }
+
+    private func capReadIDsIfNeeded() {
+        if readItemIDs.count > Self.maxLoadedIDs {
+            readItemIDs = Set(readItemIDs.suffix(Self.maxLoadedIDs))
+        }
+        if bookmarkedIDs.count > Self.maxLoadedIDs {
+            bookmarkedIDs = Set(bookmarkedIDs.suffix(Self.maxLoadedIDs))
+        }
     }
 
     func isRead(_ itemID: String) -> Bool {
@@ -183,6 +194,7 @@ final class FeedLoader {
             bookmarkedIDs.remove(itemID)
         } else {
             bookmarkedIDs.insert(itemID)
+            capReadIDsIfNeeded()
         }
     }
 
