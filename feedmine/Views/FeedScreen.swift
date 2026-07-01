@@ -83,6 +83,9 @@ struct FeedScreen: View {
                     ScrollViewReader { proxy in
                         ScrollView {
                             LazyVStack(spacing: loader.layout == .card ? 12 : 1, pinnedViews: [.sectionHeaders]) {
+                                if loader.selectedCategory == nil && loader.selectedMood == .all && loader.searchQuery.isEmpty {
+                                    TopStoriesCarousel()
+                                }
                                 ForEach(loader.dateSections) { section in
                                     Section {
                                         ForEach(Array(section.items.enumerated()), id: \.element.id) { index, item in
