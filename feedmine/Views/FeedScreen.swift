@@ -59,6 +59,11 @@ struct FeedScreen: View {
         }
         .task { await loader.start(); updateBadge() }
         .onChange(of: loader.readItemIDs.count) { _, _ in updateBadge() }
+        .onChange(of: loader.networkMonitor.isConnected) { _, connected in
+            if connected && loader.fetchErrorCount > 0 {
+                Task { await loader.refresh() }
+            }
+        }
         .sheet(item: $selectedArticle) { route in SafariView(url: route.url) }
         .sheet(item: $previewItem) { item in ArticlePreviewSheet(item: item) }
         .sheet(isPresented: $showSettings) { SettingsSheetView() }
