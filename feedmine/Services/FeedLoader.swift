@@ -39,6 +39,9 @@ final class FeedLoader {
         return result
     }
 
+    /// Number of unique item IDs tracked (dedup count)
+    var loadedIDsCount: Int { loadedIDs.count }
+
     /// Available categories from loaded sources
     var availableCategories: [String] {
         let cats = Set(sources.map { $0.category }).sorted()
