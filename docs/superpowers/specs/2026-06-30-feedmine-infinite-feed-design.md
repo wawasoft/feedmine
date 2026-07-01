@@ -166,7 +166,7 @@ Each `.opml` file is processed independently. A malformed `culture.opml` does no
 
 ### Source Deduplication
 
-Sources are deduplicated by normalized URL before being returned. Normalization: trim whitespace, remove trailing slash, lowercase scheme and host. If the same `xmlUrl` appears in multiple OPML files, keep only one `FeedSource`.
+Sources are deduplicated by normalized URL before being returned. Normalization: trim whitespace, remove trailing slash, lowercase scheme and host only (preserve path and query case — paths can be case-sensitive). If the same `xmlUrl` appears in multiple OPML files, keep only one `FeedSource`.
 
 ## Services
 
@@ -176,15 +176,26 @@ Actor. Off main thread. Fetches and parses RSS/Atom via FeedKit.
 
 ```swift
 actor RSSFetcher {
-    init(timeout: TimeInterval = 15)
+    private let session: URLSession
 
-    /// Fetch a single feed. Never throws — returns empty on error.
+    init() {
+        let config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = 15
+        config.timeoutIntervalForResource = 15
+        config.httpAdditionalHeaders = [
+            "User-Agent": "FeedminePrototype/1.0"
+        ]
+        self.session = URLSession(configuration: config)
+    }
+
+    /// Fetch raw Data via URLSession, then parse with FeedKit.
+    /// This gives full control over timeout, headers, and concurrency.
     func fetch(_ source: FeedSource) async -> [FeedItem]
-
-    /// Fetch multiple feeds concurrently with a real concurrency cap.
     func fetchAll(_ sources: [FeedSource], maxConcurrent: Int = 5) async -> FeedFetchBatch
 }
 ```
+
+**Fetch strategy:** URLSession downloads raw `Data` → FeedKit parses the `Data`. This keeps timeout enforcement, User-Agent, and concurrency caps under `RSSFetcher`'s control — FeedKit only handles parsing.
 
 **Behavior:**
 - **Real timeout:** 15 seconds per feed via `URLSessionConfiguration.timeoutIntervalForResource`. Not just documented — enforced.
@@ -265,13 +276,16 @@ enum FeedLoadingState {
 6. Deduplicate sources by normalized URL
 7. `let batch = await fetcher.fetchAll(sources)`
 8. Update `totalFetched`, `fetchErrorCount`, `emptyFeedCount`
-9. Deduplicate batch items against `loadedIDs`
-10. Sort by `publishedAt` descending (newest first)
-11. `reservoir = batch.items`
-12. Move first `initialWindowSize` items from reservoir to `items`
-13. Register moved items in `loadedIDs`
-14. `reservoirCount = reservoir.count`
-15. `loadingState = .idle`
+9. Deduplicate batch items against `loadedIDs`, then register **all** accepted items — not just those moved to visible:
+    ```swift
+    let actualNew = batch.items.filter { !loadedIDs.contains($0.id) }
+    loadedIDs.formUnion(actualNew.map(\.id))
+    reservoir.append(contentsOf: actualNew)
+    ```
+10. Sort reservoir by `publishedAt` descending (newest first)
+11. Move first `initialWindowSize` items from reservoir to `items`
+12. `reservoirCount = reservoir.count`
+13. `loadingState = .idle`
 
 **`refresh() async` — pull-to-refresh:**
 1. `loadingState = .refreshing`
@@ -283,22 +297,25 @@ enum FeedLoadingState {
 1. Track visible position: `currentVisibleItemID = currentItem.id`, store `currentVisibleIndex`
 2. If `loadingState != .idle`, return immediately (prevents overlapping loads)
 3. If `currentItem` is not within the last `loadMoreThreshold` items of `items`, return
-4. If `reservoir.count >= loadMoreThreshold`:
-   - Move `loadMoreThreshold` items from reservoir to `items` (no network fetch)
-   - `reservoirCount = reservoir.count`
-5. If `reservoir.count < reservoirLowWatermark`:
-   - `loadingState = .loadingMore`
-   - Fetch new batch → deduplicate → sort → append to `reservoir`
-   - Move `loadMoreThreshold` items from reservoir to `items`
-   - `trimBufferIfNeeded()`
-   - `loadingState = .idle`
+4. **Step 1 — move from reservoir first (no network, no blocking):**
+   - If `reservoir.count >= loadMoreThreshold`:
+     - Move `loadMoreThreshold` items from reservoir to `items`
+     - `reservoirCount = reservoir.count`
+5. **Step 2 — background refill if needed (after moving, don't block scroll):**
+   - If `reservoir.count < reservoirLowWatermark`:
+     - `loadingState = .loadingMore`
+     - Fetch new batch → deduplicate against `loadedIDs` → register ALL new IDs → sort → append to `reservoir`
+     - `trimBufferIfNeeded()`
+     - `loadingState = .idle`
 
 **`trimBufferIfNeeded()` — buffer management:**
 1. If `items.count <= maxBuffer`, return
 2. Identify items outside the safety zone: more than `safetyZoneRadius` positions away from `currentVisibleIndex`
-3. Remove candidates in batches of `discardBatchSize`, starting with the furthest from current position
-4. Do NOT remove items within ±`safetyZoneRadius` of `currentVisibleIndex`
-5. Increment `totalDiscarded`
+3. **Priority 1:** discard items above the current position (already scrolled past — the user moved on)
+4. **Priority 2:** if more discarding is needed, discard items far below the current position
+5. Remove in batches of `discardBatchSize`
+6. Never remove items within ±`safetyZoneRadius` of `currentVisibleIndex`
+7. Increment `totalDiscarded`
 
 ## Lazy Loading Strategy
 
@@ -434,6 +451,20 @@ Two distinct error categories:
 
 - **FeedKit** (MIT, via SPM) — RSS 2.0, Atom, JSON Feed parsing. Handles encoding, dates, malformed feeds.
 - **AsyncImage** (native, iOS 15+) — async image loading with built-in placeholder support.
+
+## Implementation Refinements
+
+Key guardrails for the implementation phase:
+
+- **Register all accepted IDs in `loadedIDs`** before placing items in the reservoir. Failing to register reservoir-only items allows them to leak back in on a subsequent fetch.
+- **Move from reservoir first, refill second.** Show content the user already has before triggering a network call. Refill happens after the move, and it must not block scroll.
+- **Discard priority: above before below.** Items the user has already scrolled past should be discarded before items they haven't reached yet.
+- **URLSession controls fetching; FeedKit only parses.** Download raw `Data` with a configured `URLSession` (timeout + User-Agent), then pass it to FeedKit. This guarantees timeout enforcement and concurrency limits.
+- **Both timeout values set.** `timeoutIntervalForRequest = 15` and `timeoutIntervalForResource = 15` — not just the resource timeout.
+- **User-Agent header.** `FeedminePrototype/1.0` — some feeds reject or rate-limit generic requests.
+- **URL normalization: lowercase scheme/host only.** Path and query preserve original case. Paths can be case-sensitive.
+- **`currentVisibleIndex` from `onAppear` is approximate.** `LazyVStack` fires `onAppear` when SwiftUI materializes the view, not when the user is actively looking at it. Treat it as a rough estimate — sufficient for this prototype.
+- **`refresh()` clearing everything is acceptable for MVP.** A flicker-free refresh (keep old items visible while fetching) can come later.
 
 ## Testing Strategy
 
