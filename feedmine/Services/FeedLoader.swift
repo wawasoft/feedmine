@@ -119,6 +119,9 @@ final class FeedLoader {
     /// Number of unique item IDs tracked (dedup count)
     var loadedIDsCount: Int { loadedIDs.count }
 
+    /// When the feed was last refreshed (nil = never)
+    private(set) var lastRefreshDate: Date?
+
     /// Available categories from loaded sources
     var availableCategories: [String] {
         let cats = Set(sources.map { $0.category }).sorted()
@@ -256,6 +259,7 @@ final class FeedLoader {
         reservoir.removeFirst(windowSize)
         reservoirCount = reservoir.count
 
+        lastRefreshDate = .now
         loadingState = .idle
     }
 
@@ -288,6 +292,7 @@ final class FeedLoader {
         reservoir.removeFirst(windowSize)
         reservoirCount = reservoir.count
 
+        lastRefreshDate = .now
         loadingState = .idle
     }
 

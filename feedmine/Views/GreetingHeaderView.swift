@@ -90,6 +90,14 @@ struct GreetingHeaderView: View {
                         Text("\(loader.sourceCount) sources")
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                        if let refreshDate = loader.lastRefreshDate {
+                            Text("·")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                            Text("Updated \(relativeTime(from: refreshDate))")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
                     }
                 }
 
@@ -141,6 +149,12 @@ struct GreetingHeaderView: View {
             .padding(.bottom, 8)
             .onAppear { updateStreak() }
         }
+    }
+
+    private func relativeTime(from date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .abbreviated
+        return formatter.localizedString(for: date, relativeTo: Date())
     }
 
     private func updateStreak() {
