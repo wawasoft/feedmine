@@ -15,6 +15,9 @@ struct FeedScreen: View {
     @State private var showScrollButton = false
     @State private var showSettings = false
     @State private var showSources = false
+    @State private var showToast = false
+    @State private var toastMessage = ""
+    @State private var toastIcon = "checkmark"
     @AppStorage("showDebugBar") private var showDebugBar = true
     @AppStorage("accentColorName") private var accentColorName = "blue"
 
@@ -90,10 +93,12 @@ struct FeedScreen: View {
                                 ForEach(loader.dateSections) { section in
                                     Section {
                                         ForEach(Array(section.items.enumerated()), id: \.element.id) { index, item in
-                                            FeedItemView(item: item, index: index) {
-                                                previewItem = item
-                                            }
-                                            .onAppear {
+                                            FeedItemView(
+                                            item: item, index: index,
+                                            onOpen: { previewItem = item },
+                                            onCopy: { toastMessage = "Link copied"; toastIcon = "doc.on.doc"; withAnimation { showToast = true } }
+                                        )
+                                        .onAppear {
                                                 appearedItemIDs.insert(item.id)
                                                 showScrollButton = index > 20
                                                 Task {
@@ -208,6 +213,7 @@ struct FeedScreen: View {
         .overlay {
             OnboardingTipsView()
         }
+        .toast(isPresented: $showToast, message: toastMessage, systemImage: toastIcon)
     }
 
     private func updateBadge() {
