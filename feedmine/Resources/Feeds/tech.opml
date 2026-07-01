@@ -6,6 +6,8 @@
       <outline title="Ars Technica" xmlUrl="https://feeds.arstechnica.com/arstechnica/index" type="rss"/>
       <outline title="The Verge" xmlUrl="https://www.theverge.com/rss/index.xml" type="rss"/>
       <outline title="Hacker News" xmlUrl="https://hnrss.org/frontpage" type="rss"/>
+      <outline title="Daring Fireball" xmlUrl="https://daringfireball.net/feeds/main" type="rss"/>
+      <outline title="Wired" xmlUrl="https://www.wired.com/feed/rss" type="rss"/>
     </outline>
   </body>
 </opml>
