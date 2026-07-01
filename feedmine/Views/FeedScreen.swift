@@ -80,17 +80,35 @@ struct FeedScreen: View {
                 ZStack(alignment: .bottomTrailing) {
                     ScrollViewReader { proxy in
                         ScrollView {
-                            LazyVStack(spacing: loader.layout == .card ? 12 : 1) {
-                                ForEach(Array(loader.filteredItems.enumerated()), id: \.element.id) { index, item in
-                                    FeedItemView(item: item, index: index) {
-                                        previewItem = item
-                                    }
-                                    .onAppear {
-                                        appearedItemIDs.insert(item.id)
-                                        showScrollButton = index > 20
-                                        Task {
-                                            await loader.loadMoreIfNeeded(currentItem: item)
+                            LazyVStack(spacing: loader.layout == .card ? 12 : 1, pinnedViews: [.sectionHeaders]) {
+                                ForEach(loader.dateSections) { section in
+                                    Section {
+                                        ForEach(Array(section.items.enumerated()), id: \.element.id) { index, item in
+                                            FeedItemView(item: item, index: index) {
+                                                previewItem = item
+                                            }
+                                            .onAppear {
+                                                appearedItemIDs.insert(item.id)
+                                                showScrollButton = index > 20
+                                                Task {
+                                                    await loader.loadMoreIfNeeded(currentItem: item)
+                                                }
+                                            }
                                         }
+                                    } header: {
+                                        HStack {
+                                            Text(section.title)
+                                                .font(.caption)
+                                                .fontWeight(.bold)
+                                                .foregroundStyle(.secondary)
+                                                .padding(.horizontal, 12)
+                                                .padding(.vertical, 4)
+                                                .background(.ultraThinMaterial)
+                                                .clipShape(Capsule())
+                                            Spacer()
+                                        }
+                                        .padding(.horizontal, 4)
+                                        .padding(.vertical, 4)
                                     }
                                 }
                             }

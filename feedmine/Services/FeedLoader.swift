@@ -16,6 +16,29 @@ final class FeedLoader {
     private(set) var loadingState: FeedLoadingState = .idle
     private(set) var selectedCategory: String? = nil
 
+    /// Group items into date-based sections for section headers
+    struct DateSection: Identifiable {
+        let id = UUID()
+        let title: String
+        let items: [FeedItem]
+    }
+
+    var dateSections: [DateSection] {
+        let calendar = Calendar.current
+        let grouped = Dictionary(grouping: filteredItems) { item -> String in
+            if calendar.isDateInToday(item.publishedAt) { return "Today" }
+            if calendar.isDateInYesterday(item.publishedAt) { return "Yesterday" }
+            let days = calendar.dateComponents([.day], from: item.publishedAt, to: Date()).day ?? 0
+            if days < 7 { return "This Week" }
+            return "Earlier"
+        }
+        // Preserve order: Today, Yesterday, This Week, Earlier
+        let order = ["Today", "Yesterday", "This Week", "Earlier"]
+        return order.compactMap { title in
+            grouped[title].map { DateSection(title: title, items: $0) }
+        }
+    }
+
     /// Layout mode: card or compact list
     enum FeedLayout { case card, list }
     var layout: FeedLayout = .card
