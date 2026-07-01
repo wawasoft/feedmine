@@ -200,7 +200,7 @@ struct FeedScreen: View {
                             }
                         }
                     }
-                    .padding(.top, 56)  // space for floating header
+                    .padding(.top, 48)  // snug fit under floating header
                     .padding(.bottom, 8)
                 }
                 .overlay(alignment: .top) { Color.clear.frame(height: 0).id("top") }
@@ -214,17 +214,13 @@ struct FeedScreen: View {
     private func sectionHeader(_ title: String) -> some View {
         HStack {
             Text(title)
-                .font(.caption)
-                .fontWeight(.bold)
+                .font(.caption2)
+                .fontWeight(.semibold)
                 .foregroundStyle(.secondary)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 4)
-                .background(.ultraThinMaterial)
-                .clipShape(Capsule())
             Spacer()
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 6)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 4)
     }
 
     // MARK: - Floating Buttons
