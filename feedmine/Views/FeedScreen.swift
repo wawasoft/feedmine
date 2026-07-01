@@ -74,6 +74,8 @@ struct FeedScreen: View {
 
             if loader.loadingState == .initial && loader.items.isEmpty {
                 SkeletonLoadingView()
+            } else if loader.items.isEmpty && loader.loadingState != .initial {
+                FeedEmptyStateView()
             } else if loader.filteredItems.isEmpty && !loader.items.isEmpty {
                 EmptyFilterView(category: loader.selectedCategory ?? "selected")
             } else {
