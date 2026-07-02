@@ -335,10 +335,10 @@ final class FeedLoader {
 
     // MARK: - Constants
     static let maxBuffer = 300
-    static let loadMoreThreshold = 15
+    static let loadMoreThreshold = 30   // trigger fetch well before user hits bottom
     static let discardBatchSize = 50
     static let initialWindowSize = 50
-    static let reservoirLowWatermark = 20
+    static let reservoirLowWatermark = 50  // keep bigger buffer ready
     static let safetyZoneRadius = 50
     static let maxLoadedIDs = 5000        // prevent unbounded memory growth
     static let maxReservoirSize = 500     // cap reservoir to avoid memory pressure
