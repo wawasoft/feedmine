@@ -26,6 +26,7 @@ final class FeedLoader {
     private var cachedDateSections: [DateSection] = []
     private var cachedDateSectionVersion = -1
     private var itemVersion = 0  // bumped whenever items change
+    private var filterVersion = 0  // bumped whenever filters/search change
 
     var dateSections: [DateSection] {
         if itemVersion != cachedDateSectionVersion {
@@ -146,11 +147,25 @@ final class FeedLoader {
 
     /// Called by the view when searchQuery changes — triggers filter rebuild
     func searchQueryChanged() {
+        filterVersion &+= 1
         rebuildForFilter()
     }
 
-    /// Items filtered by selected mood, category, AND search query
+    /// Items filtered by selected mood, category, AND search query — CACHED
+    private var cachedFilteredItems: [FeedItem] = []
+    private var cachedFilteredItemsVersion = -1
+    private var cachedFilteredItemsFilterVersion = -1
+
     var filteredItems: [FeedItem] {
+        if itemVersion != cachedFilteredItemsVersion || filterVersion != cachedFilteredItemsFilterVersion {
+            cachedFilteredItems = computeFilteredItems()
+            cachedFilteredItemsVersion = itemVersion
+            cachedFilteredItemsFilterVersion = filterVersion
+        }
+        return cachedFilteredItems
+    }
+
+    private func computeFilteredItems() -> [FeedItem] {
         var result = items
         if selectedMood != .all {
             result = result.filter { selectedMood.matches($0.title) }
@@ -167,7 +182,6 @@ final class FeedLoader {
                 $0.title.localizedCaseInsensitiveContains(query) ||
                 $0.excerpt.localizedCaseInsensitiveContains(query)
             }
-            // Sort by relevance: exact title match > partial title match > content match
             let q = query.lowercased()
             result.sort { a, b in
                 let scoreA = searchScore(a, q); let scoreB = searchScore(b, q)
@@ -453,6 +467,7 @@ final class FeedLoader {
     /// Rebuild items + reservoir when filters change so the feed shows matching content
     /// from the full dataset (not just the visible buffer).
     private func rebuildForFilter() {
+        filterVersion &+= 1
         // Pool everything we have: visible items + reservoir + previously filtered-out
         let allItems = items + reservoir + filteredOutItems
 
@@ -682,7 +697,7 @@ final class FeedLoader {
         for chunkStart in stride(from: 0, to: activeSources.count, by: chunkSize) {
             let end = min(chunkStart + chunkSize, activeSources.count)
             let chunk = Array(activeSources[chunkStart..<end])
-            let batch = await fetcher.fetchAll(chunk, maxConcurrent: 3)
+            let batch = await fetcher.fetchAll(chunk, maxConcurrent: 15)
 
             allFetched += batch.items.count
             allFailed += batch.failedSourceCount
@@ -745,7 +760,7 @@ final class FeedLoader {
         for chunkStart in stride(from: 0, to: activeSources.count, by: chunkSize) {
             let end = min(chunkStart + chunkSize, activeSources.count)
             let chunk = Array(activeSources[chunkStart..<end])
-            let batch = await fetcher.fetchAll(chunk, maxConcurrent: 3)
+            let batch = await fetcher.fetchAll(chunk, maxConcurrent: 15)
 
             allFetched += batch.items.count
             allFailed += batch.failedSourceCount
@@ -826,15 +841,11 @@ final class FeedLoader {
     }
 
     func loadMoreIfNeeded(currentItem: FeedItem) async {
-        // Track visible position (always update, even during fetch/refresh)
-        if let index = items.firstIndex(where: { $0.id == currentItem.id }) {
-            currentVisibleIndex = index
-        }
-
-        // Guard: item may have been trimmed between onAppear and this execution
+        // Single O(n) scan for both position tracking and guard
         guard let itemIndex = items.firstIndex(where: { $0.id == currentItem.id }) else {
             return
         }
+        currentVisibleIndex = itemIndex
 
         // Only trigger when near the bottom
         guard itemIndex >= items.count - Self.loadMoreThreshold else { return }
