@@ -65,7 +65,7 @@ final class PersistenceManager {
     func save(_ state: FeedState) {
         saveTask?.cancel()
         saveTask = Task {
-            try? await Task.sleep(for: .seconds(1))
+            try? await Task.sleep(for: .milliseconds(300))
             guard !Task.isCancelled else { return }
 
             var cleaned = state

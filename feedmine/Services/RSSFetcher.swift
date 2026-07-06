@@ -337,17 +337,14 @@ actor RSSFetcher {
         return capped
     }
 
-    /// Strip HTML tags using NSAttributedString conversion.
+    /// Strip HTML tags using regex — avoids WebKit NSAttributedString overhead.
     private func strippingHTMLTags(_ html: String) -> String {
-        guard let data = html.data(using: .utf8) else { return html }
-        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [
-            .documentType: NSAttributedString.DocumentType.html,
-            .characterEncoding: String.Encoding.utf8.rawValue
-        ]
-        if let attributed = try? NSAttributedString(data: data, options: options, documentAttributes: nil) {
-            return attributed.string
-        }
-        // Fallback: regex strip
-        return html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+        html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&nbsp;", with: " ")
+            .replacingOccurrences(of: "&#39;", with: "'")
     }
 }
