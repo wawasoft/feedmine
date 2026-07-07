@@ -1411,13 +1411,10 @@ final class FeedLoader {
 
         // Prioritize never-fetched sources (e.g., newly enabled countries)
         // so fetch-on-demand is responsive. Fetch up to 40 sources per refill.
-        let prioritized = enabledSources.sorted { a, b in
-            let aLast = sourceHealth[a.url]?.lastFetchDate
-            let bLast = sourceHealth[b.url]?.lastFetchDate
-            if aLast == nil && bLast != nil { return true }
-            if bLast == nil && aLast != nil { return false }
-            return false  // both nil or both set — let shuffle decide
-        }
+        // Shuffle never-fetched so different sources appear each refill cycle.
+        let neverFetched = enabledSources.filter { sourceHealth[$0.url]?.lastFetchDate == nil }.shuffled()
+        let previouslyFetched = enabledSources.filter { sourceHealth[$0.url]?.lastFetchDate != nil }.shuffled()
+        let prioritized = neverFetched + previouslyFetched
         let batchSources = Array(prioritized.prefix(40))
         let batch = await fetcher.fetchAll(batchSources, maxConcurrent: 15)
         totalFetched += batch.items.count
