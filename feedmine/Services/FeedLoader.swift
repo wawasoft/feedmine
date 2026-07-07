@@ -903,6 +903,14 @@ final class FeedLoader {
             reservoir.append(contentsOf: restoredFromFiltered)
         }
 
+        // Top up visible items if removal depleted them
+        if visibleChanged && items.count < Self.pageSize && !reservoir.isEmpty {
+            let needed = Self.pageSize - items.count
+            let toMove = min(needed, reservoir.count)
+            items.append(contentsOf: reservoir.prefix(toMove))
+            reservoir.removeFirst(toMove)
+        }
+
         // Only bump version if visible items or reservoir actually changed
         let reservoirChanged = reservoir.count != reservoirBefore || !restoredFromFiltered.isEmpty
         if visibleChanged || reservoirChanged {
