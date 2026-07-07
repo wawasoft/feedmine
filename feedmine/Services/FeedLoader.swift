@@ -1136,6 +1136,7 @@ final class FeedLoader {
 
         // Interleave once + top up visible window
         reservoir = interleave(reservoir)
+        capReservoir()
         reservoirCount = reservoir.count
         if items.count < Self.pageSize && !reservoir.isEmpty {
             let needed = Self.pageSize - items.count
