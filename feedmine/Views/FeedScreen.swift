@@ -292,7 +292,7 @@ struct FeedScreen: View {
 
     private func sectionHeader(_ title: String) -> some View {
         HStack {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(engine.font(for: .sectionHeader))
                 .foregroundStyle(engine.accent)
             Spacer()

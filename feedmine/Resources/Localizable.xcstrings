@@ -1,21 +1,1016 @@
 {
   "sourceLanguage": "en",
   "strings": {
-    "1.0 (Prototype)": {
+    "#%@": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "1.0 (Prototype)"
+            "value": "#%@"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "1.0 (Protótipo)"
+            "value": "#%@"
           }
         }
       }
+    },
+    "%1$@ %2$@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "%1$@ %2$@ now": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ now"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ agora"
+          }
+        }
+      }
+    },
+    "%1$@ feeds · %2$@ files": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ feeds · %2$@ files"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ feeds · %2$@ arquivos"
+          }
+        }
+      }
+    },
+    "%1$@ from %2$@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ from %2$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ de %2$@"
+          }
+        }
+      }
+    },
+    "%1$@ read · %2$@ saved": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ read · %2$@ saved"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ lidos · %2$@ salvos"
+          }
+        }
+      }
+    },
+    "%1$@ unread, %2$@ total": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ unread, %2$@ total"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ não lidos, %2$@ no total"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%1$@|%2$@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@|%2$@"
+          }
+        }
+      }
+    },
+    "%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        }
+      }
+    },
+    "%@ and more": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ and more"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ e mais"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "%@ articles": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ articles"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ artigos"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ articles waiting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ articles waiting"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ artigos esperando"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ B": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ B"
+          }
+        }
+      }
+    },
+    "%@ bookmarked": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ bookmarked"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ favoritados"
+          }
+        }
+      },
+      "comment": "Bookmark count fallback"
+    },
+    "%@ days in a row": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ days in a row"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dias seguidos"
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
+    "%@ discarded": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ discarded"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ descartados"
+          }
+        }
+      }
+    },
+    "%@ episodes waiting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ episodes waiting"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ episódios esperando"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "%@ fails": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fails"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ falhas"
+          }
+        }
+      }
+    },
+    "%@ feeds": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ feeds"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ feeds"
+          }
+        }
+      }
+    },
+    "%@ fetch err": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fetch err"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ erro de busca"
+          }
+        }
+      }
+    },
+    "%@ fetched": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fetched"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ obtidos"
+          }
+        }
+      }
+    },
+    "%@ fresh stories": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fresh stories"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ notícias frescas"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ in bookmarks": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ in bookmarks"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ nos favoritos"
+          }
+        }
+      },
+      "comment": "Bookmark count"
+    },
+    "%@ KB": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ KB"
+          }
+        }
+      }
+    },
+    "%@ min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min"
+          }
+        }
+      }
+    },
+    "%@ min focused": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min focused"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min focado"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min in": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min in"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min read": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min read"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min de leitura"
+          }
+        }
+      }
+    },
+    "%@ min — deep read": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — deep read"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — leitura profunda"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min — in the zone": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — in the zone"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — focado"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min — maybe stretch?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — maybe stretch?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — que tal se alongar?"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min — phone down?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — phone down?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min — larga o celular?"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min. Take a break?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min. Take a break?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min. Dar uma pausa?"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min. The world hasn't ended.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min. The world hasn't ended."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min. O mundo não acabou."
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ min. We're flattered.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min. We're flattered."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ min. Estamos lisonjeados."
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ minutes of reading": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ minutes of reading"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ minutos de leitura"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%@ new": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ new"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ novos"
+          }
+        }
+      }
+    },
+    "%@ new since last time": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ new since last time"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ novos desde a última vez"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ new stories": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ new stories"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ novas notícias"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ on": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ on"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ ativos"
+          }
+        }
+      }
+    },
+    "%@ OPML err": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ OPML err"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ erro OPML"
+          }
+        }
+      }
+    },
+    "%@ pieces today": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ pieces today"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ matérias hoje"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ podcasts": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ podcasts"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ podcasts"
+          }
+        }
+      },
+      "comment": "Podcast count fallback"
+    },
+    "%@ podcasts + articles": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ podcasts + articles"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ podcasts + artigos"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "%@ podcasts ready": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ podcasts ready"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ podcasts prontos"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "%@ queued": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ queued"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ na fila"
+          }
+        }
+      }
+    },
+    "%@ saved to read later": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ saved to read later"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ salvos pra ler depois"
+          }
+        }
+      },
+      "comment": "Bookmark count"
+    },
+    "%@ sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fontes"
+          }
+        }
+      }
+    },
+    "%@ sources active": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ sources active"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fontes ativas"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "%@ src dup": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ src dup"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ fontes dup"
+          }
+        }
+      }
+    },
+    "%@ stories": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ stories"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ notícias"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ things to read": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ things to read"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ coisas pra ler"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%@ today": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ today"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ hoje"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "%@ uniq": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ uniq"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ únicos"
+          }
+        }
+      }
+    },
+    "%@ unread": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ unread"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ não lidos"
+          }
+        }
+      }
+    },
+    "%@ waiting in bookmarks": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ waiting in bookmarks"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ esperando nos favoritos"
+          }
+        }
+      },
+      "comment": "Bookmark count"
+    },
+    "%@ — a good mix": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — a good mix"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ — uma boa mistura"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "%@-Day Streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-Day Streak"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sequência de %@ Dias"
+          }
+        }
+      },
+      "comment": "Session streak in days"
+    },
+    "%@-day streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-day streak"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dias de sequência"
+          }
+        }
+      },
+      "comment": "Streak fallback"
+    },
+    "%@-day streak 🔥": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-day streak 🔥"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dias de sequência 🔥"
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
+    "%@-day streak. Consistency.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-day streak. Consistency."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ dias de sequência. Consistência."
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
+    "%@-Week Streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@-Week Streak"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sequência de %@ Semanas"
+          }
+        }
+      },
+      "comment": "Session streak in weeks"
     },
     "A few minutes in": {
       "localizations": {
@@ -34,6 +1029,40 @@
       },
       "comment": "Session status"
     },
+    "A full inbox — %@ unread": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A full inbox — %@ unread"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caixa cheia — %@ não lidos"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "A mix of %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A mix of %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma mistura de %@"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
     "About": {
       "localizations": {
         "en": {
@@ -49,6 +1078,23 @@
           }
         }
       }
+    },
+    "across %@ publications": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "across %@ publications"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "em %@ publicações"
+          }
+        }
+      },
+      "comment": "Source count"
     },
     "Adaptive Palette": {
       "localizations": {
@@ -98,6 +1144,22 @@
         }
       }
     },
+    "Add .opml files to the Resources/Feeds folder in Xcode and rebuild the app.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add .opml files to the Resources/Feeds folder in Xcode and rebuild the app."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adicione arquivos .opml na pasta Resources/Feeds no Xcode e recompile o app."
+          }
+        }
+      }
+    },
     "Afternoon": {
       "localizations": {
         "en": {
@@ -132,6 +1194,38 @@
       },
       "comment": "Afternoon greeting"
     },
+    "All": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tudo"
+          }
+        }
+      }
+    },
+    "All %@ sources failed to load. Check your internet connection and pull to refresh.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All %@ sources failed to load. Check your internet connection and pull to refresh."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as %@ fontes falharam. Verifique sua internet e puxe para atualizar."
+          }
+        }
+      }
+    },
     "All Categories": {
       "localizations": {
         "en": {
@@ -144,6 +1238,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "Todas as Categorias"
+          }
+        }
+      }
+    },
+    "All caught up. Quick and clean.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All caught up. Quick and clean."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tudo em dia. Rápido e limpo."
+          }
+        }
+      }
+    },
+    "All caught up. Sleep well. The news will be here tomorrow.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All caught up. Sleep well. The news will be here tomorrow."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tudo em dia. Durma bem. As notícias estarão aqui amanhã."
+          }
+        }
+      }
+    },
+    "All caught up. These are worth the slow read — come back soon.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All caught up. These are worth the slow read — come back soon."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tudo em dia. Esses valem a leitura lenta — volte logo."
           }
         }
       }
@@ -231,6 +1373,16 @@
         }
       }
     },
+    "apple.logo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "apple.logo"
+          }
+        }
+      }
+    },
     "Approximate": {
       "localizations": {
         "en": {
@@ -281,6 +1433,22 @@
         }
       },
       "comment": "Routine match"
+    },
+    "Articles": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Articles"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artigos"
+          }
+        }
+      }
     },
     "August": {
       "localizations": {
@@ -400,6 +1568,16 @@
       },
       "comment": "Dawn greeting"
     },
+    "book.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "book.fill"
+          }
+        }
+      }
+    },
     "Bookmarks": {
       "localizations": {
         "en": {
@@ -415,6 +1593,23 @@
           }
         }
       }
+    },
+    "Bookmarks: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bookmarks: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoritos: %@"
+          }
+        }
+      },
+      "comment": "Bookmark count"
     },
     "Botanical": {
       "localizations": {
@@ -482,6 +1677,16 @@
         }
       },
       "comment": "Late night greeting"
+    },
+    "camera.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "camera.fill"
+          }
+        }
+      }
     },
     "Cancel": {
       "localizations": {
@@ -896,6 +2101,22 @@
         }
       }
     },
+    "Couldn't load feeds": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't load feeds"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível carregar os feeds"
+          }
+        }
+      }
+    },
     "Countries": {
       "localizations": {
         "en": {
@@ -996,6 +2217,23 @@
       },
       "comment": "Dawn greeting"
     },
+    "Day %@ — on a roll": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %@ — on a roll"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dia %@ — embalado"
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
     "Debug": {
       "localizations": {
         "en": {
@@ -1028,6 +2266,23 @@
         }
       },
       "comment": "Month"
+    },
+    "Deep in it — %@ min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deep in it — %@ min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imerso — %@ min"
+          }
+        }
+      },
+      "comment": "Session duration"
     },
     "Deep Read": {
       "localizations": {
@@ -1161,6 +2416,22 @@
         }
       },
       "comment": "Weather condition"
+    },
+    "Earlier": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Earlier"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais cedo"
+          }
+        }
+      }
     },
     "Early morning": {
       "localizations": {
@@ -1480,22 +2751,6 @@
         }
       }
     },
-    "feedmine": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "feedmine"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "feedmine"
-          }
-        }
-      }
-    },
     "Feedmine": {
       "localizations": {
         "en": {
@@ -1540,6 +2795,32 @@
           "stringUnit": {
             "state": "translated",
             "value": "Feeds"
+          }
+        }
+      }
+    },
+    "Fetching articles from %@ sources.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fetching articles from %@ sources."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscando artigos de %@ fontes."
+          }
+        }
+      }
+    },
+    "film.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "film.fill"
           }
         }
       }
@@ -1644,6 +2925,16 @@
       },
       "comment": "Session streak"
     },
+    "flask.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "flask.fill"
+          }
+        }
+      }
+    },
     "Fog": {
       "localizations": {
         "en": {
@@ -1689,6 +2980,16 @@
           "stringUnit": {
             "state": "translated",
             "value": "Estilo da Fonte"
+          }
+        }
+      }
+    },
+    "fork.knife": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "fork.knife"
           }
         }
       }
@@ -1761,6 +3062,57 @@
       },
       "comment": "Weekday label"
     },
+    "from %@ different voices": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "from %@ different voices"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de %@ vozes diferentes"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "from %@ sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "from %@ sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de %@ fontes"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "from your %@ trusted sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "from your %@ trusted sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "das suas %@ fontes confiáveis"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
     "Full": {
       "localizations": {
         "en": {
@@ -1795,6 +3147,32 @@
       },
       "comment": "Moon phase"
     },
+    "Fun": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fun"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diversão"
+          }
+        }
+      }
+    },
+    "gamecontroller.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gamecontroller.fill"
+          }
+        }
+      }
+    },
     "Georgia": {
       "localizations": {
         "en": {
@@ -1811,6 +3189,22 @@
         }
       },
       "comment": "Font style name"
+    },
+    "Georgia — serif headlines, SF body": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Georgia — serif headlines, SF body"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Georgia — títulos com serifa, corpo SF"
+          }
+        }
+      }
     },
     "Getting started": {
       "localizations": {
@@ -1897,6 +3291,22 @@
       },
       "comment": "Morning greeting"
     },
+    "Good night": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Good night"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Boa noite"
+          }
+        }
+      }
+    },
     "Hail": {
       "localizations": {
         "en": {
@@ -1947,6 +3357,16 @@
         }
       },
       "comment": "Special date"
+    },
+    "hammer.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hammer.fill"
+          }
+        }
+      }
     },
     "Hanukkah": {
       "localizations": {
@@ -2050,6 +3470,16 @@
       },
       "comment": "Special date greeting"
     },
+    "headphones": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "headphones"
+          }
+        }
+      }
+    },
     "Health Check": {
       "localizations": {
         "en": {
@@ -2065,6 +3495,23 @@
           }
         }
       }
+    },
+    "Heavy on %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heavy on %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com bastante %@"
+          }
+        }
+      },
+      "comment": "Content mix description"
     },
     "Heavy Rain": {
       "localizations": {
@@ -2284,6 +3731,22 @@
       },
       "comment": "Special date"
     },
+    "Inspiring": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inspiring"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inspirador"
+          }
+        }
+      }
+    },
     "January": {
       "localizations": {
         "en": {
@@ -2471,6 +3934,16 @@
       },
       "comment": "Language picker title"
     },
+    "laptopcomputer": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "laptopcomputer"
+          }
+        }
+      }
+    },
     "Large": {
       "localizations": {
         "en": {
@@ -2605,6 +4078,16 @@
       },
       "comment": "Weekend label"
     },
+    "leaf.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "leaf.fill"
+          }
+        }
+      }
+    },
     "Let's see what's happening": {
       "localizations": {
         "en": {
@@ -2639,6 +4122,22 @@
       },
       "comment": "Routine match"
     },
+    "Listen": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir"
+          }
+        }
+      }
+    },
     "Loading articles": {
       "localizations": {
         "en": {
@@ -2654,6 +4153,39 @@
           }
         }
       }
+    },
+    "Loading your feed...": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading your feed..."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carregando seu feed..."
+          }
+        }
+      }
+    },
+    "Long session: %@ min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Long session: %@ min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessão longa: %@ min"
+          }
+        }
+      },
+      "comment": "Session duration"
     },
     "Long summer days": {
       "localizations": {
@@ -2722,6 +4254,23 @@
         }
       },
       "comment": "Session level"
+    },
+    "Marathon session: %@ min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marathon session: %@ min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessão maratona: %@ min"
+          }
+        }
+      },
+      "comment": "Session duration"
     },
     "March": {
       "localizations": {
@@ -3043,6 +4592,23 @@
       },
       "comment": "Palette family subtitle"
     },
+    "Mostly %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostly %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Principalmente %@"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
     "Mother's Day": {
       "localizations": {
         "en": {
@@ -3245,6 +4811,32 @@
       },
       "comment": "Font style name"
     },
+    "New York — serif editorial, fixed": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New York — serif editorial, fixed"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New York — serifa editorial, fixo"
+          }
+        }
+      }
+    },
+    "newspaper.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "newspaper.fill"
+          }
+        }
+      }
+    },
     "Night": {
       "localizations": {
         "en": {
@@ -3312,6 +4904,38 @@
       },
       "comment": "Tone message"
     },
+    "No articles yet": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No articles yet"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhum artigo ainda"
+          }
+        }
+      }
+    },
+    "No description": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No description"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sem descrição"
+          }
+        }
+      }
+    },
     "No internet connection": {
       "localizations": {
         "en": {
@@ -3362,6 +4986,22 @@
       },
       "comment": "Tone message"
     },
+    "No sources found": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No sources found"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma fonte encontrada"
+          }
+        }
+      }
+    },
     "None": {
       "localizations": {
         "en": {
@@ -3395,6 +5035,22 @@
         }
       },
       "comment": "Battery state"
+    },
+    "Nothing here yet. Good time to add a source?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing here yet. Good time to add a source?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nada aqui ainda. Que tal adicionar uma fonte?"
+          }
+        }
+      }
     },
     "Nothing urgent": {
       "localizations": {
@@ -3548,6 +5204,26 @@
       },
       "comment": "Weather condition"
     },
+    "paintbrush.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "paintbrush.fill"
+          }
+        }
+      }
+    },
+    "paintpalette.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "paintpalette.fill"
+          }
+        }
+      }
+    },
     "Palette Family": {
       "localizations": {
         "en": {
@@ -3660,6 +5336,55 @@
           "stringUnit": {
             "state": "translated",
             "value": "Por favor, reinicie o FeedMine para aplicar o novo idioma."
+          }
+        }
+      }
+    },
+    "Podcast queue: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcast queue: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fila de podcasts: %@"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "Podcast · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcast · %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcast · %@"
+          }
+        }
+      }
+    },
+    "Podcasts": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcasts"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcasts"
           }
         }
       }
@@ -4029,6 +5754,22 @@
       },
       "comment": "Morning greeting"
     },
+    "San Francisco — weight shifts with time of day": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "San Francisco — weight shifts with time of day"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "San Francisco — peso varia com a hora do dia"
+          }
+        }
+      }
+    },
     "Saturday": {
       "localizations": {
         "en": {
@@ -4194,6 +5935,22 @@
       },
       "comment": "Month"
     },
+    "Serious": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serious"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sério"
+          }
+        }
+      }
+    },
     "Settings": {
       "localizations": {
         "en": {
@@ -4260,6 +6017,22 @@
         }
       },
       "comment": "Font style name"
+    },
+    "SF Mono — technical, fixed": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SF Mono — technical, fixed"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SF Mono — técnico, fixo"
+          }
+        }
+      }
     },
     "Share": {
       "localizations": {
@@ -4337,6 +6110,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mostrar Barra de Status"
+          }
+        }
+      }
+    },
+    "Show more from %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show more from %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver mais de %@"
           }
         }
       }
@@ -4475,6 +6264,23 @@
         }
       }
     },
+    "spanning %@ sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "spanning %@ sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cobrindo %@ fontes"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
     "Speed round": {
       "localizations": {
         "en": {
@@ -4491,6 +6297,16 @@
         }
       },
       "comment": "Reading pace"
+    },
+    "sportscourt.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sportscourt.fill"
+          }
+        }
+      }
     },
     "Spring": {
       "localizations": {
@@ -4610,6 +6426,23 @@
         }
       },
       "comment": "Reading pace"
+    },
+    "Still here? %@ min 😅": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Still here? %@ min 😅"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda aqui? %@ min 😅"
+          }
+        }
+      },
+      "comment": "Session duration"
     },
     "Still up?": {
       "localizations": {
@@ -4747,6 +6580,26 @@
       },
       "comment": "Evening greeting"
     },
+    "sunrise.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sunrise.fill"
+          }
+        }
+      }
+    },
+    "sunset.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sunset.fill"
+          }
+        }
+      }
+    },
     "Sunshine season": {
       "localizations": {
         "en": {
@@ -4859,6 +6712,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "Toque para tentar de novo"
+          }
+        }
+      }
+    },
+    "Technical": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Technical"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Técnico"
           }
         }
       }
@@ -5065,6 +6934,32 @@
         }
       },
       "comment": "Tone message"
+    },
+    "The world's still quiet. Stories are on their way.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The world's still quiet. Stories are on their way."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O mundo ainda está quieto. As notícias estão a caminho."
+          }
+        }
+      }
+    },
+    "theatermasks.fill": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "theatermasks.fill"
+          }
+        }
+      }
     },
     "These are worth the slow read": {
       "localizations": {
@@ -5283,6 +7178,22 @@
         }
       }
     },
+    "Top story: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top story: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Principal: %@"
+          }
+        }
+      }
+    },
     "Tornado": {
       "localizations": {
         "en": {
@@ -5385,6 +7296,16 @@
       },
       "comment": "Routine match"
     },
+    "Updated %@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updated %@)"
+          }
+        }
+      }
+    },
     "Valentine's Day": {
       "localizations": {
         "en": {
@@ -5463,6 +7384,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "via feedmine.app"
+          }
+        }
+      }
+    },
+    "Videos": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Videos"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vídeos"
           }
         }
       }
@@ -5551,6 +7488,22 @@
         }
       },
       "comment": "Palette family subtitle"
+    },
+    "Watch": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Watch"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Assistir"
+          }
+        }
+      }
     },
     "Waxing Crescent": {
       "localizations": {
@@ -5687,6 +7640,16 @@
       },
       "comment": "Connectivity"
     },
+    "wifi.slash": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "wifi.slash"
+          }
+        }
+      }
+    },
     "Windy": {
       "localizations": {
         "en": {
@@ -5789,6 +7752,22 @@
       },
       "comment": "Special date"
     },
+    "Yesterday": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yesterday"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ontem"
+          }
+        }
+      }
+    },
     "Your Anniversary": {
       "localizations": {
         "en": {
@@ -5839,6 +7818,54 @@
         }
       },
       "comment": "Routine match"
+    },
+    "·%@ err": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%@ err"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%@ erro"
+          }
+        }
+      }
+    },
+    "·%@ fetched": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%@ fetched"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%@ obtidos"
+          }
+        }
+      }
+    },
+    "·%@ sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%@ sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%@ fontes"
+          }
+        }
+      }
     },
     "↓ more": {
       "localizations": {
@@ -5900,6 +7927,1370 @@
           "stringUnit": {
             "state": "translated",
             "value": "⟳ atualizando"
+          }
+        }
+      }
+    },
+    "🎧 %@ new episodes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧 %@ new episodes"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧 %@ novos episódios"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "🎧%@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧%@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧%@"
+          }
+        }
+      }
+    },
+    "#%lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "#%lld"
+          }
+        }
+      }
+    },
+    "%lld and more": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld and more"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld e mais"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "%lld articles": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld articles"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld artigos"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld articles waiting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld articles waiting"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld artigos esperando"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld B": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld B"
+          }
+        }
+      }
+    },
+    "%lld bookmarked": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld bookmarked"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld favoritados"
+          }
+        }
+      },
+      "comment": "Bookmark count fallback"
+    },
+    "%lld days in a row": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld days in a row"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld dias seguidos"
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
+    "%lld discarded": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld discarded"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld descartados"
+          }
+        }
+      }
+    },
+    "%lld episodes waiting": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld episodes waiting"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld episódios esperando"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "%lld fails": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fails"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld falhas"
+          }
+        }
+      }
+    },
+    "%lld feeds": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld feeds"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld feeds"
+          }
+        }
+      }
+    },
+    "%lld fetch err": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fetch err"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld erro de busca"
+          }
+        }
+      }
+    },
+    "%lld fetched": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fetched"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld obtidos"
+          }
+        }
+      }
+    },
+    "%lld fresh stories": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fresh stories"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld notícias frescas"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld in bookmarks": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld in bookmarks"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld nos favoritos"
+          }
+        }
+      },
+      "comment": "Bookmark count"
+    },
+    "%lld KB": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld KB"
+          }
+        }
+      }
+    },
+    "%lld min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min"
+          }
+        }
+      }
+    },
+    "%lld min focused": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min focused"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min focado"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min in": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min in"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min read": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min read"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min de leitura"
+          }
+        }
+      }
+    },
+    "%lld min — deep read": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — deep read"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — leitura profunda"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min — in the zone": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — in the zone"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — focado"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min — maybe stretch?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — maybe stretch?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — que tal se alongar?"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min — phone down?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — phone down?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min — larga o celular?"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min. Take a break?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min. Take a break?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min. Dar uma pausa?"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min. The world hasn't ended.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min. The world hasn't ended."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min. O mundo não acabou."
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld min. We're flattered.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min. We're flattered."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min. Estamos lisonjeados."
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld minutes of reading": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld minutes of reading"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld minutos de leitura"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "%lld new": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld new"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld novos"
+          }
+        }
+      }
+    },
+    "%lld new since last time": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld new since last time"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld novos desde a última vez"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld new stories": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld new stories"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld novas notícias"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld on": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld on"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ativos"
+          }
+        }
+      }
+    },
+    "%lld OPML err": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld OPML err"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld erro OPML"
+          }
+        }
+      }
+    },
+    "%lld pieces today": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld pieces today"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld matérias hoje"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld podcasts": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld podcasts"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld podcasts"
+          }
+        }
+      },
+      "comment": "Podcast count fallback"
+    },
+    "%lld podcasts + articles": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld podcasts + articles"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld podcasts + artigos"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "%lld podcasts ready": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld podcasts ready"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld podcasts prontos"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "%lld queued": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld queued"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld na fila"
+          }
+        }
+      }
+    },
+    "%lld saved to read later": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld saved to read later"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld salvos pra ler depois"
+          }
+        }
+      },
+      "comment": "Bookmark count"
+    },
+    "%lld sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fontes"
+          }
+        }
+      }
+    },
+    "%lld sources active": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld sources active"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fontes ativas"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "%lld src dup": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld src dup"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld fontes dup"
+          }
+        }
+      }
+    },
+    "%lld stories": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld stories"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld notícias"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld things to read": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld things to read"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld coisas pra ler"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "%lld today": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld today"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld hoje"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "%lld uniq": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld uniq"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld únicos"
+          }
+        }
+      }
+    },
+    "%lld unread": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld unread"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld não lidos"
+          }
+        }
+      }
+    },
+    "%lld waiting in bookmarks": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld waiting in bookmarks"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld esperando nos favoritos"
+          }
+        }
+      },
+      "comment": "Bookmark count"
+    },
+    "%lld — a good mix": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld — a good mix"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld — uma boa mistura"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "%lld-Day Streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-Day Streak"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sequência de %lld Dias"
+          }
+        }
+      },
+      "comment": "Session streak in days"
+    },
+    "%lld-day streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-day streak"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld dias de sequência"
+          }
+        }
+      },
+      "comment": "Streak fallback"
+    },
+    "%lld-day streak 🔥": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-day streak 🔥"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld dias de sequência 🔥"
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
+    "%lld-day streak. Consistency.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-day streak. Consistency."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld dias de sequência. Consistência."
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
+    "%lld-Week Streak": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld-Week Streak"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sequência de %lld Semanas"
+          }
+        }
+      },
+      "comment": "Session streak in weeks"
+    },
+    "A full inbox — %lld unread": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A full inbox — %lld unread"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Caixa cheia — %lld não lidos"
+          }
+        }
+      },
+      "comment": "Article count"
+    },
+    "A mix of %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A mix of %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma mistura de %lld"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "across %lld publications": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "across %lld publications"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "em %lld publicações"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "All %lld sources failed to load. Check your internet connection and pull to refresh.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All %lld sources failed to load. Check your internet connection and pull to refresh."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as %lld fontes falharam. Verifique sua internet e puxe para atualizar."
+          }
+        }
+      }
+    },
+    "Bookmarks: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bookmarks: %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Favoritos: %lld"
+          }
+        }
+      },
+      "comment": "Bookmark count"
+    },
+    "Day %lld — on a roll": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Day %lld — on a roll"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dia %lld — embalado"
+          }
+        }
+      },
+      "comment": "Streak in days"
+    },
+    "Deep in it — %lld min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deep in it — %lld min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imerso — %lld min"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "Fetching articles from %lld sources.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fetching articles from %lld sources."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscando artigos de %lld fontes."
+          }
+        }
+      }
+    },
+    "from %lld different voices": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "from %lld different voices"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de %lld vozes diferentes"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "from %lld sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "from %lld sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "de %lld fontes"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "from your %lld trusted sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "from your %lld trusted sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "das suas %lld fontes confiáveis"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "Heavy on %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Heavy on %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com bastante %lld"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "Long session: %lld min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Long session: %lld min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessão longa: %lld min"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "Marathon session: %lld min": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marathon session: %lld min"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sessão maratona: %lld min"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "Mostly %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostly %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Principalmente %lld"
+          }
+        }
+      },
+      "comment": "Content mix description"
+    },
+    "Podcast queue: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcast queue: %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fila de podcasts: %lld"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "Podcast · %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcast · %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podcast · %lld"
+          }
+        }
+      }
+    },
+    "Show more from %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show more from %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ver mais de %lld"
+          }
+        }
+      }
+    },
+    "spanning %lld sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "spanning %lld sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cobrindo %lld fontes"
+          }
+        }
+      },
+      "comment": "Source count"
+    },
+    "Still here? %lld min 😅": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Still here? %lld min 😅"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ainda aqui? %lld min 😅"
+          }
+        }
+      },
+      "comment": "Session duration"
+    },
+    "Top story: %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Top story: %lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Principal: %lld"
+          }
+        }
+      }
+    },
+    "Updated %lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Updated %lld)"
+          }
+        }
+      }
+    },
+    "·%lld err": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%lld err"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%lld erro"
+          }
+        }
+      }
+    },
+    "·%lld fetched": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%lld fetched"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%lld obtidos"
+          }
+        }
+      }
+    },
+    "·%lld sources": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%lld sources"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·%lld fontes"
+          }
+        }
+      }
+    },
+    "🎧 %lld new episodes": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧 %lld new episodes"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧 %lld novos episódios"
+          }
+        }
+      },
+      "comment": "Podcast count"
+    },
+    "🎧%lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧%lld"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎧%lld"
           }
         }
       }

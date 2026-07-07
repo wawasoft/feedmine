@@ -1,14 +1,364 @@
 {
   "_meta": {
-    "total_strings": 353,
+    "total_strings": 568,
     "source_language": "en",
-    "instructions": "Add translations under each string key. Use the 'comment' field for context. Run translate.py to convert this into Localizable.xcstrings."
+    "instructions": "Add translations under each string key. Format specifiers (%@, %1$@, %2$@) must be preserved in translations. Run translate.py to convert this into Localizable.xcstrings."
   },
   "strings": {
-    "1.0 (Prototype)": {
+    "#%@": {
       "files": [
-        "feedmine/Views/SettingsSheetView.swift:247"
+        "feedmine/Views/TopStoriesCarousel.swift:80"
       ]
+    },
+    "%1$@ %2$@": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:39"
+      ]
+    },
+    "%1$@ %2$@ now": {
+      "files": [
+        "feedmine/Views/SettingsSheetView.swift:116"
+      ]
+    },
+    "%1$@ feeds · %2$@ files": {
+      "files": [
+        "feedmine/Views/SettingsSheetView.swift:251"
+      ]
+    },
+    "%1$@ from %2$@": {
+      "files": [
+        "feedmine/Views/FeedItemView.swift:114",
+        "feedmine/Views/FeedItemView.swift:114"
+      ]
+    },
+    "%1$@ read · %2$@ saved": {
+      "files": [
+        "feedmine/Views/ReadingStatsView.swift:39"
+      ]
+    },
+    "%1$@ unread, %2$@ total": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:218"
+      ],
+      "comment": "Article count"
+    },
+    "%1$@|%2$@": {
+      "files": [
+        "feedmine/Models/FeedItem.swift:88"
+      ]
+    },
+    "%@": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:216",
+        "feedmine/Views/GreetingHeaderView.swift:64",
+        "feedmine/Views/StatsShareCard.swift:54"
+      ]
+    },
+    "%@ and more": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:255"
+      ],
+      "comment": "Content mix description"
+    },
+    "%@ articles": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:218",
+        "feedmine/Services/MomentGreeting.swift:223",
+        "feedmine/Services/MomentGreeting.swift:226"
+      ],
+      "comment": "Article count"
+    },
+    "%@ articles waiting": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:220"
+      ],
+      "comment": "Article count"
+    },
+    "%@ B": {
+      "files": [
+        "feedmine/Services/PersistenceManager.swift:150"
+      ]
+    },
+    "%@ bookmarked": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:362"
+      ],
+      "comment": "Bookmark count fallback"
+    },
+    "%@ days in a row": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:282"
+      ],
+      "comment": "Streak in days"
+    },
+    "%@ discarded": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:26"
+      ]
+    },
+    "%@ episodes waiting": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:269"
+      ],
+      "comment": "Podcast count"
+    },
+    "%@ fails": {
+      "files": [
+        "feedmine/Views/SourceManagementView.swift:54"
+      ]
+    },
+    "%@ feeds": {
+      "files": [
+        "feedmine/Views/CountriesListScreen.swift:31"
+      ]
+    },
+    "%@ fetch err": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:30"
+      ]
+    },
+    "%@ fetched": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:16"
+      ]
+    },
+    "%@ fresh stories": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:221"
+      ],
+      "comment": "Article count"
+    },
+    "%@ in bookmarks": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:358"
+      ],
+      "comment": "Bookmark count"
+    },
+    "%@ KB": {
+      "files": [
+        "feedmine/Services/PersistenceManager.swift:151"
+      ]
+    },
+    "%@ min": {
+      "files": [
+        "feedmine/Models/FeedItem.swift:74"
+      ]
+    },
+    "%@ min focused": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:311"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min in": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:304"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min read": {
+      "files": [
+        "feedmine/Views/FeedItemCardView.swift:327",
+        "feedmine/Views/FeedItemCardView.swift:329"
+      ]
+    },
+    "%@ min — deep read": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:310"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min — in the zone": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:306"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min — maybe stretch?": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:316"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min — phone down?": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:324"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min. Take a break?": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:317"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min. The world hasn't ended.": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:319"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ min. We're flattered.": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:326"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ minutes of reading": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:305"
+      ],
+      "comment": "Session duration"
+    },
+    "%@ new": {
+      "files": [
+        "feedmine/Views/DailyBriefingCard.swift:51",
+        "feedmine/Views/FeedScreen.swift:376"
+      ]
+    },
+    "%@ new since last time": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:223"
+      ],
+      "comment": "Article count"
+    },
+    "%@ new stories": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:217"
+      ],
+      "comment": "Article count"
+    },
+    "%@ on": {
+      "files": [
+        "feedmine/Views/FilterSheetView.swift:40"
+      ]
+    },
+    "%@ OPML err": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:35"
+      ]
+    },
+    "%@ pieces today": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:224"
+      ],
+      "comment": "Article count"
+    },
+    "%@ podcasts": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:271"
+      ],
+      "comment": "Podcast count fallback"
+    },
+    "%@ podcasts + articles": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:267"
+      ],
+      "comment": "Podcast count"
+    },
+    "%@ podcasts ready": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:265"
+      ],
+      "comment": "Podcast count"
+    },
+    "%@ queued": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:12"
+      ]
+    },
+    "%@ saved to read later": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:357"
+      ],
+      "comment": "Bookmark count"
+    },
+    "%@ sources": {
+      "files": [
+        "feedmine/Views/DailyBriefingCard.swift:56",
+        "feedmine/Views/GreetingHeaderView.swift:90"
+      ]
+    },
+    "%@ sources active": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:238"
+      ],
+      "comment": "Source count"
+    },
+    "%@ src dup": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:40"
+      ]
+    },
+    "%@ stories": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:222"
+      ],
+      "comment": "Article count"
+    },
+    "%@ things to read": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:219"
+      ],
+      "comment": "Article count"
+    },
+    "%@ today": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:253"
+      ],
+      "comment": "Content mix description"
+    },
+    "%@ uniq": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:18"
+      ]
+    },
+    "%@ unread": {
+      "files": [
+        "feedmine/Views/GreetingHeaderView.swift:78"
+      ]
+    },
+    "%@ waiting in bookmarks": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:359"
+      ],
+      "comment": "Bookmark count"
+    },
+    "%@ — a good mix": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:251"
+      ],
+      "comment": "Content mix description"
+    },
+    "%@-Day Streak": {
+      "files": [
+        "feedmine/Services/AppContext.swift:193"
+      ],
+      "comment": "Session streak in days"
+    },
+    "%@-day streak": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:286"
+      ],
+      "comment": "Streak fallback"
+    },
+    "%@-day streak 🔥": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:281"
+      ],
+      "comment": "Streak in days"
+    },
+    "%@-day streak. Consistency.": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:284"
+      ],
+      "comment": "Streak in days"
+    },
+    "%@-Week Streak": {
+      "files": [
+        "feedmine/Services/AppContext.swift:194"
+      ],
+      "comment": "Session streak in weeks"
     },
     "A few minutes in": {
       "files": [
@@ -16,10 +366,28 @@
       ],
       "comment": "Session status"
     },
+    "A full inbox — %@ unread": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:222"
+      ],
+      "comment": "Article count"
+    },
+    "A mix of %@": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:254"
+      ],
+      "comment": "Content mix description"
+    },
     "About": {
       "files": [
         "feedmine/Views/SettingsSheetView.swift:244"
       ]
+    },
+    "across %@ publications": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:235"
+      ],
+      "comment": "Source count"
     },
     "Adaptive Palette": {
       "files": [
@@ -36,6 +404,11 @@
         "feedmine/Views/SourceManagementView.swift:35"
       ]
     },
+    "Add .opml files to the Resources/Feeds folder in Xcode and rebuild the app.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:98"
+      ]
+    },
     "Afternoon": {
       "files": [
         "feedmine/Services/AppContext.swift:16",
@@ -50,9 +423,35 @@
       ],
       "comment": "Afternoon greeting"
     },
+    "All": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:66 (enum case)",
+        "feedmine/Services/FeedLoader.swift:99 (enum case)"
+      ]
+    },
+    "All %@ sources failed to load. Check your internet connection and pull to refresh.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:96"
+      ]
+    },
     "All Categories": {
       "files": [
         "feedmine/Views/FilterSheetView.swift:62"
+      ]
+    },
+    "All caught up. Quick and clean.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:108"
+      ]
+    },
+    "All caught up. Sleep well. The news will be here tomorrow.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:110"
+      ]
+    },
+    "All caught up. These are worth the slow read — come back soon.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:109"
       ]
     },
     "All Countries": {
@@ -83,6 +482,11 @@
         "feedmine/Views/SettingsSheetView.swift:42"
       ]
     },
+    "apple.logo": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:62"
+      ]
+    },
     "Approximate": {
       "files": [
         "feedmine/Services/AppContext.swift:203"
@@ -100,6 +504,11 @@
         "feedmine/Services/MomentGreeting.swift:374"
       ],
       "comment": "Routine match"
+    },
+    "Articles": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:67 (enum case)"
+      ]
     },
     "August": {
       "files": [
@@ -142,10 +551,21 @@
       ],
       "comment": "Dawn greeting"
     },
+    "book.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:57"
+      ]
+    },
     "Bookmarks": {
       "files": [
         "feedmine/Views/FeedScreen.swift:160"
       ]
+    },
+    "Bookmarks: %@": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:360"
+      ],
+      "comment": "Bookmark count"
     },
     "Botanical": {
       "files": [
@@ -169,6 +589,11 @@
         "feedmine/Services/MomentGreeting.swift:100"
       ],
       "comment": "Late night greeting"
+    },
+    "camera.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:58"
+      ]
     },
     "Cancel": {
       "files": [
@@ -311,6 +736,11 @@
         "feedmine/Views/FeedItemView.swift:95"
       ]
     },
+    "Couldn't load feeds": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:84"
+      ]
+    },
     "Countries": {
       "files": [
         "feedmine/Views/CountriesListScreen.swift:50",
@@ -348,6 +778,12 @@
       ],
       "comment": "Dawn greeting"
     },
+    "Day %@ — on a roll": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:283"
+      ],
+      "comment": "Streak in days"
+    },
     "Debug": {
       "files": [
         "feedmine/Views/SettingsSheetView.swift:133"
@@ -358,6 +794,12 @@
         "feedmine/Services/AppContext.swift:121"
       ],
       "comment": "Month"
+    },
+    "Deep in it — %@ min": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:312"
+      ],
+      "comment": "Session duration"
     },
     "Deep Read": {
       "files": [
@@ -406,6 +848,11 @@
         "feedmine/Services/AppContext.swift:47"
       ],
       "comment": "Weather condition"
+    },
+    "Earlier": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:47"
+      ]
     },
     "Early morning": {
       "files": [
@@ -518,11 +965,6 @@
         "feedmine/Views/SettingsSheetView.swift:264"
       ]
     },
-    "feedmine": {
-      "files": [
-        "feedmine/Views/FeedScreen.swift:407"
-      ]
-    },
     "Feedmine": {
       "files": [
         "feedmine/Views/ShareCardImageView.swift:13",
@@ -537,6 +979,16 @@
     "Feeds": {
       "files": [
         "feedmine/Views/FilterSheetView.swift:21"
+      ]
+    },
+    "Fetching articles from %@ sources.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:94"
+      ]
+    },
+    "film.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:49"
       ]
     },
     "Filters": {
@@ -574,6 +1026,13 @@
       ],
       "comment": "Session streak"
     },
+    "flask.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:48",
+        "feedmine/Views/FilterSheetView.swift:105",
+        "feedmine/Views/SourceManagementView.swift:224"
+      ]
+    },
     "Fog": {
       "files": [
         "feedmine/Services/AppContext.swift:53"
@@ -589,6 +1048,11 @@
       "files": [
         "feedmine/Views/SettingsSheetView.swift:102",
         "feedmine/Views/SettingsSheetView.swift:366"
+      ]
+    },
+    "fork.knife": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:51"
       ]
     },
     "Fresh spring": {
@@ -615,6 +1079,25 @@
       ],
       "comment": "Weekday label"
     },
+    "from %@ different voices": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:236"
+      ],
+      "comment": "Source count"
+    },
+    "from %@ sources": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:234",
+        "feedmine/Services/MomentGreeting.swift:241"
+      ],
+      "comment": "Source count"
+    },
+    "from your %@ trusted sources": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:239"
+      ],
+      "comment": "Source count"
+    },
     "Full": {
       "files": [
         "feedmine/Services/AppContext.swift:225"
@@ -627,11 +1110,26 @@
       ],
       "comment": "Moon phase"
     },
+    "Fun": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:101 (enum case)"
+      ]
+    },
+    "gamecontroller.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:64"
+      ]
+    },
     "Georgia": {
       "files": [
         "feedmine/Services/CircadianEngine.swift:183"
       ],
       "comment": "Font style name"
+    },
+    "Georgia — serif headlines, SF body": {
+      "files": [
+        "feedmine/Views/SettingsSheetView.swift:382"
+      ]
     },
     "Getting started": {
       "files": [
@@ -663,6 +1161,11 @@
       ],
       "comment": "Morning greeting"
     },
+    "Good night": {
+      "files": [
+        "feedmine/Views/GreetingHeaderView.swift:29"
+      ]
+    },
     "Hail": {
       "files": [
         "feedmine/Services/AppContext.swift:52"
@@ -680,6 +1183,11 @@
         "feedmine/Services/AppContext.swift:148"
       ],
       "comment": "Special date"
+    },
+    "hammer.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:63"
+      ]
     },
     "Hanukkah": {
       "files": [
@@ -717,10 +1225,22 @@
       ],
       "comment": "Special date greeting"
     },
+    "headphones": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:77",
+        "feedmine/Views/CountryDetailScreen.swift:59"
+      ]
+    },
     "Health Check": {
       "files": [
         "feedmine/Views/SourceManagementView.swift:130"
       ]
+    },
+    "Heavy on %@": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:252"
+      ],
+      "comment": "Content mix description"
     },
     "Heavy Rain": {
       "files": [
@@ -798,6 +1318,11 @@
       ],
       "comment": "Special date"
     },
+    "Inspiring": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:103 (enum case)"
+      ]
+    },
     "January": {
       "files": [
         "feedmine/Services/AppContext.swift:110"
@@ -867,6 +1392,13 @@
       ],
       "comment": "Language picker title"
     },
+    "laptopcomputer": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:47",
+        "feedmine/Views/FilterSheetView.swift:103",
+        "feedmine/Views/SourceManagementView.swift:222"
+      ]
+    },
     "Large": {
       "files": [
         "feedmine/Views/SettingsSheetView.swift:49"
@@ -914,6 +1446,11 @@
       ],
       "comment": "Weekend label"
     },
+    "leaf.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:56"
+      ]
+    },
     "Let's see what's happening": {
       "files": [
         "feedmine/Services/MomentGreeting.swift:409"
@@ -926,11 +1463,27 @@
       ],
       "comment": "Routine match"
     },
+    "Listen": {
+      "files": [
+        "feedmine/Views/FeedItemCardView.swift:314"
+      ]
+    },
     "Loading articles": {
       "files": [
         "feedmine/Views/FeedScreen.swift:457",
         "feedmine/Views/FeedScreen.swift:457"
       ]
+    },
+    "Loading your feed...": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:82"
+      ]
+    },
+    "Long session: %@ min": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:318"
+      ],
+      "comment": "Session duration"
     },
     "Long summer days": {
       "files": [
@@ -956,6 +1509,12 @@
         "feedmine/Services/AppContext.swift:216"
       ],
       "comment": "Session level"
+    },
+    "Marathon session: %@ min": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:327"
+      ],
+      "comment": "Session duration"
     },
     "March": {
       "files": [
@@ -1070,6 +1629,12 @@
       ],
       "comment": "Palette family subtitle"
     },
+    "Mostly %@": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:250"
+      ],
+      "comment": "Content mix description"
+    },
     "Mother's Day": {
       "files": [
         "feedmine/Services/AppContext.swift:146"
@@ -1140,6 +1705,20 @@
       ],
       "comment": "Font style name"
     },
+    "New York — serif editorial, fixed": {
+      "files": [
+        "feedmine/Views/SettingsSheetView.swift:380"
+      ]
+    },
+    "newspaper.fill": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:110",
+        "feedmine/Views/CountryDetailScreen.swift:45",
+        "feedmine/Views/FeedEmptyStateView.swift:76",
+        "feedmine/Views/FilterSheetView.swift:104",
+        "feedmine/Views/SourceManagementView.swift:223"
+      ]
+    },
     "Night": {
       "files": [
         "feedmine/Services/AppContext.swift:13",
@@ -1164,6 +1743,16 @@
       ],
       "comment": "Tone message"
     },
+    "No articles yet": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:88"
+      ]
+    },
+    "No description": {
+      "files": [
+        "feedmine/Services/RSSFetcher.swift:319"
+      ]
+    },
     "No internet connection": {
       "files": [
         "feedmine/Views/ErrorBannerView.swift:13"
@@ -1181,6 +1770,11 @@
       ],
       "comment": "Tone message"
     },
+    "No sources found": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:86"
+      ]
+    },
     "None": {
       "files": [
         "feedmine/Services/AppContext.swift:164"
@@ -1192,6 +1786,11 @@
         "feedmine/Services/AppContext.swift:228"
       ],
       "comment": "Battery state"
+    },
+    "Nothing here yet. Good time to add a source?": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:107"
+      ]
     },
     "Nothing urgent": {
       "files": [
@@ -1247,6 +1846,17 @@
       ],
       "comment": "Weather condition"
     },
+    "paintbrush.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:55"
+      ]
+    },
+    "paintpalette.fill": {
+      "files": [
+        "feedmine/Views/FilterSheetView.swift:106",
+        "feedmine/Views/SourceManagementView.swift:225"
+      ]
+    },
     "Palette Family": {
       "files": [
         "feedmine/Views/SettingsSheetView.swift:84",
@@ -1285,6 +1895,22 @@
     "Please restart FeedMine to apply the new language.": {
       "files": [
         "feedmine/Views/SettingsSheetView.swift:282"
+      ]
+    },
+    "Podcast queue: %@": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:268"
+      ],
+      "comment": "Podcast count"
+    },
+    "Podcast · %@": {
+      "files": [
+        "feedmine/Views/MiniPlayerBar.swift:191"
+      ]
+    },
+    "Podcasts": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:69 (enum case)"
       ]
     },
     "Preload Images": {
@@ -1410,6 +2036,11 @@
       ],
       "comment": "Morning greeting"
     },
+    "San Francisco — weight shifts with time of day": {
+      "files": [
+        "feedmine/Views/SettingsSheetView.swift:379"
+      ]
+    },
     "Saturday": {
       "files": [
         "feedmine/Services/AppContext.swift:102"
@@ -1467,6 +2098,11 @@
       ],
       "comment": "Month"
     },
+    "Serious": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:100 (enum case)"
+      ]
+    },
     "Settings": {
       "files": [
         "feedmine/Views/FeedScreen.swift:163",
@@ -1492,6 +2128,11 @@
       ],
       "comment": "Font style name"
     },
+    "SF Mono — technical, fixed": {
+      "files": [
+        "feedmine/Views/SettingsSheetView.swift:381"
+      ]
+    },
     "Share": {
       "files": [
         "feedmine/Views/FeedItemCardView.swift:304",
@@ -1516,6 +2157,11 @@
     "Show Debug Status Bar": {
       "files": [
         "feedmine/Views/SettingsSheetView.swift:134"
+      ]
+    },
+    "Show more from %@": {
+      "files": [
+        "feedmine/Views/FeedItemView.swift:88"
       ]
     },
     "Skimming": {
@@ -1567,11 +2213,22 @@
         "feedmine/Views/StatsShareCard.swift:50"
       ]
     },
+    "spanning %@ sources": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:237"
+      ],
+      "comment": "Source count"
+    },
     "Speed round": {
       "files": [
         "feedmine/Services/MomentGreeting.swift:338"
       ],
       "comment": "Reading pace"
+    },
+    "sportscourt.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:46"
+      ]
     },
     "Spring": {
       "files": [
@@ -1614,6 +2271,12 @@
         "feedmine/Services/AppContext.swift:214"
       ],
       "comment": "Reading pace"
+    },
+    "Still here? %@ min 😅": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:325"
+      ],
+      "comment": "Session duration"
     },
     "Still up?": {
       "files": [
@@ -1663,6 +2326,17 @@
       ],
       "comment": "Evening greeting"
     },
+    "sunrise.fill": {
+      "files": [
+        "feedmine/Views/DailyBriefingCard.swift:101",
+        "feedmine/Views/GreetingHeaderView.swift:36"
+      ]
+    },
+    "sunset.fill": {
+      "files": [
+        "feedmine/Views/GreetingHeaderView.swift:38"
+      ]
+    },
     "Sunshine season": {
       "files": [
         "feedmine/Services/MomentGreeting.swift:169"
@@ -1702,6 +2376,11 @@
     "Tap to retry": {
       "files": [
         "feedmine/Views/ErrorBannerView.swift:67"
+      ]
+    },
+    "Technical": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:102 (enum case)"
       ]
     },
     "Test All Sources": {
@@ -1774,6 +2453,18 @@
         "feedmine/Services/MomentGreeting.swift:402"
       ],
       "comment": "Tone message"
+    },
+    "The world's still quiet. Stories are on their way.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:106"
+      ]
+    },
+    "theatermasks.fill": {
+      "files": [
+        "feedmine/Views/CountryDetailScreen.swift:53",
+        "feedmine/Views/FilterSheetView.swift:107",
+        "feedmine/Views/SourceManagementView.swift:226"
+      ]
     },
     "These are worth the slow read": {
       "files": [
@@ -1850,6 +2541,11 @@
         "feedmine/Views/TopStoriesCarousel.swift:14"
       ]
     },
+    "Top story: %@": {
+      "files": [
+        "feedmine/Views/DailyBriefingCard.swift:109"
+      ]
+    },
     "Tornado": {
       "files": [
         "feedmine/Services/AppContext.swift:55"
@@ -1887,6 +2583,11 @@
       ],
       "comment": "Routine match"
     },
+    "Updated %@)": {
+      "files": [
+        "feedmine/Views/GreetingHeaderView.swift:97"
+      ]
+    },
     "Valentine's Day": {
       "files": [
         "feedmine/Services/AppContext.swift:143"
@@ -1912,6 +2613,11 @@
     "via feedmine.app": {
       "files": [
         "feedmine/Views/StatsShareCard.swift:64"
+      ]
+    },
+    "Videos": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:68 (enum case)"
       ]
     },
     "Waning Crescent": {
@@ -1943,6 +2649,11 @@
         "feedmine/Services/CircadianEngine.swift:125"
       ],
       "comment": "Palette family subtitle"
+    },
+    "Watch": {
+      "files": [
+        "feedmine/Views/FeedItemCardView.swift:313"
+      ]
     },
     "Waxing Crescent": {
       "files": [
@@ -1992,6 +2703,11 @@
       ],
       "comment": "Connectivity"
     },
+    "wifi.slash": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:72"
+      ]
+    },
     "Windy": {
       "files": [
         "feedmine/Services/AppContext.swift:54"
@@ -2028,6 +2744,11 @@
       ],
       "comment": "Special date"
     },
+    "Yesterday": {
+      "files": [
+        "feedmine/Services/FeedLoader.swift:44"
+      ]
+    },
     "Your Anniversary": {
       "files": [
         "feedmine/Services/AppContext.swift:156"
@@ -2045,6 +2766,21 @@
         "feedmine/Services/MomentGreeting.swift:370"
       ],
       "comment": "Routine match"
+    },
+    "·%@ err": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:386"
+      ]
+    },
+    "·%@ fetched": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:410"
+      ]
+    },
+    "·%@ sources": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:408"
+      ]
     },
     "↓ more": {
       "files": [
@@ -2065,6 +2801,562 @@
       "files": [
         "feedmine/Views/DebugStatusBar.swift:63"
       ]
+    },
+    "🎧 %@ new episodes": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:266"
+      ],
+      "comment": "Podcast count"
+    },
+    "🎧%@": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:383"
+      ]
+    },
+    "#%lld": {
+      "files": [
+        "feedmine/Views/TopStoriesCarousel.swift:80"
+      ],
+      "_auto_generated": true
+    },
+    "%lld and more": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:255"
+      ],
+      "comment": "Content mix description",
+      "_auto_generated": true
+    },
+    "%lld articles": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:218",
+        "feedmine/Services/MomentGreeting.swift:223",
+        "feedmine/Services/MomentGreeting.swift:226"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld articles waiting": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:220"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld B": {
+      "files": [
+        "feedmine/Services/PersistenceManager.swift:150"
+      ],
+      "_auto_generated": true
+    },
+    "%lld bookmarked": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:362"
+      ],
+      "comment": "Bookmark count fallback",
+      "_auto_generated": true
+    },
+    "%lld days in a row": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:282"
+      ],
+      "comment": "Streak in days",
+      "_auto_generated": true
+    },
+    "%lld discarded": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:26"
+      ],
+      "_auto_generated": true
+    },
+    "%lld episodes waiting": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:269"
+      ],
+      "comment": "Podcast count",
+      "_auto_generated": true
+    },
+    "%lld fails": {
+      "files": [
+        "feedmine/Views/SourceManagementView.swift:54"
+      ],
+      "_auto_generated": true
+    },
+    "%lld feeds": {
+      "files": [
+        "feedmine/Views/CountriesListScreen.swift:31"
+      ],
+      "_auto_generated": true
+    },
+    "%lld fetch err": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:30"
+      ],
+      "_auto_generated": true
+    },
+    "%lld fetched": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:16"
+      ],
+      "_auto_generated": true
+    },
+    "%lld fresh stories": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:221"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld in bookmarks": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:358"
+      ],
+      "comment": "Bookmark count",
+      "_auto_generated": true
+    },
+    "%lld KB": {
+      "files": [
+        "feedmine/Services/PersistenceManager.swift:151"
+      ],
+      "_auto_generated": true
+    },
+    "%lld min": {
+      "files": [
+        "feedmine/Models/FeedItem.swift:74"
+      ],
+      "_auto_generated": true
+    },
+    "%lld min focused": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:311"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min in": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:304"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min read": {
+      "files": [
+        "feedmine/Views/FeedItemCardView.swift:327",
+        "feedmine/Views/FeedItemCardView.swift:329"
+      ],
+      "_auto_generated": true
+    },
+    "%lld min — deep read": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:310"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min — in the zone": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:306"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min — maybe stretch?": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:316"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min — phone down?": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:324"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min. Take a break?": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:317"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min. The world hasn't ended.": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:319"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld min. We're flattered.": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:326"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld minutes of reading": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:305"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "%lld new": {
+      "files": [
+        "feedmine/Views/DailyBriefingCard.swift:51",
+        "feedmine/Views/FeedScreen.swift:376"
+      ],
+      "_auto_generated": true
+    },
+    "%lld new since last time": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:223"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld new stories": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:217"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld on": {
+      "files": [
+        "feedmine/Views/FilterSheetView.swift:40"
+      ],
+      "_auto_generated": true
+    },
+    "%lld OPML err": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:35"
+      ],
+      "_auto_generated": true
+    },
+    "%lld pieces today": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:224"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld podcasts": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:271"
+      ],
+      "comment": "Podcast count fallback",
+      "_auto_generated": true
+    },
+    "%lld podcasts + articles": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:267"
+      ],
+      "comment": "Podcast count",
+      "_auto_generated": true
+    },
+    "%lld podcasts ready": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:265"
+      ],
+      "comment": "Podcast count",
+      "_auto_generated": true
+    },
+    "%lld queued": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:12"
+      ],
+      "_auto_generated": true
+    },
+    "%lld saved to read later": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:357"
+      ],
+      "comment": "Bookmark count",
+      "_auto_generated": true
+    },
+    "%lld sources": {
+      "files": [
+        "feedmine/Views/DailyBriefingCard.swift:56",
+        "feedmine/Views/GreetingHeaderView.swift:90"
+      ],
+      "_auto_generated": true
+    },
+    "%lld sources active": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:238"
+      ],
+      "comment": "Source count",
+      "_auto_generated": true
+    },
+    "%lld src dup": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:40"
+      ],
+      "_auto_generated": true
+    },
+    "%lld stories": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:222"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld things to read": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:219"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "%lld today": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:253"
+      ],
+      "comment": "Content mix description",
+      "_auto_generated": true
+    },
+    "%lld uniq": {
+      "files": [
+        "feedmine/Views/DebugStatusBar.swift:18"
+      ],
+      "_auto_generated": true
+    },
+    "%lld unread": {
+      "files": [
+        "feedmine/Views/GreetingHeaderView.swift:78"
+      ],
+      "_auto_generated": true
+    },
+    "%lld waiting in bookmarks": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:359"
+      ],
+      "comment": "Bookmark count",
+      "_auto_generated": true
+    },
+    "%lld — a good mix": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:251"
+      ],
+      "comment": "Content mix description",
+      "_auto_generated": true
+    },
+    "%lld-Day Streak": {
+      "files": [
+        "feedmine/Services/AppContext.swift:193"
+      ],
+      "comment": "Session streak in days",
+      "_auto_generated": true
+    },
+    "%lld-day streak": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:286"
+      ],
+      "comment": "Streak fallback",
+      "_auto_generated": true
+    },
+    "%lld-day streak 🔥": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:281"
+      ],
+      "comment": "Streak in days",
+      "_auto_generated": true
+    },
+    "%lld-day streak. Consistency.": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:284"
+      ],
+      "comment": "Streak in days",
+      "_auto_generated": true
+    },
+    "%lld-Week Streak": {
+      "files": [
+        "feedmine/Services/AppContext.swift:194"
+      ],
+      "comment": "Session streak in weeks",
+      "_auto_generated": true
+    },
+    "A full inbox — %lld unread": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:222"
+      ],
+      "comment": "Article count",
+      "_auto_generated": true
+    },
+    "A mix of %lld": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:254"
+      ],
+      "comment": "Content mix description",
+      "_auto_generated": true
+    },
+    "across %lld publications": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:235"
+      ],
+      "comment": "Source count",
+      "_auto_generated": true
+    },
+    "All %lld sources failed to load. Check your internet connection and pull to refresh.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:96"
+      ],
+      "_auto_generated": true
+    },
+    "Bookmarks: %lld": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:360"
+      ],
+      "comment": "Bookmark count",
+      "_auto_generated": true
+    },
+    "Day %lld — on a roll": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:283"
+      ],
+      "comment": "Streak in days",
+      "_auto_generated": true
+    },
+    "Deep in it — %lld min": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:312"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "Fetching articles from %lld sources.": {
+      "files": [
+        "feedmine/Views/FeedEmptyStateView.swift:94"
+      ],
+      "_auto_generated": true
+    },
+    "from %lld different voices": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:236"
+      ],
+      "comment": "Source count",
+      "_auto_generated": true
+    },
+    "from %lld sources": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:234",
+        "feedmine/Services/MomentGreeting.swift:241"
+      ],
+      "comment": "Source count",
+      "_auto_generated": true
+    },
+    "from your %lld trusted sources": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:239"
+      ],
+      "comment": "Source count",
+      "_auto_generated": true
+    },
+    "Heavy on %lld": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:252"
+      ],
+      "comment": "Content mix description",
+      "_auto_generated": true
+    },
+    "Long session: %lld min": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:318"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "Marathon session: %lld min": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:327"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "Mostly %lld": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:250"
+      ],
+      "comment": "Content mix description",
+      "_auto_generated": true
+    },
+    "Podcast queue: %lld": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:268"
+      ],
+      "comment": "Podcast count",
+      "_auto_generated": true
+    },
+    "Podcast · %lld": {
+      "files": [
+        "feedmine/Views/MiniPlayerBar.swift:191"
+      ],
+      "_auto_generated": true
+    },
+    "Show more from %lld": {
+      "files": [
+        "feedmine/Views/FeedItemView.swift:88"
+      ],
+      "_auto_generated": true
+    },
+    "spanning %lld sources": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:237"
+      ],
+      "comment": "Source count",
+      "_auto_generated": true
+    },
+    "Still here? %lld min 😅": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:325"
+      ],
+      "comment": "Session duration",
+      "_auto_generated": true
+    },
+    "Top story: %lld": {
+      "files": [
+        "feedmine/Views/DailyBriefingCard.swift:109"
+      ],
+      "_auto_generated": true
+    },
+    "Updated %lld)": {
+      "files": [
+        "feedmine/Views/GreetingHeaderView.swift:97"
+      ],
+      "_auto_generated": true
+    },
+    "·%lld err": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:386"
+      ],
+      "_auto_generated": true
+    },
+    "·%lld fetched": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:410"
+      ],
+      "_auto_generated": true
+    },
+    "·%lld sources": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:408"
+      ],
+      "_auto_generated": true
+    },
+    "🎧 %lld new episodes": {
+      "files": [
+        "feedmine/Services/MomentGreeting.swift:266"
+      ],
+      "comment": "Podcast count",
+      "_auto_generated": true
+    },
+    "🎧%lld": {
+      "files": [
+        "feedmine/Views/FeedScreen.swift:383"
+      ],
+      "_auto_generated": true
     }
   }
 }
