@@ -2376,7 +2376,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ статей"
+            "value": "%@ článků"
           }
         },
         "da": {
@@ -2460,7 +2460,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ статей"
+            "value": "%@ članaka"
           }
         },
         "hu": {
@@ -2514,7 +2514,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ статей"
+            "value": "%@ artykułów"
           }
         },
         "pt-BR": {
@@ -2544,7 +2544,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ статей"
+            "value": "%@ článkov"
           }
         },
         "sv": {
@@ -3540,7 +3540,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ отброшено"
+            "value": "%@ zahozeno"
           }
         },
         "da": {
@@ -3624,7 +3624,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ отброшено"
+            "value": "%@ odbačeno"
           }
         },
         "hu": {
@@ -3678,7 +3678,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ отброшено"
+            "value": "%@ odrzuconych"
           }
         },
         "pt-BR": {
@@ -3708,7 +3708,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ отброшено"
+            "value": "%@ zahodených"
           }
         },
         "sv": {
@@ -4017,7 +4017,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ ошибок"
+            "value": "%@ selhání"
           }
         },
         "da": {
@@ -4101,7 +4101,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ ошибок"
+            "value": "%@ neuspjeha"
           }
         },
         "hu": {
@@ -4155,7 +4155,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ ошибок"
+            "value": "%@ niepowodzeń"
           }
         },
         "pt-BR": {
@@ -4185,7 +4185,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ ошибок"
+            "value": "%@ zlyhaní"
           }
         },
         "sv": {
@@ -4731,7 +4731,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ загружено"
+            "value": "%@ načteno"
           }
         },
         "da": {
@@ -4815,7 +4815,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ загружено"
+            "value": "%@ dohvaćeno"
           }
         },
         "hu": {
@@ -4869,7 +4869,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ загружено"
+            "value": "%@ pobranych"
           }
         },
         "pt-BR": {
@@ -4899,7 +4899,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ загружено"
+            "value": "%@ načítaných"
           }
         },
         "sv": {
@@ -6371,7 +6371,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ мин чтения"
+            "value": "%@ min čtení"
           }
         },
         "da": {
@@ -6455,7 +6455,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ мин чтения"
+            "value": "%@ min čitanja"
           }
         },
         "hu": {
@@ -6509,7 +6509,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ мин чтения"
+            "value": "%@ min czytania"
           }
         },
         "pt-BR": {
@@ -6539,7 +6539,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ мин чтения"
+            "value": "%@ min čítania"
           }
         },
         "sv": {
@@ -8521,7 +8521,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых"
+            "value": "%@ nových"
           }
         },
         "da": {
@@ -8605,7 +8605,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых"
+            "value": "%@ novih"
           }
         },
         "hu": {
@@ -8659,7 +8659,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых"
+            "value": "%@ nowych"
           }
         },
         "pt-BR": {
@@ -8689,7 +8689,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых"
+            "value": "%@ nových"
           }
         },
         "sv": {
@@ -8998,7 +8998,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых историй"
+            "value": "%@ nových článků"
           }
         },
         "da": {
@@ -9082,7 +9082,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых историй"
+            "value": "%@ novih priča"
           }
         },
         "hu": {
@@ -9136,7 +9136,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых историй"
+            "value": "%@ nowych artykułów"
           }
         },
         "pt-BR": {
@@ -9166,7 +9166,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых историй"
+            "value": "%@ nových článkov"
           }
         },
         "sv": {
@@ -10669,7 +10669,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ в очереди"
+            "value": "%@ ve frontě"
           }
         },
         "da": {
@@ -10753,7 +10753,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ в очереди"
+            "value": "%@ u redu"
           }
         },
         "hu": {
@@ -10807,7 +10807,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ в очереди"
+            "value": "%@ w kolejce"
           }
         },
         "pt-BR": {
@@ -10837,7 +10837,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ в очереди"
+            "value": "%@ vo fronte"
           }
         },
         "sv": {
@@ -11146,7 +11146,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ источников"
+            "value": "%@ zdrojů"
           }
         },
         "da": {
@@ -11230,7 +11230,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ источников"
+            "value": "%@ izvora"
           }
         },
         "hu": {
@@ -11284,7 +11284,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ источников"
+            "value": "%@ źródeł"
           }
         },
         "pt-BR": {
@@ -11314,7 +11314,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ источников"
+            "value": "%@ zdrojov"
           }
         },
         "sv": {
@@ -12578,7 +12578,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ уникальных"
+            "value": "%@ unikátních"
           }
         },
         "da": {
@@ -12662,7 +12662,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ уникальных"
+            "value": "%@ jedinstvenih"
           }
         },
         "hu": {
@@ -12716,7 +12716,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ уникальных"
+            "value": "%@ unikalnych"
           }
         },
         "pt-BR": {
@@ -12746,7 +12746,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ уникальных"
+            "value": "%@ unikátnych"
           }
         },
         "sv": {
@@ -15444,7 +15444,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "О Приложении"
+            "value": "O aplikaci"
           }
         },
         "da": {
@@ -15528,7 +15528,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "О Приложении"
+            "value": "O aplikaciji"
           }
         },
         "hu": {
@@ -15582,7 +15582,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "О Приложении"
+            "value": "O aplikacji"
           }
         },
         "pt-BR": {
@@ -15612,7 +15612,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "О Приложении"
+            "value": "O aplikácii"
           }
         },
         "sv": {
@@ -15921,7 +15921,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Палитра"
+            "value": "Adaptivní paleta"
           }
         },
         "da": {
@@ -16005,7 +16005,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Палитра"
+            "value": "Prilagodljiva paleta"
           }
         },
         "hu": {
@@ -16059,7 +16059,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Палитра"
+            "value": "Paleta adaptacyjna"
           }
         },
         "pt-BR": {
@@ -16089,7 +16089,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Палитра"
+            "value": "Adaptívna paleta"
           }
         },
         "sv": {
@@ -16159,7 +16159,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Типографика"
+            "value": "Adaptivní typografie"
           }
         },
         "da": {
@@ -16243,7 +16243,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Типографика"
+            "value": "Prilagodljiva tipografija"
           }
         },
         "hu": {
@@ -16297,7 +16297,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Типографика"
+            "value": "Typografia adaptacyjna"
           }
         },
         "pt-BR": {
@@ -16327,7 +16327,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Адаптивная Типографика"
+            "value": "Adaptívna typografia"
           }
         },
         "sv": {
@@ -16873,7 +16873,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "День"
+            "value": "Odpoledne"
           }
         },
         "da": {
@@ -16957,7 +16957,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "День"
+            "value": "Poslijepodne"
           }
         },
         "hu": {
@@ -17011,7 +17011,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "День"
+            "value": "Popołudnie"
           }
         },
         "pt-BR": {
@@ -17041,7 +17041,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "День"
+            "value": "Popoludnie"
           }
         },
         "sv": {
@@ -17351,7 +17351,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все"
+            "value": "Vše"
           }
         },
         "da": {
@@ -17435,7 +17435,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все"
+            "value": "Sve"
           }
         },
         "hu": {
@@ -17489,7 +17489,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все"
+            "value": "Wszystko"
           }
         },
         "pt-BR": {
@@ -17519,7 +17519,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все"
+            "value": "Všetko"
           }
         },
         "sv": {
@@ -17827,7 +17827,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Категории"
+            "value": "Všechny kategorie"
           }
         },
         "da": {
@@ -17911,7 +17911,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Категории"
+            "value": "Sve kategorije"
           }
         },
         "hu": {
@@ -17965,7 +17965,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Категории"
+            "value": "Wszystkie kategorie"
           }
         },
         "pt-BR": {
@@ -17995,7 +17995,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Категории"
+            "value": "Všetky kategórie"
           }
         },
         "sv": {
@@ -18779,7 +18779,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Страны"
+            "value": "Všechny země"
           }
         },
         "da": {
@@ -18863,7 +18863,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Страны"
+            "value": "Sve zemlje"
           }
         },
         "hu": {
@@ -18917,7 +18917,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Страны"
+            "value": "Wszystkie kraje"
           }
         },
         "pt-BR": {
@@ -18947,7 +18947,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все Страны"
+            "value": "Všetky krajiny"
           }
         },
         "sv": {
@@ -19734,7 +19734,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Внешний Вид"
+            "value": "Vzhled"
           }
         },
         "da": {
@@ -19818,7 +19818,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Внешний Вид"
+            "value": "Izgled"
           }
         },
         "hu": {
@@ -19872,7 +19872,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Внешний Вид"
+            "value": "Wygląd"
           }
         },
         "pt-BR": {
@@ -19902,7 +19902,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Внешний Вид"
+            "value": "Vzhľad"
           }
         },
         "sv": {
@@ -20419,7 +20419,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Апрель"
+            "value": "Duben"
           }
         },
         "da": {
@@ -20503,7 +20503,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Апрель"
+            "value": "Travanj"
           }
         },
         "hu": {
@@ -20557,7 +20557,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Апрель"
+            "value": "Kwiecień"
           }
         },
         "pt-BR": {
@@ -20587,7 +20587,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Апрель"
+            "value": "Apríl"
           }
         },
         "sv": {
@@ -20897,7 +20897,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статьи"
+            "value": "Články"
           }
         },
         "da": {
@@ -20981,7 +20981,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статьи"
+            "value": "Članci"
           }
         },
         "hu": {
@@ -21035,7 +21035,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статьи"
+            "value": "Artykuły"
           }
         },
         "pt-BR": {
@@ -21065,7 +21065,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статьи"
+            "value": "Články"
           }
         },
         "sv": {
@@ -21135,7 +21135,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Август"
+            "value": "Srpen"
           }
         },
         "da": {
@@ -21219,7 +21219,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Август"
+            "value": "Kolovoz"
           }
         },
         "hu": {
@@ -21273,7 +21273,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Август"
+            "value": "Sierpień"
           }
         },
         "pt-BR": {
@@ -21303,7 +21303,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Август"
+            "value": "August"
           }
         },
         "sv": {
@@ -21374,7 +21374,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осень"
+            "value": "Podzim"
           }
         },
         "da": {
@@ -21458,7 +21458,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осень"
+            "value": "Jesen"
           }
         },
         "hu": {
@@ -21512,7 +21512,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осень"
+            "value": "Jesień"
           }
         },
         "pt-BR": {
@@ -21542,7 +21542,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осень"
+            "value": "Jeseň"
           }
         },
         "sv": {
@@ -22091,7 +22091,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снова В Сети"
+            "value": "Zpět online"
           }
         },
         "da": {
@@ -22175,7 +22175,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снова В Сети"
+            "value": "Ponovno online"
           }
         },
         "hu": {
@@ -22229,7 +22229,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снова В Сети"
+            "value": "Znowu online"
           }
         },
         "pt-BR": {
@@ -22259,7 +22259,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снова В Сети"
+            "value": "Späť online"
           }
         },
         "sv": {
@@ -23015,7 +23015,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Закладки"
+            "value": "Záložky"
           }
         },
         "da": {
@@ -23099,7 +23099,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Закладки"
+            "value": "Oznake"
           }
         },
         "hu": {
@@ -23153,7 +23153,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Закладки"
+            "value": "Zakładki"
           }
         },
         "pt-BR": {
@@ -23183,7 +23183,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Закладки"
+            "value": "Záložky"
           }
         },
         "sv": {
@@ -23970,7 +23970,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Создано с"
+            "value": "Vytvořeno pomocí"
           }
         },
         "da": {
@@ -24054,7 +24054,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Создано с"
+            "value": "Izrađeno s"
           }
         },
         "hu": {
@@ -24108,7 +24108,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Создано с"
+            "value": "Zbudowano z"
           }
         },
         "pt-BR": {
@@ -24138,7 +24138,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Создано с"
+            "value": "Vytvorené pomocou"
           }
         },
         "sv": {
@@ -24655,7 +24655,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отмена"
+            "value": "Zrušit"
           }
         },
         "da": {
@@ -24739,7 +24739,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отмена"
+            "value": "Odustani"
           }
         },
         "hu": {
@@ -24793,7 +24793,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отмена"
+            "value": "Anuluj"
           }
         },
         "pt-BR": {
@@ -24823,7 +24823,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отмена"
+            "value": "Zrušiť"
           }
         },
         "sv": {
@@ -24893,7 +24893,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Категория"
+            "value": "Kategorie"
           }
         },
         "da": {
@@ -24977,7 +24977,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Категория"
+            "value": "Kategorija"
           }
         },
         "hu": {
@@ -25031,7 +25031,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Категория"
+            "value": "Kategoria"
           }
         },
         "pt-BR": {
@@ -25061,7 +25061,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Категория"
+            "value": "Kategória"
           }
         },
         "sv": {
@@ -25131,7 +25131,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сотовые Данные"
+            "value": "Mobilní data"
           }
         },
         "da": {
@@ -25215,7 +25215,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сотовые Данные"
+            "value": "Mobilni podaci"
           }
         },
         "hu": {
@@ -25269,7 +25269,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сотовые Данные"
+            "value": "Dane komórkowe"
           }
         },
         "pt-BR": {
@@ -25299,7 +25299,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сотовые Данные"
+            "value": "Mobilné dáta"
           }
         },
         "sv": {
@@ -25370,7 +25370,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смена языка требует перезапуска приложения."
+            "value": "Změna jazyka vyžaduje restart."
           }
         },
         "da": {
@@ -25454,7 +25454,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смена языка требует перезапуска приложения."
+            "value": "Promjena jezika zahtijeva ponovno pokretanje."
           }
         },
         "hu": {
@@ -25508,7 +25508,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смена языка требует перезапуска приложения."
+            "value": "Zmiana języka wymaga restartu."
           }
         },
         "pt-BR": {
@@ -25538,7 +25538,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смена языка требует перезапуска приложения."
+            "value": "Zmena jazyka vyžaduje reštart."
           }
         },
         "sv": {
@@ -25608,7 +25608,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Заряжается"
+            "value": "Nabíjení"
           }
         },
         "da": {
@@ -25692,7 +25692,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Заряжается"
+            "value": "Punjenje"
           }
         },
         "hu": {
@@ -25746,7 +25746,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Заряжается"
+            "value": "Ładowanie"
           }
         },
         "pt-BR": {
@@ -25776,7 +25776,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Заряжается"
+            "value": "Nabíjanie"
           }
         },
         "sv": {
@@ -26803,7 +26803,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Циркадный Дизайн"
+            "value": "Cirkadiánní design"
           }
         },
         "da": {
@@ -26887,7 +26887,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Циркадный Дизайн"
+            "value": "Cirkadijalni dizajn"
           }
         },
         "hu": {
@@ -26941,7 +26941,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Циркадный Дизайн"
+            "value": "Projekt cyrkadialny"
           }
         },
         "pt-BR": {
@@ -26971,7 +26971,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Циркадный Дизайн"
+            "value": "Cirkadiálny dizajn"
           }
         },
         "sv": {
@@ -27041,7 +27041,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ясно"
+            "value": "Jasno"
           }
         },
         "da": {
@@ -27125,7 +27125,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ясно"
+            "value": "Vedro"
           }
         },
         "hu": {
@@ -27179,7 +27179,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ясно"
+            "value": "Bezchmurnie"
           }
         },
         "pt-BR": {
@@ -27209,7 +27209,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ясно"
+            "value": "Jasno"
           }
         },
         "sv": {
@@ -27280,7 +27280,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Всё"
+            "value": "Smazat vše"
           }
         },
         "da": {
@@ -27364,7 +27364,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Всё"
+            "value": "Obriši sve"
           }
         },
         "hu": {
@@ -27418,7 +27418,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Всё"
+            "value": "Wyczyść wszystko"
           }
         },
         "pt-BR": {
@@ -27448,7 +27448,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Всё"
+            "value": "Vymazať všetko"
           }
         },
         "sv": {
@@ -27518,7 +27518,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Закладки"
+            "value": "Smazat záložky"
           }
         },
         "da": {
@@ -27602,7 +27602,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Закладки"
+            "value": "Obriši sve oznake"
           }
         },
         "hu": {
@@ -27656,7 +27656,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Закладки"
+            "value": "Wyczyść zakładki"
           }
         },
         "pt-BR": {
@@ -27686,7 +27686,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Закладки"
+            "value": "Vymazať záložky"
           }
         },
         "sv": {
@@ -28232,7 +28232,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Историю Чтения"
+            "value": "Smazat historii"
           }
         },
         "da": {
@@ -28316,7 +28316,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Историю Чтения"
+            "value": "Obriši povijest"
           }
         },
         "hu": {
@@ -28370,7 +28370,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Историю Чтения"
+            "value": "Wyczyść historię"
           }
         },
         "pt-BR": {
@@ -28400,7 +28400,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Историю Чтения"
+            "value": "Vymazať históriu"
           }
         },
         "sv": {
@@ -28470,7 +28470,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Облачно"
+            "value": "Zataženo"
           }
         },
         "da": {
@@ -28554,7 +28554,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Облачно"
+            "value": "Oblačno"
           }
         },
         "hu": {
@@ -28608,7 +28608,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Облачно"
+            "value": "Pochmurnie"
           }
         },
         "pt-BR": {
@@ -28638,7 +28638,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Облачно"
+            "value": "Oblačno"
           }
         },
         "sv": {
@@ -28709,7 +28709,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Холодно"
+            "value": "Chladno"
           }
         },
         "da": {
@@ -28793,7 +28793,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Холодно"
+            "value": "Hladno"
           }
         },
         "hu": {
@@ -28847,7 +28847,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Холодно"
+            "value": "Zimno"
           }
         },
         "pt-BR": {
@@ -28877,7 +28877,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Холодно"
+            "value": "Chladno"
           }
         },
         "sv": {
@@ -29902,7 +29902,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прохладно"
+            "value": "Chladno"
           }
         },
         "da": {
@@ -29986,7 +29986,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прохладно"
+            "value": "Svježe"
           }
         },
         "hu": {
@@ -30040,7 +30040,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прохладно"
+            "value": "Chłodno"
           }
         },
         "pt-BR": {
@@ -30070,7 +30070,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Прохладно"
+            "value": "Chladno"
           }
         },
         "sv": {
@@ -30380,7 +30380,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Копировать Ссылку"
+            "value": "Kopírovat odkaz"
           }
         },
         "da": {
@@ -30464,7 +30464,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Копировать Ссылку"
+            "value": "Kopiraj poveznicu"
           }
         },
         "hu": {
@@ -30518,7 +30518,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Копировать Ссылку"
+            "value": "Kopíruj link"
           }
         },
         "pt-BR": {
@@ -30548,7 +30548,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Копировать Ссылку"
+            "value": "Kopírovať odkaz"
           }
         },
         "sv": {
@@ -30618,7 +30618,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Удалось Загрузить Ленты"
+            "value": "Nelze načíst kanály"
           }
         },
         "da": {
@@ -30702,7 +30702,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Удалось Загрузить Ленты"
+            "value": "Nije moguće učitati"
           }
         },
         "hu": {
@@ -30756,7 +30756,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Удалось Загрузить Ленты"
+            "value": "Nie można załadować"
           }
         },
         "pt-BR": {
@@ -30786,7 +30786,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Удалось Загрузить Ленты"
+            "value": "Nedá sa načítať"
           }
         },
         "sv": {
@@ -30856,7 +30856,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Страны"
+            "value": "Země"
           }
         },
         "da": {
@@ -30940,7 +30940,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Страны"
+            "value": "Zemlje"
           }
         },
         "hu": {
@@ -30994,7 +30994,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Страны"
+            "value": "Kraje"
           }
         },
         "pt-BR": {
@@ -31024,7 +31024,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Страны"
+            "value": "Krajiny"
           }
         },
         "sv": {
@@ -31333,7 +31333,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Критический"
+            "value": "Kritické"
           }
         },
         "da": {
@@ -31417,7 +31417,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Критический"
+            "value": "Kritično"
           }
         },
         "hu": {
@@ -31471,7 +31471,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Критический"
+            "value": "Krytyczne"
           }
         },
         "pt-BR": {
@@ -31501,7 +31501,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Критический"
+            "value": "Kritické"
           }
         },
         "sv": {
@@ -31572,7 +31572,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Данные"
+            "value": "Data"
           }
         },
         "da": {
@@ -31656,7 +31656,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Данные"
+            "value": "Podaci"
           }
         },
         "hu": {
@@ -31710,7 +31710,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Данные"
+            "value": "Dane"
           }
         },
         "pt-BR": {
@@ -31740,7 +31740,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Данные"
+            "value": "Dáta"
           }
         },
         "sv": {
@@ -31810,7 +31810,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рассвет"
+            "value": "Úsvit"
           }
         },
         "da": {
@@ -31894,7 +31894,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рассвет"
+            "value": "Zora"
           }
         },
         "hu": {
@@ -31948,7 +31948,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рассвет"
+            "value": "Świt"
           }
         },
         "pt-BR": {
@@ -31978,7 +31978,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рассвет"
+            "value": "Úsvit"
           }
         },
         "sv": {
@@ -32527,7 +32527,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отладка"
+            "value": "Ladění"
           }
         },
         "da": {
@@ -32611,7 +32611,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отладка"
+            "value": "Otklanjanje grešaka"
           }
         },
         "hu": {
@@ -32665,7 +32665,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отладка"
+            "value": "Debugowanie"
           }
         },
         "pt-BR": {
@@ -32695,7 +32695,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отладка"
+            "value": "Ladenie"
           }
         },
         "sv": {
@@ -32765,7 +32765,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Декабрь"
+            "value": "Prosinec"
           }
         },
         "da": {
@@ -32849,7 +32849,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Декабрь"
+            "value": "Prosinac"
           }
         },
         "hu": {
@@ -32903,7 +32903,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Декабрь"
+            "value": "Grudzień"
           }
         },
         "pt-BR": {
@@ -32933,7 +32933,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Декабрь"
+            "value": "December"
           }
         },
         "sv": {
@@ -33243,7 +33243,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Hluboké čtení"
           }
         },
         "da": {
@@ -33327,7 +33327,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Dubinsko čitanje"
           }
         },
         "hu": {
@@ -33381,7 +33381,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Głębokie czytanie"
           }
         },
         "pt-BR": {
@@ -33411,7 +33411,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Hlboké čítanie"
           }
         },
         "sv": {
@@ -33721,7 +33721,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Hluboké čtení"
           }
         },
         "da": {
@@ -33805,7 +33805,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Dubinsko čitanje"
           }
         },
         "hu": {
@@ -33859,7 +33859,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Głębokie czytanie"
           }
         },
         "pt-BR": {
@@ -33889,7 +33889,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Глубокое Чтение"
+            "value": "Hlboké čítanie"
           }
         },
         "sv": {
@@ -33960,7 +33960,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отключено"
+            "value": "Zakázáno"
           }
         },
         "da": {
@@ -34044,7 +34044,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отключено"
+            "value": "Onemogućeno"
           }
         },
         "hu": {
@@ -34098,7 +34098,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отключено"
+            "value": "Wyłączone"
           }
         },
         "pt-BR": {
@@ -34128,7 +34128,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отключено"
+            "value": "Zakázané"
           }
         },
         "sv": {
@@ -34675,7 +34675,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Готово"
+            "value": "Hotovo"
           }
         },
         "da": {
@@ -34759,7 +34759,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Готово"
+            "value": "Gotovo"
           }
         },
         "hu": {
@@ -34813,7 +34813,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Готово"
+            "value": "Gotowe"
           }
         },
         "pt-BR": {
@@ -34843,7 +34843,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Готово"
+            "value": "Hotovo"
           }
         },
         "sv": {
@@ -34913,7 +34913,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Морось"
+            "value": "Mrholení"
           }
         },
         "da": {
@@ -34997,7 +34997,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Морось"
+            "value": "Sitna kiša"
           }
         },
         "hu": {
@@ -35051,7 +35051,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Морось"
+            "value": "Mżawka"
           }
         },
         "pt-BR": {
@@ -35081,7 +35081,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Морось"
+            "value": "Mrholenie"
           }
         },
         "sv": {
@@ -35152,7 +35152,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ранее"
+            "value": "Dříve"
           }
         },
         "da": {
@@ -35236,7 +35236,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ранее"
+            "value": "Ranije"
           }
         },
         "hu": {
@@ -35290,7 +35290,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ранее"
+            "value": "Wcześniej"
           }
         },
         "pt-BR": {
@@ -35320,7 +35320,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ранее"
+            "value": "Skôr"
           }
         },
         "sv": {
@@ -36346,7 +36346,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Включено"
+            "value": "Povoleno"
           }
         },
         "da": {
@@ -36430,7 +36430,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Включено"
+            "value": "Omogućeno"
           }
         },
         "hu": {
@@ -36484,7 +36484,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Включено"
+            "value": "Włączone"
           }
         },
         "pt-BR": {
@@ -36514,7 +36514,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Включено"
+            "value": "Povolené"
           }
         },
         "sv": {
@@ -36584,7 +36584,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Увлечённый"
+            "value": "Zaujatý"
           }
         },
         "da": {
@@ -36668,7 +36668,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Увлечённый"
+            "value": "Angažiran"
           }
         },
         "hu": {
@@ -36722,7 +36722,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Увлечённый"
+            "value": "Zaangażowany"
           }
         },
         "pt-BR": {
@@ -36752,7 +36752,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Увлечённый"
+            "value": "Zaujatý"
           }
         },
         "sv": {
@@ -36823,7 +36823,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вечер"
+            "value": "Večer"
           }
         },
         "da": {
@@ -36907,7 +36907,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вечер"
+            "value": "Večer"
           }
         },
         "hu": {
@@ -36961,7 +36961,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вечер"
+            "value": "Wieczór"
           }
         },
         "pt-BR": {
@@ -36991,7 +36991,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вечер"
+            "value": "Večer"
           }
         },
         "sv": {
@@ -37779,7 +37779,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт в OPML"
+            "value": "Exportovat jako OPML"
           }
         },
         "da": {
@@ -37863,7 +37863,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт в OPML"
+            "value": "Izvezi kao OPML"
           }
         },
         "hu": {
@@ -37917,7 +37917,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт в OPML"
+            "value": "Eksportuj jako OPML"
           }
         },
         "pt-BR": {
@@ -37947,7 +37947,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт в OPML"
+            "value": "Exportovať ako OPML"
           }
         },
         "sv": {
@@ -38017,7 +38017,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт Данных"
+            "value": "Exportovat data"
           }
         },
         "da": {
@@ -38101,7 +38101,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт Данных"
+            "value": "Izvezi podatke"
           }
         },
         "hu": {
@@ -38155,7 +38155,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт Данных"
+            "value": "Eksportuj dane"
           }
         },
         "pt-BR": {
@@ -38185,7 +38185,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Экспорт Данных"
+            "value": "Exportovať dáta"
           }
         },
         "sv": {
@@ -38255,7 +38255,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлённый"
+            "value": "Prodloužené"
           }
         },
         "da": {
@@ -38339,7 +38339,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлённый"
+            "value": "Produženo"
           }
         },
         "hu": {
@@ -38393,7 +38393,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлённый"
+            "value": "Wydłużone"
           }
         },
         "pt-BR": {
@@ -38423,7 +38423,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Продлённый"
+            "value": "Predĺžené"
           }
         },
         "sv": {
@@ -39211,7 +39211,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Февраль"
+            "value": "Únor"
           }
         },
         "da": {
@@ -39295,7 +39295,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Февраль"
+            "value": "Veljača"
           }
         },
         "hu": {
@@ -39349,7 +39349,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Февраль"
+            "value": "Luty"
           }
         },
         "pt-BR": {
@@ -39379,7 +39379,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Февраль"
+            "value": "Február"
           }
         },
         "sv": {
@@ -39450,7 +39450,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обратная Связь"
+            "value": "Zpětná vazba"
           }
         },
         "da": {
@@ -39534,7 +39534,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обратная Связь"
+            "value": "Povratne informacije"
           }
         },
         "hu": {
@@ -39588,7 +39588,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обратная Связь"
+            "value": "Opinia"
           }
         },
         "pt-BR": {
@@ -39618,7 +39618,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обратная Связь"
+            "value": "Spätná väzba"
           }
         },
         "sv": {
@@ -40164,7 +40164,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedmine — независимый RSS-ридер для любознательных умов."
+            "value": "Feedmine je nezávislá RSS čtečka pro zvědavé."
           }
         },
         "da": {
@@ -40248,7 +40248,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedmine — независимый RSS-ридер для любознательных умов."
+            "value": "Feedmine je nezavisni RSS čitač za znatiželjne."
           }
         },
         "hu": {
@@ -40302,7 +40302,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedmine — независимый RSS-ридер для любознательных умов."
+            "value": "Feedmine to niezależny czytnik RSS dla ciekawych."
           }
         },
         "pt-BR": {
@@ -40332,7 +40332,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedmine — независимый RSS-ридер для любознательных умов."
+            "value": "Feedmine je nezávislá RSS čítačka pre zvedavých."
           }
         },
         "sv": {
@@ -40402,7 +40402,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ленты"
+            "value": "Kanály"
           }
         },
         "da": {
@@ -40486,7 +40486,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ленты"
+            "value": "Feedovi"
           }
         },
         "hu": {
@@ -40540,7 +40540,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ленты"
+            "value": "Kanały"
           }
         },
         "pt-BR": {
@@ -40570,7 +40570,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ленты"
+            "value": "Kanály"
           }
         },
         "sv": {
@@ -41086,7 +41086,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Фильтры"
+            "value": "Filtry"
           }
         },
         "da": {
@@ -41170,7 +41170,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Фильтры"
+            "value": "Filteri"
           }
         },
         "hu": {
@@ -41224,7 +41224,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Фильтры"
+            "value": "Filtry"
           }
         },
         "pt-BR": {
@@ -41254,7 +41254,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Фильтры"
+            "value": "Filtre"
           }
         },
         "sv": {
@@ -42279,7 +42279,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Первый Раз"
+            "value": "Poprvé"
           }
         },
         "da": {
@@ -42363,7 +42363,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Первый Раз"
+            "value": "Prvi put"
           }
         },
         "hu": {
@@ -42417,7 +42417,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Первый Раз"
+            "value": "Pierwszy raz"
           }
         },
         "pt-BR": {
@@ -42447,7 +42447,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Первый Раз"
+            "value": "Prvýkrát"
           }
         },
         "sv": {
@@ -42726,7 +42726,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Туман"
+            "value": "Mlha"
           }
         },
         "da": {
@@ -42810,7 +42810,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Туман"
+            "value": "Magla"
           }
         },
         "hu": {
@@ -42864,7 +42864,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Туман"
+            "value": "Mgła"
           }
         },
         "pt-BR": {
@@ -42894,7 +42894,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Туман"
+            "value": "Hmla"
           }
         },
         "sv": {
@@ -42965,7 +42965,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размер Шрифта"
+            "value": "Velikost písma"
           }
         },
         "da": {
@@ -43049,7 +43049,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размер Шрифта"
+            "value": "Veličina fonta"
           }
         },
         "hu": {
@@ -43103,7 +43103,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размер Шрифта"
+            "value": "Rozmiar czcionki"
           }
         },
         "pt-BR": {
@@ -43133,7 +43133,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размер Шрифта"
+            "value": "Veľkosť písma"
           }
         },
         "sv": {
@@ -43203,7 +43203,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Стиль Шрифта"
+            "value": "Styl písma"
           }
         },
         "da": {
@@ -43287,7 +43287,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Стиль Шрифта"
+            "value": "Stil fonta"
           }
         },
         "hu": {
@@ -43341,7 +43341,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Стиль Шрифта"
+            "value": "Styl czcionki"
           }
         },
         "pt-BR": {
@@ -43371,7 +43371,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Стиль Шрифта"
+            "value": "Štýl písma"
           }
         },
         "sv": {
@@ -43888,7 +43888,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пятница"
+            "value": "Pátek"
           }
         },
         "da": {
@@ -43972,7 +43972,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пятница"
+            "value": "Petak"
           }
         },
         "hu": {
@@ -44026,7 +44026,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пятница"
+            "value": "Piątek"
           }
         },
         "pt-BR": {
@@ -44056,7 +44056,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пятница"
+            "value": "Piatok"
           }
         },
         "sv": {
@@ -44844,7 +44844,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %@ источников"
+            "value": "z %@ zdrojů"
           }
         },
         "da": {
@@ -44928,7 +44928,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %@ источников"
+            "value": "iz %@ izvora"
           }
         },
         "hu": {
@@ -44982,7 +44982,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %@ источников"
+            "value": "z %@ źródeł"
           }
         },
         "pt-BR": {
@@ -45012,7 +45012,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %@ источников"
+            "value": "z %@ zdrojov"
           }
         },
         "sv": {
@@ -45322,7 +45322,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Полный"
+            "value": "Plné"
           }
         },
         "da": {
@@ -45406,7 +45406,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Полный"
+            "value": "Puno"
           }
         },
         "hu": {
@@ -45460,7 +45460,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Полный"
+            "value": "Pełne"
           }
         },
         "pt-BR": {
@@ -45490,7 +45490,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Полный"
+            "value": "Plné"
           }
         },
         "sv": {
@@ -45800,7 +45800,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Развлечения"
+            "value": "Zábava"
           }
         },
         "da": {
@@ -45884,7 +45884,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Развлечения"
+            "value": "Zabava"
           }
         },
         "hu": {
@@ -45938,7 +45938,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Развлечения"
+            "value": "Rozrywka"
           }
         },
         "pt-BR": {
@@ -45968,7 +45968,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Развлечения"
+            "value": "Zábava"
           }
         },
         "sv": {
@@ -47201,7 +47201,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый День"
+            "value": "Dobré odpoledne"
           }
         },
         "da": {
@@ -47285,7 +47285,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый День"
+            "value": "Dobar dan"
           }
         },
         "hu": {
@@ -47339,7 +47339,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый День"
+            "value": "Dzień dobry"
           }
         },
         "pt-BR": {
@@ -47369,7 +47369,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый День"
+            "value": "Dobré popoludnie"
           }
         },
         "sv": {
@@ -47440,7 +47440,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый Вечер"
+            "value": "Dobrý večer"
           }
         },
         "da": {
@@ -47524,7 +47524,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый Вечер"
+            "value": "Dobra večer"
           }
         },
         "hu": {
@@ -47578,7 +47578,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый Вечер"
+            "value": "Dobry wieczór"
           }
         },
         "pt-BR": {
@@ -47608,7 +47608,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый Вечер"
+            "value": "Dobrý večer"
           }
         },
         "sv": {
@@ -47679,7 +47679,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Доброе Утро"
+            "value": "Dobré ráno"
           }
         },
         "da": {
@@ -47763,7 +47763,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Доброе Утро"
+            "value": "Dobro jutro"
           }
         },
         "hu": {
@@ -47817,7 +47817,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Доброе Утро"
+            "value": "Dzień dobry"
           }
         },
         "pt-BR": {
@@ -47847,7 +47847,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Доброе Утро"
+            "value": "Dobré ráno"
           }
         },
         "sv": {
@@ -47918,7 +47918,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Спокойной Ночи"
+            "value": "Dobrou noc"
           }
         },
         "da": {
@@ -48002,7 +48002,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Спокойной Ночи"
+            "value": "Laku noć"
           }
         },
         "hu": {
@@ -48056,7 +48056,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Спокойной Ночи"
+            "value": "Dobranoc"
           }
         },
         "pt-BR": {
@@ -48086,7 +48086,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Спокойной Ночи"
+            "value": "Dobrú noc"
           }
         },
         "sv": {
@@ -48156,7 +48156,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Град"
+            "value": "Kroupy"
           }
         },
         "da": {
@@ -48240,7 +48240,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Град"
+            "value": "Tuča"
           }
         },
         "hu": {
@@ -48294,7 +48294,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Град"
+            "value": "Grad"
           }
         },
         "pt-BR": {
@@ -48324,7 +48324,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Град"
+            "value": "Krupobitie"
           }
         },
         "sv": {
@@ -50723,7 +50723,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверка Состояния"
+            "value": "Kontrola stavu"
           }
         },
         "da": {
@@ -50807,7 +50807,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверка Состояния"
+            "value": "Provjera stanja"
           }
         },
         "hu": {
@@ -50861,7 +50861,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверка Состояния"
+            "value": "Sprawdzenie stanu"
           }
         },
         "pt-BR": {
@@ -50891,7 +50891,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверка Состояния"
+            "value": "Kontrola stavu"
           }
         },
         "sv": {
@@ -51200,7 +51200,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сильный Дождь"
+            "value": "Silný déšť"
           }
         },
         "da": {
@@ -51284,7 +51284,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сильный Дождь"
+            "value": "Jaka kiša"
           }
         },
         "hu": {
@@ -51338,7 +51338,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сильный Дождь"
+            "value": "Ulewa"
           }
         },
         "pt-BR": {
@@ -51368,7 +51368,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сильный Дождь"
+            "value": "Silný dážď"
           }
         },
         "sv": {
@@ -51439,7 +51439,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Привет"
+            "value": "Ahoj"
           }
         },
         "da": {
@@ -51523,7 +51523,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Привет"
+            "value": "Zdravo"
           }
         },
         "hu": {
@@ -51577,7 +51577,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Привет"
+            "value": "Cześć"
           }
         },
         "pt-BR": {
@@ -51607,7 +51607,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Привет"
+            "value": "Ahoj"
           }
         },
         "sv": {
@@ -52395,7 +52395,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жарко"
+            "value": "Horko"
           }
         },
         "da": {
@@ -52479,7 +52479,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жарко"
+            "value": "Vruće"
           }
         },
         "hu": {
@@ -52533,7 +52533,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жарко"
+            "value": "Gorąco"
           }
         },
         "pt-BR": {
@@ -52563,7 +52563,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жарко"
+            "value": "Horúco"
           }
         },
         "sv": {
@@ -53827,7 +53827,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Импорт Файла OPML"
+            "value": "Importovat OPML soubor"
           }
         },
         "da": {
@@ -53911,7 +53911,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Импорт Файла OPML"
+            "value": "Uvezi OPML datoteku"
           }
         },
         "hu": {
@@ -53965,7 +53965,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Импорт Файла OPML"
+            "value": "Importuj plik OPML"
           }
         },
         "pt-BR": {
@@ -53995,7 +53995,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Импорт Файла OPML"
+            "value": "Importovať OPML súbor"
           }
         },
         "sv": {
@@ -54304,7 +54304,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вдохновляющее"
+            "value": "Inspirativní"
           }
         },
         "da": {
@@ -54388,7 +54388,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вдохновляющее"
+            "value": "Inspirativno"
           }
         },
         "hu": {
@@ -54442,7 +54442,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вдохновляющее"
+            "value": "Inspirujące"
           }
         },
         "pt-BR": {
@@ -54472,7 +54472,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вдохновляющее"
+            "value": "Inšpiratívne"
           }
         },
         "sv": {
@@ -54542,7 +54542,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Январь"
+            "value": "Leden"
           }
         },
         "da": {
@@ -54626,7 +54626,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Январь"
+            "value": "Siječanj"
           }
         },
         "hu": {
@@ -54680,7 +54680,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Январь"
+            "value": "Styczeń"
           }
         },
         "pt-BR": {
@@ -54710,7 +54710,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Январь"
+            "value": "Január"
           }
         },
         "sv": {
@@ -54781,7 +54781,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июль"
+            "value": "Červenec"
           }
         },
         "da": {
@@ -54865,7 +54865,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июль"
+            "value": "Srpanj"
           }
         },
         "hu": {
@@ -54919,7 +54919,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июль"
+            "value": "Lipiec"
           }
         },
         "pt-BR": {
@@ -54949,7 +54949,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июль"
+            "value": "Júl"
           }
         },
         "sv": {
@@ -55020,7 +55020,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июнь"
+            "value": "Červen"
           }
         },
         "da": {
@@ -55104,7 +55104,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июнь"
+            "value": "Lipanj"
           }
         },
         "hu": {
@@ -55158,7 +55158,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июнь"
+            "value": "Czerwiec"
           }
         },
         "pt-BR": {
@@ -55188,7 +55188,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июнь"
+            "value": "Jún"
           }
         },
         "sv": {
@@ -55737,7 +55737,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Только Что Открыто"
+            "value": "Právě otevřeno"
           }
         },
         "da": {
@@ -55821,7 +55821,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Только Что Открыто"
+            "value": "Upravo otvoreno"
           }
         },
         "hu": {
@@ -55875,7 +55875,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Только Что Открыто"
+            "value": "Właśnie otwarte"
           }
         },
         "pt-BR": {
@@ -55905,7 +55905,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Только Что Открыто"
+            "value": "Práve otvorené"
           }
         },
         "sv": {
@@ -56932,7 +56932,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Язык"
+            "value": "Jazyk"
           }
         },
         "da": {
@@ -57016,7 +57016,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Язык"
+            "value": "Jezik"
           }
         },
         "hu": {
@@ -57070,7 +57070,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Язык"
+            "value": "Język"
           }
         },
         "pt-BR": {
@@ -57100,7 +57100,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Язык"
+            "value": "Jazyk"
           }
         },
         "sv": {
@@ -57379,7 +57379,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Большой"
+            "value": "Velká"
           }
         },
         "da": {
@@ -57463,7 +57463,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Большой"
+            "value": "Velika"
           }
         },
         "hu": {
@@ -57517,7 +57517,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Большой"
+            "value": "Duża"
           }
         },
         "pt-BR": {
@@ -57547,7 +57547,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Большой"
+            "value": "Veľká"
           }
         },
         "sv": {
@@ -57617,7 +57617,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Последнее сохранение"
+            "value": "Naposledy uloženo"
           }
         },
         "da": {
@@ -57701,7 +57701,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Последнее сохранение"
+            "value": "Zadnje spremljeno"
           }
         },
         "hu": {
@@ -57755,7 +57755,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Последнее сохранение"
+            "value": "Ostatnio zapisane"
           }
         },
         "pt-BR": {
@@ -57785,7 +57785,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Последнее сохранение"
+            "value": "Naposledy uložené"
           }
         },
         "sv": {
@@ -57855,7 +57855,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поздняя Ночь"
+            "value": "Pozdní noc"
           }
         },
         "da": {
@@ -57939,7 +57939,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поздняя Ночь"
+            "value": "Kasna noć"
           }
         },
         "hu": {
@@ -57993,7 +57993,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поздняя Ночь"
+            "value": "Późna noc"
           }
         },
         "pt-BR": {
@@ -58023,7 +58023,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поздняя Ночь"
+            "value": "Neskorá noc"
           }
         },
         "sv": {
@@ -59975,7 +59975,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Слушать"
+            "value": "Poslouchat"
           }
         },
         "da": {
@@ -60059,7 +60059,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Слушать"
+            "value": "Slušaj"
           }
         },
         "hu": {
@@ -60113,7 +60113,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Слушать"
+            "value": "Słuchaj"
           }
         },
         "pt-BR": {
@@ -60143,7 +60143,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Слушать"
+            "value": "Počúvať"
           }
         },
         "sv": {
@@ -60213,7 +60213,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Статей"
+            "value": "Načítání článků"
           }
         },
         "da": {
@@ -60297,7 +60297,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Статей"
+            "value": "Učitavanje članaka"
           }
         },
         "hu": {
@@ -60351,7 +60351,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Статей"
+            "value": "Ładowanie artykułów"
           }
         },
         "pt-BR": {
@@ -60381,7 +60381,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Статей"
+            "value": "Načítavanie článkov"
           }
         },
         "sv": {
@@ -60451,7 +60451,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Ленты…"
+            "value": "Načítání kanálu…"
           }
         },
         "da": {
@@ -60535,7 +60535,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Ленты…"
+            "value": "Učitavanje feeda…"
           }
         },
         "hu": {
@@ -60589,7 +60589,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Ленты…"
+            "value": "Ładowanie kanału…"
           }
         },
         "pt-BR": {
@@ -60619,7 +60619,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Ленты…"
+            "value": "Načítavanie kanála…"
           }
         },
         "sv": {
@@ -61167,7 +61167,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Низкий"
+            "value": "Nízké"
           }
         },
         "da": {
@@ -61251,7 +61251,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Низкий"
+            "value": "Nisko"
           }
         },
         "hu": {
@@ -61305,7 +61305,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Низкий"
+            "value": "Niskie"
           }
         },
         "pt-BR": {
@@ -61335,7 +61335,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Низкий"
+            "value": "Nízke"
           }
         },
         "sv": {
@@ -61645,7 +61645,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Марафон"
+            "value": "Maraton"
           }
         },
         "da": {
@@ -61729,7 +61729,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Марафон"
+            "value": "Maraton"
           }
         },
         "hu": {
@@ -61783,7 +61783,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Марафон"
+            "value": "Maraton"
           }
         },
         "pt-BR": {
@@ -61813,7 +61813,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Марафон"
+            "value": "Maratón"
           }
         },
         "sv": {
@@ -62123,7 +62123,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Март"
+            "value": "Březen"
           }
         },
         "da": {
@@ -62207,7 +62207,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Март"
+            "value": "Ožujak"
           }
         },
         "hu": {
@@ -62261,7 +62261,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Март"
+            "value": "Marzec"
           }
         },
         "pt-BR": {
@@ -62291,7 +62291,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Март"
+            "value": "Marec"
           }
         },
         "sv": {
@@ -62362,7 +62362,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отметить Всё Прочитанным"
+            "value": "Označit přečtené"
           }
         },
         "da": {
@@ -62446,7 +62446,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отметить Всё Прочитанным"
+            "value": "Označi pročitanim"
           }
         },
         "hu": {
@@ -62500,7 +62500,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отметить Всё Прочитанным"
+            "value": "Oznacz przeczytane"
           }
         },
         "pt-BR": {
@@ -62530,7 +62530,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отметить Всё Прочитанным"
+            "value": "Označiť prečítané"
           }
         },
         "sv": {
@@ -62839,7 +62839,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Май"
+            "value": "Květen"
           }
         },
         "da": {
@@ -62923,7 +62923,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Май"
+            "value": "Svibanj"
           }
         },
         "hu": {
@@ -62977,7 +62977,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Май"
+            "value": "Maj"
           }
         },
         "pt-BR": {
@@ -63007,7 +63007,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Май"
+            "value": "Máj"
           }
         },
         "sv": {
@@ -63078,7 +63078,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Средний"
+            "value": "Střední"
           }
         },
         "da": {
@@ -63162,7 +63162,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Средний"
+            "value": "Srednja"
           }
         },
         "hu": {
@@ -63216,7 +63216,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Средний"
+            "value": "Średnia"
           }
         },
         "pt-BR": {
@@ -63246,7 +63246,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Средний"
+            "value": "Stredná"
           }
         },
         "sv": {
@@ -64511,7 +64511,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мягко"
+            "value": "Mírně"
           }
         },
         "da": {
@@ -64595,7 +64595,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мягко"
+            "value": "Blago"
           }
         },
         "hu": {
@@ -64649,7 +64649,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мягко"
+            "value": "Łagodnie"
           }
         },
         "pt-BR": {
@@ -64679,7 +64679,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мягко"
+            "value": "Mierne"
           }
         },
         "sv": {
@@ -64989,7 +64989,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Понедельник"
+            "value": "Pondělí"
           }
         },
         "da": {
@@ -65073,7 +65073,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Понедельник"
+            "value": "Ponedjeljak"
           }
         },
         "hu": {
@@ -65127,7 +65127,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Понедельник"
+            "value": "Poniedziałek"
           }
         },
         "pt-BR": {
@@ -65157,7 +65157,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Понедельник"
+            "value": "Pondelok"
           }
         },
         "sv": {
@@ -65945,7 +65945,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настроение"
+            "value": "Nálada"
           }
         },
         "da": {
@@ -66029,7 +66029,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настроение"
+            "value": "Raspoloženje"
           }
         },
         "hu": {
@@ -66083,7 +66083,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настроение"
+            "value": "Nastrój"
           }
         },
         "pt-BR": {
@@ -66113,7 +66113,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настроение"
+            "value": "Nálada"
           }
         },
         "sv": {
@@ -66183,7 +66183,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Утро"
+            "value": "Ráno"
           }
         },
         "da": {
@@ -66267,7 +66267,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Утро"
+            "value": "Jutro"
           }
         },
         "hu": {
@@ -66321,7 +66321,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Утро"
+            "value": "Poranek"
           }
         },
         "pt-BR": {
@@ -66351,7 +66351,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Утро"
+            "value": "Ráno"
           }
         },
         "sv": {
@@ -67616,7 +67616,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "НОВОЕ"
+            "value": "NOVÉ"
           }
         },
         "da": {
@@ -67700,7 +67700,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "НОВОЕ"
+            "value": "NOVO"
           }
         },
         "hu": {
@@ -67754,7 +67754,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "НОВОЕ"
+            "value": "NOWE"
           }
         },
         "pt-BR": {
@@ -67784,7 +67784,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "НОВОЕ"
+            "value": "NOVÉ"
           }
         },
         "sv": {
@@ -68093,7 +68093,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая Серия"
+            "value": "Nová série"
           }
         },
         "da": {
@@ -68177,7 +68177,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая Серия"
+            "value": "Novi niz"
           }
         },
         "hu": {
@@ -68231,7 +68231,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая Серия"
+            "value": "Nowa seria"
           }
         },
         "pt-BR": {
@@ -68261,7 +68261,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая Серия"
+            "value": "Nová séria"
           }
         },
         "sv": {
@@ -70212,7 +70212,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночь"
+            "value": "Noc"
           }
         },
         "da": {
@@ -70296,7 +70296,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночь"
+            "value": "Noć"
           }
         },
         "hu": {
@@ -70350,7 +70350,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночь"
+            "value": "Noc"
           }
         },
         "pt-BR": {
@@ -70380,7 +70380,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночь"
+            "value": "Noc"
           }
         },
         "sv": {
@@ -70451,7 +70451,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночной Режим"
+            "value": "Noční režim"
           }
         },
         "da": {
@@ -70535,7 +70535,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночной Режим"
+            "value": "Noćni način"
           }
         },
         "hu": {
@@ -70589,7 +70589,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночной Режим"
+            "value": "Tryb nocny"
           }
         },
         "pt-BR": {
@@ -70619,7 +70619,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночной Режим"
+            "value": "Nočný režim"
           }
         },
         "sv": {
@@ -71167,7 +71167,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статей пока нет"
+            "value": "Zatím žádné články"
           }
         },
         "da": {
@@ -71251,7 +71251,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статей пока нет"
+            "value": "Još nema članaka"
           }
         },
         "hu": {
@@ -71305,7 +71305,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статей пока нет"
+            "value": "Jeszcze brak artykułów"
           }
         },
         "pt-BR": {
@@ -71335,7 +71335,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статей пока нет"
+            "value": "Zatiaľ žiadne články"
           }
         },
         "sv": {
@@ -71643,7 +71643,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет Интернет-Соединения"
+            "value": "Žádné připojení"
           }
         },
         "da": {
@@ -71727,7 +71727,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет Интернет-Соединения"
+            "value": "Nema interneta"
           }
         },
         "hu": {
@@ -71781,7 +71781,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет Интернет-Соединения"
+            "value": "Brak internetu"
           }
         },
         "pt-BR": {
@@ -71811,7 +71811,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет Интернет-Соединения"
+            "value": "Žiadne pripojenie"
           }
         },
         "sv": {
@@ -71881,7 +71881,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Без Спешки"
+            "value": "Bez spěchu"
           }
         },
         "da": {
@@ -71965,7 +71965,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Без Спешки"
+            "value": "Bez žurbe"
           }
         },
         "hu": {
@@ -72019,7 +72019,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Без Спешки"
+            "value": "Bez pośpiechu"
           }
         },
         "pt-BR": {
@@ -72049,7 +72049,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Без Спешки"
+            "value": "Bez zhonu"
           }
         },
         "sv": {
@@ -72359,7 +72359,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники Не Найдены"
+            "value": "Nenalezeny zdroje"
           }
         },
         "da": {
@@ -72443,7 +72443,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники Не Найдены"
+            "value": "Nema pronađenih izvora"
           }
         },
         "hu": {
@@ -72497,7 +72497,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники Не Найдены"
+            "value": "Nie znaleziono źródeł"
           }
         },
         "pt-BR": {
@@ -72527,7 +72527,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники Не Найдены"
+            "value": "Nenašli sa zdroje"
           }
         },
         "sv": {
@@ -72597,7 +72597,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет"
+            "value": "Žádné"
           }
         },
         "da": {
@@ -72681,7 +72681,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет"
+            "value": "Ništa"
           }
         },
         "hu": {
@@ -72735,7 +72735,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет"
+            "value": "Brak"
           }
         },
         "pt-BR": {
@@ -72765,7 +72765,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет"
+            "value": "Žiadne"
           }
         },
         "sv": {
@@ -72836,7 +72836,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нормально"
+            "value": "Normální"
           }
         },
         "da": {
@@ -72920,7 +72920,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нормально"
+            "value": "Normalno"
           }
         },
         "hu": {
@@ -72974,7 +72974,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нормально"
+            "value": "Normalny"
           }
         },
         "pt-BR": {
@@ -73004,7 +73004,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нормально"
+            "value": "Normálne"
           }
         },
         "sv": {
@@ -73791,7 +73791,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ноябрь"
+            "value": "Listopad"
           }
         },
         "da": {
@@ -73875,7 +73875,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ноябрь"
+            "value": "Studeni"
           }
         },
         "hu": {
@@ -73929,7 +73929,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ноябрь"
+            "value": "Listopad"
           }
         },
         "pt-BR": {
@@ -73959,7 +73959,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ноябрь"
+            "value": "November"
           }
         },
         "sv": {
@@ -74030,7 +74030,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Октябрь"
+            "value": "Říjen"
           }
         },
         "da": {
@@ -74114,7 +74114,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Октябрь"
+            "value": "Listopad"
           }
         },
         "hu": {
@@ -74168,7 +74168,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Октябрь"
+            "value": "Październik"
           }
         },
         "pt-BR": {
@@ -74198,7 +74198,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Октябрь"
+            "value": "Október"
           }
         },
         "sv": {
@@ -74508,7 +74508,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Офлайн"
+            "value": "Offline"
           }
         },
         "da": {
@@ -74592,7 +74592,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Офлайн"
+            "value": "Izvan mreže"
           }
         },
         "hu": {
@@ -74646,7 +74646,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Офлайн"
+            "value": "Offline"
           }
         },
         "pt-BR": {
@@ -74676,7 +74676,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Офлайн"
+            "value": "Offline"
           }
         },
         "sv": {
@@ -74747,7 +74747,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "ОК"
+            "value": "OK"
           }
         },
         "da": {
@@ -74831,7 +74831,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "ОК"
+            "value": "U redu"
           }
         },
         "hu": {
@@ -74885,7 +74885,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "ОК"
+            "value": "OK"
           }
         },
         "pt-BR": {
@@ -74915,7 +74915,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "ОК"
+            "value": "OK"
           }
         },
         "sv": {
@@ -74986,7 +74986,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Открыть в Safari"
+            "value": "Otevřít v Safari"
           }
         },
         "da": {
@@ -75070,7 +75070,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Открыть в Safari"
+            "value": "Otvori u Safariju"
           }
         },
         "hu": {
@@ -75124,7 +75124,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Открыть в Safari"
+            "value": "Otwórz w Safari"
           }
         },
         "pt-BR": {
@@ -75154,7 +75154,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Открыть в Safari"
+            "value": "Otvoriť v Safari"
           }
         },
         "sv": {
@@ -75224,7 +75224,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пасмурно"
+            "value": "Zamračeno"
           }
         },
         "da": {
@@ -75308,7 +75308,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пасмурно"
+            "value": "Oblačno"
           }
         },
         "hu": {
@@ -75362,7 +75362,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пасмурно"
+            "value": "Zachmurzenie"
           }
         },
         "pt-BR": {
@@ -75392,7 +75392,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пасмурно"
+            "value": "Zamračené"
           }
         },
         "sv": {
@@ -75879,7 +75879,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Семейство Палитр"
+            "value": "Rodina palet"
           }
         },
         "da": {
@@ -75963,7 +75963,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Семейство Палитр"
+            "value": "Obitelj paleta"
           }
         },
         "hu": {
@@ -76017,7 +76017,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Семейство Палитр"
+            "value": "Rodzina palet"
           }
         },
         "pt-BR": {
@@ -76047,7 +76047,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Семейство Палитр"
+            "value": "Rodina paliet"
           }
         },
         "sv": {
@@ -76117,7 +76117,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Переменная Облачность"
+            "value": "Polojasno"
           }
         },
         "da": {
@@ -76201,7 +76201,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Переменная Облачность"
+            "value": "Djelomično oblačno"
           }
         },
         "hu": {
@@ -76255,7 +76255,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Переменная Облачность"
+            "value": "Częściowo pochmurnie"
           }
         },
         "pt-BR": {
@@ -76285,7 +76285,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Переменная Облачность"
+            "value": "Polooblačno"
           }
         },
         "sv": {
@@ -77073,7 +77073,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Производительность"
+            "value": "Výkon"
           }
         },
         "da": {
@@ -77157,7 +77157,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Производительность"
+            "value": "Performanse"
           }
         },
         "hu": {
@@ -77211,7 +77211,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Производительность"
+            "value": "Wydajność"
           }
         },
         "pt-BR": {
@@ -77241,7 +77241,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Производительность"
+            "value": "Výkon"
           }
         },
         "sv": {
@@ -78026,7 +78026,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Подкасты"
+            "value": "Podcasty"
           }
         },
         "da": {
@@ -78110,7 +78110,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Подкасты"
+            "value": "Podcasti"
           }
         },
         "hu": {
@@ -78164,7 +78164,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Подкасты"
+            "value": "Podcasty"
           }
         },
         "pt-BR": {
@@ -78194,7 +78194,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Подкасты"
+            "value": "Podcasty"
           }
         },
         "sv": {
@@ -79936,7 +79936,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Дождь"
+            "value": "Déšť"
           }
         },
         "da": {
@@ -80020,7 +80020,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Дождь"
+            "value": "Kiša"
           }
         },
         "hu": {
@@ -80074,7 +80074,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Дождь"
+            "value": "Deszcz"
           }
         },
         "pt-BR": {
@@ -80104,7 +80104,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Дождь"
+            "value": "Dážď"
           }
         },
         "sv": {
@@ -80175,7 +80175,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Чтение"
+            "value": "Čtení"
           }
         },
         "da": {
@@ -80259,7 +80259,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Чтение"
+            "value": "Čitanje"
           }
         },
         "hu": {
@@ -80313,7 +80313,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Чтение"
+            "value": "Czytanie"
           }
         },
         "pt-BR": {
@@ -80343,7 +80343,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Чтение"
+            "value": "Čítanie"
           }
         },
         "sv": {
@@ -80652,7 +80652,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статистика Чтения"
+            "value": "Statistiky čtení"
           }
         },
         "da": {
@@ -80736,7 +80736,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статистика Чтения"
+            "value": "Statistika čitanja"
           }
         },
         "hu": {
@@ -80790,7 +80790,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статистика Чтения"
+            "value": "Statystyki czytania"
           }
         },
         "pt-BR": {
@@ -80820,7 +80820,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статистика Чтения"
+            "value": "Štatistiky čítania"
           }
         },
         "sv": {
@@ -80890,7 +80890,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить"
+            "value": "Obnovit"
           }
         },
         "da": {
@@ -80974,7 +80974,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить"
+            "value": "Osvježi"
           }
         },
         "hu": {
@@ -81028,7 +81028,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить"
+            "value": "Odśwież"
           }
         },
         "pt-BR": {
@@ -81058,7 +81058,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить"
+            "value": "Obnoviť"
           }
         },
         "sv": {
@@ -81128,7 +81128,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить Сейчас"
+            "value": "Obnovit nyní"
           }
         },
         "da": {
@@ -81212,7 +81212,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить Сейчас"
+            "value": "Osvježi odmah"
           }
         },
         "hu": {
@@ -81266,7 +81266,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить Сейчас"
+            "value": "Odśwież teraz"
           }
         },
         "pt-BR": {
@@ -81296,7 +81296,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить Сейчас"
+            "value": "Obnoviť teraz"
           }
         },
         "sv": {
@@ -81366,7 +81366,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалить"
+            "value": "Odstranit"
           }
         },
         "da": {
@@ -81450,7 +81450,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалить"
+            "value": "Ukloni"
           }
         },
         "hu": {
@@ -81504,7 +81504,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалить"
+            "value": "Usuń"
           }
         },
         "pt-BR": {
@@ -81534,7 +81534,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Удалить"
+            "value": "Odstrániť"
           }
         },
         "sv": {
@@ -81842,7 +81842,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Данные"
+            "value": "Obnovit data"
           }
         },
         "da": {
@@ -81926,7 +81926,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Данные"
+            "value": "Poništi podatke"
           }
         },
         "hu": {
@@ -81980,7 +81980,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Данные"
+            "value": "Zresetuj dane"
           }
         },
         "pt-BR": {
@@ -82010,7 +82010,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Данные"
+            "value": "Obnoviť dáta"
           }
         },
         "sv": {
@@ -82080,7 +82080,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Всё"
+            "value": "Obnovit vše"
           }
         },
         "da": {
@@ -82164,7 +82164,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Всё"
+            "value": "Poništi sve"
           }
         },
         "hu": {
@@ -82218,7 +82218,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Всё"
+            "value": "Zresetuj wszystko"
           }
         },
         "pt-BR": {
@@ -82248,7 +82248,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сбросить Всё"
+            "value": "Obnoviť všetko"
           }
         },
         "sv": {
@@ -82318,7 +82318,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Требуется Перезапуск"
+            "value": "Nutný restart"
           }
         },
         "da": {
@@ -82402,7 +82402,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Требуется Перезапуск"
+            "value": "Potrebno ponovno pokretanje"
           }
         },
         "hu": {
@@ -82456,7 +82456,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Требуется Перезапуск"
+            "value": "Wymagany restart"
           }
         },
         "pt-BR": {
@@ -82486,7 +82486,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Требуется Перезапуск"
+            "value": "Nutný reštart"
           }
         },
         "sv": {
@@ -83751,7 +83751,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Суббота"
+            "value": "Sobota"
           }
         },
         "da": {
@@ -83835,7 +83835,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Суббота"
+            "value": "Subota"
           }
         },
         "hu": {
@@ -83889,7 +83889,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Суббота"
+            "value": "Sobota"
           }
         },
         "pt-BR": {
@@ -83919,7 +83919,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Суббота"
+            "value": "Sobota"
           }
         },
         "sv": {
@@ -84468,7 +84468,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сохранено"
+            "value": "Uloženo"
           }
         },
         "da": {
@@ -84552,7 +84552,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сохранено"
+            "value": "Spremljeno"
           }
         },
         "hu": {
@@ -84606,7 +84606,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сохранено"
+            "value": "Zapisane"
           }
         },
         "pt-BR": {
@@ -84636,7 +84636,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сохранено"
+            "value": "Uložené"
           }
         },
         "sv": {
@@ -84706,7 +84706,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Палящий Зной"
+            "value": "Úpal"
           }
         },
         "da": {
@@ -84790,7 +84790,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Палящий Зной"
+            "value": "Žestoko"
           }
         },
         "hu": {
@@ -84844,7 +84844,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Палящий Зной"
+            "value": "Upalnie"
           }
         },
         "pt-BR": {
@@ -84874,7 +84874,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Палящий Зной"
+            "value": "Páľava"
           }
         },
         "sv": {
@@ -84945,7 +84945,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Наверх"
+            "value": "Nahoru"
           }
         },
         "da": {
@@ -85029,7 +85029,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Наверх"
+            "value": "Na vrh"
           }
         },
         "hu": {
@@ -85083,7 +85083,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Наверх"
+            "value": "Na górę"
           }
         },
         "pt-BR": {
@@ -85113,7 +85113,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Наверх"
+            "value": "Nahor"
           }
         },
         "sv": {
@@ -85183,7 +85183,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поиск статей…"
+            "value": "Hledat články…"
           }
         },
         "da": {
@@ -85267,7 +85267,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поиск статей…"
+            "value": "Pretraži članke…"
           }
         },
         "hu": {
@@ -85321,7 +85321,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поиск статей…"
+            "value": "Szukaj artykułów…"
           }
         },
         "pt-BR": {
@@ -85351,7 +85351,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поиск статей…"
+            "value": "Hľadať články…"
           }
         },
         "sv": {
@@ -85659,7 +85659,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отправить Отзыв"
+            "value": "Poslat zpětnou vazbu"
           }
         },
         "da": {
@@ -85743,7 +85743,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отправить Отзыв"
+            "value": "Pošalji povratne informacije"
           }
         },
         "hu": {
@@ -85797,7 +85797,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отправить Отзыв"
+            "value": "Wyślij opinię"
           }
         },
         "pt-BR": {
@@ -85827,7 +85827,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отправить Отзыв"
+            "value": "Poslať spätnú väzbu"
           }
         },
         "sv": {
@@ -85897,7 +85897,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сентябрь"
+            "value": "Září"
           }
         },
         "da": {
@@ -85981,7 +85981,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сентябрь"
+            "value": "Rujan"
           }
         },
         "hu": {
@@ -86035,7 +86035,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сентябрь"
+            "value": "Wrzesień"
           }
         },
         "pt-BR": {
@@ -86065,7 +86065,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сентябрь"
+            "value": "September"
           }
         },
         "sv": {
@@ -86136,7 +86136,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Серьёзное"
+            "value": "Vážné"
           }
         },
         "da": {
@@ -86220,7 +86220,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Серьёзное"
+            "value": "Ozbiljno"
           }
         },
         "hu": {
@@ -86274,7 +86274,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Серьёзное"
+            "value": "Poważne"
           }
         },
         "pt-BR": {
@@ -86304,7 +86304,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Серьёзное"
+            "value": "Vážne"
           }
         },
         "sv": {
@@ -86374,7 +86374,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настройки"
+            "value": "Nastavení"
           }
         },
         "da": {
@@ -86458,7 +86458,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настройки"
+            "value": "Postavke"
           }
         },
         "hu": {
@@ -86512,7 +86512,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настройки"
+            "value": "Ustawienia"
           }
         },
         "pt-BR": {
@@ -86542,7 +86542,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настройки"
+            "value": "Nastavenia"
           }
         },
         "sv": {
@@ -86612,7 +86612,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осваивается"
+            "value": "Zabydlování"
           }
         },
         "da": {
@@ -86696,7 +86696,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осваивается"
+            "value": "Udomaćivanje"
           }
         },
         "hu": {
@@ -86750,7 +86750,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осваивается"
+            "value": "Zadomawianie"
           }
         },
         "pt-BR": {
@@ -86780,7 +86780,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осваивается"
+            "value": "Zabývanie"
           }
         },
         "sv": {
@@ -87567,7 +87567,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться"
+            "value": "Sdílet"
           }
         },
         "da": {
@@ -87651,7 +87651,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться"
+            "value": "Dijeli"
           }
         },
         "hu": {
@@ -87705,7 +87705,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться"
+            "value": "Udostępnij"
           }
         },
         "pt-BR": {
@@ -87735,7 +87735,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться"
+            "value": "Zdieľať"
           }
         },
         "sv": {
@@ -88281,7 +88281,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться Статистикой"
+            "value": "Sdílet statistiky"
           }
         },
         "da": {
@@ -88365,7 +88365,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться Статистикой"
+            "value": "Podijeli statistiku"
           }
         },
         "hu": {
@@ -88419,7 +88419,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться Статистикой"
+            "value": "Udostępnij statystyki"
           }
         },
         "pt-BR": {
@@ -88449,7 +88449,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться Статистикой"
+            "value": "Zdieľať štatistiky"
           }
         },
         "sv": {
@@ -88995,7 +88995,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Беглый Просмотр"
+            "value": "Prohlížení"
           }
         },
         "da": {
@@ -89079,7 +89079,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Беглый Просмотр"
+            "value": "Pregledavanje"
           }
         },
         "hu": {
@@ -89133,7 +89133,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Беглый Просмотр"
+            "value": "Przeglądanie"
           }
         },
         "pt-BR": {
@@ -89163,7 +89163,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Беглый Просмотр"
+            "value": "Prezeranie"
           }
         },
         "sv": {
@@ -89473,7 +89473,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мокрый Снег"
+            "value": "Plískanice"
           }
         },
         "da": {
@@ -89557,7 +89557,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мокрый Снег"
+            "value": "Susnježica"
           }
         },
         "hu": {
@@ -89611,7 +89611,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мокрый Снег"
+            "value": "Deszcz ze śniegiem"
           }
         },
         "pt-BR": {
@@ -89641,7 +89641,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Мокрый Снег"
+            "value": "Dážď so snehom"
           }
         },
         "sv": {
@@ -90190,7 +90190,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Маленький"
+            "value": "Malá"
           }
         },
         "da": {
@@ -90274,7 +90274,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Маленький"
+            "value": "Mala"
           }
         },
         "hu": {
@@ -90328,7 +90328,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Маленький"
+            "value": "Mała"
           }
         },
         "pt-BR": {
@@ -90358,7 +90358,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Маленький"
+            "value": "Malá"
           }
         },
         "sv": {
@@ -90428,7 +90428,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снег"
+            "value": "Sníh"
           }
         },
         "da": {
@@ -90512,7 +90512,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снег"
+            "value": "Snijeg"
           }
         },
         "hu": {
@@ -90566,7 +90566,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снег"
+            "value": "Śnieg"
           }
         },
         "pt-BR": {
@@ -90596,7 +90596,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снег"
+            "value": "Sneh"
           }
         },
         "sv": {
@@ -90667,7 +90667,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники"
+            "value": "Zdroje"
           }
         },
         "da": {
@@ -90751,7 +90751,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники"
+            "value": "Izvori"
           }
         },
         "hu": {
@@ -90805,7 +90805,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники"
+            "value": "Źródła"
           }
         },
         "pt-BR": {
@@ -90835,7 +90835,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники"
+            "value": "Zdroje"
           }
         },
         "sv": {
@@ -91591,7 +91591,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Весна"
+            "value": "Jaro"
           }
         },
         "da": {
@@ -91675,7 +91675,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Весна"
+            "value": "Proljeće"
           }
         },
         "hu": {
@@ -91729,7 +91729,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Весна"
+            "value": "Wiosna"
           }
         },
         "pt-BR": {
@@ -91759,7 +91759,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Весна"
+            "value": "Jar"
           }
         },
         "sv": {
@@ -93025,7 +93025,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Равномерно"
+            "value": "Stabilní"
           }
         },
         "da": {
@@ -93109,7 +93109,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Равномерно"
+            "value": "Stabilno"
           }
         },
         "hu": {
@@ -93163,7 +93163,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Равномерно"
+            "value": "Stały"
           }
         },
         "pt-BR": {
@@ -93193,7 +93193,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Равномерно"
+            "value": "Stabilné"
           }
         },
         "sv": {
@@ -93742,7 +93742,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лето"
+            "value": "Léto"
           }
         },
         "da": {
@@ -93826,7 +93826,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лето"
+            "value": "Ljeto"
           }
         },
         "hu": {
@@ -93880,7 +93880,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лето"
+            "value": "Lato"
           }
         },
         "pt-BR": {
@@ -93910,7 +93910,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лето"
+            "value": "Leto"
           }
         },
         "sv": {
@@ -94459,7 +94459,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Воскресенье"
+            "value": "Neděle"
           }
         },
         "da": {
@@ -94543,7 +94543,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Воскресенье"
+            "value": "Nedjelja"
           }
         },
         "hu": {
@@ -94597,7 +94597,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Воскресенье"
+            "value": "Niedziela"
           }
         },
         "pt-BR": {
@@ -94627,7 +94627,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Воскресенье"
+            "value": "Nedeľa"
           }
         },
         "sv": {
@@ -96785,7 +96785,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Спеши"
+            "value": "Nespěchej"
           }
         },
         "da": {
@@ -96869,7 +96869,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Спеши"
+            "value": "Ne žuri"
           }
         },
         "hu": {
@@ -96923,7 +96923,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Спеши"
+            "value": "Nie spiesz się"
           }
         },
         "pt-BR": {
@@ -96953,7 +96953,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Не Спеши"
+            "value": "Neponáhľaj"
           }
         },
         "sv": {
@@ -97263,7 +97263,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нажмите для Повтора"
+            "value": "Klepněte pro opakování"
           }
         },
         "da": {
@@ -97347,7 +97347,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нажмите для Повтора"
+            "value": "Dodirni za ponovni pokušaj"
           }
         },
         "hu": {
@@ -97401,7 +97401,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нажмите для Повтора"
+            "value": "Dotknij by ponowić"
           }
         },
         "pt-BR": {
@@ -97431,7 +97431,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нажмите для Повтора"
+            "value": "Ťukni pre opakovanie"
           }
         },
         "sv": {
@@ -97501,7 +97501,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Техническое"
+            "value": "Technické"
           }
         },
         "da": {
@@ -97585,7 +97585,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Техническое"
+            "value": "Tehničko"
           }
         },
         "hu": {
@@ -97639,7 +97639,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Техническое"
+            "value": "Techniczne"
           }
         },
         "pt-BR": {
@@ -97669,7 +97669,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Техническое"
+            "value": "Technické"
           }
         },
         "sv": {
@@ -97739,7 +97739,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверить Все Источники"
+            "value": "Otestovat zdroje"
           }
         },
         "da": {
@@ -97823,7 +97823,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверить Все Источники"
+            "value": "Testiraj sve izvore"
           }
         },
         "hu": {
@@ -97877,7 +97877,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверить Все Источники"
+            "value": "Przetestuj źródła"
           }
         },
         "pt-BR": {
@@ -97907,7 +97907,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Проверить Все Источники"
+            "value": "Otestovať zdroje"
           }
         },
         "sv": {
@@ -101768,7 +101768,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "На Этой Неделе"
+            "value": "Tento týden"
           }
         },
         "da": {
@@ -101852,7 +101852,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "На Этой Неделе"
+            "value": "Ovaj tjedan"
           }
         },
         "hu": {
@@ -101906,7 +101906,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "На Этой Неделе"
+            "value": "W tym tygodniu"
           }
         },
         "pt-BR": {
@@ -101936,7 +101936,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "На Этой Неделе"
+            "value": "Tento týždeň"
           }
         },
         "sv": {
@@ -102245,7 +102245,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Гроза"
+            "value": "Bouřka"
           }
         },
         "da": {
@@ -102329,7 +102329,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Гроза"
+            "value": "Grmljavina"
           }
         },
         "hu": {
@@ -102383,7 +102383,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Гроза"
+            "value": "Burza"
           }
         },
         "pt-BR": {
@@ -102413,7 +102413,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Гроза"
+            "value": "Búrka"
           }
         },
         "sv": {
@@ -102484,7 +102484,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Четверг"
+            "value": "Čtvrtek"
           }
         },
         "da": {
@@ -102568,7 +102568,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Четверг"
+            "value": "Četvrtak"
           }
         },
         "hu": {
@@ -102622,7 +102622,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Четверг"
+            "value": "Czwartek"
           }
         },
         "pt-BR": {
@@ -102652,7 +102652,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Четверг"
+            "value": "Štvrtok"
           }
         },
         "sv": {
@@ -102962,7 +102962,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня"
+            "value": "Dnes"
           }
         },
         "da": {
@@ -103046,7 +103046,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня"
+            "value": "Danas"
           }
         },
         "hu": {
@@ -103100,7 +103100,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня"
+            "value": "Dziś"
           }
         },
         "pt-BR": {
@@ -103130,7 +103130,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня"
+            "value": "Dnes"
           }
         },
         "sv": {
@@ -103201,7 +103201,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Завтра"
+            "value": "Zítra"
           }
         },
         "da": {
@@ -103285,7 +103285,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Завтра"
+            "value": "Sutra"
           }
         },
         "hu": {
@@ -103339,7 +103339,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Завтра"
+            "value": "Jutro"
           }
         },
         "pt-BR": {
@@ -103369,7 +103369,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Завтра"
+            "value": "Zajtra"
           }
         },
         "sv": {
@@ -103917,7 +103917,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Главные Истории"
+            "value": "Hlavní články"
           }
         },
         "da": {
@@ -104001,7 +104001,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Главные Истории"
+            "value": "Glavne priče"
           }
         },
         "hu": {
@@ -104055,7 +104055,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Главные Истории"
+            "value": "Główne artykuły"
           }
         },
         "pt-BR": {
@@ -104085,7 +104085,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Главные Истории"
+            "value": "Hlavné články"
           }
         },
         "sv": {
@@ -104632,7 +104632,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вторник"
+            "value": "Úterý"
           }
         },
         "da": {
@@ -104716,7 +104716,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вторник"
+            "value": "Utorak"
           }
         },
         "hu": {
@@ -104770,7 +104770,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вторник"
+            "value": "Wtorek"
           }
         },
         "pt-BR": {
@@ -104800,7 +104800,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вторник"
+            "value": "Utorok"
           }
         },
         "sv": {
@@ -106274,7 +106274,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Версия"
+            "value": "Verze"
           }
         },
         "da": {
@@ -106358,7 +106358,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Версия"
+            "value": "Verzija"
           }
         },
         "hu": {
@@ -106412,7 +106412,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Версия"
+            "value": "Wersja"
           }
         },
         "pt-BR": {
@@ -106442,7 +106442,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Версия"
+            "value": "Verzia"
           }
         },
         "sv": {
@@ -107227,7 +107227,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Видео"
+            "value": "Videa"
           }
         },
         "da": {
@@ -107311,7 +107311,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Видео"
+            "value": "Videozapisi"
           }
         },
         "hu": {
@@ -107365,7 +107365,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Видео"
+            "value": "Filmy"
           }
         },
         "pt-BR": {
@@ -107395,7 +107395,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Видео"
+            "value": "Videá"
           }
         },
         "sv": {
@@ -107943,7 +107943,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Тепло"
+            "value": "Teplo"
           }
         },
         "da": {
@@ -108027,7 +108027,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Тепло"
+            "value": "Toplo"
           }
         },
         "hu": {
@@ -108081,7 +108081,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Тепло"
+            "value": "Ciepło"
           }
         },
         "pt-BR": {
@@ -108111,7 +108111,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Тепло"
+            "value": "Teplo"
           }
         },
         "sv": {
@@ -108660,7 +108660,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смотреть"
+            "value": "Sledovat"
           }
         },
         "da": {
@@ -108744,7 +108744,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смотреть"
+            "value": "Gledaj"
           }
         },
         "hu": {
@@ -108798,7 +108798,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смотреть"
+            "value": "Oglądaj"
           }
         },
         "pt-BR": {
@@ -108828,7 +108828,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смотреть"
+            "value": "Pozerať"
           }
         },
         "sv": {
@@ -109376,7 +109376,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Среда"
+            "value": "Středa"
           }
         },
         "da": {
@@ -109460,7 +109460,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Среда"
+            "value": "Srijeda"
           }
         },
         "hu": {
@@ -109514,7 +109514,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Среда"
+            "value": "Środa"
           }
         },
         "pt-BR": {
@@ -109544,7 +109544,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Среда"
+            "value": "Streda"
           }
         },
         "sv": {
@@ -109854,7 +109854,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выходные"
+            "value": "Víkend"
           }
         },
         "da": {
@@ -109938,7 +109938,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выходные"
+            "value": "Vikend"
           }
         },
         "hu": {
@@ -109992,7 +109992,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выходные"
+            "value": "Weekend"
           }
         },
         "pt-BR": {
@@ -110022,7 +110022,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выходные"
+            "value": "Víkend"
           }
         },
         "sv": {
@@ -110332,7 +110332,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новое"
+            "value": "Novinky"
           }
         },
         "da": {
@@ -110416,7 +110416,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новое"
+            "value": "Novo"
           }
         },
         "hu": {
@@ -110470,7 +110470,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новое"
+            "value": "Co nowego"
           }
         },
         "pt-BR": {
@@ -110500,7 +110500,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новое"
+            "value": "Novinky"
           }
         },
         "sv": {
@@ -111017,7 +111017,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ветрено"
+            "value": "Větrno"
           }
         },
         "da": {
@@ -111101,7 +111101,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ветрено"
+            "value": "Vjetrovito"
           }
         },
         "hu": {
@@ -111155,7 +111155,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ветрено"
+            "value": "Wietrznie"
           }
         },
         "pt-BR": {
@@ -111185,7 +111185,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ветрено"
+            "value": "Veterno"
           }
         },
         "sv": {
@@ -111256,7 +111256,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Зима"
+            "value": "Zima"
           }
         },
         "da": {
@@ -111340,7 +111340,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Зима"
+            "value": "Zima"
           }
         },
         "hu": {
@@ -111394,7 +111394,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Зима"
+            "value": "Zima"
           }
         },
         "pt-BR": {
@@ -111424,7 +111424,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Зима"
+            "value": "Zima"
           }
         },
         "sv": {
@@ -112451,7 +112451,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вчера"
+            "value": "Včera"
           }
         },
         "da": {
@@ -112535,7 +112535,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вчера"
+            "value": "Jučer"
           }
         },
         "hu": {
@@ -112589,7 +112589,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вчера"
+            "value": "Wczoraj"
           }
         },
         "pt-BR": {
@@ -112619,7 +112619,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вчера"
+            "value": "Včera"
           }
         },
         "sv": {
@@ -116026,7 +116026,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld статей"
+            "value": "%lld článků"
           }
         },
         "da": {
@@ -116110,7 +116110,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld статей"
+            "value": "%lld članaka"
           }
         },
         "hu": {
@@ -116164,7 +116164,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld статей"
+            "value": "%lld artykułów"
           }
         },
         "pt-BR": {
@@ -116194,7 +116194,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld статей"
+            "value": "%lld článkov"
           }
         },
         "sv": {
@@ -117190,7 +117190,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld отброшено"
+            "value": "%lld zahozeno"
           }
         },
         "da": {
@@ -117274,7 +117274,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld отброшено"
+            "value": "%lld odbačeno"
           }
         },
         "hu": {
@@ -117328,7 +117328,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld отброшено"
+            "value": "%lld odrzuconych"
           }
         },
         "pt-BR": {
@@ -117358,7 +117358,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld отброшено"
+            "value": "%lld zahodených"
           }
         },
         "sv": {
@@ -117667,7 +117667,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld ошибок"
+            "value": "%lld selhání"
           }
         },
         "da": {
@@ -117751,7 +117751,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld ошибок"
+            "value": "%lld neuspjeha"
           }
         },
         "hu": {
@@ -117805,7 +117805,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld ошибок"
+            "value": "%lld niepowodzeń"
           }
         },
         "pt-BR": {
@@ -117835,7 +117835,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld ошибок"
+            "value": "%lld zlyhaní"
           }
         },
         "sv": {
@@ -118381,7 +118381,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld загружено"
+            "value": "%lld načteno"
           }
         },
         "da": {
@@ -118465,7 +118465,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld загружено"
+            "value": "%lld dohvaćeno"
           }
         },
         "hu": {
@@ -118519,7 +118519,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld загружено"
+            "value": "%lld pobranych"
           }
         },
         "pt-BR": {
@@ -118549,7 +118549,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld загружено"
+            "value": "%lld načítaných"
           }
         },
         "sv": {
@@ -120021,7 +120021,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld мин чтения"
+            "value": "%lld min čtení"
           }
         },
         "da": {
@@ -120105,7 +120105,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld мин чтения"
+            "value": "%lld min čitanja"
           }
         },
         "hu": {
@@ -120159,7 +120159,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld мин чтения"
+            "value": "%lld min czytania"
           }
         },
         "pt-BR": {
@@ -120189,7 +120189,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld мин чтения"
+            "value": "%lld min čítania"
           }
         },
         "sv": {
@@ -122171,7 +122171,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых"
+            "value": "%lld nových"
           }
         },
         "da": {
@@ -122255,7 +122255,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых"
+            "value": "%lld novih"
           }
         },
         "hu": {
@@ -122309,7 +122309,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых"
+            "value": "%lld nowych"
           }
         },
         "pt-BR": {
@@ -122339,7 +122339,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых"
+            "value": "%lld nových"
           }
         },
         "sv": {
@@ -122648,7 +122648,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых историй"
+            "value": "%lld nových článků"
           }
         },
         "da": {
@@ -122732,7 +122732,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых историй"
+            "value": "%lld novih priča"
           }
         },
         "hu": {
@@ -122786,7 +122786,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых историй"
+            "value": "%lld nowych artykułów"
           }
         },
         "pt-BR": {
@@ -122816,7 +122816,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых историй"
+            "value": "%lld nových článkov"
           }
         },
         "sv": {
@@ -124319,7 +124319,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld в очереди"
+            "value": "%lld ve frontě"
           }
         },
         "da": {
@@ -124403,7 +124403,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld в очереди"
+            "value": "%lld u redu"
           }
         },
         "hu": {
@@ -124457,7 +124457,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld в очереди"
+            "value": "%lld w kolejce"
           }
         },
         "pt-BR": {
@@ -124487,7 +124487,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld в очереди"
+            "value": "%lld vo fronte"
           }
         },
         "sv": {
@@ -124796,7 +124796,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld источников"
+            "value": "%lld zdrojů"
           }
         },
         "da": {
@@ -124880,7 +124880,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld источников"
+            "value": "%lld izvora"
           }
         },
         "hu": {
@@ -124934,7 +124934,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld источников"
+            "value": "%lld źródeł"
           }
         },
         "pt-BR": {
@@ -124964,7 +124964,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld источников"
+            "value": "%lld zdrojov"
           }
         },
         "sv": {
@@ -126228,7 +126228,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld уникальных"
+            "value": "%lld unikátních"
           }
         },
         "da": {
@@ -126312,7 +126312,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld уникальных"
+            "value": "%lld jedinstvenih"
           }
         },
         "hu": {
@@ -126366,7 +126366,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld уникальных"
+            "value": "%lld unikalnych"
           }
         },
         "pt-BR": {
@@ -126396,7 +126396,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld уникальных"
+            "value": "%lld unikátnych"
           }
         },
         "sv": {
@@ -130526,7 +130526,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %lld источников"
+            "value": "z %lld zdrojů"
           }
         },
         "da": {
@@ -130610,7 +130610,7 @@
         "hr": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %lld источников"
+            "value": "iz %lld izvora"
           }
         },
         "hu": {
@@ -130664,7 +130664,7 @@
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %lld источников"
+            "value": "z %lld źródeł"
           }
         },
         "pt-BR": {
@@ -130694,7 +130694,7 @@
         "sk": {
           "stringUnit": {
             "state": "translated",
-            "value": "из %lld источников"
+            "value": "z %lld zdrojov"
           }
         },
         "sv": {
