@@ -310,15 +310,44 @@ final class FeedLoader {
     }
 
     func toggleRegion(_ region: String) {
-        if disabledRegions.contains(region) {
+        let wasDisabled = disabledRegions.contains(region)
+        if wasDisabled {
             disabledRegions.remove(region)
         } else {
             disabledRegions.insert(region)
         }
         rebuildAfterRegionToggle()
-        // No auto-fetch — newly enabled regions are picked up naturally
-        // by refillReservoir() when the user scrolls. Fetch-on-demand.
+
+        // Fetch a small seed batch from newly enabled region so content
+        // appears quickly. refillReservoir handles the rest on scroll.
+        if wasDisabled {
+            Task { await self.seedRegionContent(region) }
+        }
+
         PersistenceManager.shared.save(buildState())
+    }
+
+    /// Fetch a small batch (10 sources) from a newly enabled region to seed
+    /// the reservoir quickly. The full region is picked up by refillReservoir.
+    private func seedRegionContent(_ region: String) async {
+        let regionSources = sources
+            .filter { $0.region == region && !disabledSourceIDs.contains($0.url) }
+            .prefix(10)
+        guard !regionSources.isEmpty else { return }
+
+        let batch = await fetcher.fetchAll(Array(regionSources), maxConcurrent: 10)
+        let actualNew = batch.items.filter { !loadedIDs.contains($0.id) }
+        guard !actualNew.isEmpty else { return }
+        registerLoadedIDs(actualNew.map(\.id))
+        totalFetched += batch.items.count
+
+        reservoir.append(contentsOf: actualNew)
+        reservoir = interleave(reservoir)
+        capReservoir()
+        reservoirCount = reservoir.count
+        whatsNewVersion &+= 1
+
+        PersistenceManager.shared.save(buildStateWithItems())
     }
 
     func isRegionEnabled(_ region: String) -> Bool {
@@ -351,13 +380,18 @@ final class FeedLoader {
     }
 
     func toggleGlobalFeeds() {
-        if disabledRegions.contains("global") {
+        let wasDisabled = disabledRegions.contains("global")
+        if wasDisabled {
             disabledRegions.remove("global")
         } else {
             disabledRegions.insert("global")
         }
         rebuildAfterRegionToggle()
-        // No auto-fetch — refillReservoir handles it on next scroll.
+
+        if wasDisabled {
+            Task { await self.seedRegionContent("global") }
+        }
+
         PersistenceManager.shared.save(buildState())
     }
 
