@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WhatsNewCarousel: View {
     @Environment(FeedLoader.self) private var loader
+    let onOpen: (FeedItem) -> Void
 
     private var items: [FeedItem] { loader.whatIsNewItems }
 
@@ -59,7 +60,7 @@ struct WhatsNewCarousel: View {
                 HStack(spacing: 14) {
                     Color.clear.frame(width: 2)
                     ForEach(items) { item in
-                        WhatsNewCard(item: item)
+                        WhatsNewCard(item: item, onOpen: onOpen)
                             .frame(width: cardWidth, height: cardHeight)
                             .scrollTransition(.interactive.threshold(.visible(0.3))) { content, phase in
                                 content
@@ -327,6 +328,7 @@ struct ScanningBeam: View {
 
 struct WhatsNewCard: View {
     let item: FeedItem
+    let onOpen: (FeedItem) -> Void
     @Environment(FeedLoader.self) private var loader
     @State private var appeared = false
 
@@ -412,9 +414,8 @@ struct WhatsNewCard: View {
         .onTapGesture {
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()
-            let url = URL(string: item.url) ?? URL(string: "https://www.google.com")!
-            UIApplication.shared.open(url)
             loader.markAsRead(item.id)
+            onOpen(item)
         }
     }
 

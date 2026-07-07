@@ -237,7 +237,7 @@ struct FeedScreen: View {
                             .padding(.top, 12)
                         // What's New carousel
                         if loader.selectedCategory == nil && loader.selectedMood == .all && loader.selectedContentType == .all && loader.searchQuery.isEmpty {
-                            WhatsNewCarousel()
+                            WhatsNewCarousel(onOpen: { articleItem = $0 })
                                 .padding(.top, 8)
                         }
 
