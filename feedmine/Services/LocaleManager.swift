@@ -75,7 +75,12 @@ final class LocaleManager {
     var selectedLanguage: Language
 
     private init() {
-        selectedLanguage = Self.resolveLanguage()
+        let resolved = Self.resolveLanguage()
+        selectedLanguage = resolved
+        // Ensure AppleLanguages is set so the bundle loads the correct .lproj
+        if UserDefaults.standard.stringArray(forKey: "AppleLanguages") == nil {
+            UserDefaults.standard.set([resolved.code], forKey: "AppleLanguages")
+        }
     }
 
     // MARK: - Language Resolution
