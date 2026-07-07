@@ -978,6 +978,13 @@ final class FeedLoader {
         duplicateSourceCount = parseResult.duplicateSourceCount
         sourceCount = sources.count
 
+        // Countries off by default on first launch. User preferences
+        // (persisted via disabledRegions) take precedence on subsequent launches.
+        if disabledRegions.isEmpty {
+            let allCountryRegions = Set(sources.filter { $0.isCountryFeed }.map(\.region))
+            disabledRegions.formUnion(allCountryRegions)
+        }
+
         guard !sources.isEmpty else {
             loadingState = .idle
             return

@@ -20,7 +20,7 @@ struct FilterSheetView: View {
 
                 Section("Feeds") {
                     HStack {
-                        Label("Global Feeds", systemImage: "antenna.radiowaves.left.and.right")
+                        Label("Selected Feeds", systemImage: "antenna.radiowaves.left.and.right")
                         Spacer()
                         Toggle("", isOn: Binding(
                             get: { loader.isGlobalFeedsEnabled },
