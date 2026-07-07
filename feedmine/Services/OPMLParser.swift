@@ -4,12 +4,18 @@ struct OPMLParser {
     /// Scan the app bundle for all .opml files and parse them into FeedSource entries.
     /// Uses Bundle.urls(forResourcesWithExtension:subdirectory:) with fallback to root.
     static func parseAll() async -> OPMLParseResult {
-        // Try subdirectory "Feeds" first, then root as fallback
-        var opmlFiles = Bundle.main.urls(forResourcesWithExtension: "opml", subdirectory: "Feeds") ?? []
-        if opmlFiles.isEmpty {
-            // Fallback: OPML files at bundle root
-            opmlFiles = Bundle.main.urls(forResourcesWithExtension: "opml", subdirectory: nil) ?? []
-        }
+        // Collect OPML files from Feeds/ and Feeds/countries/
+        var opmlFiles: [URL] = []
+        let feedsDir = Bundle.main.urls(forResourcesWithExtension: "opml", subdirectory: "Feeds") ?? []
+        opmlFiles.append(contentsOf: feedsDir)
+        // Also explicitly search countries subdirectory (some bundle layouts
+        // don't recurse with urls(forResourcesWithExtension:subdirectory:)).
+        let countriesDir = Bundle.main.urls(forResourcesWithExtension: "opml", subdirectory: "Feeds/countries") ?? []
+        opmlFiles.append(contentsOf: countriesDir)
+
+        // Deduplicate by URL
+        var seen = Set<URL>()
+        opmlFiles = opmlFiles.filter { seen.insert($0).inserted }
         opmlFiles.shuffle()
 
         // DEBUG: log file discovery
