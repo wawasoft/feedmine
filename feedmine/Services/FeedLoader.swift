@@ -46,9 +46,12 @@ final class FeedLoader {
             if days < 7 { return "This Week" }
             return "Earlier"
         }
-        // Today always first; remaining sections shuffled so "Earlier" content
-        // occasionally appears higher instead of always buried at the bottom.
-        let order = ["Today"] + ["Yesterday", "This Week", "Earlier"].shuffled()
+        // Today always first. Remaining sections rotate daily for variety but
+        // are stable within a session — no scroll jumps from section reordering.
+        let remaining = ["Yesterday", "This Week", "Earlier"]
+        let dayOfYear = calendar.ordinality(of: .day, in: .year, for: Date()) ?? 0
+        let rotated = (0..<remaining.count).map { remaining[($0 + dayOfYear) % remaining.count] }
+        let order = ["Today"] + rotated
         return order.compactMap { title in
             grouped[title].map { DateSection(title: title, items: $0) }
         }
