@@ -771,11 +771,22 @@ final class FeedLoader {
             return disabledRegions.contains(region)
         }
 
-        // Filter visible items and reservoir in-place — no reorder
-        let removed = items.filter(isDisabled)
+        // Remove disabled items from visible + reservoir
+        let removedFromVisible = items.filter(isDisabled)
         items.removeAll(where: isDisabled)
         reservoir.removeAll(where: isDisabled)
-        filteredOutItems.append(contentsOf: removed)
+
+        // Process filteredOutItems: re-enabled items come back to reservoir
+        var stillDisabled: [FeedItem] = []
+        for item in filteredOutItems {
+            if isDisabled(item) {
+                stillDisabled.append(item)
+            } else {
+                reservoir.append(item)
+            }
+        }
+        filteredOutItems = stillDisabled
+        filteredOutItems.append(contentsOf: removedFromVisible)
 
         reservoirCount = reservoir.count
         itemVersion += 1
