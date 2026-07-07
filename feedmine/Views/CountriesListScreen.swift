@@ -6,16 +6,21 @@ struct CountriesListScreen: View {
     var body: some View {
         List {
             Section {
-                HStack {
-                    Label("All Countries", systemImage: "globe.americas.fill")
-                        .font(.headline)
-                    Spacer()
-                    Toggle("", isOn: Binding(
-                        get: { loader.isAnyCountryEnabled },
-                        set: { _ in loader.toggleAllCountries() }
-                    ))
-                    .labelsHidden()
-                    .tint(.green)
+                Button {
+                    loader.toggleAllCountries()
+                } label: {
+                    HStack {
+                        Label("All Countries", systemImage: "globe.americas.fill")
+                            .font(.headline)
+                            .foregroundStyle(.primary)
+                        Spacer()
+                        Image(systemName: loader.isAnyCountryEnabled
+                            ? "checkmark.circle.fill"
+                            : "circle"
+                        )
+                        .font(.title3)
+                        .foregroundStyle(loader.isAnyCountryEnabled ? .green : .secondary)
+                    }
                 }
             }
 
@@ -33,13 +38,20 @@ struct CountriesListScreen: View {
                                     .foregroundStyle(.secondary)
                             }
                             Spacer()
-                            Toggle("", isOn: Binding(
-                                get: { loader.isRegionEnabled(country.region) },
-                                set: { _ in loader.toggleRegion(country.region) }
-                            ))
-                            .labelsHidden()
-                            .tint(.green)
                         }
+                    }
+                    // Swipe or accessory toggle
+                    .swipeActions(edge: .trailing) {
+                        Button {
+                            loader.toggleRegion(country.region)
+                        } label: {
+                            if loader.isRegionEnabled(country.region) {
+                                Label("Disable", systemImage: "eye.slash")
+                            } else {
+                                Label("Enable", systemImage: "eye")
+                            }
+                        }
+                        .tint(loader.isRegionEnabled(country.region) ? .red : .green)
                     }
                 }
             } footer: {

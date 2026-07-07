@@ -23,12 +23,16 @@ struct CountryDetailScreen: View {
                                     .lineLimit(1)
                             }
                             Spacer()
-                            Toggle("", isOn: Binding(
-                                get: { loader.isSourceEnabled(source.url) },
-                                set: { _ in loader.toggleSource(source.url) }
-                            ))
-                            .labelsHidden()
-                            .tint(.green)
+                            Image(systemName: loader.isSourceEnabled(source.url)
+                                ? "checkmark.circle.fill"
+                                : "circle"
+                            )
+                            .font(.body)
+                            .foregroundStyle(loader.isSourceEnabled(source.url) ? .green : .secondary)
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            loader.toggleSource(source.url)
                         }
                     }
                 } header: {
