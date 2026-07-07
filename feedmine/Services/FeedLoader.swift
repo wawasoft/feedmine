@@ -277,13 +277,9 @@ final class FeedLoader {
         }
     }
 
-    /// Available categories from global (non-country) sources only.
-    /// Country categories must not mix with global topic categories.
+    /// Available categories from all enabled sources — global and country mixed.
     var availableCategories: [String] {
-        let cats = Set(sources
-            .filter { $0.region == "global" }
-            .map(\.category))
-            .sorted()
+        let cats = Set(enabledSources.map(\.category)).sorted()
         return cats
     }
 
@@ -1035,8 +1031,9 @@ final class FeedLoader {
             reservoir.append(contentsOf: actualNew.sorted { $0.publishedAt > $1.publishedAt })
             capReservoir()
 
-            // Show content immediately after first batch
+            // Show content immediately after first batch — interleave for variety
             if items.isEmpty && !reservoir.isEmpty {
+                reservoir = interleave(reservoir)
                 let w = min(Self.pageSize, reservoir.count)
                 items = Array(reservoir.prefix(w))
                 reservoir.removeFirst(w)
