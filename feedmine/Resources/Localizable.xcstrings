@@ -2472,7 +2472,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ लेख"
+            "value": "%@ artikel"
           }
         },
         "it": {
@@ -2496,7 +2496,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ लेख"
+            "value": "%@ artikel"
           }
         },
         "nb": {
@@ -2532,7 +2532,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ articoli"
+            "value": "%@ articole"
           }
         },
         "ru": {
@@ -2556,13 +2556,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ लेख"
+            "value": "%@ บทความ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Artikel"
+            "value": "%@ makale"
           }
         },
         "uk": {
@@ -2574,7 +2574,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ लेख"
+            "value": "%@ bài"
           }
         },
         "zh-Hans": {
@@ -4113,7 +4113,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ विफलताएं"
+            "value": "%@ gagal"
           }
         },
         "it": {
@@ -4137,7 +4137,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ विफलताएं"
+            "value": "%@ gagal"
           }
         },
         "nb": {
@@ -4173,7 +4173,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ fallimenti"
+            "value": "%@ eșecuri"
           }
         },
         "ru": {
@@ -4197,25 +4197,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ विफलताएं"
+            "value": "%@ ล้มเหลว"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Fehler"
+            "value": "%@ başarısız"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ ошибок"
+            "value": "%@ помилок"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ विफलताएं"
+            "value": "%@ thất bại"
           }
         },
         "zh-Hans": {
@@ -4827,7 +4827,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ प्राप्त"
+            "value": "%@ diambil"
           }
         },
         "it": {
@@ -4851,7 +4851,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ प्राप्त"
+            "value": "%@ diambil"
           }
         },
         "nb": {
@@ -4887,7 +4887,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ recuperati"
+            "value": "%@ preluate"
           }
         },
         "ru": {
@@ -4911,25 +4911,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ प्राप्त"
+            "value": "%@ ดึงแล้ว"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ abgerufen"
+            "value": "%@ alındı"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ загружено"
+            "value": "%@ отримано"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ प्राप्त"
+            "value": "%@ đã lấy"
           }
         },
         "zh-Hans": {
@@ -6467,7 +6467,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ मिनट पढ़ाई"
+            "value": "%@ mnt baca"
           }
         },
         "it": {
@@ -6491,7 +6491,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ मिनट पढ़ाई"
+            "value": "%@ min baca"
           }
         },
         "nb": {
@@ -6527,7 +6527,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ min di lettura"
+            "value": "%@ min citire"
           }
         },
         "ru": {
@@ -6551,25 +6551,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ मिनट पढ़ाई"
+            "value": "%@ นาทีอ่าน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Min Lesezeit"
+            "value": "%@ dk okuma"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ мин чтения"
+            "value": "%@ хв читання"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ मिनट पढ़ाई"
+            "value": "%@ phút đọc"
           }
         },
         "zh-Hans": {
@@ -8617,7 +8617,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ नए"
+            "value": "%@ baru"
           }
         },
         "it": {
@@ -8641,7 +8641,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ नए"
+            "value": "%@ baru"
           }
         },
         "nb": {
@@ -8677,7 +8677,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ nuovi"
+            "value": "%@ nou"
           }
         },
         "ru": {
@@ -8701,25 +8701,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ नए"
+            "value": "%@ ใหม่"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neu"
+            "value": "%@ yeni"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ новых"
+            "value": "%@ нових"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ नए"
+            "value": "%@ mới"
           }
         },
         "zh-Hans": {
@@ -11242,7 +11242,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ स्रोत"
+            "value": "%@ sumber"
           }
         },
         "it": {
@@ -11266,7 +11266,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ स्रोत"
+            "value": "%@ sumber"
           }
         },
         "nb": {
@@ -11302,7 +11302,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ fonti"
+            "value": "%@ surse"
           }
         },
         "ru": {
@@ -11326,25 +11326,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ स्रोत"
+            "value": "%@ แหล่ง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Quellen"
+            "value": "%@ kaynak"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ источников"
+            "value": "%@ джерел"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ स्रोत"
+            "value": "%@ nguồn"
           }
         },
         "zh-Hans": {
@@ -15540,7 +15540,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "के बारे में"
+            "value": "Tentang"
           }
         },
         "it": {
@@ -15564,7 +15564,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "के बारे में"
+            "value": "Perihal"
           }
         },
         "nb": {
@@ -15600,7 +15600,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Informazioni"
+            "value": "Despre"
           }
         },
         "ru": {
@@ -15624,25 +15624,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "के बारे में"
+            "value": "เกี่ยวกับ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Über"
+            "value": "Hakkında"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "О Приложении"
+            "value": "Про Застосунок"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "के बारे में"
+            "value": "Giới thiệu"
           }
         },
         "zh-Hans": {
@@ -16969,7 +16969,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "दोपहर"
+            "value": "Siang"
           }
         },
         "it": {
@@ -16993,7 +16993,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "दोपहर"
+            "value": "Petang"
           }
         },
         "nb": {
@@ -17029,7 +17029,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pomeriggio"
+            "value": "După-amiază"
           }
         },
         "ru": {
@@ -17053,13 +17053,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "दोपहर"
+            "value": "บ่าย"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachmittag"
+            "value": "Öğleden Sonra"
           }
         },
         "uk": {
@@ -17071,7 +17071,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "दोपहर"
+            "value": "Buổi Chiều"
           }
         },
         "zh-Hans": {
@@ -17447,7 +17447,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी"
+            "value": "Semua"
           }
         },
         "it": {
@@ -17471,7 +17471,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी"
+            "value": "Semua"
           }
         },
         "nb": {
@@ -17507,7 +17507,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tutto"
+            "value": "Tot"
           }
         },
         "ru": {
@@ -17531,25 +17531,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी"
+            "value": "ทั้งหมด"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle"
+            "value": "Tümü"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Все"
+            "value": "Всі"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी"
+            "value": "Tất Cả"
           }
         },
         "zh-Hans": {
@@ -19830,7 +19830,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिखावट"
+            "value": "Tampilan"
           }
         },
         "it": {
@@ -19854,7 +19854,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिखावट"
+            "value": "Penampilan"
           }
         },
         "nb": {
@@ -19890,7 +19890,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aspetto"
+            "value": "Aspect"
           }
         },
         "ru": {
@@ -19914,25 +19914,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिखावट"
+            "value": "ลักษณะ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erscheinungsbild"
+            "value": "Görünüm"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Внешний Вид"
+            "value": "Вигляд"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिखावट"
+            "value": "Giao diện"
           }
         },
         "zh-Hans": {
@@ -20515,7 +20515,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "अप्रैल"
+            "value": "April"
           }
         },
         "it": {
@@ -20539,7 +20539,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "अप्रैल"
+            "value": "April"
           }
         },
         "nb": {
@@ -20575,7 +20575,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aprile"
+            "value": "Aprilie"
           }
         },
         "ru": {
@@ -20599,25 +20599,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "अप्रैल"
+            "value": "เมษายน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "April"
+            "value": "Nisan"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Апрель"
+            "value": "Квітень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "अप्रैल"
+            "value": "Tháng Tư"
           }
         },
         "zh-Hans": {
@@ -20993,7 +20993,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख"
+            "value": "Artikel"
           }
         },
         "it": {
@@ -21017,7 +21017,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख"
+            "value": "Artikel"
           }
         },
         "nb": {
@@ -21053,7 +21053,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Articoli"
+            "value": "Articole"
           }
         },
         "ru": {
@@ -21077,25 +21077,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख"
+            "value": "บทความ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel"
+            "value": "Makaleler"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статьи"
+            "value": "Статті"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख"
+            "value": "Bài Viết"
           }
         },
         "zh-Hans": {
@@ -21231,7 +21231,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "अगस्त"
+            "value": "Agustus"
           }
         },
         "it": {
@@ -21255,7 +21255,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "अगस्त"
+            "value": "Ogos"
           }
         },
         "nb": {
@@ -21291,7 +21291,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Agosto"
+            "value": "August"
           }
         },
         "ru": {
@@ -21315,25 +21315,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "अगस्त"
+            "value": "สิงหาคม"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "August"
+            "value": "Ağustos"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Август"
+            "value": "Серпень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "अगस्त"
+            "value": "Tháng Tám"
           }
         },
         "zh-Hans": {
@@ -21470,7 +21470,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "शरद"
+            "value": "Musim Gugur"
           }
         },
         "it": {
@@ -21494,7 +21494,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "शरद"
+            "value": "Musim Luruh"
           }
         },
         "nb": {
@@ -21530,7 +21530,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Autunno"
+            "value": "Toamnă"
           }
         },
         "ru": {
@@ -21554,25 +21554,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "शरद"
+            "value": "ฤดูใบไม้ร่วง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Herbst"
+            "value": "Sonbahar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Осень"
+            "value": "Осінь"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शरद"
+            "value": "Mùa Thu"
           }
         },
         "zh-Hans": {
@@ -22187,7 +22187,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "वापस ऑनलाइन"
+            "value": "Kembali online"
           }
         },
         "it": {
@@ -22211,7 +22211,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "वापस ऑनलाइन"
+            "value": "Kembali online"
           }
         },
         "nb": {
@@ -22247,7 +22247,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Di Nuovo Online"
+            "value": "Înapoi online"
           }
         },
         "ru": {
@@ -22271,25 +22271,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "वापस ऑनलाइन"
+            "value": "กลับมาออนไลน์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wieder online"
+            "value": "Tekrar çevrimiçi"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снова В Сети"
+            "value": "Знову в мережі"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "वापस ऑनलाइन"
+            "value": "Trực Tuyến Trở Lại"
           }
         },
         "zh-Hans": {
@@ -24751,7 +24751,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "रद्द करें"
+            "value": "Batal"
           }
         },
         "it": {
@@ -24775,7 +24775,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "रद्द करें"
+            "value": "Batal"
           }
         },
         "nb": {
@@ -24811,7 +24811,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Annulla"
+            "value": "Anulare"
           }
         },
         "ru": {
@@ -24835,25 +24835,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "रद्द करें"
+            "value": "ยกเลิก"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abbrechen"
+            "value": "İptal"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отмена"
+            "value": "Скасувати"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "रद्द करें"
+            "value": "Hủy"
           }
         },
         "zh-Hans": {
@@ -27137,7 +27137,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "साफ़"
+            "value": "Cerah"
           }
         },
         "it": {
@@ -27161,7 +27161,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "साफ़"
+            "value": "Cerah"
           }
         },
         "nb": {
@@ -27197,7 +27197,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sereno"
+            "value": "Senin"
           }
         },
         "ru": {
@@ -27221,13 +27221,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "साफ़"
+            "value": "แจ่มใส"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klar"
+            "value": "Açık"
           }
         },
         "uk": {
@@ -27239,7 +27239,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "साफ़"
+            "value": "Trời Quang"
           }
         },
         "zh-Hans": {
@@ -27376,7 +27376,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी साफ़ करें"
+            "value": "Hapus Semua"
           }
         },
         "it": {
@@ -27400,7 +27400,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी साफ़ करें"
+            "value": "Kosongkan"
           }
         },
         "nb": {
@@ -27436,7 +27436,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Cancella Tutto"
+            "value": "Șterge Tot"
           }
         },
         "ru": {
@@ -27460,25 +27460,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी साफ़ करें"
+            "value": "ล้างทั้งหมด"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Löschen"
+            "value": "Tümünü Temizle"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Очистить Всё"
+            "value": "Очистити Все"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी साफ़ करें"
+            "value": "Xóa Tất Cả"
           }
         },
         "zh-Hans": {
@@ -28566,7 +28566,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "बादल"
+            "value": "Berawan"
           }
         },
         "it": {
@@ -28590,7 +28590,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "बादल"
+            "value": "Mendung"
           }
         },
         "nb": {
@@ -28626,7 +28626,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nuvoloso"
+            "value": "Înnorat"
           }
         },
         "ru": {
@@ -28650,25 +28650,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "बादल"
+            "value": "มีเมฆ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bewölkt"
+            "value": "Bulutlu"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Облачно"
+            "value": "Хмарно"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "बादल"
+            "value": "Nhiều Mây"
           }
         },
         "zh-Hans": {
@@ -28805,7 +28805,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "ठंडा"
+            "value": "Dingin"
           }
         },
         "it": {
@@ -28829,7 +28829,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "ठंडा"
+            "value": "Sejuk"
           }
         },
         "nb": {
@@ -28865,7 +28865,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Freddo"
+            "value": "Rece"
           }
         },
         "ru": {
@@ -28889,13 +28889,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "ठंडा"
+            "value": "หนาว"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kalt"
+            "value": "Soğuk"
           }
         },
         "uk": {
@@ -28907,7 +28907,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "ठंडा"
+            "value": "Lạnh"
           }
         },
         "zh-Hans": {
@@ -31906,7 +31906,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "भोर"
+            "value": "Fajar"
           }
         },
         "it": {
@@ -31930,7 +31930,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "भोर"
+            "value": "Subuh"
           }
         },
         "nb": {
@@ -31966,7 +31966,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alba"
+            "value": "Zori"
           }
         },
         "ru": {
@@ -31990,25 +31990,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "भोर"
+            "value": "รุ่งเช้า"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgendämmerung"
+            "value": "Şafak"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Рассвет"
+            "value": "Світанок"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "भोर"
+            "value": "Bình Minh"
           }
         },
         "zh-Hans": {
@@ -32861,7 +32861,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिसंबर"
+            "value": "Desember"
           }
         },
         "it": {
@@ -32885,7 +32885,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिसंबर"
+            "value": "Disember"
           }
         },
         "nb": {
@@ -32921,7 +32921,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dicembre"
+            "value": "Decembrie"
           }
         },
         "ru": {
@@ -32945,25 +32945,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिसंबर"
+            "value": "ธันวาคม"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dezember"
+            "value": "Aralık"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Декабрь"
+            "value": "Грудень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "दिसंबर"
+            "value": "Tháng Mười Hai"
           }
         },
         "zh-Hans": {
@@ -34056,7 +34056,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्षम"
+            "value": "Dinonaktifkan"
           }
         },
         "it": {
@@ -34080,7 +34080,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्षम"
+            "value": "Dinyahdayakan"
           }
         },
         "nb": {
@@ -34116,7 +34116,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Disattivate"
+            "value": "Dezactivat"
           }
         },
         "ru": {
@@ -34140,25 +34140,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्षम"
+            "value": "ปิดใช้งาน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deaktiviert"
+            "value": "Devre Dışı"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отключено"
+            "value": "Вимкнено"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्षम"
+            "value": "Đã Tắt"
           }
         },
         "zh-Hans": {
@@ -34771,7 +34771,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "हो गया"
+            "value": "Selesai"
           }
         },
         "it": {
@@ -34795,7 +34795,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "हो गया"
+            "value": "Selesai"
           }
         },
         "nb": {
@@ -34831,7 +34831,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fatto"
+            "value": "Gata"
           }
         },
         "ru": {
@@ -34855,13 +34855,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "हो गया"
+            "value": "เสร็จ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fertig"
+            "value": "Tamam"
           }
         },
         "uk": {
@@ -34873,7 +34873,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "हो गया"
+            "value": "Xong"
           }
         },
         "zh-Hans": {
@@ -35248,7 +35248,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहले"
+            "value": "Sebelumnya"
           }
         },
         "it": {
@@ -35272,7 +35272,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहले"
+            "value": "Lebih Awal"
           }
         },
         "nb": {
@@ -35308,7 +35308,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prima"
+            "value": "Mai Devreme"
           }
         },
         "ru": {
@@ -35332,25 +35332,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहले"
+            "value": "ก่อนหน้า"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Früher"
+            "value": "Daha Önce"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ранее"
+            "value": "Раніше"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहले"
+            "value": "Sớm Hơn"
           }
         },
         "zh-Hans": {
@@ -36442,7 +36442,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सक्षम"
+            "value": "Diaktifkan"
           }
         },
         "it": {
@@ -36466,7 +36466,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सक्षम"
+            "value": "Didayakan"
           }
         },
         "nb": {
@@ -36502,7 +36502,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Attivate"
+            "value": "Activat"
           }
         },
         "ru": {
@@ -36526,25 +36526,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सक्षम"
+            "value": "เปิดใช้งาน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktiviert"
+            "value": "Etkin"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Включено"
+            "value": "Увімкнено"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सक्षम"
+            "value": "Đã Bật"
           }
         },
         "zh-Hans": {
@@ -36919,7 +36919,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "शाम"
+            "value": "Malam"
           }
         },
         "it": {
@@ -36943,7 +36943,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "शाम"
+            "value": "Malam"
           }
         },
         "nb": {
@@ -36979,7 +36979,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sera"
+            "value": "Seară"
           }
         },
         "ru": {
@@ -37003,25 +37003,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "शाम"
+            "value": "เย็น"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abend"
+            "value": "Akşam"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вечер"
+            "value": "Вечір"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शाम"
+            "value": "Buổi Tối"
           }
         },
         "zh-Hans": {
@@ -39307,7 +39307,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "फरवरी"
+            "value": "Februari"
           }
         },
         "it": {
@@ -39331,7 +39331,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "फरवरी"
+            "value": "Februari"
           }
         },
         "nb": {
@@ -39367,7 +39367,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Febbraio"
+            "value": "Februarie"
           }
         },
         "ru": {
@@ -39391,25 +39391,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "फरवरी"
+            "value": "กุมภาพันธ์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Februar"
+            "value": "Şubat"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Февраль"
+            "value": "Лютий"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "फरवरी"
+            "value": "Tháng Hai"
           }
         },
         "zh-Hans": {
@@ -42375,7 +42375,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहली बार"
+            "value": "Pertama Kali"
           }
         },
         "it": {
@@ -42399,7 +42399,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहली बार"
+            "value": "Kali Pertama"
           }
         },
         "nb": {
@@ -42435,7 +42435,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Prima Volta"
+            "value": "Prima Dată"
           }
         },
         "ru": {
@@ -42459,25 +42459,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहली बार"
+            "value": "ครั้งแรก"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erstes Mal"
+            "value": "İlk Kez"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Первый Раз"
+            "value": "Вперше"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "पहली बार"
+            "value": "Lần Đầu"
           }
         },
         "zh-Hans": {
@@ -42822,7 +42822,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोहरा"
+            "value": "Kabut"
           }
         },
         "it": {
@@ -42846,7 +42846,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोहरा"
+            "value": "Kabus"
           }
         },
         "nb": {
@@ -42882,7 +42882,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nebbia"
+            "value": "Ceață"
           }
         },
         "ru": {
@@ -42906,13 +42906,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोहरा"
+            "value": "หมอก"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nebel"
+            "value": "Sis"
           }
         },
         "uk": {
@@ -42924,7 +42924,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोहरा"
+            "value": "Sương Mù"
           }
         },
         "zh-Hans": {
@@ -43061,7 +43061,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "फ़ॉन्ट आकार"
+            "value": "Ukuran Font"
           }
         },
         "it": {
@@ -43085,7 +43085,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "फ़ॉन्ट आकार"
+            "value": "Saiz Fon"
           }
         },
         "nb": {
@@ -43121,7 +43121,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dimensione Font"
+            "value": "Mărime Font"
           }
         },
         "ru": {
@@ -43145,25 +43145,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "फ़ॉन्ट आकार"
+            "value": "ขนาดตัวอักษร"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schriftgröße"
+            "value": "Yazı Boyutu"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Размер Шрифта"
+            "value": "Розмір Шрифту"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "फ़ॉन्ट आकार"
+            "value": "Cỡ Chữ"
           }
         },
         "zh-Hans": {
@@ -43984,7 +43984,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुक्रवार"
+            "value": "Jumat"
           }
         },
         "it": {
@@ -44008,7 +44008,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुक्रवार"
+            "value": "Jumaat"
           }
         },
         "nb": {
@@ -44044,7 +44044,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Venerdì"
+            "value": "Vineri"
           }
         },
         "ru": {
@@ -44068,25 +44068,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुक्रवार"
+            "value": "ศุกร์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Freitag"
+            "value": "Cuma"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Пятница"
+            "value": "Пʼятниця"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुक्रवार"
+            "value": "Thứ Sáu"
           }
         },
         "zh-Hans": {
@@ -45896,7 +45896,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "मनोरंजन"
+            "value": "Hiburan"
           }
         },
         "it": {
@@ -45920,7 +45920,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "मनोरंजन"
+            "value": "Hiburan"
           }
         },
         "nb": {
@@ -45956,7 +45956,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Divertimento"
+            "value": "Distracție"
           }
         },
         "ru": {
@@ -45980,25 +45980,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "मनोरंजन"
+            "value": "สนุก"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unterhaltung"
+            "value": "Eğlence"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Развлечения"
+            "value": "Розваги"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "मनोरंजन"
+            "value": "Giải Trí"
           }
         },
         "zh-Hans": {
@@ -47297,7 +47297,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्कार"
+            "value": "Selamat siang"
           }
         },
         "it": {
@@ -47321,7 +47321,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्कार"
+            "value": "Selamat petang"
           }
         },
         "nb": {
@@ -47357,7 +47357,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buon Pomeriggio"
+            "value": "Bună ziua"
           }
         },
         "ru": {
@@ -47381,25 +47381,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्कार"
+            "value": "สวัสดีตอนบ่าย"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Tag"
+            "value": "İyi Günler"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый День"
+            "value": "Доброго Дня"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्कार"
+            "value": "Chào Buổi Chiều"
           }
         },
         "zh-Hans": {
@@ -47536,7 +47536,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ संध्या"
+            "value": "Selamat malam"
           }
         },
         "it": {
@@ -47560,7 +47560,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ संध्या"
+            "value": "Selamat malam"
           }
         },
         "nb": {
@@ -47596,7 +47596,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buonasera"
+            "value": "Bună seara"
           }
         },
         "ru": {
@@ -47620,25 +47620,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ संध्या"
+            "value": "สวัสดีตอนเย็น"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Abend"
+            "value": "İyi Akşamlar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Добрый Вечер"
+            "value": "Доброго Вечора"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ संध्या"
+            "value": "Chào Buổi Tối"
           }
         },
         "zh-Hans": {
@@ -47775,7 +47775,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुप्रभात"
+            "value": "Selamat pagi"
           }
         },
         "it": {
@@ -47799,7 +47799,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुप्रभात"
+            "value": "Selamat pagi"
           }
         },
         "nb": {
@@ -47835,7 +47835,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buongiorno"
+            "value": "Bună dimineața"
           }
         },
         "ru": {
@@ -47859,25 +47859,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुप्रभात"
+            "value": "สวัสดีตอนเช้า"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Morgen"
+            "value": "Günaydın"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Доброе Утро"
+            "value": "Доброго Ранку"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुप्रभात"
+            "value": "Chào Buổi Sáng"
           }
         },
         "zh-Hans": {
@@ -48014,7 +48014,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ रात्रि"
+            "value": "Selamat tidur"
           }
         },
         "it": {
@@ -48038,7 +48038,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ रात्रि"
+            "value": "Selamat malam"
           }
         },
         "nb": {
@@ -48074,7 +48074,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Buonanotte"
+            "value": "Noapte bună"
           }
         },
         "ru": {
@@ -48098,25 +48098,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ रात्रि"
+            "value": "ราตรีสวัสดิ์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gute Nacht"
+            "value": "İyi Geceler"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Спокойной Ночи"
+            "value": "Надобраніч"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शुभ रात्रि"
+            "value": "Chúc Ngủ Ngon"
           }
         },
         "zh-Hans": {
@@ -51535,7 +51535,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्ते"
+            "value": "Halo"
           }
         },
         "it": {
@@ -51559,7 +51559,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्ते"
+            "value": "Helo"
           }
         },
         "nb": {
@@ -51595,7 +51595,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ciao"
+            "value": "Salut"
           }
         },
         "ru": {
@@ -51619,25 +51619,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्ते"
+            "value": "สวัสดี"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hallo"
+            "value": "Merhaba"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Привет"
+            "value": "Привіт"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "नमस्ते"
+            "value": "Xin Chào"
           }
         },
         "zh-Hans": {
@@ -52491,7 +52491,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्म"
+            "value": "Panas"
           }
         },
         "it": {
@@ -52515,7 +52515,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्म"
+            "value": "Panas"
           }
         },
         "nb": {
@@ -52551,7 +52551,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Molto Caldo"
+            "value": "Foarte Cald"
           }
         },
         "ru": {
@@ -52575,25 +52575,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्म"
+            "value": "ร้อน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heiß"
+            "value": "Sıcak"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Жарко"
+            "value": "Спекотно"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्म"
+            "value": "Nóng"
           }
         },
         "zh-Hans": {
@@ -54400,7 +54400,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रेरणादायक"
+            "value": "Menginspirasi"
           }
         },
         "it": {
@@ -54424,7 +54424,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रेरणादायक"
+            "value": "Memberi Inspirasi"
           }
         },
         "nb": {
@@ -54460,7 +54460,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ispiratore"
+            "value": "Inspirator"
           }
         },
         "ru": {
@@ -54484,25 +54484,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रेरणादायक"
+            "value": "สร้างแรงบันดาลใจ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inspirierend"
+            "value": "İlham Verici"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вдохновляющее"
+            "value": "Надихаюче"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रेरणादायक"
+            "value": "Truyền Cảm Hứng"
           }
         },
         "zh-Hans": {
@@ -54638,7 +54638,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "जनवरी"
+            "value": "Januari"
           }
         },
         "it": {
@@ -54662,7 +54662,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "जनवरी"
+            "value": "Januari"
           }
         },
         "nb": {
@@ -54698,7 +54698,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gennaio"
+            "value": "Ianuarie"
           }
         },
         "ru": {
@@ -54722,25 +54722,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "जनवरी"
+            "value": "มกราคม"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Januar"
+            "value": "Ocak"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Январь"
+            "value": "Січень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "जनवरी"
+            "value": "Tháng Một"
           }
         },
         "zh-Hans": {
@@ -54877,7 +54877,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "जुलाई"
+            "value": "Juli"
           }
         },
         "it": {
@@ -54901,7 +54901,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "जुलाई"
+            "value": "Julai"
           }
         },
         "nb": {
@@ -54937,7 +54937,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Luglio"
+            "value": "Iulie"
           }
         },
         "ru": {
@@ -54961,25 +54961,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "जुलाई"
+            "value": "กรกฎาคม"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Juli"
+            "value": "Temmuz"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июль"
+            "value": "Липень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "जुलाई"
+            "value": "Tháng Bảy"
           }
         },
         "zh-Hans": {
@@ -55116,7 +55116,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "जून"
+            "value": "Juni"
           }
         },
         "it": {
@@ -55140,7 +55140,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "जून"
+            "value": "Jun"
           }
         },
         "nb": {
@@ -55176,7 +55176,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Giugno"
+            "value": "Iunie"
           }
         },
         "ru": {
@@ -55200,25 +55200,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "जून"
+            "value": "มิถุนายน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Juni"
+            "value": "Haziran"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Июнь"
+            "value": "Червень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "जून"
+            "value": "Tháng Sáu"
           }
         },
         "zh-Hans": {
@@ -57028,7 +57028,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "भाषा"
+            "value": "Bahasa"
           }
         },
         "it": {
@@ -57052,7 +57052,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "भाषा"
+            "value": "Bahasa"
           }
         },
         "nb": {
@@ -57088,7 +57088,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lingua"
+            "value": "Limbă"
           }
         },
         "ru": {
@@ -57112,25 +57112,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "भाषा"
+            "value": "ภาษา"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprache"
+            "value": "Dil"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Язык"
+            "value": "Мова"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "भाषा"
+            "value": "Ngôn ngữ"
           }
         },
         "zh-Hans": {
@@ -57475,7 +57475,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "बड़ा"
+            "value": "Besar"
           }
         },
         "it": {
@@ -57499,7 +57499,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "बड़ा"
+            "value": "Besar"
           }
         },
         "nb": {
@@ -57535,7 +57535,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Grande"
+            "value": "Mare"
           }
         },
         "ru": {
@@ -57559,25 +57559,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "बड़ा"
+            "value": "ใหญ่"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Groß"
+            "value": "Büyük"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Большой"
+            "value": "Великий"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "बड़ा"
+            "value": "Lớn"
           }
         },
         "zh-Hans": {
@@ -60071,7 +60071,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुनें"
+            "value": "Dengarkan"
           }
         },
         "it": {
@@ -60095,7 +60095,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुनें"
+            "value": "Dengar"
           }
         },
         "nb": {
@@ -60131,7 +60131,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ascolta"
+            "value": "Ascultă"
           }
         },
         "ru": {
@@ -60155,25 +60155,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुनें"
+            "value": "ฟัง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anhören"
+            "value": "Dinle"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Слушать"
+            "value": "Слухати"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुनें"
+            "value": "Nghe"
           }
         },
         "zh-Hans": {
@@ -60309,7 +60309,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख लोड हो रहे हैं"
+            "value": "Memuat artikel"
           }
         },
         "it": {
@@ -60333,7 +60333,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख लोड हो रहे हैं"
+            "value": "Memuat artikel"
           }
         },
         "nb": {
@@ -60369,7 +60369,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Caricamento Articoli"
+            "value": "Se încarcă articolele"
           }
         },
         "ru": {
@@ -60393,25 +60393,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख लोड हो रहे हैं"
+            "value": "กำลังโหลดบทความ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Werden Geladen"
+            "value": "Makaleler yükleniyor"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Загрузка Статей"
+            "value": "Завантаження статей"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "लेख लोड हो रहे हैं"
+            "value": "Đang Tải Bài Viết"
           }
         },
         "zh-Hans": {
@@ -61741,7 +61741,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "मैराथन"
+            "value": "Maraton"
           }
         },
         "it": {
@@ -61765,7 +61765,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "मैराथन"
+            "value": "Maraton"
           }
         },
         "nb": {
@@ -61801,7 +61801,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Maratona"
+            "value": "Maraton"
           }
         },
         "ru": {
@@ -61825,13 +61825,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "मैराथन"
+            "value": "มาราธอน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Marathon"
+            "value": "Maraton"
           }
         },
         "uk": {
@@ -61843,7 +61843,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "मैराथन"
+            "value": "Marathon"
           }
         },
         "zh-Hans": {
@@ -62219,7 +62219,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "मार्च"
+            "value": "Maret"
           }
         },
         "it": {
@@ -62243,7 +62243,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "मार्च"
+            "value": "Mac"
           }
         },
         "nb": {
@@ -62279,7 +62279,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Marzo"
+            "value": "Martie"
           }
         },
         "ru": {
@@ -62303,25 +62303,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "मार्च"
+            "value": "มีนาคม"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "März"
+            "value": "Mart"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Март"
+            "value": "Березень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "मार्च"
+            "value": "Tháng Ba"
           }
         },
         "zh-Hans": {
@@ -62458,7 +62458,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी पढ़ा हुआ चिह्नित करें"
+            "value": "Tandai semua dibaca"
           }
         },
         "it": {
@@ -62482,7 +62482,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी पढ़ा हुआ चिह्नित करें"
+            "value": "Tanda semua dibaca"
           }
         },
         "nb": {
@@ -62518,7 +62518,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Segna Tutto Come Letto"
+            "value": "Marchează tot citit"
           }
         },
         "ru": {
@@ -62542,25 +62542,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी पढ़ा हुआ चिह्नित करें"
+            "value": "ทำเครื่องหมายอ่านทั้งหมด"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles als Gelesen Markieren"
+            "value": "Tümünü okundu işaretle"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отметить Всё Прочитанным"
+            "value": "Позначити все прочитаним"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सभी पढ़ा हुआ चिह्नित करें"
+            "value": "Đánh Dấu Đã Đọc"
           }
         },
         "zh-Hans": {
@@ -62935,7 +62935,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "मई"
+            "value": "Mei"
           }
         },
         "it": {
@@ -62959,7 +62959,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "मई"
+            "value": "Mei"
           }
         },
         "nb": {
@@ -62995,7 +62995,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Maggio"
+            "value": "Mai"
           }
         },
         "ru": {
@@ -63019,25 +63019,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "मई"
+            "value": "พฤษภาคม"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mai"
+            "value": "Mayıs"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Май"
+            "value": "Травень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "मई"
+            "value": "Tháng Năm"
           }
         },
         "zh-Hans": {
@@ -63174,7 +63174,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "मध्यम"
+            "value": "Sedang"
           }
         },
         "it": {
@@ -63198,7 +63198,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "मध्यम"
+            "value": "Sederhana"
           }
         },
         "nb": {
@@ -63234,7 +63234,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Media"
+            "value": "Mediu"
           }
         },
         "ru": {
@@ -63258,25 +63258,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "मध्यम"
+            "value": "กลาง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittel"
+            "value": "Orta"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Средний"
+            "value": "Середній"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "मध्यम"
+            "value": "Vừa"
           }
         },
         "zh-Hans": {
@@ -65085,7 +65085,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सोमवार"
+            "value": "Senin"
           }
         },
         "it": {
@@ -65109,7 +65109,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सोमवार"
+            "value": "Isnin"
           }
         },
         "nb": {
@@ -65145,7 +65145,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lunedì"
+            "value": "Luni"
           }
         },
         "ru": {
@@ -65169,25 +65169,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सोमवार"
+            "value": "จันทร์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montag"
+            "value": "Pazartesi"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Понедельник"
+            "value": "Понеділок"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सोमवार"
+            "value": "Thứ Hai"
           }
         },
         "zh-Hans": {
@@ -66279,7 +66279,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुबह"
+            "value": "Pagi"
           }
         },
         "it": {
@@ -66303,7 +66303,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुबह"
+            "value": "Pagi"
           }
         },
         "nb": {
@@ -66339,7 +66339,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mattina"
+            "value": "Dimineață"
           }
         },
         "ru": {
@@ -66363,25 +66363,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुबह"
+            "value": "เช้า"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen"
+            "value": "Sabah"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Утро"
+            "value": "Ранок"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सुबह"
+            "value": "Buổi Sáng"
           }
         },
         "zh-Hans": {
@@ -68189,7 +68189,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "नई लय"
+            "value": "Rentetan Baru"
           }
         },
         "it": {
@@ -68213,7 +68213,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "नई लय"
+            "value": "Rentetan Baru"
           }
         },
         "nb": {
@@ -68249,7 +68249,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nuova Serie"
+            "value": "Serie Nouă"
           }
         },
         "ru": {
@@ -68273,25 +68273,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "नई लय"
+            "value": "สตรีคใหม่"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neue Serie"
+            "value": "Yeni Seri"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Новая Серия"
+            "value": "Нова Серія"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "नई लय"
+            "value": "Chuỗi Mới"
           }
         },
         "zh-Hans": {
@@ -70308,7 +70308,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात"
+            "value": "Malam"
           }
         },
         "it": {
@@ -70332,7 +70332,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात"
+            "value": "Malam"
           }
         },
         "nb": {
@@ -70368,7 +70368,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Notte"
+            "value": "Noapte"
           }
         },
         "ru": {
@@ -70392,25 +70392,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात"
+            "value": "กลางคืน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nacht"
+            "value": "Gece"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночь"
+            "value": "Ніч"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात"
+            "value": "Đêm"
           }
         },
         "zh-Hans": {
@@ -70547,7 +70547,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात्रि मोड"
+            "value": "Mode Malam"
           }
         },
         "it": {
@@ -70571,7 +70571,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात्रि मोड"
+            "value": "Mod Malam"
           }
         },
         "nb": {
@@ -70607,7 +70607,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Modalità Notte"
+            "value": "Mod Noapte"
           }
         },
         "ru": {
@@ -70631,25 +70631,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात्रि मोड"
+            "value": "โหมดกลางคืน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachtmodus"
+            "value": "Gece Modu"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ночной Режим"
+            "value": "Нічний Режим"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "रात्रि मोड"
+            "value": "Chế Độ Tối"
           }
         },
         "zh-Hans": {
@@ -71263,7 +71263,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी कोई लेख नहीं"
+            "value": "Belum ada artikel"
           }
         },
         "it": {
@@ -71287,7 +71287,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी कोई लेख नहीं"
+            "value": "Tiada artikel"
           }
         },
         "nb": {
@@ -71323,7 +71323,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ancora nessun articolo"
+            "value": "Niciun articol încă"
           }
         },
         "ru": {
@@ -71347,25 +71347,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी कोई लेख नहीं"
+            "value": "ยังไม่มีบทความ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Noch keine Artikel"
+            "value": "Henüz makale yok"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Статей пока нет"
+            "value": "Ще немає статей"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी कोई लेख नहीं"
+            "value": "Chưa Có Bài Viết"
           }
         },
         "zh-Hans": {
@@ -71739,7 +71739,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई इंटरनेट कनेक्शन नहीं"
+            "value": "Tidak ada internet"
           }
         },
         "it": {
@@ -71763,7 +71763,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई इंटरनेट कनेक्शन नहीं"
+            "value": "Tiada Internet"
           }
         },
         "nb": {
@@ -71799,7 +71799,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nessuna Connessione Internet"
+            "value": "Fără conexiune"
           }
         },
         "ru": {
@@ -71823,25 +71823,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई इंटरनेट कनेक्शन नहीं"
+            "value": "ไม่มีการเชื่อมต่อ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Internetverbindung"
+            "value": "İnternet Bağlantısı Yok"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Нет Интернет-Соединения"
+            "value": "Немає Інтернету"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई इंटरनेट कनेक्शन नहीं"
+            "value": "Không Có Kết Nối"
           }
         },
         "zh-Hans": {
@@ -71977,7 +71977,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई जल्दी नहीं"
+            "value": "Tidak perlu buru-buru"
           }
         },
         "it": {
@@ -72001,7 +72001,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई जल्दी नहीं"
+            "value": "Jangan Tergesa"
           }
         },
         "nb": {
@@ -72037,7 +72037,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Senza fretta"
+            "value": "Fără Grabă"
           }
         },
         "ru": {
@@ -72061,25 +72061,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई जल्दी नहीं"
+            "value": "ไม่ต้องรีบ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Eile"
+            "value": "Acele Yok"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Без Спешки"
+            "value": "Не Поспішай"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "कोई जल्दी नहीं"
+            "value": "Đừng Vội"
           }
         },
         "zh-Hans": {
@@ -72932,7 +72932,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सामान्य"
+            "value": "Normal"
           }
         },
         "it": {
@@ -72956,7 +72956,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सामान्य"
+            "value": "Biasa"
           }
         },
         "nb": {
@@ -72992,7 +72992,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Normale"
+            "value": "Normal"
           }
         },
         "ru": {
@@ -73016,7 +73016,7 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सामान्य"
+            "value": "ปกติ"
           }
         },
         "tr": {
@@ -73034,7 +73034,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सामान्य"
+            "value": "Bình Thường"
           }
         },
         "zh-Hans": {
@@ -73887,7 +73887,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "नवंबर"
+            "value": "November"
           }
         },
         "it": {
@@ -73911,7 +73911,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "नवंबर"
+            "value": "November"
           }
         },
         "nb": {
@@ -73947,7 +73947,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Novembre"
+            "value": "Noiembrie"
           }
         },
         "ru": {
@@ -73971,25 +73971,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "नवंबर"
+            "value": "พฤศจิกายน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "November"
+            "value": "Kasım"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ноябрь"
+            "value": "Листопад"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "नवंबर"
+            "value": "Tháng Mười Một"
           }
         },
         "zh-Hans": {
@@ -74126,7 +74126,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्टूबर"
+            "value": "Oktober"
           }
         },
         "it": {
@@ -74150,7 +74150,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्टूबर"
+            "value": "Oktober"
           }
         },
         "nb": {
@@ -74186,7 +74186,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ottobre"
+            "value": "Octombrie"
           }
         },
         "ru": {
@@ -74210,25 +74210,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्टूबर"
+            "value": "ตุลาคม"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oktober"
+            "value": "Ekim"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Октябрь"
+            "value": "Жовтень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "अक्टूबर"
+            "value": "Tháng Mười"
           }
         },
         "zh-Hans": {
@@ -74604,7 +74604,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "ऑफ़लाइन"
+            "value": "Offline"
           }
         },
         "it": {
@@ -74628,7 +74628,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "ऑफ़लाइन"
+            "value": "Luar Talian"
           }
         },
         "nb": {
@@ -74688,13 +74688,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "ऑफ़लाइन"
+            "value": "ออฟไลน์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Offline"
+            "value": "Çevrimdışı"
           }
         },
         "uk": {
@@ -74706,7 +74706,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "ऑफ़लाइन"
+            "value": "Ngoại Tuyến"
           }
         },
         "zh-Hans": {
@@ -78122,7 +78122,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "पॉडकास्ट"
+            "value": "Podcast"
           }
         },
         "it": {
@@ -78146,7 +78146,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "पॉडकास्ट"
+            "value": "Podcast"
           }
         },
         "nb": {
@@ -78182,7 +78182,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Podcast"
+            "value": "Podcasturi"
           }
         },
         "ru": {
@@ -78206,25 +78206,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "पॉडकास्ट"
+            "value": "พอดแคสต์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Podcasts"
+            "value": "Podcastlar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Подкасты"
+            "value": "Подкасти"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "पॉडकास्ट"
+            "value": "Podcast"
           }
         },
         "zh-Hans": {
@@ -80032,7 +80032,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "बारिश"
+            "value": "Hujan"
           }
         },
         "it": {
@@ -80056,7 +80056,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "बारिश"
+            "value": "Hujan"
           }
         },
         "nb": {
@@ -80092,7 +80092,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Pioggia"
+            "value": "Ploaie"
           }
         },
         "ru": {
@@ -80116,25 +80116,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "बारिश"
+            "value": "ฝน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regen"
+            "value": "Yağmur"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Дождь"
+            "value": "Дощ"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "बारिश"
+            "value": "Mưa"
           }
         },
         "zh-Hans": {
@@ -80271,7 +80271,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "पढ़ना"
+            "value": "Membaca"
           }
         },
         "it": {
@@ -80295,7 +80295,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "पढ़ना"
+            "value": "Membaca"
           }
         },
         "nb": {
@@ -80331,7 +80331,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lettura"
+            "value": "Citire"
           }
         },
         "ru": {
@@ -80355,25 +80355,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "पढ़ना"
+            "value": "การอ่าน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesen"
+            "value": "Okuma"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Чтение"
+            "value": "Читання"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "पढ़ना"
+            "value": "Đọc"
           }
         },
         "zh-Hans": {
@@ -80986,7 +80986,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "रिफ्रेश"
+            "value": "Segarkan"
           }
         },
         "it": {
@@ -81010,7 +81010,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "रिफ्रेश"
+            "value": "Segar Semula"
           }
         },
         "nb": {
@@ -81046,7 +81046,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aggiorna"
+            "value": "Reîmprospătare"
           }
         },
         "ru": {
@@ -81070,25 +81070,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "रिफ्रेश"
+            "value": "รีเฟรช"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktualisieren"
+            "value": "Yenile"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить"
+            "value": "Оновити"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "रिफ्रेश"
+            "value": "Làm Mới"
           }
         },
         "zh-Hans": {
@@ -81224,7 +81224,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी रिफ्रेश करें"
+            "value": "Segarkan Sekarang"
           }
         },
         "it": {
@@ -81248,7 +81248,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी रिफ्रेश करें"
+            "value": "Segar Sekarang"
           }
         },
         "nb": {
@@ -81284,7 +81284,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aggiorna Ora"
+            "value": "Reîmprospătează Acum"
           }
         },
         "ru": {
@@ -81308,25 +81308,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी रिफ्रेश करें"
+            "value": "รีเฟรชเดี๋ยวนี้"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jetzt Aktualisieren"
+            "value": "Şimdi Yenile"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Обновить Сейчас"
+            "value": "Оновити Зараз"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "अभी रिफ्रेश करें"
+            "value": "Làm Mới Ngay"
           }
         },
         "zh-Hans": {
@@ -82414,7 +82414,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "पुनः आरंभ आवश्यक"
+            "value": "Perlu Mulai Ulang"
           }
         },
         "it": {
@@ -82438,7 +82438,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "पुनः आरंभ आवश्यक"
+            "value": "Perlu Mula Semula"
           }
         },
         "nb": {
@@ -82474,7 +82474,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Riavvio Necessario"
+            "value": "Necesită Repornire"
           }
         },
         "ru": {
@@ -82498,25 +82498,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "पुनः आरंभ आवश्यक"
+            "value": "ต้องรีสตาร์ท"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neustart Erforderlich"
+            "value": "Yeniden Başlatma Gerekli"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Требуется Перезапуск"
+            "value": "Потрібен Перезапуск"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "पुनः आरंभ आवश्यक"
+            "value": "Cần Khởi Động Lại"
           }
         },
         "zh-Hans": {
@@ -83847,7 +83847,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "शनिवार"
+            "value": "Sabtu"
           }
         },
         "it": {
@@ -83871,7 +83871,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "शनिवार"
+            "value": "Sabtu"
           }
         },
         "nb": {
@@ -83907,7 +83907,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sabato"
+            "value": "Sâmbătă"
           }
         },
         "ru": {
@@ -83931,25 +83931,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "शनिवार"
+            "value": "เสาร์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samstag"
+            "value": "Cumartesi"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Суббота"
+            "value": "Субота"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शनिवार"
+            "value": "Thứ Bảy"
           }
         },
         "zh-Hans": {
@@ -85755,7 +85755,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रतिक्रिया भेजें"
+            "value": "Kirim Masukan"
           }
         },
         "it": {
@@ -85779,7 +85779,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रतिक्रिया भेजें"
+            "value": "Hantar Maklum Balas"
           }
         },
         "nb": {
@@ -85815,7 +85815,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Invia Feedback"
+            "value": "Trimite Feedback"
           }
         },
         "ru": {
@@ -85839,25 +85839,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रतिक्रिया भेजें"
+            "value": "ส่งข้อเสนอแนะ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedback Senden"
+            "value": "Geri Bildirim Gönder"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Отправить Отзыв"
+            "value": "Надіслати Відгук"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "प्रतिक्रिया भेजें"
+            "value": "Gửi Phản Hồi"
           }
         },
         "zh-Hans": {
@@ -85993,7 +85993,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सितंबर"
+            "value": "September"
           }
         },
         "it": {
@@ -86017,7 +86017,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सितंबर"
+            "value": "September"
           }
         },
         "nb": {
@@ -86053,7 +86053,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Settembre"
+            "value": "Septembrie"
           }
         },
         "ru": {
@@ -86077,25 +86077,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सितंबर"
+            "value": "กันยายน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "September"
+            "value": "Eylül"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сентябрь"
+            "value": "Вересень"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सितंबर"
+            "value": "Tháng Chín"
           }
         },
         "zh-Hans": {
@@ -86232,7 +86232,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "गंभीर"
+            "value": "Serius"
           }
         },
         "it": {
@@ -86256,7 +86256,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "गंभीर"
+            "value": "Serius"
           }
         },
         "nb": {
@@ -86292,7 +86292,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Serio"
+            "value": "Serios"
           }
         },
         "ru": {
@@ -86316,25 +86316,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "गंभीर"
+            "value": "จริงจัง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ernst"
+            "value": "Ciddi"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Серьёзное"
+            "value": "Серйозно"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "गंभीर"
+            "value": "Nghiêm Túc"
           }
         },
         "zh-Hans": {
@@ -86470,7 +86470,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सेटिंग्स"
+            "value": "Pengaturan"
           }
         },
         "it": {
@@ -86494,7 +86494,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सेटिंग्स"
+            "value": "Tetapan"
           }
         },
         "nb": {
@@ -86530,7 +86530,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Impostazioni"
+            "value": "Setări"
           }
         },
         "ru": {
@@ -86554,25 +86554,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सेटिंग्स"
+            "value": "การตั้งค่า"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einstellungen"
+            "value": "Ayarlar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Настройки"
+            "value": "Налаштування"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सेटिंग्स"
+            "value": "Cài đặt"
           }
         },
         "zh-Hans": {
@@ -87663,7 +87663,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "शेयर करें"
+            "value": "Bagikan"
           }
         },
         "it": {
@@ -87687,7 +87687,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "शेयर करें"
+            "value": "Kongsi"
           }
         },
         "nb": {
@@ -87723,7 +87723,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Condividi"
+            "value": "Partajare"
           }
         },
         "ru": {
@@ -87747,25 +87747,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "शेयर करें"
+            "value": "แชร์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilen"
+            "value": "Paylaş"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться"
+            "value": "Поділитися"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "शेयर करें"
+            "value": "Chia sẻ"
           }
         },
         "zh-Hans": {
@@ -88377,7 +88377,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंकड़े शेयर करें"
+            "value": "Bagikan Statistik"
           }
         },
         "it": {
@@ -88401,7 +88401,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंकड़े शेयर करें"
+            "value": "Kongsi Statistik"
           }
         },
         "nb": {
@@ -88437,7 +88437,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Condividi Statistiche"
+            "value": "Partajează Statistici"
           }
         },
         "ru": {
@@ -88461,25 +88461,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंकड़े शेयर करें"
+            "value": "แชร์สถิติ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Statistiken Teilen"
+            "value": "İstatistikleri Paylaş"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Поделиться Статистикой"
+            "value": "Поділитися Статистикою"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंकड़े शेयर करें"
+            "value": "Chia Sẻ Thống Kê"
           }
         },
         "zh-Hans": {
@@ -89091,7 +89091,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सरसरी नज़र"
+            "value": "Membaca Cepat"
           }
         },
         "it": {
@@ -89115,7 +89115,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सरसरी नज़र"
+            "value": "Imbas"
           }
         },
         "nb": {
@@ -89151,7 +89151,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Scorsa Veloce"
+            "value": "Răsfoire"
           }
         },
         "ru": {
@@ -89175,25 +89175,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सरसरी नज़र"
+            "value": "อ่านผ่านๆ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Überfliegen"
+            "value": "Göz Gezdirme"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Беглый Просмотр"
+            "value": "Перегляд"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सरसरी नज़र"
+            "value": "Đọc Lướt"
           }
         },
         "zh-Hans": {
@@ -90286,7 +90286,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "छोटा"
+            "value": "Kecil"
           }
         },
         "it": {
@@ -90310,7 +90310,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "छोटा"
+            "value": "Kecil"
           }
         },
         "nb": {
@@ -90346,7 +90346,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Piccola"
+            "value": "Mic"
           }
         },
         "ru": {
@@ -90370,25 +90370,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "छोटा"
+            "value": "เล็ก"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klein"
+            "value": "Küçük"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Маленький"
+            "value": "Малий"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "छोटा"
+            "value": "Nhỏ"
           }
         },
         "zh-Hans": {
@@ -90524,7 +90524,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "बर्फ"
+            "value": "Salju"
           }
         },
         "it": {
@@ -90548,7 +90548,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "बर्फ"
+            "value": "Salji"
           }
         },
         "nb": {
@@ -90584,7 +90584,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neve"
+            "value": "Zăpadă"
           }
         },
         "ru": {
@@ -90608,25 +90608,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "बर्फ"
+            "value": "หิมะ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schnee"
+            "value": "Kar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Снег"
+            "value": "Сніг"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "बर्फ"
+            "value": "Tuyết"
           }
         },
         "zh-Hans": {
@@ -90763,7 +90763,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्रोत"
+            "value": "Sumber"
           }
         },
         "it": {
@@ -90787,7 +90787,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्रोत"
+            "value": "Sumber"
           }
         },
         "nb": {
@@ -90823,7 +90823,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fonti"
+            "value": "Surse"
           }
         },
         "ru": {
@@ -90847,25 +90847,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्रोत"
+            "value": "แหล่ง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quellen"
+            "value": "Kaynaklar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Источники"
+            "value": "Джерела"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्रोत"
+            "value": "Nguồn"
           }
         },
         "zh-Hans": {
@@ -91687,7 +91687,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "वसंत"
+            "value": "Musim Semi"
           }
         },
         "it": {
@@ -91711,7 +91711,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "वसंत"
+            "value": "Musim Bunga"
           }
         },
         "nb": {
@@ -91747,7 +91747,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Primavera"
+            "value": "Primăvară"
           }
         },
         "ru": {
@@ -91771,13 +91771,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "वसंत"
+            "value": "ฤดูใบไม้ผลิ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Frühling"
+            "value": "İlkbahar"
           }
         },
         "uk": {
@@ -91789,7 +91789,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "वसंत"
+            "value": "Mùa Xuân"
           }
         },
         "zh-Hans": {
@@ -93121,7 +93121,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्थिर"
+            "value": "Stabil"
           }
         },
         "it": {
@@ -93145,7 +93145,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्थिर"
+            "value": "Stabil"
           }
         },
         "nb": {
@@ -93181,7 +93181,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Costante"
+            "value": "Constant"
           }
         },
         "ru": {
@@ -93205,25 +93205,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्थिर"
+            "value": "สม่ำเสมอ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beständig"
+            "value": "İstikrarlı"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Равномерно"
+            "value": "Стабільно"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "स्थिर"
+            "value": "Ổn Định"
           }
         },
         "zh-Hans": {
@@ -93838,7 +93838,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्मी"
+            "value": "Musim Panas"
           }
         },
         "it": {
@@ -93862,7 +93862,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्मी"
+            "value": "Musim Panas"
           }
         },
         "nb": {
@@ -93898,7 +93898,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Estate"
+            "value": "Vară"
           }
         },
         "ru": {
@@ -93922,25 +93922,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्मी"
+            "value": "ฤดูร้อน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sommer"
+            "value": "Yaz"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Лето"
+            "value": "Літо"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "गर्मी"
+            "value": "Mùa Hè"
           }
         },
         "zh-Hans": {
@@ -94555,7 +94555,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "रविवार"
+            "value": "Minggu"
           }
         },
         "it": {
@@ -94579,7 +94579,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "रविवार"
+            "value": "Ahad"
           }
         },
         "nb": {
@@ -94615,7 +94615,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Domenica"
+            "value": "Duminică"
           }
         },
         "ru": {
@@ -94639,25 +94639,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "रविवार"
+            "value": "อาทิตย์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sonntag"
+            "value": "Pazar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Воскресенье"
+            "value": "Неділя"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "रविवार"
+            "value": "Chủ Nhật"
           }
         },
         "zh-Hans": {
@@ -97597,7 +97597,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "तकनीकी"
+            "value": "Teknis"
           }
         },
         "it": {
@@ -97621,7 +97621,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "तकनीकी"
+            "value": "Teknikal"
           }
         },
         "nb": {
@@ -97657,7 +97657,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tecnico"
+            "value": "Tehnic"
           }
         },
         "ru": {
@@ -97681,25 +97681,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "तकनीकी"
+            "value": "เทคนิค"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Technisch"
+            "value": "Teknik"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Техническое"
+            "value": "Технічне"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "तकनीकी"
+            "value": "Kỹ Thuật"
           }
         },
         "zh-Hans": {
@@ -101864,7 +101864,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "इस सप्ताह"
+            "value": "Minggu Ini"
           }
         },
         "it": {
@@ -101888,7 +101888,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "इस सप्ताह"
+            "value": "Minggu Ini"
           }
         },
         "nb": {
@@ -101924,7 +101924,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Questa Settimana"
+            "value": "Săptămâna Aceasta"
           }
         },
         "ru": {
@@ -101948,25 +101948,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "इस सप्ताह"
+            "value": "สัปดาห์นี้"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Diese Woche"
+            "value": "Bu Hafta"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "На Этой Неделе"
+            "value": "Цього Тижня"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "इस सप्ताह"
+            "value": "Tuần Này"
           }
         },
         "zh-Hans": {
@@ -102341,7 +102341,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंधी-तूफान"
+            "value": "Badai Petir"
           }
         },
         "it": {
@@ -102365,7 +102365,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंधी-तूफान"
+            "value": "Ribut Petir"
           }
         },
         "nb": {
@@ -102401,7 +102401,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Temporale"
+            "value": "Furtună"
           }
         },
         "ru": {
@@ -102425,13 +102425,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंधी-तूफान"
+            "value": "พายุฝนฟ้าคะนอง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gewitter"
+            "value": "Gök Gürültüsü"
           }
         },
         "uk": {
@@ -102443,7 +102443,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "आंधी-तूफान"
+            "value": "Giông Bão"
           }
         },
         "zh-Hans": {
@@ -102580,7 +102580,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "गुरुवार"
+            "value": "Kamis"
           }
         },
         "it": {
@@ -102604,7 +102604,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "गुरुवार"
+            "value": "Khamis"
           }
         },
         "nb": {
@@ -102640,7 +102640,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Giovedì"
+            "value": "Joi"
           }
         },
         "ru": {
@@ -102664,25 +102664,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "गुरुवार"
+            "value": "พฤหัสบดี"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Donnerstag"
+            "value": "Perşembe"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Четверг"
+            "value": "Четвер"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "गुरुवार"
+            "value": "Thứ Năm"
           }
         },
         "zh-Hans": {
@@ -103058,7 +103058,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "आज"
+            "value": "Hari Ini"
           }
         },
         "it": {
@@ -103082,7 +103082,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "आज"
+            "value": "Hari Ini"
           }
         },
         "nb": {
@@ -103118,7 +103118,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Oggi"
+            "value": "Astăzi"
           }
         },
         "ru": {
@@ -103142,25 +103142,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "आज"
+            "value": "วันนี้"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heute"
+            "value": "Bugün"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Сегодня"
+            "value": "Сьогодні"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "आज"
+            "value": "Hôm Nay"
           }
         },
         "zh-Hans": {
@@ -103297,7 +103297,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "Besok"
           }
         },
         "it": {
@@ -103321,7 +103321,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "Esok"
           }
         },
         "nb": {
@@ -103357,7 +103357,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Domani"
+            "value": "Mâine"
           }
         },
         "ru": {
@@ -103381,13 +103381,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "พรุ่งนี้"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen"
+            "value": "Yarın"
           }
         },
         "uk": {
@@ -103399,7 +103399,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "Ngày Mai"
           }
         },
         "zh-Hans": {
@@ -104728,7 +104728,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "मंगलवार"
+            "value": "Selasa"
           }
         },
         "it": {
@@ -104752,7 +104752,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "मंगलवार"
+            "value": "Selasa"
           }
         },
         "nb": {
@@ -104788,7 +104788,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Martedì"
+            "value": "Marți"
           }
         },
         "ru": {
@@ -104812,25 +104812,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "मंगलवार"
+            "value": "อังคาร"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dienstag"
+            "value": "Salı"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вторник"
+            "value": "Вівторок"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "मंगलवार"
+            "value": "Thứ Ba"
           }
         },
         "zh-Hans": {
@@ -106370,7 +106370,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "संस्करण"
+            "value": "Versi"
           }
         },
         "it": {
@@ -106394,7 +106394,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "संस्करण"
+            "value": "Versi"
           }
         },
         "nb": {
@@ -106430,7 +106430,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Versione"
+            "value": "Versiune"
           }
         },
         "ru": {
@@ -106454,25 +106454,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "संस्करण"
+            "value": "รุ่น"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Version"
+            "value": "Sürüm"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Версия"
+            "value": "Версія"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "संस्करण"
+            "value": "Phiên bản"
           }
         },
         "zh-Hans": {
@@ -107323,7 +107323,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "वीडियो"
+            "value": "Video"
           }
         },
         "it": {
@@ -107347,7 +107347,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "वीडियो"
+            "value": "Video"
           }
         },
         "nb": {
@@ -107383,7 +107383,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Video"
+            "value": "Videoclipuri"
           }
         },
         "ru": {
@@ -107407,25 +107407,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "वीडियो"
+            "value": "วิดีโอ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Videos"
+            "value": "Videolar"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Видео"
+            "value": "Відео"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "वीडियो"
+            "value": "Video"
           }
         },
         "zh-Hans": {
@@ -108039,7 +108039,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "गरम"
+            "value": "Hangat"
           }
         },
         "it": {
@@ -108063,7 +108063,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "गरम"
+            "value": "Panas"
           }
         },
         "nb": {
@@ -108099,7 +108099,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Caldo"
+            "value": "Cald"
           }
         },
         "ru": {
@@ -108123,13 +108123,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "गरम"
+            "value": "อบอุ่น"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Warm"
+            "value": "Sıcak"
           }
         },
         "uk": {
@@ -108141,7 +108141,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "गरम"
+            "value": "Ấm"
           }
         },
         "zh-Hans": {
@@ -108756,7 +108756,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "देखें"
+            "value": "Tonton"
           }
         },
         "it": {
@@ -108780,7 +108780,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "देखें"
+            "value": "Tonton"
           }
         },
         "nb": {
@@ -108816,7 +108816,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guarda"
+            "value": "Vizionează"
           }
         },
         "ru": {
@@ -108840,25 +108840,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "देखें"
+            "value": "ดู"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ansehen"
+            "value": "İzle"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Смотреть"
+            "value": "Дивитися"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "देखें"
+            "value": "Xem"
           }
         },
         "zh-Hans": {
@@ -109472,7 +109472,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "बुधवार"
+            "value": "Rabu"
           }
         },
         "it": {
@@ -109496,7 +109496,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "बुधवार"
+            "value": "Rabu"
           }
         },
         "nb": {
@@ -109532,7 +109532,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mercoledì"
+            "value": "Miercuri"
           }
         },
         "ru": {
@@ -109556,25 +109556,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "बुधवार"
+            "value": "พุธ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittwoch"
+            "value": "Çarşamba"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Среда"
+            "value": "Середа"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "बुधवार"
+            "value": "Thứ Tư"
           }
         },
         "zh-Hans": {
@@ -109950,7 +109950,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सप्ताहांत"
+            "value": "Akhir Pekan"
           }
         },
         "it": {
@@ -109974,7 +109974,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सप्ताहांत"
+            "value": "Hujung Minggu"
           }
         },
         "nb": {
@@ -110010,7 +110010,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fine Settimana"
+            "value": "Sfârșit de Săptămână"
           }
         },
         "ru": {
@@ -110034,25 +110034,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सप्ताहांत"
+            "value": "สุดสัปดาห์"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wochenende"
+            "value": "Hafta Sonu"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Выходные"
+            "value": "Вихідні"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सप्ताहांत"
+            "value": "Cuối Tuần"
           }
         },
         "zh-Hans": {
@@ -111113,7 +111113,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "हवादार"
+            "value": "Berangin"
           }
         },
         "it": {
@@ -111137,7 +111137,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "हवादार"
+            "value": "Berangin"
           }
         },
         "nb": {
@@ -111173,7 +111173,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ventoso"
+            "value": "Vânt"
           }
         },
         "ru": {
@@ -111197,25 +111197,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "हवादार"
+            "value": "ลมแรง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Windig"
+            "value": "Rüzgarlı"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ветрено"
+            "value": "Вітряно"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "हवादार"
+            "value": "Nhiều Gió"
           }
         },
         "zh-Hans": {
@@ -111352,7 +111352,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "सर्दी"
+            "value": "Musim Dingin"
           }
         },
         "it": {
@@ -111376,7 +111376,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "सर्दी"
+            "value": "Musim Sejuk"
           }
         },
         "nb": {
@@ -111412,7 +111412,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inverno"
+            "value": "Iarnă"
           }
         },
         "ru": {
@@ -111436,13 +111436,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "सर्दी"
+            "value": "ฤดูหนาว"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Winter"
+            "value": "Kış"
           }
         },
         "uk": {
@@ -111454,7 +111454,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "सर्दी"
+            "value": "Mùa Đông"
           }
         },
         "zh-Hans": {
@@ -112547,7 +112547,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "Kemarin"
           }
         },
         "it": {
@@ -112571,7 +112571,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "Semalam"
           }
         },
         "nb": {
@@ -112631,25 +112631,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "เมื่อวาน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gestern"
+            "value": "Dün"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Вчера"
+            "value": "Вчора"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "कल"
+            "value": "Hôm Qua"
           }
         },
         "zh-Hans": {
@@ -116122,7 +116122,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld लेख"
+            "value": "%lld artikel"
           }
         },
         "it": {
@@ -116146,7 +116146,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld लेख"
+            "value": "%lld artikel"
           }
         },
         "nb": {
@@ -116182,7 +116182,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld articoli"
+            "value": "%lld articole"
           }
         },
         "ru": {
@@ -116206,13 +116206,13 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld लेख"
+            "value": "%lld บทความ"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Artikel"
+            "value": "%lld makale"
           }
         },
         "uk": {
@@ -116224,7 +116224,7 @@
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld लेख"
+            "value": "%lld bài"
           }
         },
         "zh-Hans": {
@@ -117763,7 +117763,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld विफलताएं"
+            "value": "%lld gagal"
           }
         },
         "it": {
@@ -117787,7 +117787,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld विफलताएं"
+            "value": "%lld gagal"
           }
         },
         "nb": {
@@ -117823,7 +117823,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld fallimenti"
+            "value": "%lld eșecuri"
           }
         },
         "ru": {
@@ -117847,25 +117847,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld विफलताएं"
+            "value": "%lld ล้มเหลว"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Fehler"
+            "value": "%lld başarısız"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld ошибок"
+            "value": "%lld помилок"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld विफलताएं"
+            "value": "%lld thất bại"
           }
         },
         "zh-Hans": {
@@ -118477,7 +118477,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld प्राप्त"
+            "value": "%lld diambil"
           }
         },
         "it": {
@@ -118501,7 +118501,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld प्राप्त"
+            "value": "%lld diambil"
           }
         },
         "nb": {
@@ -118537,7 +118537,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld recuperati"
+            "value": "%lld preluate"
           }
         },
         "ru": {
@@ -118561,25 +118561,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld प्राप्त"
+            "value": "%lld ดึงแล้ว"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld abgerufen"
+            "value": "%lld alındı"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld загружено"
+            "value": "%lld отримано"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld प्राप्त"
+            "value": "%lld đã lấy"
           }
         },
         "zh-Hans": {
@@ -120117,7 +120117,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld मिनट पढ़ाई"
+            "value": "%lld mnt baca"
           }
         },
         "it": {
@@ -120141,7 +120141,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld मिनट पढ़ाई"
+            "value": "%lld min baca"
           }
         },
         "nb": {
@@ -120177,7 +120177,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld min di lettura"
+            "value": "%lld min citire"
           }
         },
         "ru": {
@@ -120201,25 +120201,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld मिनट पढ़ाई"
+            "value": "%lld นาทีอ่าน"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Min Lesezeit"
+            "value": "%lld dk okuma"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld мин чтения"
+            "value": "%lld хв читання"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld मिनट पढ़ाई"
+            "value": "%lld phút đọc"
           }
         },
         "zh-Hans": {
@@ -122267,7 +122267,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld नए"
+            "value": "%lld baru"
           }
         },
         "it": {
@@ -122291,7 +122291,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld नए"
+            "value": "%lld baru"
           }
         },
         "nb": {
@@ -122327,7 +122327,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld nuovi"
+            "value": "%lld nou"
           }
         },
         "ru": {
@@ -122351,25 +122351,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld नए"
+            "value": "%lld ใหม่"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neu"
+            "value": "%lld yeni"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld новых"
+            "value": "%lld нових"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld नए"
+            "value": "%lld mới"
           }
         },
         "zh-Hans": {
@@ -124892,7 +124892,7 @@
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld स्रोत"
+            "value": "%lld sumber"
           }
         },
         "it": {
@@ -124916,7 +124916,7 @@
         "ms": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld स्रोत"
+            "value": "%lld sumber"
           }
         },
         "nb": {
@@ -124952,7 +124952,7 @@
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld fonti"
+            "value": "%lld surse"
           }
         },
         "ru": {
@@ -124976,25 +124976,25 @@
         "th": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld स्रोत"
+            "value": "%lld แหล่ง"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Quellen"
+            "value": "%lld kaynak"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld источников"
+            "value": "%lld джерел"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld स्रोत"
+            "value": "%lld nguồn"
           }
         },
         "zh-Hans": {
