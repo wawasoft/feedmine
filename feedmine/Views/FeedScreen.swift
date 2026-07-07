@@ -275,7 +275,7 @@ struct FeedScreen: View {
                         Color.clear.frame(height: 14).background(.ultraThinMaterial)
                     }
                 }
-                .scrollDismissesKeyboard(.immediately)
+                .scrollDismissesKeyboard(.interactively)
                 .onScrollGeometryChange(for: CGFloat.self, of: { geo in
                     geo.contentOffset.y
                 }, action: { _, newOffset in
