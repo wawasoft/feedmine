@@ -2382,7 +2382,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Artikel"
+            "value": "%@ artikler"
           }
         },
         "de": {
@@ -2502,13 +2502,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Artikel"
+            "value": "%@ artikler"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Artikel"
+            "value": "%@ artikelen"
           }
         },
         "pl": {
@@ -2550,7 +2550,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Artikel"
+            "value": "%@ artiklar"
           }
         },
         "th": {
@@ -3546,7 +3546,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ verworfen"
+            "value": "%@ kasseret"
           }
         },
         "de": {
@@ -3666,13 +3666,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ verworfen"
+            "value": "%@ forkastet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ verworfen"
+            "value": "%@ verwijderd"
           }
         },
         "pl": {
@@ -3714,7 +3714,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ verworfen"
+            "value": "%@ kasserade"
           }
         },
         "th": {
@@ -4023,7 +4023,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Fehler"
+            "value": "%@ fejl"
           }
         },
         "de": {
@@ -4143,13 +4143,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Fehler"
+            "value": "%@ feil"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Fehler"
+            "value": "%@ fouten"
           }
         },
         "pl": {
@@ -4191,7 +4191,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Fehler"
+            "value": "%@ fel"
           }
         },
         "th": {
@@ -4737,7 +4737,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ abgerufen"
+            "value": "%@ hentet"
           }
         },
         "de": {
@@ -4857,13 +4857,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ abgerufen"
+            "value": "%@ hentet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ abgerufen"
+            "value": "%@ opgehaald"
           }
         },
         "pl": {
@@ -4905,7 +4905,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ abgerufen"
+            "value": "%@ hämtade"
           }
         },
         "th": {
@@ -6377,7 +6377,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Min Lesezeit"
+            "value": "%@ min læsning"
           }
         },
         "de": {
@@ -6497,13 +6497,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Min Lesezeit"
+            "value": "%@ min lesing"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Min Lesezeit"
+            "value": "%@ min lezen"
           }
         },
         "pl": {
@@ -6545,7 +6545,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Min Lesezeit"
+            "value": "%@ min läsning"
           }
         },
         "th": {
@@ -8527,7 +8527,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neu"
+            "value": "%@ nye"
           }
         },
         "de": {
@@ -8647,13 +8647,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neu"
+            "value": "%@ nye"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neu"
+            "value": "%@ nieuw"
           }
         },
         "pl": {
@@ -8695,7 +8695,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neu"
+            "value": "%@ nya"
           }
         },
         "th": {
@@ -9004,7 +9004,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neue Geschichten"
+            "value": "%@ nye historier"
           }
         },
         "de": {
@@ -9124,13 +9124,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neue Geschichten"
+            "value": "%@ nye historier"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neue Geschichten"
+            "value": "%@ nieuwe verhalen"
           }
         },
         "pl": {
@@ -9172,7 +9172,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ neue Geschichten"
+            "value": "%@ nya artiklar"
           }
         },
         "th": {
@@ -10675,7 +10675,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ in Warteschlange"
+            "value": "%@ i kø"
           }
         },
         "de": {
@@ -10795,13 +10795,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ in Warteschlange"
+            "value": "%@ i kø"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ in Warteschlange"
+            "value": "%@ in wachtrij"
           }
         },
         "pl": {
@@ -10843,7 +10843,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ in Warteschlange"
+            "value": "%@ i kö"
           }
         },
         "th": {
@@ -11152,7 +11152,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Quellen"
+            "value": "%@ kilder"
           }
         },
         "de": {
@@ -11272,13 +11272,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Quellen"
+            "value": "%@ kilder"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Quellen"
+            "value": "%@ bronnen"
           }
         },
         "pl": {
@@ -11320,7 +11320,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ Quellen"
+            "value": "%@ källor"
           }
         },
         "th": {
@@ -12584,7 +12584,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ eindeutig"
+            "value": "%@ unikke"
           }
         },
         "de": {
@@ -12704,13 +12704,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ eindeutig"
+            "value": "%@ unike"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ eindeutig"
+            "value": "%@ uniek"
           }
         },
         "pl": {
@@ -12752,7 +12752,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%@ eindeutig"
+            "value": "%@ unika"
           }
         },
         "th": {
@@ -15450,7 +15450,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Über"
+            "value": "Om"
           }
         },
         "de": {
@@ -15570,13 +15570,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Über"
+            "value": "Om"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Über"
+            "value": "Over"
           }
         },
         "pl": {
@@ -15618,7 +15618,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Über"
+            "value": "Om"
           }
         },
         "th": {
@@ -16879,7 +16879,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachmittag"
+            "value": "Eftermiddag"
           }
         },
         "de": {
@@ -16999,13 +16999,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachmittag"
+            "value": "Ettermiddag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachmittag"
+            "value": "Middag"
           }
         },
         "pl": {
@@ -17047,7 +17047,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachmittag"
+            "value": "Eftermiddag"
           }
         },
         "th": {
@@ -17483,7 +17483,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle"
+            "value": "Alles"
           }
         },
         "pl": {
@@ -17525,7 +17525,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle"
+            "value": "Alla"
           }
         },
         "th": {
@@ -17833,7 +17833,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Kategorien"
+            "value": "Alle kategorier"
           }
         },
         "de": {
@@ -17953,13 +17953,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Kategorien"
+            "value": "Alle kategorier"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Kategorien"
+            "value": "Alle categorieën"
           }
         },
         "pl": {
@@ -18001,7 +18001,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Kategorien"
+            "value": "Alla kategorier"
           }
         },
         "th": {
@@ -18785,7 +18785,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Länder"
+            "value": "Alle lande"
           }
         },
         "de": {
@@ -18905,13 +18905,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Länder"
+            "value": "Alle land"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Länder"
+            "value": "Alle landen"
           }
         },
         "pl": {
@@ -18953,7 +18953,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Länder"
+            "value": "Alla länder"
           }
         },
         "th": {
@@ -19740,7 +19740,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erscheinungsbild"
+            "value": "Udseende"
           }
         },
         "de": {
@@ -19860,13 +19860,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erscheinungsbild"
+            "value": "Utseende"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erscheinungsbild"
+            "value": "Weergave"
           }
         },
         "pl": {
@@ -19908,7 +19908,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erscheinungsbild"
+            "value": "Utseende"
           }
         },
         "th": {
@@ -20903,7 +20903,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel"
+            "value": "Artikler"
           }
         },
         "de": {
@@ -21023,13 +21023,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel"
+            "value": "Artikler"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel"
+            "value": "Artikelen"
           }
         },
         "pl": {
@@ -21071,7 +21071,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel"
+            "value": "Artiklar"
           }
         },
         "th": {
@@ -21267,7 +21267,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "August"
+            "value": "Augustus"
           }
         },
         "pl": {
@@ -21309,7 +21309,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "August"
+            "value": "Augusti"
           }
         },
         "th": {
@@ -21380,7 +21380,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Herbst"
+            "value": "Efterår"
           }
         },
         "de": {
@@ -21500,13 +21500,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Herbst"
+            "value": "Høst"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Herbst"
+            "value": "Herfst"
           }
         },
         "pl": {
@@ -21548,7 +21548,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Herbst"
+            "value": "Höst"
           }
         },
         "th": {
@@ -22097,7 +22097,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wieder online"
+            "value": "Online igen"
           }
         },
         "de": {
@@ -22217,13 +22217,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wieder online"
+            "value": "Online igjen"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wieder online"
+            "value": "Weer online"
           }
         },
         "pl": {
@@ -22265,7 +22265,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wieder online"
+            "value": "Online igen"
           }
         },
         "th": {
@@ -23021,7 +23021,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesezeichen"
+            "value": "Bogmærker"
           }
         },
         "de": {
@@ -23141,13 +23141,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesezeichen"
+            "value": "Bokmerker"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesezeichen"
+            "value": "Bladwijzers"
           }
         },
         "pl": {
@@ -23189,7 +23189,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesezeichen"
+            "value": "Bokmärken"
           }
         },
         "th": {
@@ -24661,7 +24661,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abbrechen"
+            "value": "Annuller"
           }
         },
         "de": {
@@ -24781,13 +24781,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abbrechen"
+            "value": "Avbryt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abbrechen"
+            "value": "Annuleren"
           }
         },
         "pl": {
@@ -24829,7 +24829,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abbrechen"
+            "value": "Avbryt"
           }
         },
         "th": {
@@ -24899,7 +24899,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kategorie"
+            "value": "Kategori"
           }
         },
         "de": {
@@ -25019,13 +25019,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kategorie"
+            "value": "Kategori"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kategorie"
+            "value": "Categorie"
           }
         },
         "pl": {
@@ -25067,7 +25067,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kategorie"
+            "value": "Kategori"
           }
         },
         "th": {
@@ -27047,7 +27047,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klar"
+            "value": "Klart"
           }
         },
         "de": {
@@ -27167,13 +27167,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klar"
+            "value": "Klart"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klar"
+            "value": "Helder"
           }
         },
         "pl": {
@@ -27215,7 +27215,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klar"
+            "value": "Klart"
           }
         },
         "th": {
@@ -27286,7 +27286,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Löschen"
+            "value": "Ryd alt"
           }
         },
         "de": {
@@ -27406,13 +27406,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Löschen"
+            "value": "Tøm alt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Löschen"
+            "value": "Alles wissen"
           }
         },
         "pl": {
@@ -27454,7 +27454,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Löschen"
+            "value": "Rensa allt"
           }
         },
         "th": {
@@ -27524,7 +27524,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Lesezeichen Löschen"
+            "value": "Ryd bogmærker"
           }
         },
         "de": {
@@ -27644,13 +27644,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Lesezeichen Löschen"
+            "value": "Tøm bokmerker"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Lesezeichen Löschen"
+            "value": "Wis bladwijzers"
           }
         },
         "pl": {
@@ -27692,7 +27692,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Lesezeichen Löschen"
+            "value": "Rensa bokmärken"
           }
         },
         "th": {
@@ -28238,7 +28238,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leseverlauf Löschen"
+            "value": "Ryd læsehistorik"
           }
         },
         "de": {
@@ -28358,13 +28358,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leseverlauf Löschen"
+            "value": "Tøm lesehistorikk"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leseverlauf Löschen"
+            "value": "Wis leesgeschiedenis"
           }
         },
         "pl": {
@@ -28406,7 +28406,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leseverlauf Löschen"
+            "value": "Rensa läshistorik"
           }
         },
         "th": {
@@ -28476,7 +28476,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bewölkt"
+            "value": "Skyet"
           }
         },
         "de": {
@@ -28596,13 +28596,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bewölkt"
+            "value": "Skyet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bewölkt"
+            "value": "Bewolkt"
           }
         },
         "pl": {
@@ -28644,7 +28644,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bewölkt"
+            "value": "Molnigt"
           }
         },
         "th": {
@@ -28715,7 +28715,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kalt"
+            "value": "Koldt"
           }
         },
         "de": {
@@ -28835,13 +28835,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kalt"
+            "value": "Kaldt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kalt"
+            "value": "Koud"
           }
         },
         "pl": {
@@ -28883,7 +28883,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kalt"
+            "value": "Kallt"
           }
         },
         "th": {
@@ -29908,7 +29908,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kühl"
+            "value": "Køligt"
           }
         },
         "de": {
@@ -30028,13 +30028,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kühl"
+            "value": "Kjølig"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kühl"
+            "value": "Koel"
           }
         },
         "pl": {
@@ -30076,7 +30076,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Kühl"
+            "value": "Svalt"
           }
         },
         "th": {
@@ -30386,7 +30386,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Link Kopieren"
+            "value": "Kopier link"
           }
         },
         "de": {
@@ -30506,13 +30506,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Link Kopieren"
+            "value": "Kopier lenke"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Link Kopieren"
+            "value": "Kopieer link"
           }
         },
         "pl": {
@@ -30554,7 +30554,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Link Kopieren"
+            "value": "Kopiera länk"
           }
         },
         "th": {
@@ -30624,7 +30624,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feeds konnten nicht geladen werden"
+            "value": "Kunne ikke indlæse feeds"
           }
         },
         "de": {
@@ -30744,13 +30744,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feeds konnten nicht geladen werden"
+            "value": "Kunne ikke laste feeds"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feeds konnten nicht geladen werden"
+            "value": "Kon feeds niet laden"
           }
         },
         "pl": {
@@ -30792,7 +30792,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feeds konnten nicht geladen werden"
+            "value": "Kunde inte ladda flöden"
           }
         },
         "th": {
@@ -30862,7 +30862,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Länder"
+            "value": "Lande"
           }
         },
         "de": {
@@ -30982,13 +30982,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Länder"
+            "value": "Land"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Länder"
+            "value": "Landen"
           }
         },
         "pl": {
@@ -31578,7 +31578,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Daten"
+            "value": "Data"
           }
         },
         "de": {
@@ -31698,13 +31698,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Daten"
+            "value": "Data"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Daten"
+            "value": "Gegevens"
           }
         },
         "pl": {
@@ -31746,7 +31746,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Daten"
+            "value": "Data"
           }
         },
         "th": {
@@ -31816,7 +31816,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgendämmerung"
+            "value": "Daggry"
           }
         },
         "de": {
@@ -31936,13 +31936,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgendämmerung"
+            "value": "Daggry"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgendämmerung"
+            "value": "Dageraad"
           }
         },
         "pl": {
@@ -31984,7 +31984,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgendämmerung"
+            "value": "Gryning"
           }
         },
         "th": {
@@ -32533,7 +32533,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Debug"
+            "value": "Fejlfinding"
           }
         },
         "de": {
@@ -32653,7 +32653,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Debug"
+            "value": "Feilsøking"
           }
         },
         "nl": {
@@ -32701,7 +32701,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Debug"
+            "value": "Felsökning"
           }
         },
         "th": {
@@ -32771,7 +32771,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dezember"
+            "value": "December"
           }
         },
         "de": {
@@ -32891,13 +32891,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dezember"
+            "value": "Desember"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dezember"
+            "value": "December"
           }
         },
         "pl": {
@@ -32939,7 +32939,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dezember"
+            "value": "December"
           }
         },
         "th": {
@@ -33249,7 +33249,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Dybdelæsning"
           }
         },
         "de": {
@@ -33369,13 +33369,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Dyp lesing"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Diep lezen"
           }
         },
         "pl": {
@@ -33417,7 +33417,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Djupläsning"
           }
         },
         "th": {
@@ -33727,7 +33727,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Dybdelæsning"
           }
         },
         "de": {
@@ -33847,13 +33847,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Dyp lesing"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Diepgaand lezen"
           }
         },
         "pl": {
@@ -33895,7 +33895,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tiefes Lesen"
+            "value": "Djupläsning"
           }
         },
         "th": {
@@ -33966,7 +33966,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deaktiviert"
+            "value": "Deaktiveret"
           }
         },
         "de": {
@@ -34086,13 +34086,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deaktiviert"
+            "value": "Deaktivert"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deaktiviert"
+            "value": "Uitgeschakeld"
           }
         },
         "pl": {
@@ -34134,7 +34134,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Deaktiviert"
+            "value": "Inaktiverad"
           }
         },
         "th": {
@@ -34681,7 +34681,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fertig"
+            "value": "Færdig"
           }
         },
         "de": {
@@ -34801,13 +34801,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fertig"
+            "value": "Ferdig"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fertig"
+            "value": "Klaar"
           }
         },
         "pl": {
@@ -34849,7 +34849,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fertig"
+            "value": "Klart"
           }
         },
         "th": {
@@ -34919,7 +34919,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nieselregen"
+            "value": "Finregn"
           }
         },
         "de": {
@@ -35039,13 +35039,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nieselregen"
+            "value": "Yr"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nieselregen"
+            "value": "Motregen"
           }
         },
         "pl": {
@@ -35087,7 +35087,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nieselregen"
+            "value": "Duggregn"
           }
         },
         "th": {
@@ -35158,7 +35158,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Früher"
+            "value": "Tidligere"
           }
         },
         "de": {
@@ -35278,13 +35278,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Früher"
+            "value": "Tidligere"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Früher"
+            "value": "Eerder"
           }
         },
         "pl": {
@@ -35326,7 +35326,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Früher"
+            "value": "Tidigare"
           }
         },
         "th": {
@@ -36352,7 +36352,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktiviert"
+            "value": "Aktiveret"
           }
         },
         "de": {
@@ -36472,13 +36472,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktiviert"
+            "value": "Aktivert"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktiviert"
+            "value": "Ingeschakeld"
           }
         },
         "pl": {
@@ -36520,7 +36520,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktiviert"
+            "value": "Aktiverad"
           }
         },
         "th": {
@@ -36590,7 +36590,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vertieft"
+            "value": "Engageret"
           }
         },
         "de": {
@@ -36710,13 +36710,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vertieft"
+            "value": "Engasjert"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vertieft"
+            "value": "Betrokken"
           }
         },
         "pl": {
@@ -36758,7 +36758,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Vertieft"
+            "value": "Engagerad"
           }
         },
         "th": {
@@ -36829,7 +36829,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abend"
+            "value": "Aften"
           }
         },
         "de": {
@@ -36949,13 +36949,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abend"
+            "value": "Kveld"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abend"
+            "value": "Avond"
           }
         },
         "pl": {
@@ -36997,7 +36997,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Abend"
+            "value": "Kväll"
           }
         },
         "th": {
@@ -38023,7 +38023,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Daten Exportieren"
+            "value": "Eksporter data"
           }
         },
         "de": {
@@ -38143,13 +38143,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Daten Exportieren"
+            "value": "Eksporter data"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Daten Exportieren"
+            "value": "Exporteer gegevens"
           }
         },
         "pl": {
@@ -38191,7 +38191,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Daten Exportieren"
+            "value": "Exportera data"
           }
         },
         "th": {
@@ -38261,7 +38261,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verlängert"
+            "value": "Forlænget"
           }
         },
         "de": {
@@ -38381,13 +38381,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verlängert"
+            "value": "Forlenget"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verlängert"
+            "value": "Verlengd"
           }
         },
         "pl": {
@@ -38429,7 +38429,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Verlängert"
+            "value": "Förlängd"
           }
         },
         "th": {
@@ -39343,7 +39343,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Februar"
+            "value": "Februari"
           }
         },
         "pl": {
@@ -39385,7 +39385,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Februar"
+            "value": "Februari"
           }
         },
         "th": {
@@ -40576,7 +40576,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feeds"
+            "value": "Flöden"
           }
         },
         "th": {
@@ -41092,7 +41092,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Filter"
+            "value": "Filtre"
           }
         },
         "de": {
@@ -41212,13 +41212,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Filter"
+            "value": "Filtre"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Filter"
+            "value": "Filters"
           }
         },
         "pl": {
@@ -42285,7 +42285,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erstes Mal"
+            "value": "Første gang"
           }
         },
         "de": {
@@ -42405,13 +42405,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erstes Mal"
+            "value": "Første gang"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erstes Mal"
+            "value": "Eerste keer"
           }
         },
         "pl": {
@@ -42453,7 +42453,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Erstes Mal"
+            "value": "Första gången"
           }
         },
         "th": {
@@ -42732,7 +42732,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nebel"
+            "value": "Tåge"
           }
         },
         "de": {
@@ -42852,13 +42852,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nebel"
+            "value": "Tåke"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nebel"
+            "value": "Mist"
           }
         },
         "pl": {
@@ -42900,7 +42900,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nebel"
+            "value": "Dimma"
           }
         },
         "th": {
@@ -42971,7 +42971,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schriftgröße"
+            "value": "Skriftstørrelse"
           }
         },
         "de": {
@@ -43091,13 +43091,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schriftgröße"
+            "value": "Skriftstørrelse"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schriftgröße"
+            "value": "Lettergrootte"
           }
         },
         "pl": {
@@ -43139,7 +43139,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schriftgröße"
+            "value": "Textstorlek"
           }
         },
         "th": {
@@ -43894,7 +43894,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Freitag"
+            "value": "Fredag"
           }
         },
         "de": {
@@ -44014,13 +44014,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Freitag"
+            "value": "Fredag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Freitag"
+            "value": "Vrijdag"
           }
         },
         "pl": {
@@ -44062,7 +44062,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Freitag"
+            "value": "Fredag"
           }
         },
         "th": {
@@ -44850,7 +44850,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %@ Quellen"
+            "value": "fra %@ kilder"
           }
         },
         "de": {
@@ -44970,13 +44970,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %@ Quellen"
+            "value": "fra %@ kilder"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %@ Quellen"
+            "value": "van %@ bronnen"
           }
         },
         "pl": {
@@ -45018,7 +45018,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %@ Quellen"
+            "value": "från %@ källor"
           }
         },
         "th": {
@@ -45806,7 +45806,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unterhaltung"
+            "value": "Sjov"
           }
         },
         "de": {
@@ -45926,13 +45926,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unterhaltung"
+            "value": "Moro"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unterhaltung"
+            "value": "Plezier"
           }
         },
         "pl": {
@@ -45974,7 +45974,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unterhaltung"
+            "value": "Roligt"
           }
         },
         "th": {
@@ -47207,7 +47207,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Tag"
+            "value": "Goddag"
           }
         },
         "de": {
@@ -47327,13 +47327,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Tag"
+            "value": "God ettermiddag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Tag"
+            "value": "Goedemiddag"
           }
         },
         "pl": {
@@ -47375,7 +47375,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Tag"
+            "value": "God eftermiddag"
           }
         },
         "th": {
@@ -47446,7 +47446,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Abend"
+            "value": "Godaften"
           }
         },
         "de": {
@@ -47566,13 +47566,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Abend"
+            "value": "God kveld"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Abend"
+            "value": "Goedenavond"
           }
         },
         "pl": {
@@ -47614,7 +47614,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Abend"
+            "value": "God kväll"
           }
         },
         "th": {
@@ -47685,7 +47685,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Morgen"
+            "value": "Godmorgen"
           }
         },
         "de": {
@@ -47805,13 +47805,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Morgen"
+            "value": "God morgen"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Morgen"
+            "value": "Goedemorgen"
           }
         },
         "pl": {
@@ -47853,7 +47853,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Guten Morgen"
+            "value": "God morgon"
           }
         },
         "th": {
@@ -47924,7 +47924,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gute Nacht"
+            "value": "Godnat"
           }
         },
         "de": {
@@ -48044,13 +48044,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gute Nacht"
+            "value": "God natt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gute Nacht"
+            "value": "Goedenacht"
           }
         },
         "pl": {
@@ -48092,7 +48092,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gute Nacht"
+            "value": "God natt"
           }
         },
         "th": {
@@ -50729,7 +50729,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Statusprüfung"
+            "value": "Sundhedstjek"
           }
         },
         "de": {
@@ -50849,13 +50849,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Statusprüfung"
+            "value": "Helsesjekk"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Statusprüfung"
+            "value": "Gezondheidscontrole"
           }
         },
         "pl": {
@@ -50897,7 +50897,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Statusprüfung"
+            "value": "Hälsokontroll"
           }
         },
         "th": {
@@ -51206,7 +51206,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Starkregen"
+            "value": "Kraftig regn"
           }
         },
         "de": {
@@ -51326,13 +51326,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Starkregen"
+            "value": "Kraftig regn"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Starkregen"
+            "value": "Zware regen"
           }
         },
         "pl": {
@@ -51374,7 +51374,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Starkregen"
+            "value": "Kraftigt regn"
           }
         },
         "th": {
@@ -51445,7 +51445,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hallo"
+            "value": "Hej"
           }
         },
         "de": {
@@ -51565,7 +51565,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hallo"
+            "value": "Hei"
           }
         },
         "nl": {
@@ -51613,7 +51613,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hallo"
+            "value": "Hej"
           }
         },
         "th": {
@@ -52401,7 +52401,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heiß"
+            "value": "Hedt"
           }
         },
         "de": {
@@ -52521,13 +52521,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heiß"
+            "value": "Hett"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heiß"
+            "value": "Heet"
           }
         },
         "pl": {
@@ -52569,7 +52569,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heiß"
+            "value": "Hett"
           }
         },
         "th": {
@@ -54310,7 +54310,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inspirierend"
+            "value": "Inspirerende"
           }
         },
         "de": {
@@ -54430,13 +54430,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inspirierend"
+            "value": "Inspirerende"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inspirierend"
+            "value": "Inspirerend"
           }
         },
         "pl": {
@@ -54478,7 +54478,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Inspirierend"
+            "value": "Inspirerande"
           }
         },
         "th": {
@@ -54674,7 +54674,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Januar"
+            "value": "Januari"
           }
         },
         "pl": {
@@ -54716,7 +54716,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Januar"
+            "value": "Januari"
           }
         },
         "th": {
@@ -55743,7 +55743,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gerade Geöffnet"
+            "value": "Lige åbnet"
           }
         },
         "de": {
@@ -55863,13 +55863,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gerade Geöffnet"
+            "value": "Nylig åpnet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gerade Geöffnet"
+            "value": "Net geopend"
           }
         },
         "pl": {
@@ -55911,7 +55911,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gerade Geöffnet"
+            "value": "Nyss öppnad"
           }
         },
         "th": {
@@ -56938,7 +56938,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprache"
+            "value": "Sprog"
           }
         },
         "de": {
@@ -57058,13 +57058,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprache"
+            "value": "Språk"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprache"
+            "value": "Taal"
           }
         },
         "pl": {
@@ -57106,7 +57106,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sprache"
+            "value": "Språk"
           }
         },
         "th": {
@@ -57385,7 +57385,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Groß"
+            "value": "Stor"
           }
         },
         "de": {
@@ -57505,13 +57505,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Groß"
+            "value": "Stor"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Groß"
+            "value": "Groot"
           }
         },
         "pl": {
@@ -57553,7 +57553,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Groß"
+            "value": "Stor"
           }
         },
         "th": {
@@ -57623,7 +57623,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zuletzt gespeichert"
+            "value": "Sidst gemt"
           }
         },
         "de": {
@@ -57743,13 +57743,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zuletzt gespeichert"
+            "value": "Sist lagret"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zuletzt gespeichert"
+            "value": "Laatst opgeslagen"
           }
         },
         "pl": {
@@ -57791,7 +57791,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zuletzt gespeichert"
+            "value": "Senast sparad"
           }
         },
         "th": {
@@ -57861,7 +57861,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Späte Nacht"
+            "value": "Sen nat"
           }
         },
         "de": {
@@ -57981,13 +57981,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Späte Nacht"
+            "value": "Sen natt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Späte Nacht"
+            "value": "Late nacht"
           }
         },
         "pl": {
@@ -58029,7 +58029,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Späte Nacht"
+            "value": "Sen natt"
           }
         },
         "th": {
@@ -59981,7 +59981,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anhören"
+            "value": "Lyt"
           }
         },
         "de": {
@@ -60101,13 +60101,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anhören"
+            "value": "Lytt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anhören"
+            "value": "Luisteren"
           }
         },
         "pl": {
@@ -60149,7 +60149,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Anhören"
+            "value": "Lyssna"
           }
         },
         "th": {
@@ -60219,7 +60219,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Werden Geladen"
+            "value": "Indlæser artikler"
           }
         },
         "de": {
@@ -60339,13 +60339,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Werden Geladen"
+            "value": "Laster artikler"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Werden Geladen"
+            "value": "Artikelen laden"
           }
         },
         "pl": {
@@ -60387,7 +60387,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Werden Geladen"
+            "value": "Laddar artiklar"
           }
         },
         "th": {
@@ -61651,7 +61651,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Marathon"
+            "value": "Maraton"
           }
         },
         "de": {
@@ -61771,7 +61771,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Marathon"
+            "value": "Maraton"
           }
         },
         "nl": {
@@ -61819,7 +61819,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Marathon"
+            "value": "Maraton"
           }
         },
         "th": {
@@ -62129,7 +62129,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "März"
+            "value": "Marts"
           }
         },
         "de": {
@@ -62249,13 +62249,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "März"
+            "value": "Mars"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "März"
+            "value": "Maart"
           }
         },
         "pl": {
@@ -62297,7 +62297,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "März"
+            "value": "Mars"
           }
         },
         "th": {
@@ -62368,7 +62368,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles als Gelesen Markieren"
+            "value": "Markér som læst"
           }
         },
         "de": {
@@ -62488,13 +62488,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles als Gelesen Markieren"
+            "value": "Merk som lest"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles als Gelesen Markieren"
+            "value": "Alles gelezen"
           }
         },
         "pl": {
@@ -62536,7 +62536,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles als Gelesen Markieren"
+            "value": "Markera läst"
           }
         },
         "th": {
@@ -62845,7 +62845,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mai"
+            "value": "Maj"
           }
         },
         "de": {
@@ -62971,7 +62971,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mai"
+            "value": "Mei"
           }
         },
         "pl": {
@@ -63013,7 +63013,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mai"
+            "value": "Maj"
           }
         },
         "th": {
@@ -63084,7 +63084,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittel"
+            "value": "Mellem"
           }
         },
         "de": {
@@ -63204,13 +63204,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittel"
+            "value": "Middels"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittel"
+            "value": "Middel"
           }
         },
         "pl": {
@@ -63252,7 +63252,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittel"
+            "value": "Medium"
           }
         },
         "th": {
@@ -64517,7 +64517,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mild"
+            "value": "Mildt"
           }
         },
         "de": {
@@ -64637,7 +64637,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mild"
+            "value": "Mildt"
           }
         },
         "nl": {
@@ -64685,7 +64685,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mild"
+            "value": "Milt"
           }
         },
         "th": {
@@ -64995,7 +64995,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montag"
+            "value": "Mandag"
           }
         },
         "de": {
@@ -65115,13 +65115,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montag"
+            "value": "Mandag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montag"
+            "value": "Maandag"
           }
         },
         "pl": {
@@ -65163,7 +65163,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Montag"
+            "value": "Måndag"
           }
         },
         "th": {
@@ -66315,7 +66315,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen"
+            "value": "Ochtend"
           }
         },
         "pl": {
@@ -66357,7 +66357,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen"
+            "value": "Morgon"
           }
         },
         "th": {
@@ -67622,7 +67622,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "NEU"
+            "value": "NYT"
           }
         },
         "de": {
@@ -67742,13 +67742,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "NEU"
+            "value": "NYTT"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "NEU"
+            "value": "NIEUW"
           }
         },
         "pl": {
@@ -67790,7 +67790,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "NEU"
+            "value": "NYTT"
           }
         },
         "th": {
@@ -68099,7 +68099,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neue Serie"
+            "value": "Ny stime"
           }
         },
         "de": {
@@ -68219,13 +68219,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neue Serie"
+            "value": "Ny rekke"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neue Serie"
+            "value": "Nieuwe reeks"
           }
         },
         "pl": {
@@ -68267,7 +68267,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neue Serie"
+            "value": "Ny svit"
           }
         },
         "th": {
@@ -70218,7 +70218,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nacht"
+            "value": "Nat"
           }
         },
         "de": {
@@ -70338,7 +70338,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nacht"
+            "value": "Natt"
           }
         },
         "nl": {
@@ -70386,7 +70386,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nacht"
+            "value": "Natt"
           }
         },
         "th": {
@@ -70457,7 +70457,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachtmodus"
+            "value": "Nattilstand"
           }
         },
         "de": {
@@ -70577,7 +70577,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachtmodus"
+            "value": "Nattmodus"
           }
         },
         "nl": {
@@ -70625,7 +70625,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nachtmodus"
+            "value": "Nattläge"
           }
         },
         "th": {
@@ -71173,7 +71173,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Noch keine Artikel"
+            "value": "Ingen artikler endnu"
           }
         },
         "de": {
@@ -71293,13 +71293,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Noch keine Artikel"
+            "value": "Ingen artikler ennå"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Noch keine Artikel"
+            "value": "Nog geen artikelen"
           }
         },
         "pl": {
@@ -71341,7 +71341,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Noch keine Artikel"
+            "value": "Inga artiklar än"
           }
         },
         "th": {
@@ -71649,7 +71649,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Internetverbindung"
+            "value": "Ingen internetforbindelse"
           }
         },
         "de": {
@@ -71769,13 +71769,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Internetverbindung"
+            "value": "Ingen internetforbindelse"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Internetverbindung"
+            "value": "Geen internetverbinding"
           }
         },
         "pl": {
@@ -71817,7 +71817,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Internetverbindung"
+            "value": "Ingen internetanslutning"
           }
         },
         "th": {
@@ -71887,7 +71887,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Eile"
+            "value": "Ingen hast"
           }
         },
         "de": {
@@ -72007,13 +72007,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Eile"
+            "value": "Ingen hast"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Eile"
+            "value": "Geen haast"
           }
         },
         "pl": {
@@ -72055,7 +72055,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Eile"
+            "value": "Ingen brådska"
           }
         },
         "th": {
@@ -72365,7 +72365,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Quellen gefunden"
+            "value": "Ingen kilder fundet"
           }
         },
         "de": {
@@ -72485,13 +72485,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Quellen gefunden"
+            "value": "Ingen kilder funnet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Quellen gefunden"
+            "value": "Geen bronnen gevonden"
           }
         },
         "pl": {
@@ -72533,7 +72533,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keine Quellen gefunden"
+            "value": "Inga källor hittades"
           }
         },
         "th": {
@@ -72968,7 +72968,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Normal"
+            "value": "Normaal"
           }
         },
         "pl": {
@@ -74634,7 +74634,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Offline"
+            "value": "Frakoblet"
           }
         },
         "nl": {
@@ -74992,7 +74992,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "In Safari Öffnen"
+            "value": "Åbn i Safari"
           }
         },
         "de": {
@@ -75112,13 +75112,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "In Safari Öffnen"
+            "value": "Åpne i Safari"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "In Safari Öffnen"
+            "value": "Open in Safari"
           }
         },
         "pl": {
@@ -75160,7 +75160,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "In Safari Öffnen"
+            "value": "Öppna i Safari"
           }
         },
         "th": {
@@ -75230,7 +75230,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bedeckt"
+            "value": "Overskyet"
           }
         },
         "de": {
@@ -75350,13 +75350,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bedeckt"
+            "value": "Overskyet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bedeckt"
+            "value": "Betrokken"
           }
         },
         "pl": {
@@ -75398,7 +75398,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bedeckt"
+            "value": "Mulet"
           }
         },
         "th": {
@@ -76123,7 +76123,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilweise Bewölkt"
+            "value": "Delvist skyet"
           }
         },
         "de": {
@@ -76243,13 +76243,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilweise Bewölkt"
+            "value": "Delvis skyet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilweise Bewölkt"
+            "value": "Half bewolkt"
           }
         },
         "pl": {
@@ -76291,7 +76291,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilweise Bewölkt"
+            "value": "Halvklart"
           }
         },
         "th": {
@@ -77079,7 +77079,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leistung"
+            "value": "Ydeevne"
           }
         },
         "de": {
@@ -77199,13 +77199,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leistung"
+            "value": "Ytelse"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leistung"
+            "value": "Prestaties"
           }
         },
         "pl": {
@@ -77247,7 +77247,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Leistung"
+            "value": "Prestanda"
           }
         },
         "th": {
@@ -78152,7 +78152,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Podcasts"
+            "value": "Podcaster"
           }
         },
         "nl": {
@@ -79942,7 +79942,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regen"
+            "value": "Regn"
           }
         },
         "de": {
@@ -80062,7 +80062,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regen"
+            "value": "Regn"
           }
         },
         "nl": {
@@ -80110,7 +80110,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Regen"
+            "value": "Regn"
           }
         },
         "th": {
@@ -80181,7 +80181,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesen"
+            "value": "Læsning"
           }
         },
         "de": {
@@ -80301,13 +80301,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesen"
+            "value": "Lesing"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesen"
+            "value": "Lezen"
           }
         },
         "pl": {
@@ -80349,7 +80349,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesen"
+            "value": "Läsning"
           }
         },
         "th": {
@@ -80658,7 +80658,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesestatistiken"
+            "value": "Læsestatistik"
           }
         },
         "de": {
@@ -80778,13 +80778,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesestatistiken"
+            "value": "Lesestatistikk"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesestatistiken"
+            "value": "Leesstatistieken"
           }
         },
         "pl": {
@@ -80826,7 +80826,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lesestatistiken"
+            "value": "Lässtatistik"
           }
         },
         "th": {
@@ -80896,7 +80896,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktualisieren"
+            "value": "Opdater"
           }
         },
         "de": {
@@ -81016,13 +81016,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktualisieren"
+            "value": "Oppdater"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktualisieren"
+            "value": "Vernieuwen"
           }
         },
         "pl": {
@@ -81064,7 +81064,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Aktualisieren"
+            "value": "Uppdatera"
           }
         },
         "th": {
@@ -81134,7 +81134,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jetzt Aktualisieren"
+            "value": "Opdater nu"
           }
         },
         "de": {
@@ -81254,13 +81254,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jetzt Aktualisieren"
+            "value": "Oppdater nå"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jetzt Aktualisieren"
+            "value": "Nu vernieuwen"
           }
         },
         "pl": {
@@ -81302,7 +81302,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Jetzt Aktualisieren"
+            "value": "Uppdatera nu"
           }
         },
         "th": {
@@ -81372,7 +81372,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Entfernen"
+            "value": "Fjern"
           }
         },
         "de": {
@@ -81492,13 +81492,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Entfernen"
+            "value": "Fjern"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Entfernen"
+            "value": "Verwijderen"
           }
         },
         "pl": {
@@ -81540,7 +81540,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Entfernen"
+            "value": "Ta bort"
           }
         },
         "th": {
@@ -81848,7 +81848,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Daten Zurücksetzen"
+            "value": "Nulstil data"
           }
         },
         "de": {
@@ -81968,13 +81968,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Daten Zurücksetzen"
+            "value": "Tilbakestill data"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Daten Zurücksetzen"
+            "value": "Reset gegevens"
           }
         },
         "pl": {
@@ -82016,7 +82016,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alle Daten Zurücksetzen"
+            "value": "Återställ data"
           }
         },
         "th": {
@@ -82086,7 +82086,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Zurücksetzen"
+            "value": "Nulstil alt"
           }
         },
         "de": {
@@ -82206,13 +82206,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Zurücksetzen"
+            "value": "Tilbakestill alt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Zurücksetzen"
+            "value": "Alles resetten"
           }
         },
         "pl": {
@@ -82254,7 +82254,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Alles Zurücksetzen"
+            "value": "Återställ allt"
           }
         },
         "th": {
@@ -82324,7 +82324,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neustart Erforderlich"
+            "value": "Genstart påkrævet"
           }
         },
         "de": {
@@ -82444,13 +82444,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neustart Erforderlich"
+            "value": "Omstart nødvendig"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neustart Erforderlich"
+            "value": "Herstart vereist"
           }
         },
         "pl": {
@@ -82492,7 +82492,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neustart Erforderlich"
+            "value": "Omstart krävs"
           }
         },
         "th": {
@@ -83757,7 +83757,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samstag"
+            "value": "Lørdag"
           }
         },
         "de": {
@@ -83877,13 +83877,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samstag"
+            "value": "Lørdag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samstag"
+            "value": "Zaterdag"
           }
         },
         "pl": {
@@ -83925,7 +83925,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Samstag"
+            "value": "Lördag"
           }
         },
         "th": {
@@ -84474,7 +84474,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gespeichert"
+            "value": "Gemt"
           }
         },
         "de": {
@@ -84594,13 +84594,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gespeichert"
+            "value": "Lagret"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gespeichert"
+            "value": "Opgeslagen"
           }
         },
         "pl": {
@@ -84642,7 +84642,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gespeichert"
+            "value": "Sparad"
           }
         },
         "th": {
@@ -84951,7 +84951,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nach Oben Scrollen"
+            "value": "Rul til toppen"
           }
         },
         "de": {
@@ -85071,13 +85071,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nach Oben Scrollen"
+            "value": "Rull til toppen"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nach Oben Scrollen"
+            "value": "Scroll naar boven"
           }
         },
         "pl": {
@@ -85119,7 +85119,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Nach Oben Scrollen"
+            "value": "Rulla till toppen"
           }
         },
         "th": {
@@ -85189,7 +85189,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Suchen…"
+            "value": "Søg artikler…"
           }
         },
         "de": {
@@ -85309,13 +85309,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Suchen…"
+            "value": "Søk artikler…"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Suchen…"
+            "value": "Zoek artikelen…"
           }
         },
         "pl": {
@@ -85357,7 +85357,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Artikel Suchen…"
+            "value": "Sök artiklar…"
           }
         },
         "th": {
@@ -85665,7 +85665,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedback Senden"
+            "value": "Send feedback"
           }
         },
         "de": {
@@ -85785,13 +85785,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedback Senden"
+            "value": "Send tilbakemelding"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedback Senden"
+            "value": "Feedback sturen"
           }
         },
         "pl": {
@@ -85833,7 +85833,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Feedback Senden"
+            "value": "Skicka feedback"
           }
         },
         "th": {
@@ -86142,7 +86142,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ernst"
+            "value": "Seriøs"
           }
         },
         "de": {
@@ -86262,13 +86262,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ernst"
+            "value": "Seriøst"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ernst"
+            "value": "Serieus"
           }
         },
         "pl": {
@@ -86310,7 +86310,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ernst"
+            "value": "Seriöst"
           }
         },
         "th": {
@@ -86380,7 +86380,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einstellungen"
+            "value": "Indstillinger"
           }
         },
         "de": {
@@ -86500,13 +86500,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einstellungen"
+            "value": "Innstillinger"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einstellungen"
+            "value": "Instellingen"
           }
         },
         "pl": {
@@ -86548,7 +86548,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einstellungen"
+            "value": "Inställningar"
           }
         },
         "th": {
@@ -86618,7 +86618,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einleben"
+            "value": "Falder til ro"
           }
         },
         "de": {
@@ -86738,13 +86738,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einleben"
+            "value": "Slår seg til ro"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einleben"
+            "value": "Aan het settelen"
           }
         },
         "pl": {
@@ -86786,7 +86786,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Einleben"
+            "value": "Installerar sig"
           }
         },
         "th": {
@@ -87573,7 +87573,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilen"
+            "value": "Del"
           }
         },
         "de": {
@@ -87693,13 +87693,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilen"
+            "value": "Del"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilen"
+            "value": "Delen"
           }
         },
         "pl": {
@@ -87741,7 +87741,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Teilen"
+            "value": "Dela"
           }
         },
         "th": {
@@ -88287,7 +88287,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Statistiken Teilen"
+            "value": "Del statistik"
           }
         },
         "de": {
@@ -88407,13 +88407,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Statistiken Teilen"
+            "value": "Del statistikk"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Statistiken Teilen"
+            "value": "Statistieken delen"
           }
         },
         "pl": {
@@ -88455,7 +88455,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Meine Statistiken Teilen"
+            "value": "Dela statistik"
           }
         },
         "th": {
@@ -89001,7 +89001,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Überfliegen"
+            "value": "Skimmer"
           }
         },
         "de": {
@@ -89121,13 +89121,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Überfliegen"
+            "value": "Skummer"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Überfliegen"
+            "value": "Doorbladeren"
           }
         },
         "pl": {
@@ -89169,7 +89169,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Überfliegen"
+            "value": "Ögnar igenom"
           }
         },
         "th": {
@@ -90196,7 +90196,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klein"
+            "value": "Lille"
           }
         },
         "de": {
@@ -90316,7 +90316,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klein"
+            "value": "Liten"
           }
         },
         "nl": {
@@ -90364,7 +90364,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Klein"
+            "value": "Liten"
           }
         },
         "th": {
@@ -90434,7 +90434,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schnee"
+            "value": "Sne"
           }
         },
         "de": {
@@ -90554,13 +90554,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schnee"
+            "value": "Snø"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schnee"
+            "value": "Sneeuw"
           }
         },
         "pl": {
@@ -90602,7 +90602,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Schnee"
+            "value": "Snö"
           }
         },
         "th": {
@@ -90673,7 +90673,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quellen"
+            "value": "Kilder"
           }
         },
         "de": {
@@ -90793,13 +90793,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quellen"
+            "value": "Kilder"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quellen"
+            "value": "Bronnen"
           }
         },
         "pl": {
@@ -90841,7 +90841,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quellen"
+            "value": "Källor"
           }
         },
         "th": {
@@ -91597,7 +91597,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Frühling"
+            "value": "Forår"
           }
         },
         "de": {
@@ -91717,13 +91717,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Frühling"
+            "value": "Vår"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Frühling"
+            "value": "Lente"
           }
         },
         "pl": {
@@ -91765,7 +91765,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Frühling"
+            "value": "Vår"
           }
         },
         "th": {
@@ -93031,7 +93031,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beständig"
+            "value": "Stabil"
           }
         },
         "de": {
@@ -93151,13 +93151,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beständig"
+            "value": "Stødig"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beständig"
+            "value": "Stabiel"
           }
         },
         "pl": {
@@ -93199,7 +93199,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Beständig"
+            "value": "Stadig"
           }
         },
         "th": {
@@ -93874,7 +93874,7 @@
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sommer"
+            "value": "Zomer"
           }
         },
         "pl": {
@@ -93916,7 +93916,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sommer"
+            "value": "Sommar"
           }
         },
         "th": {
@@ -94465,7 +94465,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sonntag"
+            "value": "Søndag"
           }
         },
         "de": {
@@ -94585,13 +94585,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sonntag"
+            "value": "Søndag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sonntag"
+            "value": "Zondag"
           }
         },
         "pl": {
@@ -94633,7 +94633,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Sonntag"
+            "value": "Söndag"
           }
         },
         "th": {
@@ -96791,7 +96791,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lass dir Zeit"
+            "value": "Tag dig tid"
           }
         },
         "de": {
@@ -96911,13 +96911,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lass dir Zeit"
+            "value": "Ta deg tid"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lass dir Zeit"
+            "value": "Neem de tijd"
           }
         },
         "pl": {
@@ -96959,7 +96959,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Lass dir Zeit"
+            "value": "Ta din tid"
           }
         },
         "th": {
@@ -97269,7 +97269,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zum Wiederholen Tippen"
+            "value": "Tryk for at prøve igen"
           }
         },
         "de": {
@@ -97389,13 +97389,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zum Wiederholen Tippen"
+            "value": "Trykk for å prøve igjen"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zum Wiederholen Tippen"
+            "value": "Tik om opnieuw te proberen"
           }
         },
         "pl": {
@@ -97437,7 +97437,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Zum Wiederholen Tippen"
+            "value": "Tryck för att försöka igen"
           }
         },
         "th": {
@@ -97507,7 +97507,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Technisch"
+            "value": "Teknisk"
           }
         },
         "de": {
@@ -97627,7 +97627,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Technisch"
+            "value": "Teknisk"
           }
         },
         "nl": {
@@ -97675,7 +97675,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Technisch"
+            "value": "Tekniskt"
           }
         },
         "th": {
@@ -101774,7 +101774,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Diese Woche"
+            "value": "Denne uge"
           }
         },
         "de": {
@@ -101894,13 +101894,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Diese Woche"
+            "value": "Denne uken"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Diese Woche"
+            "value": "Deze week"
           }
         },
         "pl": {
@@ -101942,7 +101942,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Diese Woche"
+            "value": "Denna vecka"
           }
         },
         "th": {
@@ -102251,7 +102251,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gewitter"
+            "value": "Tordenvejr"
           }
         },
         "de": {
@@ -102371,13 +102371,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gewitter"
+            "value": "Tordenvær"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gewitter"
+            "value": "Onweer"
           }
         },
         "pl": {
@@ -102419,7 +102419,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gewitter"
+            "value": "Åskväder"
           }
         },
         "th": {
@@ -102490,7 +102490,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Donnerstag"
+            "value": "Torsdag"
           }
         },
         "de": {
@@ -102610,13 +102610,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Donnerstag"
+            "value": "Torsdag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Donnerstag"
+            "value": "Donderdag"
           }
         },
         "pl": {
@@ -102658,7 +102658,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Donnerstag"
+            "value": "Torsdag"
           }
         },
         "th": {
@@ -102968,7 +102968,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heute"
+            "value": "I dag"
           }
         },
         "de": {
@@ -103088,13 +103088,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heute"
+            "value": "I dag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heute"
+            "value": "Vandaag"
           }
         },
         "pl": {
@@ -103136,7 +103136,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Heute"
+            "value": "Idag"
           }
         },
         "th": {
@@ -103207,7 +103207,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen"
+            "value": "I morgen"
           }
         },
         "de": {
@@ -103327,7 +103327,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen"
+            "value": "I morgen"
           }
         },
         "nl": {
@@ -103375,7 +103375,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Morgen"
+            "value": "Imorgon"
           }
         },
         "th": {
@@ -103923,7 +103923,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Top-Geschichten"
+            "value": "Topnyheder"
           }
         },
         "de": {
@@ -104043,13 +104043,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Top-Geschichten"
+            "value": "Topphistorier"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Top-Geschichten"
+            "value": "Topverhalen"
           }
         },
         "pl": {
@@ -104091,7 +104091,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Top-Geschichten"
+            "value": "Toppnyheter"
           }
         },
         "th": {
@@ -104638,7 +104638,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dienstag"
+            "value": "Tirsdag"
           }
         },
         "de": {
@@ -104758,13 +104758,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dienstag"
+            "value": "Tirsdag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dienstag"
+            "value": "Dinsdag"
           }
         },
         "pl": {
@@ -104806,7 +104806,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Dienstag"
+            "value": "Tisdag"
           }
         },
         "th": {
@@ -106400,13 +106400,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Version"
+            "value": "Versjon"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Version"
+            "value": "Versie"
           }
         },
         "pl": {
@@ -107233,7 +107233,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Videos"
+            "value": "Videoer"
           }
         },
         "de": {
@@ -107353,13 +107353,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Videos"
+            "value": "Videoer"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Videos"
+            "value": "Video's"
           }
         },
         "pl": {
@@ -107401,7 +107401,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Videos"
+            "value": "Videor"
           }
         },
         "th": {
@@ -107949,7 +107949,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Warm"
+            "value": "Varmt"
           }
         },
         "de": {
@@ -108069,7 +108069,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Warm"
+            "value": "Varmt"
           }
         },
         "nl": {
@@ -108117,7 +108117,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Warm"
+            "value": "Varmt"
           }
         },
         "th": {
@@ -108666,7 +108666,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ansehen"
+            "value": "Se"
           }
         },
         "de": {
@@ -108786,13 +108786,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ansehen"
+            "value": "Se"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ansehen"
+            "value": "Bekijken"
           }
         },
         "pl": {
@@ -108834,7 +108834,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ansehen"
+            "value": "Titta"
           }
         },
         "th": {
@@ -109382,7 +109382,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittwoch"
+            "value": "Onsdag"
           }
         },
         "de": {
@@ -109502,13 +109502,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittwoch"
+            "value": "Onsdag"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittwoch"
+            "value": "Woensdag"
           }
         },
         "pl": {
@@ -109550,7 +109550,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mittwoch"
+            "value": "Onsdag"
           }
         },
         "th": {
@@ -109860,7 +109860,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wochenende"
+            "value": "Weekend"
           }
         },
         "de": {
@@ -109980,13 +109980,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wochenende"
+            "value": "Helg"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wochenende"
+            "value": "Weekend"
           }
         },
         "pl": {
@@ -110028,7 +110028,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Wochenende"
+            "value": "Helg"
           }
         },
         "th": {
@@ -110338,7 +110338,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neuigkeiten"
+            "value": "Nyt"
           }
         },
         "de": {
@@ -110458,13 +110458,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neuigkeiten"
+            "value": "Nyheter"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neuigkeiten"
+            "value": "Nieuw"
           }
         },
         "pl": {
@@ -110506,7 +110506,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Neuigkeiten"
+            "value": "Nyheter"
           }
         },
         "th": {
@@ -111023,7 +111023,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Windig"
+            "value": "Blæsende"
           }
         },
         "de": {
@@ -111143,13 +111143,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Windig"
+            "value": "Vindfullt"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Windig"
+            "value": "Winderig"
           }
         },
         "pl": {
@@ -111191,7 +111191,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Windig"
+            "value": "Blåsigt"
           }
         },
         "th": {
@@ -111262,7 +111262,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Winter"
+            "value": "Vinter"
           }
         },
         "de": {
@@ -111382,7 +111382,7 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Winter"
+            "value": "Vinter"
           }
         },
         "nl": {
@@ -111430,7 +111430,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Winter"
+            "value": "Vinter"
           }
         },
         "th": {
@@ -112457,7 +112457,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gestern"
+            "value": "I går"
           }
         },
         "de": {
@@ -112577,13 +112577,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gestern"
+            "value": "I går"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gestern"
+            "value": "Gisteren"
           }
         },
         "pl": {
@@ -112625,7 +112625,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gestern"
+            "value": "Igår"
           }
         },
         "th": {
@@ -116032,7 +116032,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Artikel"
+            "value": "%lld artikler"
           }
         },
         "de": {
@@ -116152,13 +116152,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Artikel"
+            "value": "%lld artikler"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Artikel"
+            "value": "%lld artikelen"
           }
         },
         "pl": {
@@ -116200,7 +116200,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Artikel"
+            "value": "%lld artiklar"
           }
         },
         "th": {
@@ -117196,7 +117196,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld verworfen"
+            "value": "%lld kasseret"
           }
         },
         "de": {
@@ -117316,13 +117316,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld verworfen"
+            "value": "%lld forkastet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld verworfen"
+            "value": "%lld verwijderd"
           }
         },
         "pl": {
@@ -117364,7 +117364,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld verworfen"
+            "value": "%lld kasserade"
           }
         },
         "th": {
@@ -117673,7 +117673,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Fehler"
+            "value": "%lld fejl"
           }
         },
         "de": {
@@ -117793,13 +117793,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Fehler"
+            "value": "%lld feil"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Fehler"
+            "value": "%lld fouten"
           }
         },
         "pl": {
@@ -117841,7 +117841,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Fehler"
+            "value": "%lld fel"
           }
         },
         "th": {
@@ -118387,7 +118387,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld abgerufen"
+            "value": "%lld hentet"
           }
         },
         "de": {
@@ -118507,13 +118507,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld abgerufen"
+            "value": "%lld hentet"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld abgerufen"
+            "value": "%lld opgehaald"
           }
         },
         "pl": {
@@ -118555,7 +118555,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld abgerufen"
+            "value": "%lld hämtade"
           }
         },
         "th": {
@@ -120027,7 +120027,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Min Lesezeit"
+            "value": "%lld min læsning"
           }
         },
         "de": {
@@ -120147,13 +120147,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Min Lesezeit"
+            "value": "%lld min lesing"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Min Lesezeit"
+            "value": "%lld min lezen"
           }
         },
         "pl": {
@@ -120195,7 +120195,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Min Lesezeit"
+            "value": "%lld min läsning"
           }
         },
         "th": {
@@ -122177,7 +122177,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neu"
+            "value": "%lld nye"
           }
         },
         "de": {
@@ -122297,13 +122297,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neu"
+            "value": "%lld nye"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neu"
+            "value": "%lld nieuw"
           }
         },
         "pl": {
@@ -122345,7 +122345,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neu"
+            "value": "%lld nya"
           }
         },
         "th": {
@@ -122654,7 +122654,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neue Geschichten"
+            "value": "%lld nye historier"
           }
         },
         "de": {
@@ -122774,13 +122774,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neue Geschichten"
+            "value": "%lld nye historier"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neue Geschichten"
+            "value": "%lld nieuwe verhalen"
           }
         },
         "pl": {
@@ -122822,7 +122822,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld neue Geschichten"
+            "value": "%lld nya artiklar"
           }
         },
         "th": {
@@ -124325,7 +124325,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld in Warteschlange"
+            "value": "%lld i kø"
           }
         },
         "de": {
@@ -124445,13 +124445,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld in Warteschlange"
+            "value": "%lld i kø"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld in Warteschlange"
+            "value": "%lld in wachtrij"
           }
         },
         "pl": {
@@ -124493,7 +124493,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld in Warteschlange"
+            "value": "%lld i kö"
           }
         },
         "th": {
@@ -124802,7 +124802,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Quellen"
+            "value": "%lld kilder"
           }
         },
         "de": {
@@ -124922,13 +124922,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Quellen"
+            "value": "%lld kilder"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Quellen"
+            "value": "%lld bronnen"
           }
         },
         "pl": {
@@ -124970,7 +124970,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld Quellen"
+            "value": "%lld källor"
           }
         },
         "th": {
@@ -126234,7 +126234,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld eindeutig"
+            "value": "%lld unikke"
           }
         },
         "de": {
@@ -126354,13 +126354,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld eindeutig"
+            "value": "%lld unike"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld eindeutig"
+            "value": "%lld uniek"
           }
         },
         "pl": {
@@ -126402,7 +126402,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "%lld eindeutig"
+            "value": "%lld unika"
           }
         },
         "th": {
@@ -130532,7 +130532,7 @@
         "da": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %lld Quellen"
+            "value": "fra %lld kilder"
           }
         },
         "de": {
@@ -130652,13 +130652,13 @@
         "nb": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %lld Quellen"
+            "value": "fra %lld kilder"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %lld Quellen"
+            "value": "van %lld bronnen"
           }
         },
         "pl": {
@@ -130700,7 +130700,7 @@
         "sv": {
           "stringUnit": {
             "state": "translated",
-            "value": "von %lld Quellen"
+            "value": "från %lld källor"
           }
         },
         "th": {
