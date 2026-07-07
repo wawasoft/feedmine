@@ -943,7 +943,6 @@ final class FeedLoader {
         let parseResult = await OPMLParser.parseAll()
         sources = parseResult.sources
         opmlFileCount = parseResult.fileCount
-        print("[FeedLoader] Sources loaded: \(sources.count) total, \(availableCountries.count) countries")
         opmlErrorCount = parseResult.failedFileCount
         invalidSourceCount = parseResult.invalidSourceCount
         duplicateSourceCount = parseResult.duplicateSourceCount
@@ -1316,10 +1315,21 @@ final class FeedLoader {
     private func refillReservoir() async {
         guard !enabledSources.isEmpty else { return }
 
-        let batch = await fetcher.fetchAll(enabledSources.shuffled())
+        // Prioritize never-fetched sources (e.g., newly enabled countries)
+        // so fetch-on-demand is responsive. Fetch up to 40 sources per refill.
+        let prioritized = enabledSources.sorted { a, b in
+            let aLast = sourceHealth[a.url]?.lastFetchDate
+            let bLast = sourceHealth[b.url]?.lastFetchDate
+            if aLast == nil && bLast != nil { return true }
+            if bLast == nil && aLast != nil { return false }
+            return false  // both nil or both set — let shuffle decide
+        }
+        let batchSources = Array(prioritized.prefix(40))
+        let batch = await fetcher.fetchAll(batchSources, maxConcurrent: 15)
         totalFetched += batch.items.count
         fetchErrorCount += batch.failedSourceCount
         emptyFeedCount += batch.emptySourceCount
+        updateSourceHealth(failedSources: batch.failedSourceCount, totalSources: batchSources.count, totalItems: batch.items.count)
 
         let actualNew = batch.items.filter { !loadedIDs.contains($0.id) }
         registerLoadedIDs(actualNew.map(\.id))

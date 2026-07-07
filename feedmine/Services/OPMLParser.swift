@@ -18,14 +18,6 @@ struct OPMLParser {
         opmlFiles = opmlFiles.filter { seen.insert($0).inserted }
         opmlFiles.shuffle()
 
-        // DEBUG: log file discovery
-        let countryFiles = opmlFiles.filter { $0.pathComponents.contains("countries") }
-        print("[OPMLParser] Found \(opmlFiles.count) OPML files: \(opmlFiles.count - countryFiles.count) root + \(countryFiles.count) countries")
-        if !countryFiles.isEmpty {
-            let sample = countryFiles.prefix(3).map { $0.lastPathComponent }
-            print("[OPMLParser] Sample country files: \(sample)")
-        }
-
         guard !opmlFiles.isEmpty else {
             return OPMLParseResult(sources: [], fileCount: 0, failedFileCount: 0, invalidSourceCount: 0, duplicateSourceCount: 0)
         }
@@ -56,10 +48,6 @@ struct OPMLParser {
 
         let deduped = deduplicateSources(allSources)
         let duplicateSourceCount = allSources.count - deduped.count
-
-        let countrySourceCount = deduped.filter { $0.region.hasPrefix("countries/") }.count
-        let globalSourceCount = deduped.filter { $0.region == "global" }.count
-        print("[OPMLParser] Parsed \(deduped.count) sources: \(globalSourceCount) global + \(countrySourceCount) country (\(failedFileCount) files failed)")
 
         return OPMLParseResult(
             sources: deduped,
