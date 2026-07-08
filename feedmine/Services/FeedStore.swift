@@ -1,5 +1,6 @@
 import Foundation
 import GRDB
+import NaturalLanguage
 import Observation
 
 @MainActor
@@ -433,6 +434,12 @@ final class FeedStore {
         for id in actualNew.map(\.id) { loadedIDs.insert(id) }
         loadedIDsCount = loadedIDs.count
 
+        // Diagnostic (opt-in via debug bar): surface non-English items so a
+        // mis-languaged feed can be identified. See loop-focus-areas #5.
+        if UserDefaults.standard.bool(forKey: "showDebugBar") {
+            logNonEnglishItems(actualNew)
+        }
+
         // Write to SQLite
         do {
             // Compute regions in @MainActor context before entering the write closure
@@ -470,6 +477,24 @@ final class FeedStore {
 
         // Check persistent searches
         await matchPersistentSearches(actualNew)
+    }
+
+    /// Debug diagnostic: logs items whose detected language isn't English,
+    /// with source/region/url, so a mis-languaged feed can be spotted at
+    /// runtime (loop-focus-areas #5). Gated behind the debug bar — no effect on
+    /// the feed itself.
+    private func logNonEnglishItems(_ items: [FeedItem]) {
+        let recognizer = NLLanguageRecognizer()
+        for item in items {
+            let text = (item.title + " " + item.excerpt)
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard text.count >= 12 else { continue }  // too short to detect reliably
+            recognizer.reset()
+            recognizer.processString(text)
+            guard let lang = recognizer.dominantLanguage, lang != .english else { continue }
+            let region = registry.regionFor(sourceURL: item.sourceURL)
+            print("[LangCheck] \(lang.rawValue) source=\"\(item.sourceTitle)\" region=\(region) url=\(item.url)")
+        }
     }
 
     private func progressiveFetch() async {
