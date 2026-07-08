@@ -36,3 +36,29 @@ def test_strict_country_filter_and_dedup():
     assert c.title == "Historia Bolivia"
     assert c.genre == "Historia"
     assert c.national is True
+
+
+def _safe(term: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in term)
+
+
+def test_discover_reads_cache_without_network(tmp_path):
+    import asyncio
+    import json
+
+    from scripts.feed_discovery.pipeline import Config
+
+    # Single-seed-term country so exactly one cache file is needed.
+    one = Country("testland", "Testland", "tl", True, "en", "tl-en", [],
+                  "Testland", [], iso2="tl", iso3="TLD")
+    cfg = Config(cache_dir=tmp_path, delay=0, fresh=False)
+    cache = tmp_path / "itunes" / "testland" / (_safe("Testland") + ".json")
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps({"results": [
+        {"collectionName": "TL Pod", "feedUrl": "https://feeds.tl/p",
+         "country": "TLD", "primaryGenreName": "News"},
+    ]}), encoding="utf-8")
+
+    cands = asyncio.run(podcasts.discover(one, None, cfg))
+    assert [c.url for c in cands] == ["https://feeds.tl/p"]
+    assert cands[0].genre == "News"
