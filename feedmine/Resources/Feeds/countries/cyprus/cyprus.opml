@@ -4,5 +4,115 @@
     <title>Cyprus Feeds</title>
   </head>
   <body>
+    <outline text="Podcasts">
+      <outline title="Destination Cyprus" xmlUrl="https://rss.buzzsprout.com/2031988.rss" type="rss" />
+      <outline title="The History of Cyprus Podcast" xmlUrl="https://feed.podbean.com/cyprusthepodcast/feed.xml" type="rss" />
+      <outline title="Cyprus Calling - Marika and Me (The Podcast)" xmlUrl="https://rss.buzzsprout.com/2438729.rss" type="rss" />
+      <outline title="CYPRUS UNTOLD" xmlUrl="https://pod.cyprusuntold.com/feed.xml" type="rss" />
+      <outline title="Decode Cyprus" xmlUrl="https://islandtalks.fm/feed/podcast/dc/" type="rss" />
+      <outline title="Cyprus Mysteries" xmlUrl="https://anchor.fm/s/1cecb8fc/podcast/rss" type="rss" />
+      <outline title="Made In Cyprus | Big biz stories from a tiny island" xmlUrl="https://anchor.fm/s/f3c4199c/podcast/rss" type="rss" />
+      <outline title="Beer Talks Cyprus" xmlUrl="https://anchor.fm/s/59596d44/podcast/rss" type="rss" />
+      <outline title="The History of Cyprus: The Island Every Empire Wanted — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/the-history-of-cyprus.xml" type="rss" />
+      <outline title="A new Life Planned in Cyprus, Travel show" xmlUrl="https://anchor.fm/s/fc2930cc/podcast/rss" type="rss" />
+      <outline title="Cyprus Beat" xmlUrl="https://anchor.fm/s/55086178/podcast/rss" type="rss" />
+      <outline title="Cyprus Delights Podcast" xmlUrl="https://anchor.fm/s/fcec4cd8/podcast/rss" type="rss" />
+      <outline title="Cyprus Community" xmlUrl="https://feeds.accessmedia.nz/V2/itunes/17da18d8-3828-4144-bc75-4be9023c805f" type="rss" />
+      <outline title="Talking Round North Cyprus" xmlUrl="https://anchor.fm/s/2ffc4c78/podcast/rss" type="rss" />
+      <outline title="FES Cyprus Podcast - Beyond the Divide" xmlUrl="https://fes-cyprus-podcast.podigee.io/feed/mp3" type="rss" />
+      <outline title="Terra Nullius Cyprus" xmlUrl="https://islandtalks.fm/feed/podcast/tn/" type="rss" />
+      <outline title="Cyprus Tax and Relocation Advice" xmlUrl="https://anchor.fm/s/4b04e584/podcast/rss" type="rss" />
+      <outline title="Facing Love in Cyprus" xmlUrl="https://islandtalks.fm/feed/podcast/fl/" type="rss" />
+      <outline title="ΜΙΛΑ ΜΟΥ ΙΣΤΟΡΙΚΑ (για τo γυμνάσιο)" xmlUrl="https://rss.buzzsprout.com/1463935.rss" type="rss" />
+      <outline title="UCLan Cyprus TalkZone" xmlUrl="https://rss.buzzsprout.com/2448733.rss" type="rss" />
+      <outline title="Talking Round North Cyprus" xmlUrl="https://anchor.fm/s/3139a194/podcast/rss" type="rss" />
+      <outline title="Hack Cyprus Podcast" xmlUrl="https://rss.buzzsprout.com/1926125.rss" type="rss" />
+      <outline title="Red Earth: Cyprus Murder Files - True Crime" xmlUrl="https://anchor.fm/s/109d136d4/podcast/rss" type="rss" />
+      <outline title="penna!" xmlUrl="https://rss.buzzsprout.com/2608861.rss" type="rss" />
+      <outline title="thecopcyprus Podcast" xmlUrl="https://anchor.fm/s/4465de2c/podcast/rss" type="rss" />
+      <outline title="CyprusScene.com" xmlUrl="https://anchor.fm/s/4e282b04/podcast/rss" type="rss" />
+      <outline title="Good Morning Cyprus! Ft. Rodrigo and Othello" xmlUrl="https://anchor.fm/s/b125ce0/podcast/rss" type="rss" />
+      <outline title="Capital Link Podcasts - Capital Link Invest in Cyprus Podcast" xmlUrl="https://capitallink.com/rssfeed.php?series=capital-link-invest-in-cyprus-podcast" type="rss" />
+      <outline title="Cyprus News Digest" xmlUrl="https://media.rss.com/cyprus-news-digest/feed.xml" type="rss" />
+      <outline title="Haris Menelaou - Greece &amp; Cyprus Real Estate" xmlUrl="https://anchor.fm/s/46a300d4/podcast/rss" type="rss" />
+      <outline title="The Future Makers Podcast: Women Building Cyprus" xmlUrl="https://anchor.fm/s/111c2dd48/podcast/rss" type="rss" />
+      <outline title="Social Media Cyprus Cast" xmlUrl="https://anchor.fm/s/114e3340/podcast/rss" type="rss" />
+      <outline title="Ras SimFm 98.6 Cyprus Podcast" xmlUrl="https://rasimfm.podomatic.com/rss2.xml" type="rss" />
+      <outline title="Φωνές της Κύπρου: Ιστορία και Πολιτισμός - Voices of Cyprus: History and Culture" xmlUrl="https://anchor.fm/s/ee1f4da4/podcast/rss" type="rss" />
+      <outline title="Cyprus Business and Beyond" xmlUrl="https://feeds.redcircle.com/5ee6fc7f-c08a-4af4-894d-6fd19eb884fe" type="rss" />
+      <outline title="CYPRUS ACCOUNTANTS ACADEMY" xmlUrl="https://anchor.fm/s/51e5e524/podcast/rss" type="rss" />
+      <outline title="Coffee &amp; Trophy" xmlUrl="https://anchor.fm/s/d9a55648/podcast/rss" type="rss" />
+      <outline title="ΠΟΥΡΡΟΥ ΠΟΥΡΡΟΥ PODCAST" xmlUrl="https://anchor.fm/s/4628dbb0/podcast/rss" type="rss" />
+      <outline title="#YouthCast" xmlUrl="https://rss.buzzsprout.com/2090857.rss" type="rss" />
+      <outline title="Beyond the Engine Room: Rob’s SGM stories." xmlUrl="https://anchor.fm/s/fd1371f0/podcast/rss" type="rss" />
+      <outline title="Design Happiness" xmlUrl="https://anchor.fm/s/e6c25de4/podcast/rss" type="rss" />
+      <outline title="Game of Politics" xmlUrl="https://anchor.fm/s/e6c30898/podcast/rss" type="rss" />
+      <outline title="EUC Academia Talks" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1149469636/sounds.rss" type="rss" />
+      <outline title="Fall Forward" xmlUrl="https://anchor.fm/s/e6d5b3e4/podcast/rss" type="rss" />
+      <outline title="ΡΑΔΙΟ ΠΡΩΤΟ" xmlUrl="https://anchor.fm/s/1b330660/podcast/rss" type="rss" />
+      <outline title="MSAC PODCAST" xmlUrl="https://anchor.fm/s/8c5ba2d4/podcast/rss" type="rss" />
+      <outline title="Inside Beautiful Minds" xmlUrl="https://anchor.fm/s/ec6dff78/podcast/rss" type="rss" />
+      <outline title="EUC Alumni Talks" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1098066001/sounds.rss" type="rss" />
+      <outline title="Nicosia Uncut" xmlUrl="https://islandtalks.fm/feed/podcast/nu/" type="rss" />
+      <outline title="The BLDG Tomorrow Show" xmlUrl="https://rss.buzzsprout.com/1763944.rss" type="rss" />
+      <outline title="GP After Dark with Moving n' Grooving with Nikki" xmlUrl="https://rss.buzzsprout.com/1516645.rss" type="rss" />
+      <outline title="Nicosia Municipality Podcasts" xmlUrl="https://rss.buzzsprout.com/1748245.rss" type="rss" />
+      <outline title="Loli Nicosia" xmlUrl="https://anchor.fm/s/38370aa4/podcast/rss" type="rss" />
+      <outline title="Mental Health with Maddie" xmlUrl="https://anchor.fm/s/41ea8bfc/podcast/rss" type="rss" />
+      <outline title="Modern Awakening" xmlUrl="https://anchor.fm/s/ee52dda4/podcast/rss" type="rss" />
+      <outline title="BananaLand" xmlUrl="https://anchor.fm/s/2146d6a8/podcast/rss" type="rss" />
+      <outline title="The Real Podcast" xmlUrl="https://anchor.fm/s/ee1e7a50/podcast/rss" type="rss" />
+      <outline title="Un Hueco" xmlUrl="https://anchor.fm/s/57475944/podcast/rss" type="rss" />
+      <outline title="The Daily Struggle" xmlUrl="https://anchor.fm/s/11c7cbc4/podcast/rss" type="rss" />
+      <outline title="Freedom Church Limassol" xmlUrl="https://anchor.fm/s/11296ed90/podcast/rss" type="rss" />
+      <outline title="THE MYSTERY OF MARRIAGE: Homilies of Metr. Athanasios of Limassol" xmlUrl="https://anchor.fm/s/f781da60/podcast/rss" type="rss" />
+      <outline title="Larnaca Community Church" xmlUrl="https://anchor.fm/s/bc698cac/podcast/rss" type="rss" />
+      <outline title="When in Rome" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:162749044/sounds.rss" type="rss" />
+      <outline title="DJ Град (DJ Grad)" xmlUrl="https://promodj.com/djgrad/rss.xml" type="rss" />
+      <outline title="The Running Hub" xmlUrl="https://rss.pdrl.fm/8252bf/feeds.libsyn.com/242828/rss/?redirect=false" type="rss" />
+      <outline title="Thrift Therapy" xmlUrl="https://anchor.fm/s/31acf7c/podcast/rss" type="rss" />
+      <outline title="The Folkestone &amp; Hythe Sports Podcast" xmlUrl="https://www.spreaker.com/show/4475785/episodes/feed" type="rss" />
+      <outline title="The Theatre History Podcast" xmlUrl="https://rss.libsyn.com/shows/215606/destinations/1563626.xml" type="rss" />
+      <outline title="Clough &amp; Seaforde Presbyterian Churches" xmlUrl="HTTPS://anchor.fm/s/e294fc90/podcast/rss" type="rss" />
+      <outline title="Meadow Brook Baptist Church" xmlUrl="http://www.mbbcsermons.info/PodcastGenerator-3.1/PodcastGenerator/feed.xml" type="rss" />
+      <outline title="100 European Beaches" xmlUrl="https://feeds.simplecast.com/T_PVzUx7" type="rss" />
+      <outline title="Finding Gina Marie - Travel the World" xmlUrl="https://rss.buzzsprout.com/1967301.rss" type="rss" />
+      <outline title="Wine Note" xmlUrl="https://rss.buzzsprout.com/2280614.rss" type="rss" />
+      <outline title="Ask Dr Wang" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:168338608/sounds.rss" type="rss" />
+      <outline title="The Gaffer Podcast" xmlUrl="https://anchor.fm/s/3e3aa424/podcast/rss" type="rss" />
+      <outline title="Bethesda  Free Church" xmlUrl="http://bethesdafree.sermon.net/rss/main" type="rss" />
+      <outline title="TO WANDER: cities and places" xmlUrl="https://anchor.fm/s/10d3ac3bc/podcast/rss" type="rss" />
+      <outline title="CLOSER WALK MINISTRIES OF JESUS CHRIST" xmlUrl="https://anchor.fm/s/14b1bb24/podcast/rss" type="rss" />
+      <outline title="Daily Chiofta" xmlUrl="https://anchor.fm/s/1fb06f98/podcast/rss" type="rss" />
+      <outline title="Tax.One: Less Tax, More Wealth" xmlUrl="https://anchor.fm/s/106a76974/podcast/rss" type="rss" />
+      <outline title="Take Me To Europe Podcast" xmlUrl="https://rss.buzzsprout.com/2399400.rss" type="rss" />
+      <outline title="Kald Kaffe" xmlUrl="https://feed.pod.space/kaldkaffe" type="rss" />
+      <outline title="The Chronicles of a Gooner - Arsenal Podcast" xmlUrl="https://feeds.megaphone.fm/AUDD5255549956" type="rss" />
+      <outline title="NIMM MICH MIT" xmlUrl="https://nimmmichmit.podigee.io/feed/mp3" type="rss" />
+      <outline title="Terra Europa" xmlUrl="https://www.omnycontent.com/d/playlist/f175b1e3-ecc7-4dc5-8307-b3aa008ffd8a/4d02740c-acd9-4dee-b702-b40300f6c78b/93e55f40-23a9-4223-bbf2-b40300f6c793/podcast.rss" type="rss" />
+      <outline title="Famille &amp; Voyages, le podcast voyage en famille, inspiration pour vos prochaines vacances" xmlUrl="https://feed.ausha.co/yAzQXSp268Zm" type="rss" />
+      <outline title="freaky finance" xmlUrl="https://anchor.fm/s/6de56c4/podcast/rss" type="rss" />
+      <outline title="Deu Liga" xmlUrl="https://anchor.fm/s/f9f0e020/podcast/rss" type="rss" />
+      <outline title="Ágora Historia" xmlUrl="https://feeds.ivoox.com/feed_fg_f176024_filtro_1.xml" type="rss" />
+      <outline title="Esa Saarinen: Filosofia ja systeemiajattelu" xmlUrl="https://filosofia-ja-systeemiajattelu.new.sites.aalto.fi/feed/podcast/filosofia-ja-systeemiajattelu/" type="rss" />
+      <outline title="ENJOY VIATICUS presenta: SOGNI IN VALIGIA" xmlUrl="https://www.spreaker.com/show/5753932/episodes/feed" type="rss" />
+      <outline title="MARCADOR" xmlUrl="https://www.omnycontent.com/d/playlist/4ac2c3a8-bb0c-499b-bf22-ac8400df1983/91cc89c3-1747-494e-bc6f-ac8700bdcfcc/2e4d5811-840f-40ca-8c78-ac8700bec5b2/podcast.rss" type="rss" />
+      <outline title="The SoMA podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:313417117/sounds.rss" type="rss" />
+      <outline title="🎙 Diary of a Creator 💖 with Your Creator Bestie" xmlUrl="https://anchor.fm/s/2dcb0a0c/podcast/rss" type="rss" />
+      <outline title="Dr. Craig Johnson | Bethel Christian Fellowship Podcast" xmlUrl="https://drcraigjohnson.org/feed/podcast/" type="rss" />
+      <outline title="Radio Oslo" xmlUrl="https://anchor.fm/s/32705e04/podcast/rss" type="rss" />
+      <outline title="Cue and Review Talking Newspaper" xmlUrl="https://anchor.fm/s/142306b8/podcast/rss" type="rss" />
+      <outline title="Cornerstone Baptist Church Fallbrook" xmlUrl="https://rss.buzzsprout.com/1464751.rss" type="rss" />
+      <outline title="Futebol no Mundo" xmlUrl="https://feeds.megaphone.fm/ESP2398607997" type="rss" />
+      <outline title="Mood Italia Radio" xmlUrl="https://anchor.fm/s/48ab91ac/podcast/rss" type="rss" />
+      <outline title="Non volare ma viaggiare" xmlUrl="https://anchor.fm/s/54d87af8/podcast/rss" type="rss" />
+      <outline title="Pretty Good Bible Studies  NEW TESTAMENT" xmlUrl="https://feed.podbean.com/dantrotter/feed.xml" type="rss" />
+      <outline title="Turin Giants Podcast" xmlUrl="https://anchor.fm/s/e82ca220/podcast/rss" type="rss" />
+      <outline title="Auswandern Zypern" xmlUrl="https://anchor.fm/s/1005d2234/podcast/rss" type="rss" />
+      <outline title="Stornoway Free Church of Scotland - Sermons" xmlUrl="https://yetanothersermon.host/_/stornowayfc/feed.rss" type="rss" />
+      <outline title="The Football Heritage Podcast" xmlUrl="https://anchor.fm/s/51bcaa10/podcast/rss" type="rss" />
+      <outline title="Segunda Igreja Batista em Goiânia" xmlUrl="https://www.sibgoiania.org/feed/podcast/" type="rss" />
+      <outline title="Leandro B. Peixoto" xmlUrl="https://www.sibgoiania.org/feed/podcast/leandrobpeixoto/" type="rss" />
+    </outline>
 </body>
 </opml>

@@ -4,5 +4,85 @@
     <title>Luxembourg Feeds</title>
   </head>
   <body>
+    <outline text="Podcasts">
+      <outline title="Luxembourg History Podcast" xmlUrl="https://www.rtl.lu/podcast/feed/luxembourg-history-podcast-en.xml" type="rss" />
+      <outline title="Taboo Podcast Luxembourg" xmlUrl="https://anchor.fm/s/658fda1c/podcast/rss" type="rss" />
+      <outline title="Luxembourg: A Deep Dive" xmlUrl="https://anchor.fm/s/1d1b18dc/podcast/rss" type="rss" />
+      <outline title="DNA: Luxembourg Crime Podcast" xmlUrl="https://www.rtl.lu/podcast/feed/dna-luxembourg-crime-podcast-en.xml" type="rss" />
+      <outline title="Luxembourg Air Rescue" xmlUrl="https://www.rtl.lu/podcast/feed/luxembourg-air-rescue-lb.xml" type="rss" />
+      <outline title="Luxembourg Waffle" xmlUrl="https://luxembourg-waffle.podigee.io/feed/mp3" type="rss" />
+      <outline title="PwC Luxembourg TechTalk" xmlUrl="https://rss.libsyn.com/shows/157679/destinations/1031087.xml" type="rss" />
+      <outline title="Kaméidi - Luxembourg's Finest Metal Podcast" xmlUrl="https://anchor.fm/s/3b0826f0/podcast/rss" type="rss" />
+      <outline title="Handwierk on Air – Den Podcast vun der Chambre des Métiers" xmlUrl="https://handwierk-on-air.podigee.io/feed/mp3" type="rss" />
+      <outline title="Financial Services: What's up?" xmlUrl="https://rss.libsyn.com/shows/515248/destinations/4420148.xml" type="rss" />
+      <outline title="What's New in Luxembourg" xmlUrl="https://feed.podbean.com/caselawpodcast/feed.xml" type="rss" />
+      <outline title="Conversations powered by KPMG Luxembourg" xmlUrl="https://feed.podbean.com/conversationspoweredbykpmg/feed.xml" type="rss" />
+      <outline title="Le Bon Choix" xmlUrl="https://anchor.fm/s/e2f07430/podcast/rss" type="rss" />
+      <outline title="Streets Unplugged" xmlUrl="https://feed.podbean.com/streetphotolux/feed.xml" type="rss" />
+      <outline title="Money Talks" xmlUrl="https://alfipod-moneytalks.podigee.io/feed/mp3" type="rss" />
+      <outline title="The Luxembourg Times Podcast" xmlUrl="https://www.omnycontent.com/d/playlist/fdd7ab40-270d-4a1e-a257-acd200da1324/db208a15-36d8-439e-a4cf-b168007ffce0/cb6807f2-c40b-42a3-bd9d-b16800800155/podcast.rss" type="rss" />
+      <outline title="Arendt Luxembourg podcasts" xmlUrl="https://anchor.fm/s/1a95dd90/podcast/rss" type="rss" />
+      <outline title="PSF Podcast - The brief talk for financial services professionals" xmlUrl="https://rss.libsyn.com/shows/375701/destinations/3087665.xml" type="rss" />
+      <outline title="The Luxembourg Mind Podcast - Business Beyond Borders" xmlUrl="https://anchor.fm/s/de0bf5e8/podcast/rss" type="rss" />
+      <outline title="NextGen Finance" xmlUrl="https://alfipodnextgen.podigee.io/feed/mp3" type="rss" />
+      <outline title="Mom Life in Luxembourg" xmlUrl="https://www.rtl.lu/podcast/feed/mom-life-in-luxembourg-en.xml?v=5" type="rss" />
+      <outline title="Silicon Luxembourg" xmlUrl="https://feeds.acast.com/public/shows/5e271f25d4ce09896e325ad8" type="rss" />
+      <outline title="Frae*streik" xmlUrl="https://anchor.fm/s/4ac502d4/podcast/rss" type="rss" />
+      <outline title="Driving Dreams" xmlUrl="https://feed.podbean.com/drivingdreams/feed.xml" type="rss" />
+      <outline title="LemONAIR - Luxembourg Radio Podcast" xmlUrl="https://anchor.fm/s/fc96a454/podcast/rss" type="rss" />
+      <outline title="FLOW, équilibrez vos pratiques numériques au travail" xmlUrl="https://feed.ausha.co/wEJZMiPNZ49K" type="rss" />
+      <outline title="PwC Luxembourg TechTalk" xmlUrl="https://techtalklux.libsyn.com/rss" type="rss" />
+      <outline title="The Luxembourg Fundcast" xmlUrl="https://feeds.captivate.fm/the-luxembourg-fundcast/" type="rss" />
+      <outline title="Luxembourg Fundcast (version française)" xmlUrl="https://feeds.captivate.fm/luxembourg-fundcast-fr/" type="rss" />
+      <outline title="KEREN HAYESSOD Belgium-Luxembourg" xmlUrl="https://keren-hayessod-belgium-luxembourg.lepodcast.fr/rss" type="rss" />
+      <outline title="Large Scale Testing Luxembourg - COVID-19" xmlUrl="https://anchor.fm/s/3ddf0060/podcast/rss" type="rss" />
+      <outline title="Shaping Finance" xmlUrl="https://rss.buzzsprout.com/1280195.rss" type="rss" />
+      <outline title="Sportlycée - de Podcast" xmlUrl="https://anchor.fm/s/f333e1b0/podcast/rss" type="rss" />
+      <outline title="RTL Infos - La Route des Vins du Luxembourg - Domaines viticoles, conseils oenologiques et joyaux à déguster" xmlUrl="https://www.rtl.lu/podcast/feed/la-route-des-vins-du-luxembourg-fr.xml" type="rss" />
+      <outline title="Échos de l’Église au Luxembourg" xmlUrl="https://anchor.fm/s/1052e72b8/podcast/rss" type="rss" />
+      <outline title="El Shaddai Eglise de Dieu au Luxembourg" xmlUrl="https://anchor.fm/s/2f18f158/podcast/rss" type="rss" />
+      <outline title="C²DH Innovating &amp; Sharing History" xmlUrl="https://rss.buzzsprout.com/2092026.rss" type="rss" />
+      <outline title="Orange Luxembourg - Hello Tomorrow" xmlUrl="https://feeds.acast.com/public/shows/60929f38cbde607346c0cfeb" type="rss" />
+      <outline title="Startup Corner" xmlUrl="https://rss.buzzsprout.com/1468987.rss" type="rss" />
+      <outline title="Casual Side by PwC Luxembourg" xmlUrl="https://rss.libsyn.com/shows/308012/destinations/2468456.xml" type="rss" />
+      <outline title="Luxembourg Intelligence News Briefing" xmlUrl="https://feeds.captivate.fm/luxembourg-intelligence-news-briefing/" type="rss" />
+      <outline title="Market Talks" xmlUrl="https://feed.ausha.co/bjraLTxE3rvk" type="rss" />
+      <outline title="Food for thought by ING Luxembourg" xmlUrl="https://feed.ausha.co/bPdqvSqVp4Db" type="rss" />
+      <outline title="Perspectives - Analyse financière et économique" xmlUrl="https://feed.ausha.co/yv3V7FWm45g1" type="rss" />
+      <outline title="Contresens Luxembourg by Nessim Medjoub" xmlUrl="https://anchor.fm/s/111af14d4/podcast/rss" type="rss" />
+      <outline title="Inside Hockey by Tornado Luxembourg - le19.studio" xmlUrl="https://anchor.fm/s/1127ab3c8/podcast/rss" type="rss" />
+      <outline title="Cluster for Logistics Luxembourg" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:926054194/sounds.rss" type="rss" />
+      <outline title="Hays France &amp; Luxembourg" xmlUrl="https://rss.buzzsprout.com/2300568.rss" type="rss" />
+      <outline title="Future of Advice" xmlUrl="https://rss.libsyn.com/shows/606270/destinations/5279500.xml" type="rss" />
+      <outline title="Reisen beginnt im Kopf - der MERIAN-Podcast" xmlUrl="https://merian-reisenbeginntimkopf.podigee.io/feed/mp3" type="rss" />
+      <outline title="PNL 2027" xmlUrl="https://anchor.fm/s/3e483468/podcast/rss" type="rss" />
+      <outline title="Ils mériteraient d'être dans le journal" xmlUrl="https://www.spreaker.com/show/6800788/episodes/feed" type="rss" />
+      <outline title="Carreira Sem Fronteiras" xmlUrl="https://anchor.fm/s/e5651770/podcast/rss" type="rss" />
+      <outline title="Land &amp; Leute" xmlUrl="https://sr-mediathek.de/pcast/feeds/SR3_LL_P/feed.xml" type="rss" />
+      <outline title="TOP SPORT" xmlUrl="https://www.omnycontent.com/d/playlist/8f7208d2-db6e-4bfa-85b5-ad3d00776f1f/d0c9470f-83a0-4f62-a3c3-ad4d0121578d/23c18182-b12f-4c54-a4a1-ad4d01215796/podcast.rss" type="rss" />
+      <outline title="Patrimoines normands" xmlUrl="https://feeds.audiomeans.fr/feed/f76de84d-1204-4c37-af8b-f59bbb982580.xml?platform=apple" type="rss" />
+      <outline title="Actus à Nancy et Ailleurs - radio Fajet" xmlUrl="https://anchor.fm/s/4b9223b8/podcast/rss" type="rss" />
+      <outline title="LN L'aprem" xmlUrl="https://lnradio.be/rise-api/rss/podcasts.php?sid=23" type="rss" />
+      <outline title="Évasion" xmlUrl="https://www.pepsradio.be/rss-feed-7-148" type="rss" />
+      <outline title="Euradio" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:598988598/sounds.rss" type="rss" />
+      <outline title="Le Bar à Pep's" xmlUrl="https://www.pepsradio.be/rss-feed-7-162" type="rss" />
+      <outline title="Les émissions du groupe La Semaine" xmlUrl="https://feed.ausha.co/e1kwdcEzrGm2" type="rss" />
+      <outline title="euradio à Lille" xmlUrl="https://feeds.transistor.fm/euradio-lille" type="rss" />
+      <outline title="Matin Première" xmlUrl="https://feeds.audiomeans.fr/feed/693a4d43-7914-4b19-b011-b74f09ee4517.xml" type="rss" />
+      <outline title="Éclats de Voix" xmlUrl="https://feed.ausha.co/yEnwwH0P7xR5" type="rss" />
+      <outline title="MusicArte" xmlUrl="https://anchor.fm/s/e5a3a58/podcast/rss" type="rss" />
+      <outline title="RougeVertBleu" xmlUrl="https://rougevertbleu.tv/feed/podcast/" type="rss" />
+      <outline title="Frontière Rock" xmlUrl="http://www.attitudefm.com/feed/podcast/frontiere-rock/" type="rss" />
+      <outline title="Radio Kardec" xmlUrl="https://feeds.feedburner.com/RadioKardec?format=xml" type="rss" />
+      <outline title="Vous avez comme un accent" xmlUrl="https://www.rtl.lu/podcast/feed/vous-avez-comme-un-accent-fr.xml" type="rss" />
+      <outline title='Ein Lied für Dich - Ein "Die Ärzte" Podcast' xmlUrl="https://anchor.fm/s/f85bf844/podcast/rss" type="rss" />
+      <outline title="The FredCast Cycling Podcast" xmlUrl="https://thefredcast.com/The_FredCast.xml" type="rss" />
+      <outline title="The Audiobook Vault: Catholic Sacred &amp; Classic Voices from the Past" xmlUrl="https://www.spreaker.com/show/6158906/episodes/feed" type="rss" />
+      <outline title="Newsflash RTL Today" xmlUrl="https://www.rtl.lu/podcast/feed/newsflash-rtl-today-en.xml" type="rss" />
+      <outline title="La Buvette : le podcast des groundhoppers" xmlUrl="https://anchor.fm/s/fd0239bc/podcast/rss" type="rss" />
+      <outline title="Eurovision Radio International - The Ultimate Eurovision Experience" xmlUrl="https://feed.podbean.com/radiointernational/feed.xml" type="rss" />
+      <outline title="Letz Talk Sport" xmlUrl="https://www.rtl.lu/podcast/feed/letz-talk-sport-en.xml" type="rss" />
+      <outline title="Haut, Muer an Deemools" xmlUrl="https://anchor.fm/s/fe7331fc/podcast/rss" type="rss" />
+    </outline>
 </body>
 </opml>

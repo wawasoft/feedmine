@@ -19,5 +19,139 @@
       <outline text="Sports" />
       <outline text="Culture">
         <outline title="Soompi" xmlUrl="https://www.soompi.com/rss" type="rss" />
+    <outline text="Podcasts">
+      <outline title="[KBS WORLD Radio] News" xmlUrl="http://world.kbs.co.kr/rss/Podcast_News_e.xml" type="rss" />
+      <outline title="[KBS WORLD Radio] Korea 24" xmlUrl="http://world.kbs.co.kr/rss/Podcast_korea_24_e.xml" type="rss" />
+      <outline title="South Korea: From War-Torn Nation to Global Powerhouse — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/south-korea.xml" type="rss" />
+      <outline title="Focus on Headline" xmlUrl="https://anchor.fm/s/89d8a818/podcast/rss" type="rss" />
+      <outline title="The History of a Hit Story (Japan and South Korea)" xmlUrl="https://anchor.fm/s/111083d8/podcast/rss" type="rss" />
+      <outline title="时差 in-betweenness" xmlUrl="https://rss.buzzsprout.com/1171871.rss" type="rss" />
+      <outline title="SOUTH KOREA - DEALING WITH A GLOBAL PANDEMIC" xmlUrl="https://anchor.fm/s/465a2fd0/podcast/rss" type="rss" />
+      <outline title="South Korea" xmlUrl="https://anchor.fm/s/279e218c/podcast/rss" type="rss" />
+      <outline title="South Korea" xmlUrl="https://anchor.fm/s/32529b44/podcast/rss" type="rss" />
+      <outline title="South Korea’s Corporate Tax System Demystified: A Guide for Global Entrepreneurs" xmlUrl="https://feeds.hubhopper.com/434a2222d02633dd9ff55c9715d404ce.rss" type="rss" />
+      <outline title="Corporate Tax Rate South Korea Explained" xmlUrl="https://feeds.hubhopper.com/ae785510cb4d7578c56e597cf9f9dc7f.rss" type="rss" />
+      <outline title="Teaterprogrammet" xmlUrl="https://feeds.acast.com/public/shows/5dee5031b87e914672a7237f" type="rss" />
+      <outline title="E-GOVERNMENT REFORM COMPARISON BETWEEN SOUTH KOREA AND SOUTH AFRICA" xmlUrl="https://anchor.fm/s/622b44b0/podcast/rss" type="rss" />
+      <outline title="That's why I love South Korea" xmlUrl="https://anchor.fm/s/66f06de0/podcast/rss" type="rss" />
+      <outline title="Lost in South Korea" xmlUrl="https://anchor.fm/s/1bab0cf0/podcast/rss" type="rss" />
+      <outline title="Living in South Korea as a citizen" xmlUrl="https://anchor.fm/s/2ce3e438/podcast/rss" type="rss" />
+      <outline title="Comparing Health between Economically Stable Korean College Students in South Korea vs in America." xmlUrl="https://anchor.fm/s/58b72390/podcast/rss" type="rss" />
+      <outline title="Everything I wish I knew before visiting and moving to South Korea, but no one ever told me" xmlUrl="https://anchor.fm/s/56de4288/podcast/rss" type="rss" />
+      <outline title="Why South Korea by UoH" xmlUrl="https://anchor.fm/s/de5bcb04/podcast/rss" type="rss" />
+      <outline title="Country South Korea" xmlUrl="https://anchor.fm/s/5102a048/podcast/rss" type="rss" />
+      <outline title="The South Korea Years" xmlUrl="https://anchor.fm/s/388a448/podcast/rss" type="rss" />
+      <outline title="Developmental Politics in South Korea" xmlUrl="https://feeds.redcircle.com/bcfa889f-bf10-433f-9866-19d39d001a98" type="rss" />
+      <outline title="‘Thai Festival project’ promoting through South Korea’s platforms" xmlUrl="https://anchor.fm/s/25d76ae8/podcast/rss" type="rss" />
+      <outline title="PWOC Camp Humphreys, South Korea" xmlUrl="https://anchor.fm/s/15b321ac/podcast/rss" type="rss" />
+      <outline title="Corruption and Manipulation in South Korea" xmlUrl="https://anchor.fm/s/426d9f10/podcast/rss" type="rss" />
+      <outline title="Messages from Joyful Church in Busan, South Korea" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:256127032/sounds.rss" type="rss" />
+      <outline title="10 Years in South Korea Stories of My Adventures and Misadventures" xmlUrl="https://anchor.fm/s/e55c2020/podcast/rss" type="rss" />
+      <outline title="Fox Football Podcast" xmlUrl="https://www.omnycontent.com/d/playlist/2fb3740d-3436-44af-8cc0-a91900716aa5/f3ead596-a2c4-45ab-bf0f-ac84006f3934/e7ba79de-cbed-4a43-ac57-ac84006f3947/podcast.rss" type="rss" />
+      <outline title="LATE MOTIV de Andreu Buenafuente" xmlUrl="https://feeds.ivoox.com/feed_fg_f1310149_filtro_1.xml" type="rss" />
+      <outline title="History Daily" xmlUrl="https://audioboom.com/channels/5162833.rss" type="rss" />
+      <outline title="Seoul-ful Sisters" xmlUrl="https://feed.podbean.com/tzv2vcpn8qrkh/feed.xml" type="rss" />
+      <outline title="서울할머니 옛날이야기 Seoul Grandma's Bedtime Stories" xmlUrl="https://anchor.fm/s/f8879260/podcast/rss" type="rss" />
+      <outline title="Heart and Seoul 복음방송 - 주 안에 하나" xmlUrl="http://www.heartandseoul.org/radio/podcast_ko.xml" type="rss" />
+      <outline title="The Dark Side of Seoul Podcast" xmlUrl="https://feeds.simplecast.com/A9olsS_a" type="rss" />
+      <outline title="Jubilee Seoul" xmlUrl="https://podcasts.subsplash.com:443/633d9ab/podcast.rss" type="rss" />
+      <outline title="Storyline Seoul" xmlUrl="https://feed.podbean.com/storylineseoul/feed.xml" type="rss" />
+      <outline title="Freedom Village Church | Haebangchon, Seoul" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:286979600/sounds.rss" type="rss" />
+      <outline title="Seoulcast : 귀로 듣는 미국 주식 이야기" xmlUrl="https://anchor.fm/s/107370e1c/podcast/rss" type="rss" />
+      <outline title="K-Life Project: From Seoul to Jeju" xmlUrl="https://anchor.fm/s/11330e65c/podcast/rss" type="rss" />
+      <outline title="Daily AI News from Seoul" xmlUrl="https://kimkj.com/podcast/daily-ai-en/feed.xml" type="rss" />
+      <outline title="SERMON - King's Cross Seoul" xmlUrl="https://www.kingscrossseoul.com/sermons?format=rss" type="rss" />
+      <outline title="Swish Seoul (스위시 서울)" xmlUrl="https://feed.podbean.com/swishseoul/feed.xml" type="rss" />
+      <outline title="라디오서울 AI 뉴스 / Radio Seoul AI News" xmlUrl="https://anchor.fm/s/113c92494/podcast/rss" type="rss" />
+      <outline title="Settlers of Seoul" xmlUrl="https://rss.libsyn.com/shows/95708/destinations/490003.xml" type="rss" />
+      <outline title="Seoul Urbanism on TBS eFM's Koreascape" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:122465754/sounds.rss" type="rss" />
+      <outline title="Hanaro Podcast: Seoul to Silicon Valley - Korean American Trailblazers" xmlUrl="https://anchor.fm/s/f5de9d60/podcast/rss" type="rss" />
+      <outline title="Sous les écumes de Séoul" xmlUrl="https://feeds.acast.com/public/shows/682c8d6755cb2b926ec5bcd0" type="rss" />
+      <outline title="Cafe Seoul: Expat Life in Korea" xmlUrl="https://feeds.feedburner.com/CafeSeoulPodcast" type="rss" />
+      <outline title="Seoulful Korean Talk (Learn Real Korean)" xmlUrl="https://anchor.fm/s/109ab6c38/podcast/rss" type="rss" />
+      <outline title="SI Institute" xmlUrl="https://anchor.fm/s/ed028620/podcast/rss" type="rss" />
+      <outline title="キリストにあって一つ Heart and Seoul Japanese Ministry" xmlUrl="http://www.heartandseoul.org/radio/podcast_japanese.xml" type="rss" />
+      <outline title="Creative Seoul" xmlUrl="https://anchor.fm/s/4b4ee47c/podcast/rss" type="rss" />
+      <outline title="Seoul Arts Center" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:733017052/sounds.rss" type="rss" />
+      <outline title="Seoul to Soul" xmlUrl="https://anchor.fm/s/10a7b9e44/podcast/rss" type="rss" />
+      <outline title="Seoul Therapy The Podcast" xmlUrl="https://rss.buzzsprout.com/1714585.rss" type="rss" />
+      <outline title="Northern Seoul" xmlUrl="https://anchor.fm/s/e6208834/podcast/rss" type="rss" />
+      <outline title="Seoul Objection! Mini Series" xmlUrl="https://anchor.fm/s/11069f468/podcast/rss" type="rss" />
+      <outline title="Unity in Christ Heart and Seoul English Ministry" xmlUrl="http://www.heartandseoul.org/radio/podcast_english.xml" type="rss" />
+      <outline title="Solely Seoul" xmlUrl="https://anchor.fm/s/133e2f84/podcast/rss" type="rss" />
+      <outline title="Shc Seoul's Podcast" xmlUrl="https://shc-seoul.podomatic.com/rss2.xml" type="rss" />
+      <outline title="Shelly in Seoul/シェリー・イン・ソウル" xmlUrl="https://anchor.fm/s/10eaed4f4/podcast/rss" type="rss" />
+      <outline title="Làm Hồng Nhũ Hoa SeoulCenter" xmlUrl="https://anchor.fm/s/de5d3e1c/podcast/rss" type="rss" />
+      <outline title="Bas In Seoul" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:48796587/sounds.rss" type="rss" />
+      <outline title="Tech In Seoul" xmlUrl="https://anchor.fm/s/55a08cf0/podcast/rss" type="rss" />
+      <outline title="Seoul Cast" xmlUrl="https://anchor.fm/s/15138840/podcast/rss" type="rss" />
+      <outline title="Seoul Dive" xmlUrl="https://anchor.fm/s/69d7b0e0/podcast/rss" type="rss" />
+      <outline title="The Solitary Seoul" xmlUrl="https://anchor.fm/s/3b396d00/podcast/rss" type="rss" />
+      <outline title="Seoul Blockchain" xmlUrl="https://anchor.fm/s/fbecb98/podcast/rss" type="rss" />
+      <outline title="Seoul Screen - A K-Drama Podcast" xmlUrl="https://anchor.fm/s/e6f9630c/podcast/rss" type="rss" />
+      <outline title="Seoul To Soul" xmlUrl="https://anchor.fm/s/3830e084/podcast/rss" type="rss" />
+      <outline title="Làm Hồng Cô Bé SeoulCenter" xmlUrl="https://anchor.fm/s/ded18808/podcast/rss" type="rss" />
+      <outline title="Soul to Seoul: The Show" xmlUrl="https://anchor.fm/s/1401a630/podcast/rss" type="rss" />
+      <outline title="ICA Seoul's Podcast" xmlUrl="https://icaseoul2013.podomatic.com/rss2.xml" type="rss" />
+      <outline title="Mind, Body &amp; Seoul Food Podcast" xmlUrl="https://anchor.fm/s/740b1ac/podcast/rss" type="rss" />
+      <outline title="106 &amp; Seoul: A Black K-Pop Podcast" xmlUrl="https://anchor.fm/s/127ca24c/podcast/rss" type="rss" />
+      <outline title="Encounter Seoul" xmlUrl="https://anchor.fm/s/e3006250/podcast/rss" type="rss" />
+      <outline title="Seoul in my Seoul Podcast" xmlUrl="https://anchor.fm/s/517fa4f8/podcast/rss" type="rss" />
+      <outline title="Busan(Bidan Urusan Perasaan)" xmlUrl="https://anchor.fm/s/572c8a60/podcast/rss" type="rss" />
+      <outline title="Yamahakuasa" xmlUrl="https://anchor.fm/s/6616df58/podcast/rss" type="rss" />
+      <outline title="El Busano Nocturno 🐛🌃" xmlUrl="https://anchor.fm/s/4fdd12ac/podcast/rss" type="rss" />
+      <outline title="BUSAN HOTLINE" xmlUrl="https://lovefm.co.jp/podcasts/xml/65/12.xml" type="rss" />
+      <outline title="Dairies of a Naija girl in Busan" xmlUrl="https://anchor.fm/s/17d729c4/podcast/rss" type="rss" />
+      <outline title="Matrimonio Desaparece En Busan Misteriosamente" xmlUrl="https://anchor.fm/s/5088f9b4/podcast/rss" type="rss" />
+      <outline title="BINTANG" xmlUrl="https://anchor.fm/s/3b20ec58/podcast/rss" type="rss" />
+      <outline title="Story dan Inspirasi" xmlUrl="https://anchor.fm/s/641e91c8/podcast/rss" type="rss" />
+      <outline title="Korean. American. Podcast" xmlUrl="https://rss.buzzsprout.com/2224965.rss" type="rss" />
+      <outline title="De Mochilas [EN]" xmlUrl="https://media.rss.com/de-mochilas-en/feed.xml" type="rss" />
+      <outline title="Tiempo &amp; Espacio Coreano" xmlUrl="https://anchor.fm/s/f92ee77c/podcast/rss" type="rss" />
+      <outline title="Battleground" xmlUrl="https://feeds.acast.com/public/shows/6a22b52017f169d6433fb960" type="rss" />
+      <outline title="Corea: Lugares con encanto" xmlUrl="http://world.kbs.co.kr/rss/Podcast_tour2017_finish_s.xml" type="rss" />
+      <outline title="Hidden History Contents Lab" xmlUrl="https://anchor.fm/s/10a2ef094/podcast/rss" type="rss" />
+      <outline title="East Asia Now" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:498804186/sounds.rss" type="rss" />
+      <outline title="Ansan Greeners Podcast" xmlUrl="https://feeds.acast.com/public/shows/602f64d398b67333a0ab21ff" type="rss" />
+      <outline title="BTS Grown Man Kpop Boy Band Forever" xmlUrl="https://anchor.fm/s/fea5a4d4/podcast/rss" type="rss" />
+      <outline title="Blaxit Global" xmlUrl="https://rss.introcast.io/1526188554/feeds.buzzsprout.com/1437790.rss" type="rss" />
+      <outline title="Wheels of History Podcast" xmlUrl="https://www.wheelsofhistorypodcast.com/episodes?format=rss" type="rss" />
+      <outline title="Hàn Quốc: Chốn lạ yêu thương" xmlUrl="http://world.kbs.co.kr/rss/Podcast_tour2017_finish_v.xml" type="rss" />
+      <outline title="Kpop Boy Bands Always" xmlUrl="https://anchor.fm/s/e662f8cc/podcast/rss" type="rss" />
+      <outline title="XT6 PODCAST - LƯƠNG XUÂN TRƯỜNG" xmlUrl="https://anchor.fm/s/ee662080/podcast/rss" type="rss" />
+      <outline title="5 อันดับสนามบินที่ดีที่สุดในโลก" xmlUrl="https://anchor.fm/s/3ca3a96c/podcast/rss" type="rss" />
+      <outline title="Korean True Crime" xmlUrl="https://anchor.fm/s/6c3db140/podcast/rss" type="rss" />
+      <outline title="History Buffs" xmlUrl="https://rss.libsyn.com/shows/297359/destinations/2347649.xml" type="rss" />
+      <outline title="Fluent Fiction - Korean" xmlUrl="https://www.spreaker.com/show/5755627/episodes/feed" type="rss" />
+      <outline title="Escapades en Corée" xmlUrl="http://world.kbs.co.kr/rss/Podcast_tour2017_finish_f.xml" type="rss" />
+      <outline title="Peters on the block" xmlUrl="https://anchor.fm/s/f460bb44/podcast/rss" type="rss" />
+      <outline title="ERIC KIM" xmlUrl="https://anchor.fm/s/51c9b20/podcast/rss" type="rss" />
+      <outline title="Nic and Tamz Podcast" xmlUrl="https://anchor.fm/s/f73d5fe8/podcast/rss" type="rss" />
+      <outline title="The World According to Cosmos" xmlUrl="https://anchor.fm/s/530ed9d8/podcast/rss" type="rss" />
+      <outline title="Thế giới Giao thông" xmlUrl="https://anchor.fm/s/246f98d8/podcast/rss" type="rss" />
+      <outline title="The Korea Travel Log" xmlUrl="http://world.kbs.co.kr/rss/Podcast_tour2017_finish_e.xml" type="rss" />
+      <outline title="1 to Sarang Kpop and Kdrama Podcast" xmlUrl="https://anchor.fm/s/7a5c0c40/podcast/rss" type="rss" />
+      <outline title="KPOP Unreleased" xmlUrl="https://media.rss.com/kpop-101/feed.xml" type="rss" />
+      <outline title="JOY's Life in KOREA" xmlUrl="https://anchor.fm/s/109b1a404/podcast/rss" type="rss" />
+      <outline title="Korea FM News &amp; Talk | KoreaFM.net" xmlUrl="https://feeds.feedburner.com/koreafm" type="rss" />
+      <outline title="Kali Travels" xmlUrl="https://feeds.podcastics.com/podcastics/podcasts/rss/6512_fea3282a46c5b708bd663fc91bd78647.rss" type="rss" />
+      <outline title="Yuk! Keliling Korea!" xmlUrl="http://world.kbs.co.kr/rss/Podcast_tour2017_finish_i.xml" type="rss" />
+      <outline title="Made it, Korea" xmlUrl="https://anchor.fm/s/ebc4a338/podcast/rss" type="rss" />
+      <outline title="evrinasp Podcast" xmlUrl="https://anchor.fm/s/169442e0/podcast/rss" type="rss" />
+      <outline title="Dark Asia with Megan" xmlUrl="https://rss.pdrl.fm/9de928/feeds.simplecast.com/hWnM9oo1" type="rss" />
+      <outline title="48 Shades of Football" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:142166792/sounds.rss" type="rss" />
+      <outline title="Friendly Fire" xmlUrl="https://feeds.simplecast.com/LRWNKz1u" type="rss" />
+      <outline title="Gute Reise!" xmlUrl="http://world.kbs.co.kr/rss/Podcast_tour2017_finish_g.xml" type="rss" />
+      <outline title="Jason Verney's &quot;F. L. I. C. K. S. (Film, Life, Interview, Camera, Korea &amp; Sounds)&quot; PODCAST" xmlUrl="https://www.spreaker.com/show/2049138/episodes/feed" type="rss" />
+      <outline title="Coffee Break" xmlUrl="https://anchor.fm/s/102dc8180/podcast/rss" type="rss" />
+      <outline title="Moodie Davitt Podcast" xmlUrl="https://feeds.acast.com/public/shows/5e3c4f6aa5d5b13c4292b23a" type="rss" />
+      <outline title="Inchon Baseball Weekly" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:314589880/sounds.rss" type="rss" />
+      <outline title="Scott’s Korean Podcast" xmlUrl="https://anchor.fm/s/9c8d7a60/podcast/rss" type="rss" />
+      <outline title="Lost Boyos: A Football Travel Podcast" xmlUrl="https://feeds.megaphone.fm/COMG6846069133" type="rss" />
+      <outline title="Propulsion Swimming Podcast" xmlUrl="https://feeds.acast.com/public/shows/66202e65d611550012d896df" type="rss" />
+      <outline title="The K League United Podcast" xmlUrl="https://rss.libsyn.com/shows/122032/destinations/716124.xml" type="rss" />
+      <outline title="홍달프의 왼쪽 어깨 Left Shoulder of Hongdalf" xmlUrl="https://anchor.fm/s/1142db8a0/podcast/rss" type="rss" />
+      <outline title="Daegu Doggs" xmlUrl="https://daegudoggs.wordpress.com/category/international/feed/" type="rss" />
+    </outline>
       </outline></body>
     </opml>

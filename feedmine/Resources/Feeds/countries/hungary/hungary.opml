@@ -113,6 +113,148 @@
       <outline title="Forbes HU" xmlUrl="https://www.forbes.hu/rss/" type="rss" />
     </outline>
     <outline text="Podcasts">
+      <outline title="#Képesvagyok" xmlUrl="https://feeds.megaphone.fm/kepesvagyok" type="rss" />
+      <outline title="Dragon Ball Hungary - Zenkai Podcast" xmlUrl="https://anchor.fm/s/39778e98/podcast/rss" type="rss" />
+      <outline title="Testkép" xmlUrl="https://feeds.megaphone.fm/testkep" type="rss" />
+      <outline title="KPMG ESG Percek" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1098466711/sounds.rss" type="rss" />
+      <outline title="De Machine" xmlUrl="https://podcast.npo.nl/feed/de-machine.xml" type="rss" />
+      <outline title="Kövesd a rabbit!" xmlUrl="https://feeds.simplecast.com/gnMp53x9" type="rss" />
+      <outline title="Click &amp; Convert - A magyar ecommerce podcast I Ecommerce Hungary" xmlUrl="https://anchor.fm/s/10b865c34/podcast/rss" type="rss" />
+      <outline title="444 podcastek" xmlUrl="https://www.omnycontent.com/d/playlist/d8df8f59-7dc7-4c59-be78-aea00114ae64/5643256c-50ca-4b83-bd76-aead00d561e1/31d0efea-4591-440a-8088-aead00d561fd/podcast.rss" type="rss" />
+      <outline title="InStyle MEN podcast" xmlUrl="https://feeds.megaphone.fm/instylemen" type="rss" />
+      <outline title="Csak még egy fejezet!" xmlUrl="https://feeds.megaphone.fm/csakmegegyfejezet" type="rss" />
+      <outline title="LifeInTech" xmlUrl="https://anchor.fm/s/7b7e614/podcast/rss" type="rss" />
+      <outline title="#KPMGVoice" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:380524493/sounds.rss" type="rss" />
+      <outline title="GLAMOUR Hungary Podcast" xmlUrl="https://anchor.fm/s/1959ae98/podcast/rss" type="rss" />
+      <outline title="The Story of Hungary: Kingdoms, Resistance, and National Pride — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/the-story-of-hungary.xml" type="rss" />
+      <outline title="What's up with Hungary" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:224159398/sounds.rss" type="rss" />
+      <outline title="InStyle Teadélután" xmlUrl="https://feeds.megaphone.fm/teadelutan" type="rss" />
+      <outline title="Gazdálkodj okosan!" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:572950440/sounds.rss" type="rss" />
+      <outline title="Grantis Podcast" xmlUrl="https://anchor.fm/s/957c587c/podcast/rss" type="rss" />
+      <outline title="Vezetői Ismeretgerjesztő" xmlUrl="https://anchor.fm/s/80055764/podcast/rss" type="rss" />
+      <outline title="Invest In Hungary" xmlUrl="https://anchor.fm/s/e411bec8/podcast/rss" type="rss" />
+      <outline title="Freedom in Hungary" xmlUrl="https://feeds.acast.com/public/shows/6352d9787d66e80011ce83e0" type="rss" />
+      <outline title="Maimonidész Misné Torá törvénykönyve – egy nap, egy fejezet" xmlUrl="https://feeds.simplecast.com/eCuPND6A" type="rss" />
+      <outline title="Moms@Work" xmlUrl="https://anchor.fm/s/5c1ca3c0/podcast/rss" type="rss" />
+      <outline title="SHARE NOW Hungary" xmlUrl="https://anchor.fm/s/6c94fa90/podcast/rss" type="rss" />
+      <outline title="Alien Industries Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:282234471/sounds.rss" type="rss" />
+      <outline title="Virtuális Visszhang" xmlUrl="https://anchor.fm/s/f1be8920/podcast/rss" type="rss" />
+      <outline title="Radio Sense - Radio Shows" xmlUrl="https://hearthis.at/radiosensehungary/podcast/" type="rss" />
+      <outline title="Hellcome To Hungary" xmlUrl="https://anchor.fm/s/de20f4e8/podcast/rss" type="rss" />
+      <outline title="Schoenherr Attorneys at Law Hungary" xmlUrl="https://anchor.fm/s/2993681c/podcast/rss" type="rss" />
+      <outline title="Highlights of Hungary" xmlUrl="https://feeds.simplecast.com/9GmzRm7D" type="rss" />
+      <outline title="Smaller Earth Hungary - The Go Further Podcast" xmlUrl="https://anchor.fm/s/48a89bdc/podcast/rss" type="rss" />
+      <outline title="DroneCast - Drone Hungary" xmlUrl="https://anchor.fm/s/717c4e3c/podcast/rss" type="rss" />
+      <outline title="Hungary" xmlUrl="https://media.rss.com/isaiahjb20/feed.xml" type="rss" />
+      <outline title="Podcast by DLA Piper Hungary" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:923243992/sounds.rss" type="rss" />
+      <outline title="New York Yankees Hungary" xmlUrl="https://anchor.fm/s/354b2c58/podcast/rss" type="rss" />
+      <outline title="MTV Hungary" xmlUrl="https://anchor.fm/s/d151e38/podcast/rss" type="rss" />
+      <outline title="Propcast Hungary" xmlUrl="https://anchor.fm/s/142e8d80/podcast/rss" type="rss" />
+      <outline title="St. Elizabeth of Hungary Church — Portland, OR; Homilies" xmlUrl="https://rss.libsyn.com/shows/435393/destinations/3634227.xml" type="rss" />
+      <outline title="USA To Hungary" xmlUrl="https://anchor.fm/s/1efdd680/podcast/rss" type="rss" />
+      <outline title="MTG Hungary" xmlUrl="https://anchor.fm/s/10fa881c/podcast/rss" type="rss" />
+      <outline title="World’s Story Volume VI: Russia, Austria-Hungary, the Balkan States and Turkey" xmlUrl="https://www.spreaker.com/show/7071272/episodes/feed" type="rss" />
+      <outline title="Enter Daydream - RPG Hungary" xmlUrl="https://anchor.fm/s/4ef478f8/podcast/rss" type="rss" />
+      <outline title="Hungary’s Cautionary Tale: How Autocrats Broke Democracy" xmlUrl="https://rss.buzzsprout.com/2275293.rss" type="rss" />
+      <outline title="Lomed Hungary" xmlUrl="https://feeds.feedburner.com/blogspot/nmzTh" type="rss" />
+      <outline title="Share Success Hungary" xmlUrl="https://feeds.feedburner.com/sharesuccesshungary" type="rss" />
+      <outline title="World’s Story Volume VI: Russia, Austria-Hungary, the Balkan States and Turkey" xmlUrl="https://www.spreaker.com/show/7069309/episodes/feed" type="rss" />
+      <outline title="Magyarország segít!" xmlUrl="https://anchor.fm/s/96878c00/podcast/rss" type="rss" />
+      <outline title="Bosch Magyarország Podcast" xmlUrl="https://feeds.simplecast.com/vRuvjJpR" type="rss" />
+      <outline title="Mária Rádió Magyarország" xmlUrl="https://feed.podbean.com/mariaradio/feed.xml" type="rss" />
+      <outline title="Forbes Deal" xmlUrl="https://anchor.fm/s/105abf01c/podcast/rss" type="rss" />
+      <outline title="Reggeli rutin" xmlUrl="https://anchor.fm/s/f55c6f98/podcast/rss" type="rss" />
+      <outline title="Lételem - A WWF Magyarország zöld podcastja" xmlUrl="https://anchor.fm/s/67811f48/podcast/rss" type="rss" />
+      <outline title="Deloitte Magyarország" xmlUrl="https://rss.libsyn.com/shows/522108/destinations/4485103.xml" type="rss" />
+      <outline title="Unicef - Így lettem" xmlUrl="https://anchor.fm/s/76aa0e08/podcast/rss" type="rss" />
+      <outline title="Esterházy Vibe - Hagyomány, kortárs hangon" xmlUrl="https://anchor.fm/s/1105ea70c/podcast/rss" type="rss" />
+      <outline title="Manipulált elmék - A csalás pszichológiája" xmlUrl="https://anchor.fm/s/1067d6fc0/podcast/rss" type="rss" />
+      <outline title="Calivita Magyarország" xmlUrl="https://anchor.fm/s/10799683c/podcast/rss" type="rss" />
+      <outline title="BioTechUSA - Podcast" xmlUrl="https://anchor.fm/s/509af4d4/podcast/rss" type="rss" />
+      <outline title="Quiz Gambit - Magyarország első kvízes podcastje" xmlUrl="https://anchor.fm/s/db2b399c/podcast/rss" type="rss" />
+      <outline title="Rádió X | X Archívum" xmlUrl="https://hearthis.at/radiox/podcast/" type="rss" />
+      <outline title="SZKÓP" xmlUrl="https://rss.buzzsprout.com/844084.rss" type="rss" />
+      <outline title="Nem beszélünk zöldségeket!" xmlUrl="https://rss.buzzsprout.com/1923567.rss" type="rss" />
+      <outline title="Kapcsold be! Biztonsági öv a gyerekek lelki egészségéért" xmlUrl="https://anchor.fm/s/fc148050/podcast/rss" type="rss" />
+      <outline title="A Rudy Project világa" xmlUrl="https://anchor.fm/s/d9dfd9f8/podcast/rss" type="rss" />
+      <outline title="I Love Hazai" xmlUrl="https://anchor.fm/s/cd3fc708/podcast/rss" type="rss" />
+      <outline title="Bakancslista - Magyarország" xmlUrl="https://anchor.fm/s/dae80d84/podcast/rss" type="rss" />
+      <outline title="Mosolygós mesék a fa alá | eMAG x Mosoly Alapítvány hangoskönyv" xmlUrl="https://anchor.fm/s/4480ac48/podcast/rss" type="rss" />
+      <outline title="Zöld Bolygó" xmlUrl="https://anchor.fm/s/ddad441c/podcast/rss" type="rss" />
+      <outline title="Legrand #ImprovingLives" xmlUrl="https://anchor.fm/s/dc66f238/podcast/rss" type="rss" />
+      <outline title="Káfir Kisokos - A politikai iszlámról kendőzetlenül" xmlUrl="https://anchor.fm/s/5876e258/podcast/rss" type="rss" />
+      <outline title="Penisztrakcios terapia by SizeGenetics – Magyarország" xmlUrl="https://feeds.transistor.fm/penisztrakcios-terapia-by-sizegenetics-magyarorszag" type="rss" />
+      <outline title="Exopolitika Magyarország" xmlUrl="https://anchor.fm/s/2152a6e0/podcast/rss" type="rss" />
+      <outline title="AudioQuest Magyarország" xmlUrl="https://anchor.fm/s/3868d64c/podcast/rss" type="rss" />
+      <outline title="IKEA Podcast Magyarország" xmlUrl="https://anchor.fm/s/2994bfdc/podcast/rss" type="rss" />
+      <outline title="MediaMarkt Magyarország" xmlUrl="https://anchor.fm/s/ababfb34/podcast/rss" type="rss" />
+      <outline title="Mi vár rád, Magyarország?" xmlUrl="https://anchor.fm/s/b650d35c/podcast/rss" type="rss" />
+      <outline title="Pécs -Magyarország Liverpoolja!" xmlUrl="https://anchor.fm/s/6666e6d8/podcast/rss" type="rss" />
+      <outline title="L'Abri Barátai Magyarország" xmlUrl="https://anchor.fm/s/1f174e6c/podcast/rss" type="rss" />
+      <outline title="Baumit HU" xmlUrl="https://rss.buzzsprout.com/1358398.rss" type="rss" />
+      <outline title="Ízlés dolga" xmlUrl="https://feeds.megaphone.fm/izlesdolga" type="rss" />
+      <outline title="Eucerin Podcast" xmlUrl="https://anchor.fm/s/37520620/podcast/rss" type="rss" />
+      <outline title="Regnum Christi Napi Elmélkedések" xmlUrl="https://anchor.fm/s/dbf6a7bc/podcast/rss" type="rss" />
+      <outline title="Chio Intense SnackCast" xmlUrl="https://anchor.fm/s/5318e554/podcast/rss" type="rss" />
+      <outline title="UX Budapest" xmlUrl="https://anchor.fm/s/f911fc5c/podcast/rss" type="rss" />
+      <outline title="Budapest Park" xmlUrl="https://www.spreaker.com/show/5478727/episodes/feed" type="rss" />
+      <outline title="Anno Budapest" xmlUrl="https://annobudapest.wordpress.com/category/poszt/feed/" type="rss" />
+      <outline title="Budapest Investment Club" xmlUrl="https://rss.buzzsprout.com/2466612.rss" type="rss" />
+      <outline title="Budapest-Budafoki Református Egyházközség" xmlUrl="https://anchor.fm/s/aac05a1c/podcast/rss" type="rss" />
+      <outline title="Machine Learning Budapest" xmlUrl="https://anchor.fm/s/2e12d814/podcast/rss" type="rss" />
+      <outline title="Budapest Eklektik [Tilos Rádió podcast]" xmlUrl="https://tilos.hu/feed/show/eklektik" type="rss" />
+      <outline title="Budapest 2.0" xmlUrl="https://anchor.fm/s/fe5f61b8/podcast/rss" type="rss" />
+      <outline title="Gondoskodó Fogászat Budapest szívében" xmlUrl="https://feeds.hubhopper.com/d8fe875228cd0a937f75c60b766f5429.rss" type="rss" />
+      <outline title="Pesten innen, Budán túl" xmlUrl="https://feeds.megaphone.fm/pesteninnenbudantul" type="rss" />
+      <outline title="Vedd vissza a hangod!" xmlUrl="https://anchor.fm/s/43c85cb0/podcast/rss" type="rss" />
+      <outline title="Látszótér Rádió Budapest" xmlUrl="https://latszoter.hu/radio/feed/3" type="rss" />
+      <outline title="Müpa Podcast" xmlUrl="https://anchor.fm/s/ce3ac68/podcast/rss" type="rss" />
+      <outline title="Budapest teli van faluval" xmlUrl="https://anchor.fm/s/ed34ea84/podcast/rss" type="rss" />
+      <outline title="Baross téri igehirdetések" xmlUrl="https://anchor.fm/s/f6aa0798/podcast/rss" type="rss" />
+      <outline title="Piqniq Podcast" xmlUrl="https://rss.buzzsprout.com/1888909.rss" type="rss" />
+      <outline title="Prédikációk a Fasori Evangélikusoknál" xmlUrl="https://feed.pod.space/abudapestfasorievangelikusegyhazkozsegpredikacioi" type="rss" />
+      <outline title="SOLUNA ☽" xmlUrl="https://hearthis.at/set/456351-10237025/podcast/" type="rss" />
+      <outline title="ComCafe" xmlUrl="https://anchor.fm/s/244e74dc/podcast/rss" type="rss" />
+      <outline title="SlowTime Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:867301996/sounds.rss" type="rss" />
+      <outline title="Budapest Bár – 15 év 15 beszélgetés" xmlUrl="https://www.spreaker.com/show/5731606/episodes/feed" type="rss" />
+      <outline title="Budapest Beacon" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:63597325/sounds.rss" type="rss" />
+      <outline title="Budapest" xmlUrl="https://anchor.fm/s/5eeda518/podcast/rss" type="rss" />
+      <outline title="Creative Code Budapest Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:734144125/sounds.rss" type="rss" />
+      <outline title="Equippers Church Budapest" xmlUrl="https://anchor.fm/s/6a442d24/podcast/rss" type="rss" />
+      <outline title="Paulus Budapest Istentiszteletek" xmlUrl="https://anchor.fm/s/23359b34/podcast/rss" type="rss" />
+      <outline title="WKÖ AussenwirtschaftsCenter Budapest - Die aktuelle Situation der ungarischen Wirtschaft 2020" xmlUrl="https://anchor.fm/s/40b19dd4/podcast/rss" type="rss" />
+      <outline title="Budapest Outdoortalks" xmlUrl="http://rss.castbox.fm/everest/cce77180eb094ddf990fd5149abeada6.xml" type="rss" />
+      <outline title="Budapest percek" xmlUrl="https://anchor.fm/s/df65e804/podcast/rss" type="rss" />
+      <outline title="LIT_cast Budapest" xmlUrl="http://cast.rocks/hosting/23806/feeds/HN2J3.xml" type="rss" />
+      <outline title="Kitchen Budapest" xmlUrl="https://anchor.fm/s/56dbe38/podcast/rss" type="rss" />
+      <outline title="Hillsong Budapest Connect" xmlUrl="https://anchor.fm/s/1c554c24/podcast/rss" type="rss" />
+      <outline title="AeroCast - Az Aeropark Budapest légiközlekedési magazinja" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:469780467/sounds.rss" type="rss" />
+      <outline title="Nekem Budapest" xmlUrl="https://anchor.fm/s/416a6814/podcast/rss" type="rss" />
+      <outline title="Budapest" xmlUrl="https://anchor.fm/s/10e57ea2c/podcast/rss" type="rss" />
+      <outline title="Budapest" xmlUrl="https://anchor.fm/s/d681994/podcast/rss" type="rss" />
+      <outline title="BpNT Podcast - A Budapest New Tech Meetup hanganyaga" xmlUrl="https://feeds.feedburner.com/bpnt" type="rss" />
+      <outline title="ParisBudapestMetro" xmlUrl="https://anchor.fm/s/52e4256c/podcast/rss" type="rss" />
+      <outline title="Burnt Out in Budapest" xmlUrl="https://anchor.fm/s/19eb2ea4/podcast/rss" type="rss" />
+      <outline title="Fantastique Budapest" xmlUrl="https://anchor.fm/s/4a0d34ec/podcast/rss" type="rss" />
+      <outline title="Budapest Expat Podcast" xmlUrl="https://feeds.budapest.fm/budapest-expat-podcast" type="rss" />
+      <outline title="Budapest Unscripted: An Audio Documentary" xmlUrl="https://rss.buzzsprout.com/2625736.rss" type="rss" />
+      <outline title="Law Hunting - ein Krimi aus Budapest" xmlUrl="https://anchor.fm/s/108dd4c40/podcast/rss" type="rss" />
+      <outline title="VetCast Budapest" xmlUrl="https://anchor.fm/s/13b62b88/podcast/rss" type="rss" />
+      <outline title="Kinopolis Budapest" xmlUrl="https://feed.podbean.com/kinopolis/feed.xml" type="rss" />
+      <outline title="Budapest.fm Podcast" xmlUrl="https://feeds.budapest.fm/budapest-fm-podcast" type="rss" />
+      <outline title="Offbeat Budapest" xmlUrl="https://anchor.fm/s/70695b84/podcast/rss" type="rss" />
+      <outline title="Live in Budapest" xmlUrl="https://anchor.fm/s/15c33bf0/podcast/rss" type="rss" />
+      <outline title="SzabkerDebrecen" xmlUrl="https://anchor.fm/s/a4db070/podcast/rss" type="rss" />
+      <outline title="RCCG.Debrecen" xmlUrl="https://anchor.fm/s/da0dd380/podcast/rss" type="rss" />
+      <outline title="Demystifying Debrecen" xmlUrl="https://anchor.fm/s/f34222e8/podcast/rss" type="rss" />
+      <outline title="IBCD" xmlUrl="https://media.rss.com/ibcdebrecen/feed.xml" type="rss" />
+      <outline title="Learning To Be Happy" xmlUrl="https://anchor.fm/s/1114d75d0/podcast/rss" type="rss" />
+      <outline title="Szeged Podcast" xmlUrl="https://anchor.fm/s/41a6dd6c/podcast/rss" type="rss" />
+      <outline title="Rádió 88 Szeged" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:743934268/sounds.rss" type="rss" />
+      <outline title="Tudatos Cégvezetés Podcast" xmlUrl="https://anchor.fm/s/e87fc5b8/podcast/rss" type="rss" />
+      <outline title="Essentially Szeged" xmlUrl="https://anchor.fm/s/c00ca538/podcast/rss" type="rss" />
+      <outline title="Luxury On Air" xmlUrl="https://rss.libsyn.com/shows/522083/destinations/4484938.xml" type="rss" />
+      <outline title="Csillagpont Rádió Miskolc - Egészség- és sportrádió" xmlUrl="https://www.csillagpontradio.hu/hu/podcast" type="rss" />
       <outline title="Index Podcast" xmlUrl="https://www.index.hu/podcast/rss/" type="rss" />
       <outline title="Képmás" xmlUrl="https://www.kepmas.hu/rss/" type="rss" />
     </outline>
