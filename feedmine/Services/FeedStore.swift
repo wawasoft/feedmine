@@ -26,6 +26,14 @@ final class FeedStore {
     var activeRegion: String?
     var activeCategory: String?
     var activeContentType: FeedLoader.ContentType = .all
+    private var filterContentType: (FeedItem) -> Bool {
+        switch activeContentType {
+        case .all: return { _ in true }
+        case .text: return { !$0.isYouTube && !$0.isPodcast }
+        case .video: return { $0.isYouTube }
+        case .audio: return { $0.isPodcast }
+        }
+    }
     var isSearching = false
     private var searchResults: [FeedItem] = []
 
@@ -75,7 +83,7 @@ final class FeedStore {
         let cached = try? await loadReservoir()
         if let items = cached, !items.isEmpty {
             reservoir.seed(items: items)
-            visibleItems = reservoir.visibleItems
+            visibleItems = reservoir.visibleItems.filter(filterContentType)
             reservoirCount = reservoir.reservoirCount
             loadingState = .idle
         }
@@ -125,7 +133,9 @@ final class FeedStore {
             shouldFetch = true
         }
         guard shouldFetch else { return }
+        loadingState = .refreshing
         await fetchNextBatch()
+        loadingState = .idle
     }
 
     // MARK: - Filter
@@ -166,6 +176,7 @@ final class FeedStore {
                     .limit(100)
                     .fetchAll(db)
             }
+            guard isSearching else { return }
             searchResults = results.map { $0.toFeedItem() }
             visibleItems = searchResults
         }
@@ -203,6 +214,9 @@ final class FeedStore {
         )
         guard !batch.isEmpty else { return }
 
+        loadingState = .refreshing
+        defer { loadingState = .idle }
+
         let result = await fetcher.fetchAll(batch, maxConcurrent: 15)
         totalFetched += result.items.count
         fetchErrorCount += result.failedSourceCount
@@ -218,10 +232,13 @@ final class FeedStore {
 
         // Write to SQLite
         do {
-            for item in actualNew {
-                let region = registry.regionFor(sourceURL: item.sourceURL)
-                let record = FeedItemRecord(from: item, region: region)
-                try await db.write { db in
+            // Compute regions in @MainActor context before entering the write closure
+            let itemsWithRegions: [(item: FeedItem, region: String)] = actualNew.map { item in
+                (item, registry.regionFor(sourceURL: item.sourceURL))
+            }
+            try await db.write { db in
+                for (item, region) in itemsWithRegions {
+                    let record = FeedItemRecord(from: item, region: region)
                     try record.insert(db)
                 }
             }
@@ -233,7 +250,7 @@ final class FeedStore {
         reservoir.append(actualNew)
         // Only update visibleItems if no active search
         if !isSearching {
-            visibleItems = reservoir.visibleItems
+            visibleItems = reservoir.visibleItems.filter(filterContentType)
             reservoirCount = reservoir.reservoirCount
         }
 
@@ -244,6 +261,7 @@ final class FeedStore {
     }
 
     private func progressiveFetch() async {
+        loadingState = .refreshing
         let allEnabled = registry.enabledSources
         let chunkSize = 20
         for chunkStart in stride(from: 0, to: min(allEnabled.count, 60), by: chunkSize) {
@@ -256,11 +274,12 @@ final class FeedStore {
             reservoir.append(actualNew)
             if visibleItems.isEmpty && !reservoir.reservoir.isEmpty {
                 reservoir.moveToVisible(count: Reservoir.pageSize)
-                visibleItems = reservoir.visibleItems
+                visibleItems = reservoir.visibleItems.filter(filterContentType)
                 reservoirCount = reservoir.reservoirCount
             }
         }
         lastRefreshDate = .now
+        loadingState = .idle
     }
 
     private func reloadFromSQLite() async {
@@ -279,7 +298,7 @@ final class FeedStore {
         }) ?? []
         let feedItems = items.map { $0.toFeedItem() }
         reservoir.seed(items: feedItems)
-        visibleItems = reservoir.visibleItems
+        visibleItems = reservoir.visibleItems.filter(filterContentType)
         reservoirCount = reservoir.reservoirCount
     }
 
