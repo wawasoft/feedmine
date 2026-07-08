@@ -46,5 +46,33 @@
       <outline title="Ice Addis Dev" xmlUrl="https://www.iceaddis.com/feed/" type="rss" />
       <outline title="iCog Labs" xmlUrl="https://www.icog-labs.com/feed/" type="rss" />
     </outline>
+    <outline text="Podcasts">
+      <outline title="Etiopia Today" xmlUrl="https://anchor.fm/s/3977b92c/podcast/rss" type="rss" />
+      <outline title="English Grammar And Fluancy" xmlUrl="https://anchor.fm/s/38d09610/podcast/rss" type="rss" />
+      <outline title="CTP Ethiopia Podcast" xmlUrl="https://anchor.fm/s/72c2f160/podcast/rss" type="rss" />
+      <outline title="What's Happening in Ethiopia &amp; Eritrea?" xmlUrl="https://anchor.fm/s/415b926c/podcast/rss" type="rss" />
+      <outline title="Melhik" xmlUrl="https://feeds.redcircle.com/e70b3221-765d-4038-abcd-31b15f9057e7" type="rss" />
+      <outline title="Ethiopia by Ane Mitmita" xmlUrl="https://anchor.fm/s/2955d7f4/podcast/rss" type="rss" />
+      <outline title="Tv In Ethiopia" xmlUrl="https://anchor.fm/s/21d61c00/podcast/rss" type="rss" />
+      <outline title="Ethiopia; The Revelation Of John; The 81st Book Of Life In Greek &amp; Latin" xmlUrl="https://anchor.fm/s/33f72190/podcast/rss" type="rss" />
+      <outline title="Lido" xmlUrl="https://anchor.fm/s/252a257c/podcast/rss" type="rss" />
+      <outline title="Late MUNight Talks" xmlUrl="https://anchor.fm/s/3e059680/podcast/rss" type="rss" />
+      <outline title="Hanns Seidel Foundation Kenya &amp; Ethiopia Podcast" xmlUrl="https://anchor.fm/s/255e1210/podcast/rss" type="rss" />
+      <outline title="The Ancients" xmlUrl="https://access.acast.com/rss/f2925f7a-eb08-471a-9958-387cb5ee6353" type="rss" />
+      <outline title="SBS Somali - SBS Afsomali" xmlUrl="https://sbs-ondemand.streamguys1.com/sbs-somali/" type="rss" />
+      <outline title="Reisewarnung - mit missio München unterwegs" xmlUrl="https://reisewarnung.podigee.io/feed/mp3" type="rss" />
+      <outline title="Musiche dal mondo" xmlUrl="https://podcast.radiopopolare.it/podcast/popolare-musichedalmondo.xml" type="rss" />
+      <outline title="Contre courant" xmlUrl="https://feeds.audiomeans.fr/feed/af87be1b-b655-4a4f-96e0-579fe304e513.xml?platform=apple" type="rss" />
+      <outline title="BX1 - Bruxelles vit !" xmlUrl="https://bx1.be/rss/podcast/bruxelles-vit.xml" type="rss" />
+      <outline title="Pillole di Storia" xmlUrl="https://feeds.megaphone.fm/pilloledistoria" type="rss" />
+      <outline title="L'Instant Outdoor" xmlUrl="https://feeds.acast.com/public/shows/618248b66f866b0014d1dad9" type="rss" />
+      <outline title="Códigos paranormales: espíritus, fantasmas, exorcismos, apariciones, ouija..." xmlUrl="https://feeds.simplecast.com/JyH4jy79" type="rss" />
+      <outline title="Nations of the World" xmlUrl="https://feeds.captivate.fm/nations-of-the-world/" type="rss" />
+      <outline title="Capital Hall of Fame pt_2" xmlUrl="https://api.capital.it/v2/all/rss/itunes/episodes/1058" type="rss" />
+      <outline title="Let's Trail Podcast" xmlUrl="https://feed.ausha.co/bY5QLFA7LR15" type="rss" />
+      <outline title="La Voie du Vrai" xmlUrl="https://anchor.fm/s/28637338/podcast/rss" type="rss" />
+      <outline title="Les Enfants du Facteur" xmlUrl="https://rss.buzzsprout.com/1752045.rss" type="rss" />
+      <outline title="ONZMTL" xmlUrl="https://anchor.fm/s/101367494/podcast/rss" type="rss" />
+    </outline>
 </body>
 </opml>

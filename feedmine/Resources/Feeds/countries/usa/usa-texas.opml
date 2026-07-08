@@ -63,7 +63,7 @@
       <outline title="Austin Tech Alliance" xmlUrl="https://www.austintech.org/feed/" type="rss" />
       <outline title="Silicon Hills News" xmlUrl="https://www.siliconhillsnews.com/feed/" type="rss" />
       <outline title="Dell Technologies News" xmlUrl="https://www.dell.com/rss" type="rss" />
-      <outline title="AT&T Newsroom" xmlUrl="https://about.att.com/rss" type="rss" />
+      <outline title="AT&amp;T Newsroom" xmlUrl="https://about.att.com/rss" type="rss" />
       <outline title="Texas Instruments News" xmlUrl="https://news.ti.com/rss" type="rss" />
       <outline title="Houston Exponential" xmlUrl="https://www.houstonexponential.org/feed/" type="rss" />
       <outline title="Galvanize Austin" xmlUrl="https://www.galvanize.com/blog/feed/" type="rss" />

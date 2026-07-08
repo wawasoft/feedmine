@@ -67,6 +67,163 @@
       <outline title="Mintos Engineering" xmlUrl="https://www.mintos.com/blog/feed/" type="rss" />
     </outline>
     <outline text="Podcasts">
+      <outline title="Kāpēc gaidīt?" xmlUrl="https://www.istamilestibagaida.lv/podcast.xml" type="rss" />
+      <outline title="Latvia Weekly" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:531053610/sounds.rss" type="rss" />
+      <outline title="Extra Talks Latvia" xmlUrl="https://cloud.mave.digital/58681" type="rss" />
+      <outline title="An Englishman in Latvia" xmlUrl="https://rss.buzzsprout.com/2090909.rss" type="rss" />
+      <outline title="Minutes from Latvia" xmlUrl="https://eng.lsm.lv/rss/?t=20557&amp;format=itunes" type="rss" />
+      <outline title="Business Academy Latvia" xmlUrl="https://anchor.fm/s/852f495c/podcast/rss" type="rss" />
+      <outline title="X-Promo Promotion Latvia" xmlUrl="https://feeds.feedburner.com/xpromolv" type="rss" />
+      <outline title="Jauna Enerģija" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:732626479/sounds.rss" type="rss" />
+      <outline title="Ai Production Latvia" xmlUrl="https://feed.podbean.com/aiproduction/feed.xml" type="rss" />
+      <outline title="Nāburgu būšana" xmlUrl="https://anchor.fm/s/e2b1ca0/podcast/rss" type="rss" />
+      <outline title="Ar Pasaules Pieredzi Audio" xmlUrl="https://anchor.fm/s/456a0f28/podcast/rss" type="rss" />
+      <outline title="PIETURA - Digitalizācija" xmlUrl="https://rss.buzzsprout.com/2382764.rss" type="rss" />
+      <outline title="Swedbank Private Banking" xmlUrl="https://anchor.fm/s/fb218c38/podcast/rss" type="rss" />
+      <outline title="Tru og meining i gammal tid" xmlUrl="https://anchor.fm/s/9ee8909c/podcast/rss" type="rss" />
+      <outline title="Zero To Travel Podcast" xmlUrl="https://rss.introcast.io/778339885/feeds.megaphone.fm/ZTTIA6764283121" type="rss" />
+      <outline title="Krustpunktā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=113&amp;a=1&amp;id=22" type="rss" />
+      <outline title="Pasakas" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=2&amp;s=1003&amp;a=1&amp;id=95" type="rss" />
+      <outline title="Kas notiek Latvijā? podkāsts" xmlUrl="https://www.lsm.lv/rss/?t=27814&amp;format=itunes" type="rss" />
+      <outline title="Ģimenes studija" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=127&amp;a=1&amp;id=33" type="rss" />
+      <outline title="Divas puslodes" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=922&amp;a=1&amp;id=66" type="rss" />
+      <outline title="Svētrīts" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=117&amp;a=1&amp;id=31" type="rss" />
+      <outline title="Zināmais nezināmajā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=114&amp;a=1&amp;id=17" type="rss" />
+      <outline title="Kā labāk dzīvot" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=134&amp;a=1&amp;id=21" type="rss" />
+      <outline title="Krustpunktā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=113&amp;a=1&amp;id=103" type="rss" />
+      <outline title="Atvērtie faili" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1032&amp;a=1&amp;id=128" type="rss" />
+      <outline title="Šīs dienas acīm" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=116&amp;a=1&amp;id=18" type="rss" />
+      <outline title="Vai tas ir normāli?" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1078&amp;a=1&amp;id=157" type="rss" />
+      <outline title="(ne)Diplomātiskās pusdienas" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1565&amp;a=1&amp;id=282" type="rss" />
+      <outline title="Šī diena vēsturē" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=223&amp;a=1&amp;id=163" type="rss" />
+      <outline title="Laikmeta krustpunktā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1155&amp;a=1&amp;id=210" type="rss" />
+      <outline title="Radio mazā lasītava" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=661&amp;a=1&amp;id=56" type="rss" />
+      <outline title="Stūru stūriem" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1159&amp;a=1&amp;id=221" type="rss" />
+      <outline title="Globālais latvietis. 21. gadsimts" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=188&amp;a=1&amp;id=16" type="rss" />
+      <outline title="Ķepa uz sirds" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1086&amp;a=1&amp;id=170" type="rss" />
+      <outline title="Labu nakti - pasakas" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=131&amp;a=1&amp;id=176" type="rss" />
+      <outline title="Brīvības bulvāris" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1153&amp;a=1&amp;id=209" type="rss" />
+      <outline title="Digitālās Brokastis" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=6&amp;s=714&amp;a=1&amp;id=63" type="rss" />
+      <outline title="Grāmatu stāsti" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=3&amp;s=567&amp;a=1&amp;id=216" type="rss" />
+      <outline title="Garāžas sarunas" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=2&amp;s=1071&amp;a=1&amp;id=173" type="rss" />
+      <outline title="BlackBox Šovs" xmlUrl="https://anchor.fm/s/dd457774/podcast/rss" type="rss" />
+      <outline title="Drošinātājs" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;s=1313&amp;a=1&amp;id=234" type="rss" />
+      <outline title="Brīvais mikrofons" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=768&amp;a=1&amp;id=147" type="rss" />
+      <outline title="Kultūras rondo" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=132&amp;a=1&amp;id=79" type="rss" />
+      <outline title="Kur kritiķiem nav vietas" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1561&amp;a=1&amp;id=278" type="rss" />
+      <outline title="Normāla ģimene" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1437&amp;a=1&amp;id=257" type="rss" />
+      <outline title="Go3punktnieks" xmlUrl="https://rss.buzzsprout.com/2599264.rss" type="rss" />
+      <outline title="Politikas podkāsts" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;t=360&amp;a=1&amp;id=144" type="rss" />
+      <outline title="Radio vilks dabā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=2&amp;s=993&amp;a=1&amp;id=174" type="rss" />
+      <outline title="Monopols!" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1647&amp;a=1&amp;id=290" type="rss" />
+      <outline title="Ezīša sapņi" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=2&amp;s=1136&amp;a=1&amp;id=201" type="rss" />
+      <outline title="Yara Latvija podkāsts" xmlUrl="https://rss.libsyn.com/shows/302876/destinations/2414621.xml" type="rss" />
+      <outline title="Rīta cēliens ar Caritas Latvija" xmlUrl="https://hearthis.at/set/307127-9084606/podcast/" type="rss" />
+      <outline title="Vēsturnieku esejas par VDK darbību Padomju Latvijā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;t=334&amp;a=1&amp;id=89" type="rss" />
+      <outline title="Domu deglis I Schwenk Latvija" xmlUrl="https://anchor.fm/s/10d91caa4/podcast/rss" type="rss" />
+      <outline title="Vietu lietas Latvijā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=975&amp;a=1&amp;id=226" type="rss" />
+      <outline title="Lieliskais piecinieks" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=128&amp;a=1&amp;id=104" type="rss" />
+      <outline title="Reģioni Krustpunktā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1042&amp;a=1&amp;id=164" type="rss" />
+      <outline title="Rada un raida jau 100 gadus" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=1563&amp;a=1&amp;id=279" type="rss" />
+      <outline title="Pāvests Latvijā" xmlUrl="https://hearthis.at/set/96082-9084606/podcast/" type="rss" />
+      <outline title="Algas Kalkulators Latvijā – Aprēķini Neto Algu, Nodokļus un Reālos Ienākumus Ātri un Precīzi" xmlUrl="https://feed.ausha.co/en8D9hz6vNOP" type="rss" />
+      <outline title="Dullā Daukas gēns / Nr1 Ceļojumu podkāsts Latvijā" xmlUrl="https://anchor.fm/s/a02fd898/podcast/rss" type="rss" />
+      <outline title="Sorainen Latvija" xmlUrl="https://rss.buzzsprout.com/1443835.rss" type="rss" />
+      <outline title="Luminor Latvija podcast" xmlUrl="https://feed.podbean.com/LuminorLatvija/feed.xml" type="rss" />
+      <outline title="Latvijas pērles" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=800&amp;a=1&amp;id=37" type="rss" />
+      <outline title="Ezra sauc atjaunot templi" xmlUrl="https://hearthis.at/set/376716-9084606/podcast/" type="rss" />
+      <outline title="Grace Space Pod" xmlUrl="https://feeds.redcircle.com/31881998-b086-4a71-b978-c20fef9d83cb" type="rss" />
+      <outline title="Stay On Course: Ingredients for Success" xmlUrl="https://feeds.simplecast.com/KOGeb9BN" type="rss" />
+      <outline title="DJ RIGA" xmlUrl="https://promodj.com/sergeyriga/podcast.xml" type="rss" />
+      <outline title="Taize Rīga 2016" xmlUrl="https://hearthis.at/set/181319-9084606/podcast/" type="rss" />
+      <outline title="The TPM Show with Josh and Kate" xmlUrl="https://rss.art19.com/the-josh-marshall-podcast" type="rss" />
+      <outline title="RigaHomie Podcast" xmlUrl="https://anchor.fm/s/22b6af04/podcast/rss" type="rss" />
+      <outline title="Riga Fasya Dwi.J&#10;Popcast" xmlUrl="https://anchor.fm/s/5753bd24/podcast/rss" type="rss" />
+      <outline title="Riga Security Forum 2025. Podcast sessions" xmlUrl="https://feed.podbean.com/liiapod/feed.xml" type="rss" />
+      <outline title="SDA Rīga7 uzrunas" xmlUrl="https://anchor.fm/s/e463fb20/podcast/rss" type="rss" />
+      <outline title="Riga Continua" xmlUrl="https://www.spreaker.com/show/2834964/episodes/feed" type="rss" />
+      <outline title="Riga Toastmasters Show" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:277032193/sounds.rss" type="rss" />
+      <outline title="SERGEY RIGA / ДВИЖЕНИЕ" xmlUrl="https://cloud.mave.digital/34955" type="rss" />
+      <outline title="Viena Rīga-daudz talantu" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=331&amp;a=1&amp;id=20" type="rss" />
+      <outline title="Riga Tech Cast" xmlUrl="https://anchor.fm/s/e2eb2f5c/podcast/rss" type="rss" />
+      <outline title="21.2 Riga Retreat 2010-Ukrainian-English" xmlUrl="https://www.spreaker.com/show/4161785/episodes/feed" type="rss" />
+      <outline title="The Chat Chamber" xmlUrl="https://anchor.fm/s/42933428/podcast/rss" type="rss" />
+      <outline title="Kund och Ledarskapspodden" xmlUrl="https://feeds.acast.com/public/shows/67e51a62883ec8176aff3fb1" type="rss" />
+      <outline title="L'ODALISKE SUBJECT" xmlUrl="https://anchor.fm/s/13de5c34/podcast/rss" type="rss" />
+      <outline title="Bībeles gaismā" xmlUrl="https://anchor.fm/s/320c6124/podcast/rss" type="rss" />
+      <outline title="Onet Opinie - Rigamonti" xmlUrl="https://rss.libsyn.com/shows/448851/destinations/3765459.xml" type="rss" />
+      <outline title="SuaraDanniswara" xmlUrl="https://anchor.fm/s/2298cc3c/podcast/rss" type="rss" />
+      <outline title="Solidão I" xmlUrl="https://anchor.fm/s/6944fd04/podcast/rss" type="rss" />
+      <outline title="1. Black Lives Matter" xmlUrl="https://anchor.fm/s/36b7cc7c/podcast/rss" type="rss" />
+      <outline title="#NgobrolBarengRIga" xmlUrl="https://anchor.fm/s/265c10b8/podcast/rss" type="rss" />
+      <outline title="Podcast Rigamonti. Żałoba po Rosji" xmlUrl="https://rss.libsyn.com/shows/473412/destinations/4194434.xml" type="rss" />
+      <outline title="Person of Interest" xmlUrl="https://rss.libsyn.com/shows/231353/destinations/1707380.xml" type="rss" />
+      <outline title="Inside the Rig" xmlUrl="https://feed.podbean.com/insidetherig/feed.xml" type="rss" />
+      <outline title="BIG RIG RADIO by Truckin Life" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1365158475/sounds.rss" type="rss" />
+      <outline title="Product Rig - The Product Design Podcast" xmlUrl="https://anchor.fm/s/23a968e8/podcast/rss" type="rss" />
+      <outline title="The RIG" xmlUrl="https://anchor.fm/s/2cfe0b88/podcast/rss" type="rss" />
+      <outline title="Rig On Wheels - Truck Driver Hiring Agency - Over the Road Truck Driving Jobs" xmlUrl="https://feeds.hubhopper.com/5bce2909eadbe27541e60004674508f7.rss" type="rss" />
+      <outline title="Rig Rundowns" xmlUrl="https://feeds.captivate.fm/rig-rundowns/" type="rss" />
+      <outline title="Tales From The Rig" xmlUrl="https://www.talesfromtherig.com/feed/podcast/" type="rss" />
+      <outline title="Rig Riding Crew" xmlUrl="https://anchor.fm/s/2ea577a0/podcast/rss" type="rss" />
+      <outline title="Righardt van Tonder" xmlUrl="https://anchor.fm/s/4514bbcc/podcast/rss" type="rss" />
+      <outline title="The Oilers Rig Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:101639416/sounds.rss" type="rss" />
+      <outline title="Oil Rig Radio: Hockey This Fortnight" xmlUrl="https://anchor.fm/s/5beb0824/podcast/rss" type="rss" />
+      <outline title="Rig Recon Live" xmlUrl="https://rss.buzzsprout.com/2364767.rss" type="rss" />
+      <outline title="The Rig on Wheels Show Radio: The #1 Podcast for Truck Driver Recruitment &amp; Retention" xmlUrl="https://media.rss.com/the-rig-on-wheels-show-trucking-recruitment-retention-insights/feed.xml" type="rss" />
+      <outline title="The CHS Roughneck Podcast: The Oil Rig" xmlUrl="https://anchor.fm/s/35b98720/podcast/rss" type="rss" />
+      <outline title="The Rig Biz Podcast" xmlUrl="https://audioboom.com/channels/5037734.rss" type="rss" />
+      <outline title="Wake Up Winden:  Dark(Netflix), 1899, The Beforeigners, Dear Child, The Rig (Prime)" xmlUrl="https://media.rss.com/wakeupwinden/feed.xml" type="rss" />
+      <outline title="Beyond The Rig" xmlUrl="https://feeds.captivate.fm/beyond-the-rig-podcast/" type="rss" />
+      <outline title="Rig på viden" xmlUrl="https://anchor.fm/s/10ca309f0/podcast/rss" type="rss" />
+      <outline title="The RigLogix Podcast" xmlUrl="https://rss.buzzsprout.com/2014544.rss" type="rss" />
+      <outline title="頤原介吉他 Euan's friends' Rig" xmlUrl="https://feed.firstory.me/rss/user/ck9mmujuokn0j0873erexbr4d" type="rss" />
+      <outline title="Rad Rig Podcast" xmlUrl="https://anchor.fm/s/e191fb18/podcast/rss" type="rss" />
+      <outline title="The Gigs&amp;Rigs Show" xmlUrl="https://feed.podbean.com/TheGigRig/feed.xml" type="rss" />
+      <outline title="Увлечённые по Жизни" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:998059879/sounds.rss" type="rss" />
+      <outline title="Dieva Mājas Liepāja" xmlUrl="https://anchor.fm/s/ee2b96f4/podcast/rss" type="rss" />
+      <outline title="Sportacentrs.com podkāsti" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:390561792/sounds.rss" type="rss" />
+      <outline title="Patriotu podkāsts" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;t=151&amp;a=1&amp;id=150" type="rss" />
+      <outline title="Ziņas &amp; analītika" xmlUrl="https://anchor.fm/s/a5b22a0/podcast/rss" type="rss" />
+      <outline title="Tviterkāsts" xmlUrl="https://anchor.fm/s/bddb0cdc/podcast/rss" type="rss" />
+      <outline title="Dievkalpojumi" xmlUrl="https://hearthis.at/set/175637-9084606/podcast/" type="rss" />
+      <outline title="LangTurbo Latvian" xmlUrl="https://www.langturbo.com/podcast?languageId=38" type="rss" />
+      <outline title="Eiro fokusā" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=581&amp;a=1&amp;id=161" type="rss" />
+      <outline title="Baltic Football Podcast" xmlUrl="https://anchor.fm/s/f8270e2c/podcast/rss" type="rss" />
+      <outline title="Ekonomikas podkāsts" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;t=44&amp;a=1&amp;id=167" type="rss" />
+      <outline title="Citas sarunas" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=5&amp;s=1471&amp;a=1&amp;id=258" type="rss" />
+      <outline title="Sanākam, sadziedam, sadancojam" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=951&amp;a=1&amp;id=71" type="rss" />
+      <outline title="Statistiskie tautieši" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;t=328&amp;a=1&amp;id=77" type="rss" />
+      <outline title="Stiprie stāsti" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=974&amp;a=1&amp;id=230" type="rss" />
+      <outline title="Augstāk par zemi" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=1&amp;s=139&amp;a=1&amp;id=47" type="rss" />
+      <outline title="Latviešiem pasaulē" xmlUrl="https://latvijasradio.lsm.lv/?rt=site&amp;ac=feed&amp;c=2&amp;s=108&amp;a=1&amp;id=172" type="rss" />
+      <outline title="Metālkāsts LV" xmlUrl="https://anchor.fm/s/ca18158/podcast/rss" type="rss" />
+      <outline title="La previa del Quinielov" xmlUrl="https://feeds.ivoox.com/feed_fg_f1282197_filtro_1.xml" type="rss" />
+      <outline title="Northbound and down - Der lange Weg um die Ostsee" xmlUrl="https://www.podcasts.com/rss_feed/b620896bda5fce163c526ae1f86fe8b3" type="rss" />
+      <outline title="BALTIC LANDLORDS" xmlUrl="https://anchor.fm/s/5b0263e4/podcast/rss" type="rss" />
+      <outline title="Spritzwein zum Frühstück" xmlUrl="https://anchor.fm/s/e63d1918/podcast/rss" type="rss" />
+      <outline title="Viena Balsi (from One Voice)" xmlUrl="https://media.rss.com/vienabalsi/feed.xml" type="rss" />
+      <outline title="FluentFiction - Latvian" xmlUrl="https://www.spreaker.com/show/6005817/episodes/feed" type="rss" />
+      <outline title="History Of The Great War" xmlUrl="https://rss.pdrl.fm/36fb8b/feeds.megaphone.fm/ADV4493130704" type="rss" />
+      <outline title="ENIDIARY - Geschichten vom Abenteuer Leben" xmlUrl="https://anchor.fm/s/eab6c48/podcast/rss" type="rss" />
+      <outline title="Fronten" xmlUrl="https://feed.podbean.com/fronten/feed.xml" type="rss" />
+      <outline title="ONE*" xmlUrl="https://podcasts.subsplash.com/3grx2yt/podcast.rss" type="rss" />
+      <outline title="Combat War Stories" xmlUrl="https://www.spreaker.com/show/6651624/episodes/feed" type="rss" />
+      <outline title="Skrikpodden" xmlUrl="https://anchor.fm/s/efd567f0/podcast/rss" type="rss" />
+      <outline title="Passives Einkommen mit P2P Krediten" xmlUrl="https://passives-einkommen-mit-p2p.podigee.io/feed/mp3" type="rss" />
+      <outline title="Ask-Scholars.com" xmlUrl="https://anchor.fm/s/4e29e340/podcast/rss" type="rss" />
+      <outline title="Think Over Here" xmlUrl="https://anchor.fm/s/36e60e48/podcast/rss" type="rss" />
+      <outline title="Kalenderblatt" xmlUrl="https://www.deutschlandfunk.de/dlf-kalenderblatt-100.xml" type="rss" />
+      <outline title="History of Estonia Podcast" xmlUrl="https://anchor.fm/s/1041d934/podcast/rss" type="rss" />
+      <outline title="UCD Humanities Institute Podcast" xmlUrl="https://realsmartmedia.ie/podcasts/hi/events/podcasts/xml/hiipod_s.xml" type="rss" />
+      <outline title="Abenteuer Eisenbahn - unglaubliche Reisen, erstaunliche Erlebnisse" xmlUrl="https://www.mdr.de/mdr-thueringen/podcast/eisenbahn/podcast-eisenbahn-bahn-zug-abenteuer-100.xml" type="rss" />
+      <outline title="Cozy Chaos Podcast" xmlUrl="https://media.rss.com/cozy-chaos-podcast/feed.xml" type="rss" />
+      <outline title="Mister Futsal - 2mal20netto" xmlUrl="https://anchor.fm/s/10dd1a264/podcast/rss" type="rss" />
+      <outline title="War Combat Stories" xmlUrl="https://media.rss.com/war-podcast/feed.xml" type="rss" />
+      <outline title="Gegenpressing Podcast" xmlUrl="https://anchor.fm/s/fdc7baac/podcast/rss" type="rss" />
+      <outline title="Mediāna | Median Report" xmlUrl="https://rss.buzzsprout.com/1953969.rss" type="rss" />
+      <outline title="L'Immo – Der Podcast für die Immobilienwirtschaft" xmlUrl="https://haufe-immobilienpodcast.podigee.io/feed/mp3" type="rss" />
+      <outline title="Zeit für Bayern" xmlUrl="https://feeds.br.de/zeit-fuer-bayern/feed.xml" type="rss" />
       <outline title="Delfi Podcast" xmlUrl="https://www.delfi.lv/podkasti/rss/" type="rss" />
       <outline title="Pieci Podcast" xmlUrl="https://www.pieci.lv/podkasti/rss/" type="rss" />
     </outline>

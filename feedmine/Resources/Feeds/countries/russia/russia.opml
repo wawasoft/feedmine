@@ -109,6 +109,189 @@
       <outline title="Vc.ru Business" xmlUrl="https://vc.ru/rss" type="rss" />
     </outline>
     <outline text="Podcasts">
+      <outline title="Делай бизнес" xmlUrl="https://cloud.mave.digital/61514" type="rss" />
+      <outline title="Живой Гвоздь" xmlUrl="https://cloud.mave.digital/41353" type="rss" />
+      <outline title="Go учиться" xmlUrl="https://cloud.mave.digital/38549" type="rss" />
+      <outline title="История роскоши" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36576.xml" type="rss" />
+      <outline title="30 до 30" xmlUrl="https://cloud.mave.digital/32853" type="rss" />
+      <outline title="Ключ от города" xmlUrl="https://cloud.mave.digital/36575" type="rss" />
+      <outline title="Внутри воронки" xmlUrl="https://cloud.mave.digital/58161" type="rss" />
+      <outline title="Дизайнеры и их музы" xmlUrl="https://cloud.mave.digital/36463" type="rss" />
+      <outline title="Hobby Talks" xmlUrl="https://hobbytalks.org/rss.xml" type="rss" />
+      <outline title="In Moscow's Shadows" xmlUrl="https://rss.buzzsprout.com/1026985.rss" type="rss" />
+      <outline title="У стен есть уши" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36572.xml" type="rss" />
+      <outline title="Здесь вам не Москва" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/33927.xml" type="rss" />
+      <outline title="Russia Goes Clubbing" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:214724518/sounds.rss" type="rss" />
+      <outline title="Forbes. Истории" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/49374.xml" type="rss" />
+      <outline title="Russia Decoded" xmlUrl="https://media.rss.com/russian-news-decoded/feed.xml" type="rss" />
+      <outline title="Что-то пошло не так" xmlUrl="https://cloud.mave.digital/67948" type="rss" />
+      <outline title="Мы и Оно" xmlUrl="https://cloud.mave.digital/56443" type="rss" />
+      <outline title="IARPP Russia" xmlUrl="https://anchor.fm/s/612862dc/podcast/rss" type="rss" />
+      <outline title="Деньги на стол" xmlUrl="https://cloud.mave.digital/52276" type="rss" />
+      <outline title="Forbes. Детали" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/35879.xml" type="rss" />
+      <outline title="Ювелирный подход" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36464.xml" type="rss" />
+      <outline title="MaRussia" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:746703463/sounds.rss" type="rss" />
+      <outline title="F.A.Z. Podcast für Deutschland" xmlUrl="https://podcastfuerdeutschland.podigee.io/feed/mp3" type="rss" />
+      <outline title="Glamour Russia" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36595.xml" type="rss" />
+      <outline title="Enjoy Russia" xmlUrl="https://cloud.mave.digital/61114" type="rss" />
+      <outline title="Бренды в цифре" xmlUrl="https://cloud.mave.digital/34482" type="rss" />
+      <outline title="The History Bureau" xmlUrl="https://podcasts.files.bbci.co.uk/m002q5dk.rss" type="rss" />
+      <outline title="Ксюша, Ксюша, Ксюша" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36579.xml" type="rss" />
+      <outline title="Сообщницы" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/37837.xml" type="rss" />
+      <outline title="Bobina: Russia Goes Deeper" xmlUrl="https://promodj.com/bobina/groups/576617/Russia_Goes_Deeper_Ezhemesyachniy_Podcast/rss.xml" type="rss" />
+      <outline title="The History of Russia Podcast" xmlUrl="https://feeds.acast.com/public/shows/64ccf838a514e9001102ba2a" type="rss" />
+      <outline title="From Russia With News" xmlUrl="https://feeds.simplecast.com/wBgVW_mw" type="rss" />
+      <outline title="Russia Underground" xmlUrl="https://anchor.fm/s/f3a8de20/podcast/rss" type="rss" />
+      <outline title="Пересборка реальности" xmlUrl="https://cloud.mave.digital/71616" type="rss" />
+      <outline title="BOBINA / RUSSIA GOES CLUBBING" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/34954.xml" type="rss" />
+      <outline title="Давай по новой" xmlUrl="https://cloud.mave.digital/55395" type="rss" />
+      <outline title="Ukraine: The Latest" xmlUrl="https://feeds.acast.com/public/shows/6583012e715d5300169dcdcb" type="rss" />
+      <outline title="Почему так приятно" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36586.xml" type="rss" />
+      <outline title="Putin" xmlUrl="https://podcasts.files.bbci.co.uk/m0015nfd.rss" type="rss" />
+      <outline title="What World Leaders NEED to Know about Russia" xmlUrl="https://anchor.fm/s/101b2f0f0/podcast/rss" type="rss" />
+      <outline title="Лучшая версия" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/47372.xml" type="rss" />
+      <outline title="Урбанизм" xmlUrl="https://anchor.fm/s/40eebbec/podcast/rss" type="rss" />
+      <outline title="Бар, наука, рок-н-ролл" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36842.xml" type="rss" />
+      <outline title="Why Russia Fails? — Почему одни страны богатые, а Россия бедная" xmlUrl="https://anchor.fm/s/106ce8f54/podcast/rss" type="rss" />
+      <outline title="Historia.nu med Urban Lindstedt" xmlUrl="https://feeds.acast.com/public/shows/8f32f6d9-5a76-58b9-a69f-1881c8d263eb" type="rss" />
+      <outline title="About a Boy: The Story of Vladimir Putin" xmlUrl="https://rss.amperwave.net/v2/feed/audacynetwork/puck-putin" type="rss" />
+      <outline title="Голос ОЦО" xmlUrl="https://cloud.mave.digital/51412" type="rss" />
+      <outline title="Global News Podcast" xmlUrl="https://podcasts.files.bbci.co.uk/p02nq0gn.rss" type="rss" />
+      <outline title="Заповедная Россия" xmlUrl="https://cloud.mave.digital/68762" type="rss" />
+      <outline title="Ожившая история" xmlUrl="https://cleverrussia.ru/feed/podcast/livingpictures/" type="rss" />
+      <outline title="РОССИЯ И ЗАПАД НА КАЧЕЛЯХ ИСТОРИИ Подкаст.лаб" xmlUrl="https://cloud.mave.digital/49873" type="rss" />
+      <outline title="Сегодня Россия выглядит так" xmlUrl="https://tishina.media/feed/podcast/today/" type="rss" />
+      <outline title="Тоже Россия" xmlUrl="https://feeds.transistor.fm/21c9ae40-175f-4ce9-88be-09de8cfc696b" type="rss" />
+      <outline title="Радио «Комсомольская Правда» - Россия" xmlUrl="https://radiokp.ru/taxonomy/term/11973/rss/podcast.xml" type="rss" />
+      <outline title="Россия и Америка: история отношений" xmlUrl="https://pinecast.com/feed/usa-russia" type="rss" />
+      <outline title="Как это по-русски" xmlUrl="https://cloud.mave.digital/67125" type="rss" />
+      <outline title="Говорит наука" xmlUrl="https://cleverrussia.ru/feed/podcast/sciencesays/" type="rss" />
+      <outline title="Какая-то мистика" xmlUrl="https://cloud.mave.digital/67127" type="rss" />
+      <outline title="НЕИЗВЕСТНАЯ РОССИЯ — Подкасты радио Говорит Москва #ГоворитМосква" xmlUrl="http://podcast.govoritmoskva.ru/?cat=22&amp;feed=podcast" type="rss" />
+      <outline title="Строго по делу с Ильей Копелевичем" xmlUrl="https://cloud.mave.digital/69135" type="rss" />
+      <outline title="Истории.doc" xmlUrl="https://cloud.mave.digital/67126" type="rss" />
+      <outline title="По деловому признаку" xmlUrl="https://cleverrussia.ru/feed/podcast/pdp/" type="rss" />
+      <outline title="Встал Вопрос" xmlUrl="https://cleverrussia.ru/feed/podcast/sex/" type="rss" />
+      <outline title="Переговорка. Говорим о решениях" xmlUrl="https://cloud.mave.digital/48562" type="rss" />
+      <outline title="Украина, Россия, война, мир..." xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/40698.xml" type="rss" />
+      <outline title="Недвижимость с Валерией Мозгановой" xmlUrl="https://cloud.mave.digital/69152" type="rss" />
+      <outline title="neva’zhno о важном" xmlUrl="https://cleverrussia.ru/feed/podcast/nevazhno/" type="rss" />
+      <outline title="Бери и делай" xmlUrl="https://cloud.mave.digital/58820" type="rss" />
+      <outline title="Кризис: что делать?" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/35644.xml" type="rss" />
+      <outline title="Сумма технологий с Денисом Самсоновым" xmlUrl="https://cloud.mave.digital/69151" type="rss" />
+      <outline title="Новые шансы с Ворлдскиллс Россия" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/35790.xml" type="rss" />
+      <outline title="Литмотив" xmlUrl="https://cleverrussia.ru/feed/podcast/litmotiv/" type="rss" />
+      <outline title='"УРАЛРОСПРОМЭКО: за повышение качества жизни россиян". ОНЛАЙН ДИСКУССИИ С ЮЛИЕЙ КОРНЕЕВОЙ' xmlUrl="https://cloud.mave.digital/36652" type="rss" />
+      <outline title="Галактика: Россия" xmlUrl="https://anchor.fm/s/1c41d0a4/podcast/rss" type="rss" />
+      <outline title="Красная Россия будущего" xmlUrl="https://media.rss.com/redrussia-future/feed.xml" type="rss" />
+      <outline title="Немецкая Россия" xmlUrl="https://feeds.feedburner.com/soundcloud/Deutsches_Russland" type="rss" />
+      <outline title="Христианская Россия" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/48174.xml" type="rss" />
+      <outline title="Сделали в России" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/34434.xml" type="rss" />
+      <outline title="Как это возможно?" xmlUrl="https://anchor.fm/s/6382716c/podcast/rss" type="rss" />
+      <outline title="Пришел к успеху" xmlUrl="https://anchor.fm/s/5c1df34c/podcast/rss" type="rss" />
+      <outline title="Подкасты исторического парка" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:846113275/sounds.rss" type="rss" />
+      <outline title="Суеверная Россия" xmlUrl="https://anchor.fm/s/3e7fe37c/podcast/rss" type="rss" />
+      <outline title="AX TALK РОССИЯ" xmlUrl="https://rss.buzzsprout.com/1897158.rss" type="rss" />
+      <outline title="Цивилизация «Россия»" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36560.xml" type="rss" />
+      <outline title="Прекрасная Россия зеленого будущего" xmlUrl="https://anchor.fm/s/512b92b4/podcast/rss" type="rss" />
+      <outline title="Новая Россия" xmlUrl="https://anchor.fm/s/289d70ec/podcast/rss" type="rss" />
+      <outline title="Россия сейчас" xmlUrl="https://anchor.fm/s/235ff500/podcast/rss" type="rss" />
+      <outline title="Евреи и Россия (Jews and Russia) by Ze'ev Jabotinsky (1880 - 1940)" xmlUrl="https://librivox.org/rss/7531" type="rss" />
+      <outline title="Moskva-kontoret" xmlUrl="https://api.dr.dk/podcasts/v1/feeds/moskva-kontoret.xml?format=podcast" type="rss" />
+      <outline title="Грозный-Москва" xmlUrl="https://anchor.fm/s/770ac694/podcast/rss" type="rss" />
+      <outline title="Fluent Fiction - Russian" xmlUrl="https://www.spreaker.com/show/6185310/episodes/feed" type="rss" />
+      <outline title="Historia Universalis" xmlUrl="https://historia-universalis.fm/feed/mp3/" type="rss" />
+      <outline title="Auffe Ohren - Der BVB-Podcast von schwatzgelb.de" xmlUrl="https://auffeohren.podigee.io/feed/mp3" type="rss" />
+      <outline title="Radio Free Alaska" xmlUrl="https://anchor.fm/s/108833c64/podcast/rss" type="rss" />
+      <outline title="LÄSpodden" xmlUrl="https://helsingborgslaspodd.podomatic.com/rss2.xml" type="rss" />
+      <outline title="Helle Panke" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:568035816/sounds.rss" type="rss" />
+      <outline title="Apinan Vuosi" xmlUrl="https://anchor.fm/s/582b7174/podcast/rss" type="rss" />
+      <outline title="2footsteps Podcast" xmlUrl="https://rss.libsyn.com/shows/114126/destinations/643705.xml" type="rss" />
+      <outline title="PolL - der Podcast für lebenslanges Lernen" xmlUrl="https://podcast-uni-saarland.de/feed/mp3/" type="rss" />
+      <outline title="Red Web" xmlUrl="https://feeds.megaphone.fm/redweb" type="rss" />
+      <outline title="Сибирский модернизм" xmlUrl="https://anchor.fm/s/35e1cbb8/podcast/rss" type="rss" />
+      <outline title="Murder: True Crime Stories" xmlUrl="https://rss.amperwave.net/v2/feed/audacynetwork/murdertruecrimestories" type="rss" />
+      <outline title="Unexplained" xmlUrl="https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/4be3ef45-824a-44b3-b437-b038010038fc/3eb75c81-5ed8-4148-bb7b-b03801003947/podcast.rss" type="rss" />
+      <outline title="The Classic Tales Podcast" xmlUrl="https://feeds.libsyn.com/30031/rss" type="rss" />
+      <outline title="The Romanov Dynasty: Rise, Power, and Bloody End — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/the-romanov-dynasty.xml" type="rss" />
+      <outline title="Whispers From The Dark" xmlUrl="https://audioboom.com/channels/5171625.rss" type="rss" />
+      <outline title="Glass and Out" xmlUrl="https://rss.libsyn.com/shows/360101/destinations/2953994.xml" type="rss" />
+      <outline title="netwaves" xmlUrl="https://ia800904.us.archive.org/0/items/netwaves/netwaves.xml" type="rss" />
+      <outline title="Andrey Trancefer" xmlUrl="https://promodj.com/trancefermusic/rss.xml" type="rss" />
+      <outline title="Sleepless in Singapore" xmlUrl="https://feeds.fireside.fm/sleepless-sg/rss" type="rss" />
+      <outline title="TO WANDER: cities and places" xmlUrl="https://anchor.fm/s/10d3ac3bc/podcast/rss" type="rss" />
+      <outline title="Sakiz Podcast Series" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:17341177/sounds.rss" type="rss" />
+      <outline title="Benjamin" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:40119935/sounds.rss" type="rss" />
+      <outline title="8day_Montreal" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:2896504/sounds.rss" type="rss" />
+      <outline title="MCMP – Logic" xmlUrl="https://cast.itunes.uni-muenchen.de/vod/playlists/2HMtfr3z6B/quicktime.rss" type="rss" />
+      <outline title="Sasquatch Odyssey" xmlUrl="https://www.spreaker.com/show/4839697/episodes/feed" type="rss" />
+      <outline title="Strange As It Seems" xmlUrl="https://feed.podbean.com/strangeasitseems/feed.xml" type="rss" />
+      <outline title="Études russes sans Russie" xmlUrl="https://feed.ausha.co/KPrENCekLdpE" type="rss" />
+      <outline title="Around the World with Dan Perry" xmlUrl="https://rss.libsyn.com/shows/92565/destinations/465282.xml" type="rss" />
+      <outline title="Russia Unwrapped" xmlUrl="https://anchor.fm/s/40fe4e40/podcast/rss" type="rss" />
+      <outline title="Biography" xmlUrl="https://anchor.fm/s/b9b8ccc/podcast/rss" type="rss" />
+      <outline title="Feature" xmlUrl="https://www.radiodrei.de/podcasts/feature/index.xml/feed=podcast.xml" type="rss" />
+      <outline title="World War Now Podcast" xmlUrl="https://api.substack.com/feed/podcast/1110600.rss" type="rss" />
+      <outline title="Single Malt History with Gareth Russell" xmlUrl="https://anchor.fm/s/4f5ca680/podcast/rss" type="rss" />
+      <outline title="1001 Heroes, Legends, Histories &amp; Mysteries Podcast" xmlUrl="https://rss.libsyn.com/shows/529192/destinations/4551967.xml" type="rss" />
+      <outline title="What Could Have Been" xmlUrl="https://feeds.acast.com/public/shows/67c08c0e9f4534312252d44f" type="rss" />
+      <outline title="The Delingpod: The James Delingpole Podcast" xmlUrl="https://delingpole.podbean.com/feed.xml" type="rss" />
+      <outline title="Heart and Soul" xmlUrl="https://podcasts.files.bbci.co.uk/p002vsn4.rss" type="rss" />
+      <outline title="The Delingpod: The James Delingpole Podcast" xmlUrl="https://feed.podbean.com/delingpole/feed.xml" type="rss" />
+      <outline title="The Year That Was" xmlUrl="https://feeds.fireside.fm/theyearthatwaspodcast/rss" type="rss" />
+      <outline title="New Books in Russian and Eurasian Studies" xmlUrl="https://feeds.megaphone.fm/LIT6780696927" type="rss" />
+      <outline title="New Books Network" xmlUrl="https://feeds.megaphone.fm/LIT4543917034" type="rss" />
+      <outline title="New Books in Urban Studies" xmlUrl="https://feeds.megaphone.fm/NBN5256992629" type="rss" />
+      <outline title="United We Stand Podcast" xmlUrl="https://audioboom.com/channels/504284.rss" type="rss" />
+      <outline title="Ukrainecast" xmlUrl="https://podcasts.files.bbci.co.uk/p0bqztzm.rss" type="rss" />
+      <outline title="New Books in Sociology" xmlUrl="https://feeds.megaphone.fm/LIT3382719913" type="rss" />
+      <outline title="New Books in Eastern European Studies" xmlUrl="https://feeds.megaphone.fm/LIT7794950156" type="rss" />
+      <outline title="Revolutions" xmlUrl="https://rss.libsyn.com/shows/47475/destinations/159998.xml" type="rss" />
+      <outline title="Hasenchat Music Podcast Deutsch" xmlUrl="https://anchor.fm/s/f0678630/podcast/rss" type="rss" />
+      <outline title="2 For Chirping" xmlUrl="https://rss.buzzsprout.com/1985199.rss" type="rss" />
+      <outline title="Gegenpressing: The Bundesliga Podcast" xmlUrl="https://feeds.megaphone.fm/RPPSG5036015047" type="rss" />
+      <outline title="CERI" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:25842794/sounds.rss" type="rss" />
+      <outline title="Nobody Cares Show" xmlUrl="https://anchor.fm/s/d67cb10/podcast/rss" type="rss" />
+      <outline title="VIENNA.at - Heast, Oida!" xmlUrl="https://heastoidavienna.podigee.io/feed/mp3" type="rss" />
+      <outline title="Fascinating AF" xmlUrl="https://feeds.feedburner.com/FascinatingAfPodcast" type="rss" />
+      <outline title="Открывая Казань" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/37742.xml" type="rss" />
+      <outline title="Полезно для жизни" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/47734.xml" type="rss" />
+      <outline title="Kazan" xmlUrl="https://www.spreaker.com/show/7104830/episodes/feed" type="rss" />
+      <outline title="Nicky Kazan from Barkshear Grooming" xmlUrl="https://anchor.fm/s/152ae06c/podcast/rss" type="rss" />
+      <outline title="Kazan Dairesi" xmlUrl="https://anchor.fm/s/5188a92c/podcast/rss" type="rss" />
+      <outline title="Nasıl Alışkanlık Kazanırsın?" xmlUrl="https://anchor.fm/s/8ed4a9e8/podcast/rss" type="rss" />
+      <outline title="Park Kazan" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:926949589/sounds.rss" type="rss" />
+      <outline title="Cadı Kazanı" xmlUrl="https://anchor.fm/s/12479c14/podcast/rss" type="rss" />
+      <outline title="Futbol Kazanı" xmlUrl="https://anchor.fm/s/6c6b715c/podcast/rss" type="rss" />
+      <outline title="Kazan" xmlUrl="https://www.spreaker.com/show/6988040/episodes/feed" type="rss" />
+      <outline title="Kazan" xmlUrl="https://www.spreaker.com/show/6547240/episodes/feed" type="rss" />
+      <outline title="İstanbul Kazan Biz Kepçe" xmlUrl="https://feeds.transistor.fm/istanbul-kazan-biz-kepce" type="rss" />
+      <outline title="Ilk Dolarini Nasil Kazandi?" xmlUrl="https://anchor.fm/s/43182f84/podcast/rss" type="rss" />
+      <outline title="Kazan by James Oliver Curwood (1878 - 1927)" xmlUrl="https://librivox.org/rss/5689" type="rss" />
+      <outline title="Lights Of Kazan Podcast" xmlUrl="https://dj.ru/skyrone/music/podcast" type="rss" />
+      <outline title="Ben Veli Oldum - Okul çocuğuma ne kazandırmalı 2#" xmlUrl="https://anchor.fm/s/115de218/podcast/rss" type="rss" />
+      <outline title="Kazan by James Oliver Curwood" xmlUrl="https://www.spreaker.com/show/6336824/episodes/feed" type="rss" />
+      <outline title="Bilim Kazanı" xmlUrl="https://acikradyo.com.tr/i/rss/Bilim_Kazani.xml" type="rss" />
+      <outline title="Kaybetmeden Kazanamazsın" xmlUrl="https://anchor.fm/s/10d6aeca4/podcast/rss" type="rss" />
+      <outline title="Kaynayan Kazan" xmlUrl="https://anchor.fm/s/45045d2c/podcast/rss" type="rss" />
+      <outline title="Kazane, Sound of the Wind" xmlUrl="https://anchor.fm/s/3722f7a4/podcast/rss" type="rss" />
+      <outline title="İnternetten Para Kazanmak" xmlUrl="https://anchor.fm/s/e363a798/podcast/rss" type="rss" />
+      <outline title="Авторская речь" xmlUrl="https://anchor.fm/s/42476138/podcast/rss" type="rss" />
+      <outline title="Small Talk with Sheila" xmlUrl="https://anchor.fm/s/107076a68/podcast/rss" type="rss" />
+      <outline title="Sade Sati" xmlUrl="https://anchor.fm/s/1d4c84d0/podcast/rss" type="rss" />
+      <outline title="Labirint fără ghid" xmlUrl="https://anchor.fm/s/10ebd919c/podcast/rss" type="rss" />
+      <outline title="The Scoop" xmlUrl="https://anchor.fm/s/5bb57358/podcast/rss" type="rss" />
+      <outline title="Made Divine" xmlUrl="https://anchor.fm/s/ab6a9ae0/podcast/rss" type="rss" />
+      <outline title="Quadrangular Kaza" xmlUrl="https://anchor.fm/s/4ddb2c14/podcast/rss" type="rss" />
+      <outline title="¿Cómo se dice en ruso?" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36722.xml" type="rss" />
+      <outline title="Paris Tempo FWI" xmlUrl="https://feed.ausha.co/APrMpix20Kd5" type="rss" />
+      <outline title="KAZA ☉ BAZAN" xmlUrl="https://anchor.fm/s/33c7b6e4/podcast/rss" type="rss" />
+      <outline title="Uçak Kazalarının ''Pek de teknik olmayan'' Raporları" xmlUrl="https://feeds.simplecast.com/Hm4mhbtr" type="rss" />
+      <outline title="Son Yolculuğunu Gök Yüzüne Yapanlar / Uçak Kazaları" xmlUrl="http://rss.castbox.fm/everest/742be7389f9e433eb95c5543d49c74aa.xml" type="rss" />
+      <outline title="Cheers, Sis!" xmlUrl="https://feeds.alitu.com/14606687" type="rss" />
+      <outline title="台日三聲道" xmlUrl="https://feed.firstory.me/rss/user/cke6nmqo1izus0839ks83ghlp" type="rss" />
+      <outline title="Medical Simulation for AT society!" xmlUrl="https://anchor.fm/s/3abebba0/podcast/rss" type="rss" />
+      <outline title="Davay po-russki" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/36721.xml" type="rss" />
       <outline title="Radio Mayak" xmlUrl="https://radiomayak.ru/rss/" type="rss" />
       <outline title="Echo Moskvy" xmlUrl="https://echo.msk.ru/rss/" type="rss" />
       <outline title="Zavtracast" xmlUrl="https://zavtracast.ru/feed/podcast/" type="rss" />

@@ -43,5 +43,107 @@
     <outline text="Apple">
       <outline title="Mac Myanmar" xmlUrl="https://www.macmyanmar.com/feed/" type="rss" />
     </outline>
+    <outline text="Podcasts">
+      <outline title="Myanmar Dhamma Talks" xmlUrl="https://anchor.fm/s/e75c370c/podcast/rss" type="rss" />
+      <outline title="Dark Era of Burma" xmlUrl="https://feeds.captivate.fm/dark-era-of-burma/" type="rss" />
+      <outline title="စာဖတ်ပြမယ် - Myanmar Audiobook" xmlUrl="https://anchor.fm/s/61a6df54/podcast/rss" type="rss" />
+      <outline title="90 Kid Klexos 🇲🇲 Myanmar Podcast" xmlUrl="https://anchor.fm/s/61b77378/podcast/rss" type="rss" />
+      <outline title="ရောင်းဝယ် ဖောက်ကား အွန်လိုင်းစကား" xmlUrl="https://anchor.fm/s/22016928/podcast/rss" type="rss" />
+      <outline title="Myanmar Oral History Project - life stories" xmlUrl="https://rss.buzzsprout.com/138215.rss" type="rss" />
+      <outline title="Songs on demand of CRI Myanmar service" xmlUrl="https://feed.kroraina.com.cn/api/channel/rss/638d6d413782b02bb591527d.xml" type="rss" />
+      <outline title="Hello from Myanmar" xmlUrl="https://anchor.fm/s/127ee980/podcast/rss" type="rss" />
+      <outline title="NarSin - Myanmar Podcast" xmlUrl="https://feeds.redcircle.com/1de7516d-00f6-4c60-a81a-409d7d60ec3f" type="rss" />
+      <outline title="Yin's talk from Myanmar" xmlUrl="https://feeds.soundon.fm/podcasts/f808576b-e06b-4572-a7de-5a98999d11db.xml" type="rss" />
+      <outline title="Myanmar Tales" xmlUrl="https://anchor.fm/s/46232d00/podcast/rss" type="rss" />
+      <outline title="Myanmar Podcast" xmlUrl="https://anchor.fm/s/11c05470/podcast/rss" type="rss" />
+      <outline title="Frontier Myanmar" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:296441927/sounds.rss" type="rss" />
+      <outline title="Brain Farts | Myanmar Podcast" xmlUrl="https://anchor.fm/s/3d8e0a34/podcast/rss" type="rss" />
+      <outline title="Once Upon A Time Myanmar Military တစ်ချိန်တုန်းက မြန်မာ့စစ်တပ်" xmlUrl="https://anchor.fm/s/276e3f58/podcast/rss" type="rss" />
+      <outline title="Myanmar Clubhouse Events" xmlUrl="https://anchor.fm/s/a6dc28b8/podcast/rss" type="rss" />
+      <outline title="myanmarstory" xmlUrl="https://anchor.fm/s/46197d50/podcast/rss" type="rss" />
+      <outline title="Myanmar Worship" xmlUrl="https://anchor.fm/s/64c53aa0/podcast/rss" type="rss" />
+      <outline title="Naing Ayar from Myanmar" xmlUrl="https://anchor.fm/s/59f8ae04/podcast/rss" type="rss" />
+      <outline title="Insight Myanmar" xmlUrl="https://feeds.captivate.fm/insightmyanmar/" type="rss" />
+      <outline title="Myanmar Radio Dramas" xmlUrl="https://feed.kroraina.com.cn/api/channel/rss/638d6cfb3782b02bb59151c6.xml" type="rss" />
+      <outline title="Linyeik Taryar - Myanmar Podcast" xmlUrl="https://anchor.fm/s/65c29858/podcast/rss" type="rss" />
+      <outline title="Myanmar Sermon Audio" xmlUrl="https://anchor.fm/s/45967b6c/podcast/rss" type="rss" />
+      <outline title="Book Eaters Of Myanmar" xmlUrl="https://anchor.fm/s/63781a8c/podcast/rss" type="rss" />
+      <outline title="《骐艺》| 器乐欣赏类" xmlUrl="https://www.ximalaya.com/album/72138584.xml" type="rss" />
+      <outline title="Myanmar Dhamma" xmlUrl="https://anchor.fm/s/43434598/podcast/rss" type="rss" />
+      <outline title="The Healing Path_Myanmar" xmlUrl="https://anchor.fm/s/66437ba8/podcast/rss" type="rss" />
+      <outline title="Podcastato Myanmar" xmlUrl="https://anchor.fm/s/5f9c4118/podcast/rss" type="rss" />
+      <outline title="Scholarships for Myanmar Students" xmlUrl="https://anchor.fm/s/5ab43444/podcast/rss" type="rss" />
+      <outline title="Radio NUG for Myanmar Spring" xmlUrl="http://moemaka.info/pvradio/pv-radio.xml" type="rss" />
+      <outline title="AlterBug |Myanmar Songs Podcast|" xmlUrl="https://feed.podbean.com/MyanmarSongs/feed.xml" type="rss" />
+      <outline title="Myanmar - Women, Peace and Security" xmlUrl="https://feeds.captivate.fm/myanmar-women/" type="rss" />
+      <outline title="Myanmar: Printing The Revolution" xmlUrl="https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/78d30acb-8463-4c40-a5ae-ae2d0145c9ff/a4236385-5891-4852-b52c-b2b2016152ce/podcast.rss" type="rss" />
+      <outline title="Notes By PL Myanmar" xmlUrl="https://anchor.fm/s/5dd46a90/podcast/rss" type="rss" />
+      <outline title="Myanmar Praise and Worship Podcast" xmlUrl="https://feeds.feedburner.com/MyanmarPraiseAndWorshipPostcast" type="rss" />
+      <outline title="The Travelling Lion | Myanmar Podcast" xmlUrl="https://feed.podbean.com/thihalulin/feed.xml" type="rss" />
+      <outline title="Myanmar Thingyan Songs" xmlUrl="https://anchor.fm/s/d987f0e4/podcast/rss" type="rss" />
+      <outline title="Myanmar Language" xmlUrl="https://anchor.fm/s/3d5fa8c4/podcast/rss" type="rss" />
+      <outline title="The Story of Myanmar: Kingdoms, Conflict, and Military Rule — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/the-story-of-myanmar.xml" type="rss" />
+      <outline title="AWR Burmese / မြန်မာစကား (Myanmar)" xmlUrl="http://feeds.feedburner.com/MYAYN_VOH" type="rss" />
+      <outline title="Myanmar Revolutionary Tales (တော်လှန်ခြင်းများနှင့်ခေတ်သစ်မြန်မာပြည်)" xmlUrl="https://feeds.captivate.fm/mrt/" type="rss" />
+      <outline title="Myanmar Voice" xmlUrl="https://feeds.hubhopper.com/b2ad9790a12945620ab0ac219d07ae07.rss" type="rss" />
+      <outline title="Build Myanmar - Media" xmlUrl="https://feeds.acast.com/public/shows/6601cf87f766590018893a16" type="rss" />
+      <outline title="The Reality" xmlUrl="https://feeds.captivate.fm/the-reality/" type="rss" />
+      <outline title="What's Happening in Myanmar" xmlUrl="https://rss.libsyn.com/shows/553687/destinations/4780972.xml" type="rss" />
+      <outline title="Myanmar Literature Talks" xmlUrl="https://anchor.fm/s/365c7610/podcast/rss" type="rss" />
+      <outline title="The Institute for Strategy and Policy – Myanmar" xmlUrl="https://anchor.fm/s/65bf8730/podcast/rss" type="rss" />
+      <outline title="The City Yangon" xmlUrl="https://anchor.fm/s/3af06e48/podcast/rss" type="rss" />
+      <outline title="ICC Church Yangon/Myanmar" xmlUrl="https://feeds.redcircle.com/c9a9b570-6595-4e39-914c-e2f03fab4a9a" type="rss" />
+      <outline title="HWC Church" xmlUrl="https://anchor.fm/s/86a93cd4/podcast/rss" type="rss" />
+      <outline title="Myay Hmone Lwin - An otter Escape from Yangon Zooo" xmlUrl="https://media.rss.com/ndspbook/feed.xml" type="rss" />
+      <outline title="From Yangon lockdown days at home" xmlUrl="https://anchor.fm/s/468b5060/podcast/rss" type="rss" />
+      <outline title="Grace Podcast" xmlUrl="https://anchor.fm/s/10a3c9dc/podcast/rss" type="rss" />
+      <outline title="Contributing Experts" xmlUrl="https://anchor.fm/s/14e89360/podcast/rss" type="rss" />
+      <outline title="Road To Mandalay" xmlUrl="https://www.spreaker.com/show/7040368/episodes/feed" type="rss" />
+      <outline title="Road To Mandalay" xmlUrl="https://www.spreaker.com/show/6882986/episodes/feed" type="rss" />
+      <outline title="Reading the NEWBERYs: A Team Friendship Podcast" xmlUrl="https://anchor.fm/s/2ff7394/podcast/rss" type="rss" />
+      <outline title="Road To Mandalay" xmlUrl="https://www.spreaker.com/show/7139581/episodes/feed" type="rss" />
+      <outline title="DVB English News" xmlUrl="https://anchor.fm/s/b6e0a4f0/podcast/rss" type="rss" />
+      <outline title="Trouver Mnémo" xmlUrl="https://www.omnycontent.com/d/playlist/4809bc8a-e41a-405c-93da-a8cf011df2f4/5d1209e2-442e-46f9-908c-ae370168010f/d6c53125-b38c-4e8d-ba80-ae370168912c/podcast.rss" type="rss" />
+      <outline title="studio.podcasts.category.documentaire.title" xmlUrl="https://www.mediapart.fr/journal/podcast/documentaire/rss" type="rss" />
+      <outline title="The Irrawaddy Newscast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:2114445/sounds.rss" type="rss" />
+      <outline title="Zum Thema" xmlUrl="https://zum-thema.podigee.io/feed/mp3" type="rss" />
+      <outline title="What in the World?" xmlUrl="https://anchor.fm/s/11f1048/podcast/rss" type="rss" />
+      <outline title="Radio Swammerdam" xmlUrl="https://media.rss.com/radioswammerdam/feed.xml" type="rss" />
+      <outline title="What in the World" xmlUrl="https://podcasts.files.bbci.co.uk/w13xtvrv.rss" type="rss" />
+      <outline title="New Books in Law" xmlUrl="https://feeds.megaphone.fm/LIT9194668674" type="rss" />
+      <outline title="As I See It with Alan Clements" xmlUrl="https://rss.libsyn.com/shows/205755/destinations/1476193.xml" type="rss" />
+      <outline title="KPFA - The Pacifica Evening News Weekdays" xmlUrl="https://kpfa.org/program/the-pacifica-evening-news-weekdays/feed/" type="rss" />
+      <outline title="CUENTOS DEL DERECHO Y DEL REVÉS" xmlUrl="https://anchor.fm/s/633cc9c8/podcast/rss" type="rss" />
+      <outline title="The Daily Quiz Show" xmlUrl="https://feeds.megaphone.fm/dailyquizshow" type="rss" />
+      <outline title="World Report" xmlUrl="https://www.cbc.ca/podcasting/includes/wr.xml" type="rss" />
+      <outline title="Diplomacy and International Relations by Bastian Friborg" xmlUrl="https://anchor.fm/s/fbc309a0/podcast/rss" type="rss" />
+      <outline title="The Red Line" xmlUrl="https://feeds.megaphone.fm/ARML4010200722" type="rss" />
+      <outline title="The Jesse Lee Peterson Radio Show" xmlUrl="http://archive.rebuildingtheman.com/RSS/JPRadioShow.xml" type="rss" />
+      <outline title="Beyond the Mekong" xmlUrl="https://anchor.fm/s/10bd9d1d4/podcast/rss" type="rss" />
+      <outline title="World News Daily" xmlUrl="https://feeds.transistor.fm/brief-world-news" type="rss" />
+      <outline title="Bothered Boy" xmlUrl="https://anchor.fm/s/45261e30/podcast/rss" type="rss" />
+      <outline title="Incroyable !" xmlUrl="https://feeds.acast.com/public/shows/66068b0f53b2df0016608fe8" type="rss" />
+      <outline title="Your Creative Push" xmlUrl="https://rss.libsyn.com/shows/76293/destinations/340200.xml" type="rss" />
+      <outline title="The World in Brief from The Economist" xmlUrl="https://access.acast.com/rss/theeconomistmorningbriefing/default" type="rss" />
+      <outline title="Spilling the Tea with CCE" xmlUrl="https://anchor.fm/s/1cd40780/podcast/rss" type="rss" />
+      <outline title="Conversation Six" xmlUrl="http://c6rss.com/" type="rss" />
+      <outline title="American Prestige" xmlUrl="https://feeds.megaphone.fm/SLT3432769861" type="rss" />
+      <outline title="Red Star Over Asia" xmlUrl="https://anchor.fm/s/72599648/podcast/rss" type="rss" />
+      <outline title="Onsdagsquizen - Med Olof Röhlander" xmlUrl="https://anchor.fm/s/e45ab7a4/podcast/rss" type="rss" />
+      <outline title="Facing Our Reality" xmlUrl="https://feeds.acast.com/public/shows/660c4a27e8c90f00167c9474" type="rss" />
+      <outline title="Le monde aujourd'hui !" xmlUrl="https://feeds.acast.com/public/shows/677268f0310557bf4f6d31a6" type="rss" />
+      <outline title="Aung San Suu Kyi Speech Collections" xmlUrl="https://anchor.fm/s/ac9667b4/podcast/rss" type="rss" />
+      <outline title="Solidarity &amp; More" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:205631877/sounds.rss" type="rss" />
+      <outline title="News at Eleven" xmlUrl="https://podcast.rthk.hk//podcast/radio3_newsateleven.xml" type="rss" />
+      <outline title="Joy FM Super Morning Show" xmlUrl="https://atunwadigital-rss.streamguys1.com/content/joyfm/super-morning-show.xml" type="rss" />
+      <outline title="Crossway Multinational Church" xmlUrl="https://crosswaymchurch.org/feed/sermon-podcast/" type="rss" />
+      <outline title="WTBU News Today" xmlUrl="https://anchor.fm/s/22465678/podcast/rss" type="rss" />
+      <outline title="Behind The Boards" xmlUrl="https://feedpress.me/behind-the-boards" type="rss" />
+      <outline title="History of Southeast Asia" xmlUrl="https://feeds.blubrry.com/feeds/hoseasia.xml" type="rss" />
+      <outline title="Thinking in English" xmlUrl="https://rss.pdrl.fm/699122/feeds.megaphone.fm/ARML8307714981" type="rss" />
+      <outline title="Southeast Asia Radio" xmlUrl="https://feeds.megaphone.fm/southeastasiaradio" type="rss" />
+      <outline title="The Take" xmlUrl="https://www.omnycontent.com/d/playlist/9c074afa-3313-47e8-b802-a9f900789975/09af2160-238f-48b2-b20b-ad4b00ebd8e7/b86dddc1-67a5-41c2-a13c-ad4b00ebd8f5/podcast.rss" type="rss" />
+      <outline title="MB" xmlUrl="https://anchor.fm/s/1f92849c/podcast/rss" type="rss" />
+    </outline>
 </body>
 </opml>
