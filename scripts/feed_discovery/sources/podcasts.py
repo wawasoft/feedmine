@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import json
+import time
 from urllib.parse import urlencode
+
+import aiohttp
 
 from ..models import Candidate, Country
 
@@ -43,3 +47,36 @@ def podcasts_from_itunes_json(payload: dict, iso3: str) -> list[Candidate]:
             national=True, national_reason="itunes country==iso3",
         ))
     return out
+
+
+def _safe(term: str) -> str:
+    return "".join(ch if ch.isalnum() else "_" for ch in term)
+
+
+async def discover(country: Country, session, cfg) -> list[Candidate]:
+    cands: list[Candidate] = []
+    seen: set[str] = set()
+    for term in podcast_seed_terms(country):
+        cache_path = cfg.cache_dir / "itunes" / country.slug / (_safe(term) + ".json")
+        if not cfg.fresh and cache_path.exists():
+            payload = json.loads(cache_path.read_text(encoding="utf-8"))
+        else:
+            payload = {"results": []}
+            url = itunes_search_url(term, country.iso2, 50)
+            try:
+                async with session.get(
+                    url, timeout=aiohttp.ClientTimeout(total=cfg.timeout)
+                ) as resp:
+                    if resp.status == 200:
+                        payload = await resp.json(content_type=None)
+            except (aiohttp.ClientError, TimeoutError):
+                payload = {"results": []}
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+            if cfg.delay:
+                time.sleep(cfg.delay)
+        for c in podcasts_from_itunes_json(payload, country.iso3):
+            if c.url not in seen:
+                seen.add(c.url)
+                cands.append(c)
+    return cands
