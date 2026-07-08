@@ -334,9 +334,15 @@ final class FeedLoader {
         }
     }
 
+    var lastToggleMessage: String? { store.lastToggleMessage }
+
     func toggleRegion(_ region: String) {
         store.toggleRegion(region)
         Task { await loadWhatsNew() }
+    }
+
+    func clearToggleMessage() {
+        store.lastToggleMessage = nil
     }
     func toggleAllCountries() {
         store.registry.toggleAllCountries()
