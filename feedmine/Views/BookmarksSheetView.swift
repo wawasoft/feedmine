@@ -11,7 +11,13 @@ struct BookmarksSheetView: View {
     var body: some View {
         NavigationStack {
             Group {
-                if bookmarkLists.isEmpty && bookmarkedItems.isEmpty {
+                // Empty state when there's nothing to manage: no saved articles
+                // and only the default list. bookmarkLists is never empty (the
+                // default "Favorites" list always exists), so the old
+                // `bookmarkLists.isEmpty` made this unreachable. Persistent
+                // searches add extra lists (count > 1) — keep the List UI then
+                // so they stay togglable even with no items.
+                if bookmarkLists.count <= 1 && bookmarkedItems.isEmpty {
                     ContentUnavailableView(
                         "No Saved Articles",
                         systemImage: "bookmark",
