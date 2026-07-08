@@ -133,7 +133,14 @@ final class SourceRegistry {
     }
 
     func isSourceEnabled(_ sourceURL: String) -> Bool {
-        !disabledSourceIDs.contains(sourceURL)
+        if disabledSourceIDs.contains(sourceURL) { return false }
+        // Respect parent hierarchy: region must be enabled
+        let region = regionMap[sourceURL] ?? "global"
+        if disabledRegions.contains(region) { return false }
+        // Respect category toggle
+        if let source = sources.first(where: { $0.url == sourceURL }),
+           disabledCategories.contains(source.category) { return false }
+        return true
     }
 
     func isCategoryEnabled(_ category: String) -> Bool {
