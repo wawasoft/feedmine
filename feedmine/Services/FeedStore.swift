@@ -319,9 +319,17 @@ final class FeedStore {
                     for id in actualNew.map(\.id) { loadedIDs.insert(id) }
                     loadedIDsCount = loadedIDs.count
                     let region = registry.regionFor(sourceURL: sourceURL)
-                    for item in actualNew {
-                        try? await db.write { db in
-                            try FeedItemRecord(from: item, region: region).insert(db)
+                    // Insert all items in a single transaction (one WAL commit
+                    // instead of one per item, and atomic). Tolerate individual
+                    // insert failures — a stray duplicate rolls back only its
+                    // own statement, not the whole batch.
+                    try? await db.write { db in
+                        for item in actualNew {
+                            do {
+                                try FeedItemRecord(from: item, region: region).insert(db)
+                            } catch {
+                                // Skip this item, keep the rest
+                            }
                         }
                     }
                     // Prepend to visible feed
