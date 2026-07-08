@@ -26,7 +26,13 @@ enum NodeStatus: Equatable {
 @MainActor
 @Observable
 final class SourceRegistry {
-    var sources: [FeedSource] = []
+    var sources: [FeedSource] = [] {
+        // Keep the url→source and region caches in sync no matter who assigns
+        // `sources` — FeedLoader.addSources sets it directly, bypassing
+        // loadFromOPML. Without this, imported feeds are missing from
+        // sourceByURL and isSourceEnabled wrongly reports them as disabled.
+        didSet { rebuildCaches() }
+    }
     var disabled: Set<String> = []
 
     /// Cached count of active sources under each region/category key.
@@ -237,8 +243,7 @@ final class SourceRegistry {
 
     func loadFromOPML() async {
         let result = await OPMLParser.parseAll()
-        sources = result.sources
-        rebuildCaches()
+        sources = result.sources   // didSet rebuilds caches
         opmlFileCount = result.fileCount
         opmlErrorCount = result.failedFileCount
         invalidSourceCount = result.invalidSourceCount
