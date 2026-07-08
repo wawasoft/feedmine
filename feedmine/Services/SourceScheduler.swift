@@ -177,7 +177,13 @@ final class SourceScheduler {
                 case "video":  contentTypeBoost = source.isYouTube ? 3.0 : 1.0
                 case "audio":  contentTypeBoost = 1.0  // no source-level podcast flag; item-level only
                 case "text":   contentTypeBoost = source.isYouTube ? 0.3 : 1.0
-                default:       contentTypeBoost = 1.0
+                // Default (mixed) feed: give YouTube a modest baseline lift.
+                // Video sources are only ~1.7% of all feeds, so with equal
+                // weight they almost never got picked and videos didn't appear
+                // until the user forced the video filter. 2× surfaces them
+                // regularly; supply (few sources) + region/category deficits
+                // keep the mix from being flooded with video.
+                default:       contentTypeBoost = source.isYouTube ? 2.0 : 1.0
                 }
                 // Soft cooldown: applies 0→1 weight over 30 min
                 let timeFactor: Double
