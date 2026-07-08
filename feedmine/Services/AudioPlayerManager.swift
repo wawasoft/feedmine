@@ -71,7 +71,7 @@ final class AudioPlayerManager {
         // TEMP diagnostics — pinpoint why playback stalls. Remove once resolved.
         let sessionCategory = AVAudioSession.sharedInstance().category.rawValue
         let sessionActive = AVAudioSession.sharedInstance().isOtherAudioPlaying
-        print("[AudioPlayer] play url=\(urlString) category=\(sessionCategory) otherAudio=\(sessionActive)")
+        NSLog("%@", "[AudioPlayer] play url=\(urlString) category=\(sessionCategory) otherAudio=\(sessionActive)")
 
         let playerItem = AVPlayerItem(url: url)
         player = AVPlayer(playerItem: playerItem)
@@ -85,7 +85,7 @@ final class AudioPlayerManager {
             let status = item.status.rawValue   // 0=unknown 1=readyToPlay 2=failed
             let message = item.error.map { String(describing: $0) } ?? "nil"
             Task { @MainActor [weak self] in
-                print("[AudioPlayer] item status=\(status) error=\(message)")
+                NSLog("%@", "[AudioPlayer] item status=\(status) error=\(message)")
                 if item.status == .failed { self?.isPlaying = false }
             }
         }
@@ -95,7 +95,7 @@ final class AudioPlayerManager {
             let control = player.timeControlStatus.rawValue  // 0=paused 1=waiting 2=playing
             let reason = player.reasonForWaitingToPlay?.rawValue ?? "nil"
             Task { @MainActor in
-                print("[AudioPlayer] timeControl=\(control) waitReason=\(reason)")
+                NSLog("%@", "[AudioPlayer] timeControl=\(control) waitReason=\(reason)")
             }
         }
 
