@@ -70,6 +70,105 @@
       <outline title="Pipedrive Engineering" xmlUrl="https://www.pipedrive.com/en/blog/feed/" type="rss" />
     </outline>
     <outline text="Podcasts">
+      <outline title="Found in Estonia" xmlUrl="https://anchor.fm/s/2f6f08cc/podcast/rss" type="rss" />
+      <outline title="History of Estonia Podcast" xmlUrl="https://anchor.fm/s/1041d934/podcast/rss" type="rss" />
+      <outline title="Ancient Estonia" xmlUrl="https://anchor.fm/s/22963558/podcast/rss" type="rss" />
+      <outline title="Winning Friends" xmlUrl="https://anchor.fm/s/104086a10/podcast/rss" type="rss" />
+      <outline title="Work in Estonia Talk" xmlUrl="https://anchor.fm/s/9e3b2164/podcast/rss" type="rss" />
+      <outline title="EdTech Estonia Podcast" xmlUrl="https://anchor.fm/s/bad2818c/podcast/rss" type="rss" />
+      <outline title="Podstales desde Estonia" xmlUrl="https://feeds.feedburner.com/PodstalesDesdeEstonia" type="rss" />
+      <outline title="Startup in Estonia podcast" xmlUrl="https://anchor.fm/s/31a4c870/podcast/rss" type="rss" />
+      <outline title="Ancast Estonia" xmlUrl="https://www.spreaker.com/show/5128048/episodes/feed" type="rss" />
+      <outline title="Kasvuminutid" xmlUrl="https://anchor.fm/s/2c518e1c/podcast/rss" type="rss" />
+      <outline title="CV-Online'i #Töövahetusraadio" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:293776075/sounds.rss" type="rss" />
+      <outline title="The Art of Digitalisation" xmlUrl="https://rss.buzzsprout.com/1730490.rss" type="rss" />
+      <outline title="Mari-Liis Lind: a woman tech leader in Estonia" xmlUrl="https://anchor.fm/s/5051089c/podcast/rss" type="rss" />
+      <outline title="Mãe na Estônia" xmlUrl="https://www.spreaker.com/show/4407538/episodes/feed" type="rss" />
+      <outline title="Закон 2G" xmlUrl="http://rss.castbox.fm/everest/a1aded35919b4825bd14cc3b0403c46d.xml" type="rss" />
+      <outline title="Inspireeriv Ülistus" xmlUrl="https://anchor.fm/s/5bcea940/podcast/rss" type="rss" />
+      <outline title="Ebaõnnestumiste Õhtu" xmlUrl="https://feeds.acast.com/public/shows/5fdfc83bf41b002422619660" type="rss" />
+      <outline title="UX ja AI ampsud" xmlUrl="https://anchor.fm/s/f36a9854/podcast/rss" type="rss" />
+      <outline title="Tru og meining i gammal tid" xmlUrl="https://anchor.fm/s/9ee8909c/podcast/rss" type="rss" />
+      <outline title="Öökulli akadeemia" xmlUrl="https://feeds.simplecast.com/fmckeuP1" type="rss" />
+      <outline title="Eesti roimad koos Andres Anveltiga" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:118925451/sounds.rss" type="rss" />
+      <outline title="Läbi Eesti" xmlUrl="https://ams.pleier.ee/rss/shows/labi-eesti" type="rss" />
+      <outline title="Eesti lugu" xmlUrl="https://services.err.ee/podcast/app/eesti_lugu.xml" type="rss" />
+      <outline title="Keelehääling" xmlUrl="https://anchor.fm/s/a19c5d64/podcast/rss" type="rss" />
+      <outline title="Eesti Kiriku podcast" xmlUrl="https://anchor.fm/s/7eddfae4/podcast/rss" type="rss" />
+      <outline title="Eesti Eso" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:837175447/sounds.rss" type="rss" />
+      <outline title="Eesti Ekspressi podcast" xmlUrl="https://media-api-podcast-worker.api.delfi.ee/media-api-podcast-worker/v1/rss-feed/25372f70-cabf-11eb-bbda-19747a59908c.rss" type="rss" />
+      <outline title="Kodu Soomes. Soome-Eesti Podcast" xmlUrl="https://anchor.fm/s/f7ead560/podcast/rss" type="rss" />
+      <outline title="Mere kutse" xmlUrl="https://media-api-podcast-worker.api.delfi.ee/media-api-podcast-worker/v1/rss-feed/631f7baf-5cf2-40bd-92d5-20f11cbc75ac.rss" type="rss" />
+      <outline title="Eesti Vegan Podcast" xmlUrl="https://anchor.fm/s/7ba069c/podcast/rss" type="rss" />
+      <outline title="Eesti toidu kuu" xmlUrl="https://media-api-podcast-worker.api.delfi.ee/media-api-podcast-worker/v1/rss-feed/f436e4d0-2236-11ed-ac79-6995a85377a1.rss" type="rss" />
+      <outline title="Toora nädalapeatükk eesti keeles" xmlUrl="https://anchor.fm/s/eb7123d4/podcast/rss" type="rss" />
+      <outline title="Eesti roimad koos Andres Anveltiga" xmlUrl="https://ams.pleier.ee/rss/shows/eesti-roimad-koos-andres-anveltiga" type="rss" />
+      <outline title="Pärimuse podcast FOLKSTI" xmlUrl="https://folkloorinoukogu.ee/category/podcast/feed/" type="rss" />
+      <outline title="Eesti Pops" xmlUrl="https://services.err.ee/podcast/series/eestipops.xml" type="rss" />
+      <outline title="Nestor &amp; Koppel" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1075375849/sounds.rss" type="rss" />
+      <outline title="Tervisemuuseumi Sünaps" xmlUrl="https://feeds.simplecast.com/IoNlTJTo" type="rss" />
+      <outline title="Betsafe Eesti" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:681221123/sounds.rss" type="rss" />
+      <outline title="Eesti Koolitus- ja Konverentsikeskuse podcast" xmlUrl="https://media-api-podcast-worker.api.delfi.ee/media-api-podcast-worker/v1/rss-feed/19ded150-6150-4ee7-8bba-b844b13b34e3.rss" type="rss" />
+      <outline title="EestiEest.com portaali veebiraadio" xmlUrl="https://anchor.fm/s/e2d55e98/podcast/rss" type="rss" />
+      <outline title="Visionest Connect ⟩ Eesti juhtide kogukond" xmlUrl="https://anchor.fm/s/10e0e89cc/podcast/rss" type="rss" />
+      <outline title="Unibet Stuudio" xmlUrl="https://anchor.fm/s/10ec2dabc/podcast/rss" type="rss" />
+      <outline title="Kirillitsas Eesti" xmlUrl="https://ams.postimees.ee/rss/shows/kirillitsas-eesti/" type="rss" />
+      <outline title="Iseendaks kasvamine" xmlUrl="https://anchor.fm/s/1060b66c8/podcast/rss" type="rss" />
+      <outline title="Regilaulu Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:856116064/sounds.rss" type="rss" />
+      <outline title="KultuuriReflektor" xmlUrl="https://feeds.simplecast.com/bDvDBhuL" type="rss" />
+      <outline title="Sada Eesti mõtet" xmlUrl="https://services.err.ee/podcast/series/1sadaeestimotet.xml" type="rss" />
+      <outline title="Be 1st!" xmlUrl="https://anchor.fm/s/eaedcc64/podcast/rss" type="rss" />
+      <outline title="Meremuuseumi lood" xmlUrl="https://feeds.transistor.fm/eesti-meremuuseumi-lood" type="rss" />
+      <outline title='Eesti lionite podcast "Lahkus loeb"' xmlUrl="https://feeds.transistor.fm/eesti-lionite-podcast" type="rss" />
+      <outline title="Initiative Eesti" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1177187203/sounds.rss" type="rss" />
+      <outline title="Intervjuu Eesti Vabariigi presidendiga" xmlUrl="https://services.err.ee/podcast/series/1presidendiga.xml" type="rss" />
+      <outline title="Eesti interpreedid" xmlUrl="https://services.err.ee/podcast/series/interpreedid.xml" type="rss" />
+      <outline title="Eesti Sotsiaalmeedia Podcast" xmlUrl="http://feeds.feedburner.com/7blazepodcast" type="rss" />
+      <outline title="Eesti parimad veebikasiinod 2021 aastaks" xmlUrl="https://anchor.fm/s/62d551e4/podcast/rss" type="rss" />
+      <outline title="KVEST - Eesti Dungeons &amp; Dragons" xmlUrl="https://anchor.fm/s/40c024f8/podcast/rss" type="rss" />
+      <outline title="Aplaus – Eesti Kontserdi uudised" xmlUrl="https://ams.pleier.ee/rss/shows/aplaus-eesti-kontserdi-uudised/" type="rss" />
+      <outline title="Eesti Ekspressi podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:211009986/sounds.rss" type="rss" />
+      <outline title="Minu Eesti, minu Euroopa" xmlUrl="https://media-api-podcast-worker.api.delfi.ee/media-api-podcast-worker/v1/rss-feed/809a473e-1bdf-48db-bb75-086a104651f9.rss" type="rss" />
+      <outline title="Bitcoin Eesti Podcast" xmlUrl="https://rss.buzzsprout.com/2148751.rss" type="rss" />
+      <outline title="X Docs Eesti" xmlUrl="https://anchor.fm/s/103667e80/podcast/rss" type="rss" />
+      <outline title="SUMIN" xmlUrl="https://media.rss.com/sumin/feed.xml" type="rss" />
+      <outline title="Noorsootööjutud" xmlUrl="https://anchor.fm/s/4ef08608/podcast/rss" type="rss" />
+      <outline title="Filmaania" xmlUrl="https://anchor.fm/s/f13bd174/podcast/rss" type="rss" />
+      <outline title="Püha Piibel - Eesti keel (Estonian, Uus Testament)" xmlUrl="https://feed.pod.co/bible-estonian" type="rss" />
+      <outline title="Christoph Wrembeki Eesti taskuhääling" xmlUrl="https://anchor.fm/s/10e0a3d04/podcast/rss" type="rss" />
+      <outline title="Tervisepooltund" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:714362461/sounds.rss" type="rss" />
+      <outline title="LENNURADA 03" xmlUrl="https://www.spreaker.com/show/5115960/episodes/feed" type="rss" />
+      <outline title="Fotografiska Tallinn's Podcast" xmlUrl="https://rss.buzzsprout.com/847285.rss" type="rss" />
+      <outline title="Tallinn Express" xmlUrl="https://services.err.ee/podcast/series/tallinnexpress.xml" type="rss" />
+      <outline title="The Tallinn University Podcast" xmlUrl="https://anchor.fm/s/5066dd48/podcast/rss" type="rss" />
+      <outline title="Mika Kesulkkenen: The Legend of Tallinn" xmlUrl="https://podcast.kesulkkenen.ee/@legend/feed.xml" type="rss" />
+      <outline title="Tallinn Product Group Podcast" xmlUrl="https://api.substack.com/feed/podcast/2260393.rss" type="rss" />
+      <outline title="Tallinn Talks" xmlUrl="https://feeds.redcircle.com/72148852-0cfe-409f-a2c2-e68807cab968" type="rss" />
+      <outline title="TALLINN" xmlUrl="https://anchor.fm/s/4f884164/podcast/rss" type="rss" />
+      <outline title="TALLINN EXPRESS PODCAST" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:36841535/sounds.rss" type="rss" />
+      <outline title="NFT Tallinn Talks | A Web3 Podcast" xmlUrl="https://media.rss.com/nfttallinn/feed.xml" type="rss" />
+      <outline title="In coda - Daily news dal TFF37" xmlUrl="https://www.spreaker.com/show/4136971/episodes/feed" type="rss" />
+      <outline title="Un PO di realtà" xmlUrl="https://www.spreaker.com/show/4137026/episodes/feed" type="rss" />
+      <outline title="Ecos de la Historia en la Literatura Española" xmlUrl="https://anchor.fm/s/5a8c2a44/podcast/rss" type="rss" />
+      <outline title="Tartu Ülikooli arvutiteaduse instituudi taskuhääling „IT keskus”" xmlUrl="https://anchor.fm/s/e2628440/podcast/rss" type="rss" />
+      <outline title="Tartu 2030" xmlUrl="https://anchor.fm/s/46414e48/podcast/rss" type="rss" />
+      <outline title="Vahetund Tartu Postimehega" xmlUrl="https://ams.pleier.ee/rss/shows/vahetund-tartu-postimehega" type="rss" />
+      <outline title="Tartu Geo Podcast" xmlUrl="https://tartugeo-podcast.com/episode/index.xml" type="rss" />
+      <outline title="Roheline x poliitika x Tartu" xmlUrl="https://anchor.fm/s/6a2acab4/podcast/rss" type="rss" />
+      <outline title="Tartu linnasaade" xmlUrl="https://ams.pleier.ee/rss/shows/tartu-linnatund/" type="rss" />
+      <outline title="AREEN - Tartu sport ja poliitika" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:914066005/sounds.rss" type="rss" />
+      <outline title="Rukkirääk" xmlUrl="https://anchor.fm/s/7de9c938/podcast/rss" type="rss" />
+      <outline title="Kristlane, päriselt v...?" xmlUrl="https://anchor.fm/s/e85954b4/podcast/rss" type="rss" />
+      <outline title="Noorteaken" xmlUrl="https://anchor.fm/s/424f13ec/podcast/rss" type="rss" />
+      <outline title="Подкасты CEURUSа" xmlUrl="https://anchor.fm/s/56979aa4/podcast/rss" type="rss" />
+      <outline title="UusHääling" xmlUrl="https://anchor.fm/s/477a6a24/podcast/rss" type="rss" />
+      <outline title="Deltakutse" xmlUrl="https://anchor.fm/s/ec5c1cf4/podcast/rss" type="rss" />
+      <outline title="Studiosus Narovensis" xmlUrl="https://anchor.fm/s/ebcc0da8/podcast/rss" type="rss" />
+      <outline title="The Santa Barbara Effect" xmlUrl="https://media.rss.com/thesbeffect/feed.xml" type="rss" />
+      <outline title="Årets Almedalspratare" xmlUrl="https://feeds.acast.com/public/shows/5ee2070eb80e4061898caa11" type="rss" />
+      <outline title="The Narva Volunteers' Podcast" xmlUrl="https://anchor.fm/s/53205be0/podcast/rss" type="rss" />
+      <outline title="Sõnu ei söö" xmlUrl="https://ams.postimees.ee/rss/shows/sonu-ei-soo" type="rss" />
+      <outline title="Pärnu Private Tours Podcast" xmlUrl="https://anchor.fm/s/5a7becd8/podcast/rss" type="rss" />
       <outline title="Kuku Raadio" xmlUrl="https://www.kuku.ee/rss/" type="rss" />
       <outline title="Raadio Tallinn" xmlUrl="https://www.raadiotallinn.ee/rss/" type="rss" />
     </outline>

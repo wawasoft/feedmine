@@ -62,6 +62,58 @@
       <outline title="CodeBrainer" xmlUrl="https://www.codebrainer.com/blog/feed/" type="rss" />
     </outline>
     <outline text="Podcasts">
+      <outline title="Weather forecast data about Slovenia" xmlUrl="https://anchor.fm/s/55ca7830/podcast/rss" type="rss" />
+      <outline title="Podkast TUR!ZEM" xmlUrl="https://rss.buzzsprout.com/1641343.rss" type="rss" />
+      <outline title="News from Radio Slovenia" xmlUrl="http://podcast.rtvslo.si/news_from_radio_slovenia.xml" type="rss" />
+      <outline title="Start:up Slovenia" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:348667961/sounds.rss" type="rss" />
+      <outline title="FEEL Slovenia Podcast" xmlUrl="https://rss.buzzsprout.com/1925937.rss" type="rss" />
+      <outline title='"FEEL Slovenia" - Der Slowenien Podcast' xmlUrl="https://rss.buzzsprout.com/2098131.rss" type="rss" />
+      <outline title="GoSlovenia Travel Podcast - GoSlovenia.si" xmlUrl="https://anchor.fm/s/f6aa9e60/podcast/rss" type="rss" />
+      <outline title="NAŠ SVET" xmlUrl="https://anchor.fm/s/104c3f62c/podcast/rss" type="rss" />
+      <outline title="Museum of Architecture and Design (MAO) Slovenia" xmlUrl="https://rss.buzzsprout.com/1889516.rss" type="rss" />
+      <outline title="CEED Pika Na P" xmlUrl="https://feeds.castos.com/6vod" type="rss" />
+      <outline title="TV 2 Cykling" xmlUrl="https://feeds.acast.com/public/shows/64903acc919a030011f0e2dc" type="rss" />
+      <outline title="Forbes 30 pod 30: Mladi Slovenci, ki premikajo meje" xmlUrl="https://feeds.transistor.fm/forbes-30-pod-30-mladi-slovenci-ki-premikajo-meje" type="rss" />
+      <outline title="Sportklub Podkast" xmlUrl="https://feeds.simplecast.com/1IqcaGcs" type="rss" />
+      <outline title="Peloton Podkast" xmlUrl="https://feed.podbean.com/peloton/feed.xml" type="rss" />
+      <outline title="Cosmoooooooh | Najbolj vroči podkast | Cosmopolitan Slovenija" xmlUrl="https://anchor.fm/s/8f3f8240/podcast/rss" type="rss" />
+      <outline title="Story Slovenija" xmlUrl="https://anchor.fm/s/a5a55410/podcast/rss" type="rss" />
+      <outline title="Zdravje z Alenko Kesar" xmlUrl="https://feeds.transistor.fm/zdravje-z-alenko-kesar" type="rss" />
+      <outline title="N1 Studio" xmlUrl="https://feeds.transistor.fm/n1-studio" type="rss" />
+      <outline title="Odkup Telefonov Slovenija" xmlUrl="https://feeds.transistor.fm/odkup-telefonov-slovenija" type="rss" />
+      <outline title="Penilna Trakcijska Terapija by SizeGenetics – Slovenija" xmlUrl="https://feeds.transistor.fm/penilna-trakcijska-terapija-by-sizegenetics-slovenija" type="rss" />
+      <outline title="Slovenija izbira N1: Predvolilna soočenja" xmlUrl="https://feeds.transistor.fm/slovenija-izbira-n1-soocenja-2026" type="rss" />
+      <outline title="Coaching Slovenija" xmlUrl="https://anchor.fm/s/42742ec/podcast/rss" type="rss" />
+      <outline title="N1 podkast s Suzano Lovec" xmlUrl="https://feeds.transistor.fm/n1-slovenija-n1info-si" type="rss" />
+      <outline title="Novice Radia Slovenija" xmlUrl="http://podcast.rtvslo.si/novice_radia_slovenija" type="rss" />
+      <outline title="ELLE Slovenija podkast" xmlUrl="https://anchor.fm/s/24a401a4/podcast/rss" type="rss" />
+      <outline title="Darovi materinstva" xmlUrl="https://anchor.fm/s/36fff90c/podcast/rss" type="rss" />
+      <outline title="Dober prijem z Flyfishingodec Slovenija" xmlUrl="https://www.doberprijem.com/feed/podcast/" type="rss" />
+      <outline title="Intersport        v srcu športa" xmlUrl="https://feeds.blubrry.com/feeds/intersportslovenija.xml" type="rss" />
+      <outline title="O delu 1 na 1" xmlUrl="https://anchor.fm/s/12d00ef0/podcast/rss" type="rss" />
+      <outline title="Dobrodošli @meetslovenija" xmlUrl="https://media.rss.com/meetslovenija/feed.xml" type="rss" />
+      <outline title="The Ljubljana Podcast" xmlUrl="https://feeds.simplecast.com/Lf86ZKO6" type="rss" />
+      <outline title="UD:K – Ustvarjalne Dimenzije Knjižničar_ka" xmlUrl="https://anchor.fm/s/eaa9938c/podcast/rss" type="rss" />
+      <outline title="V kraljestvu domišljije" xmlUrl="https://rss.buzzsprout.com/2328347.rss" type="rss" />
+      <outline title="Kitajka" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:53573721/sounds.rss" type="rss" />
+      <outline title="To ni nobena umetnost" xmlUrl="https://anchor.fm/s/e8ac9bd8/podcast/rss" type="rss" />
+      <outline title="Po železni cesti" xmlUrl="https://podcast.rtvslo.si/po_zelezni_cesti.xml" type="rss" />
+      <outline title="Potujte z Radiem Maribor" xmlUrl="http://podcast.rtvslo.si/potujte_z_radiem_maribor.xml" type="rss" />
+      <outline title="Maribor Is The Future" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:225783533/sounds.rss" type="rss" />
+      <outline title="Tretji polčas" xmlUrl="https://podcast.rtvslo.si/tretji_polcas.xml" type="rss" />
+      <outline title="Radijska tribuna" xmlUrl="http://podcast.rtvslo.si/radijska_tribuna.xml" type="rss" />
+      <outline title="Mali modreci" xmlUrl="http://podcast.rtvslo.si/mali_modreci.xml" type="rss" />
+      <outline title="Obrazi sosednje ulice" xmlUrl="http://podcast.rtvslo.si/obrazi_sosednje_ulice.xml" type="rss" />
+      <outline title="Mladi mladim" xmlUrl="http://podcast.rtvslo.si/mladi_mladim.xml" type="rss" />
+      <outline title="POTkast" xmlUrl="https://podcast.rtvslo.si/potkast.xml" type="rss" />
+      <outline title="Bruto Domači Podkast" xmlUrl="https://rss.buzzsprout.com/2367867.rss" type="rss" />
+      <outline title="Škofija Celje" xmlUrl="http://rss.castbox.fm/everest/0ca755dd70834726b52d06c06c98e99f.xml" type="rss" />
+      <outline title="Radio Celje" xmlUrl="https://anchor.fm/s/1011e3848/podcast/rss" type="rss" />
+      <outline title="Hiša kulture časti" xmlUrl="https://feeds.simplecast.com/_8YCPzcF" type="rss" />
+      <outline title="Zakaj je to tako smešno?" xmlUrl="https://anchor.fm/s/db3c4f70/podcast/rss" type="rss" />
+      <outline title="Moj podcast, moj klub" xmlUrl="https://anchor.fm/s/ee19abd8/podcast/rss" type="rss" />
+      <outline title="Podkast: Iz Kranja" xmlUrl="https://anchor.fm/s/10407d604/podcast/rss" type="rss" />
+      <outline title="Študentska oddaja KŠK" xmlUrl="https://anchor.fm/s/5a9d4658/podcast/rss" type="rss" />
       <outline title="RTV Podcasts" xmlUrl="https://www.rtvslo.si/podcast/rss/" type="rss" />
       <outline title="Slovenia Pod" xmlUrl="https://www.sloveniapodcast.com/feed/" type="rss" />
       <outline title="Podkast SI" xmlUrl="https://www.podkast.si/feed/" type="rss" />

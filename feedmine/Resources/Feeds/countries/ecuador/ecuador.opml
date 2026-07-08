@@ -141,5 +141,156 @@
     </outline>
         <outline text="Health"><outline title="Health" xmlUrl="https://www.ecuador.gov/health/feed/" type="rss" /></outline>
     <outline text="Education"><outline title="Education" xmlUrl="https://www.ecuador.gov/edu/feed/" type="rss" /></outline>
+    <outline text="Podcasts">
+      <outline title="Ecuador Insider Podcast: &#10;&#10;Lifestyle - Culture - Community - Spirituality - Nature" xmlUrl="https://anchor.fm/s/ef2122b8/podcast/rss" type="rss" />
+      <outline title='Mujeres en la "Historia del Ecuador"' xmlUrl="https://anchor.fm/s/58807e80/podcast/rss" type="rss" />
+      <outline title="Ecuador" xmlUrl="https://anchor.fm/s/592d0290/podcast/rss" type="rss" />
+      <outline title="Ecuador 360° , Latitud Cero" xmlUrl="https://anchor.fm/s/ce51684/podcast/rss" type="rss" />
+      <outline title="Trips &amp; Travel Ecuador: Your Local Guide Podcast" xmlUrl="https://anchor.fm/s/4af88e24/podcast/rss" type="rss" />
+      <outline title="Experience Ecuador &amp; Galapagos Travel Podcast" xmlUrl="https://anchor.fm/s/713f4924/podcast/rss" type="rss" />
+      <outline title="Ecuador Chequea" xmlUrl="https://anchor.fm/s/20ee1018/podcast/rss" type="rss" />
+      <outline title="Mezclas Viejo Chucho Dj (Mixes)" xmlUrl="https://feeds.ivoox.com/feed_fg_f1444203_filtro_1.xml" type="rss" />
+      <outline title="Información al día. Podcast de EL COMERCIO" xmlUrl="https://media.rss.com/informacion-al-dia-podcast-de-el-comercio/feed.xml" type="rss" />
+      <outline title="Tourism In Ecuador" xmlUrl="https://anchor.fm/s/142303fc/podcast/rss" type="rss" />
+      <outline title="A Mi lindo Ecuador, Sentimiento Riobambeño" xmlUrl="https://feeds.ivoox.com/feed_fg_f1904154_filtro_1.xml" type="rss" />
+      <outline title="Historias de Voz" xmlUrl="https://media.rss.com/historias-de-voz/feed.xml" type="rss" />
+      <outline title="Noticias De Ecuador Y El Mundo" xmlUrl="https://anchor.fm/s/69778a6c/podcast/rss" type="rss" />
+      <outline title="Naciones Unidas Ecuador" xmlUrl="https://anchor.fm/s/3ea9d68c/podcast/rss" type="rss" />
+      <outline title="Centro TV Ecuador" xmlUrl="https://anchor.fm/s/2fef3eac/podcast/rss" type="rss" />
+      <outline title="Ecuador" xmlUrl="https://anchor.fm/s/47cab59c/podcast/rss" type="rss" />
+      <outline title="La Casa Grande" xmlUrl="https://feeds.ivoox.com/feed_fg_f149039_filtro_1.xml" type="rss" />
+      <outline title="El Señor del Sombrero" xmlUrl="https://media.rss.com/el-senor-del-sombrero/feed.xml" type="rss" />
+      <outline title="RSG Ecuador: El Podcast" xmlUrl="https://anchor.fm/s/3be62e00/podcast/rss" type="rss" />
+      <outline title="Ecuador" xmlUrl="https://anchor.fm/s/605c6948/podcast/rss" type="rss" />
+      <outline title="Cuaderno de la Salud" xmlUrl="https://media.rss.com/cuaderno-de-la-salud/feed.xml" type="rss" />
+      <outline title="EXA FM ECUADOR" xmlUrl="https://anchor.fm/s/140ecef0/podcast/rss" type="rss" />
+      <outline title="futvox Ecuador" xmlUrl="https://feeds.megaphone.fm/IMP1115820086" type="rss" />
+      <outline title="Tiësto en Ecuador Mix" xmlUrl="http://www.poderato.com/tiestoecuador/_feed/1" type="rss" />
+      <outline title="GaraBot" xmlUrl="https://media.rss.com/garabot/feed.xml" type="rss" />
+      <outline title="Radio Atalaya Ecuador" xmlUrl="https://anchor.fm/s/1f440f74/podcast/rss" type="rss" />
+      <outline title="Podcast de la Procuraduría General del Estado de Ecuador" xmlUrl="https://anchor.fm/s/3bd25f4c/podcast/rss" type="rss" />
+      <outline title="La abeja Vi-Vi cuentacuentos" xmlUrl="https://media.rss.com/la-abeja-vi-vi-cuentacuentos-en-super-pandilla/feed.xml" type="rss" />
+      <outline title="Historias de Ultra ciclismo" xmlUrl="https://anchor.fm/s/10962686c/podcast/rss" type="rss" />
+      <outline title="LigaPro Ecuador Podcast" xmlUrl="https://feeds.ivoox.com/feed_fg_f1896803_filtro_1.xml" type="rss" />
+      <outline title="Las 5 cosas de hoy, con Rock &amp; otros" xmlUrl="https://media.rss.com/las-5-cosas-de-hoy-con-rock-otros/feed.xml" type="rss" />
+      <outline title="House Radio Ecuador" xmlUrl="https://feeds.ivoox.com/feed_fg_f1494990_filtro_1.xml" type="rss" />
+      <outline title="A Tope - 1er podcast de escalada y montaña de Ecuador para el mundo" xmlUrl="https://anchor.fm/s/5e8c135c/podcast/rss" type="rss" />
+      <outline title="Ecuador Pluricultural" xmlUrl="https://anchor.fm/s/59643f30/podcast/rss" type="rss" />
+      <outline title="Ecuador y el Mundo en 5 minutos." xmlUrl="https://anchor.fm/s/13b9a178/podcast/rss" type="rss" />
+      <outline title="Inestabilidad Política Del Ecuador" xmlUrl="https://anchor.fm/s/690a68ec/podcast/rss" type="rss" />
+      <outline title="Ciudad De Cuenca - Ecuador." xmlUrl="https://anchor.fm/s/5126ba14/podcast/rss" type="rss" />
+      <outline title="LigaPro Ecuador" xmlUrl="https://feeds.ivoox.com/feed_fg_f1852447_filtro_1.xml" type="rss" />
+      <outline title="Noticias de Ecuador Y el Mundo" xmlUrl="https://anchor.fm/s/692ad550/podcast/rss" type="rss" />
+      <outline title="AVES DE MI ECUADOR" xmlUrl="https://anchor.fm/s/53b531d4/podcast/rss" type="rss" />
+      <outline title="El comentario de las noticias de Lucas y Clara" xmlUrl="https://media.rss.com/el-analisis-de-las-noticias-de-lucas-y-clara/feed.xml" type="rss" />
+      <outline title="Ecuador Intentando Ingresar A Una Mesa De Negociación Con México" xmlUrl="https://anchor.fm/s/5efd71a0/podcast/rss" type="rss" />
+      <outline title="Places To visist In Ecuador" xmlUrl="https://anchor.fm/s/15056b5c/podcast/rss" type="rss" />
+      <outline title="YumitosTV Ecuador" xmlUrl="https://anchor.fm/s/e82ef05c/podcast/rss" type="rss" />
+      <outline title="Libertad, 200 años después" xmlUrl="https://media.rss.com/libertad-200-anos-despues/feed.xml" type="rss" />
+      <outline title="Team Ecuador Inside" xmlUrl="https://feeds.ivoox.com/feed_fg_f12751796_filtro_1.xml" type="rss" />
+      <outline title="Qué Hecho Verde" xmlUrl="https://anchor.fm/s/1101da34c/podcast/rss" type="rss" />
+      <outline title="Universidad Andina Simón Bolívar, sede Ecuador" xmlUrl="https://anchor.fm/s/1e56b364/podcast/rss" type="rss" />
+      <outline title="City tales. Quito" xmlUrl="https://anchor.fm/s/2f39d544/podcast/rss" type="rss" />
+      <outline title="El Bullying en los Colegios De Quito" xmlUrl="https://anchor.fm/s/32ba4974/podcast/rss" type="rss" />
+      <outline title="Iglesia San Francisco De Quito" xmlUrl="https://anchor.fm/s/54fb4e34/podcast/rss" type="rss" />
+      <outline title="Quito en las entrañas" xmlUrl="https://anchor.fm/s/d10f6154/podcast/rss" type="rss" />
+      <outline title="Verbo Centro Histórico Quito" xmlUrl="https://anchor.fm/s/edc0e48/podcast/rss" type="rss" />
+      <outline title="EO Quito Podcast" xmlUrl="https://anchor.fm/s/781f04f0/podcast/rss" type="rss" />
+      <outline title="Quito Emprende" xmlUrl="https://anchor.fm/s/42551b48/podcast/rss" type="rss" />
+      <outline title="Te Quiero A Las Diez De La Mañana" xmlUrl="https://anchor.fm/s/1e6f3dd0/podcast/rss" type="rss" />
+      <outline title="Lugares históricos de Quito" xmlUrl="https://anchor.fm/s/2c5fd01c/podcast/rss" type="rss" />
+      <outline title="Voy derecho y no me quito" xmlUrl="https://anchor.fm/s/61d7326c/podcast/rss" type="rss" />
+      <outline title="Ladies That UX Quito" xmlUrl="https://anchor.fm/s/6a8eb088/podcast/rss" type="rss" />
+      <outline title="DJ Quito" xmlUrl="https://anchor.fm/s/570a0fd0/podcast/rss" type="rss" />
+      <outline title="Zion Quito" xmlUrl="https://anchor.fm/s/e5131934/podcast/rss" type="rss" />
+      <outline title="Secretaría De Cultura De Quito" xmlUrl="https://anchor.fm/s/394ee470/podcast/rss" type="rss" />
+      <outline title="Cines Quito" xmlUrl="https://anchor.fm/s/642f1cf0/podcast/rss" type="rss" />
+      <outline title="Ilaló: Reserva Planetaria de Luz" xmlUrl="https://anchor.fm/s/10b701960/podcast/rss" type="rss" />
+      <outline title="¿Qué caracteriza a un Embajador Metro Quito?" xmlUrl="https://anchor.fm/s/6169e8b0/podcast/rss" type="rss" />
+      <outline title="Suspension Vehicular En Quito" xmlUrl="https://anchor.fm/s/3816e6e8/podcast/rss" type="rss" />
+      <outline title="Voy de frente y no me quito por Mónica Delgado" xmlUrl="https://anchor.fm/s/2071bacc/podcast/rss" type="rss" />
+      <outline title="Iglesia El Gran Yo Soy Quito" xmlUrl="https://anchor.fm/s/e830c0d0/podcast/rss" type="rss" />
+      <outline title="Entre Procesos" xmlUrl="https://anchor.fm/s/5e4780ac/podcast/rss" type="rss" />
+      <outline title="Independencia de la Real Audiencia de Quito" xmlUrl="https://anchor.fm/s/1e54658c/podcast/rss" type="rss" />
+      <outline title="Marquito BB" xmlUrl="https://anchor.fm/s/a2f09f4/podcast/rss" type="rss" />
+      <outline title="Gaby Trujillo Y Greyla Quito" xmlUrl="https://anchor.fm/s/f8b9e08/podcast/rss" type="rss" />
+      <outline title="Me Quito El Sombrero" xmlUrl="https://feed.podbean.com/mqes/feed.xml" type="rss" />
+      <outline title="Maria Javana and Katherine Quito" xmlUrl="https://anchor.fm/s/b343680/podcast/rss" type="rss" />
+      <outline title="Independencia De Quito" xmlUrl="https://anchor.fm/s/1e3b1af0/podcast/rss" type="rss" />
+      <outline title="Independencia de la real audiencia de Quito" xmlUrl="https://anchor.fm/s/1ec13824/podcast/rss" type="rss" />
+      <outline title="La Aventura de Visitar Quito" xmlUrl="https://anchor.fm/s/65e5c634/podcast/rss" type="rss" />
+      <outline title="El Mentidero" xmlUrl="https://feeds.ivoox.com/feed_fg_f1869152_filtro_1.xml" type="rss" />
+      <outline title="Modelos De Innovación Pedagógica" xmlUrl="https://anchor.fm/s/26683938/podcast/rss" type="rss" />
+      <outline title="Cuentos de seres silvestres" xmlUrl="https://anchor.fm/s/1d9e623c/podcast/rss" type="rss" />
+      <outline title="Las 3 arañas mentales de los líderes en el teletrabajo" xmlUrl="https://anchor.fm/s/3f8307b8/podcast/rss" type="rss" />
+      <outline title="De Todo Un Poquito" xmlUrl="https://anchor.fm/s/2ca24d34/podcast/rss" type="rss" />
+      <outline title="Poema" xmlUrl="https://anchor.fm/s/5c0409b4/podcast/rss" type="rss" />
+      <outline title="Uso De La Aplicación De La Lógica En El Ámbito Jurídico" xmlUrl="https://anchor.fm/s/3ce3d334/podcast/rss" type="rss" />
+      <outline title="La Comida Chatarra" xmlUrl="https://anchor.fm/s/5f104654/podcast/rss" type="rss" />
+      <outline title="Introducción" xmlUrl="https://anchor.fm/s/279a3a54/podcast/rss" type="rss" />
+      <outline title="YO SOY UNA VOZ" xmlUrl="https://www.spreaker.com/show/4271278/episodes/feed" type="rss" />
+      <outline title="Tratado Río De Janeiro" xmlUrl="https://anchor.fm/s/3dc30130/podcast/rss" type="rss" />
+      <outline title="Intro FACEBOOK LIVE" xmlUrl="https://anchor.fm/s/2d8079c4/podcast/rss" type="rss" />
+      <outline title="Inequalities: Daily Battles" xmlUrl="https://anchor.fm/s/69ca448c/podcast/rss" type="rss" />
+      <outline title="Guayaquil" xmlUrl="https://anchor.fm/s/50f1787c/podcast/rss" type="rss" />
+      <outline title="CUARENTENA EN GUAYAQUIL" xmlUrl="https://anchor.fm/s/16e859d4/podcast/rss" type="rss" />
+      <outline title="Colegio Santiago De Guayaquil" xmlUrl="https://anchor.fm/s/52782f88/podcast/rss" type="rss" />
+      <outline title="Parque Histórico De Guayaquil" xmlUrl="https://anchor.fm/s/31187884/podcast/rss" type="rss" />
+      <outline title="Guayaquil City" xmlUrl="https://anchor.fm/s/2e8959f8/podcast/rss" type="rss" />
+      <outline title="Historia De La Independencia De Guayaquil" xmlUrl="https://anchor.fm/s/38a46658/podcast/rss" type="rss" />
+      <outline title="Feria del Libro Guayaquil- Audio Libros" xmlUrl="https://anchor.fm/s/6923ba2c/podcast/rss" type="rss" />
+      <outline title="Cowboys de Medianoche" xmlUrl="https://esradio.libertaddigital.com/cowboys-de-medianoche/podcast.xml" type="rss" />
+      <outline title="Born To Know" xmlUrl="https://feeds.cohostpodcasting.com/vk3ZM60O" type="rss" />
+      <outline title="Small Talk! With Alec Cuenca - Motivation &amp; Mindset Podcast" xmlUrl="https://feeds.acast.com/public/shows/667c2127c5b4dedd89cff886" type="rss" />
+      <outline title="Asesinos Seriales Y Más..." xmlUrl="https://anchor.fm/s/3d30ae98/podcast/rss" type="rss" />
+      <outline title="CUENCA" xmlUrl="https://anchor.fm/s/2f2ee350/podcast/rss" type="rss" />
+      <outline title="San Sebastián" xmlUrl="https://anchor.fm/s/26729018/podcast/rss" type="rss" />
+      <outline title="Viviendo con un bulldog francés" xmlUrl="https://anchor.fm/s/58640a84/podcast/rss" type="rss" />
+      <outline title="La Gran Travesía" xmlUrl="https://feeds.ivoox.com/feed_fg_f1489260_filtro_1.xml" type="rss" />
+      <outline title="Errarte Podcast: El arte de errar." xmlUrl="https://www.spreaker.com/show/4419059/episodes/feed" type="rss" />
+      <outline title="Iglesia Betania De La Reforma Cuenca Ecuador" xmlUrl="https://anchor.fm/s/188d48d0/podcast/rss" type="rss" />
+      <outline title='La Gran Travesía "Oldies"' xmlUrl="https://feeds.ivoox.com/feed_fg_f11472498_filtro_1.xml" type="rss" />
+      <outline title="Fm de la Cuenca" xmlUrl="https://anchor.fm/s/26853f4c/podcast/rss" type="rss" />
+      <outline title="Cuenca Music Fest #Dj Session" xmlUrl="https://feeds.ivoox.com/feed_fg_f1895386_filtro_1.xml" type="rss" />
+      <outline title="Pueblos Vivos Cuenca" xmlUrl="https://feeds.ivoox.com/feed_fg_f11221366_filtro_1.xml" type="rss" />
+      <outline title="Bianca Cuenca" xmlUrl="https://anchor.fm/s/5c9eaec4/podcast/rss" type="rss" />
+      <outline title="Cuenca" xmlUrl="https://anchor.fm/s/40ce274c/podcast/rss" type="rss" />
+      <outline title="Nico Cuenca" xmlUrl="https://anchor.fm/s/53b6585c/podcast/rss" type="rss" />
+      <outline title="Pablo Cuencas" xmlUrl="https://anchor.fm/s/ff5c5d0/podcast/rss" type="rss" />
+      <outline title="Reportaje - Estefany Cuenca" xmlUrl="https://anchor.fm/s/494e7fd4/podcast/rss" type="rss" />
+      <outline title="Heroína del pueblo/ Martina Carrillo (Abigail Cuenca 10MO C)" xmlUrl="https://anchor.fm/s/4e73f3cc/podcast/rss" type="rss" />
+      <outline title="Sebastian Cuenca" xmlUrl="https://anchor.fm/s/58096700/podcast/rss" type="rss" />
+      <outline title="La Historia De Mi Bella Cuenca" xmlUrl="https://anchor.fm/s/45d475d4/podcast/rss" type="rss" />
+      <outline title="SER Cuenca" xmlUrl="https://fapi-top.prisasd.com/podcast/playser/ser_cuenca/itunestfp/podcast.xml" type="rss" />
+      <outline title="Cuenca Bus Sherpa Podcast" xmlUrl="http://bitcoinpanningpodcast.jellycast.com/podcast/feed/7" type="rss" />
+      <outline title="Cien años de la llegada de Elia Liut a Cuenca" xmlUrl="https://anchor.fm/s/3eaa2bb4/podcast/rss" type="rss" />
+      <outline title="dyrm1 - Cuenca del Plata" xmlUrl="https://anchor.fm/s/38dc3c7c/podcast/rss" type="rss" />
+      <outline title="Cuenca y su deporte" xmlUrl="https://feeds.ivoox.com/feed_fg_f12585314_filtro_1.xml" type="rss" />
+      <outline title="En Cuenca,el 80,9%apoya Cese De Actividad Minera,según La CnE" xmlUrl="https://anchor.fm/s/4be16658/podcast/rss" type="rss" />
+      <outline title="O Podcast com Paulo Cuenca e Dani Noce" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:636303129/sounds.rss" type="rss" />
+      <outline title="Un Podcast en Albornoz" xmlUrl="https://feeds.ivoox.com/feed_fg_f11408229_filtro_1.xml" type="rss" />
+      <outline title="Bullying" xmlUrl="https://anchor.fm/s/58dbd618/podcast/rss" type="rss" />
+      <outline title="VictorC" xmlUrl="https://anchor.fm/s/2c9e2524/podcast/rss" type="rss" />
+      <outline title="OM NOM NOM" xmlUrl="https://anchor.fm/s/4723b990/podcast/rss" type="rss" />
+      <outline title="Ahora Yo" xmlUrl="https://feeds.libsyn.com/622370/rss" type="rss" />
+      <outline title="La Previa Constituyente" xmlUrl="https://anchor.fm/s/4e05b844/podcast/rss" type="rss" />
+      <outline title="Presentacion" xmlUrl="https://anchor.fm/s/3491ebbc/podcast/rss" type="rss" />
+      <outline title="Terapia Génica" xmlUrl="https://anchor.fm/s/1efbe410/podcast/rss" type="rss" />
+      <outline title="Entrevista sobre Covid 19 a un guardia civil" xmlUrl="https://anchor.fm/s/1f949070/podcast/rss" type="rss" />
+      <outline title="La Contaminacion Ambiental Y Acciones Diarias" xmlUrl="https://anchor.fm/s/5ddeaeb0/podcast/rss" type="rss" />
+      <outline title="Iniciando en Podcast" xmlUrl="https://anchor.fm/s/205e3cf4/podcast/rss" type="rss" />
+      <outline title="Cuerpo y Metas" xmlUrl="https://cuonda.com/cuerpo-y-metas/feed" type="rss" />
+      <outline title="Tierra de caballos" xmlUrl="https://anchor.fm/s/5201cbb8/podcast/rss" type="rss" />
+      <outline title="Startup IBillionaire" xmlUrl="https://anchor.fm/s/32c50580/podcast/rss" type="rss" />
+      <outline title="Emisión de prueba" xmlUrl="https://anchor.fm/s/1e99efe4/podcast/rss" type="rss" />
+      <outline title="How Do You Even Human" xmlUrl="https://anchor.fm/s/33f7e15c/podcast/rss" type="rss" />
+      <outline title="Ambato en el Bicentenario" xmlUrl="https://anchor.fm/s/40935388/podcast/rss" type="rss" />
+      <outline title="Ambato" xmlUrl="https://anchor.fm/s/51ab9374/podcast/rss" type="rss" />
+      <outline title="Narrando Por Ambato" xmlUrl="https://anchor.fm/s/540322f4/podcast/rss" type="rss" />
+      <outline title="Presencia de trastornos alimenticios en estudiantes de la Universidad Técnica de Ambato" xmlUrl="https://anchor.fm/s/487022d4/podcast/rss" type="rss" />
+      <outline title="Los Juanes de Ambato" xmlUrl="https://anchor.fm/s/53cf7738/podcast/rss" type="rss" />
+      <outline title="Ambato city" xmlUrl="https://anchor.fm/s/2f62792c/podcast/rss" type="rss" />
+      <outline title="PROTAGONISTAS EN LA BARCA" xmlUrl="https://anchor.fm/s/fb30c194/podcast/rss" type="rss" />
+    </outline>
   </body>
 </opml>
