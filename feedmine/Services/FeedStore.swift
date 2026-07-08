@@ -303,10 +303,16 @@ final class FeedStore {
         guard !isSearching else { return }
         let region = activeRegion
         let category = activeCategory
+        let disabled = Array(registry.disabledRegions)
         let items: [FeedItemRecord] = (try? await db.read { db in
             var request = FeedItemRecord
                 .filter(Column("fetched_at") > Date().addingTimeInterval(-2592000))
-            if let r = region { request = request.filter(Column("region") == r) }
+            if let r = region {
+                request = request.filter(Column("region") == r)
+            } else if !disabled.isEmpty {
+                let placeholders = disabled.map { _ in "?" }.joined(separator: ",")
+                request = request.filter(sql: "region NOT IN (\(placeholders))", arguments: StatementArguments(disabled))
+            }
             if let c = category { request = request.filter(Column("category") == c) }
             return try request
                 .order(Column("published_at").desc)
@@ -320,9 +326,15 @@ final class FeedStore {
     }
 
     private func loadReservoir() async throws -> [FeedItem]? {
+        let disabled = Array(registry.disabledRegions)
         let records: [FeedItemRecord] = try await db.read { db in
-            try FeedItemRecord
+            var request = FeedItemRecord
                 .filter(Column("fetched_at") > Date().addingTimeInterval(-2592000))
+            if !disabled.isEmpty {
+                let placeholders = disabled.map { _ in "?" }.joined(separator: ",")
+                request = request.filter(sql: "region NOT IN (\(placeholders))", arguments: StatementArguments(disabled))
+            }
+            return try request
                 .order(Column("published_at").desc)
                 .limit(200)
                 .fetchAll(db)
