@@ -356,12 +356,18 @@ actor RSSFetcher {
 
     /// Strip HTML tags using regex — avoids WebKit NSAttributedString overhead.
     private func strippingHTMLTags(_ html: String) -> String {
-        html.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "&amp;", with: "&")
+        // Use the precompiled regex instead of `.regularExpression`, which
+        // recompiles the pattern on every call (this runs twice per feed item).
+        let range = NSRange(html.startIndex..., in: html)
+        let stripped = Self.htmlTagRegex.stringByReplacingMatches(in: html, range: range, withTemplate: "")
+        // Decode entities with `&amp;` LAST: decoding it first would double-
+        // unescape sequences like `&amp;lt;` into `<` instead of literal `&lt;`.
+        return stripped
             .replacingOccurrences(of: "&lt;", with: "<")
             .replacingOccurrences(of: "&gt;", with: ">")
             .replacingOccurrences(of: "&quot;", with: "\"")
             .replacingOccurrences(of: "&nbsp;", with: " ")
             .replacingOccurrences(of: "&#39;", with: "'")
+            .replacingOccurrences(of: "&amp;", with: "&")
     }
 }
