@@ -4,5 +4,135 @@
     <title>Dominican Republic Feeds</title>
   </head>
   <body>
+    <outline text="Podcasts">
+      <outline title="10 Things About Dominican Republic" xmlUrl="https://anchor.fm/s/48d9c4a0/podcast/rss" type="rss" />
+      <outline title="Education in the Dominican Republic" xmlUrl="https://anchor.fm/s/8326f38/podcast/rss" type="rss" />
+      <outline title="AMCHAMDR One on One" xmlUrl="https://anchor.fm/s/ac0ce304/podcast/rss" type="rss" />
+      <outline title="Selected Poems of Ecuador, Honduras, Nicaragua and Dominican Republic" xmlUrl="https://www.spreaker.com/show/6850439/episodes/feed" type="rss" />
+      <outline title="Santo Domingo Colonial" xmlUrl="https://anchor.fm/s/14299ab4/podcast/rss" type="rss" />
+      <outline title="Shaping Santo Domingo" xmlUrl="https://anchor.fm/s/1ec312c0/podcast/rss" type="rss" />
+      <outline title="Santo Domingo" xmlUrl="https://anchor.fm/s/576402c4/podcast/rss" type="rss" />
+      <outline title="The (almost) Radical Podcast" xmlUrl="https://anchor.fm/s/dfee1364/podcast/rss" type="rss" />
+      <outline title="Santo Domingo" xmlUrl="https://anchor.fm/s/645f0f28/podcast/rss" type="rss" />
+      <outline title="La Camioneta Roja by SDM" xmlUrl="https://anchor.fm/s/a871310/podcast/rss" type="rss" />
+      <outline title="Un Encuentro con el Cristo del Amor" xmlUrl="https://anchor.fm/s/14ea9ae8/podcast/rss" type="rss" />
+      <outline title="Centro Juvenil Don Bosco Santo Domingo" xmlUrl="https://anchor.fm/s/1bd49430/podcast/rss" type="rss" />
+      <outline title="La Alfarería De Santo Domingo Tonaltepec" xmlUrl="https://anchor.fm/s/5b0933a4/podcast/rss" type="rss" />
+      <outline title="Poblamiento de Santo Domingo" xmlUrl="https://anchor.fm/s/51edb010/podcast/rss" type="rss" />
+      <outline title="CONOCE POCO MAS SOBRE SANTO DOMINGO OZOLOTEPEC" xmlUrl="https://anchor.fm/s/526b9944/podcast/rss" type="rss" />
+      <outline title="La Vida De Santo Domingo" xmlUrl="https://anchor.fm/s/6512e2b4/podcast/rss" type="rss" />
+      <outline title="Tu Hogar En Santo Domingo Con Kateryn Rodríguez" xmlUrl="https://anchor.fm/s/14f09240/podcast/rss" type="rss" />
+      <outline title="Prefectura de Santo Domingo de los Tsàchilas 2019 - 2023" xmlUrl="https://anchor.fm/s/3c88c0c0/podcast/rss" type="rss" />
+      <outline title='Daj "Santo Domingo de Guzmán"' xmlUrl="https://anchor.fm/s/2cefe738/podcast/rss" type="rss" />
+      <outline title="LA VIDA DE SANTO DOMINGO SAVIO" xmlUrl="https://anchor.fm/s/657662f8/podcast/rss" type="rss" />
+      <outline title="La Verdad de Dios" xmlUrl="https://anchor.fm/s/46fc2c2c/podcast/rss" type="rss" />
+      <outline title="Voces emprendedoras" xmlUrl="https://feeds.captivate.fm/voces-emprendedoras/" type="rss" />
+      <outline title="Les capsules de l'Alliance verte" xmlUrl="https://anchor.fm/s/dc3cb48c/podcast/rss" type="rss" />
+      <outline title="Centro Cultural De España" xmlUrl="https://anchor.fm/s/67b45700/podcast/rss" type="rss" />
+      <outline title="Mensaje del texto, pág 58. Movilla e Santodomingo" xmlUrl="https://anchor.fm/s/236e7454/podcast/rss" type="rss" />
+      <outline title="Mentalizate Emociones" xmlUrl="https://anchor.fm/s/60816090/podcast/rss" type="rss" />
+      <outline title="Podcast Educativo" xmlUrl="https://anchor.fm/s/3737008c/podcast/rss" type="rss" />
+      <outline title="The Santiago Way" xmlUrl="https://rss.libsyn.com/shows/60283/destinations/232288.xml" type="rss" />
+      <outline title="YOU on the Camino de Santiago" xmlUrl="https://feed.podbean.com/YOUontheCamino/feed.xml" type="rss" />
+      <outline title="Camino de Santiago Pilgrims' Podcast (monthly)" xmlUrl="https://anchor.fm/s/cc3dc44/podcast/rss" type="rss" />
+      <outline title="2 Girls Walking.....A Journey on the Camino de Santiago" xmlUrl="https://anchor.fm/s/b7f5304/podcast/rss" type="rss" />
+      <outline title="Relatos por Santiago Segovia" xmlUrl="https://feeds.acast.com/public/shows/67290e335b575bc851c780c0" type="rss" />
+      <outline title="Santiago Bilinkis – Futuro en Construcción" xmlUrl="https://anchor.fm/s/10506bea8/podcast/rss" type="rss" />
+      <outline title="kaizen con Jaime Rodríguez de Santiago" xmlUrl="https://feeds.acast.com/public/shows/68b08648b7f6022e946c6a86" type="rss" />
+      <outline title="Eddie Santiago" xmlUrl="https://anchor.fm/s/4a0743d4/podcast/rss" type="rss" />
+      <outline title="The Scholarly Pilgrim - History of the Camino de Santiago" xmlUrl="https://rss.libsyn.com/shows/451470/destinations/3792813.xml" type="rss" />
+      <outline title="The Santiago Boys" xmlUrl="https://feeds.megaphone.fm/BCS4655242240" type="rss" />
+      <outline title="#movimiento C3Santiago somos gente que conecta." xmlUrl="https://anchor.fm/s/1f6dd728/podcast/rss" type="rss" />
+      <outline title="These Holy Bones: Walking the Camino de Santiago" xmlUrl="https://rss.buzzsprout.com/2372021.rss" type="rss" />
+      <outline title="Bofetones de Amor para Salir del Cristal con Nicole M. Zayas Santiago." xmlUrl="https://anchor.fm/s/45c69af4/podcast/rss" type="rss" />
+      <outline title="Focus Church with Mike Santiago" xmlUrl="https://anchor.fm/s/1db46f8c/podcast/rss" type="rss" />
+      <outline title="Angela Santiago" xmlUrl="https://anchor.fm/s/88c9c60/podcast/rss" type="rss" />
+      <outline title="Manifesting Miracles on the Camino de Santiago." xmlUrl="https://anchor.fm/s/f61e2f34/podcast/rss" type="rss" />
+      <outline title="No More Silos with Dr. Erika Santiago" xmlUrl="https://rss.buzzsprout.com/673688.rss" type="rss" />
+      <outline title="Locked On 76ers - Daily Podcast On The Philadelphia Sixers" xmlUrl="https://rss.pdrl.fm/427894/feeds.simplecast.com/yv9mUu3U" type="rss" />
+      <outline title="Crusades" xmlUrl="https://anchor.fm/s/4ade97a8/podcast/rss" type="rss" />
+      <outline title="Meditación Guiada | Doctor Santiago Rojas" xmlUrl="https://anchor.fm/s/1d4e1ef8/podcast/rss" type="rss" />
+      <outline title="The Amazing Life of Ronald Reagan" xmlUrl="https://anchor.fm/s/3e9ff6d0/podcast/rss" type="rss" />
+      <outline title="40 Days and 40 Nights on the Camino de Santiago with Jamie, The Long Distance Coach" xmlUrl="https://anchor.fm/s/56aebedc/podcast/rss" type="rss" />
+      <outline title="Better Husband" xmlUrl="https://rss.buzzsprout.com/2405322.rss" type="rss" />
+      <outline title="Mordus de Santiago de Compostelle" xmlUrl="https://anchor.fm/s/3167e554/podcast/rss" type="rss" />
+      <outline title="Santiago Adicto" xmlUrl="https://mdstrm.com/feeds/65ea0c645728c0087b186ba5/67f55c1e0335fdc3ae6e0faf?property=itunes" type="rss" />
+      <outline title="Desde las Escrituras Santiago" xmlUrl="https://anchor.fm/s/3bafeafc/podcast/rss" type="rss" />
+      <outline title="Camino de Santiago-Terri Kramer" xmlUrl="https://anchor.fm/s/30b28f10/podcast/rss" type="rss" />
+      <outline title="New Mom Talk: A Resource for Pregnant, Expecting Moms &amp; New Moms &amp; Pregnancy" xmlUrl="https://rss.buzzsprout.com/2043908.rss" type="rss" />
+      <outline title="She Hustles" xmlUrl="https://rss.libsyn.com/shows/189524/destinations/1320242.xml" type="rss" />
+      <outline title="Sacred Steps Podcast" xmlUrl="https://feeds.transistor.fm/sacred-steps-podcast" type="rss" />
+      <outline title="Spanish from Mexico, beginners. A" xmlUrl="https://anchor.fm/s/ef8ac86c/podcast/rss" type="rss" />
+      <outline title="El Negocio del Entretenimiento con Jafet Santiago" xmlUrl="https://anchor.fm/s/170ee248/podcast/rss" type="rss" />
+      <outline title="LOONA y el LOONAVERSE - Velasco Herrera Santiago" xmlUrl="https://anchor.fm/s/42861270/podcast/rss" type="rss" />
+      <outline title="BTS" xmlUrl="https://anchor.fm/s/5364bbc8/podcast/rss" type="rss" />
+      <outline title="Dr Santiago Saralegui | Actualidad en Medicina Estética" xmlUrl="https://anchor.fm/s/1066da39c/podcast/rss" type="rss" />
+      <outline title="Living Revelations Podcast" xmlUrl="https://rss.buzzsprout.com/212544.rss" type="rss" />
+      <outline title="Smooth Jazz Classics" xmlUrl="https://feeds.ivoox.com/feed_fg_f11424191_filtro_1.xml" type="rss" />
+      <outline title="RELATOS OCULTOS DE LA MANO PELUDA" xmlUrl="https://anchor.fm/s/5172d034/podcast/rss" type="rss" />
+      <outline title="Clearskies Camino Podcast - all about the Camino de Santiago" xmlUrl="https://anchor.fm/s/378c4128/podcast/rss" type="rss" />
+      <outline title="THE DEMON IN A HAUNTED HOSPITAL" xmlUrl="https://anchor.fm/s/33578e00/podcast/rss" type="rss" />
+      <outline title="Caminho de Santiago Podcast: Tudo o que você precisa saber para fazer o Caminho de Santiago" xmlUrl="https://anchor.fm/s/117bde44/podcast/rss" type="rss" />
+      <outline title="Firebrands" xmlUrl="https://rss.buzzsprout.com/1737987.rss" type="rss" />
+      <outline title="Smooth Jazz Top 100" xmlUrl="https://feeds.ivoox.com/feed_fg_f11070463_filtro_1.xml" type="rss" />
+      <outline title="El Primer Paso" xmlUrl="https://feeds.megaphone.fm/GENUINAPERSONASAPIDECV4634648731" type="rss" />
+      <outline title="Microbios" xmlUrl="https://rss.libsyn.com/shows/21585/destinations/25544.xml" type="rss" />
+      <outline title="Modern Rags" xmlUrl="https://anchor.fm/s/ff8a8824/podcast/rss" type="rss" />
+      <outline title="Calamares a la romana" xmlUrl="https://feeds.ivoox.com/feed_fg_f12234654_filtro_1.xml" type="rss" />
+      <outline title="CDA La Romana IBBCRADIO" xmlUrl="https://anchor.fm/s/229e123c/podcast/rss" type="rss" />
+      <outline title="Iglesia cuerpo de cristo ,la romana" xmlUrl="https://anchor.fm/s/99588b0/podcast/rss" type="rss" />
+      <outline title="Quintiliano Y La Educación Romana" xmlUrl="https://anchor.fm/s/3d953e58/podcast/rss" type="rss" />
+      <outline title="Puertas a la Vida con Estibaliz Romaña" xmlUrl="https://www.spreaker.com/show/6366554/episodes/feed" type="rss" />
+      <outline title="Historia de la educación Romana" xmlUrl="https://anchor.fm/s/3d836dcc/podcast/rss" type="rss" />
+      <outline title="La Monarquía Romana" xmlUrl="https://anchor.fm/s/3a611d38/podcast/rss" type="rss" />
+      <outline title="La Scuola Romana" xmlUrl="https://www.spreaker.com/show/5001911/episodes/feed" type="rss" />
+      <outline title="The Pax Romana Podcast" xmlUrl="https://anchor.fm/s/e76256a0/podcast/rss" type="rss" />
+      <outline title="Podcastul de limba română :: The Romanian Language Podcast" xmlUrl="http://rss.castbox.fm/everest/b8b170dbe00d46fc8fb17f5e302fb6cf.xml" type="rss" />
+      <outline title="For Romanian speakers (Pentru vorbitorii de limba romana)" xmlUrl="http://rss.castbox.fm/everest/9cb4819f0e484513a890570e7a046af5.xml" type="rss" />
+      <outline title="Mitología griega (y romana)" xmlUrl="https://www.spreaker.com/show/5272781/episodes/feed" type="rss" />
+      <outline title="What’s On Your Analogion?" xmlUrl="https://anchor.fm/s/fcfcc734/podcast/rss" type="rss" />
+      <outline title="Grow With Ro" xmlUrl="https://rss.buzzsprout.com/2198783.rss" type="rss" />
+      <outline title="Isi Walk, Easy Talk" xmlUrl="https://anchor.fm/s/fb8b95ec/podcast/rss" type="rss" />
+      <outline title="SBS Romanian - SBS in limba romana" xmlUrl="https://sbs-ondemand.streamguys1.com/sbs-romanian/" type="rss" />
+      <outline title="Podróże Romana Czejarka" xmlUrl="https://www.polskieradio.pl/rss/d79102b2-0026-44d7-8f71-ef51bd061f06" type="rss" />
+      <outline title="Storia romana" xmlUrl="https://www.spreaker.com/show/3304204/episodes/feed" type="rss" />
+      <outline title="Light Codes Podcast" xmlUrl="https://anchor.fm/s/7a1de3c/podcast/rss" type="rss" />
+      <outline title="Macaquinhos no Sótão" xmlUrl="https://rss.podplaystudio.com/3281.xml" type="rss" />
+      <outline title="Lox Romana" xmlUrl="https://media.rss.com/lox-romana/feed.xml" type="rss" />
+      <outline title="Des nouvelles du 12 bis: un podcast în franceză si română" xmlUrl="https://apis.fle.rfi.fr/products/get_product/fle_getpodcast_by_nid?token_application=applepodcast_fle&amp;program.entrepriseId=WBMZ79371-FLE-FR-20260511" type="rss" />
+      <outline title="Romana (Contabilidade, tributos, fiscal, carreira contábil)" xmlUrl="https://anchor.fm/s/22ed5ea0/podcast/rss" type="rss" />
+      <outline title="Conexão Romana" xmlUrl="https://anchor.fm/s/85b0c9b4/podcast/rss" type="rss" />
+      <outline title="Romana" xmlUrl="https://anchor.fm/s/29df892c/podcast/rss" type="rss" />
+      <outline title="Casa Română De Cultură" xmlUrl="https://anchor.fm/s/3d9e5f10/podcast/rss" type="rss" />
+      <outline title="Scriptorum Historia Romana" xmlUrl="https://anchor.fm/s/65b01d7c/podcast/rss" type="rss" />
+      <outline title="Romana Spreekt" xmlUrl="https://anchor.fm/s/49247cc/podcast/rss" type="rss" />
+      <outline title="Jaiver Romaña" xmlUrl="https://anchor.fm/s/6a4dd11c/podcast/rss" type="rss" />
+      <outline title="Doslova s Gogovou │ HN" xmlUrl="https://anchor.fm/s/d885630c/podcast/rss" type="rss" />
+      <outline title="Unbroken: A Journey of Hope" xmlUrl="https://anchor.fm/s/10ed0d7fc/podcast/rss" type="rss" />
+      <outline title="Impuls" xmlUrl="https://anchor.fm/s/46056464/podcast/rss" type="rss" />
+      <outline title="Fotografie Podcast - Visualize Fashion" xmlUrl="https://anchor.fm/s/a3a5a70/podcast/rss" type="rss" />
+      <outline title="Sermones IBR" xmlUrl="https://feeds.ivoox.com/feed_fg_f1145395_filtro_1.xml" type="rss" />
+      <outline title="Ed. Romana" xmlUrl="https://anchor.fm/s/3b6846c0/podcast/rss" type="rss" />
+      <outline title="Na vidličce Romana Vaňka" xmlUrl="https://api.mujrozhlas.cz/rss/podcast/3937340d-9021-315a-9ea2-3d858d67b2c5.rss" type="rss" />
+      <outline title='Severa Romana: A" Heroína Da Honra "' xmlUrl="https://anchor.fm/s/41a8b9fc/podcast/rss" type="rss" />
+      <outline title="Educação Romana" xmlUrl="https://anchor.fm/s/6a7151c8/podcast/rss" type="rss" />
+      <outline title="Erotica Romana" xmlUrl="https://www.spreaker.com/show/6883143/episodes/feed" type="rss" />
+      <outline title="História Da Educação Grega E Romana" xmlUrl="https://anchor.fm/s/3b5e9c24/podcast/rss" type="rss" />
+      <outline title="Redacția română RNS3 (rumunski)" xmlUrl="https://media.rtv.rs/ro/rss/rumunska-redakcija-rns3.xml" type="rss" />
+      <outline title="República Romana" xmlUrl="https://anchor.fm/s/29e40e98/podcast/rss" type="rss" />
+      <outline title="X Docs Română" xmlUrl="https://anchor.fm/s/103571b0c/podcast/rss" type="rss" />
+      <outline title="Esclavitud Romana" xmlUrl="https://anchor.fm/s/4c30ca90/podcast/rss" type="rss" />
+      <outline title="AWR română - Timpul Speranței" xmlUrl="https://podcasts.awr.org/xml/RONCHaTOH.xml" type="rss" />
+      <outline title="República Romana" xmlUrl="https://anchor.fm/s/16675ac8/podcast/rss" type="rss" />
+      <outline title="Sfânta Biblie - Română (Romanian, Noul Testament + Psalmi și Proverbe)" xmlUrl="https://feed.pod.co/bible-romanian" type="rss" />
+      <outline title="PUNTA CANA PODCATS SHOW" xmlUrl="https://www.spreaker.com/show/5477571/episodes/feed" type="rss" />
+      <outline title="Punta Cana Destino" xmlUrl="https://anchor.fm/s/1c689d10/podcast/rss" type="rss" />
+      <outline title="Mercadeando Punta Cana" xmlUrl="https://www.spreaker.com/show/5298814/episodes/feed" type="rss" />
+      <outline title="Un Politico en Punta Cana" xmlUrl="https://www.spreaker.com/show/3630981/episodes/feed" type="rss" />
+      <outline title="Celebration Christian Church Punta Cana" xmlUrl="https://anchor.fm/s/d973dd0c/podcast/rss" type="rss" />
+      <outline title="Vivir Punta Cana Podcast" xmlUrl="https://anchor.fm/s/10c247d10/podcast/rss" type="rss" />
+      <outline title="Unique" xmlUrl="https://anchor.fm/s/5f6c55e8/podcast/rss" type="rss" />
+      <outline title="PUNTA CANA PODCAST" xmlUrl="https://cheryl-henderson-punta-cana.squarespace.com/podcast-audio-episodes?format=rss" type="rss" />
+    </outline>
 </body>
 </opml>

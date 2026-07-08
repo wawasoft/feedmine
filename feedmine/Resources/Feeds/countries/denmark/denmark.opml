@@ -113,6 +113,238 @@
       <outline title="Jyllands-Posten Erhverv" xmlUrl="https://jyllands-posten.dk/erhverv/rss/" type="rss" />
     </outline>
     <outline text="Podcasts">
+      <outline title="How to Live in Denmark" xmlUrl="https://rss.libsyn.com/shows/50699/destinations/178393.xml" type="rss" />
+      <outline title="Denmark 101 with Alex Berger" xmlUrl="https://rss.libsyn.com/shows/86950/destinations/422511.xml" type="rss" />
+      <outline title="Simple Danish Podcast" xmlUrl="https://anchor.fm/s/4afae430/podcast/rss" type="rss" />
+      <outline title="Denmark Calling" xmlUrl="https://feeds.acast.com/public/shows/68fc5fca1e3d261ce0f2f216" type="rss" />
+      <outline title="Last Week in Denmark" xmlUrl="https://rss.buzzsprout.com/2209797.rss" type="rss" />
+      <outline title="The History of Denmark: Vikings, Kingdoms, and Quiet Power — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/the-history-of-denmark.xml" type="rss" />
+      <outline title="What The Denmark | Danish Culture for Expats, Internationals and Danes" xmlUrl="https://feed.pod.co/wtd" type="rss" />
+      <outline title="What Are You Doing in Denmark?" xmlUrl="https://feeds.acast.com/public/shows/64ce8aa990d002001133d0dd" type="rss" />
+      <outline title="The History of Denmark" xmlUrl="https://feeds.feedburner.com/thehistoryofdenmarkpodcast" type="rss" />
+      <outline title="Evolution Exchange Denmark Podcast" xmlUrl="https://feeds.acast.com/public/shows/692d916bf8e2c46a8ced0f3c" type="rss" />
+      <outline title="Design - Made In Denmark" xmlUrl="https://rss.buzzsprout.com/1886333.rss" type="rss" />
+      <outline title="Countdown to Laravel Live Denmark" xmlUrl="https://feeds.transistor.fm/countdown-to-laravel-live" type="rss" />
+      <outline title="Stemmer fra Ådalen" xmlUrl="https://www.spreaker.com/show/5664926/episodes/feed" type="rss" />
+      <outline title="AI Denmark" xmlUrl="https://feeds.transistor.fm/ai-denmark-podcast" type="rss" />
+      <outline title="Food Nation - Stories by Denmark" xmlUrl="https://rss.buzzsprout.com/248161.rss" type="rss" />
+      <outline title="Hillsong Church Denmark" xmlUrl="https://anchor.fm/s/132a9b04/podcast/rss" type="rss" />
+      <outline title="PropTech Denmark Podcast" xmlUrl="https://rss.libsyn.com/shows/274310/destinations/2096783.xml" type="rss" />
+      <outline title="Real Vikings" xmlUrl="https://feeds.acast.com/public/shows/real-vikings" type="rss" />
+      <outline title="Fremtidens fyrtårne" xmlUrl="https://www.spreaker.com/show/6501657/episodes/feed" type="rss" />
+      <outline title="Lundh" xmlUrl="https://feeds.acast.com/public/shows/7cb37d9b-4d96-4585-afcb-090906ed298a" type="rss" />
+      <outline title="LIVE fra Det Kongelige Bibliotek" xmlUrl="https://feed.podbean.com/livefradetkglbibliotek/feed.xml" type="rss" />
+      <outline title="Sound of Green - Stories from Denmark's green transition" xmlUrl="https://media.rss.com/soundofgreen/feed.xml" type="rss" />
+      <outline title="Altid Arsenal" xmlUrl="https://rss.libsyn.com/shows/148589/destinations/952370.xml" type="rss" />
+      <outline title="ØL-BAROMETERET" xmlUrl="https://feed.podbean.com/Oelbarometeret/feed.xml" type="rss" />
+      <outline title="Juridisk metode i forskellige job" xmlUrl="https://feeds.captivate.fm/juridisk-metode-i-forsk/" type="rss" />
+      <outline title="Bipolar Balance" xmlUrl="https://bipolar-balance.podigee.io/feed/mp3" type="rss" />
+      <outline title="Denmark Real" xmlUrl="https://anchor.fm/s/ed6c5f0/podcast/rss" type="rss" />
+      <outline title="Our Stories" xmlUrl="https://www.spreaker.com/show/6899243/episodes/feed" type="rss" />
+      <outline title="Tag med til Thailand" xmlUrl="https://www.spreaker.com/show/4246184/episodes/feed" type="rss" />
+      <outline title="Acco Brands Denmark on Air" xmlUrl="https://www.spreaker.com/show/5929252/episodes/feed" type="rss" />
+      <outline title="Denmark Podcast（デンマーク ポッドキャスト）" xmlUrl="https://anchor.fm/s/ecd106a4/podcast/rss" type="rss" />
+      <outline title="Aktieuniverset" xmlUrl="https://feeds.simplecast.com/rWsKhh9v" type="rss" />
+      <outline title="Kvart i bold" xmlUrl="https://feeds.acast.com/public/shows/60360b096386dc3ac1a645a5" type="rss" />
+      <outline title="Fundament for fremtiden" xmlUrl="https://channels.podcastfeed.eu/0de9a94b-0857-48fc-8aae-d495a87d7647/feed.xml" type="rss" />
+      <outline title="Altinget taler om Europa" xmlUrl="https://feeds.acast.com/public/shows/300018bd-2408-5511-976c-6de4723f65e1" type="rss" />
+      <outline title="BizzPod med Christian Jensby" xmlUrl="https://www.spreaker.com/show/4121467/episodes/feed" type="rss" />
+      <outline title="Backstage - Danmarks Dansepodcast" xmlUrl="https://podcastpusher.com/feed/13661f1f-89ab-11ef-98cd-00505692c808" type="rss" />
+      <outline title="Business Lessons in Denmark" xmlUrl="https://anchor.fm/s/e6e89fa4/podcast/rss" type="rss" />
+      <outline title="Small Great Nation" xmlUrl="https://www.spreaker.com/show/2992984/episodes/feed" type="rss" />
+      <outline title="Sort Snak" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:353182352/sounds.rss" type="rss" />
+      <outline title="ØkonomiPulsen" xmlUrl="https://anchor.fm/s/110037238/podcast/rss" type="rss" />
+      <outline title="Politisk Stuegang" xmlUrl="https://feeds.acast.com/public/shows/946f8aa5-e749-58c1-b955-2ffc59ba72aa" type="rss" />
+      <outline title="Heartfulness Meditation Danmark" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:246925044/sounds.rss" type="rss" />
+      <outline title="Ethno Denmark" xmlUrl="https://radiofolk.s3-eu-west-1.amazonaws.com/podcast/ethno/1374.rss" type="rss" />
+      <outline title="Byen forfra" xmlUrl="https://rss.libsyn.com/shows/234566/destinations/1737368.xml" type="rss" />
+      <outline title="Tales of Consumption" xmlUrl="https://feeds.captivate.fm/tales-of-consumption/" type="rss" />
+      <outline title="Den Grønne Omstilling" xmlUrl="https://www.spreaker.com/show/4698710/episodes/feed" type="rss" />
+      <outline title="I Hjertet på Danmark" xmlUrl="https://www.spreaker.com/show/5984983/episodes/feed" type="rss" />
+      <outline title="Dyt I Danmarkshistorien" xmlUrl="https://www.spreaker.com/show/5876553/episodes/feed" type="rss" />
+      <outline title="Danmark Dejligst" xmlUrl="https://feed.podbean.com/danmarkdejligst/feed.xml" type="rss" />
+      <outline title="Det, du ikke kan se" xmlUrl="https://www.spreaker.com/show/5989812/episodes/feed" type="rss" />
+      <outline title="Danmarks Farligste Fange" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:998126356/sounds.rss" type="rss" />
+      <outline title="Noget På Hjerte?" xmlUrl="https://www.spreaker.com/show/6042754/episodes/feed" type="rss" />
+      <outline title="Taberne der skabte Danmark" xmlUrl="https://anchor.fm/s/ed6607f4/podcast/rss" type="rss" />
+      <outline title="Danmark Rigeste" xmlUrl="https://www.spreaker.com/show/6809545/episodes/feed" type="rss" />
+      <outline title="Danmark og Europa – en podcast om dansk europahistorie" xmlUrl="https://mobiltv.ft.dk/feed/danmarkeuropa" type="rss" />
+      <outline title="Fra stemme til handling: et podcast fra Kvinderådet og Mino Danmark" xmlUrl="https://media.rss.com/frastemmetilhandling/feed.xml" type="rss" />
+      <outline title="Respekt for relationer" xmlUrl="https://rss.buzzsprout.com/2379177.rss" type="rss" />
+      <outline title="Det Blå Danmark" xmlUrl="https://rss.buzzsprout.com/2544304.rss" type="rss" />
+      <outline title="Studievalg Danmark" xmlUrl="https://rss.buzzsprout.com/1686214.rss" type="rss" />
+      <outline title="FysioDanmark Roskildes Podcast" xmlUrl="https://feeds.transistor.fm/fdroskilde" type="rss" />
+      <outline title="Hagekors over Danmark" xmlUrl="https://api.dr.dk/podcasts/v1/feeds/hagekors-over-danmark.xml?format=podcast" type="rss" />
+      <outline title="Dræb for Danmark" xmlUrl="https://api.dr.dk/podcasts/v1/feeds/draeb-for-danmark.xml?format=podcast" type="rss" />
+      <outline title="Kniv" xmlUrl="https://feeds.acast.com/public/shows/6749bbf3f6ece089eaa0c9f9" type="rss" />
+      <outline title="Side Hustle Danmark" xmlUrl="https://anchor.fm/s/3a5bee44/podcast/rss" type="rss" />
+      <outline title="N-cast - Nintendo Podcast fra N-club Danmark" xmlUrl="https://n-club.dk/assets/feeds/ncast.xml" type="rss" />
+      <outline title="Biografklub Danmarks filmpodcast" xmlUrl="https://feed.podbean.com/bkdk/feed.xml" type="rss" />
+      <outline title="Jødiske mysterier fra Danmarkshistorien" xmlUrl="https://www.spreaker.com/show/5118269/episodes/feed" type="rss" />
+      <outline title="Tølt og Takt - den islandske hest i Danmark" xmlUrl="https://anchor.fm/s/108f87fec/podcast/rss" type="rss" />
+      <outline title="Forfulgt – af Danmarks største stalker" xmlUrl="https://www.spreaker.com/show/5448737/episodes/feed" type="rss" />
+      <outline title="Badminton Danmark Podcast" xmlUrl="https://rss.libsyn.com/shows/245978/destinations/1846493.xml" type="rss" />
+      <outline title="Bøssepesten og dens pionerer  - 40 år med aids i Danmark" xmlUrl="https://rss.buzzsprout.com/1902912.rss" type="rss" />
+      <outline title="Danmarks grundigste realkreditpodcast" xmlUrl="https://anchor.fm/s/fe1231f4/podcast/rss" type="rss" />
+      <outline title="People First - Danmark" xmlUrl="https://feeds.transistor.fm/people-first-danmark" type="rss" />
+      <outline title="Svær overvægt... Og hvad så?" xmlUrl="https://rss.buzzsprout.com/2129499.rss" type="rss" />
+      <outline title="Danmarks royale podcast" xmlUrl="https://www.spreaker.com/show/3422860/episodes/feed" type="rss" />
+      <outline title="MERK Danmark" xmlUrl="https://rss.buzzsprout.com/1768985.rss" type="rss" />
+      <outline title="Tantra Talk Danmark" xmlUrl="https://anchor.fm/s/e4893d68/podcast/rss" type="rss" />
+      <outline title="Makropuls – med Lars Christensen" xmlUrl="https://rss.buzzsprout.com/2194014.rss" type="rss" />
+      <outline title="På vej mod et grønt Danmark" xmlUrl="https://www.spreaker.com/show/6550669/episodes/feed" type="rss" />
+      <outline title="De gør Danmark rigere" xmlUrl="https://www.spreaker.com/show/6625246/episodes/feed" type="rss" />
+      <outline title="DSR Syddanmark - stemmer fra sygeplejen" xmlUrl="https://media.rss.com/dsr-syddanmark/feed.xml" type="rss" />
+      <outline title="Permapodcasten" xmlUrl="https://feeds.redcircle.com/1ca216f6-dc78-47da-891b-a43027d13fc0" type="rss" />
+      <outline title="Alle podcasts fra Danmarks Jægerforbund" xmlUrl="https://www.spreaker.com/show/6165600/episodes/feed" type="rss" />
+      <outline title="KPMG Tech Talk" xmlUrl="https://feed.podbean.com/kpmgtechtalk/feed.xml" type="rss" />
+      <outline title="Schneider Electric Danmark" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:279889118/sounds.rss" type="rss" />
+      <outline title="Udsendt Af Danmark" xmlUrl="https://www.spreaker.com/show/4983116/episodes/feed" type="rss" />
+      <outline title="Samtaler på grus - en rejse rundt i tennisdanmark" xmlUrl="https://rss.buzzsprout.com/200754.rss" type="rss" />
+      <outline title="ScaleUp Podcast Danmark" xmlUrl="https://www.spreaker.com/show/6780309/episodes/feed" type="rss" />
+      <outline title="Lyden af dansk svømmesport" xmlUrl="https://anchor.fm/s/f79b844c/podcast/rss" type="rss" />
+      <outline title="Farvel Danmark" xmlUrl="https://www.omnycontent.com/d/playlist/414edbb4-4b91-4960-8650-ad4000dbc027/90a09b29-3137-430a-ae68-ad5f00addea8/c3653095-4adc-4bbc-8673-ad5f00addeb1/podcast.rss" type="rss" />
+      <outline title="Jeg har set verden styrte i grus" xmlUrl="https://www.spreaker.com/show/5645947/episodes/feed" type="rss" />
+      <outline title="GRØN DEADLINE" xmlUrl="https://www.spreaker.com/show/6717474/episodes/feed" type="rss" />
+      <outline title="Greenpeace Danmark" xmlUrl="https://www.spreaker.com/show/4750988/episodes/feed" type="rss" />
+      <outline title="Bag om København" xmlUrl="https://feed.podbean.com/bagomkbh/feed.xml" type="rss" />
+      <outline title="København i 1000 år" xmlUrl="https://feed.podbean.com/kbhsmuseum/feed.xml" type="rss" />
+      <outline title="Lyden af København" xmlUrl="https://feed.podbean.com/LydenafKbh/feed.xml" type="rss" />
+      <outline title="Københavnerhistorier" xmlUrl="https://feed.podbean.com/kbhhistorier/feed.xml" type="rss" />
+      <outline title="Byen rundt" xmlUrl="https://podcast.knr.dk/feed/byenrundt/" type="rss" />
+      <outline title="Se op! Arkitekternes København" xmlUrl="https://feed.podbean.com/se-op/feed.xml" type="rss" />
+      <outline title="Fald i søvn til København" xmlUrl="https://anchor.fm/s/e929f8d0/podcast/rss" type="rss" />
+      <outline title="Samtaler om København" xmlUrl="https://www.spreaker.com/show/5535145/episodes/feed" type="rss" />
+      <outline title="Københavns Sporvejes historie" xmlUrl="https://feed.podbean.com/Sporvogne/feed.xml" type="rss" />
+      <outline title="Københavns Fanradio" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:135167893/sounds.rss" type="rss" />
+      <outline title="Gang i gaden" xmlUrl="https://www.spreaker.com/show/6084171/episodes/feed" type="rss" />
+      <outline title="Salonen" xmlUrl="https://www.omnycontent.com/d/playlist/c245d099-7ca7-4dda-bb68-b28700fe6963/beb85045-e6f2-4bb1-9c1b-b3e500db0fb0/de5a080c-2a23-46df-8564-b3e500db1468/podcast.rss" type="rss" />
+      <outline title="F.C. København" xmlUrl="https://rss.libsyn.com/shows/110195/destinations/604522.xml" type="rss" />
+      <outline title="Et liv udenfor København?" xmlUrl="https://anchor.fm/s/f8bb7148/podcast/rss" type="rss" />
+      <outline title="Tankelyn" xmlUrl="https://feeds.simplecast.com/45y2wM5F" type="rss" />
+      <outline title="Kvinden der vidste hun havde ret" xmlUrl="https://feeds.simplecast.com/vHFQcL3L" type="rss" />
+      <outline title="Hr. København" xmlUrl="https://anchor.fm/s/a15bfbc/podcast/rss" type="rss" />
+      <outline title="Verden forsøgt forklaret" xmlUrl="https://feeds.simplecast.com/dadu_tOM" type="rss" />
+      <outline title="Kirken i København" xmlUrl="https://feed.podbean.com/kirkenikbh/feed.xml" type="rss" />
+      <outline title="Fra Kingston til København" xmlUrl="https://feeds.bigup.dk/frakingstontilkbh.xml" type="rss" />
+      <outline title="Kroppens bodyguards" xmlUrl="https://feeds.simplecast.com/5j31nFbN" type="rss" />
+      <outline title="København Vineyard" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:132826495/sounds.rss" type="rss" />
+      <outline title="København og Havets Hoteller" xmlUrl="https://www.spreaker.com/show/6036157/episodes/feed" type="rss" />
+      <outline title="Kierkegaard i dag" xmlUrl="https://feeds.simplecast.com/wCm1IEEs" type="rss" />
+      <outline title="Videnskab fra vilde hjerner" xmlUrl="https://feeds.simplecast.com/Tl_aeiq7" type="rss" />
+      <outline title="Fremmed i København" xmlUrl="https://anchor.fm/s/1097ca600/podcast/rss" type="rss" />
+      <outline title="Juristeriet" xmlUrl="https://feeds.simplecast.com/7en_7G4S" type="rss" />
+      <outline title="Hvad vi egentlig ved om børns trivsel" xmlUrl="https://feeds.simplecast.com/RuACbdcg" type="rss" />
+      <outline title="Besat af fred" xmlUrl="https://anchor.fm/s/1125fe610/podcast/rss" type="rss" />
+      <outline title="Sommersko 1976: Da København fik et nyt sted at gå i byen" xmlUrl="https://anchor.fm/s/1120224e4/podcast/rss" type="rss" />
+      <outline title="KU studieliv" xmlUrl="https://pinecast.com/feed/ku-studieliv" type="rss" />
+      <outline title="Det vi tygger på" xmlUrl="https://feeds.simplecast.com/caVKp41L" type="rss" />
+      <outline title="TECH-AWAY" xmlUrl="https://anchor.fm/s/10b134104/podcast/rss" type="rss" />
+      <outline title="En podcast fra Københavns Professionshøjskole" xmlUrl="https://rss.buzzsprout.com/2005227.rss" type="rss" />
+      <outline title="Bogholder i København giver gode råd omkring e-conomic, Dinero, BIlly's Billing samt omkring skat, moms og bogføring" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:244390549/sounds.rss" type="rss" />
+      <outline title="Brydningstid" xmlUrl="https://feeds.simplecast.com/_Qmbq1AN" type="rss" />
+      <outline title="Prædikener fra Åbenkirke København" xmlUrl="https://podcasts.subsplash.com/kgxjcny/podcast.rss" type="rss" />
+      <outline title="Minopolet" xmlUrl="https://anchor.fm/s/30b9938c/podcast/rss" type="rss" />
+      <outline title="Københavnske Stemmer" xmlUrl="https://www.spreaker.com/show/6195629/episodes/feed" type="rss" />
+      <outline title="Midt i en nørdetid: Nørdernes kulturhistorie" xmlUrl="https://feeds.simplecast.com/w_vcMJ_9" type="rss" />
+      <outline title="Jura" xmlUrl="https://video.ku.dk/rss/channel/956347/det-juridiske-fakultet" type="rss" />
+      <outline title="Lyd fra NorS: Nordiske studier og sprogvidenskab" xmlUrl="https://feeds.simplecast.com/K9hCptvd" type="rss" />
+      <outline title="Radikal pietisme i Nordeuropa" xmlUrl="https://feeds.simplecast.com/7QSjTRmf" type="rss" />
+      <outline title="En fod foran den anden" xmlUrl="https://anchor.fm/s/f9970438/podcast/rss" type="rss" />
+      <outline title="Hjertets Veje" xmlUrl="https://feeds.simplecast.com/Sqllr5me" type="rss" />
+      <outline title="Guld fra arkivet" xmlUrl="https://feeds.simplecast.com/Evgb5gFk" type="rss" />
+      <outline title="Pædagogiske Eksperimenter" xmlUrl="https://feeds.simplecast.com/AInc1oz3" type="rss" />
+      <outline title="Historier fra Aarhus" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:669102971/sounds.rss" type="rss" />
+      <outline title="AarhusArkivet – historier fra Aarhus Stadsarkiv" xmlUrl="https://feed.podbean.com/aarhusstadsarkiv/feed.xml" type="rss" />
+      <outline title="Arkitekternes Aarhus" xmlUrl="https://www.spreaker.com/show/6897530/episodes/feed" type="rss" />
+      <outline title="Aarhus i ørerne" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:150282076/sounds.rss" type="rss" />
+      <outline title="Aarhuskompasset" xmlUrl="https://videotool.dk/aarhuskommune/podcast/?sc=8555" type="rss" />
+      <outline title="Aarhus Lytter" xmlUrl="https://videotool.dk/aarhuskommune/podcast/?sc=9607" type="rss" />
+      <outline title="AARHUS ECHO" xmlUrl="https://rss.buzzsprout.com/2316377.rss" type="rss" />
+      <outline title="Apropos Aarhus" xmlUrl="https://anchor.fm/s/bbd11760/podcast/rss" type="rss" />
+      <outline title="Skyderiet på Aarhus Universitet" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:566154330/sounds.rss" type="rss" />
+      <outline title="Da rocken kom til Aarhus" xmlUrl="https://www.omnycontent.com/d/playlist/414edbb4-4b91-4960-8650-ad4000dbc027/bf2e8ec3-119d-4300-8098-ad5f00adde74/fdc9d4b2-85fb-421e-8616-ad5f00adde87/podcast.rss" type="rss" />
+      <outline title="Tæt på retsmedicin" xmlUrl="https://rss.buzzsprout.com/771494.rss" type="rss" />
+      <outline title="Magtudredningen 2.0" xmlUrl="https://www.spreaker.com/show/6943491/episodes/feed" type="rss" />
+      <outline title="På sporet af Aarhus Letbane" xmlUrl="https://www.spreaker.com/show/5875804/episodes/feed" type="rss" />
+      <outline title="Aarhus Bykirke" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:92870841/sounds.rss" type="rss" />
+      <outline title="Udenom Systemet - historien om rapmusikken fra Aarhus V" xmlUrl="https://www.spreaker.com/show/6774417/episodes/feed" type="rss" />
+      <outline title="Aarhus Vineyard" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:333397007/sounds.rss" type="rss" />
+      <outline title="Kulissen - en podcast om Aarhus Teater" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:536598330/sounds.rss" type="rss" />
+      <outline title="Asterisk - DPU's digitale magasin" xmlUrl="https://rss.buzzsprout.com/737027.rss" type="rss" />
+      <outline title="Mozarts Striber - en podcast om Aarhus Fremad" xmlUrl="https://www.omnycontent.com/d/playlist/c245d099-7ca7-4dda-bb68-b28700fe6963/13500d36-eb18-48df-8273-b35600d51eca/739f7df7-8979-408f-b7b1-b35600d522c5/podcast.rss" type="rss" />
+      <outline title="Bæredygtig viden" xmlUrl="https://rss.buzzsprout.com/376853.rss" type="rss" />
+      <outline title="Prædikener fra Aarhus Valgmenighed" xmlUrl="https://feed.podbean.com/praedikener/feed.xml" type="rss" />
+      <outline title="Pædagogisk indblik" xmlUrl="https://rss.buzzsprout.com/243656.rss" type="rss" />
+      <outline title="Grønne Stemmer fra Aarhus" xmlUrl="https://anchor.fm/s/10ddc5d44/podcast/rss" type="rss" />
+      <outline title="Citykirken Aarhus" xmlUrl="https://www.ckirken.dk/da/?feed=seriesengine&amp;enmse_pid=2" type="rss" />
+      <outline title="Haven Aarhus Gudstjenester" xmlUrl="https://anchor.fm/s/40504458/podcast/rss" type="rss" />
+      <outline title="Dagens andagt fra Aarhus Valgmenighed" xmlUrl="https://feed.podbean.com/tideboen/feed.xml" type="rss" />
+      <outline title="KATEDRALSAMTALER" xmlUrl="https://www.spreaker.com/show/4476011/episodes/feed" type="rss" />
+      <outline title="Lyden af Gaden" xmlUrl="https://anchor.fm/s/10dcf4104/podcast/rss" type="rss" />
+      <outline title="Forælderskabelsen" xmlUrl="https://rss.libsyn.com/shows/385238/destinations/3168311.xml" type="rss" />
+      <outline title="Voksen Før Tid" xmlUrl="https://anchor.fm/s/105b99a28/podcast/rss" type="rss" />
+      <outline title="Aarhus Ugentlig Weekly" xmlUrl="https://media.rss.com/aarhus-ugentlig-weekly/feed.xml" type="rss" />
+      <outline title="VisitAI" xmlUrl="https://rss.buzzsprout.com/2573578.rss" type="rss" />
+      <outline title="Den Dræbte Sabotør" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:796530493/sounds.rss" type="rss" />
+      <outline title="OPEN Architecture Festival" xmlUrl="https://anchor.fm/s/10e58721c/podcast/rss" type="rss" />
+      <outline title="Kædereaktion - en supply chain podcast" xmlUrl="https://www.spreaker.com/show/5816233/episodes/feed" type="rss" />
+      <outline title="På godt jysk" xmlUrl="https://anchor.fm/s/107ce3f94/podcast/rss" type="rss" />
+      <outline title="En snak om..." xmlUrl="https://www.spreaker.com/show/6708521/episodes/feed" type="rss" />
+      <outline title="Kunst | Samler" xmlUrl="https://www.spreaker.com/show/4837201/episodes/feed" type="rss" />
+      <outline title="Podcast from The Kitchen" xmlUrl="https://anchor.fm/s/f45d43c4/podcast/rss" type="rss" />
+      <outline title="Aarhus Festuge – Mind the Gap" xmlUrl="https://www.spreaker.com/show/5938617/episodes/feed" type="rss" />
+      <outline title="Inequality Talks" xmlUrl="https://feed.podbean.com/inequalitytalks/feed.xml" type="rss" />
+      <outline title="Historien bag TAPE - Om organisk iværksætteri i minefeltet af moderne musikkultur" xmlUrl="https://anchor.fm/s/7e94be10/podcast/rss" type="rss" />
+      <outline title="For Min Datters Skyld" xmlUrl="https://www.spreaker.com/show/4595427/episodes/feed" type="rss" />
+      <outline title="GO Girl Talk Podcast" xmlUrl="https://www.spreaker.com/show/4607646/episodes/feed" type="rss" />
+      <outline title="Sarah Sze Metronome" xmlUrl="https://www.spreaker.com/show/6164713/episodes/feed" type="rss" />
+      <outline title="Computer Science - The Aarhus Way" xmlUrl="https://feed.podbean.com/csaudk/feed.xml" type="rss" />
+      <outline title="Griner hele vejen til branchen" xmlUrl="https://www.spreaker.com/show/5795928/episodes/feed" type="rss" />
+      <outline title="Haven Aarhus Undervisning" xmlUrl="https://anchor.fm/s/8109f494/podcast/rss" type="rss" />
+      <outline title="Aarhus Festuge er..." xmlUrl="https://www.spreaker.com/show/3682525/episodes/feed" type="rss" />
+      <outline title="Historier fra Odense" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:797972707/sounds.rss" type="rss" />
+      <outline title="Da tårnene faldt" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1022548336/sounds.rss" type="rss" />
+      <outline title="Odense Nu podcast" xmlUrl="https://feeds.acast.com/public/shows/65ad7a9f61105f0016ea1c7d" type="rss" />
+      <outline title="I Byen Odense" xmlUrl="https://spkt.io/f/6874/6365/read_94207d886018292cdf606eb1aad42b28" type="rss" />
+      <outline title="Mål i Odense" xmlUrl="https://rss.buzzsprout.com/2265989.rss" type="rss" />
+      <outline title="Metodistkirken i Odense" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:547603971/sounds.rss" type="rss" />
+      <outline title="Bykirken Odense" xmlUrl="https://anchor.fm/s/15762d60/podcast/rss" type="rss" />
+      <outline title="Mennesket i fokus" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:1080252415/sounds.rss" type="rss" />
+      <outline title="Kort er Godt!" xmlUrl="https://feed.podbean.com/kortergodt/feed.xml" type="rss" />
+      <outline title="Odense har STX Faktor" xmlUrl="https://www.spreaker.com/show/5995507/episodes/feed" type="rss" />
+      <outline title="CrossFit Odense Podcast" xmlUrl="https://rss.buzzsprout.com/2506409.rss" type="rss" />
+      <outline title="Kultur &amp; Sundhed" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:962911126/sounds.rss" type="rss" />
+      <outline title="Backstage - med Odense Jazz Orchestra" xmlUrl="https://feed.podbean.com/Odensejazzorchestra/feed.xml" type="rss" />
+      <outline title="Venue Odense" xmlUrl="https://anchor.fm/s/33040730/podcast/rss" type="rss" />
+      <outline title="REVYLAND" xmlUrl="https://rss.libsyn.com/shows/245018/destinations/1837688.xml" type="rss" />
+      <outline title="Bag Sejlerne" xmlUrl="https://anchor.fm/s/fbd12684/podcast/rss" type="rss" />
+      <outline title="Hey goedemiddag over het OdenseHuisOrkest in Voorschoten" xmlUrl="https://anchor.fm/s/dbd469b8/podcast/rss" type="rss" />
+      <outline title="Ulven fra Aalborg" xmlUrl="https://www.omnycontent.com/d/playlist/88c335ba-6520-4de0-97b0-ad3a00d192cf/19bee2a2-4df9-4377-9b3c-aecb0090dc4a/4927268d-b5aa-4ea9-bcce-aecb0095db35/podcast.rss" type="rss" />
+      <outline title="Hjertestorm" xmlUrl="https://hjertestorm.podigee.io/feed/mp3" type="rss" />
+      <outline title="GIGA - podcasten om Aalborg Håndbold" xmlUrl="https://feeds.acast.com/public/shows/661934ff73c941001755de64" type="rss" />
+      <outline title="Kunsten Podcast" xmlUrl="https://feed.podbean.com/kunsten/feed.xml" type="rss" />
+      <outline title="Folkeuniversitetet Aalborg - Podcasten Athene" xmlUrl="https://anchor.fm/s/6125847c/podcast/rss" type="rss" />
+      <outline title="Rød Aalborg" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:508321779/sounds.rss" type="rss" />
+      <outline title="Aalborg Vineyard" xmlUrl="https://anchor.fm/s/c4fc584/podcast/rss" type="rss" />
+      <outline title="PASSION Aalborg" xmlUrl="https://anchor.fm/s/2140deec/podcast/rss" type="rss" />
+      <outline title="Design Lab" xmlUrl="https://anchor.fm/s/fe270e94/podcast/rss" type="rss" />
+      <outline title="Vor Frelsers Kirke Aalborg" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:394639980/sounds.rss" type="rss" />
+      <outline title="Tænkeboks" xmlUrl="https://www.spreaker.com/show/6490737/episodes/feed" type="rss" />
+      <outline title="Aalborg Citykirke" xmlUrl="https://anchor.fm/s/28bd9d4/podcast/rss" type="rss" />
+      <outline title="Studenterhuset Artist Talk Podcast" xmlUrl="https://www.spreaker.com/show/4603407/episodes/feed" type="rss" />
+      <outline title="Limbo" xmlUrl="https://anchor.fm/s/fdc30980/podcast/rss" type="rss" />
+      <outline title="Gudstjenester fra Aalborg Valgmenighed" xmlUrl="https://feed.podbean.com/aavm/feed.xml" type="rss" />
+      <outline title="The FysioAalborg Pod" xmlUrl="https://rss.buzzsprout.com/674810.rss" type="rss" />
+      <outline title="Prædikener Ansgars Kirken Aalborg" xmlUrl="https://anchor.fm/s/69a588a4/podcast/rss" type="rss" />
+      <outline title="Ugens prædiken i Aalborg MenighedsCenter" xmlUrl="https://anchor.fm/s/3d89e60c/podcast/rss" type="rss" />
+      <outline title="Noget at have det i" xmlUrl="https://nogetathavedeti.podigee.io/feed/mp3" type="rss" />
+      <outline title="Tro, håb og Corona" xmlUrl="https://www.spreaker.com/show/4306262/episodes/feed" type="rss" />
+      <outline title="Vi kan i fællesskab" xmlUrl="https://vikanifaellesskab.podigee.io/feed/mp3" type="rss" />
+      <outline title="Sermon from Koinonia Aalborg" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:270860595/sounds.rss" type="rss" />
+      <outline title="Hjemmetro" xmlUrl="https://anchor.fm/s/1f02d5cc/podcast/rss" type="rss" />
+      <outline title="#AalUP" xmlUrl="https://anchor.fm/s/eb8e59f4/podcast/rss" type="rss" />
+      <outline title="Lysets betydning for svagsynede" xmlUrl="https://anchor.fm/s/e82aa2cc/podcast/rss" type="rss" />
       <outline title="Radio24syv" xmlUrl="https://www.24syv.dk/rss/" type="rss" />
       <outline title="Third Ear" xmlUrl="https://www.thirdear.dk/feed/podcast/" type="rss" />
     </outline>

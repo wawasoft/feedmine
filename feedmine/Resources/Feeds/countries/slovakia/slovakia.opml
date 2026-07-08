@@ -65,6 +65,143 @@
       <outline title="Nintendo SK" xmlUrl="https://www.nintendo.sk/rss/" type="rss" />
     </outline>
     <outline text="Podcasts">
+      <outline title="Slovakia Calling - Eurovízny podcast" xmlUrl="https://anchor.fm/s/f359ff1c/podcast/rss" type="rss" />
+      <outline title="Podcasty Aktuality.sk" xmlUrl="https://feeds.captivate.fm/podcasty-aktualitysk/" type="rss" />
+      <outline title="NAHLAS |aktuality.sk" xmlUrl="https://feeds.captivate.fm/nahlas-aktualitysk/" type="rss" />
+      <outline title="ŽIJEME SCI-FI" xmlUrl="https://rss.podplaystudio.com/2509.xml" type="rss" />
+      <outline title="Slovakia Today, English Language Current Affairs Programme from Slovak Radio" xmlUrl="http://api.stvr.sk/xml/applepodcast_archive.xml?series=1487" type="rss" />
+      <outline title="OLÉOLÉ" xmlUrl="https://rss.podplaystudio.com/2511.xml" type="rss" />
+      <outline title="BASTARDI" xmlUrl="https://rss.podplaystudio.com/2516.xml" type="rss" />
+      <outline title="NA ROVINU|aktuality.sk" xmlUrl="https://feeds.captivate.fm/na-rovinuaktualitysk/" type="rss" />
+      <outline title="MEN IN VEK" xmlUrl="https://rss.podplaystudio.com/2519.xml" type="rss" />
+      <outline title="Mafiánsky štát" xmlUrl="https://feeds.captivate.fm/mafinsky-tt/" type="rss" />
+      <outline title="AKO ĽUDSTVO OBJAVOVALO" xmlUrl="https://rss.podplaystudio.com/2510.xml" type="rss" />
+      <outline title="Seriály" xmlUrl="https://rss.podplaystudio.com/2515.xml" type="rss" />
+      <outline title="Ráno Nahlas 🎙" xmlUrl="https://feeds.captivate.fm/rano-nahlas/" type="rss" />
+      <outline title="Technologický podcast SHARE | Živé.sk" xmlUrl="https://feeds.captivate.fm/technologicky-podcast-zive/" type="rss" />
+      <outline title="Slovakia segodnya, Magazin o Slovensku v ruskom jazyku" xmlUrl="http://api.stvr.sk/xml/applepodcast_archive.xml?series=1483" type="rss" />
+      <outline title="TALENT OD BOHA" xmlUrl="https://rss.podplaystudio.com/2513.xml" type="rss" />
+      <outline title="Príbehy 20. storočia" xmlUrl="https://feeds.captivate.fm/prbehy-20-storocia/" type="rss" />
+      <outline title="Fair Play Michala Kovačiča|aktuality.sk" xmlUrl="https://feeds.captivate.fm/fair-play-michala/" type="rss" />
+      <outline title="Podcasty Najmama.sk" xmlUrl="https://feeds.captivate.fm/podcasty-najmamask/" type="rss" />
+      <outline title="Pod košom ∣ ŠPORT.sk &amp; SBA" xmlUrl="https://feeds.captivate.fm/pod-kosom/" type="rss" />
+      <outline title="KOKTEJL / Off Record" xmlUrl="https://feeds.captivate.fm/koktejl-off-record/" type="rss" />
+      <outline title="PodCars" xmlUrl="https://rss.libsyn.com/shows/449949/destinations/3777618.xml" type="rss" />
+      <outline title="BARISTI V KUFRI" xmlUrl="https://rss.podplaystudio.com/2514.xml" type="rss" />
+      <outline title="HOLUB.TCHKY I reality show" xmlUrl="https://rss.podplaystudio.com/2507.xml" type="rss" />
+      <outline title="Ako podnikať" xmlUrl="https://podcast.hcaslovakia.sk/feed.xml" type="rss" />
+      <outline title="Paničky z officu | reality show" xmlUrl="https://rss.podplaystudio.com/2508.xml" type="rss" />
+      <outline title="Ženy ako my|Diva.sk" xmlUrl="https://feeds.captivate.fm/eny-ako-mydivask/" type="rss" />
+      <outline title="Medzi pólmi" xmlUrl="https://anchor.fm/s/10e5827e4/podcast/rss" type="rss" />
+      <outline title="Chlieb náš každodenný" xmlUrl="https://media.rss.com/chlieb-nas-kazdodenny/feed.xml" type="rss" />
+      <outline title="Rozhovory ZKH" xmlUrl="https://anchor.fm/s/78049d90/podcast/rss" type="rss" />
+      <outline title="Spectacular Slovakia" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:333576986/sounds.rss" type="rss" />
+      <outline title="Bárdy &amp; Káčer" xmlUrl="https://feeds.captivate.fm/bardyandkacer/" type="rss" />
+      <outline title="AIRSHOW SLOVAKIA" xmlUrl="https://anchor.fm/s/daa14020/podcast/rss" type="rss" />
+      <outline title="ZAŽI_SK" xmlUrl="https://feed.podbean.com/zazisk/feed.xml" type="rss" />
+      <outline title="Fun in Slovakia" xmlUrl="https://podcast.sepia.sk/storage/jasomfunradio/fun-in-slovakia/feed.xml" type="rss" />
+      <outline title="Podcast nielen o HR" xmlUrl="https://anchor.fm/s/112549724/podcast/rss" type="rss" />
+      <outline title="BDO Slovensko - Podcasty" xmlUrl="https://anchor.fm/s/1a87cdf4/podcast/rss" type="rss" />
+      <outline title="Focus Hub" xmlUrl="https://anchor.fm/s/ff1a3e0c/podcast/rss" type="rss" />
+      <outline title="NA TÉMU" xmlUrl="https://feeds.captivate.fm/na-temu/" type="rss" />
+      <outline title="SLOVAKIA MC BRATISLAVA28" xmlUrl="https://feeds.hubhopper.com/c0d7a87261810a65297329cd31e7c223.rss" type="rss" />
+      <outline title="EMN Slovakia Podcasts" xmlUrl="https://feed.podbean.com/emnslovakia/feed.xml" type="rss" />
+      <outline title="SLOVAKIA MC BRATISLAVA28" xmlUrl="https://feeds.hubhopper.com/74db0db14de01a53431810e0709e1b16.rss" type="rss" />
+      <outline title="Hosť Rádia Slovensko" xmlUrl="http://api.stvr.sk/xml/applepodcast_archive.xml?series=11287" type="rss" />
+      <outline title="Zaujímavé Slovensko" xmlUrl="https://rss.podplaystudio.com/2441.xml" type="rss" />
+      <outline title="Slovensko dnes, magazín o Slovensku" xmlUrl="http://api.stvr.sk/xml/applepodcast_archive.xml?series=1488" type="rss" />
+      <outline title="Nevyhorení" xmlUrl="https://anchor.fm/s/5fb37874/podcast/rss" type="rss" />
+      <outline title="Ulica nie je domov" xmlUrl="https://anchor.fm/s/ead7f7b8/podcast/rss" type="rss" />
+      <outline title="Otcovo srdce pre Slovensko" xmlUrl="https://podcasty.seminarotcovosrdce.sk/feed/podcast/otcovo-srdce-pre-slovensko/" type="rss" />
+      <outline title="dm podcast Slovensko" xmlUrl="https://anchor.fm/s/3e4fd074/podcast/rss" type="rss" />
+      <outline title="Forbes Money" xmlUrl="https://anchor.fm/s/105551bfc/podcast/rss" type="rss" />
+      <outline title="Hovorme o tom" xmlUrl="https://anchor.fm/s/f362da4c/podcast/rss" type="rss" />
+      <outline title="OVB Allfinanz Slovensko" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:479809827/sounds.rss" type="rss" />
+      <outline title="Forbes Espresso on Air" xmlUrl="https://anchor.fm/s/f92741ac/podcast/rss" type="rss" />
+      <outline title="Nechýba ti Slovensko?" xmlUrl="https://anchor.fm/s/d8cc6978/podcast/rss" type="rss" />
+      <outline title="Rádio Mária Slovensko" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:744524395/sounds.rss" type="rss" />
+      <outline title="Kľúčový podcast pre Slovensko" xmlUrl="https://anchor.fm/s/e709bdc4/podcast/rss" type="rss" />
+      <outline title="Čo nás spája" xmlUrl="https://feeds.captivate.fm/co-nas-spaja/" type="rss" />
+      <outline title="Zimné rozprávky" xmlUrl="https://anchor.fm/s/ee2dff5c/podcast/rss" type="rss" />
+      <outline title="Na rovinu o podnikaní" xmlUrl="https://narovinu.online/rss/podcast/nrop/" type="rss" />
+      <outline title="Forbes DATA" xmlUrl="https://anchor.fm/s/108fa3d3c/podcast/rss" type="rss" />
+      <outline title="Unicorn Buzz" xmlUrl="https://anchor.fm/s/108fa50c4/podcast/rss" type="rss" />
+      <outline title="Power Players" xmlUrl="https://anchor.fm/s/10a4b85c4/podcast/rss" type="rss" />
+      <outline title="Na rovinu o peniazoch" xmlUrl="https://narovinu.online/rss/podcast/nrope/" type="rss" />
+      <outline title="Forbes BrandVoice Podcast" xmlUrl="https://anchor.fm/s/112323274/podcast/rss" type="rss" />
+      <outline title="20 minútovka" xmlUrl="https://20minutovka.sk/feed.xml" type="rss" />
+      <outline title="Forbes 30 pod 30" xmlUrl="https://anchor.fm/s/e0d58ff0/podcast/rss" type="rss" />
+      <outline title="ICEJ NEWS... Izrael online" xmlUrl="https://anchor.fm/s/f8d124c0/podcast/rss" type="rss" />
+      <outline title="Medzi nami zubami" xmlUrl="https://anchor.fm/s/31cbd80c/podcast/rss" type="rss" />
+      <outline title="Peľový radar Slovensko" xmlUrl="https://anchor.fm/s/110798dc4/podcast/rss" type="rss" />
+      <outline title="Infúzia" xmlUrl="https://anchor.fm/s/f46f4718/podcast/rss" type="rss" />
+      <outline title="Plán pre budúcnosť" xmlUrl="https://www.spreaker.com/show/5943010/episodes/feed" type="rss" />
+      <outline title="Podcasty IOM Slovensko" xmlUrl="https://feed.podbean.com/iomslovakia/feed.xml" type="rss" />
+      <outline title="Coffee Time" xmlUrl="https://anchor.fm/s/2f40435c/podcast/rss" type="rss" />
+      <outline title="Trakcna Terapia Penisu by SizeGenetics – Slovensko" xmlUrl="https://feeds.transistor.fm/trakcna-terapia-penisu-by-sizegenetics-slovensko" type="rss" />
+      <outline title="Mladí demokrati Slovensko" xmlUrl="https://anchor.fm/s/5734a178/podcast/rss" type="rss" />
+      <outline title="Junior handling Klub Slovensko" xmlUrl="https://anchor.fm/s/60400104/podcast/rss" type="rss" />
+      <outline title="CSPI Slovensko" xmlUrl="https://feed.podbean.com/cspisk/feed.xml" type="rss" />
+      <outline title="Junior Achievement Slovensko" xmlUrl="https://anchor.fm/s/4eb9f610/podcast/rss" type="rss" />
+      <outline title="Curly Girl Metóda Slovensko" xmlUrl="https://anchor.fm/s/4138cda4/podcast/rss" type="rss" />
+      <outline title="Keď je slnko na nebi v najsevernejšej polohe, Slovensko víta prvý letný deň." xmlUrl="https://anchor.fm/s/6595a7a8/podcast/rss" type="rss" />
+      <outline title="RockTape Česko &amp; Slovensko" xmlUrl="https://anchor.fm/s/23967e54/podcast/rss" type="rss" />
+      <outline title="Amnesty International Slovensko" xmlUrl="https://rss.buzzsprout.com/1971792.rss" type="rss" />
+      <outline title="Svět je plný chutí by Kinley" xmlUrl="https://anchor.fm/s/5adcece0/podcast/rss" type="rss" />
+      <outline title="Pokec s Pirátmi" xmlUrl="https://feed.podbean.com/slovenskipirati/feed.xml" type="rss" />
+      <outline title="ŠKODA Roadcasty" xmlUrl="https://anchor.fm/s/448627cc/podcast/rss" type="rss" />
+      <outline title="BEHIND THE BOTTLE" xmlUrl="https://anchor.fm/s/588f4f78/podcast/rss" type="rss" />
+      <outline title="Sociološki podkast" xmlUrl="https://anchor.fm/s/dc07ef2c/podcast/rss" type="rss" />
+      <outline title="BAJT" xmlUrl="https://anchor.fm/s/2589563c/podcast/rss" type="rss" />
+      <outline title="Podcasty Alfa" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:149150128/sounds.rss" type="rss" />
+      <outline title="Africký deník: Cesta do Tanzánie" xmlUrl="https://anchor.fm/s/50b15940/podcast/rss" type="rss" />
+      <outline title="Spark Bratislava" xmlUrl="https://sparkbratislava.slovozivota.sk/feed/podcast" type="rss" />
+      <outline title="Žijeme letiskom" xmlUrl="https://feed.podbean.com/BratislavaAirport/feed.xml" type="rss" />
+      <outline title="HC SLOVAN Bratislava" xmlUrl="https://anchor.fm/s/44a90aa8/podcast/rss" type="rss" />
+      <outline title="Telavivian from Bratislava Podcast" xmlUrl="https://rss.buzzsprout.com/2307540.rss" type="rss" />
+      <outline title="Jazyková škola Best English Bratislava" xmlUrl="https://anchor.fm/s/1e27cf18/podcast/rss" type="rss" />
+      <outline title="Slovo života" xmlUrl="https://www.slovozivota.sk/feed/podcast/slovo-zivota/" type="rss" />
+      <outline title="CityChurch Bratislava" xmlUrl="https://anchor.fm/s/f3b840cc/podcast/rss" type="rss" />
+      <outline title="Ulicami Bratislavy" xmlUrl="https://anchor.fm/s/105782e1c/podcast/rss" type="rss" />
+      <outline title="Volajte 159" xmlUrl="https://anchor.fm/s/1100de664/podcast/rss" type="rss" />
+      <outline title="sPrávne naladení" xmlUrl="https://rss.buzzsprout.com/1168475.rss" type="rss" />
+      <outline title="Vo svojom živle" xmlUrl="https://feed.podbean.com/podcasts2nz/feed.xml" type="rss" />
+      <outline title="CBBA :: Bohoslužby" xmlUrl="https://feeds.captivate.fm/cbba-bohosluby/" type="rss" />
+      <outline title="NKZ Bratislava" xmlUrl="https://www.nkzba.sk/feed/sermon-podcast/" type="rss" />
+      <outline title="Podcast z Metropolisu" xmlUrl="https://anchor.fm/s/109afa064/podcast/rss" type="rss" />
+      <outline title="TV BRATISLAVA (TVBA)" xmlUrl="https://anchor.fm/s/23e4d568/podcast/rss" type="rss" />
+      <outline title="Bratislava BAK Summer School" xmlUrl="https://anchor.fm/s/5f901898/podcast/rss" type="rss" />
+      <outline title="Digital Sales Centre Europe Bratislava" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:287623844/sounds.rss" type="rss" />
+      <outline title="LFUK Bratislava" xmlUrl="https://feed.podbean.com/vypoctoveprednosta/feed.xml" type="rss" />
+      <outline title="CBBA :: Homílie" xmlUrl="https://feeds.captivate.fm/cbba-homilie/" type="rss" />
+      <outline title="BICPod" xmlUrl="https://anchor.fm/s/1461ca4c/podcast/rss" type="rss" />
+      <outline title="Lit_cast Slowakei" xmlUrl="http://cast.rocks/hosting/23806/feeds/5NCP7.xml" type="rss" />
+      <outline title="Slovo v meste" xmlUrl="https://anchor.fm/s/e1fe9bb0/podcast/rss" type="rss" />
+      <outline title="Z Košíc do sveta Podcast (video)" xmlUrl="https://podcast.zkosicdosveta.sk/feed/podcast/z-kosic-do-sveta-podcast-video/" type="rss" />
+      <outline title="Z Košíc do sveta Podcast" xmlUrl="https://anchor.fm/s/10f87cac0/podcast/rss" type="rss" />
+      <outline title="Miro Tóth Košice" xmlUrl="https://anchor.fm/s/4e0b1168/podcast/rss" type="rss" />
+      <outline title="Zo zákulisia" xmlUrl="https://rss.buzzsprout.com/1960798.rss" type="rss" />
+      <outline title="Vyraz na Kraj sveta" xmlUrl="https://anchor.fm/s/bdb2ea4/podcast/rss" type="rss" />
+      <outline title="Hack Kosice Podcast" xmlUrl="https://anchor.fm/s/29b2e05c/podcast/rss" type="rss" />
+      <outline title="KOŠICE: DNES" xmlUrl="https://anchor.fm/s/bc35e410/podcast/rss" type="rss" />
+      <outline title="Creative Industry Košice" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:626249088/sounds.rss" type="rss" />
+      <outline title="Kázne z Košickej eparchie" xmlUrl="https://anchor.fm/s/1291d1bc/podcast/rss" type="rss" />
+      <outline title="ŠtuRKo Podcasts" xmlUrl="https://anchor.fm/s/5095649c/podcast/rss" type="rss" />
+      <outline title="Dobrý deň, Prešov!" xmlUrl="https://anchor.fm/s/57312930/podcast/rss" type="rss" />
+      <outline title="Krása Ženy" xmlUrl="https://anchor.fm/s/4349f03c/podcast/rss" type="rss" />
+      <outline title="Lídri malých skupín" xmlUrl="https://anchor.fm/s/4c17f394/podcast/rss" type="rss" />
+      <outline title="Saleziánsky POdcast" xmlUrl="https://anchor.fm/s/3e43eb88/podcast/rss" type="rss" />
+      <outline title="Cirkev bratská Prešov" xmlUrl="https://anchor.fm/s/57502790/podcast/rss" type="rss" />
+      <outline title="O chválach" xmlUrl="https://anchor.fm/s/3c62f304/podcast/rss" type="rss" />
+      <outline title="Piatky pre mladých" xmlUrl="https://anchor.fm/s/3a9bd284/podcast/rss" type="rss" />
+      <outline title="ECAV Žilina" xmlUrl="https://www.ecavza.sk/feed/sermon-podcast/" type="rss" />
+      <outline title="Kresťania Žilina" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:498161934/sounds.rss" type="rss" />
+      <outline title="1908 FM" xmlUrl="https://anchor.fm/s/6b036e14/podcast/rss" type="rss" />
+      <outline title="OZ Iná Žilina" xmlUrl="https://anchor.fm/s/48e035d8/podcast/rss" type="rss" />
+      <outline title="Žilina SP21" xmlUrl="https://anchor.fm/s/753eb08c/podcast/rss" type="rss" />
+      <outline title="Bábcast" xmlUrl="https://anchor.fm/s/cf322768/podcast/rss" type="rss" />
+      <outline title="Žilina Podcast" xmlUrl="https://anchor.fm/s/41d17108/podcast/rss" type="rss" />
+      <outline title="Kasat Mata" xmlUrl="https://anchor.fm/s/664f18b4/podcast/rss" type="rss" />
       <outline title="Dejepis Inak Pod" xmlUrl="https://www.dejepisinak.sk/feed/podcast/" type="rss" />
       <outline title="SkPodcasty" xmlUrl="https://www.skpodcasty.sk/feed/" type="rss" />
     </outline>

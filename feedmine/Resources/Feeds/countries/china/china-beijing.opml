@@ -24,7 +24,7 @@
 </outline>
 <outline text="Technology">
 <outline title="Zhongguancun News" xmlUrl="https://www.zgcnews.com/rss/" type="rss"/>
-<outline title="Beijing S&T" xmlUrl="http://www.bjkw.gov.cn/rss" type="rss"/>
+<outline title="Beijing S&amp;T" xmlUrl="http://www.bjkw.gov.cn/rss" type="rss"/>
 <outline title="Tsinghua Tech Review" xmlUrl="https://www.mittrchina.com/rss/" type="rss"/>
 <outline title="Haidian District" xmlUrl="http://www.bjhd.gov.cn/rss" type="rss"/>
 </outline>

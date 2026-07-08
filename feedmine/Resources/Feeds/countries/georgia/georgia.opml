@@ -4,5 +4,147 @@
     <title>Georgia Feeds</title>
   </head>
   <body>
+    <outline text="Podcasts">
+      <outline title="Georgia On Your Mind" xmlUrl="https://anchor.fm/s/c4e8177c/podcast/rss" type="rss" />
+      <outline title="Georgia History Guy" xmlUrl="https://anchor.fm/s/3e657190/podcast/rss" type="rss" />
+      <outline title="Georgia Today" xmlUrl="https://gpb-rss.streamguys1.com/gpb/georgia-today-itunes.xml" type="rss" />
+      <outline title="North Georgia Life Podcast" xmlUrl="https://rss.buzzsprout.com/394873.rss" type="rss" />
+      <outline title="Georgia Living" xmlUrl="https://rss.libsyn.com/shows/547867/destinations/4725737.xml" type="rss" />
+      <outline title="Politically Georgia" xmlUrl="https://feeds.megaphone.fm/CMGA1164469972" type="rss" />
+      <outline title="The Bitter Southerner Podcast" xmlUrl="https://gpb-od.streamguys1.com/gpb/bitter-southerner-itunes.xml" type="rss" />
+      <outline title="Murderville" xmlUrl="https://feeds.acast.com/public/shows/c66d3932-72a5-49e9-bc88-ca2080d23735" type="rss" />
+      <outline title="Salvation South" xmlUrl="https://gpb-rss.streamguys1.com/gpb/salvation-south-apple-podcasts.xml" type="rss" />
+      <outline title="In The Sheets with Georgia Carter" xmlUrl="https://anchor.fm/s/8c2ba41c/podcast/rss" type="rss" />
+      <outline title="Moving Through Georgia" xmlUrl="https://feed.podbean.com/jmbtz0/feed.xml" type="rss" />
+      <outline title="The Georgia Show" xmlUrl="https://feeds.simplecast.com/95_NYmf7" type="rss" />
+      <outline title="Georgia NOW!" xmlUrl="https://feed.podbean.com/georgianow/feed.xml" type="rss" />
+      <outline title="The Georgia Politics Podcast" xmlUrl="https://georgiapolitics.libsyn.com/rss" type="rss" />
+      <outline title="Junkyard Dawgcast: A Georgia Bulldogs Football Podcast" xmlUrl="https://rss.amperwave.net/v2/feed/audacynetwork/junkyarddawgcast" type="rss" />
+      <outline title="A Fork in the Road" xmlUrl="https://gpb-rss.streamguys1.com/gpb/afitr-apple-podcasts.xml" type="rss" />
+      <outline title="Locked On Bulldogs - Daily Podcast On Georgia Bulldogs Football &amp; Basketball" xmlUrl="https://feeds.simplecast.com/_NxJ3Otx" type="rss" />
+      <outline title="The History of Saqartvelo Georgia" xmlUrl="https://feeds.redcircle.com/a1f2f571-08f4-451b-90fa-8b88d9c22fdc" type="rss" />
+      <outline title="Georgia Business Minds" xmlUrl="https://feeds.captivate.fm/georgia-business-minds/" type="rss" />
+      <outline title="Mysteries and Histories" xmlUrl="https://anchor.fm/s/10f731918/podcast/rss" type="rss" />
+      <outline title="Peach Jam Podcast" xmlUrl="https://gpb-rss.streamguys1.com/gpb/peachjam-apple-podcasts.xml" type="rss" />
+      <outline title="Gaining Ground: The New Georgia" xmlUrl="https://audioboom.com/channels/5166608.rss" type="rss" />
+      <outline title="Georgia Chamber of Commerce Podcast" xmlUrl="https://rss.buzzsprout.com/1265348.rss" type="rss" />
+      <outline title="Locked On Georgia Tech - Daily Podcast On Georgia Tech Yellow Jackets Football &amp; Basketball" xmlUrl="https://rss.pdrl.fm/17084c/feeds.simplecast.com/jWuA38nI" type="rss" />
+      <outline title="Day by Day Through the Civil War in Georgia" xmlUrl="https://www.spreaker.com/show/5562081/episodes/feed" type="rss" />
+      <outline title="Georgia Bulldogs Football Today | 2 Min News | The Daily News Now!" xmlUrl="https://feeds.fastcast.ai/georgia-bulldogs-football-today-2-min-news.xml" type="rss" />
+      <outline title="You know me A Golden Isles, Georgia Podcast" xmlUrl="https://anchor.fm/s/f257c284/podcast/rss" type="rss" />
+      <outline title="DawgNation Daily" xmlUrl="https://feeds.megaphone.fm/CMGA6125048217" type="rss" />
+      <outline title="The Georgia Show" xmlUrl="https://feeds.castos.com/ow7x5" type="rss" />
+      <outline title="Georgia Farm Bureau's: Growing On Podcast" xmlUrl="https://rss.libsyn.com/shows/237998/destinations/1771412.xml" type="rss" />
+      <outline title="Georgia Tech Research Podcast" xmlUrl="https://rss.libsyn.com/shows/361211/destinations/2963786.xml" type="rss" />
+      <outline title="Political Rewind" xmlUrl="https://gpb-rss.streamguys1.com/gpb/political-rewind.xml" type="rss" />
+      <outline title="Accessibility Now: Stories About Disability Rights in Georgia" xmlUrl="https://anchor.fm/s/93d044fc/podcast/rss" type="rss" />
+      <outline title="The Georgia Forestry Forum" xmlUrl="https://rss.buzzsprout.com/2277090.rss" type="rss" />
+      <outline title="Georgia" xmlUrl="https://anchor.fm/s/437b17d4/podcast/rss" type="rss" />
+      <outline title="Who Blew Up The Guidestones?" xmlUrl="https://feeds.megaphone.fm/CMGA5614749248" type="rss" />
+      <outline title="Savannah, Georgia: Anything But Ordinary" xmlUrl="https://feed.podbean.com/visitsavannah/feed.xml" type="rss" />
+      <outline title="Georgia Bulldogs Pawdcast" xmlUrl="https://rss.art19.com/inside-georgia-athletics" type="rss" />
+      <outline title="My Favorite Murder with Karen Kilgariff and Georgia Hardstark" xmlUrl="https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/bdde8bb3-169d-43b1-91d3-b24c0047969c/f450d41f-16bc-4ecd-8f6c-b24c004796e2/podcast.rss" type="rss" />
+      <outline title="UGASports.com" xmlUrl="https://ugasports.podbean.com/feed.xml" type="rss" />
+      <outline title="Georgia Racing Hall of Fame Podcast" xmlUrl="https://feed.podbean.com/GeorgiaRacingHOF/feed.xml" type="rss" />
+      <outline title="East Georgia's Morning Show | Sports, Comedy, Tech, News" xmlUrl="https://www.spreaker.com/show/5924595/episodes/feed" type="rss" />
+      <outline title="The Bulldog Beat" xmlUrl="https://www.omnycontent.com/d/playlist/e04eefd4-7e66-4d07-9ab3-a93601155fb1/3e7273a2-dadb-4e21-bb01-a97700f085de/e4063c38-f786-46d9-bf8b-a97700f085ec/podcast.rss" type="rss" />
+      <outline title="Beyond the Nest: A Georgia Southern Family Programs Podcast" xmlUrl="https://anchor.fm/s/10fd1f1f4/podcast/rss" type="rss" />
+      <outline title="Reimagining Soviet Georgia" xmlUrl="https://anchor.fm/s/4e865ddc/podcast/rss" type="rss" />
+      <outline title="The SweetGeorgia Show" xmlUrl="https://rss.buzzsprout.com/2454691.rss" type="rss" />
+      <outline title="Without Ceasing with Georgia Williams" xmlUrl="https://rss.buzzsprout.com/757526.rss" type="rss" />
+      <outline title="Office Hours with Georgia Howe" xmlUrl="https://feeds.megaphone.fm/BVDWV1098100644" type="rss" />
+      <outline title="They Called Her Georgia Lee..." xmlUrl="https://www.spreaker.com/show/5028322/episodes/feed" type="rss" />
+      <outline title="Vegan Georgia - ვეგანური საქართველო" xmlUrl="https://anchor.fm/s/2ffd3b24/podcast/rss" type="rss" />
+      <outline title="Tbilisi Podcast" xmlUrl="https://feeds.captivate.fm/tbilisipodcast/" type="rss" />
+      <outline title="Tbilisi Portrait" xmlUrl="https://tbilisi-portrait.podcaster.eu/sarah-and-sopho.rss" type="rss" />
+      <outline title="TICF Sermons" xmlUrl="https://anchor.fm/s/b268bac/podcast/rss" type="rss" />
+      <outline title="راهنمای تجارت در گرجستان" xmlUrl="https://anchor.fm/s/1294b65c/podcast/rss" type="rss" />
+      <outline title="RCCG GOSHEN PARISH TBILISI,GEORGIA" xmlUrl="https://anchor.fm/s/5183470c/podcast/rss" type="rss" />
+      <outline title="Импозантные Хомяки" xmlUrl="https://mavecloud.s3mts.ru/storage/feeds/50960.xml" type="rss" />
+      <outline title="TOUR DE SVET" xmlUrl="https://www.omnycontent.com/d/playlist/67682ce6-d1e9-437d-bd7e-b12201270fe1/b33f2063-3e9e-4470-8189-b18100cec028/574a423b-93d4-4d90-a3e1-b18100cec03b/podcast.rss" type="rss" />
+      <outline title="Cum With Us: Erotic Audio Stories for Women" xmlUrl="https://www.spreaker.com/show/5950513/episodes/feed" type="rss" />
+      <outline title="Lael Rides Around the World" xmlUrl="https://rss.buzzsprout.com/2355913.rss" type="rss" />
+      <outline title="Be Fluent in Russian Podcast" xmlUrl="https://rss.buzzsprout.com/1861558.rss" type="rss" />
+      <outline title="The Story of Azerbaijan: Oil, Empire, and National Identity — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/the-story-of-azerbaijan.xml" type="rss" />
+      <outline title="The History of Georgia: Kingdoms Between Great Powers — Fexingo History" xmlUrl="https://feeds.fexingo.com/history/the-history-of-georgia.xml" type="rss" />
+      <outline title="David Hathaway" xmlUrl="https://feed.podbean.com/davidhathaway/feed.xml" type="rss" />
+      <outline title="RackAddicts After Hours" xmlUrl="https://feeds.acast.com/public/shows/66f946db1e5eff81e700c130" type="rss" />
+      <outline title="In a tent with a French man : A daily thru hiking journal" xmlUrl="https://anchor.fm/s/1474f4f0/podcast/rss" type="rss" />
+      <outline title="Biznes Od Początku" xmlUrl="https://anchor.fm/s/10cea9fb8/podcast/rss" type="rss" />
+      <outline title="Expert Opinions: Russia, Eurasia" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:305324949/sounds.rss" type="rss" />
+      <outline title="Polski w biegu" xmlUrl="https://cloud.mave.digital/37649" type="rss" />
+      <outline title="ChessBell - Schach News" xmlUrl="https://anchor.fm/s/f7000738/podcast/rss" type="rss" />
+      <outline title="LET’S TALK WAKE TECH TRAVEL" xmlUrl="https://anchor.fm/s/163fbf54/podcast/rss" type="rss" />
+      <outline title="Norsu" xmlUrl="https://anchor.fm/s/57b1894/podcast/rss" type="rss" />
+      <outline title="The JPost Podcast - Travel Edition" xmlUrl="https://www.spreaker.com/show/5765303/episodes/feed" type="rss" />
+      <outline title="Fwiet! Fwiet!" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:373653488/sounds.rss" type="rss" />
+      <outline title="Travel Lights" xmlUrl="https://rss.buzzsprout.com/2453773.rss" type="rss" />
+      <outline title="Real Estate Pros Show - Powered By Investor Fuel" xmlUrl="https://rss.libsyn.com/shows/189080/destinations/1307720.xml" type="rss" />
+      <outline title="PolakoGruzin" xmlUrl="https://www.spreaker.com/show/4277161/episodes/feed" type="rss" />
+      <outline title="Slow English Podcast" xmlUrl="https://anchor.fm/s/101e4fb7c/podcast/rss" type="rss" />
+      <outline title="Actualitatea în lumină cu Valeriu Ghilețchi" xmlUrl="https://anchor.fm/s/5ab21f10/podcast/rss" type="rss" />
+      <outline title="Biznes Misja" xmlUrl="https://anchor.fm/s/a1de28c/podcast/rss" type="rss" />
+      <outline title="Siempre nos quedará París" xmlUrl="https://feeds.ivoox.com/feed_fg_f1256313_filtro_1.xml" type="rss" />
+      <outline title="Familiarize The Unfamiliar With Fuu" xmlUrl="https://anchor.fm/s/139e3654/podcast/rss" type="rss" />
+      <outline title="Franczyza w gastronomii" xmlUrl="https://www.spreaker.com/show/3379345/episodes/feed" type="rss" />
+      <outline title="Ingenio Inversor Podcast" xmlUrl="https://anchor.fm/s/f19bb198/podcast/rss" type="rss" />
+      <outline title="The Hawk's Call" xmlUrl="https://rss.libsyn.com/shows/311978/destinations/2507501.xml" type="rss" />
+      <outline title="Fight Hop" xmlUrl="https://anchor.fm/s/306b1d9c/podcast/rss" type="rss" />
+      <outline title="KChT czyli Kuchenna Charakterystyka Terenu. &#10;Analiza polityczno-społeczna płk Piotra Wrońskiego." xmlUrl="https://anchor.fm/s/1048ffac/podcast/rss" type="rss" />
+      <outline title="Butterfly Effect v biznise" xmlUrl="https://feed.podbean.com/butterflyeffectvbiznise/feed.xml" type="rss" />
+      <outline title="Sweathead, A Strategy Podcast" xmlUrl="https://anchor.fm/s/3427324/podcast/rss" type="rss" />
+      <outline title="TEN4TEN" xmlUrl="https://anchor.fm/s/fb36ef38/podcast/rss" type="rss" />
+      <outline title="Real Asset Media Thought Leaders" xmlUrl="https://feed.podbean.com/realassetinsight/feed.xml" type="rss" />
+      <outline title="BRAGKEN" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:606746508/sounds.rss" type="rss" />
+      <outline title="Monument Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:36637708/sounds.rss" type="rss" />
+      <outline title="Life Abroad with Mark Larishin" xmlUrl="https://anchor.fm/s/10887b0a0/podcast/rss" type="rss" />
+      <outline title="All about foreign real estate - World Estate Homes" xmlUrl="https://anchor.fm/s/fa34dd98/podcast/rss" type="rss" />
+      <outline title="Bitcoin.com News Interviews" xmlUrl="https://anchor.fm/s/1012666d0/podcast/rss" type="rss" />
+      <outline title="Rorshok Georgia Update" xmlUrl="https://feeds.captivate.fm/rorshok-georgia-update/" type="rss" />
+      <outline title="Das Wissen | SWR" xmlUrl="https://www.swr.de/~podcast/swrkultur/programm/podcast-swr-das-wissen-102.xml" type="rss" />
+      <outline title="Breitengrad" xmlUrl="https://feeds.br.de/breitengrad/feed.xml" type="rss" />
+      <outline title="Zentralasien-Tour Podcast" xmlUrl="https://www.zweiradlertouren.de/podcast/zatp-feed.xml" type="rss" />
+      <outline title="Viajante sem Pauta" xmlUrl="https://anchor.fm/s/c6788b8/podcast/rss" type="rss" />
+      <outline title="Halftime at Midnight - Erovnuli Footy" xmlUrl="https://anchor.fm/s/4565fb68/podcast/rss" type="rss" />
+      <outline title="History From The Back Pages" xmlUrl="https://anchor.fm/s/cff6160/podcast/rss" type="rss" />
+      <outline title="Phil and H Travel - Is It Worth It? Top Travel Destinations Explored!" xmlUrl="https://anchor.fm/s/1099860d4/podcast/rss" type="rss" />
+      <outline title="You Want Mora?" xmlUrl="https://anchor.fm/s/feea3dc4/podcast/rss" type="rss" />
+      <outline title="Letecký Podcast" xmlUrl="https://www.spreaker.com/show/3625404/episodes/feed" type="rss" />
+      <outline title="Hirukoa Bizkaian: partidos del Bilbao Basket" xmlUrl="https://radiopopular.com/xml/hirukoa-bizkaian" type="rss" />
+      <outline title="Ruda w podróży" xmlUrl="https://anchor.fm/s/730201e8/podcast/rss" type="rss" />
+      <outline title="旅リンガルポッドキャスト｜Tabilingual Podcast" xmlUrl="https://radiotalk.jp/rss/9fba03348c197482" type="rss" />
+      <outline title="Alé Genoa - Il Podcast" xmlUrl="https://www.spreaker.com/show/5658518/episodes/feed" type="rss" />
+      <outline title="Rabbi Simon Jacobson at Meaningful Life Center" xmlUrl="https://feeds.transistor.fm/rabbi-simon-jacobson-at-meaningful-life-center" type="rss" />
+      <outline title="Justice &amp; Minorities" xmlUrl="https://justice-minorities.podigee.io/feed/mp3" type="rss" />
+      <outline title="La Prórroga de Hirukoa Bizkaian: Tertulia del Bilbao Basket" xmlUrl="https://radiopopular.com/xml/la-prorroga-de-hirukoa-bizkaian" type="rss" />
+      <outline title="90+6. Der Treffpunkt Betze Podcast" xmlUrl="https://anchor.fm/s/e640ed90/podcast/rss" type="rss" />
+      <outline title="Travel with Amateur Traveler Podcast" xmlUrl="https://feeds.megaphone.fm/GLSS1857986358" type="rss" />
+      <outline title="traveloptimizer - Der Reisepodcast über Reisen zum Nachreisen" xmlUrl="https://anchor.fm/s/52bf5fc/podcast/rss" type="rss" />
+      <outline title="Stories From Around" xmlUrl="https://anchor.fm/s/70ecd6e4/podcast/rss" type="rss" />
+      <outline title="Film at Lincoln Center Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:4625778/sounds.rss" type="rss" />
+      <outline title="The Nomadic Foodist Show" xmlUrl="https://rss.buzzsprout.com/1719109.rss" type="rss" />
+      <outline title="thriveside" xmlUrl="https://thriveside.podigee.io/feed/mp3" type="rss" />
+      <outline title="Allo La Planète" xmlUrl="http://www.chapka.fr/podcast.php" type="rss" />
+      <outline title="Talk Georgia" xmlUrl="https://anchor.fm/s/1049ef6b0/podcast/rss" type="rss" />
+      <outline title="11ème Art" xmlUrl="https://anchor.fm/s/3a182fb0/podcast/rss" type="rss" />
+      <outline title="Kosher Wine Podcast" xmlUrl="https://rss.buzzsprout.com/2333997.rss" type="rss" />
+      <outline title="Peace In Their Time" xmlUrl="https://feed.podbean.com/peaceintheirtime/feed.xml" type="rss" />
+      <outline title="Chainwheel Diaries" xmlUrl="https://anchor.fm/s/10b1fc67c/podcast/rss" type="rss" />
+      <outline title="Leben Pur! Unterwegs. Ein Podcast über das Unterwegssein. Über Reisen und Ausflüge." xmlUrl="https://leben-pur.podigee.io/feed/mp3" type="rss" />
+      <outline title="Nations of the World" xmlUrl="https://feeds.captivate.fm/nations-of-the-world/" type="rss" />
+      <outline title="Radio Bilbao" xmlUrl="https://fapi-top.prisasd.com/podcast/playser/radio_bilbao.xml" type="rss" />
+      <outline title="CONNECT Conference Programme" xmlUrl="https://feed.ausha.co/8wYQGFjZnEEx" type="rss" />
+      <outline title="Hinter der Kamera" xmlUrl="https://kamerapodcast.de/feed/podcast/" type="rss" />
+      <outline title="Liberland in Georgia" xmlUrl="https://media.rss.com/liberlandingeorgia/feed.xml" type="rss" />
+      <outline title="Reiselust mit Mady Host - Der Podcast für Ein- und Aussteiger" xmlUrl="https://rss.libsyn.com/shows/101927/destinations/539992.xml" type="rss" />
+      <outline title="Bizkaia Juega" xmlUrl="https://radiopopular.com/xml/bizkaia-juega" type="rss" />
+      <outline title="Home is the Globe" xmlUrl="https://anchor.fm/s/92b74e08/podcast/rss" type="rss" />
+      <outline title="The Caucasus podcast" xmlUrl="https://www.spreaker.com/show/5719143/episodes/feed" type="rss" />
+      <outline title="The Klassiki Podcast" xmlUrl="https://feed.podbean.com/klassiki/feed.xml" type="rss" />
+      <outline title="Citizens of the World: A Stoic Podcast for Curious Travelers" xmlUrl="https://rss.buzzsprout.com/694066.rss" type="rss" />
+      <outline title="Lions Led By Donkeys Podcast" xmlUrl="https://feeds.soundcloud.com/users/soundcloud:users:457245963/sounds.rss" type="rss" />
+      <outline title="Oye Cómo Va en Radio Popular" xmlUrl="https://radiopopular.com/xml/oye-como-va" type="rss" />
+      <outline title="The Sports Rabbi" xmlUrl="https://thesportsrabbi.podomatic.com/rss2.xml" type="rss" />
+    </outline>
 </body>
 </opml>
