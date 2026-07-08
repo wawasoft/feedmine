@@ -99,6 +99,13 @@ struct FeedScreen: View {
             if !focused && searchText.isEmpty { isSearching = false }
         }
         .onChange(of: loader.readItemIDs.count) { _, _ in updateBadge() }
+        .onChange(of: loader.lastToggleMessage) { _, msg in
+            if let msg {
+                toastMessage = msg; toastIcon = "antenna.radiowaves.left.and.right"
+                withAnimation { showToast = true }
+                loader.clearToggleMessage()
+            }
+        }
         .onChange(of: loader.networkMonitor.isConnected) { _, connected in
             if connected && loader.fetchErrorCount > 0 {
                 // Only fetch new content into reservoir — don't clear visible items
@@ -129,6 +136,9 @@ struct FeedScreen: View {
                 }
 
                 Spacer()
+
+                // Active filter chips — inline, tappable to dismiss
+                filterChips
 
                 HStack(spacing: 4) {
                     Button {
@@ -201,6 +211,43 @@ struct FeedScreen: View {
         .padding(.horizontal, 12).padding(.vertical, 8)
         .background(.ultraThinMaterial)
         .onAppear { searchFocused = true }
+    }
+
+    private var filterChips: some View {
+        let region = loader.selectedCategory  // activeCategory from FeedStore
+        let mood = loader.selectedMood
+        let type = loader.selectedContentType
+        let hasFilters = loader.selectedCategory != nil || mood != .all || type != .all
+
+        guard hasFilters else { return AnyView(EmptyView()) }
+
+        return AnyView(
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 4) {
+                    if let cat = loader.selectedCategory {
+                        chip(cat, action: { loader.selectCategory(cat) })
+                    }
+                    if mood != .all {
+                        chip(mood.rawValue, action: { loader.selectMood(mood) })
+                    }
+                    if type != .all {
+                        chip(type.rawValue, action: { loader.selectContentType(type) })
+                    }
+                }
+            }
+        )
+    }
+
+    private func chip(_ label: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 2) {
+                Text(label).font(.caption2).fontWeight(.medium)
+                Image(systemName: "xmark").font(.system(size: 7, weight: .bold))
+            }
+            .padding(.horizontal, 8).padding(.vertical, 3)
+            .background(Capsule().fill(CircadianEngine.shared.accent.opacity(0.12)))
+            .foregroundStyle(CircadianEngine.shared.accent)
+        }
     }
 
     private var filterButton: some View {

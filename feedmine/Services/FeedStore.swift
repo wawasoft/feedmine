@@ -17,6 +17,7 @@ final class FeedStore {
     // MARK: - Public state
     private(set) var visibleItems: [FeedItem] = []
     private(set) var reservoirCount: Int = 0
+    var lastToggleMessage: String?
     private(set) var loadingState: FeedLoadingState = .idle
     private(set) var lastRefreshDate: Date?
     private(set) var totalFetched = 0
@@ -129,7 +130,8 @@ final class FeedStore {
             loadingState = .idle
         }
 
-        // Restore read/bookmark state from SQLite
+        // Restore persisted filter + read/bookmark state
+        restoreFilters()
         await loadReadState()
 
         // Snapshot baseline for "What's New" — items fetched after this are "new"
@@ -192,6 +194,29 @@ final class FeedStore {
     }
 
     // MARK: - Filter
+
+    private func persistFilters() {
+        let d = UserDefaults.standard
+        d.set(activeRegion, forKey: "filterRegion")
+        d.set(activeCategory, forKey: "filterCategory")
+        d.set(activeContentType.rawValue, forKey: "filterContentType")
+        d.set(activeMood.rawValue, forKey: "filterMood")
+    }
+
+    private func restoreFilters() {
+        let d = UserDefaults.standard
+        activeRegion = d.string(forKey: "filterRegion")
+        activeCategory = d.string(forKey: "filterCategory")
+        if let raw = d.string(forKey: "filterContentType"),
+           let type = FeedLoader.ContentType(rawValue: raw) {
+            activeContentType = type
+        }
+        if let raw = d.string(forKey: "filterMood"),
+           let mood = FeedLoader.MoodFilter(rawValue: raw) {
+            activeMood = mood
+        }
+    }
+
     func setFilter(region: String?, category: String?, type: FeedLoader.ContentType, mood: FeedLoader.MoodFilter = .all) {
         let regionChanged = activeRegion != region
         let categoryChanged = activeCategory != category
@@ -199,11 +224,10 @@ final class FeedStore {
         activeCategory = category
         activeContentType = type
         activeMood = mood
+        persistFilters()
         if regionChanged || categoryChanged {
-            // Structural filter change — reload from SQLite with new query
             Task { await reloadFromSQLite() }
         } else {
-            // In-memory-only filter change (mood, content type) — re-apply locally
             visibleItems = reservoir.visibleItems.filter(isRegionEnabled).filter(filterContentType)
         }
     }
@@ -214,6 +238,7 @@ final class FeedStore {
         activeCategory = nil
         activeContentType = .all
         activeMood = .all
+        persistFilters()
         if hadStructuralFilter {
             Task { await reloadFromSQLite() }
         } else {
@@ -506,6 +531,15 @@ final class FeedStore {
             reservoirCount = 0
             Task {
                 let seedItems = await seedRegion(region)
+                if !seedItems.isEmpty {
+                    let name: String
+                    if region == "global" {
+                        name = "Global feeds"
+                    } else {
+                        name = CountryStore.countryName(for: region.replacingOccurrences(of: "countries/", with: ""))
+                    }
+                    lastToggleMessage = "\(name): \(seedItems.count) new articles"
+                }
                 await reloadFromSQLite(prepend: seedItems)
             }
         } else {
