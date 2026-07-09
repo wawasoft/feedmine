@@ -23,11 +23,13 @@ final class SourceScheduler {
 
         // 2. Measure consumption — how much buffer do we need?
         let bufferNeeded = estimatedBufferNeeded()
-        // Count items matching the active content-type filter so the gate
-        // doesn't think 300 text articles = "buffer full" when user wants podcasts.
-        let currentBuffer: Int = {
-            guard let ct = activeContentType else { return reservoir.count }
-            return reservoir.filter { item in
+        // Content-type-aware buffer gate. When no filter is active (default
+        // mixed feed), count each type independently — text items shouldn't
+        // starve video/audio sources. Gate opens if ANY type is below its
+        // per-type ceiling.
+        let currentBuffer: Int
+        if let ct = activeContentType {
+            currentBuffer = reservoir.filter { item in
                 switch ct {
                 case "video": return item.isYouTube
                 case "audio": return item.isPodcast
@@ -35,8 +37,24 @@ final class SourceScheduler {
                 default: return true
                 }
             }.count
-        }()
-        guard currentBuffer < bufferNeeded else { return [] }
+            guard currentBuffer < bufferNeeded else { return [] }
+        } else {
+            // Mixed feed: per-type ceilings. Text items are abundant; video
+            // and audio are scarce. If any type is below its ceiling, the
+            // scheduler can still pick sources of that type.
+            let textCount = reservoir.filter { !$0.isYouTube && !$0.isPodcast }.count
+            let videoCount = reservoir.filter { $0.isYouTube }.count
+            let audioCount = reservoir.filter { $0.isPodcast }.count
+            let textTarget = max(bufferNeeded, 300)
+            let videoTarget = max(bufferNeeded / 2, 50)
+            let audioTarget = max(bufferNeeded / 2, 50)
+            let textDeficit = max(textTarget - textCount, 0)
+            let videoDeficit = max(videoTarget - videoCount, 0)
+            let audioDeficit = max(audioTarget - audioCount, 0)
+            let totalDeficit = textDeficit + videoDeficit + audioDeficit
+            guard totalDeficit > 0 else { return [] }
+            currentBuffer = bufferNeeded - Int(ceil(Double(totalDeficit) / 3.0))
+        }
 
         // 3. Measure entropy — distribution of regions/categories in reservoir
         let urlToRegion: [String: String] = sourcesByRegion.flatMap { region, sources in
