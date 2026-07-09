@@ -82,7 +82,12 @@ struct ArticleWebView: UIViewRepresentable {
         return webView
     }
 
-    func updateUIView(_ webView: WKWebView, context: Context) {}
+    func updateUIView(_ webView: WKWebView, context: Context) {
+        // Reload if URL changed (e.g. reused for different article) (#46)
+        if let url, webView.url?.absoluteString != url.absoluteString {
+            webView.load(URLRequest(url: url))
+        }
+    }
 
     class Coordinator: NSObject, WKNavigationDelegate {
         var progressView: UIProgressView?

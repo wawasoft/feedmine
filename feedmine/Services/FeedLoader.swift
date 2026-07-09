@@ -385,11 +385,20 @@ final class FeedLoader {
         Task { await refreshBookmarkState() }
     }
 
+    private var searchDebounceTask: Task<Void, Never>?
+
     func searchQueryChanged() {
-        if searchQuery.isEmpty {
+        searchDebounceTask?.cancel()
+        let query = searchQuery
+        if query.isEmpty {
             store.clearSearch()
         } else {
-            store.search(searchQuery)
+            // Debounce 250ms — cancel previous task on each keystroke (#45)
+            searchDebounceTask = Task {
+                try? await Task.sleep(for: .milliseconds(250))
+                guard !Task.isCancelled else { return }
+                store.search(query)
+            }
         }
     }
 
@@ -424,6 +433,7 @@ final class FeedLoader {
     var isGlobalFeedsEnabled: Bool { store.registry.status(of: SourceRegistry.regionKey("global")) != .off }
 
     func markAsRead(_ itemID: String) { store.markAsRead(itemID) }
+    func markAsUnread(_ itemID: String) { store.markAsUnread(itemID) }
     func isRead(_ itemID: String) -> Bool { store.readItemIDs.contains(itemID) }
 
     // MARK: - Bookmark Lists

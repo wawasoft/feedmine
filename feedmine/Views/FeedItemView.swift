@@ -57,7 +57,11 @@ struct FeedItemView: View {
             Button {
                 let impact = UIImpactFeedbackGenerator(style: .light)
                 impact.impactOccurred()
-                loader.markAsRead(item.id)
+                if loader.isRead(item.id) {
+                    loader.markAsUnread(item.id)
+                } else {
+                    loader.markAsRead(item.id)
+                }
             } label: {
                 Label(
                     loader.isRead(item.id) ? "Unread" : "Read",
