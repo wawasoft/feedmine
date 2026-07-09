@@ -436,6 +436,16 @@ final class FeedStore {
         }
     }
 
+    func markAsUnread(_ itemID: String) {
+        readItemIDs.remove(itemID)
+        reservoir.readItemIDs = readItemIDs
+        Task {
+            try await db.write { db in
+                try db.execute(sql: "UPDATE feed_item SET is_read = 0, opened_at = NULL WHERE id = ?", arguments: [itemID])
+            }
+        }
+    }
+
     func clearReadHistory() {
         readItemIDs.removeAll()
         reservoir.readItemIDs = []
