@@ -134,8 +134,8 @@ struct SettingsSheetView: View {
                     Toggle("Show Debug Status Bar", isOn: $showDebugBar)
                 }
 
-                // MARK: - Data
-                Section("Data") {
+                // MARK: - Reading Data
+                Section("Reading Data") {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("\(loader.readItemIDs.count) articles read").font(.subheadline)
@@ -171,13 +171,7 @@ struct SettingsSheetView: View {
                 }
 
                 // MARK: - Data Management
-                Section("Data") {
-                    // Export My Data — REMOVED (PersistenceManager deleted). Task 12 restores export.
-                    Button {} label: {
-                        Label("Export My Data", systemImage: "arrow.up.doc.fill")
-                    }
-                    .disabled(true)
-
+                Section("Storage") {
                     Button(role: .destructive) {
                         showResetConfirmation = true
                     } label: {
