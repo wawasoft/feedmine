@@ -10,6 +10,7 @@ final class AudioPlayerManager {
     private var player: AVPlayer?
     private var timeObserver: Any?
     private var lastSavedAt: TimeInterval = 0
+    private var timeControlObserver: NSKeyValueObservation?
     private var endObserver: NSObjectProtocol?
     private var statusObserver: NSKeyValueObservation?
     private var interruptionObserver: NSObjectProtocol?
@@ -224,9 +225,28 @@ final class AudioPlayerManager {
         playbackState = .loading  // not playing yet — wait for AVPlayer ready
 
         let playerItem = AVPlayerItem(url: url)
-        player = AVPlayer(playerItem: playerItem)
-        player?.play()
-        // isPlaying will be set to true when timeControlStatus changes to .playing
+        let p = AVPlayer(playerItem: playerItem)
+        player = p
+
+        // Observe timeControlStatus as primary playing-state source (#28)
+        timeControlObserver = p.observe(\.timeControlStatus, options: [.new, .initial]) { [weak self] player, _ in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                switch player.timeControlStatus {
+                case .playing:
+                    self.isPlaying = true
+                    self.playbackState = .playing
+                case .paused:
+                    self.isPlaying = false
+                    self.playbackState = .paused
+                case .waitingToPlayAtSpecifiedRate:
+                    self.playbackState = .loading
+                @unknown default:
+                    break
+                }
+            }
+        }
+        p.play()
         updateNowPlaying()
 
         // Restore saved position for this item
