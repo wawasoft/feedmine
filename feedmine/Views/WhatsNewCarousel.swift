@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WhatsNewCarousel: View {
     @Environment(FeedLoader.self) private var loader
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     let onOpen: (FeedItem) -> Void
 
     private var items: [FeedItem] { loader.whatIsNewItems }
@@ -132,9 +133,15 @@ struct WhatsNewCarousel: View {
         let miniH: CGFloat = 48
 
         return ZStack {
-            // Dreamy animated gradient backdrop — reliable, no image loading issues
-            DreamyGradient()
-                .clipShape(RoundedRectangle(cornerRadius: 22))
+            // Dreamy gradient — static when reduce motion is on (#42)
+            Group {
+                if reduceMotion {
+                    Rectangle().fill(Color(.systemGray6).opacity(0.2))
+                } else {
+                    DreamyGradient()
+                }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 22))
 
             // Darkened overlay so mini cards pop
             RoundedRectangle(cornerRadius: 22)
@@ -143,18 +150,14 @@ struct WhatsNewCarousel: View {
             // Mini film-strip rows
             VStack(spacing: 6) {
                 if !browsingCards.isEmpty {
-                    // Top row — drifts left
-                    MiniFilmRow(cards: browsingCards, cardSize: CGSize(width: miniW, height: miniH), direction: .driftLeft, speed: 18)
-                    // Bottom row — drifts right, slower
-                    MiniFilmRow(cards: Array(browsingCards.reversed()), cardSize: CGSize(width: miniW, height: miniH), direction: .driftRight, speed: 24)
+                    MiniFilmRow(cards: browsingCards, cardSize: CGSize(width: miniW, height: miniH), direction: .driftLeft, speed: 18, reduceMotion: reduceMotion)
+                    MiniFilmRow(cards: Array(browsingCards.reversed()), cardSize: CGSize(width: miniW, height: miniH), direction: .driftRight, speed: 24, reduceMotion: reduceMotion)
                 } else {
-                    // Fallback: gradient mini cards
-                    MiniFilmRow(cards: [], cardSize: CGSize(width: miniW, height: miniH), direction: .driftLeft, speed: 18)
-                    MiniFilmRow(cards: [], cardSize: CGSize(width: miniW, height: miniH), direction: .driftRight, speed: 24)
+                    MiniFilmRow(cards: [], cardSize: CGSize(width: miniW, height: miniH), direction: .driftLeft, speed: 18, reduceMotion: reduceMotion)
+                    MiniFilmRow(cards: [], cardSize: CGSize(width: miniW, height: miniH), direction: .driftRight, speed: 24, reduceMotion: reduceMotion)
                 }
             }
             .mask(
-                // Fade edges so cards dissolve at the margins
                 LinearGradient(
                     colors: [.clear, .black, .black, .clear],
                     startPoint: .leading,
@@ -162,9 +165,11 @@ struct WhatsNewCarousel: View {
                 )
             )
 
-            // Scanning beam
-            ScanningBeam()
-                .frame(height: miniH * 2 + 6)
+            // Scanning beam — hidden when reduce motion is on
+            if !reduceMotion {
+                ScanningBeam()
+                    .frame(height: miniH * 2 + 6)
+            }
 
             // Message capsule
             VStack(spacing: 8) {
@@ -172,7 +177,7 @@ struct WhatsNewCarousel: View {
                     .font(.caption)
                     .foregroundStyle(.blue)
                     .symbolEffect(.pulse)
-                Text("Finding new stories…")
+                Text("Checking for new stories…")
                     .font(.caption)
                     .fontWeight(.medium)
             }
@@ -228,6 +233,7 @@ struct MiniFilmRow: View {
     let cardSize: CGSize
     let direction: FilmDirection
     let speed: Double
+    var reduceMotion: Bool = false
 
     @State private var offset: CGFloat = 0
 
@@ -246,8 +252,9 @@ struct MiniFilmRow: View {
                     MiniThumb(card: displayCards[i % displayCards.count], size: cardSize)
                 }
             }
-            .offset(x: offset)
+            .offset(x: reduceMotion ? 0 : offset)
             .onAppear {
+                guard !reduceMotion else { return }
                 let distance = direction == .driftLeft ? -setWidth : setWidth
                 offset = direction == .driftLeft ? 0 : -setWidth
                 withAnimation(.linear(duration: speed).repeatForever(autoreverses: false)) {
