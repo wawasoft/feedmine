@@ -16,6 +16,8 @@ final class AudioPlayerManager {
 
     private(set) var currentItem: FeedItem?
     private(set) var isPlaying = false
+    private(set) var playbackState: PlaybackState = .idle
+    enum PlaybackState { case idle, loading, playing, paused, failed }
     private(set) var currentTime: TimeInterval = 0
     private(set) var duration: TimeInterval = 0
     private(set) var lastPlaybackError: String?
@@ -178,12 +180,13 @@ final class AudioPlayerManager {
     func savePosition() {
         guard let id = currentItem?.id, currentTime > 0 else { return }
         defaults.set(id, forKey: Self.savedItemIDKey)
-        defaults.set(currentTime, forKey: Self.savedPositionKey)
+        // Per-episode position (#30): keyed by item ID so switching between
+        // podcasts preserves position for each independently.
+        defaults.set(currentTime, forKey: "\(Self.savedPositionKey).\(id)")
     }
 
     private func restorePositionIfNeeded(for item: FeedItem) {
-        guard item.id == defaults.string(forKey: Self.savedItemIDKey) else { return }
-        let savedTime = defaults.double(forKey: Self.savedPositionKey)
+        let savedTime = defaults.double(forKey: "\(Self.savedPositionKey).\(item.id)")
         guard savedTime > 5 else { return }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
@@ -206,6 +209,7 @@ final class AudioPlayerManager {
         if currentItem?.id == item.id {
             activateSession()
             player?.play()
+            playbackState = .playing
             isPlaying = true
             updateNowPlaying()
             return true
@@ -215,11 +219,12 @@ final class AudioPlayerManager {
         activateSession()
         currentItem = item
         duration = item.duration ?? 0
+        playbackState = .loading  // not playing yet — wait for AVPlayer ready
 
         let playerItem = AVPlayerItem(url: url)
         player = AVPlayer(playerItem: playerItem)
         player?.play()
-        isPlaying = true
+        // isPlaying will be set to true when timeControlStatus changes to .playing
         updateNowPlaying()
 
         // Restore saved position for this item

@@ -911,12 +911,15 @@ final class FeedStore {
         let cutoff = Int(Date().addingTimeInterval(-2592000).timeIntervalSince1970) // 30 days
         do {
             try await db.write { db in
+                // Use subquery instead of DELETE LIMIT for SQLite compatibility (#22)
                 try db.execute(sql: """
-                    DELETE FROM feed_item
-                    WHERE fetched_at < ?
-                      AND is_read = 0
-                      AND id NOT IN (SELECT item_id FROM bookmark_item)
-                    LIMIT 500
+                    DELETE FROM feed_item WHERE id IN (
+                        SELECT id FROM feed_item
+                        WHERE fetched_at < ?
+                          AND is_read = 0
+                          AND id NOT IN (SELECT item_id FROM bookmark_item)
+                        LIMIT 500
+                    )
                 """, arguments: [cutoff])
             }
         } catch {
