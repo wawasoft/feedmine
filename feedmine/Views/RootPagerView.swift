@@ -21,6 +21,8 @@ struct RootPagerView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .ignoresSafeArea()
+            .task { await manager.startWarmUp() }
+            .onChange(of: manager.activeIndex) { _, _ in manager.onActiveChanged() }
 
             FeedDotsIndicator()   // Task 7
         }

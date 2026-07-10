@@ -382,6 +382,13 @@ final class FeedLoader {
         await loadWhatsNew()
     }
 
+    /// Light refresh for inactive feeds — pulls new items to accumulate What's New,
+    /// without heavy image prefetch or load-more. Delegates to the store's stale refresh.
+    func backgroundRefresh() async {
+        await store.refreshIfStale()
+        await loadWhatsNew()
+    }
+
     func selectCategory(_ category: String?) {
         let newValue = (store.activeCategory == category) ? nil : category
         store.setFilter(region: store.activeRegion, category: newValue,
