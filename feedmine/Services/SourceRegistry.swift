@@ -41,6 +41,11 @@ final class SourceRegistry {
     /// Cached count of active sources under each region/category key.
     /// Recomputed after every toggle.
     private var activeCount: [String: Int] = [:]
+    private let defaults: UserDefaults
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+    }
 
     // Debug counters
     private(set) var opmlFileCount = 0
@@ -201,15 +206,15 @@ final class SourceRegistry {
     // MARK: - Persistence
 
     private func saveState() {
-        UserDefaults.standard.set(Array(disabled), forKey: "toggleDisabled")
-        UserDefaults.standard.set(Array(enabledOverrides), forKey: "toggleEnabledOverrides")
+        defaults.set(Array(disabled), forKey: "toggleDisabled")
+        defaults.set(Array(enabledOverrides), forKey: "toggleEnabledOverrides")
     }
 
     func loadState() {
-        if let arr = UserDefaults.standard.stringArray(forKey: "toggleDisabled") {
+        if let arr = defaults.stringArray(forKey: "toggleDisabled") {
             disabled = Set(arr)
         }
-        if let arr = UserDefaults.standard.stringArray(forKey: "toggleEnabledOverrides") {
+        if let arr = defaults.stringArray(forKey: "toggleEnabledOverrides") {
             enabledOverrides = Set(arr)
         }
         recomputeActiveCounts()
@@ -284,12 +289,12 @@ final class SourceRegistry {
 
         // Countries off by default on first launch only.
         let hasInitializedKey = "hasInitializedSourceDefaults"
-        if !UserDefaults.standard.bool(forKey: hasInitializedKey) {
+        if !defaults.bool(forKey: hasInitializedKey) {
             for source in sources where source.isCountryFeed {
                 disabled.insert(Self.regionKey(source.region))
             }
             saveState()
-            UserDefaults.standard.set(true, forKey: hasInitializedKey)
+            defaults.set(true, forKey: hasInitializedKey)
         }
 
         recomputeActiveCounts()

@@ -8,7 +8,13 @@ import Observation
 final class FeedStore {
     // MARK: - Subcomponents
     let db: DatabaseQueue
-    let registry = SourceRegistry()
+
+    /// Temporary home for the main id (moves to FeedDescriptor in Task 2):
+    static let mainID = UUID(uuidString: "00000000-0000-0000-0000-0000000000FE")!
+
+    let feedID: UUID
+    private let defaults: UserDefaults
+    let registry: SourceRegistry
     let scheduler = SourceScheduler()
     let reservoir = Reservoir()
     let fetcher = RSSFetcher()
@@ -150,9 +156,12 @@ final class FeedStore {
     private var backgroundRefreshTask: Task<Void, Never>?
 
     // MARK: - Init
-    init() throws {
-        self.db = try DatabaseQueue(path: Self.dbPath, configuration: Self.dbConfig)
-        try Self.migrate(db)
+    init(feedID: UUID = FeedStore.mainID, defaults: UserDefaults = .standard) throws {
+        self.feedID = feedID
+        self.defaults = defaults
+        self.registry = SourceRegistry(defaults: defaults)
+        self.db = try DatabaseQueue(path: Self.dbPath(for: feedID), configuration: Self.dbConfig)
+        try Self.migrate(db, defaults: defaults)
         // Create default "Favorites" list if not exists
         try? db.write { db in
             let count = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM bookmark_list WHERE is_default = 1") ?? 0
@@ -219,9 +228,16 @@ final class FeedStore {
         }
     }
 
-    private static var dbPath: String {
+    static func dbPath(for feedID: UUID) -> String {
         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        return docs.appendingPathComponent("feedmine.sqlite").path
+        return docs.appendingPathComponent("feedmine_\(feedID.uuidString).sqlite").path
+    }
+
+    static func deleteDatabaseFiles(feedID: UUID) {
+        let base = dbPath(for: feedID)
+        for suffix in ["", "-wal", "-shm"] {
+            try? FileManager.default.removeItem(atPath: base + suffix)
+        }
     }
 
     private static var dbConfig: Configuration {
@@ -285,7 +301,7 @@ final class FeedStore {
 
         // Snapshot baseline for "What's New" — persisted so items don't vanish
         // just because the app restarted. Falls back to now on first launch.
-        if let persisted = UserDefaults.standard.object(forKey: Self.lastWhatsNewSeenAtKey) as? Date {
+        if let persisted = self.defaults.object(forKey: Self.lastWhatsNewSeenAtKey) as? Date {
             whatsNewBaselineDate = persisted
         } else {
             whatsNewBaselineDate = Date()
@@ -457,7 +473,7 @@ final class FeedStore {
     // MARK: - Filter
 
     private func persistFilters() {
-        let d = UserDefaults.standard
+        let d = self.defaults
         d.set(activeRegion, forKey: "filterRegion")
         d.set(activeCategory, forKey: "filterCategory")
         d.set(activeContentType.rawValue, forKey: "filterContentType")
@@ -465,7 +481,7 @@ final class FeedStore {
     }
 
     private func restoreFilters() {
-        let d = UserDefaults.standard
+        let d = self.defaults
         activeRegion = d.string(forKey: "filterRegion")
         activeCategory = d.string(forKey: "filterCategory")
         if let raw = d.string(forKey: "filterContentType"),
@@ -751,7 +767,7 @@ final class FeedStore {
     func advanceWhatsNewBaseline() {
         let now = Date()
         whatsNewBaselineDate = now
-        UserDefaults.standard.set(now, forKey: Self.lastWhatsNewSeenAtKey)
+        self.defaults.set(now, forKey: Self.lastWhatsNewSeenAtKey)
     }
 
     /// Reset the What's New baseline to now so newly enabled content appears.
@@ -760,7 +776,7 @@ final class FeedStore {
     func resetWhatsNewBaseline() {
         let now = Date()
         whatsNewBaselineDate = now
-        UserDefaults.standard.set(now, forKey: Self.lastWhatsNewSeenAtKey)
+        self.defaults.set(now, forKey: Self.lastWhatsNewSeenAtKey)
     }
 
     // MARK: - Private: fetch
@@ -1264,7 +1280,7 @@ final class FeedStore {
     func performHeavyMaintenance() async {
         let lastKey = "lastHeavyMaintenance"
         let now = Date().timeIntervalSince1970
-        let last = UserDefaults.standard.double(forKey: lastKey)
+        let last = self.defaults.double(forKey: lastKey)
         guard now - last > 604800 else { return } // 7 days
 
         do {
@@ -1277,7 +1293,7 @@ final class FeedStore {
                 """, arguments: [Int(Date().addingTimeInterval(-2592000).timeIntervalSince1970)])
             }
             try await db.vacuum()
-            UserDefaults.standard.set(now, forKey: lastKey)
+            self.defaults.set(now, forKey: lastKey)
             print("[FeedStore] Heavy maintenance complete")
         } catch {
             print("[FeedStore] Maintenance error: \(error)")
@@ -1540,7 +1556,7 @@ final class FeedStore {
 
     // MARK: - Migration
 
-    static func migrate(_ db: DatabaseQueue) throws {
+    static func migrate(_ db: DatabaseQueue, defaults: UserDefaults = .standard) throws {
         var migrator = DatabaseMigrator()
         migrator.registerMigration("v1") { db in
             try db.create(table: "feed_item") { t in
@@ -1638,21 +1654,20 @@ final class FeedStore {
             try db.create(index: "idx_item_category_fetched",
                           on: "feed_item", columns: ["category", "fetched_at"])
         }
+        // Capture default values before the closure to avoid Sendable warning
+        // (UserDefaults is not @Sendable).
+        let savedDisabled = defaults.array(forKey: "toggleDisabled") as? [String] ?? []
+        let savedOverrides = defaults.array(forKey: "toggleEnabledOverrides") as? [String] ?? []
         migrator.registerMigration("v5_source_toggle") { db in
             try db.create(table: "source_toggle") { t in
                 t.column("key", .text).primaryKey()
                 t.column("state", .integer).notNull()  // 0=disabled, 1=enabled_override
             }
-            // Migrate existing UserDefaults data
-            if let disabled = UserDefaults.standard.array(forKey: "toggleDisabled") as? [String] {
-                for key in disabled {
-                    try db.execute(sql: "INSERT OR IGNORE INTO source_toggle (key, state) VALUES (?, 0)", arguments: [key])
-                }
+            for key in savedDisabled {
+                try db.execute(sql: "INSERT OR IGNORE INTO source_toggle (key, state) VALUES (?, 0)", arguments: [key])
             }
-            if let overrides = UserDefaults.standard.array(forKey: "toggleEnabledOverrides") as? [String] {
-                for key in overrides {
-                    try db.execute(sql: "INSERT OR REPLACE INTO source_toggle (key, state) VALUES (?, 1)", arguments: [key])
-                }
+            for key in savedOverrides {
+                try db.execute(sql: "INSERT OR REPLACE INTO source_toggle (key, state) VALUES (?, 1)", arguments: [key])
             }
         }
         try migrator.migrate(db)
