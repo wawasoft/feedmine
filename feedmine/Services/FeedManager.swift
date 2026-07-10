@@ -116,6 +116,51 @@ final class FeedManager {
         guard feeds.indices.contains(index) else { return }
         activeIndex = index
     }
+
+    // MARK: - Warm-up & background refresh
+
+    private var warmedUp = false
+    private var backgroundTask: Task<Void, Never>?
+    private let backgroundInterval: UInt64 = 15 * 60 * 1_000_000_000  // 15 min in ns
+
+    /// Cold start: warm the active feed fully first, then the rest one at a time in order.
+    /// Serial by design — 5 concurrent RSS fetches saturate network/CPU.
+    func startWarmUp() async {
+        guard !warmedUp else { return }
+        warmedUp = true
+        guard !feeds.isEmpty else { return }
+
+        let activeFirst = [feeds[activeIndex]] + feeds.enumerated()
+            .filter { $0.offset != activeIndex }.map(\.element)
+        for instance in activeFirst {
+            await instance.loader.start()
+        }
+        scheduleBackgroundRefresh()
+    }
+
+    /// Single-queue periodic light refresh for inactive feeds only.
+    func scheduleBackgroundRefresh() {
+        backgroundTask?.cancel()
+        backgroundTask = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: self?.backgroundInterval ?? .max)
+                guard let self, !Task.isCancelled else { return }
+                for (i, instance) in self.feeds.enumerated() where i != self.activeIndex {
+                    if Task.isCancelled { return }
+                    await instance.loader.backgroundRefresh()   // one at a time
+                }
+            }
+        }
+    }
+
+    /// Called when the user swipes to a different feed.
+    func onActiveChanged() {
+        guard feeds.indices.contains(activeIndex) else { return }
+        let loader = feeds[activeIndex].loader
+        Task { await loader.refreshIfStale() }
+    }
+
+    func stopBackgroundRefresh() { backgroundTask?.cancel(); backgroundTask = nil }
 }
 
 #if DEBUG
