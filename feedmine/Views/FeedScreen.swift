@@ -201,7 +201,7 @@ struct FeedScreen: View {
     private var searchBar: some View {
         HStack(spacing: 8) {
             Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
-            TextField("Search articles...", text: $searchText)
+            TextField("Search", text: $searchText)
                 .focused($searchFocused)
                 .textFieldStyle(.plain)
                 .onSubmit { searchFocused = false }
@@ -213,14 +213,17 @@ struct FeedScreen: View {
                     Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
                 }
             }
-            Button("Cancel") {
-                searchText = ""; isSearching = false; searchFocused = false
-                loader.searchQuery = ""; loader.searchQueryChanged()
+            if searchFocused {
+                Button("Cancel") {
+                    searchText = ""; isSearching = false; searchFocused = false
+                    loader.searchQuery = ""; loader.searchQueryChanged()
+                }
+                .font(.caption).foregroundStyle(engine.accent)
             }
-            .font(.caption).foregroundStyle(engine.accent)
         }
         .padding(.horizontal, 12).padding(.vertical, 8)
-        .background(.ultraThinMaterial)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal, 8)
         .onAppear { searchFocused = true }
     }
 
