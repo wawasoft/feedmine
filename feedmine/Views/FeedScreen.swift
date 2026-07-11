@@ -12,6 +12,7 @@ private final class ImpressionTracker {
 struct FeedScreen: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(FeedLoader.self) private var loader
+    @Binding var incomingURL: URL?
     @State private var articleItem: FeedItem?
     private let impressions = ImpressionTracker()
     @State private var showScrollButton = false
@@ -23,6 +24,7 @@ struct FeedScreen: View {
     @State private var showSources = false
     @State private var showFilters = false
     @State private var showBookmarks = false
+    @State private var showShareResult = false
     @State private var showToast = false
     @State private var toastMessage = ""
     @State private var toastIcon = "checkmark"
@@ -149,11 +151,22 @@ struct FeedScreen: View {
                 Task { await loader.refreshIfStale() }
             }
         }
+        .onChange(of: incomingURL) { _, url in
+            guard let url else { return }
+            showShareResult = true
+            Task {
+                await loader.detectIncomingURL(url)
+            }
+        }
         .sheet(item: $articleItem) { item in ArticleReaderView(item: item) }
         .sheet(isPresented: $showSettings) { SettingsSheetView() }
         .sheet(isPresented: $showSources) { SourceManagementView() }
         .sheet(isPresented: $showFilters) { FilterSheetView() }
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
+        .sheet(isPresented: $showShareResult) {
+            ShareResultView()
+                .environment(loader)
+        }
         .tint(engine.accent)
         .animation(.easeInOut(duration: 2.0), value: engine.period)
         .overlay { if nightMode { nightOverlay } }

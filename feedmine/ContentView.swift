@@ -4,7 +4,7 @@ struct ContentView: View {
     @State private var loader = FeedLoader()
 
     var body: some View {
-        FeedScreen()
+        FeedScreen(incomingURL: .constant(nil))
             .environment(loader)
     }
 }

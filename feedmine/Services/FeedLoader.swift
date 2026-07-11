@@ -34,6 +34,7 @@ struct FeedState: Codable {
 final class FeedLoader {
     private let store: FeedStore
     private let prefetcher = ImagePrefetcher()
+    private let detector = FeedDetector()
 
     // MARK: - UI State (from store)
 
@@ -570,6 +571,18 @@ final class FeedLoader {
 
     var reservoirCount: Int { store.reservoirCount }
     var lastRefreshDate: Date? { store.lastRefreshDate }
+
+    // MARK: - Feed Detection
+
+    var detectedResult: FeedDetector.DetectionResult?
+    var isDetecting = false
+
+    func detectIncomingURL(_ url: URL) async {
+        isDetecting = true
+        detectedResult = nil
+        detectedResult = await detector.detect(url: url)
+        isDetecting = false
+    }
 
     // MARK: - Source helpers
 
