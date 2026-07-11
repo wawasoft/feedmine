@@ -128,7 +128,11 @@ struct OPMLParser {
         parser.delegate = delegate
         parser.parse()
         if let error = parser.parserError { throw error }
-        return delegate.sources
+        // Tag all imported sources
+        return delegate.sources.map { source in
+            FeedSource(title: source.title, url: source.url, category: source.category,
+                       region: "imported", mediaKind: source.mediaKind, origin: .imported)
+        }
     }
 
     /// Export current sources as an OPML string

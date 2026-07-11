@@ -256,6 +256,9 @@ final class FeedStore {
         await registry.loadFromOPML()
         reservoir.sourceRegionMap = registry.regionMap
 
+        // Seed library tree from OPML on first launch
+        await seedLibrary()
+
         // Restore persisted filters FIRST so the first render shows
         // correctly filtered content, not a flash of unfiltered items.
         restoreFilters()
@@ -321,6 +324,133 @@ final class FeedStore {
         Task { await performLightExpurgo() }
         Task.detached(priority: .background) { [weak self] in
             await self?.performHeavyMaintenance()
+        }
+    }
+
+    // MARK: - Library seeding
+
+    /// Seed the library tree from OPML source data. Idempotent — checks if a root
+    /// node already exists before inserting. Builds a tree: Feedmine > English General /
+    /// International > Country > Sub-region > Category > Sources.
+    private func seedLibrary() async {
+        // Already seeded? Check if root node exists.
+        let hasRoot: Bool = (try? await db.read { db in
+            try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM library_node WHERE parent_id IS NULL") ?? 0
+        } > 0) ?? false
+        guard !hasRoot else { return }
+
+        let result = await OPMLParser.parseAll()
+        guard !result.sources.isEmpty else { return }
+
+        do {
+            try await db.write { db in
+                // Create root
+                try db.execute(sql: """
+                    INSERT INTO library_node (id, parent_id, name, sort_order, origin, enabled)
+                    VALUES (1, NULL, 'Feedmine', 0, 'bundled', 1)
+                """)
+
+                var nodeId: Int64 = 2
+                var regionNodeIds: [String: Int64] = [:]     // region path → node id
+                var categoryNodeIds: [String: Int64] = [:]    // category name → node id
+
+                // Group sources by region
+                let byRegion = Dictionary(grouping: result.sources, by: \.region)
+
+                // Sort regions for deterministic ordering
+                let sortedRegions = byRegion.keys.sorted()
+
+                for region in sortedRegions {
+                    guard let sources = byRegion[region] else { continue }
+
+                    // Determine parent node based on region path
+                    let parentId: Int64
+                    let nodeName: String
+
+                    if region == "global" {
+                        // Global feeds go under English General
+                        if categoryNodeIds["__english_general__"] == nil {
+                            try db.execute(sql: """
+                                INSERT INTO library_node (id, parent_id, name, sort_order, origin, enabled)
+                                VALUES (?, 1, 'English General', 1, 'bundled', 1)
+                            """, arguments: [nodeId])
+                            categoryNodeIds["__english_general__"] = nodeId
+                            nodeId += 1
+                        }
+                        parentId = categoryNodeIds["__english_general__"]!
+                    } else if region.hasPrefix("countries/") {
+                        let parts = region.split(separator: "/").map(String.init)
+                        // parts[0] = "countries", parts[1] = country slug, parts[2...] = optional sub-region
+
+                        // Ensure "International" node exists
+                        if categoryNodeIds["__international__"] == nil {
+                            try db.execute(sql: """
+                                INSERT INTO library_node (id, parent_id, name, sort_order, origin, enabled)
+                                VALUES (?, 1, 'International', 2, 'bundled', 1)
+                            """, arguments: [nodeId])
+                            categoryNodeIds["__international__"] = nodeId
+                            nodeId += 1
+                        }
+
+                        // Ensure country node exists
+                        let country = parts[1]
+                        let countryPath = "countries/\(country)"
+                        if regionNodeIds[countryPath] == nil {
+                            let countryName = CountryStore.countryName(for: country)
+                            try db.execute(sql: """
+                                INSERT INTO library_node (id, parent_id, name, sort_order, origin, enabled)
+                                VALUES (?, ?, ?, ?, 'bundled', 1)
+                            """, arguments: [nodeId, categoryNodeIds["__international__"]!, countryName, nodeId])
+                            regionNodeIds[countryPath] = nodeId
+                            nodeId += 1
+                        }
+
+                        if parts.count >= 3 {
+                            // Sub-region: create node under country
+                            let regionPath = region
+                            if regionNodeIds[regionPath] == nil {
+                                let regionName = parts[2...].joined(separator: " ").capitalized
+                                try db.execute(sql: """
+                                    INSERT INTO library_node (id, parent_id, name, sort_order, origin, enabled)
+                                    VALUES (?, ?, ?, ?, 'bundled', 1)
+                                """, arguments: [nodeId, regionNodeIds[countryPath]!, regionName, nodeId])
+                                regionNodeIds[regionPath] = nodeId
+                                nodeId += 1
+                            }
+                            parentId = regionNodeIds[regionPath]!
+                        } else {
+                            parentId = regionNodeIds[countryPath]!
+                        }
+                    } else {
+                        // Unknown region pattern — put under root
+                        parentId = 1
+                    }
+
+                    // Group sources by category and create category nodes
+                    let byCategory = Dictionary(grouping: sources, by: \.category)
+                    for (category, categorySources) in byCategory.sorted(by: { $0.key < $1.key }) {
+                        let catKey = "\(parentId)_\(category)"
+                        if categoryNodeIds[catKey] == nil {
+                            try db.execute(sql: """
+                                INSERT INTO library_node (id, parent_id, name, sort_order, origin, enabled)
+                                VALUES (?, ?, ?, ?, 'bundled', 1)
+                            """, arguments: [nodeId, parentId, category, nodeId])
+                            categoryNodeIds[catKey] = nodeId
+                            nodeId += 1
+                        }
+
+                        let catNodeId = categoryNodeIds[catKey]!
+                        for source in categorySources {
+                            try db.execute(sql: """
+                                INSERT OR IGNORE INTO library_source (node_id, source_url)
+                                VALUES (?, ?)
+                            """, arguments: [catNodeId, source.url])
+                        }
+                    }
+                }
+            }
+        } catch {
+            print("[FeedStore] seedLibrary error: \(error)")
         }
     }
 
