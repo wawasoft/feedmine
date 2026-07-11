@@ -1700,6 +1700,69 @@ final class FeedStore {
                 }
             }
         }
+        migrator.registerMigration("v6_library_tree") { db in
+            try db.create(table: "library_node") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("parent_id", .integer).references("library_node", onDelete: .cascade)
+                t.column("name", .text).notNull()
+                t.column("sort_order", .integer).notNull().defaults(to: 0)
+                t.column("origin", .text).notNull().defaults(to: "bundled")
+                t.column("enabled", .integer).notNull().defaults(to: 1)
+            }
+
+            try db.create(table: "library_source") { t in
+                t.column("node_id", .integer).notNull()
+                    .references("library_node", onDelete: .cascade)
+                t.column("source_url", .text).notNull()
+                t.primaryKey(["node_id", "source_url"])
+            }
+
+            try db.create(index: "idx_library_parent", on: "library_node", columns: ["parent_id"])
+            try db.create(index: "idx_library_source_node", on: "library_source", columns: ["node_id"])
+
+            try db.create(table: "channel") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("name", .text).notNull()
+                t.column("sort_order", .integer).notNull().defaults(to: 0)
+            }
+
+            try db.create(table: "channel_node") { t in
+                t.column("channel_id", .integer).notNull()
+                    .references("channel", onDelete: .cascade)
+                t.column("node_id", .integer).notNull()
+                    .references("library_node", onDelete: .cascade)
+                t.primaryKey(["channel_id", "node_id"])
+            }
+
+            // Migrate existing source_toggle state
+            let toggles = try Row.fetchAll(db, sql: "SELECT key, state FROM source_toggle")
+            for row in toggles {
+                let key: String = row["key"]
+                let state: Int = row["state"]
+                // state 0 = disabled. Only migrate disabled entries — enabled is default.
+                guard state == 0 else { continue }
+                // Find or create node for this toggle key.
+                // Region keys: "region:brazil" → node name "brazil"
+                // Category keys: "cat:tech" → node name "tech"
+                // URL keys: "url:https://..." → find in library_source
+                if key.hasPrefix("url:") {
+                    let url = String(key.dropFirst(4))
+                    // Disable at source level: find the node containing this URL
+                    if let nodeId = try Int64.fetchOne(db, sql:
+                        "SELECT node_id FROM library_source WHERE source_url = ? LIMIT 1",
+                        arguments: [url]
+                    ) {
+                        try db.execute(sql: "UPDATE library_node SET enabled = 0 WHERE id = ?",
+                                      arguments: [nodeId])
+                    }
+                } else if key.hasPrefix("region:") || key.hasPrefix("cat:") {
+                    let name = String(key.dropFirst(key.firstIndex(of: ":")!.utf16Offset(in: key) + 1))
+                    // Disable the node matching this name
+                    try db.execute(sql: "UPDATE library_node SET enabled = 0 WHERE name = ?",
+                                  arguments: [name])
+                }
+            }
+        }
         try migrator.migrate(db)
     }
 }
