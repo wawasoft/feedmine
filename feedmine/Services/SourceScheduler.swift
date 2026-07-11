@@ -10,6 +10,109 @@ final class SourceScheduler {
 
     // MARK: - Public API
 
+    /// Select sources using a flat enabled-sources list.
+    /// Caller is responsible for filtering by region/channel — the scheduler
+    /// only balances categories, content types, time since last fetch, and
+    /// failure backoff.
+    func nextBatch(
+        reservoir: [FeedItem],
+        enabledSources: [FeedSource],
+        activeContentType: String? = nil  // "video", "audio", "text", or nil for all
+    ) -> [FeedSource] {
+        // 1. Measure consumption — how much buffer do we need?
+        let bufferNeeded = estimatedBufferNeeded()
+        // Content-type-aware buffer gate. When no filter is active (default
+        // mixed feed), count each type independently — text items shouldn't
+        // starve video/audio sources. Gate opens if ANY type is below its
+        // per-type ceiling.
+        let currentBuffer: Int
+        if let ct = activeContentType {
+            currentBuffer = reservoir.filter { item in
+                switch ct {
+                case "video": return item.isYouTube
+                case "audio": return item.isPodcast
+                case "text": return !item.isYouTube && !item.isPodcast
+                default: return true
+                }
+            }.count
+            guard currentBuffer < bufferNeeded else { return [] }
+        } else {
+            // Mixed feed: per-type ceilings. Text items are abundant; video
+            // and audio are scarce. If any type is below its ceiling, the
+            // scheduler can still pick sources of that type.
+            let textCount = reservoir.filter { !$0.isYouTube && !$0.isPodcast }.count
+            let videoCount = reservoir.filter { $0.isYouTube }.count
+            let audioCount = reservoir.filter { $0.isPodcast }.count
+            let textTarget = max(bufferNeeded, 300)
+            let videoTarget = max(bufferNeeded / 2, 50)
+            let audioTarget = max(bufferNeeded / 2, 50)
+            let textDeficit = max(textTarget - textCount, 0)
+            let videoDeficit = max(videoTarget - videoCount, 0)
+            let audioDeficit = max(audioTarget - audioCount, 0)
+            let totalDeficit = textDeficit + videoDeficit + audioDeficit
+            guard totalDeficit > 0 else { return [] }
+            currentBuffer = bufferNeeded - Int(ceil(Double(totalDeficit) / 3.0))
+        }
+
+        // 2. Calculate category deficits (region deficits removed — caller
+        // pre-filters by region/channel, so only category balance matters).
+        let categoryDistribution = distribution(of: reservoir, key: \.category)
+        let allCategories = Set(enabledSources.map(\.category))
+        let idealCategoryDist = normalize(Dictionary(uniqueKeysWithValues: allCategories.map { ($0, 1.0) }))
+        let categoryDeficits = deficits(ideal: idealCategoryDist, actual: categoryDistribution)
+
+        // 3. Precompute scores for all eligible sources once, then greedily
+        // select the top N. Previously bestSource() was called in a loop,
+        // re-scanning all 800+ sources each time (O(N × S)). Now we score
+        // once, sort once, and pick from the front (O(S log S)).
+        let deficitNeeded = Int(ceil(Double(bufferNeeded - currentBuffer) / 3.0))
+        let maxSelect = max(deficitNeeded, 10)
+        let now = Date()
+        var scored: [(source: FeedSource, score: Double)] = []
+        scored.reserveCapacity(enabledSources.count)
+
+        for source in enabledSources {
+            let failures = consecutiveFailures[source.url] ?? 0
+            if failures >= 3 {
+                let backoff = pow(2.0, Double(failures - 2)) * 60
+                if let last = lastFetchedAt[source.url],
+                   now.timeIntervalSince(last) < backoff { continue }
+            }
+            let catDeficit = max(0, categoryDeficits[source.category] ?? 0)
+
+            let contentTypeBoost: Double = switch activeContentType {
+            case "video": source.mediaKind == .video ? 3.0 : 1.0
+            case "audio": source.mediaKind == .audio ? 3.0 : 1.0
+            case "text":  source.mediaKind == .video ? 0.3 : (source.mediaKind == .audio ? 0.3 : 1.0)
+            default:      source.isYouTube ? 2.0 : (source.mediaKind == .audio ? 2.0 : 1.0)
+            }
+
+            let timeFactor: Double
+            if let last = lastFetchedAt[source.url] {
+                timeFactor = min(1.0, now.timeIntervalSince(last) / 1800)
+            } else {
+                timeFactor = 1.0
+            }
+
+            let score = catDeficit * timeFactor * contentTypeBoost
+            if score > 0 { scored.append((source, score)) }
+        }
+
+        scored.sort(by: { $0.score > $1.score })
+
+        var selected: [FeedSource] = []
+        var selectedURLs = Set<String>()
+        selectedURLs.reserveCapacity(maxSelect)
+        for (source, _) in scored {
+            guard selected.count < maxSelect else { break }
+            guard selectedURLs.insert(source.url).inserted else { continue }
+            selected.append(source)
+        }
+        return selected
+    }
+
+    /// Legacy overload: accepts region/category-filtered source dictionary.
+    /// Prefer `nextBatch(reservrain:enabledSources:activeContentType:)`.
     func nextBatch(
         reservoir: [FeedItem],
         sourcesByRegion: [String: [FeedSource]],

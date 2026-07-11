@@ -266,6 +266,18 @@ final class FeedLoader {
     /// Name of the currently selected bookmark box, if any.
     private(set) var selectedBookmarkListName: String? = nil
 
+    // MARK: - Channel support
+
+    var channels: [Channel] { store.channels }
+    var selectedChannelID: Int64? {
+        get { store.selectedChannelID }
+        set { store.selectedChannelID = newValue }
+    }
+
+    func selectChannel(_ id: Int64?) {
+        store.selectChannel(id)
+    }
+
     /// Reload bookmark state from FeedStore (call on appear and after toggle).
     func refreshBookmarkState() async {
         do {

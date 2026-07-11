@@ -1,32 +1,88 @@
-# Task 1: Add GRDB Dependency via Xcode SPM
+# Task 1 Report: Add SourceOrigin to FeedSource
 
-## Status: DONE
+## Summary
+
+Added `SourceOrigin` enum and `origin` property to `FeedSource` as the foundation for distinguishing bundled, imported, and user-added feed sources.
+
+## File Changed
+
+- `/Users/wagnermontes/Documents/GitHub/feedmine/feedmine/Models/FeedSource.swift`
+
+## Exact Diff
+
+```diff
+ enum MediaKind: String, Codable, Sendable {
+     case text
+     case video
+     case audio
+ }
+
++enum SourceOrigin: String, Codable, Sendable {
++    case bundled   // from bundled OPML files
++    case imported  // user imported OPML file
++    case user      // user added via URL / share sheet
++}
++
+ struct FeedSource: Codable, Identifiable, Sendable {
+     var id: String { url }
+     let title: String
+     let url: String
+     let category: String
+     let region: String  // "global" | "countries/brazil"
+     let mediaKind: MediaKind
++    let origin: SourceOrigin
+
+     // ... computed properties unchanged ...
+
+-    init(title: String, url: String, category: String, region: String = "global", mediaKind: MediaKind = .text) {
++    init(title: String, url: String, category: String, region: String = "global", mediaKind: MediaKind = .text, origin: SourceOrigin = .bundled) {
+         self.title = title
+         self.url = url
+         self.category = category
+         self.region = region
+         self.mediaKind = mediaKind
++        self.origin = origin
+     }
+
+     enum CodingKeys: String, CodingKey {
+-        case title, url, category, region, mediaKind = "media_kind"
++        case title, url, category, region, mediaKind = "media_kind", origin
+     }
+
+     init(from decoder: Decoder) throws {
+         let c = try decoder.container(keyedBy: CodingKeys.self)
+         title = try c.decode(String.self, forKey: .title)
+         url = try c.decode(String.self, forKey: .url)
+         category = try c.decode(String.self, forKey: .category)
+         region = (try? c.decode(String.self, forKey: .region)) ?? "global"
+         mediaKind = (try? c.decode(MediaKind.self, forKey: .mediaKind)) ?? .text
++        origin = (try? c.decode(SourceOrigin.self, forKey: .origin)) ?? .bundled
+     }
+ }
+```
 
 ## Changes Made
 
-**File modified:** `feedmine.xcodeproj/project.pbxproj`
+1. **`SourceOrigin` enum** -- Added above `FeedSource` with three `String` cases: `.bundled`, `.imported`, `.user`. Conforms to `Codable` and `Sendable`.
 
-Four edits were made following the existing FeedKit entries as a template:
+2. **`origin: SourceOrigin` property** -- Added to `FeedSource` struct with `let` immutability.
 
-1. **`packageProductDependencies` array**: Added `84A0FFEB3E1F43D99D8D1E5A /* GRDB */` to the feedmine target's package product dependencies.
+3. **Memberwise `init`** -- Added `origin: SourceOrigin = .bundled` parameter (backwards-compatible default).
 
-2. **`packageReferences` array**: Added `4DE9E548AA344E3580B04798 /* XCRemoteSwiftPackageReference "GRDB.swift" */` to the project's package references.
+4. **`CodingKeys`** -- Added `origin` so Codable round-trips serialize/deserialize the new field.
 
-3. **`XCRemoteSwiftPackageReference` section**: Added the GRDB.swift package reference with:
-   - `repositoryURL`: `https://github.com/groue/GRDB.swift`
-   - `requirement`: `exactVersion 7.4.0`
+5. **`init(from decoder:)`** -- Added fallback decoding with `?? .bundled` for backwards-compatible decoding of existing JSON.
 
-4. **`XCSwiftPackageProductDependency` section**: Added the GRDB product dependency pointing to the package reference with `productName: GRDB`.
+## Build Result
 
-## UUIDs Generated
+**BUILD SUCCEEDED** -- no warnings or errors.
 
-| Item | UUID |
-|------|------|
-| Package reference | `4DE9E548AA344E3580B04798` |
-| Product dependency | `84A0FFEB3E1F43D99D8D1E5A` |
+## Concerns
 
-## Verification
+None. All existing `FeedSource(...)` call sites (e.g., `OPMLParser`) continue to compile without changes because `origin` defaults to `.bundled`, which is the correct origin for OPML-parsed sources.
 
-- `xcodebuild -resolvePackageDependencies` — resolved GRDB.swift at 7.4.0
-- `xcodebuild -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 14 Plus' build` — **BUILD SUCCEEDED**
-- Temporary `import GRDB` verification file compiled successfully and was removed after verification.
+## Commit
+
+```
+e75f355 feat: add SourceOrigin enum to FeedSource
+```

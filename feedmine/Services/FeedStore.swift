@@ -45,6 +45,13 @@ final class FeedStore {
         }
     }
 
+    // MARK: - Channel selection
+
+    func selectChannel(_ id: Int64?) {
+        selectedChannelID = id
+        applyUpdate(.flush())
+    }
+
     // MARK: - Filter state (bidirectional)
     var activeRegion: String?
     var activeCategory: String?
@@ -55,6 +62,23 @@ final class FeedStore {
     /// Preferred box for saving bookmarks. Defaults to the "Favorites" list.
     var preferredBookmarkListID: Int64?
     private(set) var isBookmarkFeed = false
+
+    // MARK: - Channel state
+    var selectedChannelID: Int64?
+    private(set) var channels: [Channel] = []
+
+    /// Returns source URLs for the active channel if one is selected,
+    /// otherwise returns all active source URLs from the library tree.
+    var activeChannelSourceURLs: [String] {
+        if let channelID = selectedChannelID {
+            return (try? db.read { db in
+                try ChannelNodeRecord.sourceURLs(for: channelID, db)
+            }) ?? []
+        }
+        return (try? db.read { db in
+            try LibraryNodeRecord.activeSourceURLs(db)
+        }) ?? []
+    }
 
     /// Load a fixed bookmark feed — all items from the box, ordered by save date.
     /// Pauses all background processes that would modify the screen.
@@ -267,6 +291,7 @@ final class FeedStore {
         // correctly filtered content, not a flash of unfiltered items.
         restoreFilters()
         await loadReadState()
+        await loadChannels()
         reservoir.readItemIDs = readItemIDs
 
         // Warm start: hydrate from SQLite with filters already active
@@ -996,15 +1021,12 @@ final class FeedStore {
 
     private func fetchNextBatch() async {
         guard !isSearching else { return }
-        let sourcesByRegion = Dictionary(grouping: registry.enabledSources, by: \.region)
         let contentTypeStr: String? = switch activeContentType {
         case .video: "video"; case .audio: "audio"; case .text: "text"; default: nil
         }
         let batch = scheduler.nextBatch(
             reservoir: reservoir.reservoir,
-            sourcesByRegion: sourcesByRegion,
-            activeRegion: activeRegion,
-            activeCategory: activeCategory,
+            enabledSources: registry.enabledSources,
             activeContentType: contentTypeStr
         )
         guard !batch.isEmpty else { return }
@@ -1269,6 +1291,17 @@ final class FeedStore {
             readItemIDs = Set(ids)
         } catch {
             print("[FeedStore] loadReadState error: \(error)")
+        }
+    }
+
+    func loadChannels() async {
+        do {
+            let records = try await db.read { db in
+                try ChannelRecord.order(Column("sort_order")).fetchAll(db)
+            }
+            channels = records.map { $0.toChannel() }
+        } catch {
+            channels = []
         }
     }
 
