@@ -6,6 +6,12 @@ enum MediaKind: String, Codable, Sendable {
     case audio
 }
 
+enum SourceOrigin: String, Codable, Sendable {
+    case bundled   // from bundled OPML files
+    case imported  // user imported OPML file
+    case user      // user added via URL / share sheet
+}
+
 struct FeedSource: Codable, Identifiable, Sendable {
     var id: String { url }
     let title: String
@@ -13,6 +19,7 @@ struct FeedSource: Codable, Identifiable, Sendable {
     let category: String
     let region: String  // "global" | "countries/brazil"
     let mediaKind: MediaKind
+    let origin: SourceOrigin
 
     /// YouTube RSS feeds follow this URL pattern — it's the standard endpoint.
     /// https://www.youtube.com/feeds/videos.xml?channel_id=...
@@ -31,16 +38,17 @@ struct FeedSource: Codable, Identifiable, Sendable {
         region.hasPrefix("countries/") && !isYouTube && mediaKind != .audio
     }
 
-    init(title: String, url: String, category: String, region: String = "global", mediaKind: MediaKind = .text) {
+    init(title: String, url: String, category: String, region: String = "global", mediaKind: MediaKind = .text, origin: SourceOrigin = .bundled) {
         self.title = title
         self.url = url
         self.category = category
         self.region = region
         self.mediaKind = mediaKind
+        self.origin = origin
     }
 
     enum CodingKeys: String, CodingKey {
-        case title, url, category, region, mediaKind = "media_kind"
+        case title, url, category, region, mediaKind = "media_kind", origin
     }
 
     init(from decoder: Decoder) throws {
@@ -50,5 +58,6 @@ struct FeedSource: Codable, Identifiable, Sendable {
         category = try c.decode(String.self, forKey: .category)
         region = (try? c.decode(String.self, forKey: .region)) ?? "global"
         mediaKind = (try? c.decode(MediaKind.self, forKey: .mediaKind)) ?? .text
+        origin = (try? c.decode(SourceOrigin.self, forKey: .origin)) ?? .bundled
     }
 }
