@@ -200,7 +200,7 @@ struct SettingsSheetView: View {
                     }
                 }
 
-                // MARK: - Share Stats
+                // MARK: - Share & Export
                 Section {
                     Button {
                         let topCat = topCategory ?? "None"
@@ -220,7 +220,14 @@ struct SettingsSheetView: View {
                     } label: {
                         Label("Share My Stats", systemImage: "chart.bar.fill")
                     }
-                } header: { Text("Share") }
+
+                    NavigationLink {
+                        ExportHub()
+                            .environment(loader)
+                    } label: {
+                        Label("Export Data", systemImage: "square.and.arrow.up.on.square")
+                    }
+                } header: { Text("Share & Export") }
 
                 // MARK: - About
                 Section("About") {

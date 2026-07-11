@@ -212,6 +212,7 @@ struct FeedScreen: View {
                             Circle().fill(engine.accent).frame(width: 6, height: 6)
                         }
                     }
+                    channelPickerButton
                     filterButton
                     Menu {
                         Button { showSources = true } label: {
@@ -356,6 +357,57 @@ struct FeedScreen: View {
                         .offset(x: 2, y: -2)
                 }
             }
+        }
+    }
+
+    private var channelPickerButton: some View {
+        let currentName: String
+        if let channelID = loader.selectedChannelID,
+           let channel = loader.channels.first(where: { $0.id == channelID }) {
+            currentName = channel.name
+        } else {
+            currentName = "All"
+        }
+
+        return Menu {
+            Button {
+                let impact = UIImpactFeedbackGenerator(style: .light)
+                impact.impactOccurred()
+                loader.selectChannel(nil)
+            } label: {
+                HStack {
+                    Text("All")
+                    if loader.selectedChannelID == nil { Image(systemName: "checkmark") }
+                }
+            }
+            Divider()
+            ForEach(loader.channels) { channel in
+                Button {
+                    let impact = UIImpactFeedbackGenerator(style: .light)
+                    impact.impactOccurred()
+                    loader.selectChannel(channel.id)
+                } label: {
+                    HStack {
+                        Text(channel.name)
+                        if loader.selectedChannelID == channel.id { Image(systemName: "checkmark") }
+                    }
+                }
+            }
+        } label: {
+            HStack(spacing: 3) {
+                Text(currentName)
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+                    .lineLimit(1)
+                    .fixedSize(horizontal: true, vertical: false)
+                Image(systemName: "chevron.down")
+                    .font(.system(size: 8, weight: .bold))
+            }
+            .padding(.horizontal, 8)
+            .frame(height: 28)
+            .background(engine.accent.opacity(0.1))
+            .clipShape(Capsule())
+            .foregroundStyle(engine.accent)
         }
     }
 
