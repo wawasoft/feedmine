@@ -18,32 +18,6 @@ struct FilterSheetView: View {
                     .disabled(loader.selectedCategory == nil && loader.selectedMood == .all && loader.selectedContentType == .all && loader.searchQuery.isEmpty)
                 }
 
-                Section("Feeds") {
-                    HStack {
-                        Label("Selected Feeds", systemImage: "antenna.radiowaves.left.and.right")
-                        Spacer()
-                        Toggle("", isOn: Binding(
-                            get: { loader.isGlobalFeedsEnabled },
-                            set: { _ in loader.toggleGlobalFeeds() }
-                        ))
-                        .labelsHidden()
-                        .tint(.green)
-                    }
-
-                    NavigationLink {
-                        CountriesListScreen()
-                    } label: {
-                        HStack {
-                            Label("Countries", systemImage: "globe")
-                            Spacer()
-                            let enabled = loader.availableCountries.filter { loader.isRegionEnabled($0.region) }.count
-                            Text("\(enabled) on")
-                                .font(.caption)
-                                .foregroundStyle(.secondary)
-                        }
-                    }
-                }
-
                 Section("Content Type") {
                     ForEach(FeedLoader.ContentType.allCases) { type in
                         Button { loader.selectContentType(type) } label: {

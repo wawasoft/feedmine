@@ -160,7 +160,7 @@ struct FeedScreen: View {
         }
         .sheet(item: $articleItem) { item in ArticleReaderView(item: item) }
         .sheet(isPresented: $showSettings) { SettingsSheetView() }
-        .sheet(isPresented: $showSources) { SourceManagementView() }
+        .sheet(isPresented: $showSources) { LibraryBrowser() }
         .sheet(isPresented: $showFilters) { FilterSheetView() }
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
         .sheet(isPresented: $showShareResult) {

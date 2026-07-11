@@ -880,7 +880,6 @@
 		6892EFD593F00CFA387035A0 /* guatemala-retalhuleu.opml in Resources */ = {isa = PBXBuildFile; fileRef = 082898E31780D60A21BA3338 /* guatemala-retalhuleu.opml */; };
 		689AC62DF39BE1D676B9546E /* BookmarkBoxPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522D6CC485EC407C407466F /* BookmarkBoxPickerView.swift */; };
 		68B18492A75503BE4B1DDE1D /* taiwan-new-taipei.opml in Resources */ = {isa = PBXBuildFile; fileRef = FF2CE8CCD631B6C051EA525E /* taiwan-new-taipei.opml */; };
-		68CB8603805A33A1D57030A4 /* RegionDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFF4F67C0D676CDCECEA119 /* RegionDetailScreen.swift */; };
 		68FA4DE4E7F0816BF34B51F7 /* angola-uige.opml in Resources */ = {isa = PBXBuildFile; fileRef = 0459511740FBA88D9F8AFB0E /* angola-uige.opml */; };
 		692CB4B2061FDD46B5841A0E /* kenya-kwale.opml in Resources */ = {isa = PBXBuildFile; fileRef = 4326FE37EF6DCA5F0FB9FBCB /* kenya-kwale.opml */; };
 		695B8BB470F71442A699C5F3 /* BookmarkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90FBB1938107205162CC8A5 /* BookmarkList.swift */; };
@@ -1024,7 +1023,6 @@
 		77B317420A0FBC8FE0136705 /* panama-bocas-del-toro.opml in Resources */ = {isa = PBXBuildFile; fileRef = EA3B727206F5C79514B87595 /* panama-bocas-del-toro.opml */; };
 		77D5185DAE162B3C189524E4 /* portugal-acores.opml in Resources */ = {isa = PBXBuildFile; fileRef = 0337ED2A8D1341FBE54FD5F9 /* portugal-acores.opml */; };
 		77F3A0A33453AB3D7BE589DD /* haiti-nord-ouest.opml in Resources */ = {isa = PBXBuildFile; fileRef = 42A1E3C1685045BBBF2B8B2B /* haiti-nord-ouest.opml */; };
-		7814FE910506FDA2317F6948 /* CountriesListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42288409482593B7D53AB4CE /* CountriesListScreen.swift */; };
 		78341BE3DB449B0BA7DB7D83 /* hungary-budapest.opml in Resources */ = {isa = PBXBuildFile; fileRef = B4AA19D5BA8DE818372EE3DB /* hungary-budapest.opml */; };
 		7842D3C4C8B8EC7659E7C1BC /* mexico-colima.opml in Resources */ = {isa = PBXBuildFile; fileRef = A86991EB336B00C94C9C53F2 /* mexico-colima.opml */; };
 		7845A23C5506D400DA44D905 /* puerto-rico-bayamon.opml in Resources */ = {isa = PBXBuildFile; fileRef = 78D7E7D56055C6BA7EA1D7FD /* puerto-rico-bayamon.opml */; };
@@ -1730,7 +1728,6 @@
 		D31DF9005FA688BD59195A27 /* turkey-tekirdag.opml in Resources */ = {isa = PBXBuildFile; fileRef = F62180E992CA6694922D7E57 /* turkey-tekirdag.opml */; };
 		D326C60D859CCAAC2EE80065 /* finland-satakunta.opml in Resources */ = {isa = PBXBuildFile; fileRef = B6763780C739369B94EB25B6 /* finland-satakunta.opml */; };
 		D3621F7DE1980CCB7620FF7E /* azerbaijan-daglig-shirvan.opml in Resources */ = {isa = PBXBuildFile; fileRef = 759CDA271A42D3414260408A /* azerbaijan-daglig-shirvan.opml */; };
-		D38D54D8947B48111A20C2F1 /* CountryDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6342E15342EF9B64DB2D8F96 /* CountryDetailScreen.swift */; };
 		D3B0A91017E99CB8A6769CED /* canada-manitoba.opml in Resources */ = {isa = PBXBuildFile; fileRef = CF7CFAEF3D9F09AB67B98D46 /* canada-manitoba.opml */; };
 		D3F0EC63FF8A0B9704FBE0DC /* azerbaijan-absheron.opml in Resources */ = {isa = PBXBuildFile; fileRef = 54C21691AB21146045461E74 /* azerbaijan-absheron.opml */; };
 		D3F99374D4A29114319B069E /* mexico-chihuahua.opml in Resources */ = {isa = PBXBuildFile; fileRef = 0A9644496729C9BC91CF18F6 /* mexico-chihuahua.opml */; };
@@ -2563,7 +2560,6 @@
 		41B2DC3EB927B572E0D59464 /* mexico-guanajuato.opml */ = {isa = PBXFileReference; path = "mexico-guanajuato.opml"; sourceTree = "<group>"; };
 		41D971B88B02717646C1FE28 /* paraguay-caazapa.opml */ = {isa = PBXFileReference; path = "paraguay-caazapa.opml"; sourceTree = "<group>"; };
 		4222939FCB674C5AECE4F1D3 /* philippines-soccsksargen.opml */ = {isa = PBXFileReference; path = "philippines-soccsksargen.opml"; sourceTree = "<group>"; };
-		42288409482593B7D53AB4CE /* CountriesListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesListScreen.swift; sourceTree = "<group>"; };
 		4228ACD8D48DF5E0F527E47B /* switzerland-fribourg.opml */ = {isa = PBXFileReference; path = "switzerland-fribourg.opml"; sourceTree = "<group>"; };
 		422D680B2D4676A249265BF4 /* germany-schleswig-holstein.opml */ = {isa = PBXFileReference; path = "germany-schleswig-holstein.opml"; sourceTree = "<group>"; };
 		42388C004A11279FD9B7D8C7 /* france-ile-de-france.opml */ = {isa = PBXFileReference; path = "france-ile-de-france.opml"; sourceTree = "<group>"; };
@@ -2795,7 +2791,6 @@
 		62A156D2EE7CF3598B10EEEC /* japan-oita.opml */ = {isa = PBXFileReference; path = "japan-oita.opml"; sourceTree = "<group>"; };
 		62E64F14DE7A616F38B59A48 /* nicaragua-managua.opml */ = {isa = PBXFileReference; path = "nicaragua-managua.opml"; sourceTree = "<group>"; };
 		6325149E9E21FD31BF1A58ED /* luxembourg-wiltz.opml */ = {isa = PBXFileReference; path = "luxembourg-wiltz.opml"; sourceTree = "<group>"; };
-		6342E15342EF9B64DB2D8F96 /* CountryDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailScreen.swift; sourceTree = "<group>"; };
 		634E97B56BB23EFF5FC0BE31 /* puerto-rico-carolina.opml */ = {isa = PBXFileReference; path = "puerto-rico-carolina.opml"; sourceTree = "<group>"; };
 		63B210CC10D55C4AA40046F2 /* panama-veraguas.opml */ = {isa = PBXFileReference; path = "panama-veraguas.opml"; sourceTree = "<group>"; };
 		63C6C3182FA92BEB98303280 /* romania-arad.opml */ = {isa = PBXFileReference; path = "romania-arad.opml"; sourceTree = "<group>"; };
@@ -3643,7 +3638,6 @@
 		CE90241948A5933443AB376D /* china-guizhou.opml */ = {isa = PBXFileReference; path = "china-guizhou.opml"; sourceTree = "<group>"; };
 		CEB82D07C3A35B6FA9A4E569 /* japan-yamagata.opml */ = {isa = PBXFileReference; path = "japan-yamagata.opml"; sourceTree = "<group>"; };
 		CEFE15A379E5680FB88F7D53 /* portugal-viana-do-castelo.opml */ = {isa = PBXFileReference; path = "portugal-viana-do-castelo.opml"; sourceTree = "<group>"; };
-		CEFF4F67C0D676CDCECEA119 /* RegionDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailScreen.swift; sourceTree = "<group>"; };
 		CF32E4E2325B9DC5EB719105 /* ghana-western.opml */ = {isa = PBXFileReference; path = "ghana-western.opml"; sourceTree = "<group>"; };
 		CF62E1A7A3B0268FC403C5F2 /* algeria-ouargla.opml */ = {isa = PBXFileReference; path = "algeria-ouargla.opml"; sourceTree = "<group>"; };
 		CF6EEAFF85BDE74B9FD814A2 /* norway-innlandet.opml */ = {isa = PBXFileReference; path = "norway-innlandet.opml"; sourceTree = "<group>"; };
@@ -4959,8 +4953,6 @@
 				11EBEEC23B00D4353C6DD6A9 /* ArticleReaderView.swift */,
 				E9B75EEA60ABFE02AB66FF3B /* BookmarksSheetView.swift */,
 				F9A7D55AFC80E67D103AC583 /* CategoryFilterBar.swift */,
-				42288409482593B7D53AB4CE /* CountriesListScreen.swift */,
-				6342E15342EF9B64DB2D8F96 /* CountryDetailScreen.swift */,
 				0CB4233F029C53681617CA22 /* DailyBriefingCard.swift */,
 				F30391A30EB01CF526317DA2 /* DebugStatusBar.swift */,
 				8AFB811A6CBD76505CA4A4EB /* ErrorBannerView.swift */,
@@ -4976,7 +4968,6 @@
 				6CB92C73A85838EB4BC12DCB /* MoodFilterBar.swift */,
 				EFEA40E7DC7B24A5374AD399 /* OnboardingTipsView.swift */,
 				EB758C8AA6530C1936D9579C /* ReadingStatsView.swift */,
-				CEFF4F67C0D676CDCECEA119 /* RegionDetailScreen.swift */,
 				93A1E8E7D34C1FBFB2EA6CC6 /* SearchBarView.swift */,
 				C534C45AB248D0B885533C04 /* SettingsSheetView.swift */,
 				20C0390FC7E6B67E2A2AF044 /* ShareCardImageView.swift */,
@@ -9093,9 +9084,7 @@
 				D5D54228348DEFECE4D00217 /* CategoryFilterBar.swift in Sources */,
 				11D1CE76F9C9C6FB02903C60 /* CircadianEngine.swift in Sources */,
 				0D7D2F35B303B7FA834EE8B5 /* ContentView.swift in Sources */,
-				7814FE910506FDA2317F6948 /* CountriesListScreen.swift in Sources */,
 				C45B317AFADC404026F51D49 /* Country.swift in Sources */,
-				D38D54D8947B48111A20C2F1 /* CountryDetailScreen.swift in Sources */,
 				7D059B62DEC97393B3981822 /* DailyBriefingCard.swift in Sources */,
 				0D172F74FC571B2B1C682C66 /* DebugStatusBar.swift in Sources */,
 				7B6FD2474CE0A734254AE627 /* DesignTokens.swift in Sources */,
@@ -9130,7 +9119,6 @@
 				7D50E979F88694C1588392D8 /* RSSFetcher.swift in Sources */,
 				64D9DED796CD65C6711C3734 /* ReadingStatsView.swift in Sources */,
 				7B3DCB5F06E3266F670AA817 /* Region.swift in Sources */,
-				68CB8603805A33A1D57030A4 /* RegionDetailScreen.swift in Sources */,
 				6CBFFC3867A630255B4A171B /* Reservoir.swift in Sources */,
 				6986DBDE303222A19B7A5798 /* SearchBarView.swift in Sources */,
 				E15933E9C5253C75E6BF0042 /* SessionTracker.swift in Sources */,

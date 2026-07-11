@@ -28,11 +28,6 @@ struct SourceManagementView: View {
         }
     }
 
-    private var sourcesByCategory: [(String, [FeedSource])] {
-        let grouped = Dictionary(grouping: loader.sources, by: \.category)
-        return grouped.sorted { $0.key < $1.key }
-    }
-
     var body: some View {
         NavigationStack {
             List {
@@ -42,83 +37,6 @@ struct SourceManagementView: View {
                         systemImage: "antenna.radiowaves.left.and.right",
                         description: Text("Add .opml files to Resources/Feeds/ to populate sources.")
                     )
-                }
-
-                // Category toggles
-                Section("Categories") {
-                    ForEach(sourcesByCategory, id: \.0) { category, sources in
-                        HStack {
-                            Label("\(category) (\(sources.count))", systemImage: categoryIcon(category))
-                            Spacer()
-                            Toggle("", isOn: Binding(
-                                get: { loader.isCategoryEnabled(category) },
-                                set: { _ in loader.toggleCategory(category) }
-                            ))
-                            .labelsHidden()
-                            .tint(.green)
-                        }
-                    }
-                }
-
-                ForEach(sourcesByCategory, id: \.0) { category, sources in
-                    Section {
-                        ForEach(sources, id: \.url) { source in
-                            HStack {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    HStack(spacing: 4) {
-                                        Text(source.title)
-                                            .font(.subheadline)
-                                        let health = loader.healthFor(source)
-                                        if health.isStale {
-                                            Image(systemName: "exclamationmark.triangle.fill")
-                                                .font(.caption2)
-                                                .foregroundStyle(.orange)
-                                        }
-                                        if health.consecutiveFailures > 0 {
-                                            Text("\(health.consecutiveFailures) fails")
-                                                .font(.caption2)
-                                                .foregroundStyle(.red)
-                                        }
-                                    }
-                                    Text(source.url)
-                                        .font(.caption2)
-                                        .foregroundStyle(.secondary)
-                                        .lineLimit(1)
-                                }
-
-                                Spacer()
-
-                                Toggle("", isOn: Binding(
-                                    get: { loader.isSourceEnabled(source.url) },
-                                    set: { _ in
-                                        loader.toggleSource(source.url)
-                                    }
-                                ))
-                                .labelsHidden()
-                                .tint(.green)
-                            }
-                        }
-                    } header: {
-                        Label(category, systemImage: categoryIcon(category))
-                            .font(.subheadline)
-                    }
-                }
-
-                Section {
-                    HStack {
-                        Text("Enabled")
-                        Spacer()
-                        Text("\(loader.enabledSources.count) of \(loader.sources.count)")
-                            .foregroundStyle(.secondary)
-                    }
-                    HStack {
-                        Text("Disabled")
-                        Spacer()
-                        Text("\(loader.disabledSourceIDs.count)")
-                            .foregroundStyle(.secondary)
-                    }
-                } footer: {
-                    Text("Disabled sources are skipped during feed fetching. Changes take effect on next refresh.")
                 }
 
                 Section {
@@ -250,17 +168,6 @@ struct SourceManagementView: View {
             return (source.url, .failed)
         } catch {
             return (source.url, .failed)
-        }
-    }
-
-    private func categoryIcon(_ category: String) -> String {
-        switch category.lowercased() {
-        case "tech": return "laptopcomputer"
-        case "news": return "newspaper.fill"
-        case "science": return "flask.fill"
-        case "design": return "paintpalette.fill"
-        case "culture": return "theatermasks.fill"
-        default: return "dot.radiowaves.left.and.right"
         }
     }
 }
