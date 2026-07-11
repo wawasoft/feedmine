@@ -620,6 +620,23 @@ final class FeedLoader {
         }
     }
 
+    // MARK: - Library tree
+
+    /// Load all library nodes and source counts for the tree browser.
+    func loadLibraryTreeData() async -> (nodes: [LibraryNode], sourceCounts: [Int64: Int])? {
+        do {
+            return try store.loadAllLibraryNodes()
+        } catch {
+            print("[FeedLoader] loadLibraryTreeData error: \(error)")
+            return nil
+        }
+    }
+
+    /// Toggle a library node's enabled state.
+    func toggleLibraryNode(_ nodeID: Int64) {
+        store.toggleLibraryNode(nodeID)
+    }
+
     func regionFeeds(for regionPath: String) -> [FeedSource] {
         store.registry.sources
             .filter { $0.region == regionPath }

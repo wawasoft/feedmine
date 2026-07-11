@@ -1305,6 +1305,36 @@ final class FeedStore {
         }
     }
 
+    // MARK: - Library tree
+
+    /// Returns all library nodes (flat) and their source counts for tree rendering.
+    func loadAllLibraryNodes() throws -> (nodes: [LibraryNode], sourceCounts: [Int64: Int]) {
+        try db.read { db in
+            let records = try LibraryNodeRecord.allNodes(db)
+            let nodes = records.map { $0.toNode() }
+
+            let rows = try Row.fetchAll(db, sql: """
+                SELECT node_id, COUNT(*) AS c FROM library_source GROUP BY node_id
+            """)
+            var sourceCounts: [Int64: Int] = [:]
+            for row in rows {
+                sourceCounts[row["node_id"]] = row["c"]
+            }
+
+            return (nodes, sourceCounts)
+        }
+    }
+
+    /// Toggle a library node's enabled state in a transaction.
+    func toggleLibraryNode(_ nodeID: Int64) {
+        Task {
+            try? await db.write { db in
+                let current = try Bool.fetchOne(db, sql: "SELECT enabled FROM library_node WHERE id = ?", arguments: [nodeID]) ?? true
+                try db.execute(sql: "UPDATE library_node SET enabled = ? WHERE id = ?", arguments: [!current, nodeID])
+            }
+        }
+    }
+
     // MARK: - Region toggle
 
     func toggleRegion(_ region: String) {
