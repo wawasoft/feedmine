@@ -189,89 +189,196 @@ actor FeedDetector {
 
 ## Share Result UI
 
-Three states, single sheet:
+Single sheet, five states. Uses `.presentationDetents([.medium, .large])` consistent with existing sheets. Haptic: `.light` on detection complete, `.light` on feed selection toggle, `.medium` on save.
 
 ### Loading
-- URL displayed at top in SF Mono caption
-- Circular `ProgressView` (2pt stroke, circadian accent)
-- Text: "Looking for feeds…" → "Checking N paths…"
+- URL at top in SF Mono caption, circadian accent on the domain portion
+- Thin `ProgressView` (2pt stroke, circadian accent)
+- Text phase: "Looking for feeds…" (first 1.5s) → "Checking paths…" (if probes are running)
+- Keep the animation quiet — this is a 1-3 second wait. No skeleton cards, no cycling messages.
 
 ### Result: 1 feed
-- Card with feed title, URL, category hint
-- Preview: last 3 items (title + date) if feed responded to initial probe
-- "Add to Library" button → expands destination picker
+- Card with feed title (from RSS `<title>` or HTML `<title>`), URL in SF Mono caption
+- Lightweight metadata only: item count, last updated date. Do NOT parse items here — that doubles latency.
+- "Preview" button as secondary action → fetches and shows last 3 items if user wants
+- "Add to Library" button (primary) → opens destination picker
+- Haptic `.light` when card appears
 
 ### Result: multiple feeds
-- List with circular checkboxes (accent fill when selected)
-- Select all / deselect all
-- "Add N feeds" → destination picker
+- List with circular checkboxes using SF Symbols `circle` / `checkmark.circle.fill` in circadian accent
+- Each row: feed title + URL. Selected state = filled checkmark.
+- "Select all" / "Deselect all" at top
+- "Add N feeds" button → destination picker
+- Haptic `.light` on each checkbox toggle
 
 ### Result: OPML pack
-- Summary card: name, "N feeds, M categories"
-- Category structure in compact disclosure groups
-- "Import" → auto-creates library node with hierarchy
+- Summary card: pack name, "N feeds, M categories"
+- Compact disclosure groups showing category structure (collapsed by default)
+- "Import" → auto-creates library node with full hierarchy. Toast: "Imported N feeds."
+- Haptic `.medium` on successful import
+
+### No feed found
+- Empty state with `magnifyingglass` icon in circadian accent
+- Title: "No feeds found"
+- Description: "This page doesn't link to any RSS or Atom feeds we could find."
+- Actions: "Try a different URL" (dismisses sheet), "Browse catalog" (opens LibraryBrowser)
+
+### Error
+- Inline error card with `wifi.slash` icon, orange tint
+- Specific message: "Could not reach server" / "Server returned 404" / "Connection timed out"
+- "Try again" button retries detection
+- Matches existing `CompactErrorBanner` pattern
 
 ### Destination picker
-- Library tree displayed
-- User picks existing node or creates new one
-- "Save here" confirms
+- Shows 3-5 most recently used library nodes + "Browse all" → opens full LibraryBrowser in selection mode
+- "Create new" button at top for quick node creation
+- Selected node highlighted with circadian accent
+- "Save here" button confirms
+- This uses the same tree component as LibraryBrowser, just in `selectionMode` rather than `navigationMode`
 
 ## Library Browser UI
 
-Single screen replacing the three country/region drill-down screens.
+Single screen replacing three country/region drill-down screens. Uses circadian accent, spacing, and font weight from the active period. Haptic: `.light` on toggle flip, `.light` on disclosure expand/collapse.
+
+### Navigation
+- Top-level shows root nodes (Feedmine, user-created)
+- **Levels 1-2**: inline disclosure expansion (chevron, indentation)
+- **Level 3+**: pushes to a new screen with breadcrumb navigation. This prevents iPhone screens from becoming unreadable with 6 levels of indentation.
+- Breadcrumb at top: `Feedmine › International › Brasil › São Paulo`
+- Each breadcrumb segment is tappable to jump back
+- Back button returns to parent
 
 ### Tree view
-- Recursive `DisclosureGroup` with indentation
-- Each node: chevron + name + toggle (circle, filled when enabled)
-- Disabling a parent dims children
-- Toggle state from `library_node.enabled`
+- Each node row: SF Symbol chevron (rotates on expand) + name + toggle
+- Toggle uses SF Symbols: `circle` (off) / `checkmark.circle.fill` (on) in circadian accent — consistent with existing bookmark.fill pattern
+- Groups show source count: "Tech (12)"
+- Disabling a parent dims children (opacity 0.4). No cascade-write — children keep their individual enabled state.
+- Expanding a node animates with `.easeInOut(duration: 0.2)`
 
-### Feed rows
-- Feed title + source count for groups
-- Preview dots: 3 tiny circles to the right. Filled when feed published in last 24h
-- Long press or swipe reveals last 3 post titles
-- "• N more…" when group has unlisted children
+### Feed activity
+- Each feed row shows a swipeable area on the right
+- Swipe left on a feed row → reveals last 3 post titles inline, no long-press needed
+- Each title shows relative date (e.g. "2h ago", "yesterday")
+- Feeds with posts in last 24h get a subtle circadian accent dot (4pt) next to their name — immediate visual scan
+- Swipe right or tap elsewhere to dismiss the preview
 
 ### "More in this category"
-- At end of each expanded group: subtle link "+ N more Science feeds →"
-- Shows inactive feeds in that category
-- Can enable inline
+- At end of each expanded group: subtle row with "+ N more in Category →"
+- Tapping opens a filtered list of inactive feeds in that category
+- Each has an inline enable toggle
+- Dismisses back to tree when done
 
 ### Search
-- Filters tree by feed/node name
+- Magnifying glass icon in toolbar
+- Filters tree by feed/node name (in-memory)
 - Collapses tree to show only matches and their ancestors
-- In-memory filter, no SQL needed
+- **Remembers pre-search expansion state** — restores it when search is cleared
+- Empty search result: "No feeds matching 'query'" with suggestion to browse categories
 
 ### Edit mode
-- Drag to reorder (updates `sort_order`)
-- Swipe to delete (only user/imported nodes; bundled asks confirmation)
-- "+ New Node" at bottom
+- EditButton in toolbar toggles edit mode
+- **Reorder**: drag handle on each row (standard iOS EditButton + `onMove`)
+- **Delete**: swipe left reveals delete (only user/imported nodes; bundled shows "This is a built-in collection. Hide it instead?" with option to disable)
+- **Create**: "+" button always visible at bottom, in both edit and non-edit mode. In edit mode it's "Add Node" with the same icon.
+- Exit edit mode with Done button
+
+### Empty states
+- **No user feeds yet**: card with `plus.circle` icon, "Your first feed" + "Share a link from Safari or paste a URL to get started." + "Add a Feed" button that opens manual URL entry.
+- **All nodes disabled**: muted illustration + "Everything is turned off. Enable at least one collection to see content." + "Reset to defaults" button.
 
 ## Export Hub
 
-Single screen, 5 options. Each generates locally and opens Share Sheet.
+Single screen, accessible from Settings and Library toolbar. Uses circadian accent. Haptic: `.light` on format selection, `.medium` on export complete.
 
-| Format | Generates | Use case |
-|---|---|---|
-| **OPML** | Feed list grouped by category | Migrate to another RSS reader |
-| **CSV** | Bookmarks: title, URL, source, date saved | Spreadsheet analysis |
-| **JSON** | Full backup: library tree, channels, lists, settings | Backup/restore, device migration |
-| **HTML** | Bookmarks as self-contained web page | Share reading list with anyone |
-| **PDF** | Reading stats + bookmark list, formatted | Print or share visually |
+### Layout
+Two sections with list-style rows (iOS Settings pattern, not identical cards):
+
+**Data formats** — machine-readable, for backup and migration:
+| Format | Icon | Description | Action |
+|---|---|---|---|
+| OPML | `doc.text` | Feed list for other RSS readers | Segmented picker: "All" / "Mine" → Export |
+| CSV | `tablecells` | Bookmarks as spreadsheet | Export (instant) |
+| JSON | `shippingbox` | Full backup: library, lists, channels, settings | Export / Import |
+
+**Document formats** — human-readable, for sharing and printing:
+| Format | Icon | Description | Action |
+|---|---|---|---|
+| HTML | `safari` | Bookmarks as self-contained web page | Export → Preview → Share |
+| PDF | `doc.richtext` | Reading stats + bookmark list, formatted | Export → Preview → Share |
 
 ### OPML export
-- Quick picker: "All sources" or "User sources only" (origin = `.user` | `.imported`)
+- Segmented control visible inline: "All sources" / "Mine only" (origin = `.user` | `.imported`)
 - Uses existing `OPMLParser.exportOPML()`
+- Opens Share Sheet
 
 ### JSON backup
-- Complete state: library tree, channels, lists with items, user preferences
-- `.feedmine.json` extension
-- Import reads this file back → restores state
+- **Export**: Codable encode of complete state → `.feedmine.json` → Share Sheet
+- **Import**: "Import backup" button in the same row → `.fileImporter` for `.json` and `.feedmine` files → reads state → "This will replace your current library, channels, and settings. Continue?" confirmation → restores
 
-### HTML/PDF
-- Inline CSS, no external dependencies
-- Works offline
-- PDF uses `UIGraphicsPDFRenderer`
+### HTML export
+- Generates inline-CSS HTML (no external dependencies, works offline)
+- Opens preview in a sheet with WKWebView before sharing
+- "Share" button in preview toolbar
+
+### PDF export
+- Uses `UIGraphicsPDFRenderer` with stats template
+- Preview before sharing (same pattern as HTML)
+
+### Post-export
+- After Share Sheet dismisses → toast: "Exported as [format]" with checkmark icon
+- Auto-dismiss after 2s (same toast pattern as existing `showToast` in FeedScreen)
+- JSON import shows confirmation dialog before overwriting
+
+### Empty states
+- **No bookmarks**: CSV, HTML, PDF rows disabled with "No bookmarks to export" caption
+- **No user sources**: OPML "Mine only" segment disabled with "No user sources" caption
+- JSON export/import always available (backup includes structure even if empty)
+
+## Cross-Cutting Concerns
+
+### Circadian integration
+All three new screens inherit the active circadian period's tokens:
+- **Accent color**: from `CircadianEngine.shared.accent`
+- **Page background**: from `engine.pageBackground` (ShareResultView sheet, LibraryBrowser, ExportHub)
+- **Typography**: font weight and letter-spacing from `engine.period.fontWeight` / `engine.period.letterSpacing`
+- **Card styling**: radius from `engine.period.cardRadius`, gap from `engine.period.cardGap`
+- **Transitions**: 2.0s easeInOut on period change (same as root FeedScreen)
+
+This ensures the new screens don't feel bolted-on — they breathe with the same rhythm as the feed.
+
+### Haptics
+Consistent with existing app patterns (all `UIImpactFeedbackGenerator`):
+- Detection complete → `.light`
+- Checkbox toggle (multi-feed selection) → `.light`
+- Library node toggle → `.light`
+- Disclosure expand/collapse → `.light` (optional, only on explicit tap, not programmatic)
+- Save/add/import → `.medium`
+- Export complete → `.medium`
+- Delete/destructive → `.rigid` (if used for confirmation gestures)
+
+### Shared tree component
+The library tree is rendered by a single component used in two modes:
+- `LibraryTreeView(mode: .navigation)` — LibraryBrowser with full interaction
+- `LibraryTreeView(mode: .selection(selectedID: Binding))` — destination picker with radio selection
+
+One implementation, two contexts. Prevents code duplication and visual inconsistency.
+
+### Accessibility
+- Tree rows: `accessibilityElement(children: .combine)` with label "Tech, 12 feeds, enabled" or "Tech, 12 feeds, disabled"
+- Toggle: `accessibilityAction(named: "Toggle")` as custom action
+- Disclosure: standard iOS disclosure group accessibility (VoiceOver announces "expanded" / "collapsed")
+- Preview swipe: `accessibilityAction(named: "Show recent posts")` as custom action
+- Search result count announced on filter: "3 matches"
+- Export formats: each row is a single accessibility element describing format + description
+- `reduceMotion` check on period transition animations (consistent with existing WhatsNewCarousel pattern)
+
+### Empty state principles
+Every empty state follows the pattern: **icon + title + description + action**.
+- Not mood-based ("Oops!", "Nothing here!") — direction-based ("Your first feed", "Everything is turned off")
+- Every empty state has at least one action button, never a dead end
+- Icons use circadian accent, not gray — empty is a moment, not an error
+
+---
 
 ## Migration of Existing State
 
