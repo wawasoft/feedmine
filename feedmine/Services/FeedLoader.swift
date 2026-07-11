@@ -372,7 +372,7 @@ final class FeedLoader {
     /// Creates a FeedLoader. Pass a custom FeedStore for testing; uses SQLite-backed
     /// store by default.
     init(store: FeedStore? = nil) {
-        self.store = store ?? (try! FeedStore())
+        self.store = store ?? FeedStore.makeResilient()
     }
 
     // MARK: - Actions (delegate to store)

@@ -318,7 +318,15 @@ final class SourceRegistry {
 
     func loadFromOPML() async {
         let result = await OPMLParser.parseAll()
-        sources = result.sources   // didSet rebuilds caches
+        // Merge user-imported feeds persisted across launches (written by
+        // FeedLoader.persistImportedSources). These were previously never read
+        // back, so any feed the user imported via onOpenURL silently vanished on
+        // the next launch. Bundled sources come first so a bundled feed wins over
+        // an identical imported URL during dedup.
+        let imported = Self.loadImportedSources()
+        sources = imported.isEmpty
+            ? result.sources
+            : OPMLParser.deduplicateSources(result.sources + imported)   // didSet rebuilds caches
         opmlFileCount = result.fileCount
         opmlErrorCount = result.failedFileCount
         invalidSourceCount = result.invalidSourceCount
@@ -338,5 +346,18 @@ final class SourceRegistry {
         }
 
         recomputeActiveCounts()
+    }
+
+    /// Load user-imported feeds persisted to imported_sources.json. Mirrors the
+    /// path/format written by FeedLoader.persistImportedSources. Missing or
+    /// unreadable file → no imported feeds (a fresh install).
+    static func loadImportedSources() -> [FeedSource] {
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("imported_sources.json")
+        guard let data = try? Data(contentsOf: url),
+              let sources = try? JSONDecoder().decode([FeedSource].self, from: data) else {
+            return []
+        }
+        return sources
     }
 }

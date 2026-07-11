@@ -162,18 +162,34 @@ actor FeedDetector {
     }
 
     private func parseFeedLinks(from html: String, baseURL: URL) -> [FeedLink] {
-        // Simple regex-based extraction of <link rel="alternate"> tags
-        let pattern = #"<link[^>]*rel=["']alternate["'][^>]*type=["']application\/(rss|atom)\+xml["'][^>]*>"#
-        guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else {
+        // Match every <link> tag, then filter to feed-alternate links by testing
+        // rel and type INDEPENDENTLY. HTML attribute order is arbitrary, so the
+        // previous single regex — which demanded rel="alternate" *before*
+        // type="application/rss+xml" — silently missed the very common markup
+        // that lists type first (e.g. `<link type="application/rss+xml"
+        // rel="alternate" href="...">`).
+        guard let linkRegex = try? NSRegularExpression(pattern: #"<link\b[^>]*>"#, options: .caseInsensitive) else {
             return []
         }
 
         let range = NSRange(html.startIndex..<html.endIndex, in: html)
-        let matches = regex.matches(in: html, options: [], range: range)
+        let matches = linkRegex.matches(in: html, options: [], range: range)
 
-        return matches.compactMap { match in
+        return matches.compactMap { match -> FeedLink? in
             guard let matchRange = Range(match.range, in: html) else { return nil }
             let tag = String(html[matchRange])
+
+            // Must be an alternate feed link: rel contains "alternate" AND type is
+            // a known feed MIME (rss/atom XML or JSON Feed), in any order.
+            let hasAlternate = tag.range(
+                of: #"rel=["'][^"']*\balternate\b"#,
+                options: [.regularExpression, .caseInsensitive]
+            ) != nil
+            let hasFeedType = tag.range(
+                of: #"type=["']application/(rss\+xml|atom\+xml|feed\+json)["']"#,
+                options: [.regularExpression, .caseInsensitive]
+            ) != nil
+            guard hasAlternate, hasFeedType else { return nil }
 
             // Extract href
             guard let hrefMatch = try? NSRegularExpression(

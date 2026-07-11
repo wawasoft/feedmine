@@ -190,6 +190,40 @@ final class FeedStore {
         loadSourceHealth()
     }
 
+    /// Resilient construction for app launch. A corrupt or migration-incompatible
+    /// on-disk database must never permanently brick the app — with `try!` a
+    /// single failed open or migration crashes on every launch forever. If normal
+    /// open + migrate fails, quarantine the database file(s) and retry once with a
+    /// fresh database. Feed content re-fetches from the network; only local cache
+    /// and bookmarks are lost. A failure on a *fresh* database indicates a genuine
+    /// schema/migration bug, which is surfaced (not silently swallowed).
+    static func makeResilient() -> FeedStore {
+        do {
+            return try FeedStore()
+        } catch {
+            print("[FeedStore] init failed — quarantining database and retrying: \(error)")
+            quarantineDatabase()
+            do {
+                return try FeedStore()
+            } catch {
+                fatalError("[FeedStore] init failed even on a fresh database (schema/migration bug): \(error)")
+            }
+        }
+    }
+
+    /// Move the SQLite file and its WAL/SHM sidecars aside. The sidecars MUST go
+    /// too — a stale `-wal` left next to a new database would corrupt it.
+    private static func quarantineDatabase() {
+        let fm = FileManager.default
+        for suffix in ["", "-wal", "-shm"] {
+            let path = Self.dbPath + suffix
+            guard fm.fileExists(atPath: path) else { continue }
+            let quarantine = path + ".corrupt"
+            try? fm.removeItem(atPath: quarantine)   // clear any previous quarantine
+            try? fm.moveItem(atPath: path, toPath: quarantine)
+        }
+    }
+
     // MARK: - Source Health Persistence
 
     private func loadSourceHealth() {
@@ -280,8 +314,11 @@ final class FeedStore {
         await registry.loadFromOPML()
         reservoir.sourceRegionMap = registry.regionMap
 
-        // Seed library tree from OPML on first launch
-        await seedLibrary()
+        // Seed library tree from OPML on first launch. Reuse the sources the
+        // registry just parsed instead of re-parsing all bundled OPML files —
+        // parseAll() walks ~1900 files, so a second call here doubled first-launch
+        // startup cost for identical data.
+        await seedLibrary(sources: registry.sources)
 
         // Inject database into the registry so isSourceEnabled checks
         // the library tree as its primary source of truth.
@@ -361,15 +398,14 @@ final class FeedStore {
     /// Seed the library tree from OPML source data. Idempotent — checks if a root
     /// node already exists before inserting. Builds a tree: Feedmine > English General /
     /// International > Country > Sub-region > Category > Sources.
-    private func seedLibrary() async {
+    private func seedLibrary(sources: [FeedSource]) async {
         // Already seeded? Check if root node exists.
         let hasRoot: Bool = (try? await db.read { db in
             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM library_node WHERE parent_id IS NULL") ?? 0
         } > 0) ?? false
         guard !hasRoot else { return }
 
-        let result = await OPMLParser.parseAll()
-        guard !result.sources.isEmpty else { return }
+        guard !sources.isEmpty else { return }
 
         do {
             try await db.write { db in
@@ -384,7 +420,7 @@ final class FeedStore {
                 var categoryNodeIds: [String: Int64] = [:]    // category name → node id
 
                 // Group sources by region
-                let byRegion = Dictionary(grouping: result.sources, by: \.region)
+                let byRegion = Dictionary(grouping: sources, by: \.region)
 
                 // Sort regions for deterministic ordering
                 let sortedRegions = byRegion.keys.sorted()
