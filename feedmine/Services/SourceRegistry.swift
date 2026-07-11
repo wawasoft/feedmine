@@ -1,4 +1,5 @@
 import Foundation
+import GRDB
 import Observation
 
 enum NodeStatus: Equatable {
@@ -38,6 +39,10 @@ final class SourceRegistry {
     /// Feed URL keys explicitly turned ON despite a disabled parent group.
     var enabledOverrides: Set<String> = []
 
+    /// Optional database for library-tree-backed queries. When set,
+    /// isSourceEnabled checks the library tree as the primary source of truth.
+    var database: DatabaseQueue?
+
     /// Cached count of active sources under each region/category key.
     /// Recomputed after every toggle.
     private var activeCount: [String: Int] = [:]
@@ -64,7 +69,33 @@ final class SourceRegistry {
         _regionMap = nil
     }
 
-    func isSourceEnabled(_ sourceURL: String) -> Bool {
+    /// Check library tree for enabled state via recursive CTE.
+    /// Returns true if the source URL belongs to at least one enabled node
+    /// whose entire ancestor chain is also enabled.
+    private func isEnabledInLibraryTree(_ sourceURL: String) -> Bool? {
+        guard let db = database else { return nil }
+        return try? db.read { db in
+            try String.fetchOne(db, sql: """
+                WITH RECURSIVE active_tree AS (
+                    SELECT id FROM library_node
+                    WHERE enabled = 1 AND parent_id IS NULL
+                    UNION ALL
+                    SELECT n.id FROM library_node n
+                    JOIN active_tree a ON n.parent_id = a.id
+                    WHERE n.enabled = 1
+                )
+                SELECT 1 FROM library_source
+                JOIN active_tree ON library_source.node_id = active_tree.id
+                WHERE library_source.source_url = ?
+                LIMIT 1
+            """, arguments: [sourceURL]) != nil
+        }
+    }
+
+    /// In-memory toggle check — the legacy source of truth.
+    /// Kept as fallback during the Phase 2 transition so we can log
+    /// discrepancies against the library tree.
+    private func isSourceEnabledInMemory(_ sourceURL: String) -> Bool {
         guard let source = sourceByURL[sourceURL] else { return false }
         let ownKey = Self.sourceKey(sourceURL)
         if disabled.contains(ownKey) { return false }          // explicit OFF wins
@@ -81,6 +112,20 @@ final class SourceRegistry {
         }
         if disabled.contains(Self.categoryKey(source.category)) { return false }
         return true
+    }
+
+    func isSourceEnabled(_ sourceURL: String) -> Bool {
+        // Primary: check library tree via recursive CTE
+        if let libraryEnabled = isEnabledInLibraryTree(sourceURL) {
+            // Discrepancy detection during Phase 2 transition
+            let memoryEnabled = isSourceEnabledInMemory(sourceURL)
+            if libraryEnabled != memoryEnabled {
+                print("[SourceRegistry] DISCREPANCY source=\(sourceURL) library=\(libraryEnabled) memory=\(memoryEnabled)")
+            }
+            return libraryEnabled
+        }
+        // Fallback: no database available — use legacy in-memory logic
+        return isSourceEnabledInMemory(sourceURL)
     }
 
     // MARK: - Group status (O(1) cached)

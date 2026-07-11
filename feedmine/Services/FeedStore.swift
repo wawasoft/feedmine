@@ -259,6 +259,10 @@ final class FeedStore {
         // Seed library tree from OPML on first launch
         await seedLibrary()
 
+        // Inject database into the registry so isSourceEnabled checks
+        // the library tree as its primary source of truth.
+        registry.database = db
+
         // Restore persisted filters FIRST so the first render shows
         // correctly filtered content, not a flash of unfiltered items.
         restoreFilters()
