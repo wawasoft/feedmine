@@ -115,6 +115,30 @@ struct FeedItemView: View {
                 Label("Share as Image", systemImage: "photo.artframe")
             }
 
+            Button {
+                let text = RichShareFormatter.plainText(for: item)
+                let av = UIActivityViewController(
+                    activityItems: [text],
+                    applicationActivities: nil
+                )
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let root = windowScene.windows.first?.rootViewController {
+                    root.present(av, animated: true)
+                }
+            } label: {
+                Label("Share as Text", systemImage: "text.quote")
+            }
+
+            ShareLink(
+                item: RichShareFormatter.attributedString(for: item),
+                preview: SharePreview(
+                    item.title,
+                    image: Image(systemName: "antenna.radiowaves.left.and.right")
+                )
+            ) {
+                Label("Share Rich Text", systemImage: "text.rich")
+            }
+
             ShareLink(item: URL(string: item.url) ?? URL(string: "https://feedmine.app")!) {
                 Label("Share Link", systemImage: "link")
             }
