@@ -178,12 +178,18 @@ struct FeedDiscoveryService: Sendable {
 // MARK: - String extension
 
 private extension String {
+    /// Strip HTML tags and decode common entities. Thread-safe — uses regex, not
+    /// NSAttributedString (which requires the main thread). Entity decoding mirrors
+    /// RSSFetcher.strippingHTMLTags: &amp; is decoded LAST to prevent double-unescape
+    /// of sequences like &amp;lt; into < instead of the literal text "&lt;".
     func stripHTML() -> String {
         replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-            .replacingOccurrences(of: "&amp;", with: "&")
             .replacingOccurrences(of: "&lt;", with: "<")
             .replacingOccurrences(of: "&gt;", with: ">")
             .replacingOccurrences(of: "&quot;", with: "\"")
             .replacingOccurrences(of: "&apos;", with: "'")
+            .replacingOccurrences(of: "&nbsp;", with: " ")
+            .replacingOccurrences(of: "&#39;", with: "'")
+            .replacingOccurrences(of: "&amp;", with: "&")  // LAST — see docstring
     }
 }

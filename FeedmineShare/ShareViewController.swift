@@ -22,20 +22,26 @@ final class ShareViewController: UIViewController {
 
         Task {
             var pendingItems: [PendingItem] = []
+            /// Track source URLs already enqueued so the text block doesn't
+            /// re-process the same URL (NSItemProvider can conform to both
+            /// public.url and public.plain-text simultaneously).
+            var processedSourceURLs = Set<String>()
 
             for item in extensionItems {
                 // 1. URL attachments
                 if let urlProviders = item.attachments?.filter({ $0.hasItemConformingToTypeIdentifier(UTType.url.identifier) }) {
                     for provider in urlProviders {
                         if let url = try? await loadURL(from: provider) {
+                            let urlString = url.absoluteString
+                            processedSourceURLs.insert(urlString)
                             let isDirect = FeedDiscoveryService.isDirectFeedURL(url)
                             let discovered = isDirect
-                                ? [PendingItem.DiscoveredFeed(title: url.host ?? "Feed", url: url.absoluteString)]
+                                ? [PendingItem.DiscoveredFeed(title: url.host ?? "Feed", url: urlString)]
                                 : (try? await FeedDiscoveryService.discover(url: url)) ?? []
                             pendingItems.append(PendingItem(
                                 id: UUID().uuidString,
                                 type: isDirect ? .feedDirect : .feedDiscovery,
-                                sourceURL: url.absoluteString,
+                                sourceURL: urlString,
                                 foundFeeds: discovered,
                                 fileName: nil,
                                 feedCount: nil,
@@ -67,11 +73,13 @@ final class ShareViewController: UIViewController {
                     }
                 }
 
-                // 3. Text content
+                // 3. Text content — skip URLs already processed from URL attachments
+                // (NSItemProvider for a shared URL conforms to both public.url
+                // and public.plain-text, causing duplicate discovery otherwise.)
                 if let textProviders = item.attachments?.filter({ $0.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) }) {
                     for provider in textProviders {
                         if let urls = try? await extractURLsFromText(from: provider) {
-                            for url in urls {
+                            for url in urls where !processedSourceURLs.contains(url.absoluteString) {
                                 let isDirect = FeedDiscoveryService.isDirectFeedURL(url)
                                 let discovered = isDirect
                                     ? [PendingItem.DiscoveredFeed(title: url.host ?? "Feed", url: url.absoluteString)]
@@ -118,7 +126,22 @@ final class ShareViewController: UIViewController {
         if let url = data as? URL {
             let fileName = url.lastPathComponent
             let isOPML = fileName.hasSuffix(".opml") || fileName.hasSuffix(".xml")
-            return (fileName, url, isOPML)
+            guard isOPML else { return (fileName, url, false) }
+
+            // Security-scoped resource: read now while we have access.
+            // The temp URL is deleted when the extension exits, so we must
+            // copy the file contents to the App Group container.
+            let didAccess = url.startAccessingSecurityScopedResource()
+            defer { if didAccess { url.stopAccessingSecurityScopedResource() } }
+
+            let fileData = try Data(contentsOf: url)
+            // Write a copy to the App Group container so the main app can read it
+            let containerDir = PendingQueue.containerURL.deletingLastPathComponent()
+            let safeName = "opml_import_\(UUID().uuidString).opml"
+            let safeURL = containerDir.appendingPathComponent(safeName)
+            try fileData.write(to: safeURL, options: .atomic)
+
+            return (fileName, safeURL, true)
         }
         return nil
     }

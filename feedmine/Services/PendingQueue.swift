@@ -17,28 +17,52 @@ struct PendingQueue: Sendable {
 
     // MARK: - Public API (main app)
 
-    /// Read all pending items. Returns empty array if file doesn't exist or is corrupt.
+    /// Read all pending items under NSFileCoordinator so reads are sequenced
+    /// with concurrent writes from the extension. Returns empty if file missing/corrupt.
     static func readAll() -> [PendingItem] {
-        guard FileManager.default.fileExists(atPath: containerURL.path) else { return [] }
-        do {
-            let data = try Data(contentsOf: containerURL)
-            let decoder = JSONDecoder()
-            return try decoder.decode([PendingItem].self, from: data)
-        } catch {
-            print("[PendingQueue] Read error: \(error)")
-            return []
+        let coordinator = NSFileCoordinator()
+        var result: [PendingItem] = []
+        var coordinatorError: NSError?
+
+        coordinator.coordinate(readingItemAt: containerURL,
+                               options: [],
+                               error: &coordinatorError) { readURL in
+            guard FileManager.default.fileExists(atPath: readURL.path) else { return }
+            do {
+                let data = try Data(contentsOf: readURL)
+                result = try JSONDecoder().decode([PendingItem].self, from: data)
+            } catch {
+                print("[PendingQueue] Read error: \(error)")
+            }
         }
+
+        if let error = coordinatorError {
+            print("[PendingQueue] FileCoordinator read error: \(error)")
+        }
+        return result
     }
 
-    /// Clear the queue — call after successful processing in the main app.
+    /// Clear the queue under NSFileCoordinator so the delete is sequenced
+    /// with any concurrent write from the extension.
     static func clear() {
-        do {
-            try FileManager.default.removeItem(at: containerURL)
-        } catch {
-            let nsError = error as NSError
-            // File doesn't exist is not an error — the queue is already empty
-            if nsError.domain == NSCocoaErrorDomain && nsError.code == 4 { return }
-            print("[PendingQueue] Clear error: \(error)")
+        let coordinator = NSFileCoordinator()
+        var coordinatorError: NSError?
+
+        coordinator.coordinate(writingItemAt: containerURL,
+                               options: .forDeleting,
+                               error: &coordinatorError) { deleteURL in
+            do {
+                try FileManager.default.removeItem(at: deleteURL)
+            } catch {
+                let nsError = error as NSError
+                // File doesn't exist is not an error — the queue is already empty
+                if nsError.domain == NSCocoaErrorDomain && nsError.code == 4 { return }
+                print("[PendingQueue] Clear error: \(error)")
+            }
+        }
+
+        if let error = coordinatorError {
+            print("[PendingQueue] FileCoordinator clear error: \(error)")
         }
     }
 
