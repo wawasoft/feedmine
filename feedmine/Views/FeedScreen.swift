@@ -105,7 +105,6 @@ struct FeedScreen: View {
             }
             if phase == .background {
                 SessionTracker.shared.onBackground()
-                loader.flushWhatsNewQueue()
                 AudioPlayerManager.shared.savePosition()
                 // Save scroll position for restoration on next foreground
                 let allItems = loader.dateSections.flatMap(\.items)

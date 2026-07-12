@@ -144,6 +144,26 @@ final class FeedStore {
     private var whatsNewPool: [FeedItem] = []
     private let whatsNewThreshold = 10
     private(set) var whatsNewItems: [FeedItem] = []
+    /// Coalesced booster fetch — at most one in flight so rapid refresh callers
+    /// (filter spam, foreground) collapse into a single network fetch.
+    private var whatsNewBoosterTask: Task<Void, Never>?
+    /// Durable memory of items already shown in the carousel, so seen-but-unread
+    /// items never reappear as NEW across sessions. Persisted (capped).
+    private static let whatsNewSeenKey = "whats_new_seen_ids"
+    private static let whatsNewSeenCap = 800
+    @ObservationIgnored private lazy var whatsNewSeenIDs: Set<String> = {
+        Set(UserDefaults.standard.stringArray(forKey: Self.whatsNewSeenKey) ?? [])
+    }()
+
+    /// Record carousel-shown item IDs and persist, bounded to a cap.
+    private func recordWhatsNewSeen(_ ids: [String]) {
+        guard !ids.isEmpty else { return }
+        for id in ids { whatsNewSeenIDs.insert(id) }
+        if whatsNewSeenIDs.count > Self.whatsNewSeenCap {
+            whatsNewSeenIDs = Set(whatsNewSeenIDs.shuffled().prefix(Self.whatsNewSeenCap))
+        }
+        UserDefaults.standard.set(Array(whatsNewSeenIDs), forKey: Self.whatsNewSeenKey)
+    }
     private var _defaultListID: Int64?
     private var hasStarted = false             // guards one-time startup work
     private var progressiveFetchTask: Task<Void, Never>?
@@ -311,7 +331,7 @@ final class FeedStore {
         loadingState = .idle
 
         // Kick off What's New pipeline
-        refreshWhatsNew()
+        refreshWhatsNew(rebuild: true)
 
         // Slow-drip background refresh — keeps the database and What's New
         // fed with fresh content continuously while the app is in foreground.
@@ -512,7 +532,7 @@ final class FeedStore {
         activeContentType = type
         activeMood = mood
         persistFilters()
-        refreshWhatsNew()
+        refreshWhatsNew(rebuild: true)
         applyUpdate(.flush())
     }
 
@@ -524,7 +544,7 @@ final class FeedStore {
         activeMood = .all
         persistFilters()
         // Content on screen is untouchable. Clear everything, reload fresh.
-        refreshWhatsNew()
+        refreshWhatsNew(rebuild: true)
         applyUpdate(.flush())
     }
 
@@ -703,12 +723,16 @@ final class FeedStore {
             && (activeMood == .all || activeMood.matches(item.title))
             && !visibleIDs.contains(item.id)
             && !readIDs.contains(item.id)
+            && !whatsNewSeenIDs.contains(item.id)   // never re-show an already-shown item
         }
         guard !candidates.isEmpty else { return }
-        // Merge into pool: one per source, newest first
+        // Merge into pool, newest first, de-duplicated by ITEM ID. (Previously
+        // deduped by sourceURL, which kept only one item per source — that
+        // silently dropped fresh items and could hold the pool below the
+        // promotion threshold forever, so the carousel never appeared.)
         var pool = (candidates + whatsNewPool).sorted { $0.publishedAt > $1.publishedAt }
         var seen = Set<String>()
-        pool = pool.filter { seen.insert($0.sourceURL).inserted }
+        pool = pool.filter { seen.insert($0.id).inserted }
         whatsNewPool = pool
         // Promote when threshold reached
         promoteWhatsNewIfReady()
@@ -719,39 +743,66 @@ final class FeedStore {
         guard whatsNewItems.isEmpty, whatsNewPool.count >= whatsNewThreshold else { return }
         whatsNewItems = Array(whatsNewPool.prefix(whatsNewThreshold))
         whatsNewPool.removeFirst(min(whatsNewThreshold, whatsNewPool.count))
-        // Carousel items are visible on screen — mark as surfaced
+        // Carousel items are visible on screen — mark surfaced AND record as shown
+        // so they never reappear as NEW (this session or across relaunches).
         markSurfaced(whatsNewItems)
+        recordWhatsNewSeen(whatsNewItems.map(\.id))
     }
 
     /// Advance the carousel: return shown (unclicked) items to the pool so
     /// they remain available for future selections, then promote next batch.
+    /// Clear the current batch and promote the next one from the pool. Shown
+    /// items were already recorded as seen (in promote), so they will not be
+    /// returned or re-selected — no infinite cycling of the same/read items.
     func advanceWhatsNew() {
-        // Return unclicked items to the pool — they were only previewed, not consumed
-        if !whatsNewItems.isEmpty {
-            whatsNewPool = (whatsNewItems + whatsNewPool)
-                .sorted { $0.publishedAt > $1.publishedAt }
-        }
         whatsNewItems = []
         promoteWhatsNewIfReady()
+    }
+
+    /// User opened a carousel card. Remove it from the visible batch and backfill
+    /// one fresh item from the pool. This is the ONLY path that mutates the
+    /// visible carousel — always user-driven, never passive. (Carousel is sacred.)
+    func markWhatsNewRead(_ itemID: String) {
+        markAsRead(itemID)
+        recordWhatsNewSeen([itemID])
+        guard let idx = whatsNewItems.firstIndex(where: { $0.id == itemID }) else { return }
+        whatsNewItems.remove(at: idx)
+        if let next = whatsNewPool.first(where: { item in
+            !readItemIDs.contains(item.id)
+            && !whatsNewItems.contains(where: { $0.id == item.id })
+        }) {
+            whatsNewPool.removeAll { $0.id == next.id }
+            whatsNewItems.append(next)
+            markSurfaced([next])
+            recordWhatsNewSeen([next.id])
+        }
     }
 
     /// Kick off an aggressive fetch to fill the What's New pool quickly at
     /// cold start. Runs alongside the DB seed — if the database has nothing,
     /// this fetches fresh content from the network immediately.
-    func fetchWhatsNewBooster() {
-        Task { [weak self] in
-            guard let self else { return }
+    /// Coalesced booster: cancels any pending booster and fetches after a short
+    /// debounce, so a burst of refresh calls (filter spam, foreground) triggers
+    /// ONE network fetch, not one per call.
+    func scheduleWhatsNewBooster() {
+        whatsNewBoosterTask?.cancel()
+        whatsNewBoosterTask = Task { [weak self] in
+            try? await Task.sleep(for: .milliseconds(400))
+            guard !Task.isCancelled, let self else { return }
             let sources = self.registry.enabledSources.shuffled().prefix(30)
+            guard !sources.isEmpty else { return }
             let result = await self.fetcher.fetchAll(Array(sources), maxConcurrent: 5)
+            guard !Task.isCancelled else { return }
+            // persistFetchedItems already feeds collectWhatsNewCandidates, so the
+            // pool is updated without a second (redundant) collect call.
             let actualNew = await self.persistFetchedItems(result.items)
             if !actualNew.isEmpty {
                 self.reservoir.append(actualNew)
-                self.collectWhatsNewCandidates(actualNew)
                 self.prefetchImagesIfEnabled(for: actualNew)
-                for source in sources {
-                    let ok = result.sourceStatuses[source.url] != .failed
-                    self.scheduler.recordFetch(sourceURL: source.url, success: ok)
-                }
+            }
+            for source in sources {
+                let ok = result.sourceStatuses[source.url] != .failed
+                self.scheduler.recordFetch(sourceURL: source.url, success: ok)
             }
         }
     }
@@ -759,19 +810,31 @@ final class FeedStore {
     /// Refresh What's New: clear the pool, re-seed from DB, and trigger
     /// a booster fetch. Called on any user-triggered update (startup, shake,
     /// filter change) so the carousel always reflects the current context.
-    func refreshWhatsNew() {
-        whatsNewItems = []
-        whatsNewPool = []
-        Task { await seedWhatsNewFromDB() }
-        fetchWhatsNewBooster()
+    /// Refresh What's New.
+    /// - rebuild=true (cold start, filter/context change): the visible batch no
+    ///   longer matches the new context, so clear it and rebuild from scratch.
+    /// - rebuild=false (foreground, pull-to-refresh): the visible carousel is
+    ///   SACRED — leave it untouched and only top up the background pool. New
+    ///   content surfaces on the next user-driven rotation, never under the user.
+    func refreshWhatsNew(rebuild: Bool) {
+        if rebuild {
+            whatsNewItems = []
+            whatsNewPool = []
+            Task { await seedWhatsNewFromDB() }
+        } else if whatsNewItems.isEmpty && whatsNewPool.isEmpty {
+            // Nothing shown yet — safe to seed without disturbing the screen.
+            Task { await seedWhatsNewFromDB() }
+        }
+        scheduleWhatsNewBooster()
     }
 
     /// Seed the pool from existing SQLite content — runs once at startup
     /// so the carousel isn't empty while waiting for the first fetch batch.
     private func seedWhatsNewFromDB() async {
-        guard whatsNewPool.isEmpty else { return }
+        guard whatsNewPool.count < whatsNewThreshold else { return }
         let surfacedIDs = surfacedItemIDs
         let readIDs = readItemIDs
+        let seenIDs = whatsNewSeenIDs
         do {
             let records: [FeedItemRecord] = try await db.read { db in
                 try FeedItemRecord
@@ -783,10 +846,14 @@ final class FeedStore {
             }
             let items = records.map { $0.toFeedItem() }
                 .filter(isItemEnabled).filter(filterContentType)
-                .filter { !surfacedIDs.contains($0.id) && !readIDs.contains($0.id) }
+                .filter { !surfacedIDs.contains($0.id) && !readIDs.contains($0.id) && !seenIDs.contains($0.id) }
                 .filter { activeMood == .all || activeMood.matches($0.title) }
+            // Merge with whatever the booster already added — de-dup by ITEM ID so
+            // the booster's fresh network items are never discarded by the seed.
+            var merged = (whatsNewPool + items).sorted { $0.publishedAt > $1.publishedAt }
             var seen = Set<String>()
-            whatsNewPool = items.filter { seen.insert($0.sourceURL).inserted }
+            merged = merged.filter { seen.insert($0.id).inserted }
+            whatsNewPool = merged
             promoteWhatsNewIfReady()
         } catch {}
     }
@@ -1579,7 +1646,7 @@ final class FeedStore {
         // will skip read items so only unseen content appears.
         resetWhatsNewBaseline()
         lastRefreshDate = nil
-        refreshWhatsNew()
+        refreshWhatsNew(rebuild: true)
         applyUpdate(.flush(forceFetch: true, skipRead: true))
     }
 

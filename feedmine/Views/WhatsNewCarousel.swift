@@ -46,11 +46,15 @@ struct WhatsNewCarousel: View {
             recomputeBrowsingCards()
         }
         .onChange(of: loader.filteredItems.count) { _, _ in
-            recomputeBrowsingCards()
+            // Browsing cards only feed the EMPTY (loading) carousel. Once
+            // populated, skip the rebuild so scrolling the feed doesn't churn.
+            if items.count < 10 { recomputeBrowsingCards() }
         }
         .onDisappear {
             loader.whatsNewVisible = false
-            loader.advanceWhatsNewCarousel()
+            // Do NOT advance here: the carousel lives in a LazyVStack and this
+            // fires on off-screen eviction during normal scrolling. Rotation is
+            // user-driven (reading a card), so the batch never changes on its own.
         }
     }
 

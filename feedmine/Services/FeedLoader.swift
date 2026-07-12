@@ -307,23 +307,21 @@ final class FeedLoader {
     var whatsNewLabel: String { "What's New" }
     var whatsNewVisible = false
 
-    /// Refresh What's New — clears pool, re-seeds from DB, triggers booster fetch.
-    func loadWhatsNew() async {
-        store.refreshWhatsNew()
-    }
-
-    /// User scrolled past the carousel — advance to the next batch.
-    func advanceWhatsNewCarousel() {
-        store.advanceWhatsNew()
+    /// Refresh What's New. rebuild=false (foreground/pull) leaves the visible
+    /// carousel untouched and only tops up the background pool; rebuild=true
+    /// (cold start, filter/context change) clears and rebuilds.
+    func loadWhatsNew(rebuild: Bool = false) async {
+        store.refreshWhatsNew(rebuild: rebuild)
     }
 
     func flushWhatsNewQueue() {
-        store.advanceWhatsNew()
+        // No-op on background: the visible carousel must not change on its own.
+        // Rotation is user-driven (markWhatsNewAsRead backfills as cards are read).
     }
 
-    /// Mark a What's New item as read and remove it from the carousel immediately.
+    /// User opened a What's New card: remove it and backfill one fresh item.
     func markWhatsNewAsRead(_ id: String) {
-        store.markAsRead(id)
+        store.markWhatsNewRead(id)
     }
 
     func prefetchWhatsNewImages() {
@@ -366,7 +364,7 @@ final class FeedLoader {
 
     func start() async {
         await store.start()
-        await loadWhatsNew()
+        await loadWhatsNew(rebuild: true)
         await refreshBookmarkLists()
         await refreshBookmarkState()
         await refreshActiveSearchState()
@@ -387,27 +385,23 @@ final class FeedLoader {
         let newValue = (store.activeCategory == category) ? nil : category
         store.setFilter(region: store.activeRegion, category: newValue,
                         type: store.activeContentType, mood: store.activeMood)
-        Task { await loadWhatsNew() }
     }
 
     func selectMood(_ mood: MoodFilter) {
         let newValue = (store.activeMood == mood) ? .all : mood
         store.setFilter(region: store.activeRegion, category: store.activeCategory,
                         type: store.activeContentType, mood: newValue)
-        Task { await loadWhatsNew() }
     }
 
     func selectContentType(_ type: ContentType) {
         let newValue = (store.activeContentType == type) ? .all : type
         store.setFilter(region: store.activeRegion, category: store.activeCategory,
                         type: newValue, mood: store.activeMood)
-        Task { await loadWhatsNew() }
     }
 
     func clearAllFilters() {
         searchQuery = ""
         store.clearAllFilters()
-        Task { await loadWhatsNew() }
     }
 
     func clearReadHistory() {
@@ -441,7 +435,7 @@ final class FeedLoader {
 
     func toggleRegion(_ region: String) {
         store.toggleRegion(region)
-        Task { await loadWhatsNew() }
+        Task { await loadWhatsNew(rebuild: true) }
     }
 
     func clearToggleMessage() {
@@ -450,12 +444,12 @@ final class FeedLoader {
     func toggleAllCountries() {
         store.registry.toggleAllCountries()
         store.resetWhatsNewBaseline()
-        Task { await loadWhatsNew() }
+        Task { await loadWhatsNew(rebuild: true) }
     }
     func toggleGlobalFeeds() {
         store.toggleRegion("global")
         store.resetWhatsNewBaseline()
-        Task { await loadWhatsNew() }
+        Task { await loadWhatsNew(rebuild: true) }
     }
     func toggleSource(_ sourceURL: String) { store.toggleSource(sourceURL) }
     /// True if the region is not explicitly disabled. Partial (disabled but
