@@ -9253,6 +9253,9 @@
 				12ACD22336A2DA104D10A88A /* PendingItem.swift in Sources */,
 				BEF87FD39AA83E134D719631 /* PendingQueue.swift in Sources */,
 				AAD4D3DB6C1444A13F1B9582 /* FeedDiscoveryService.swift in Sources */,
+				3AEC9DE43D74BC03972B2C0B /* OPMLParser.swift in Sources */,
+				383519A7AFEFE67C6FB585A9 /* OPMLParseResult.swift in Sources */,
+				7E39E605E7B9F579235AE061 /* FeedSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -57,18 +57,16 @@ final class ShareViewController: UIViewController {
                     $0.hasItemConformingToTypeIdentifier("public.xml")
                 }) {
                     for provider in fileProviders {
-                        if let result = try? await loadFile(from: provider) {
-                            if result.isOPML {
-                                pendingItems.append(PendingItem(
-                                    id: UUID().uuidString,
-                                    type: .opmlImport,
-                                    sourceURL: result.url?.absoluteString ?? "file://\(result.fileName)",
-                                    foundFeeds: [],
-                                    fileName: result.fileName,
-                                    feedCount: nil,
-                                    receivedAt: Int(Date().timeIntervalSince1970)
-                                ))
-                            }
+                        if let result = try? await loadAndCopyOPML(from: provider) {
+                            pendingItems.append(PendingItem(
+                                id: UUID().uuidString,
+                                type: .opmlImport,
+                                sourceURL: result.permanentURL.absoluteString,
+                                foundFeeds: [],
+                                fileName: result.fileName,
+                                feedCount: result.feedCount,
+                                receivedAt: Int(Date().timeIntervalSince1970)
+                            ))
                         }
                     }
                 }
@@ -121,29 +119,36 @@ final class ShareViewController: UIViewController {
         return data as? URL
     }
 
-    private func loadFile(from provider: NSItemProvider) async throws -> (fileName: String, url: URL?, isOPML: Bool)? {
+    private struct OPMLResult {
+        let fileName: String
+        let permanentURL: URL  // URL in App Group container
+        let feedCount: Int
+    }
+
+    private func loadAndCopyOPML(from provider: NSItemProvider) async throws -> OPMLResult? {
         let data = try await provider.loadItem(forTypeIdentifier: UTType.xml.identifier)
-        if let url = data as? URL {
-            let fileName = url.lastPathComponent
-            let isOPML = fileName.hasSuffix(".opml") || fileName.hasSuffix(".xml")
-            guard isOPML else { return (fileName, url, false) }
+        guard let tempURL = data as? URL else { return nil }
 
-            // Security-scoped resource: read now while we have access.
-            // The temp URL is deleted when the extension exits, so we must
-            // copy the file contents to the App Group container.
-            let didAccess = url.startAccessingSecurityScopedResource()
-            defer { if didAccess { url.stopAccessingSecurityScopedResource() } }
+        let fileName = tempURL.lastPathComponent
+        guard fileName.hasSuffix(".opml") || fileName.hasSuffix(".xml") else { return nil }
 
-            let fileData = try Data(contentsOf: url)
-            // Write a copy to the App Group container so the main app can read it
-            let containerDir = PendingQueue.containerURL.deletingLastPathComponent()
-            let safeName = "opml_import_\(UUID().uuidString).opml"
-            let safeURL = containerDir.appendingPathComponent(safeName)
-            try fileData.write(to: safeURL, options: .atomic)
+        // Security-scoped resource: read now while we have access.
+        // The temp URL is deleted when the extension exits, so we must
+        // copy the file contents to the App Group container.
+        let didAccess = tempURL.startAccessingSecurityScopedResource()
+        defer { if didAccess { tempURL.stopAccessingSecurityScopedResource() } }
 
-            return (fileName, safeURL, true)
-        }
-        return nil
+        // Copy to App Group so the main app can read it
+        let containerDir = PendingQueue.containerURL.deletingLastPathComponent()
+        let safeName = "imported_\(UUID().uuidString)_\(fileName)"
+        let destURL = containerDir.appendingPathComponent(safeName)
+
+        let fileData = try Data(contentsOf: tempURL)
+        try fileData.write(to: destURL, options: .atomic)
+
+        // Quick count: parse the OPML to count feeds
+        let feedSources = try OPMLParser.parseImportedFile(url: destURL)
+        return OPMLResult(fileName: fileName, permanentURL: destURL, feedCount: feedSources.count)
     }
 
     private func extractURLsFromText(from provider: NSItemProvider) async throws -> [URL] {
