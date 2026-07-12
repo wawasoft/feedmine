@@ -2,27 +2,31 @@ import SwiftUI
 
 @main
 struct FeedmineApp: App {
-    @State private var loader = FeedLoader()
+    @State private var store = try! FeedStore()
+    @State private var loader: FeedLoader?
     @State private var localeManager = LocaleManager.shared
-    @State private var pendingMonitor: PendingItemsMonitor!
+    @State private var pendingMonitor: PendingItemsMonitor?
     @Environment(\.scenePhase) private var scenePhase
     @State private var deepLinkArticleID: String?
 
     var body: some Scene {
         WindowGroup {
-            FeedScreen()
-                .environment(loader)
-                .environment(localeManager)
-                .environment(pendingMonitor)
-                .environment(\.deepLinkArticleID, deepLinkArticleID)
-                .onAppear {
-                    if pendingMonitor == nil {
-                        pendingMonitor = PendingItemsMonitor(store: loader.store)
+            if let loader, let pendingMonitor {
+                FeedScreen()
+                    .environment(loader)
+                    .environment(localeManager)
+                    .environment(pendingMonitor)
+                    .environment(\.deepLinkArticleID, deepLinkArticleID)
+                    .onOpenURL { url in
+                        handleDeepLink(url)
                     }
-                }
-                .onOpenURL { url in
-                    handleDeepLink(url)
-                }
+            } else {
+                Color.clear
+                    .task {
+                        loader = FeedLoader(store: store)
+                        pendingMonitor = PendingItemsMonitor(store: store)
+                    }
+            }
         }
         .onChange(of: scenePhase) { _, newPhase in
             pendingMonitor?.scenePhaseDidChange(newPhase)
