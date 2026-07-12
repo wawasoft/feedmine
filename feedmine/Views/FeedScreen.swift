@@ -12,6 +12,7 @@ private final class ImpressionTracker {
 struct FeedScreen: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(FeedLoader.self) private var loader
+    @Environment(PendingItemsMonitor.self) private var pendingMonitor
     @State private var articleItem: FeedItem?
     private let impressions = ImpressionTracker()
     @State private var showScrollButton = false
@@ -160,6 +161,13 @@ struct FeedScreen: View {
         .sheet(isPresented: $showSources) { SourceManagementView() }
         .sheet(isPresented: $showFilters) { FilterSheetView() }
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
+        .sheet(isPresented: Binding(
+            get: { pendingMonitor.showDiscoverySheet },
+            set: { if !$0 { pendingMonitor.processSkipped() } }
+        )) {
+            FeedDiscoverySheet()
+                .environment(loader)
+        }
         .tint(engine.accent)
         .animation(.easeInOut(duration: 2.0), value: engine.period)
         .overlay { if nightMode { nightOverlay } }
