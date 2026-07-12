@@ -1566,6 +1566,7 @@
 		BD1AFBB8F28BB3BBA74FE364 /* sudan-white-nile.opml in Resources */ = {isa = PBXBuildFile; fileRef = 0F6DD06799306E8DCB3E10B5 /* sudan-white-nile.opml */; };
 		BD6646C8B36B6A616DC24680 /* ArticleReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EBEEC23B00D4353C6DD6A9 /* ArticleReaderView.swift */; };
 		BDB7CF9231363C9360929889 /* ethiopia-gambela.opml in Resources */ = {isa = PBXBuildFile; fileRef = D867864EB2007993D7AAE37A /* ethiopia-gambela.opml */; };
+		BDCD204429F1669A277D94B3 /* PendingItemsMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE88762F5BD741214CD811B7 /* PendingItemsMonitor.swift */; };
 		BDEEFB48C2EF840CF8989AB4 /* japan-hiroshima.opml in Resources */ = {isa = PBXBuildFile; fileRef = 1B008576CE7430BB97EDD28A /* japan-hiroshima.opml */; };
 		BE5C6986D8A464C507EFAA5F /* mexico-aguascalientes.opml in Resources */ = {isa = PBXBuildFile; fileRef = 70E923B91E3A0C5ABA075483 /* mexico-aguascalientes.opml */; };
 		BE7CFE16CAA04C53358CE75A /* malaysia-melaka.opml in Resources */ = {isa = PBXBuildFile; fileRef = 7C498D5DB1E4543D4B566B81 /* malaysia-melaka.opml */; };
@@ -4080,6 +4081,7 @@
 		FE5682BC1B5A119F665E817D /* honduras-comayagua.opml */ = {isa = PBXFileReference; path = "honduras-comayagua.opml"; sourceTree = "<group>"; };
 		FE6FACE7F54D3F52CEF0182F /* iceland-sudurland.opml */ = {isa = PBXFileReference; path = "iceland-sudurland.opml"; sourceTree = "<group>"; };
 		FE754028D25C776ABD932B5D /* peru-puno.opml */ = {isa = PBXFileReference; path = "peru-puno.opml"; sourceTree = "<group>"; };
+		FE88762F5BD741214CD811B7 /* PendingItemsMonitor.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PendingItemsMonitor.swift; sourceTree = "<group>"; };
 		FE925F15F3A09D84300F6A4F /* ukraine-chernihiv.opml */ = {isa = PBXFileReference; path = "ukraine-chernihiv.opml"; sourceTree = "<group>"; };
 		FEBF8E5F27BF35D9D9709B56 /* honduras-choluteca.opml */ = {isa = PBXFileReference; path = "honduras-choluteca.opml"; sourceTree = "<group>"; };
 		FEC418123EA7F21D6A44B190 /* peru-la-libertad.opml */ = {isa = PBXFileReference; path = "peru-la-libertad.opml"; sourceTree = "<group>"; };
@@ -5913,6 +5915,7 @@
 				C08ABDEC67E17B5A4BF8916C /* WeatherService.swift */,
 				A7B91C3D5E8F24680ACE13DF /* PendingQueue.swift */,
 				10C73FA7CD9732A537DCAECE /* FeedDiscoveryService.swift */,
+				FE88762F5BD741214CD811B7 /* PendingItemsMonitor.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -9229,6 +9232,7 @@
 				689AC62DF39BE1D676B9546E /* BookmarkBoxPickerView.swift in Sources */,
 				3B64D85A7C91E02FDB846512 /* PendingItem.swift in Sources */,
 				CE8B4792A510F6D3C46E18DA /* PendingQueue.swift in Sources */,
+				BDCD204429F1669A277D94B3 /* PendingItemsMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

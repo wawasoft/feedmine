@@ -32,7 +32,7 @@ struct FeedState: Codable {
 @MainActor
 @Observable
 final class FeedLoader {
-    private let store: FeedStore
+    private(set) var store: FeedStore
     private let prefetcher = ImagePrefetcher()
 
     // MARK: - UI State (from store)
