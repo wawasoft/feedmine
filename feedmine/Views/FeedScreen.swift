@@ -1,6 +1,19 @@
 import SwiftUI
 import UIKit
 
+// MARK: - Deep Link Environment Key
+
+private struct DeepLinkArticleIDKey: EnvironmentKey {
+    static let defaultValue: String? = nil
+}
+
+extension EnvironmentValues {
+    var deepLinkArticleID: String? {
+        get { self[DeepLinkArticleIDKey.self] }
+        set { self[DeepLinkArticleIDKey.self] = newValue }
+    }
+}
+
 /// Non-reactive impression counter — mutated on every card `.onAppear`
 /// without triggering SwiftUI body re-evaluation.
 private final class ImpressionTracker {
@@ -10,6 +23,7 @@ private final class ImpressionTracker {
 }
 
 struct FeedScreen: View {
+    @Environment(\.deepLinkArticleID) private var deepLinkArticleID
     @Environment(\.scenePhase) private var scenePhase
     @Environment(FeedLoader.self) private var loader
     @Environment(PendingItemsMonitor.self) private var pendingMonitor
@@ -39,6 +53,7 @@ struct FeedScreen: View {
     @State private var userHasScrolled = false
     @State private var didRestoreScroll = false
     @State private var player = AudioPlayerManager.shared
+    @State private var pendingDeepLinkID: String?
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -95,6 +110,23 @@ struct FeedScreen: View {
                 scrollTargetID = lastScrollItemID
             }
             didRestoreScroll = true
+
+            // Handle deep link: find the article and open it
+            if let id = pendingDeepLinkID ?? deepLinkArticleID,
+               let item = loader.items.first(where: { $0.id == id }) {
+                articleItem = item
+                pendingDeepLinkID = nil
+            }
+        }
+        .onChange(of: deepLinkArticleID) { _, newID in
+            guard let id = newID, !id.isEmpty else { return }
+            // If items are already loaded, open immediately
+            if let item = loader.items.first(where: { $0.id == id }) {
+                articleItem = item
+            } else {
+                // Items not loaded yet — defer to .task
+                pendingDeepLinkID = id
+            }
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
@@ -161,20 +193,26 @@ struct FeedScreen: View {
         .sheet(isPresented: $showSources) { SourceManagementView() }
         .sheet(isPresented: $showFilters) { FilterSheetView() }
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
-        .sheet(isPresented: Binding(
-            get: { pendingMonitor.showDiscoverySheet },
-            set: { newValue in
-                if !newValue, pendingMonitor.showDiscoverySheet {
-                    pendingMonitor.processSkipped()
-                }
-            }
-        )) {
+        .sheet(isPresented: discoverySheetBinding) {
             FeedDiscoverySheet()
                 .environment(loader)
         }
         .tint(engine.accent)
         .animation(.easeInOut(duration: 2.0), value: engine.period)
         .overlay { if nightMode { nightOverlay } }
+    }
+
+    // MARK: - Discovery Sheet Binding
+
+    private var discoverySheetBinding: Binding<Bool> {
+        Binding(
+            get: { pendingMonitor.showDiscoverySheet },
+            set: { newValue in
+                if !newValue, pendingMonitor.showDiscoverySheet {
+                    pendingMonitor.processSkipped()
+                }
+            }
+        )
     }
 
     // MARK: - Compact Header
