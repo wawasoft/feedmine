@@ -2033,6 +2033,8 @@
 		FFE217951022C72BFF79B68E /* ro.json in Resources */ = {isa = PBXBuildFile; fileRef = 9584476DFFCB8587E082CAAF /* ro.json */; };
 		FFE674B8F0E2600BE9BB5BAE /* ukraine-volyn.opml in Resources */ = {isa = PBXBuildFile; fileRef = 61C448F47A7F7F334D7529AE /* ukraine-volyn.opml */; };
 		FFF622A2B34B3F9344E19A88 /* chile-los-rios.opml in Resources */ = {isa = PBXBuildFile; fileRef = 18E00E569B254DB3B23AE733 /* chile-los-rios.opml */; };
+		3B64D85A7C91E02FDB846512 /* PendingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942CFEAF1B23C7D8E45F609A /* PendingItem.swift */; };
+		CE8B4792A510F6D3C46E18DA /* PendingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B91C3D5E8F24680ACE13DF /* PendingQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -4062,6 +4064,8 @@
 		FF9AEDFF6523AC26969CBCF0 /* sweden-vasterbotten.opml */ = {isa = PBXFileReference; path = "sweden-vasterbotten.opml"; sourceTree = "<group>"; };
 		FF9F81AB8123586FBA91FF5A /* bulgaria-haskovo.opml */ = {isa = PBXFileReference; path = "bulgaria-haskovo.opml"; sourceTree = "<group>"; };
 		FFB59171B42D6039D1F09A39 /* south-korea-daejeon.opml */ = {isa = PBXFileReference; path = "south-korea-daejeon.opml"; sourceTree = "<group>"; };
+		942CFEAF1B23C7D8E45F609A /* PendingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingItem.swift; sourceTree = "<group>"; };
+		A7B91C3D5E8F24680ACE13DF /* PendingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -5842,6 +5846,7 @@
 				EB5037E0CE6FB2F30A9EE06D /* SourceRegistry.swift */,
 				041966E00C3974A5347DEE4A /* SourceScheduler.swift */,
 				C08ABDEC67E17B5A4BF8916C /* WeatherService.swift */,
+				A7B91C3D5E8F24680ACE13DF /* PendingQueue.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -5997,6 +6002,7 @@
 				5B17523EA785A32CBF906D42 /* FeedItem.swift */,
 				C15E7A90D2773F4370B149BA /* FeedSource.swift */,
 				4075C82BAA3F80E12152684C /* OPMLParseResult.swift */,
+				942CFEAF1B23C7D8E45F609A /* PendingItem.swift */,
 				A3FEA8EAA0D345AA732D6557 /* Region.swift */,
 			);
 			path = Models;
@@ -9128,6 +9134,8 @@
 				EB498E6F3FBB5C54A7BA0212 /* feedmineApp.swift in Sources */,
 				D0FD14774E42838EC54547B3 /* BookmarkBoxesView.swift in Sources */,
 				689AC62DF39BE1D676B9546E /* BookmarkBoxPickerView.swift in Sources */,
+				3B64D85A7C91E02FDB846512 /* PendingItem.swift in Sources */,
+				CE8B4792A510F6D3C46E18DA /* PendingQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
