@@ -163,7 +163,11 @@ struct FeedScreen: View {
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
         .sheet(isPresented: Binding(
             get: { pendingMonitor.showDiscoverySheet },
-            set: { if !$0 { pendingMonitor.processSkipped() } }
+            set: { newValue in
+                if !newValue, pendingMonitor.showDiscoverySheet {
+                    pendingMonitor.processSkipped()
+                }
+            }
         )) {
             FeedDiscoverySheet()
                 .environment(loader)

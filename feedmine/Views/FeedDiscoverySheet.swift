@@ -9,6 +9,8 @@ struct FeedDiscoverySheet: View {
     @State private var feedStates: [String: FeedPreviewState] = [:]  // keyed by feed URL
     @State private var selectedFeeds: Set<String> = []
     @State private var isProcessing = false
+    /// Parsed OPML feeds keyed by pending item ID.
+    @State private var parsedOpmlFeeds: [String: [PendingItem.DiscoveredFeed]] = [:]
 
     struct FeedPreviewState {
         let title: String
@@ -85,6 +87,11 @@ struct FeedDiscoverySheet: View {
                 Section {
                     if pendingItem.type == .opmlImport {
                         opmlSection(pendingItem)
+                        if let opmlFeeds = parsedOpmlFeeds[pendingItem.id], !opmlFeeds.isEmpty {
+                            ForEach(opmlFeeds, id: \.url) { feed in
+                                feedRow(url: feed.url, title: feed.title)
+                            }
+                        }
                     } else if pendingItem.foundFeeds.isEmpty {
                         directFeedRow(sourceURL: pendingItem.sourceURL)
                     } else {
@@ -104,12 +111,9 @@ struct FeedDiscoverySheet: View {
 
     // MARK: - Feed row
 
+    @ViewBuilder
     private func feedRow(url: String, title: String) -> some View {
-        guard let state = feedStates[url] else {
-            return AnyView(EmptyView())
-        }
-
-        return AnyView(
+        if let state = feedStates[url] {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Toggle(isOn: Binding(
@@ -194,7 +198,7 @@ struct FeedDiscoverySheet: View {
                 }
             }
             .padding(.vertical, 4)
-        )
+        }
     }
 
     private func directFeedRow(sourceURL: String) -> some View {
@@ -202,7 +206,8 @@ struct FeedDiscoverySheet: View {
     }
 
     private func opmlSection(_ item: PendingItem) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        let feedCount = parsedOpmlFeeds[item.id]?.count ?? item.feedCount
+        return VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Image(systemName: "doc.text.fill")
                     .foregroundStyle(.blue)
@@ -210,7 +215,7 @@ struct FeedDiscoverySheet: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
                 Spacer()
-                if let count = item.feedCount {
+                if let count = feedCount {
                     Text("\(count) feeds")
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -225,29 +230,46 @@ struct FeedDiscoverySheet: View {
     // MARK: - Load all feeds
 
     private func loadAllFeeds() async {
-        let allURLs = monitor.pendingItems.flatMap { item -> [(String, String)] in
+        // Step 1: Collect all URLs on the MainActor, including parsing OPML files.
+        var allURLs: [(String, String)] = []
+        for item in monitor.pendingItems {
             if item.type == .opmlImport {
-                // OPML items show a summary section; their parsed feeds are
-                // surfaced as individual feed_direct / feed_discovery items.
-                return []
-            }
-            if item.foundFeeds.isEmpty {
+                // Parse the OPML file to surface its feeds for preview.
+                guard let fileURL = URL(string: item.sourceURL),
+                      FileManager.default.fileExists(atPath: fileURL.path) else {
+                    continue
+                }
+                do {
+                    let feeds = try OPMLParser.parseImportedFile(url: fileURL)
+                    let discovered = feeds.map { PendingItem.DiscoveredFeed(title: $0.title, url: $0.url) }
+                    parsedOpmlFeeds[item.id] = discovered
+                    allURLs.append(contentsOf: feeds.map { ($0.url, $0.title) })
+                } catch {
+                    print("[FeedDiscoverySheet] Failed to parse OPML: \(error)")
+                }
+            } else if item.foundFeeds.isEmpty {
                 let title = URL(string: item.sourceURL)?.host ?? item.sourceURL
-                return [(item.sourceURL, title)]
+                allURLs.append((item.sourceURL, title))
+            } else {
+                allURLs.append(contentsOf: item.foundFeeds.map { ($0.url, $0.title) })
             }
-            return item.foundFeeds.map { ($0.url, $0.title) }
         }
 
-        // Initialize all states
+        // Step 2: Check registry once on the MainActor.
+        let registrySources = monitor.store.registry.sources
+        let alreadyAddedSet = Set(registrySources.map { OPMLParser.normalizeURL($0.url) })
+
+        // Step 3: Initialize feedStates on the MainActor.
         for (url, title) in allURLs {
             feedStates[url] = FeedPreviewState(title: title, url: url, status: .loading)
         }
 
-        // Fetch each feed and populate state
+        // Step 4: Fetch each feed in child tasks — no @MainActor access inside.
         await withTaskGroup(of: (String, FeedPreviewState).self) { group in
-            for (url, _) in allURLs {
+            for (url, title) in allURLs {
+                let isAlreadyAdded = alreadyAddedSet.contains(OPMLParser.normalizeURL(url))
                 group.addTask {
-                    await fetchFeedPreview(url: url)
+                    await fetchFeedPreview(url: url, title: title, isAlreadyAdded: isAlreadyAdded)
                 }
             }
             for await (url, state) in group {
@@ -259,39 +281,33 @@ struct FeedDiscoverySheet: View {
         }
     }
 
-    private func fetchFeedPreview(url: String) async -> (String, FeedPreviewState) {
-        let existingTitle = feedStates[url]?.title ?? URL(string: url)?.host ?? url
-
-        // Check if already in the registry
-        let normalized = OPMLParser.normalizeURL(url)
-        let store = monitor.store
-        let alreadyAdded = store.registry.sources.contains {
-            OPMLParser.normalizeURL($0.url) == normalized
-        }
-        if alreadyAdded {
-            return (url, FeedPreviewState(title: existingTitle, url: url, status: .alreadyAdded))
+    /// Pure fetch function — does NOT access `self`, `feedStates`, or `monitor`.
+    /// All `@MainActor` values are pre-computed and passed in.
+    private func fetchFeedPreview(url: String, title: String, isAlreadyAdded: Bool) async -> (String, FeedPreviewState) {
+        if isAlreadyAdded {
+            return (url, FeedPreviewState(title: title, url: url, status: .alreadyAdded))
         }
 
         // Validate URL
         guard URL(string: url) != nil else {
-            return (url, FeedPreviewState(title: existingTitle, url: url, status: .error("Invalid URL")))
+            return (url, FeedPreviewState(title: title, url: url, status: .error("Invalid URL")))
         }
 
-        let source = FeedSource(title: existingTitle, url: url, category: "Imported", region: "imported", mediaKind: .text)
+        let source = FeedSource(title: title, url: url, category: "Imported", region: "imported", mediaKind: .text)
         let fetcher = RSSFetcher()
         let result = await fetcher.fetchAll([source], maxConcurrent: 1)
 
         if let error = result.sourceStatuses[url], error == .failed {
-            return (url, FeedPreviewState(title: existingTitle, url: url, status: .error("Couldn't reach feed")))
+            return (url, FeedPreviewState(title: title, url: url, status: .error("Couldn't reach feed")))
         }
 
         let feedItems = result.items.filter { $0.sourceURL == url }
         if feedItems.isEmpty {
-            return (url, FeedPreviewState(title: existingTitle, url: url, status: .empty))
+            return (url, FeedPreviewState(title: title, url: url, status: .empty))
         }
 
         // Use the feed's declared title if available
-        let resolvedTitle = feedItems.first?.sourceTitle ?? existingTitle
+        let resolvedTitle = feedItems.first?.sourceTitle ?? title
         return (url, FeedPreviewState(
             title: resolvedTitle,
             url: url,
