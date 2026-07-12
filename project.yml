@@ -9,7 +9,7 @@ options:
 settings:
   SWIFT_VERSION: "6.0"
   SWIFT_STRICT_CONCURRENCY: complete
-  TARGETED_DEVICE_FAMILY: "1"  # iPhone only
+  TARGETED_DEVICE_FAMILY: "1"
 
 packages:
   FeedKit:
@@ -79,16 +79,35 @@ targets:
           - vi
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.feedmine.app
-      TARGETED_DEVICE_FAMILY: "1"  # iPhone only
+      TARGETED_DEVICE_FAMILY: "1"
       CODE_SIGN_STYLE: Automatic
       DEVELOPMENT_TEAM: "955573A4YH"
     dependencies:
       - package: FeedKit
       - package: GRDB
+  feedmineTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - feedmineTests
+    dependencies:
+      - target: feedmine
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.feedmine.tests
+      GENERATE_INFOPLIST_FILE: YES
+      ENABLE_SWIFT_TESTING: NO
 schemes:
   feedmine:
     build:
       targets:
         feedmine: all
+        feedmineTests: [test]
     run:
       config: Debug
+    test:
+      config: Debug
+      targets:
+        - name: feedmineTests
+          parallelizable: true
+          randomExecutionOrder: true
