@@ -51,7 +51,6 @@ struct PendingQueue: Sendable {
 
         let coordinator = NSFileCoordinator()
         var error: NSError?
-        var success = false
 
         coordinator.coordinate(writingItemAt: containerURL,
                                options: .forMerging,
@@ -73,7 +72,6 @@ struct PendingQueue: Sendable {
                 encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
                 let data = try encoder.encode(existing)
                 try data.write(to: writeURL, options: .atomic)
-                success = true
             } catch {
                 print("[PendingQueue] Write error: \(error)")
             }
