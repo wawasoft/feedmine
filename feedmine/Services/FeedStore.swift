@@ -146,23 +146,53 @@ final class FeedStore {
     private(set) var whatsNewItems: [FeedItem] = []
     /// Coalesced booster fetch — at most one in flight so rapid refresh callers
     /// (filter spam, foreground) collapse into a single network fetch.
+    /// Coalesced DB seed — at most one in flight so rapid rebuild callers
+    /// (filter spam, region toggle) collapse into a single DB query.
+    private var whatsNewSeedTask: Task<Void, Never>?
+    /// Coalesced booster fetch — at most one in flight so rapid refresh callers
+    /// (filter spam, foreground) collapse into a single network fetch.
     private var whatsNewBoosterTask: Task<Void, Never>?
     /// Durable memory of items already shown in the carousel, so seen-but-unread
     /// items never reappear as NEW across sessions. Persisted (capped).
+    /// Stored as an ordered array for FIFO eviction — oldest-seen IDs drop first,
+    /// preserving the invariant that recently-shown items never reappear.
+    /// Uses UserDefaults for simplicity; a future migration to GRDB/SQLite would
+    /// provide transactional writes and indexed lookups for large sets.
     private static let whatsNewSeenKey = "whats_new_seen_ids"
     private static let whatsNewSeenCap = 800
     @ObservationIgnored private lazy var whatsNewSeenIDs: Set<String> = {
         Set(UserDefaults.standard.stringArray(forKey: Self.whatsNewSeenKey) ?? [])
     }()
+    /// Ordered shadow of seen IDs for FIFO eviction — oldest-inserted first.
+    @ObservationIgnored private var whatsNewSeenOrder: [String] = []
+    /// Write-on-exit flag: defer UserDefaults persistence until the calling
+    /// function completes, batching multiple recordWhatsNewSeen calls.
+    @ObservationIgnored private var whatsNewSeenDirty = false
 
-    /// Record carousel-shown item IDs and persist, bounded to a cap.
+    /// Record carousel-shown item IDs and persist, bounded to a FIFO cap.
+    /// Defers the UserDefaults write — call flushWhatsNewSeen() once after
+    /// batch operations (promote, mark-read + backfill) to persist once.
     private func recordWhatsNewSeen(_ ids: [String]) {
         guard !ids.isEmpty else { return }
-        for id in ids { whatsNewSeenIDs.insert(id) }
-        if whatsNewSeenIDs.count > Self.whatsNewSeenCap {
-            whatsNewSeenIDs = Set(whatsNewSeenIDs.shuffled().prefix(Self.whatsNewSeenCap))
+        for id in ids {
+            if whatsNewSeenIDs.insert(id).inserted {
+                whatsNewSeenOrder.append(id)
+            }
         }
+        // FIFO eviction: drop oldest-seen IDs first so recent items are
+        // protected and never reappear in the carousel.
+        while whatsNewSeenIDs.count > Self.whatsNewSeenCap, let oldest = whatsNewSeenOrder.first {
+            whatsNewSeenIDs.remove(oldest)
+            whatsNewSeenOrder.removeFirst()
+        }
+        whatsNewSeenDirty = true
+    }
+
+    /// Persist the seen-ID set to UserDefaults if it was mutated since last flush.
+    private func flushWhatsNewSeen() {
+        guard whatsNewSeenDirty else { return }
         UserDefaults.standard.set(Array(whatsNewSeenIDs), forKey: Self.whatsNewSeenKey)
+        whatsNewSeenDirty = false
     }
     private var _defaultListID: Int64?
     private var hasStarted = false             // guards one-time startup work
@@ -331,7 +361,7 @@ final class FeedStore {
         loadingState = .idle
 
         // Kick off What's New pipeline
-        refreshWhatsNew(rebuild: true)
+        rebuildWhatsNew()
 
         // Slow-drip background refresh — keeps the database and What's New
         // fed with fresh content continuously while the app is in foreground.
@@ -526,13 +556,16 @@ final class FeedStore {
     }
 
     func setFilter(region: String?, category: String?, type: FeedLoader.ContentType, mood: FeedLoader.MoodFilter = .all) {
+        // No-op guard: if every value matches, skip the full rebuild.
+        guard region != activeRegion || category != activeCategory
+              || type != activeContentType || mood != activeMood else { return }
         loadingState = .refreshing
         activeRegion = region
         activeCategory = category
         activeContentType = type
         activeMood = mood
         persistFilters()
-        refreshWhatsNew(rebuild: true)
+        rebuildWhatsNew()
         applyUpdate(.flush())
     }
 
@@ -544,7 +577,7 @@ final class FeedStore {
         activeMood = .all
         persistFilters()
         // Content on screen is untouchable. Clear everything, reload fresh.
-        refreshWhatsNew(rebuild: true)
+        rebuildWhatsNew()
         applyUpdate(.flush())
     }
 
@@ -641,6 +674,12 @@ final class FeedStore {
     func clearReadHistory() {
         readItemIDs.removeAll()
         reservoir.readItemIDs = []
+        // Reset What's New seen history so previously-shown carousel items
+        // can reappear — the user asked for a complete fresh start.
+        whatsNewSeenIDs.removeAll()
+        whatsNewSeenOrder.removeAll()
+        UserDefaults.standard.removeObject(forKey: Self.whatsNewSeenKey)
+        whatsNewSeenDirty = false
         Task {
             try await db.write { db in
                 try db.execute(sql: "UPDATE feed_item SET is_read = 0, opened_at = NULL")
@@ -715,27 +754,16 @@ final class FeedStore {
     func collectWhatsNewCandidates(_ newItems: [FeedItem]) {
         let visibleIDs = Set(reservoir.visibleItems.map(\.id))
         let readIDs = readItemIDs
+        let seenIDs = whatsNewSeenIDs
         let weekAgo = Date().addingTimeInterval(-604800)  // 7 days
         let candidates = newItems.filter { item in
             item.publishedAt > weekAgo
-            && isItemEnabled(item)
-            && filterContentType(item)
-            && (activeMood == .all || activeMood.matches(item.title))
             && !visibleIDs.contains(item.id)
-            && !readIDs.contains(item.id)
-            && !whatsNewSeenIDs.contains(item.id)   // never re-show an already-shown item
+            && isEligibleForWhatsNew(item, surfacedIDs: visibleIDs, readIDs: readIDs, seenIDs: seenIDs)
         }
         guard !candidates.isEmpty else { return }
-        // Merge into pool, newest first, de-duplicated by ITEM ID. (Previously
-        // deduped by sourceURL, which kept only one item per source — that
-        // silently dropped fresh items and could hold the pool below the
-        // promotion threshold forever, so the carousel never appeared.)
-        var pool = (candidates + whatsNewPool).sorted { $0.publishedAt > $1.publishedAt }
-        var seen = Set<String>()
-        pool = pool.filter { seen.insert($0.id).inserted }
-        whatsNewPool = pool
-        // Promote when threshold reached
-        promoteWhatsNewIfReady()
+        // Merge into pool, newest first, de-duplicated by ITEM ID.
+        mergeIntoWhatsNewPool(candidates)
     }
 
     /// Promote candidates to the visible carousel when the pool is full.
@@ -747,13 +775,12 @@ final class FeedStore {
         // so they never reappear as NEW (this session or across relaunches).
         markSurfaced(whatsNewItems)
         recordWhatsNewSeen(whatsNewItems.map(\.id))
+        flushWhatsNewSeen()
     }
 
-    /// Advance the carousel: return shown (unclicked) items to the pool so
-    /// they remain available for future selections, then promote next batch.
-    /// Clear the current batch and promote the next one from the pool. Shown
-    /// items were already recorded as seen (in promote), so they will not be
-    /// returned or re-selected — no infinite cycling of the same/read items.
+    /// Advance the carousel: clear the current batch and promote the next one
+    /// from the pool. Shown items were already recorded as seen (in promote),
+    /// so they will not be returned or re-selected — no infinite cycling.
     func advanceWhatsNew() {
         whatsNewItems = []
         promoteWhatsNewIfReady()
@@ -763,19 +790,24 @@ final class FeedStore {
     /// one fresh item from the pool. This is the ONLY path that mutates the
     /// visible carousel — always user-driven, never passive. (Carousel is sacred.)
     func markWhatsNewRead(_ itemID: String) {
+        guard let idx = whatsNewItems.firstIndex(where: { $0.id == itemID }) else { return }
         markAsRead(itemID)
         recordWhatsNewSeen([itemID])
-        guard let idx = whatsNewItems.firstIndex(where: { $0.id == itemID }) else { return }
         whatsNewItems.remove(at: idx)
         if let next = whatsNewPool.first(where: { item in
             !readItemIDs.contains(item.id)
             && !whatsNewItems.contains(where: { $0.id == item.id })
+            && filterContentType(item)
+            && isItemEnabled(item)
+            && (activeMood == .all || activeMood.matches(item.title))
+            && !whatsNewSeenIDs.contains(item.id)
         }) {
             whatsNewPool.removeAll { $0.id == next.id }
             whatsNewItems.append(next)
             markSurfaced([next])
             recordWhatsNewSeen([next.id])
         }
+        flushWhatsNewSeen()
     }
 
     /// Kick off an aggressive fetch to fill the What's New pool quickly at
@@ -787,45 +819,81 @@ final class FeedStore {
     func scheduleWhatsNewBooster() {
         whatsNewBoosterTask?.cancel()
         whatsNewBoosterTask = Task { [weak self] in
-            try? await Task.sleep(for: .milliseconds(400))
+            defer { self?.whatsNewBoosterTask = nil }
+            do {
+                try await Task.sleep(for: .milliseconds(400))
+            } catch {
+                return  // CancellationError — task was cancelled, bail
+            }
             guard !Task.isCancelled, let self else { return }
             let sources = self.registry.enabledSources.shuffled().prefix(30)
             guard !sources.isEmpty else { return }
             let result = await self.fetcher.fetchAll(Array(sources), maxConcurrent: 5)
             guard !Task.isCancelled else { return }
-            // persistFetchedItems already feeds collectWhatsNewCandidates, so the
-            // pool is updated without a second (redundant) collect call.
             let actualNew = await self.persistFetchedItems(result.items)
+            guard !Task.isCancelled else { return }
             if !actualNew.isEmpty {
                 self.reservoir.append(actualNew)
                 self.prefetchImagesIfEnabled(for: actualNew)
+                // Feed the What's New pipeline so booster-fetched items
+                // enter the carousel pool immediately (matching every
+                // other fetch path: fetchNextBatch, progressiveFetch,
+                // backgroundRefresh, toggleSource).
+                self.collectWhatsNewCandidates(actualNew)
             }
             for source in sources {
                 let ok = result.sourceStatuses[source.url] != .failed
                 self.scheduler.recordFetch(sourceURL: source.url, success: ok)
             }
+            self.flushWhatsNewSeen()
         }
     }
 
-    /// Refresh What's New: clear the pool, re-seed from DB, and trigger
-    /// a booster fetch. Called on any user-triggered update (startup, shake,
-    /// filter change) so the carousel always reflects the current context.
-    /// Refresh What's New.
-    /// - rebuild=true (cold start, filter/context change): the visible batch no
-    ///   longer matches the new context, so clear it and rebuild from scratch.
-    /// - rebuild=false (foreground, pull-to-refresh): the visible carousel is
-    ///   SACRED — leave it untouched and only top up the background pool. New
-    ///   content surfaces on the next user-driven rotation, never under the user.
-    func refreshWhatsNew(rebuild: Bool) {
-        if rebuild {
-            whatsNewItems = []
-            whatsNewPool = []
-            Task { await seedWhatsNewFromDB() }
-        } else if whatsNewItems.isEmpty && whatsNewPool.isEmpty {
-            // Nothing shown yet — safe to seed without disturbing the screen.
-            Task { await seedWhatsNewFromDB() }
+    /// Rebuild What's New from scratch: clear the visible carousel and pool,
+    /// re-seed from the database, and fire the booster. Used on cold start,
+    /// filter/context changes, and any event where the current batch no longer
+    /// matches the active context.
+    func rebuildWhatsNew() {
+        whatsNewItems = []
+        whatsNewPool = []
+        whatsNewSeedTask?.cancel()
+        whatsNewSeedTask = Task { [weak self] in
+            defer { self?.whatsNewSeedTask = nil }
+            await self?.seedWhatsNewFromDB()
         }
         scheduleWhatsNewBooster()
+    }
+
+    /// Top up the What's New background pool without touching the visible
+    /// carousel. Used on foreground, pull-to-refresh, and timer-driven
+    /// refreshes where the visible batch is SACRED.
+    /// If the pool has enough items and the carousel is stuck (fewer than
+    /// threshold visible), auto-advance to show fresh content.
+    func topUpWhatsNew() {
+        // If nothing is visible and the pool is empty, seed from DB safely.
+        if whatsNewItems.isEmpty && whatsNewPool.isEmpty {
+            whatsNewSeedTask?.cancel()
+            whatsNewSeedTask = Task { [weak self] in
+                defer { self?.whatsNewSeedTask = nil }
+                await self?.seedWhatsNewFromDB()
+            }
+        }
+        // If the visible carousel is lighter than a full batch and the pool
+        // has enough items, advance to show fresh content (foreground refresh,
+        // timer-based rotation).
+        if whatsNewItems.count < whatsNewThreshold && whatsNewPool.count >= whatsNewThreshold {
+            advanceWhatsNew()
+        }
+        scheduleWhatsNewBooster()
+    }
+
+    /// Deprecated — use rebuildWhatsNew() or topUpWhatsNew() directly.
+    func refreshWhatsNew(rebuild: Bool) {
+        if rebuild {
+            rebuildWhatsNew()
+        } else {
+            topUpWhatsNew()
+        }
     }
 
     /// Seed the pool from existing SQLite content — runs once at startup
@@ -835,11 +903,19 @@ final class FeedStore {
         let surfacedIDs = surfacedItemIDs
         let readIDs = readItemIDs
         let seenIDs = whatsNewSeenIDs
+        let regionFilter = activeRegion  // nil → all regions
         do {
             let records: [FeedItemRecord] = try await db.read { db in
-                try FeedItemRecord
+                var query = FeedItemRecord
                     .filter(Column("published_at") > Int(Date().addingTimeInterval(-2592000).timeIntervalSince1970))
                     .filter(Column("is_read") == 0)
+                // Push the region filter into SQL so the 500-row LIMIT is
+                // meaningful — without it, 500 rows are fetched then 90%+
+                // discarded in-memory if the user filters to one region.
+                if let region = regionFilter {
+                    query = query.filter(Column("region") == region)
+                }
+                return try query
                     .order(Column("published_at").desc)
                     .limit(500)
                     .fetchAll(db)
@@ -850,12 +926,36 @@ final class FeedStore {
                 .filter { activeMood == .all || activeMood.matches($0.title) }
             // Merge with whatever the booster already added — de-dup by ITEM ID so
             // the booster's fresh network items are never discarded by the seed.
-            var merged = (whatsNewPool + items).sorted { $0.publishedAt > $1.publishedAt }
-            var seen = Set<String>()
-            merged = merged.filter { seen.insert($0.id).inserted }
-            whatsNewPool = merged
-            promoteWhatsNewIfReady()
+            mergeIntoWhatsNewPool(items)
         } catch {}
+    }
+
+    // MARK: - Shared filter + dedup helpers
+
+    /// Check all What's New eligibility rules. Single source of truth —
+    /// both collectWhatsNewCandidates and seedWhatsNewFromDB use this
+    /// (through their existing filter chains) so filter changes apply
+    /// everywhere.
+    private func isEligibleForWhatsNew(_ item: FeedItem,
+                                        surfacedIDs: Set<String>,
+                                        readIDs: Set<String>,
+                                        seenIDs: Set<String>) -> Bool {
+        isItemEnabled(item)
+        && filterContentType(item)
+        && (activeMood == .all || activeMood.matches(item.title))
+        && !surfacedIDs.contains(item.id)
+        && !readIDs.contains(item.id)
+        && !seenIDs.contains(item.id)
+    }
+
+    /// Merge new items into the What's New pool, de-duplicated by item ID
+    /// and sorted newest-first. Promotes if the threshold is reached.
+    private func mergeIntoWhatsNewPool(_ newItems: [FeedItem]) {
+        var merged = (newItems + whatsNewPool).sorted { $0.publishedAt > $1.publishedAt }
+        var seen = Set<String>()
+        merged = merged.filter { seen.insert($0.id).inserted }
+        whatsNewPool = merged
+        promoteWhatsNewIfReady()
     }
 
     /// Advance the baseline to now and persist it — so items already shown
@@ -1629,24 +1729,15 @@ final class FeedStore {
     /// reload from SQLite, force fetch fresh content.
     func shakeToRefresh() {
         // Persist visible items as read so they don't reappear after reload.
+        // Uses the existing batch markAllAsRead for a single SQL round-trip
+        // instead of N individual UPDATE statements.
         let ids = reservoir.visibleItems.map(\.id)
-        for id in ids { readItemIDs.insert(id) }
-        reservoir.readItemIDs = readItemIDs
-        Task {
-            try await db.write { db in
-                for id in ids {
-                    try db.execute(sql: """
-                        UPDATE feed_item SET is_read = 1, opened_at = \(Int(Date().timeIntervalSince1970))
-                        WHERE id = ?
-                    """, arguments: [id])
-                }
-            }
-        }
+        markAllAsRead(ids)
         // Clear everything, then force-fetch NEW content. The SQLite reload
         // will skip read items so only unseen content appears.
         resetWhatsNewBaseline()
         lastRefreshDate = nil
-        refreshWhatsNew(rebuild: true)
+        rebuildWhatsNew()
         applyUpdate(.flush(forceFetch: true, skipRead: true))
     }
 

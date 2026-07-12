@@ -307,9 +307,18 @@ final class FeedLoader {
     var whatsNewLabel: String { "What's New" }
     var whatsNewVisible = false
 
-    /// Refresh What's New. rebuild=false (foreground/pull) leaves the visible
-    /// carousel untouched and only tops up the background pool; rebuild=true
-    /// (cold start, filter/context change) clears and rebuilds.
+    /// Rebuild What's New from scratch (cold start, filter/context change).
+    func loadWhatsNewRebuild() {
+        store.rebuildWhatsNew()
+    }
+
+    /// Top up the What's New background pool without touching the visible
+    /// carousel (foreground, pull-to-refresh).
+    func loadWhatsNewTopUp() {
+        store.topUpWhatsNew()
+    }
+
+    /// Deprecated — use loadWhatsNewRebuild() or loadWhatsNewTopUp() directly.
     func loadWhatsNew(rebuild: Bool = false) async {
         store.refreshWhatsNew(rebuild: rebuild)
     }
@@ -364,7 +373,7 @@ final class FeedLoader {
 
     func start() async {
         await store.start()
-        await loadWhatsNew(rebuild: true)
+        loadWhatsNewRebuild()
         await refreshBookmarkLists()
         await refreshBookmarkState()
         await refreshActiveSearchState()
@@ -374,11 +383,11 @@ final class FeedLoader {
     }
     func refreshIfStale() async {
         await store.refreshIfStale()
-        await loadWhatsNew()
+        loadWhatsNewTopUp()
     }
     func refresh() async {
         await store.refreshNow()
-        await loadWhatsNew()
+        loadWhatsNewTopUp()
     }
 
     func selectCategory(_ category: String?) {
@@ -435,7 +444,7 @@ final class FeedLoader {
 
     func toggleRegion(_ region: String) {
         store.toggleRegion(region)
-        Task { await loadWhatsNew(rebuild: true) }
+        loadWhatsNewRebuild()
     }
 
     func clearToggleMessage() {
@@ -444,12 +453,12 @@ final class FeedLoader {
     func toggleAllCountries() {
         store.registry.toggleAllCountries()
         store.resetWhatsNewBaseline()
-        Task { await loadWhatsNew(rebuild: true) }
+        loadWhatsNewRebuild()
     }
     func toggleGlobalFeeds() {
         store.toggleRegion("global")
         store.resetWhatsNewBaseline()
-        Task { await loadWhatsNew(rebuild: true) }
+        loadWhatsNewRebuild()
     }
     func toggleSource(_ sourceURL: String) { store.toggleSource(sourceURL) }
     /// True if the region is not explicitly disabled. Partial (disabled but
