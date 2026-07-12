@@ -105,16 +105,13 @@ struct FeedDiscoveryService: Sendable {
     private static func parseLinkTags(html: String, baseURL: URL) -> [PendingItem.DiscoveredFeed] {
         var feeds: [PendingItem.DiscoveredFeed] = []
 
-        // Regex to match <link ... rel="alternate" ... type="application/rss+xml|atom+xml" ... href="..." ...>
-        let pattern = #/<link\s[^>]*\brel\s*=\s*["']alternate["'][^>]*\btype\s*=\s*["']application\/(?:rss|atom)\+xml["'][^>]*\bhref\s*=\s*["']([^"']+)["'][^>]*>/#
-
         // Simpler approach: extract link tags and check each
         let linkPattern = #/(?i)<link\s+([^>]+)\s*\/?>/#
         let matches = html.matches(of: linkPattern)
         for match in matches {
             let attrs = String(match.1)
-            guard attrs.contains("alternate") else { continue }
-            guard attrs.contains("rss+xml") || attrs.contains("atom+xml") else { continue }
+            guard attrs.localizedCaseInsensitiveContains("alternate") else { continue }
+            guard attrs.localizedCaseInsensitiveContains("rss+xml") || attrs.localizedCaseInsensitiveContains("atom+xml") else { continue }
             if let href = extractAttribute("href", from: attrs),
                let resolved = resolveURL(href, base: baseURL) {
                 let title = extractAttribute("title", from: attrs) ?? "Feed"
@@ -182,14 +179,11 @@ struct FeedDiscoveryService: Sendable {
 
 private extension String {
     func stripHTML() -> String {
-        guard let data = data(using: .utf8) else { return self }
-        if let plain = try? NSAttributedString(
-            data: data,
-            options: [.documentType: NSAttributedString.DocumentType.html],
-            documentAttributes: nil
-        ).string {
-            return plain
-        }
-        return self
+        replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&apos;", with: "'")
     }
 }
