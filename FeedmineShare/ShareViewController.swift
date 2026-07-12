@@ -7,6 +7,26 @@ import UniformTypeIdentifiers
 @MainActor
 final class ShareViewController: UIViewController {
 
+    // MARK: - Error types
+
+    enum ShareError {
+        case noContent
+        case appGroupInaccessible
+        case noFeedsFound
+
+        var alertTitle: String { "Feedmine" }
+        var message: String {
+            switch self {
+            case .noContent:
+                return "No content to share. Send a website link or OPML file."
+            case .appGroupInaccessible:
+                return "Couldn't send to Feedmine — open the app and try adding feeds manually."
+            case .noFeedsFound:
+                return "No feeds found in the shared content."
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         processInputItems()
@@ -16,7 +36,7 @@ final class ShareViewController: UIViewController {
 
     private func processInputItems() {
         guard let extensionItems = extensionContext?.inputItems as? [NSExtensionItem] else {
-            showError("No content received")
+            showError(.noContent)
             return
         }
 
@@ -98,7 +118,7 @@ final class ShareViewController: UIViewController {
             }
 
             guard !pendingItems.isEmpty else {
-                showError("No feeds found in shared content")
+                showError(.noFeedsFound)
                 return
             }
 
@@ -176,12 +196,12 @@ final class ShareViewController: UIViewController {
         hosting.didMove(toParent: self)
     }
 
-    private func showError(_ message: String) {
-        let alert = UIAlertController(title: "Feedmine", message: message, preferredStyle: .alert)
+    private func showError(_ error: ShareError) {
+        let alert = UIAlertController(title: error.alertTitle, message: error.message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
             self?.extensionContext?.cancelRequest(withError: NSError(
                 domain: "com.feedmine.share", code: 1,
-                userInfo: [NSLocalizedDescriptionKey: message]
+                userInfo: [NSLocalizedDescriptionKey: error.message]
             ))
         })
         present(alert, animated: true)

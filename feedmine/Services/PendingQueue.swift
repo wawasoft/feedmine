@@ -73,6 +73,14 @@ struct PendingQueue: Sendable {
     static func append(_ newItems: [PendingItem]) {
         guard !newItems.isEmpty else { return }
 
+        // Defensive: verify App Group container is accessible
+        guard FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: "group.app.feedmine"
+        ) != nil else {
+            print("[PendingQueue] App Group container inaccessible — cannot write")
+            return
+        }
+
         let coordinator = NSFileCoordinator()
         var error: NSError?
 

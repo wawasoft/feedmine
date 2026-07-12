@@ -186,13 +186,25 @@ struct FeedDiscoverySheet: View {
                     .padding(.leading, 28)
 
                 case .error(let message):
-                    HStack(spacing: 4) {
-                        Image(systemName: "xmark.circle.fill")
+                    VStack(spacing: 4) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.caption)
+                                .foregroundStyle(.red)
+                            Text(message)
+                                .font(.caption)
+                                .foregroundStyle(.red)
+                            Button("Retry") {
+                                Task {
+                                    feedStates[url]?.status = .loading
+                                    let (_, newState) = await fetchFeedPreview(url: url, title: state.title, isAlreadyAdded: false)
+                                    feedStates[url] = newState
+                                }
+                            }
                             .font(.caption)
-                            .foregroundStyle(.red)
-                        Text(message)
-                            .font(.caption)
-                            .foregroundStyle(.red)
+                            .buttonStyle(.plain)
+                            .foregroundStyle(.blue)
+                        }
                     }
                     .padding(.leading, 28)
                 }
