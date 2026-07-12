@@ -9393,7 +9393,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = FeedmineShare/FeedmineShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FeedmineShare/Info.plist;
@@ -9412,7 +9411,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = FeedmineShare/FeedmineShare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = FeedmineShare/Info.plist;

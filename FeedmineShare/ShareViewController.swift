@@ -4,6 +4,7 @@ import UniformTypeIdentifiers
 /// Entry point for the Feedmine Share Extension.
 /// Extracts URLs, files, and text from the extension context,
 /// writes them to the App Group pending queue, then shows confirmation UI.
+@MainActor
 final class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
