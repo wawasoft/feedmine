@@ -9,6 +9,8 @@ import time
 from datetime import datetime, timezone
 from urllib.parse import urlencode
 
+import aiohttp
+
 from ..models import Candidate
 from ..opml import normalize_url
 from ..profiles._schema import CountryProfile, SourceConfig
@@ -44,7 +46,7 @@ class PodcastIndexSource:
     def _auth_headers(self) -> dict[str, str]:
         """Generate X-Auth-Key, X-Auth-Date, Authorization headers."""
         dt = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
-        string_to_sign = f"{self.api_key}{self.api_key}{dt}"
+        string_to_sign = f"{self.api_key}{self.api_secret}{dt}"
         signature = hmac.new(
             self.api_secret.encode(), string_to_sign.encode(), hashlib.sha1
         ).hexdigest()
@@ -92,7 +94,10 @@ class PodcastIndexSource:
         seen: set[str] = set()
         for feed in data.get("feeds", []):
             feed_url = feed.get("url") or feed.get("originalUrl")
-            if not feed_url or feed_url in seen:
+            if not feed_url:
+                continue
+            feed_url = normalize_url(feed_url)
+            if feed_url in seen:
                 continue
             seen.add(feed_url)
             # Determine category from itunes categories if available
@@ -149,6 +154,3 @@ class PodcastIndexSource:
                 error=str(e)[:200],
             )
 
-
-# Import aiohttp at module level for type annotations
-import aiohttp  # noqa: E402
