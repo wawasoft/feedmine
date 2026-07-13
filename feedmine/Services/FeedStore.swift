@@ -1231,6 +1231,30 @@ final class FeedStore {
         }
     }
 
+    func toggleAllCountries() {
+        let wasAnyOn = registry.isAnyCountryEnabled
+        registry.toggleAllCountries()
+        if wasAnyOn {
+            // Disabling all countries — purge their items from the reservoir
+            // and all visible items. Unlike individual toggleRegion, this
+            // affects every country at once, so a full flush is appropriate.
+            let countryRegions = registry.sources
+                .filter { $0.isCountryFeed }
+                .map { $0.region }
+            for region in Set(countryRegions) {
+                reservoir.removeRegion(region)
+            }
+            applyUpdate(.replace(applyFilters(reservoir.visibleItems)))
+        } else {
+            // Enabling all countries — flush and reload from SQLite so
+            // country content appears immediately.
+            resetWhatsNewBaseline()
+            refreshWhatsNew()
+            applyUpdate(.flush())
+        }
+        reservoirCount = reservoir.reservoirCount
+    }
+
     /// Fetch a seed batch from a newly enabled region. Returns items to prepend.
     private func seedRegion(_ region: String) async -> [FeedItem] {
         let regionSources = registry.enabledSources
