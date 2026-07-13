@@ -607,6 +607,12 @@ final class FeedLoader {
         Task { await fetchAndReloadAfterImport(newSources) }
     }
 
+    /// Replace the entire source list (used by collection management: rename, delete, move).
+    func replaceAllSources(_ sources: [FeedSource]) {
+        store.registry.sources = sources
+        persistImportedSources()
+    }
+
     /// Import feed URLs (paste, share sheet, etc.) with full validation.
     /// Pass `skipValidation: true` when URLs come from URLResolver (already probed).
     /// Returns ImportResult for UI feedback.
