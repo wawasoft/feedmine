@@ -11,6 +11,7 @@ struct ExportView: View {
     @State private var preview: String = ""
     @State private var showDocumentPicker = false
     @State private var exportFileURL: URL?
+    @State private var bookmarkedArticles: [FeedItem] = []
 
     private var scopedSources: [FeedSource] {
         switch selectedScope {
@@ -140,7 +141,10 @@ struct ExportView: View {
                 }
             }
             .onAppear { updatePreview() }
-            .onChange(of: selectedScope) { _, _ in updatePreview() }
+            .onChange(of: selectedScope) { _, newScope in
+                if newScope == .bookmarks { loadBookmarks() }
+                updatePreview()
+            }
             .onChange(of: selectedCollection) { _, _ in updatePreview() }
         }
         .presentationDetents([.medium, .large])
@@ -161,6 +165,16 @@ struct ExportView: View {
 
     // MARK: - Actions
 
+    private func loadBookmarks() {
+        Task {
+            do {
+                bookmarkedArticles = try await loader.loadBookmarkedItems(listID: nil)
+            } catch {
+                bookmarkedArticles = []
+            }
+        }
+    }
+
     private func updatePreview() {
         // Reset format if not available for current scope
         if !availableFormats.contains(selectedFormat) {
@@ -177,16 +191,28 @@ struct ExportView: View {
             preview = String(data: ExportEngine.jsonBackup(sources: sources, contentFilters: filters, bookmarkIDs: bookmarkIDs).prefix(500), encoding: .utf8) ?? ""
         case .csv:
             if selectedScope == .bookmarks {
-                preview = "title,url,date\n(bookmarked articles...)"
+                preview = String(data: ExportEngine.csvArticles(items: bookmarkedArticles).prefix(500), encoding: .utf8) ?? ""
             } else {
                 preview = String(data: ExportEngine.csv(sources: sources, enabledURLs: enabledURLs).prefix(500), encoding: .utf8) ?? ""
             }
         case .text:
-            preview = String(ExportEngine.plainText(sources: sources).prefix(500))
+            if selectedScope == .bookmarks {
+                preview = String(ExportEngine.plainTextArticles(items: bookmarkedArticles).prefix(500))
+            } else {
+                preview = String(ExportEngine.plainText(sources: sources).prefix(500))
+            }
         case .markdown:
-            preview = String(ExportEngine.markdown(sources: sources).prefix(500))
+            if selectedScope == .bookmarks {
+                preview = String(ExportEngine.markdownArticles(items: bookmarkedArticles).prefix(500))
+            } else {
+                preview = String(ExportEngine.markdown(sources: sources).prefix(500))
+            }
         case .html:
-            preview = "HTML blogroll (\(sources.count) feeds, \(Set(sources.map(\.category)).count) collections). Dark mode ready."
+            if selectedScope == .bookmarks {
+                preview = "HTML reading list (\(bookmarkedArticles.count) articles). Dark mode ready."
+            } else {
+                preview = "HTML blogroll (\(sources.count) feeds, \(Set(sources.map(\.category)).count) collections). Dark mode ready."
+            }
         case .shareLink:
             let result = ExportEngine.shareLink(sources: sources)
             switch result {
@@ -205,6 +231,19 @@ struct ExportView: View {
     private func generateExportData() -> (data: Data, filename: String)? {
         let sources = scopedSources
         let name = "feedmine-export-\(Int(Date().timeIntervalSince1970))"
+
+        // Bookmarks scope exports articles, not sources
+        if selectedScope == .bookmarks {
+            let articles = bookmarkedArticles
+            switch selectedFormat {
+            case .csv: return (ExportEngine.csvArticles(items: articles), "\(name)-bookmarks.csv")
+            case .text: return (Data(ExportEngine.plainTextArticles(items: articles).utf8), "\(name)-bookmarks.txt")
+            case .markdown: return (Data(ExportEngine.markdownArticles(items: articles).utf8), "\(name)-bookmarks.md")
+            case .html: return (ExportEngine.htmlArticles(items: articles), "\(name)-bookmarks.html")
+            default: return nil
+            }
+        }
+
         switch selectedFormat {
         case .opml: return (ExportEngine.opml(sources: sources), "\(name).opml")
         case .json:
