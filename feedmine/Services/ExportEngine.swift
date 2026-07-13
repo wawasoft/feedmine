@@ -384,6 +384,110 @@ enum ExportEngine {
         return Data(html.utf8)
     }
 
+    // MARK: - Article Export (for bookmarks)
+
+    static func csvArticles(items: [FeedItem]) -> Data {
+        var lines: [String] = []
+        lines.append("title,url,source,date,category")
+        let formatter = ISO8601DateFormatter()
+        for item in items.sorted(by: { $0.publishedAt > $1.publishedAt }) {
+            lines.append("\(csvEscape(item.title)),\(csvEscape(item.url)),\(csvEscape(item.sourceTitle)),\(formatter.string(from: item.publishedAt)),\(csvEscape(item.category))")
+        }
+        return Data(lines.joined(separator: "\n").utf8)
+    }
+
+    static func plainTextArticles(items: [FeedItem], title: String = "My Bookmarks") -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        var lines: [String] = [title, String(repeating: "=", count: title.count), ""]
+        lines.append("\(items.count) saved articles")
+        lines.append("")
+        for item in items.sorted(by: { $0.publishedAt > $1.publishedAt }) {
+            lines.append("• \(item.title)")
+            lines.append("  \(item.url)")
+            lines.append("  \(item.sourceTitle) · \(formatter.string(from: item.publishedAt))")
+            lines.append("")
+        }
+        lines.append("---")
+        lines.append("Exported from Feedmine · \(formattedDate())")
+        return lines.joined(separator: "\n")
+    }
+
+    static func markdownArticles(items: [FeedItem], title: String = "My Bookmarks") -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        var lines: [String] = ["# \(title)", ""]
+        lines.append("> \(items.count) saved articles")
+        lines.append("")
+        let grouped = Dictionary(grouping: items, by: \.category)
+        for (category, articles) in grouped.sorted(by: { $0.key < $1.key }) {
+            lines.append("## \(category)")
+            lines.append("")
+            for item in articles.sorted(by: { $0.publishedAt > $1.publishedAt }) {
+                lines.append("- [\(item.title)](\(item.url)) — *\(item.sourceTitle)* · \(formatter.string(from: item.publishedAt))")
+            }
+            lines.append("")
+        }
+        lines.append("---")
+        lines.append("*Exported from [Feedmine](https://github.com/wsmontes/feedmine) on \(formattedDate())*")
+        return lines.joined(separator: "\n")
+    }
+
+    static func htmlArticles(items: [FeedItem], title: String = "My Bookmarks") -> Data {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        var html = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>\(htmlEscape(title))</title>
+        <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: #FAF8F5; color: #2c2c2c; line-height: 1.6;
+            max-width: 700px; margin: 0 auto; padding: 40px 20px; }
+        h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .count { color: #666; margin-bottom: 32px; }
+        .article { padding: 16px 0; border-bottom: 1px solid #f0ebe4; }
+        .article:last-child { border-bottom: none; }
+        .article-title { font-weight: 600; font-size: 1rem; }
+        .article-title a { color: #2c2c2c; text-decoration: none; }
+        .article-title a:hover { color: #E8483C; }
+        .article-meta { font-size: 0.8rem; color: #888; margin-top: 4px; }
+        .article-excerpt { font-size: 0.85rem; color: #555; margin-top: 6px; }
+        footer { margin-top: 40px; font-size: 0.75rem; color: #aaa; text-align: center; }
+        @media (prefers-color-scheme: dark) {
+            body { background: #1a1a1a; color: #e0e0e0; }
+            .article { border-color: #333; }
+            .article-title a { color: #e0e0e0; }
+            .article-meta { color: #666; }
+            .article-excerpt { color: #999; }
+        }
+        </style>
+        </head>
+        <body>
+        <h1>\(htmlEscape(title))</h1>
+        <p class="count">\(items.count) saved articles</p>\n
+        """
+        for item in items.sorted(by: { $0.publishedAt > $1.publishedAt }) {
+            let excerpt = item.excerpt.isEmpty ? "" : "<p class=\"article-excerpt\">\(htmlEscape(String(item.excerpt.prefix(200))))</p>"
+            html += """
+            <div class="article">
+                <div class="article-title"><a href="\(htmlEscape(item.url))">\(htmlEscape(item.title))</a></div>
+                <div class="article-meta">\(htmlEscape(item.sourceTitle)) · \(formatter.string(from: item.publishedAt))</div>
+                \(excerpt)
+            </div>\n
+            """
+        }
+        html += """
+        <footer>Exported from Feedmine · \(formattedDate())</footer>
+        </body></html>
+        """
+        return Data(html.utf8)
+    }
+
     // MARK: - Share Link
 
     /// For a single feed: generates a feedmine:// deep link.
