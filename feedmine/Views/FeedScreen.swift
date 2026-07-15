@@ -255,8 +255,13 @@ struct FeedScreen: View {
                 Divider().opacity(0.3)
             }
 
+            // Taxonomy chip bar — shows selected taxonomy nodes with multi-select UI
+            TaxonomyChipBar {
+                showFilters = true
+            }
+
             // Active filter banner — shows what's being filtered and offers clear
-            if loader.selectedCategory != nil || loader.selectedMood != .all || loader.selectedContentType != .all {
+            if loader.hasTaxonomySelection || loader.selectedMood != .all || loader.selectedContentType != .all {
                 filterActiveBanner
                     .transition(.move(edge: .top).combined(with: .opacity))
             }
@@ -289,7 +294,9 @@ struct FeedScreen: View {
 
     private var filterBannerLabel: String {
         var parts: [String] = []
-        if let cat = loader.selectedCategory { parts.append(cat) }
+        if loader.hasTaxonomySelection {
+            parts.append(contentsOf: loader.selectedNodeNames)
+        }
         if loader.selectedMood != .all { parts.append(loader.selectedMood.rawValue) }
         if loader.selectedContentType != .all { parts.append(loader.selectedContentType.rawValue) }
         return parts.joined(separator: " · ")
@@ -325,18 +332,17 @@ struct FeedScreen: View {
     }
 
     private var filterChips: some View {
-        let region = loader.selectedCategory  // activeCategory from FeedStore
         let mood = loader.selectedMood
         let type = loader.selectedContentType
-        let hasFilters = loader.selectedCategory != nil || mood != .all || type != .all
+        let hasFilters = loader.hasTaxonomySelection || mood != .all || type != .all
 
         guard hasFilters else { return AnyView(EmptyView()) }
 
         return AnyView(
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 4) {
-                    if let cat = loader.selectedCategory {
-                        chip(cat, action: { loader.selectCategory(cat) })
+                    ForEach(loader.selectedNodeNames, id: \.self) { name in
+                        chip(name, action: {})
                     }
                     if mood != .all {
                         chip(mood.rawValue, action: { loader.selectMood(mood) })
@@ -362,7 +368,7 @@ struct FeedScreen: View {
     }
 
     private var filterButton: some View {
-        let activeCount = (loader.selectedCategory != nil ? 1 : 0) + (loader.selectedMood != .all ? 1 : 0) + (loader.selectedContentType != .all ? 1 : 0) + (!loader.searchQuery.isEmpty ? 1 : 0)
+        let activeCount = (loader.hasTaxonomySelection ? loader.selectedNodeIDs.count : 0) + (loader.selectedMood != .all ? 1 : 0) + (loader.selectedContentType != .all ? 1 : 0) + (!loader.searchQuery.isEmpty ? 1 : 0)
         return Button {
             showFilters = true
         } label: {
@@ -407,7 +413,7 @@ struct FeedScreen: View {
                         }
                         // What's New carousel — hidden in bookmark mode
                         if loader.selectedBookmarkListID == nil
-                            && loader.selectedCategory == nil && loader.selectedMood == .all
+                            && !loader.hasTaxonomySelection && loader.selectedMood == .all
                             && loader.selectedContentType == .all && loader.searchQuery.isEmpty {
                             WhatsNewCarousel(onOpen: { articleItem = $0 })
                                 .padding(.top, 8)
@@ -453,7 +459,7 @@ struct FeedScreen: View {
                         // Filters/search matched nothing, but the feed itself
                         // has content — show guidance instead of a blank screen.
                         if loader.dateSections.isEmpty && !loader.items.isEmpty {
-                            EmptyFilterView(category: loader.selectedCategory ?? "matching")
+                            EmptyFilterView(category: loader.selectedNodeNames.joined(separator: ", "))
                         }
                     }
                     .padding(.top, 48)
