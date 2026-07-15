@@ -28,6 +28,10 @@ final class TaxonomyStore {
     /// O(1) node lookup by ID.
     func node(id: String) -> TaxonomyNode? { flatIndex[id] }
     private var feedToNodeID: [String: String] = [:]  // normalizedURL → leaf node ID
+
+    /// parentID → [childID] index, rebuilt during build(). Makes children(of:) O(1).
+    private var childrenIndex: [String: [String]] = [:]
+
     var selectedNodeIDs: Set<String> = []
 
     // MARK: - Persistence
@@ -44,6 +48,7 @@ final class TaxonomyStore {
     func build(from sources: [FeedSource]) async {
         // Clear stale state from previous builds
         feedToNodeID.removeAll()
+        childrenIndex.removeAll()
         selectedNodeIDs.removeAll()
 
         // Intermediate: path segments → children
@@ -93,15 +98,22 @@ final class TaxonomyStore {
             feedToNodeID[normalizedURL] = parentID
         }
 
-        // Bottom-up feedCount computation — single pass, true O(n)
-        // Sort by descending level so leaves are processed before parents
+        // Pre-compute direct feed counts: single O(M) pass over feedToNodeID,
+        // then O(N) bottom-up aggregation for subtree totals. True O(N+M).
+        var nodeFeedCounts: [String: Int] = [:]
+        for (_, nodeID) in feedToNodeID {
+            nodeFeedCounts[nodeID, default: 0] += 1
+        }
+
+        // Bottom-up feedCount computation — sort by descending level so
+        // leaves are processed before parents
         let sortedIDs = tree.keys.sorted {
             (tree[$0]?.node.level ?? 0) > (tree[$1]?.node.level ?? 0)
         }
         for nodeID in sortedIDs {
-            guard var entry = tree[nodeID] else { continue }
-            // Direct feeds at this node
-            let directFeeds = feedToNodeID.values.filter { $0 == nodeID }.count
+            guard let entry = tree[nodeID] else { continue }
+            // Direct feeds at this node (O(1) dictionary lookup)
+            let directFeeds = nodeFeedCounts[nodeID] ?? 0
             // Child feedCounts are already computed (children have higher level)
             let childTotal = entry.childIDs.reduce(0) {
                 $0 + (tree[$1]?.node.feedCount ?? 0)
@@ -137,6 +149,14 @@ final class TaxonomyStore {
         )
 
         self.root = rootWithChildren
+
+        // Build children index for O(1) lookups
+        childrenIndex.removeAll()
+        for (nodeID, node) in flatIndex {
+            guard let parentID = node.parentId else { continue }
+            childrenIndex[parentID, default: []].append(nodeID)
+        }
+
         persistCache()
     }
 
@@ -222,10 +242,9 @@ final class TaxonomyStore {
 
     /// Direct children of a node, sorted by name.
     func children(of nodeID: String) -> [TaxonomyNode] {
-        guard let _ = flatIndex[nodeID] else { return [] }
-        // Children are nodes whose parentId == nodeID
-        return flatIndex.values
-            .filter { $0.parentId == nodeID }
+        guard let childIDs = childrenIndex[nodeID] else { return [] }
+        return childIDs
+            .compactMap { flatIndex[$0] }
             .sorted { lhs, rhs in
                 // Countries last, then alphabetical
                 if lhs.kind == .country && rhs.kind != .country { return false }

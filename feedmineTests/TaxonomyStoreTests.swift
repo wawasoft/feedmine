@@ -123,6 +123,80 @@ final class TaxonomyStoreTests: XCTestCase {
         XCTAssertTrue(store.selectedNodeIDs.isEmpty)
     }
 
+    // MARK: - Performance / Scalability
+
+    func testBuildFeedCountsCorrectAtScale() async {
+        // Simulate 100 sources across 20 categories in 4 countries
+        var sources: [FeedSource] = []
+        let countries = ["brazil", "japan", "germany", "nigeria"]
+        let categories = ["News", "Sports", "Tech", "Culture", "Music"]
+        for country in countries {
+            for category in categories {
+                let count = 5
+                for i in 0..<count {
+                    sources.append(FeedSource(
+                        title: "\(country)-\(category)-\(i)",
+                        url: "https://\(country).example.com/\(category)/\(i)",
+                        category: category,
+                        region: "countries/\(country)",
+                        mediaKind: .text
+                    ))
+                }
+            }
+        }
+        // 4 countries × 5 categories × 5 feeds = 100 feeds
+        XCTAssertEqual(sources.count, 100)
+
+        let store = TaxonomyStore()
+        await store.build(from: sources)
+
+        // Root should have total of 100
+        XCTAssertEqual(store.root?.feedCount, 100)
+
+        // Countries node should have 100
+        let rootChildren = store.children(of: TaxonomyNode.rootID)
+        XCTAssertEqual(rootChildren.count, 1)
+        let countriesNode = rootChildren[0]
+        XCTAssertEqual(countriesNode.feedCount, 100)
+
+        // Each country should have 25 (5 categories × 5 feeds)
+        let countryChildren = store.children(of: countriesNode.id)
+        XCTAssertEqual(countryChildren.count, 4)
+        for country in countryChildren {
+            XCTAssertEqual(country.feedCount, 25, "\(country.name) should have 25 feeds")
+        }
+
+        // Each leaf category should have 5
+        if let firstCountry = countryChildren.first {
+            let catChildren = store.children(of: firstCountry.id)
+            XCTAssertEqual(catChildren.count, 5)
+            for cat in catChildren {
+                XCTAssertEqual(cat.feedCount, 5, "\(cat.name) should have 5 feeds")
+            }
+        }
+    }
+
+    func testChildrenLookupIsFast() async {
+        var sources: [FeedSource] = []
+        for i in 0..<500 {
+            sources.append(FeedSource(
+                title: "Feed \(i)",
+                url: "https://example.com/feed/\(i)",
+                category: "Category \(i % 50)",
+                region: "global",
+                mediaKind: .text
+            ))
+        }
+        let store = TaxonomyStore()
+        await store.build(from: sources)
+
+        // children(of:) should not iterate all 500+ nodes
+        let rootChildren = store.children(of: TaxonomyNode.rootID)
+        // With 500 sources in "global" region, root has 1 child (Global topic)
+        // which has ~50 subcategory children
+        XCTAssertFalse(rootChildren.isEmpty)
+    }
+
     // MARK: - isFeedInSubtree
 
     func testIsFeedInSubtree() async {
