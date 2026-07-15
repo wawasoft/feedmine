@@ -276,6 +276,22 @@ final class TaxonomyStore {
         return leafID.hasPrefix(nodeID + "/")
     }
 
+    /// All feed URLs whose leaf node falls within the subtree of any of the given node IDs.
+    /// Used by FeedStore to pre-compute the taxonomy filter set for O(1) filtering.
+    func feedURLs(inSubtreesOf nodeIDs: Set<String>) -> Set<String> {
+        guard !nodeIDs.isEmpty else { return [] }
+        var result: Set<String> = []
+        for (feedURL, leafID) in feedToNodeID {
+            for nodeID in nodeIDs {
+                if leafID == nodeID || leafID.hasPrefix(nodeID + "/") {
+                    result.insert(feedURL)
+                    break
+                }
+            }
+        }
+        return result
+    }
+
     /// Search flat index by name. Case-insensitive. Returns up to 50 results.
     func search(_ query: String) -> [TaxonomyNode] {
         guard !query.isEmpty else { return [] }

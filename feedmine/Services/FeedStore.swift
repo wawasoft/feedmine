@@ -53,6 +53,12 @@ final class FeedStore {
     var activeNodeIDs: Set<String> = []
     var activeContentType: FeedLoader.ContentType = .all
     var activeMood: FeedLoader.MoodFilter = .all
+
+    /// Cached set of feed URLs that match the current taxonomy selection.
+    /// Invalidated when activeNodeIDs changes. Makes applyFilters O(items) instead
+    /// of O(items x selectedNodes).
+    private var cachedTaxonomyFeedURLs: Set<String> = []
+    private var cachedTaxonomyNodeIDs: Set<String> = []
     /// When set, the feed shows only items from this bookmark list.
     var selectedBookmarkListID: Int64?
     /// Preferred box for saving bookmarks. Defaults to the "Favorites" list.
@@ -108,7 +114,6 @@ final class FeedStore {
     /// (loadMoreIfNeeded) and the UI (FeedLoader.filteredItems) agree on count.
     /// Single-pass to avoid intermediate array allocations.
     private func applyFilters(_ items: [FeedItem]) -> [FeedItem] {
-        let nodeIDs = activeNodeIDs
         let region = activeRegion
         let contentType = filterContentType
         let contentFilters = ContentFilterStore.shared.isEnabled
@@ -116,9 +121,7 @@ final class FeedStore {
         return items.filter { item in
             isItemEnabled(item)
             && (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
-            && (nodeIDs.isEmpty || nodeIDs.contains(where: { nodeID in
-                TaxonomyStore.shared.isFeedInSubtree(feedURL: item.sourceURL, nodeID: nodeID)
-            }))
+            && (cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(item.sourceURL))
             && contentType(item)
             && !contentFilterExcludes(item, filters: contentFilters)
         }
@@ -361,6 +364,10 @@ final class FeedStore {
         if !TaxonomyStore.shared.loadFromCache() {
             await TaxonomyStore.shared.build(from: registry.sources)
         }
+
+        // Invalidate taxonomy filter cache after rebuild
+        cachedTaxonomyNodeIDs = []
+        cachedTaxonomyFeedURLs = []
 
         // Restore persisted filters FIRST so the first render shows
         // correctly filtered content, not a flash of unfiltered items.
@@ -605,6 +612,13 @@ final class FeedStore {
         activeNodeIDs = nodeIDs
         activeContentType = type
         activeMood = mood
+
+        // Rebuild taxonomy URL cache when selection changes (O(1) filter instead of O(n x m))
+        if activeNodeIDs != cachedTaxonomyNodeIDs {
+            cachedTaxonomyNodeIDs = activeNodeIDs
+            cachedTaxonomyFeedURLs = TaxonomyStore.shared.feedURLs(inSubtreesOf: activeNodeIDs)
+        }
+
         persistFilters()
 
         // Debounce the expensive flush+reload: if multiple filter changes
