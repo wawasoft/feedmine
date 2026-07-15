@@ -6,7 +6,7 @@ struct OPMLParser {
     /// Bump when the parse LOGIC or FeedSource shape changes (region derivation,
     /// mediaKind classification, dedup/normalize) so caches produced by the old
     /// logic are ignored even within the same app build.
-    private static let cacheFormatVersion = 4  // 1.9K OPMLs, 276K+ feeds (ranking sources: socialblade, kaggle, wikipedia, awards)
+    private static let cacheFormatVersion = 5  // 1.9K OPMLs, 276K+ feeds (ranking sources: socialblade, kaggle, wikipedia, awards)
 
     /// Codable envelope persisted to Caches/.
     private struct CachedParse: Codable {
@@ -216,10 +216,25 @@ struct OPMLParser {
         return "countries/\(countryDir)"
     }
 
+    /// Extract <language> from the OPML <head> section by scanning the raw XML.
+    private static func extractLanguage(from data: Data) -> String? {
+        // Quick scan — look for <language>en</language> in the first 2KB
+        let head = String(data: data.prefix(2048), encoding: .utf8) ?? ""
+        guard let range = head.range(of: "<language>"),
+              let endRange = head.range(of: "</language>", range: range.upperBound..<head.endIndex) else {
+            return nil
+        }
+        let lang = String(head[range.upperBound..<endRange.lowerBound])
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        return lang.isEmpty ? nil : lang
+    }
+
     private static func parseFile(url: URL, fallbackCategory: String, region: String, mediaKind: MediaKind = .text) throws -> (sources: [FeedSource], invalidCount: Int) {
         let data = try Data(contentsOf: url)
+        let fileLanguage = extractLanguage(from: data)
         let parser = XMLParser(data: data)
-        let delegate = OPMLDelegate(fallbackCategory: fallbackCategory, region: region, mediaKind: mediaKind)
+        let delegate = OPMLDelegate(fallbackCategory: fallbackCategory, region: region, mediaKind: mediaKind,
+                                    fileLanguage: fileLanguage)
         parser.delegate = delegate
         parser.parse()
 
@@ -258,9 +273,10 @@ struct OPMLParser {
     /// Parse a single OPML file from any URL (for import)
     static func parseImportedFile(url: URL) throws -> [FeedSource] {
         let data = try Data(contentsOf: url)
+        let fileLanguage = extractLanguage(from: data)
         let parser = XMLParser(data: data)
         let fileName = url.deletingPathExtension().lastPathComponent
-        let delegate = OPMLDelegate(fallbackCategory: fileName.capitalized)
+        let delegate = OPMLDelegate(fallbackCategory: fileName.capitalized, fileLanguage: fileLanguage)
         parser.delegate = delegate
         parser.parse()
         if let error = parser.parserError { throw error }
@@ -340,11 +356,15 @@ private final class OPMLDelegate: NSObject, XMLParserDelegate {
 
     private var categoryStack: [String] = []
     private var outlinePushStack: [Bool] = []  // tracks which opens pushed a category
+    private var languageStack: [String] = []
+    private var fileLanguage: String?  // from <head><language>
 
-    init(fallbackCategory: String, region: String = "global", mediaKind: MediaKind = .text) {
+    init(fallbackCategory: String, region: String = "global", mediaKind: MediaKind = .text,
+         fileLanguage: String? = nil) {
         self.fallbackCategory = fallbackCategory
         self.region = region
         self.mediaKind = mediaKind
+        self.fileLanguage = fileLanguage
     }
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String] = [:]) {
@@ -353,11 +373,15 @@ private final class OPMLDelegate: NSObject, XMLParserDelegate {
         let xmlUrl = attributeDict["xmlUrl"]?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         let title = attributeDict["title"] ?? attributeDict["text"] ?? ""
 
+        let language = attributeDict["language"]
+
         if xmlUrl.isEmpty {
             // Category container — push onto stack, record that we pushed
             let category = attributeDict["title"] ?? attributeDict["text"]
             if let cat = category, !cat.isEmpty {
                 categoryStack.append(cat)
+                // Push language: outline attr → parent → file-level → "unknown"
+                languageStack.append(language ?? languageStack.last ?? fileLanguage ?? "unknown")
                 outlinePushStack.append(true)
             } else {
                 outlinePushStack.append(false)
@@ -387,13 +411,15 @@ private final class OPMLDelegate: NSObject, XMLParserDelegate {
             if xmlUrl.contains("reddit.com/r/") { return .forum }
             return mediaKind
         }()
+        let resolvedLanguage = language ?? languageStack.last ?? fileLanguage
         sources.append(
             FeedSource(
                 title: title.isEmpty ? category : title,
                 url: xmlUrl,
                 category: category,
                 region: region,
-                mediaKind: resolvedKind
+                mediaKind: resolvedKind,
+                language: resolvedLanguage
             )
         )
     }
@@ -404,6 +430,9 @@ private final class OPMLDelegate: NSObject, XMLParserDelegate {
         let didPushCategory = outlinePushStack.popLast() ?? false
         if didPushCategory, !categoryStack.isEmpty {
             categoryStack.removeLast()
+        }
+        if didPushCategory, !languageStack.isEmpty {
+            languageStack.removeLast()
         }
     }
 }
