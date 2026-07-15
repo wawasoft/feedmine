@@ -366,6 +366,7 @@
 		2B10C069ECD3CA88C4DD391C /* malaysia-kelantan.opml in Resources */ = {isa = PBXBuildFile; fileRef = 85F7A367495B825817515D0D /* malaysia-kelantan.opml */; };
 		2B2719A37529D574AE695050 /* ukraine-vinnytsia.opml in Resources */ = {isa = PBXBuildFile; fileRef = 54C1896708B51F25E97FD6F1 /* ukraine-vinnytsia.opml */; };
 		2B430167A87155AC07A56B03 /* egypt-cairo.opml in Resources */ = {isa = PBXBuildFile; fileRef = BC2767E84E255C19E5989D16 /* egypt-cairo.opml */; };
+		7C5C90DF83D94CC6989B0333 /* TaxonomyChipBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C299F7C2624469B918CAAF /* TaxonomyChipBar.swift */; };
 		2B5AC4E1A664F1CCE40B5A03 /* ShakeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA499573FA22F43B9CCABCB2 /* ShakeHandler.swift */; };
 		2B75A417D2B13CAA69DA0C49 /* portugal-porto.opml in Resources */ = {isa = PBXBuildFile; fileRef = 8DD29A39B40D691CE64EB18F /* portugal-porto.opml */; };
 		2BDC8D4D14CF5F1F88ED2703 /* usa-oklahoma.opml in Resources */ = {isa = PBXBuildFile; fileRef = 99C9F58BBED19EE37BF5607A /* usa-oklahoma.opml */; };
@@ -1741,7 +1742,6 @@
 		D5BBC5E721992C4FA31D955C /* algeria-mostaganem.opml in Resources */ = {isa = PBXBuildFile; fileRef = 12FABDD80102337B55E9BA33 /* algeria-mostaganem.opml */; };
 		D5D272579AAAEE9D7A80DE97 /* turkey-izmir.opml in Resources */ = {isa = PBXBuildFile; fileRef = 233A247564C05869A282C0B8 /* turkey-izmir.opml */; };
 		D5D28F9DB9095E4162E5EE6B /* serbia-podunavlje.opml in Resources */ = {isa = PBXBuildFile; fileRef = 0A1D359F37981093639B50B5 /* serbia-podunavlje.opml */; };
-		D5D54228348DEFECE4D00217 /* CategoryFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A7D55AFC80E67D103AC583 /* CategoryFilterBar.swift */; };
 		D628098D5460FE7123FBA65D /* uruguay-artigas.opml in Resources */ = {isa = PBXBuildFile; fileRef = 2F4F0B5E13830010F853A35C /* uruguay-artigas.opml */; };
 		D62C40066A286BF77EDEE2E6 /* azerbaijan-shaki-zagatala.opml in Resources */ = {isa = PBXBuildFile; fileRef = 5F5B26356D450EED0AF5E8D5 /* azerbaijan-shaki-zagatala.opml */; };
 		D651F5A90D99CB521042A2AF /* sweden-ostergotland.opml in Resources */ = {isa = PBXBuildFile; fileRef = 66E2B05DDFA970287133725F /* sweden-ostergotland.opml */; };
@@ -4023,11 +4023,11 @@
 		F9853765549EF3329385054C /* egypt-gharbia.opml */ = {isa = PBXFileReference; path = "egypt-gharbia.opml"; sourceTree = "<group>"; };
 		F99B009D01AC3711A658514F /* cs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cs.json; sourceTree = "<group>"; };
 		F9A4DAC450DAFAD40A1AE3A7 /* germany-saarland.opml */ = {isa = PBXFileReference; path = "germany-saarland.opml"; sourceTree = "<group>"; };
-		F9A7D55AFC80E67D103AC583 /* CategoryFilterBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFilterBar.swift; sourceTree = "<group>"; };
 		F9E6EDCA23A11C492AE19C17 /* mexico-ciudad-de-mexico.opml */ = {isa = PBXFileReference; path = "mexico-ciudad-de-mexico.opml"; sourceTree = "<group>"; };
 		FA210B16E655E861B49A542E /* luxembourg-vianden.opml */ = {isa = PBXFileReference; path = "luxembourg-vianden.opml"; sourceTree = "<group>"; };
 		FA2AF9B4065E3C43909FB4C2 /* nigeria-plateau.opml */ = {isa = PBXFileReference; path = "nigeria-plateau.opml"; sourceTree = "<group>"; };
 		FA417057F92FDAD41A73E6C6 /* algeria-bejaia.opml */ = {isa = PBXFileReference; path = "algeria-bejaia.opml"; sourceTree = "<group>"; };
+		C3C299F7C2624469B918CAAF /* TaxonomyChipBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonomyChipBar.swift; sourceTree = "<group>"; };
 		FA499573FA22F43B9CCABCB2 /* ShakeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeHandler.swift; sourceTree = "<group>"; };
 		FA61A80E57635B68637674E2 /* serbia-juzna-backa.opml */ = {isa = PBXFileReference; path = "serbia-juzna-backa.opml"; sourceTree = "<group>"; };
 		FA90BC9F0B11932FACD1224E /* bulgaria-plovdiv.opml */ = {isa = PBXFileReference; path = "bulgaria-plovdiv.opml"; sourceTree = "<group>"; };
@@ -4990,7 +4990,6 @@
 			children = (
 				11EBEEC23B00D4353C6DD6A9 /* ArticleReaderView.swift */,
 				E9B75EEA60ABFE02AB66FF3B /* BookmarksSheetView.swift */,
-				F9A7D55AFC80E67D103AC583 /* CategoryFilterBar.swift */,
 				42288409482593B7D53AB4CE /* CountriesListScreen.swift */,
 				6342E15342EF9B64DB2D8F96 /* CountryDetailScreen.swift */,
 				0CB4233F029C53681617CA22 /* DailyBriefingCard.swift */,
@@ -5024,6 +5023,7 @@
                 1E807C3599B24EF5BE13D46C /* CollectionManagementView.swift */,
                 79130EC237E74F3A8CB41ACC /* ContentFilterView.swift */,
                 44FB84E4C4A34E4DACB6BED1 /* ExportView.swift */,
+                C3C299F7C2624469B918CAAF /* TaxonomyChipBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -9163,7 +9163,6 @@
 				1E6D964B6AE7CF5AFFB82D26 /* AudioPlayerManager.swift in Sources */,
 				695B8BB470F71442A699C5F3 /* BookmarkList.swift in Sources */,
 				785D6E99FD2AB46F9137E9B6 /* BookmarksSheetView.swift in Sources */,
-				D5D54228348DEFECE4D00217 /* CategoryFilterBar.swift in Sources */,
 				11D1CE76F9C9C6FB02903C60 /* CircadianEngine.swift in Sources */,
 				0D7D2F35B303B7FA834EE8B5 /* ContentView.swift in Sources */,
 				7814FE910506FDA2317F6948 /* CountriesListScreen.swift in Sources */,
@@ -9208,6 +9207,7 @@
 				6986DBDE303222A19B7A5798 /* SearchBarView.swift in Sources */,
 				E15933E9C5253C75E6BF0042 /* SessionTracker.swift in Sources */,
 				F130641CF9BD3D64E410894A /* SettingsSheetView.swift in Sources */,
+				7C5C90DF83D94CC6989B0333 /* TaxonomyChipBar.swift in Sources */,
 				2B5AC4E1A664F1CCE40B5A03 /* ShakeHandler.swift in Sources */,
 				46F6D462F039918D58E1C05C /* ShareCardImageView.swift in Sources */,
 				0384610A52F28F8FEA681230 /* SourceManagementView.swift in Sources */,
