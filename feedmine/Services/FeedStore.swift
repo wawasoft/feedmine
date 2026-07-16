@@ -133,7 +133,7 @@ final class FeedStore {
             isItemEnabled(item)
             && (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
             && (cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(OPMLParser.normalizeURL(item.sourceURL)))
-            && (languages.isEmpty || item.language.map { languages.contains($0) } ?? false)
+            && (languages.isEmpty || item.language.map { languages.contains($0) } ?? true)
             && contentType(item)
             && (mood == .all || mood.matches(item.title))
             && !contentFilterExcludes(item, filters: contentFilters)
@@ -1290,7 +1290,7 @@ final class FeedStore {
                 if langArray.count <= 999 {
                     let langPlaceholders = langArray.map { _ in "?" }.joined(separator: ",")
                     request = request.filter(
-                        sql: "language IN (\(langPlaceholders))",
+                        sql: "(language IN (\(langPlaceholders)) OR language IS NULL)",
                         arguments: StatementArguments(langArray)
                     )
                 } else {
@@ -1304,7 +1304,7 @@ final class FeedStore {
                         allArgs.append(contentsOf: chunk)
                     }
                     request = request.filter(
-                        sql: "(\(orParts.joined(separator: " OR ")))",
+                        sql: "((\(orParts.joined(separator: " OR "))) OR language IS NULL)",
                         arguments: StatementArguments(allArgs)
                     )
                 }
