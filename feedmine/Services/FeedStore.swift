@@ -142,22 +142,34 @@ final class FeedStore {
         return false
     }
 
-    /// Resolve language for an item at ingestion time. Tries:
-    /// 1. Explicit language from the source OPML.
-    /// 2. NLLanguageRecognizer on title + excerpt (≥12 chars for reliable detection).
-    /// Returns nil only when both sources are unavailable.
-    private static func resolveLanguage(for item: FeedItem, registry: SourceRegistry) -> String? {
-        // 1. Explicit source language (OPML xml:lang or category directory)
-        if let lang = registry.languageFor(sourceURL: item.sourceURL), !lang.isEmpty {
-            return lang
-        }
-        // 2. On-device detection fallback
-        let text = (item.title + " " + item.excerpt)
-            .trimmingCharacters(in: .whitespacesAndNewlines)
-        guard text.count >= 12 else { return nil }
+    /// Lightweight, Sendable input for off‑main‑actor language detection.
+    private struct LanguageDetectionInput: Sendable {
+        let title: String
+        let excerpt: String
+        /// Explicit language from the source OPML (xml:lang or category directory).
+        let explicitLanguage: String?
+    }
+
+    /// Run language detection for a batch of items off the main actor.
+    /// Reuses a single NLLanguageRecognizer across the batch to avoid
+    /// per‑item allocation overhead. Returns resolved language codes in the
+    /// same order as the input array.
+    nonisolated private static func detectLanguages(_ inputs: [LanguageDetectionInput]) -> [String?] {
+        guard !inputs.isEmpty else { return [] }
         let recognizer = NLLanguageRecognizer()
-        recognizer.processString(text)
-        return recognizer.dominantLanguage?.rawValue
+        return inputs.map { input in
+            // 1. Explicit source language (already resolved, just pass through)
+            if let lang = input.explicitLanguage, !lang.isEmpty {
+                return lang
+            }
+            // 2. On-device detection fallback
+            let text = (input.title + " " + input.excerpt)
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard text.count >= 12 else { return nil }
+            recognizer.reset()
+            recognizer.processString(text)
+            return recognizer.dominantLanguage?.rawValue
+        }
     }
 
     /// Apply all active filters to a list of items — single source of truth.
@@ -1020,11 +1032,23 @@ final class FeedStore {
         }
         guard !actualNew.isEmpty else { return [] }
 
-        // Compute regions and language on the main actor before entering the write closure.
-        let itemsWithRegions: [(item: FeedItem, region: String, language: String?)] = actualNew.map { item in
-            let resolvedRegion = regionOverride ?? registry.regionFor(sourceURL: item.sourceURL)
-            let resolvedLanguage = Self.resolveLanguage(for: item, registry: registry)
-            return (item, resolvedRegion, resolvedLanguage)
+        // Collect regions + explicit source languages on the main actor
+        // (dictionary lookups are O(1) and cheap). Language detection via
+        // NLLanguageRecognizer runs in a detached task to avoid blocking UI.
+        let regions: [String] = actualNew.map { regionOverride ?? registry.regionFor(sourceURL: $0.sourceURL) }
+        let detectionInputs: [LanguageDetectionInput] = actualNew.map { item in
+            LanguageDetectionInput(
+                title: item.title,
+                excerpt: item.excerpt,
+                explicitLanguage: registry.languageFor(sourceURL: item.sourceURL)
+            )
+        }
+        let resolvedLanguages: [String?] = await Task.detached(priority: .utility) {
+            Self.detectLanguages(detectionInputs)
+        }.value
+
+        let itemsWithRegions: [(item: FeedItem, region: String, language: String?)] = zip(zip(actualNew, regions), resolvedLanguages).map {
+            ($0.0.0, $0.0.1, $0.1)
         }
         do {
             // Single batch write. Items are deduplicated in memory before this
@@ -1166,13 +1190,14 @@ final class FeedStore {
         // already normalized (no trailing slash, https upgrade, etc.) while
         // registry.enabledSources may have raw OPML URLs.
         let sources = registry.enabledSources.filter { sourceURLs.contains(OPMLParser.normalizeURL($0.url)) }
+        // Always define both progress values together, before any early return,
+        // so stale totals from a previous fetch can never leak into the UI.
+        emptyStateFetchTotal = sources.count
+        emptyStateFetchedCount = 0
         guard !sources.isEmpty else {
             Log.feed.warning("fetchUrgentTaxonomyBatch: \(sourceURLs.count) taxonomy URLs matched 0 enabled sources — finishing early")
-            emptyStateFetchedCount = 0
             return
         }
-        emptyStateFetchTotal = sourceURLs.count
-        emptyStateFetchedCount = 0
         let result = await fetcher.fetchAll(sources, maxConcurrent: 15)
         emptyStateFetchedCount = result.sourceStatuses.count
         let actualNew = await persistFetchedItems(result.items)

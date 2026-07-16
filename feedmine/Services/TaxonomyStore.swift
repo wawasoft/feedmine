@@ -334,12 +334,24 @@ final class TaxonomyStore {
 
     // MARK: - Fingerprint
 
-    /// Stable fingerprint of the source set — normalized, sorted, SHA-256.
-    /// Used to validate disk cache integrity independently of source count.
+    /// Stable fingerprint of the source set — all taxonomy-relevant fields,
+    /// normalized, sorted, SHA-256. Changing a source's URL, category, region,
+    /// language, or mediaKind produces a different fingerprint, so the cache
+    /// invalidates on any edit that affects the taxonomy tree.
     static func sourceFingerprint(for sources: [FeedSource]) -> String {
-        let urls = sources.map { OPMLParser.normalizeURL($0.url) }.sorted()
-        let payload = urls.joined(separator: "\n")
-        let digest = SHA256.hash(data: Data(payload.utf8))
+        let records = sources.map { source in
+            [
+                OPMLParser.normalizeURL(source.url),
+                source.category,
+                source.region,
+                source.language ?? "",
+                source.mediaKind.rawValue
+            ].joined(separator: "\u{1F}")  // unit separator — cannot appear in any field
+        }
+        .sorted()
+        .joined(separator: "\n")
+
+        let digest = SHA256.hash(data: Data(records.utf8))
         return digest.compactMap { String(format: "%02x", $0) }.joined()
     }
 

@@ -257,4 +257,36 @@ final class TaxonomyStoreTests: XCTestCase {
         let loaded = store.loadFromCache(sources: shuffled)
         XCTAssertTrue(loaded, "Cache must be accepted when URLs are identical (order-independent fingerprint)")
     }
+
+    func testCacheFingerprintRejectsSameURLDifferentCategory() async {
+        let setA = [
+            FeedSource(title: "Feed", url: "https://x.com/feed", category: "Technology", region: "global", mediaKind: .text),
+        ]
+        let setB = [
+            FeedSource(title: "Feed", url: "https://x.com/feed", category: "Artificial Intelligence", region: "global", mediaKind: .text),
+        ]
+        XCTAssertEqual(setA.count, setB.count)
+
+        let store = TaxonomyStore()
+        await store.build(from: setA)
+
+        let loaded = store.loadFromCache(sources: setB)
+        XCTAssertFalse(loaded, "Cache must be rejected when category changes even though URL and count are identical")
+    }
+
+    func testCacheFingerprintRejectsSameURLDifferentRegion() async {
+        let setA = [
+            FeedSource(title: "Feed", url: "https://x.com/feed", category: "News", region: "global", mediaKind: .text),
+        ]
+        let setB = [
+            FeedSource(title: "Feed", url: "https://x.com/feed", category: "News", region: "countries/brazil", mediaKind: .text),
+        ]
+        XCTAssertEqual(setA.count, setB.count)
+
+        let store = TaxonomyStore()
+        await store.build(from: setA)
+
+        let loaded = store.loadFromCache(sources: setB)
+        XCTAssertFalse(loaded, "Cache must be rejected when region changes even though URL, count, and category are identical")
+    }
 }
