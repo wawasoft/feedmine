@@ -118,28 +118,36 @@ final class FeedStore {
         Task { await prefetcher.prefetch(urls: all, priorityURLs: visible) }
     }
 
+    /// Normalize a set of language codes to ISO 639-1 base codes.
+    /// Used to ensure selected languages, persisted settings, and any
+    /// BCP 47 input from external sources all converge on the same keys.
+    static func normalizedLanguageSet(_ languages: some Sequence<String>) -> Set<String> {
+        Set(languages.compactMap(normalizedLanguageCode))
+    }
+
     /// Shared language filter rule — single source of truth for both in-memory
     /// (applyFilters) and SQL (reloadFromSQLite) paths.
     ///
+    /// - All inputs are normalized to ISO 639-1 base codes before comparison
+    ///   so "pt-BR" matches "pt" regardless of which side carries the tag.
     /// - Items with known language: pass only when that language is selected.
     /// - Items with nil language: pass provisionally only when the device
     ///   language is among the selected set (the item is likely in the user's
     ///   language even if detection failed).
     /// - No selection (empty set): all items pass.
-    /// - Language codes are normalized to ISO 639-1 base codes before
-    ///   comparison (e.g. "pt-BR" matches "pt").
     static func languageFilterMatches(
         itemLanguage: String?,
         selectedLanguages: Set<String>,
         deviceLanguage: String?
     ) -> Bool {
-        guard !selectedLanguages.isEmpty else { return true }
-        if let raw = itemLanguage, let lang = normalizedLanguageCode(raw) {
-            return selectedLanguages.contains(lang)
+        let selected = normalizedLanguageSet(selectedLanguages)
+        guard !selected.isEmpty else { return true }
+        if let lang = normalizedLanguageCode(itemLanguage) {
+            return selected.contains(lang)
         }
         // nil or empty language: pass only if device language is selected
-        if let deviceLang = deviceLanguage {
-            return selectedLanguages.contains(deviceLang)
+        if let device = deviceLanguage, let deviceBase = normalizedLanguageCode(device) {
+            return selected.contains(deviceBase)
         }
         return false
     }
@@ -209,7 +217,7 @@ final class FeedStore {
         let mood = activeMood
         let contentFilters = ContentFilterStore.shared.isEnabled
             ? ContentFilterStore.shared.activeFilters : []
-        let deviceLanguage = Locale.current.language.languageCode?.identifier
+        let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
         return items.filter { item in
             isItemEnabled(item)
             && (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
@@ -491,7 +499,7 @@ final class FeedStore {
         if !Settings.hasInitializedLanguageDefault {
             let deviceLang = Locale.current.language.languageCode?.identifier
             if let lang = deviceLang {
-                let availableLangs = Set(registry.sources.compactMap(\.language))
+                let availableLangs = Self.normalizedLanguageSet(registry.sources.compactMap(\.language))
                 if availableLangs.contains(lang) {
                     activeLanguages = [lang]
                     persistFilters()
@@ -743,7 +751,7 @@ final class FeedStore {
         // restored taxonomy selection (cache is empty on cold start).
         cachedTaxonomyNodeIDs = activeNodeIDs
         cachedTaxonomyFeedURLs = TaxonomyStore.shared.feedURLs(inSubtreesOf: activeNodeIDs)
-        activeLanguages = Set(Settings.filterLanguages)
+        activeLanguages = Self.normalizedLanguageSet(Settings.filterLanguages)
         if let type = FeedLoader.ContentType(rawValue: Settings.filterContentType) {
             activeContentType = type
         }
@@ -759,7 +767,7 @@ final class FeedStore {
         activeContentType = type
         activeMood = mood
         if let langs = languages {
-            activeLanguages = langs
+            activeLanguages = Self.normalizedLanguageSet(langs)
         }
 
         // Rebuild taxonomy URL cache when selection changes (O(1) filter instead of O(n x m))
@@ -1367,7 +1375,7 @@ final class FeedStore {
         // run off the main actor). When taxonomy is active we load matching
         // items via batched IN clause with per-chunk and global caps.
         let taxonomyURLs: Set<String>? = activeNodeIDs.isEmpty ? nil : cachedTaxonomyFeedURLs
-        let deviceLanguage = Locale.current.language.languageCode?.identifier
+        let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
         // Always exclude read items — the feed should only show unseen content.
         // Read/opened items are tracked continuously and this information is
         // consumed by all feed-population paths (shake, filter, startup).
