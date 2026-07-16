@@ -130,6 +130,20 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
         )
     }
 
+    /// Immutable copy with region and/or language replaced.
+    /// Used by persistFetchedItems to ensure the returned item matches
+    /// exactly what was written to SQLite — no divergence between memory
+    /// and database.
+    func with(region: String? = nil, language: String?? = nil) -> FeedItem {
+        FeedItem(
+            id: id, sourceTitle: sourceTitle, sourceURL: sourceURL, category: category,
+            title: title, excerpt: excerpt, url: url, imageURL: imageURL,
+            publishedAt: publishedAt, audioURL: audioURL, duration: duration,
+            region: region ?? self.region,
+            language: language ?? self.language
+        )
+    }
+
     static func resolvedMediaURL(from rawValue: String?, baseURL: String? = nil) -> URL? {
         guard var raw = rawValue?.trimmingCharacters(in: .whitespacesAndNewlines), !raw.isEmpty else {
             return nil

@@ -1047,8 +1047,18 @@ final class FeedStore {
             Self.detectLanguages(detectionInputs)
         }.value
 
-        let itemsWithRegions: [(item: FeedItem, region: String, language: String?)] = zip(zip(actualNew, regions), resolvedLanguages).map {
-            ($0.0.0, $0.0.1, $0.1)
+        // Safety: all three arrays must have identical counts before we merge.
+        guard actualNew.count == regions.count,
+              actualNew.count == resolvedLanguages.count else {
+            Log.db.error("persistFetchedItems: count mismatch — items=\(actualNew.count) regions=\(regions.count) languages=\(resolvedLanguages.count)")
+            return []
+        }
+
+        // Enrich each item with the resolved region and language so the
+        // in-memory representation matches exactly what is written to SQLite.
+        // No divergence between the returned FeedItem array and the DB.
+        let enriched: [FeedItem] = (0..<actualNew.count).map { i in
+            actualNew[i].with(region: regions[i], language: resolvedLanguages[i])
         }
         do {
             // Single batch write. Items are deduplicated in memory before this
@@ -1058,9 +1068,9 @@ final class FeedStore {
             // overhead of SAVEPOINT/RELEASE/ROLLBACK.
             let succeeded: [FeedItem] = try await db.write { db -> [FeedItem] in
                 var ok: [FeedItem] = []
-                for (item, region, language) in itemsWithRegions {
+                for item in enriched {
                     do {
-                        let record = FeedItemRecord(from: item, region: region, language: language)
+                        let record = FeedItemRecord(from: item, region: item.region, language: item.language)
                         try record.insert(db)
                         ok.append(item)
                     } catch {

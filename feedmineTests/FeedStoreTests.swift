@@ -121,4 +121,95 @@ final class FeedStoreTests: XCTestCase {
         XCTAssertTrue(FeedStore.languageFilterMatches(itemLanguage: "ja", selectedLanguages: [], deviceLanguage: "en"))
         XCTAssertTrue(FeedStore.languageFilterMatches(itemLanguage: "pt", selectedLanguages: [], deviceLanguage: nil))
     }
+
+    // MARK: - Language persistence: memory ↔ SQLite consistency
+
+    func testPersistDetectedLanguageReturnsEnrichedItem() async throws {
+        let store = try FeedStore(inMemory: true)
+
+        // Register a source WITHOUT explicit language — detection must fill it
+        let source = FeedSource(title: "Asahi Shimbun", url: "https://asahi.com/feed",
+                                category: "News", region: "countries/japan", language: nil)
+        store.registry.sources = [source]
+
+        // Item with clearly Japanese title/excerpt, no language from the source
+        let item = FeedItem(
+            id: "ja-item-1", sourceTitle: "Asahi Shimbun",
+            sourceURL: "https://asahi.com/feed",
+            category: "News",
+            title: "日本の首相が記者会見を開き新たな経済政策を発表しました",
+            excerpt: "本日午前、首相官邸で記者会見が行われ、新しい経済政策について詳細が明らかになりました。",
+            url: "https://asahi.com/article/1", imageURL: nil,
+            publishedAt: Date(),
+            region: "countries/japan",
+            language: nil  // explicitly nil — detection must fill this
+        )
+
+        let result = await store.persistFetchedItems([item])
+
+        // 1. The returned item must carry the detected language
+        let returned: FeedItem = try XCTUnwrap(result.first)
+        XCTAssertEqual(returned.language, "ja",
+                       "persistFetchedItems must return an enriched FeedItem with detected language")
+
+        // 2. The SQLite record must also have the same language
+        let dbLanguage: String? = try await store.db.read { db in
+            try String.fetchOne(db, sql: "SELECT language FROM feed_item WHERE id = ?", arguments: [item.id])
+        }
+        XCTAssertEqual(dbLanguage, "ja",
+                       "SQLite record must contain the same detected language as the returned item")
+
+        // 3. Both representations produce identical results in the language filter
+        let japaneseSelected: Set<String> = ["ja"]
+        let englishDevice = "en"
+        XCTAssertTrue(FeedStore.languageFilterMatches(itemLanguage: returned.language, selectedLanguages: japaneseSelected, deviceLanguage: englishDevice),
+                      "Enriched item (ja) must pass Japanese filter")
+        XCTAssertTrue(FeedStore.languageFilterMatches(itemLanguage: dbLanguage, selectedLanguages: japaneseSelected, deviceLanguage: englishDevice),
+                      "DB record (ja) must pass Japanese filter")
+
+        // 4. Both reject English-only selection
+        let englishSelected: Set<String> = ["en"]
+        XCTAssertFalse(FeedStore.languageFilterMatches(itemLanguage: returned.language, selectedLanguages: englishSelected, deviceLanguage: englishDevice),
+                       "Enriched item (ja) must NOT pass English filter")
+        XCTAssertFalse(FeedStore.languageFilterMatches(itemLanguage: dbLanguage, selectedLanguages: englishSelected, deviceLanguage: englishDevice),
+                       "DB record (ja) must NOT pass English filter")
+    }
+
+    func testPersistExplicitSourceLanguagePreserved() async throws {
+        let store = try FeedStore(inMemory: true)
+
+        // Register a source WITH explicit Portuguese language
+        let source = FeedSource(title: "Folha", url: "https://folha.com/feed",
+                                category: "News", region: "countries/brazil", language: "pt")
+        store.registry.sources = [source]
+
+        // Item where the text might be detected as something else, but the
+        // explicit source language must win
+        let item = FeedItem(
+            id: "pt-item-1", sourceTitle: "Folha",
+            sourceURL: "https://folha.com/feed",
+            category: "News",
+            title: "Governo anuncia novas medidas econômicas para o segundo semestre",
+            excerpt: "O ministro da Fazenda apresentou hoje as projeções atualizadas para o PIB.",
+            url: "https://folha.com/article/1", imageURL: nil,
+            publishedAt: Date(),
+            region: "countries/brazil",
+            language: nil
+        )
+
+        let result = await store.persistFetchedItems([item])
+        let returned: FeedItem = try XCTUnwrap(result.first)
+
+        // Explicit source language "pt" must be preserved — not overwritten by
+        // text detection (which might also return "pt", but the point is the
+        // source language takes priority)
+        XCTAssertEqual(returned.language, "pt",
+                       "Explicit source language 'pt' must be preserved in enriched item")
+
+        let dbLanguage: String? = try await store.db.read { db in
+            try String.fetchOne(db, sql: "SELECT language FROM feed_item WHERE id = ?", arguments: [item.id])
+        }
+        XCTAssertEqual(dbLanguage, "pt",
+                       "SQLite must also store the explicit source language")
+    }
 }
