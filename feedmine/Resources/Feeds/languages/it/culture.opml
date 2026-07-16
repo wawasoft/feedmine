@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Culture Feeds (Italian)">
-      <outline title="Il Post Cultura" xmlUrl="https://www.ilpost.it/cultura/feed/" type="rss"/>
-      <outline title="Treccani Cultura" xmlUrl="https://www.treccani.it/cultura/feed/" type="rss"/>
-      <outline title="La Lettura" xmlUrl="https://www.corriere.it/la-lettura/feed/" type="rss"/>
+      <outline title="Il Post Cultura" xmlUrl="https://www.ilpost.it/cultura/feed/" type="rss" />
+      <outline title="Treccani Cultura" xmlUrl="https://www.treccani.it/cultura/feed/" type="rss" />
     </outline>
   </body>
 </opml>

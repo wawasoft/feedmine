@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Culture Feeds (Croatian)">
-      <outline title="Kulturpunkt.hr" xmlUrl="https://www.kulturpunkt.hr/rss.xml" type="rss"/>
-      <outline title="Matica hrvatska" xmlUrl="https://www.matica.hr/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

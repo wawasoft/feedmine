@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Ukrainian)">
-      <outline title="Дизайн інтер'єру" xmlUrl="https://design-interior.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

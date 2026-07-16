@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Movies (Dutch)">
-      <outline title="Filmtotaal" xmlUrl="https://www.filmtotaal.nl/feed" type="rss"/>
-      <outline title="MovieMeter" xmlUrl="https://www.moviemeter.nl/rss/nieuws" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

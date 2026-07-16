@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Norwegian)">
-      <outline title="NRK Dokumentar" xmlUrl="https://podkast.nrk.no/dokumentar/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Slovenian)">
-      <outline title="Delo - Dom in oprema" xmlUrl="https://www.delo.si/dom-in-oprema/rss" type="rss"/>
-      <outline title="RTV SLO - Dom" xmlUrl="https://www.rtvslo.si/dom/rss" type="rss"/>
-      <outline title="Siol.net - Dom" xmlUrl="https://siol.net/dom/rss" type="rss"/>
-      <outline title="Žurnal24 - Dom" xmlUrl="https://www.zurnal24.si/rss/dom" type="rss"/>
-      <outline title="MojDom.si" xmlUrl="https://www.mojdom.si/feed/" type="rss"/>
+      <outline title="RTV SLO - Dom" xmlUrl="https://www.rtvslo.si/dom/rss" type="rss" />
+      <outline title="MojDom.si" xmlUrl="https://www.mojdom.si/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Nerd (Finnish)">
-      <outline title="Pelaaja" xmlUrl="https://www.pelaaja.fi/rss.xml" type="rss"/>
-      <outline title="Muropaketti" xmlUrl="https://muropaketti.com/feed/" type="rss"/>
+      <outline title="Muropaketti" xmlUrl="https://muropaketti.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

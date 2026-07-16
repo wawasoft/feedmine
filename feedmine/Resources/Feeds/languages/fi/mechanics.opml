@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Finnish)">
-      <outline title="Tekniikan Maailma" xmlUrl="https://tekniikanmaailma.fi/feed/" type="rss"/>
-      <outline title="Insinööriuutiset" xmlUrl="https://insinooriuutiset.fi/feed/" type="rss"/>
+      <outline title="Tekniikan Maailma" xmlUrl="https://tekniikanmaailma.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

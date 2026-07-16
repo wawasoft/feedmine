@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Romanian)">
-      <outline title="Asociația Autism România" xmlUrl="https://autismromania.ro/feed/" type="rss"/>
-      <outline title="Fundația Down" xmlUrl="https://fundatiadown.ro/feed/" type="rss"/>
+      <outline title="Asociația Autism România" xmlUrl="https://autismromania.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

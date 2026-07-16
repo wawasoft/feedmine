@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Turkish)">
-      <outline title="Mühendis ve Makina" xmlUrl="https://www.muhendisvenakina.org/feed/" type="rss"/>
-      <outline title="Makina Mühendisleri Odası" xmlUrl="https://www.mmo.org.tr/rss" type="rss"/>
-      <outline title="Teknoloji Haberleri" xmlUrl="https://www.teknoloji.com/feed/" type="rss"/>
-      <outline title="Makinaegitim" xmlUrl="https://www.makinaegitim.com/feed/" type="rss"/>
+      <outline title="Makina Mühendisleri Odası" xmlUrl="https://www.mmo.org.tr/rss" type="rss" />
     </outline>
   </body>
 </opml>

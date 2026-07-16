@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Famous People (French)">
-      <outline title="Pure People" xmlUrl="https://www.purepeople.com/rss/people.xml" type="rss"/>
-      <outline title="Voici" xmlUrl="https://www.voici.fr/rss/people.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

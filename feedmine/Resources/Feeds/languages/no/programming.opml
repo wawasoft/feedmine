@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Norwegian)">
-      <outline title="Kode24" xmlUrl="https://www.kode24.no/feed" type="rss"/>
-      <outline title="Programmering – Tek.no" xmlUrl="https://www.tek.no/emner/programmering/feed" type="rss"/>
-      <outline title="Norsk Programmeringsblogg" xmlUrl="https://norskprogrammering.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Slovak)">
-      <outline title="Fashion.sk" xmlUrl="https://www.fashion.sk/feed/" type="rss"/>
-      <outline title="Madam Fashion" xmlUrl="https://www.madamfashion.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

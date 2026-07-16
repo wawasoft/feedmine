@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Polish)">
-      <outline title="Data Science PR" xmlUrl="https://datasciencepr.pl/feed/" type="rss"/>
-      <outline title="Sztuczna Inteligencja - AI" xmlUrl="https://sztucznainteligencja.org.pl/feed/" type="rss"/>
+      <outline title="Sztuczna Inteligencja - AI" xmlUrl="https://sztucznainteligencja.org.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

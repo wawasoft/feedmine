@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Dutch)">
-      <outline title="Dev.nl" xmlUrl="https://dev.nl/feed/" type="rss"/>
-      <outline title="Fronteers" xmlUrl="https://fronteers.nl/feed/" type="rss"/>
-      <outline title="PHP Freaks" xmlUrl="https://www.phpfreaks.nl/feed/" type="rss"/>
-      <outline title="Programmeer Blog" xmlUrl="https://programmeer.blog/feed/" type="rss"/>
-      <outline title="CodeKriebels" xmlUrl="https://codekriebels.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

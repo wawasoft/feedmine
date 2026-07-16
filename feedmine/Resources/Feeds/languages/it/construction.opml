@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Construction, Building (Italian)">
-      <outline title="Edilportale - News" xmlUrl="https://www.edilportale.com/news/feed" type="rss"/>
-      <outline title="Ingenio" xmlUrl="https://www.ingenio-web.it/feed/" type="rss"/>
-      <outline title="Casa e Cantiere" xmlUrl="https://www.casaecantiere.it/feed/" type="rss"/>
-      <outline title="Costruire" xmlUrl="https://www.costruire.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

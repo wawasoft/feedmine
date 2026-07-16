@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Danish)">
-      <outline title="Podcast.dk" xmlUrl="https://podcast.dk/feed/podcast/" type="rss"/>
-      <outline title="DR Podcast" xmlUrl="https://www.dr.dk/feeds/podcast.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

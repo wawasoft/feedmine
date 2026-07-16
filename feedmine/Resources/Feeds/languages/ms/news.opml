@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="News Feeds (Malay)">
-      <outline title="Berita Harian" xmlUrl="https://www.bharian.com.my/rss.xml" type="rss"/>
-      <outline title="Harian Metro" xmlUrl="https://www.hmetro.com.my/rss.xml" type="rss"/>
-      <outline title="Sinar Harian" xmlUrl="https://www.sinarharian.com.my/rss.xml" type="rss"/>
-      <outline title="Utusan Malaysia" xmlUrl="https://www.utusan.com.my/rss.xml" type="rss"/>
-      <outline title="Malaysiakini" xmlUrl="https://www.malaysiakini.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

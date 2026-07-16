@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Polish)">
-      <outline title="Nauka o Klimacie" xmlUrl="https://naukaoklimacie.pl/feed/" type="rss"/>
-      <outline title="EkoGłosy" xmlUrl="https://ekoglosy.pl/feed/" type="rss"/>
-      <outline title="Teraz Środowisko" xmlUrl="https://www.teraz-srodowisko.pl/rss.xml" type="rss"/>
-      <outline title="WWF Polska" xmlUrl="https://www.wwf.pl/aktualnosci/rss.xml" type="rss"/>
-      <outline title="Greenpeace Polska" xmlUrl="https://www.greenpeace.pl/feed/" type="rss"/>
+      <outline title="Nauka o Klimacie" xmlUrl="https://naukaoklimacie.pl/feed/" type="rss" />
+      <outline title="Greenpeace Polska" xmlUrl="https://www.greenpeace.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

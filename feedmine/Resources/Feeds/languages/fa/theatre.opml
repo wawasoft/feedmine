@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Theatre (Persian)">
-      <outline title="تیوال" xmlUrl="https://www.tiwall.com/rss/" type="rss"/>
-      <outline title="هنر آنلاین" xmlUrl="https://www.honaronline.ir/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

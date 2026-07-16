@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Surfing Feeds (Chinese)">
-      <outline title="冲浪中国" xmlUrl="https://www.surfchina.com/feed" type="rss"/>
-      <outline title="冲浪之家" xmlUrl="https://www.surfhome.cn/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

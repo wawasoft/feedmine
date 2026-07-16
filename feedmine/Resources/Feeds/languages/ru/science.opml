@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Science Feeds (Russian)">
-      <outline title="N+1" xmlUrl="https://nplus1.ru/rss" type="rss"/>
-      <outline title="Элементы" xmlUrl="https://elementy.ru/rss/news.xml" type="rss"/>
-      <outline title="ПостНаука" xmlUrl="https://postnauka.org/rss" type="rss"/>
-      <outline title="Наука и жизнь" xmlUrl="https://www.nkj.ru/rss/" type="rss"/>
+      <outline title="N+1" xmlUrl="https://nplus1.ru/rss" type="rss" />
+      <outline title="Наука и жизнь" xmlUrl="https://www.nkj.ru/rss/" type="rss" />
     </outline>
   </body>
 </opml>

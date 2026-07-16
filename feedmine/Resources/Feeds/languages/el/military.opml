@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Military (Greek)">
-      <outline title="DefenceNet" xmlUrl="https://www.defencenet.gr/feed/" type="rss"/>
-      <outline title="Δούρειος Ίππος" xmlUrl="https://www.doureios.com/feed/" type="rss"/>
+      <outline title="Δούρειος Ίππος" xmlUrl="https://www.doureios.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

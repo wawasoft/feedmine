@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Fashion, Style (Bulgarian)">
-      <outline title="Fashion.bg" xmlUrl="https://fashion.bg/feed/" type="rss"/>
-      <outline title="Моден свят" xmlUrl="https://modensviat.com/feed/" type="rss"/>
+      <outline title="Fashion.bg" xmlUrl="https://fashion.bg/feed/" type="rss" />
     </outline>
   </body>
 </opml>

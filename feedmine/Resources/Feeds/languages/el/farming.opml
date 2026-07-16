@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Greek)">
-      <outline title="Agronews" xmlUrl="https://www.agronews.gr/feed/" type="rss"/>
-      <outline title="Agrotypos" xmlUrl="https://www.agrotypos.gr/feed/" type="rss"/>
-      <outline title="Farmers Union" xmlUrl="https://www.farmersunion.gr/feed/" type="rss"/>
-      <outline title="GAIA Epicheirein" xmlUrl="https://www.gaiaepicheirein.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

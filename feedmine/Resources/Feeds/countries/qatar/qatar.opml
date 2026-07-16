@@ -40,8 +40,7 @@
       <outline title="Qatar Arts" xmlUrl="https://www.qatararts.com/feed/" type="rss" />
     </outline>
     <outline text="Travel">
-      <outline title="Qatar Living Travel" xmlUrl="https://www.qatarliving.com/travel/rss/" type="rss" />
-    </outline>
+      </outline>
     <outline text="Business">
       <outline title="Gulf Times Biz" xmlUrl="https://www.gulf-times.com/business/rss/" type="rss" />
       <outline title="Qatar Business" xmlUrl="https://www.qatarbusiness.com/feed/" type="rss" />

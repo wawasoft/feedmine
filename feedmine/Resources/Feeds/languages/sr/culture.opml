@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Culture Feeds (Serbian)">
-      <outline title="RTS Kultura" xmlUrl="https://www.rts.rs/rss/kultura.xml" type="rss"/>
-      <outline title="B92 Kultura" xmlUrl="https://www.b92.net/rss/kultura.xml" type="rss"/>
-      <outline title="N1 Kultura" xmlUrl="https://rs.n1info.com/rss/kultura/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

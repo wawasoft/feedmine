@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Surfing Feeds (Portuguese)">
-      <outline title="Surf Total" xmlUrl="https://www.surftotal.com/feed/" type="rss"/>
-      <outline title="Hardcore Surf" xmlUrl="https://hardcoresurf.com.br/feed/" type="rss"/>
-      <outline title="Surfivor" xmlUrl="https://surfivor.com.br/feed/" type="rss"/>
-      <outline title="Banzai Surf" xmlUrl="https://banzaisurf.com.br/feed/" type="rss"/>
-      <outline title="WaveSurf" xmlUrl="https://wavesurf.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

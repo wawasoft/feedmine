@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Ukrainian)">
-      <outline title="Український медичний часопис" xmlUrl="https://umj.com.ua/rss.xml" type="rss"/>
-      <outline title="Медична газета України" xmlUrl="https://medgazeta.com.ua/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

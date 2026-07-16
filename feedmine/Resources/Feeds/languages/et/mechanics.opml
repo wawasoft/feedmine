@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Estonian)">
-      <outline title="Inseneeria" xmlUrl="https://www.inseneeria.ee/feed/" type="rss"/>
-      <outline title="Tehnikamaailm" xmlUrl="https://www.tehnikamaailm.ee/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

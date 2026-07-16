@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Nerd (Norwegian)">
-      <outline title="Spill.no" xmlUrl="https://www.spill.no/feed/" type="rss"/>
-      <outline title="Gamer.no" xmlUrl="https://www.gamer.no/feed/" type="rss"/>
+      <outline title="Spill.no" xmlUrl="https://www.spill.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

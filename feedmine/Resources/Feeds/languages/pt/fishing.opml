@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Fishing (Portuguese)">
-      <outline title="Pesca &amp; Companhia" xmlUrl="https://www.pescaecompanhia.com.br/feed/" type="rss"/>
-      <outline title="Pesca na Rede" xmlUrl="https://pescanarede.com.br/feed/" type="rss"/>
-      <outline title="Pesca Brasil" xmlUrl="https://www.pescabrasil.com.br/feed/" type="rss"/>
-      <outline title="Pescador Online" xmlUrl="https://www.pescadoronline.com.br/feed/" type="rss"/>
-      <outline title="Pesca Amadora" xmlUrl="https://pescaamadora.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

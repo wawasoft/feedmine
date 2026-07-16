@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Italian)">
-      <outline title="Podcast Italiani" xmlUrl="https://www.podcastitaliani.it/feed/podcast/" type="rss"/>
-      <outline title="Daily Cogito" xmlUrl="https://dailycogito.com/feed/podcast/" type="rss"/>
-      <outline title="Storielibere" xmlUrl="https://www.storielibere.it/feed/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

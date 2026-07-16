@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Videogames (Chinese)">
-      <outline title="游民星空" xmlUrl="https://www.gamersky.com/rss/rss.xml" type="rss"/>
-      <outline title="游戏葡萄" xmlUrl="https://youxiputao.com/rss/feed.xml" type="rss"/>
-      <outline title="VGtime游戏时光" xmlUrl="https://www.vgtime.com/rss/feed.xml" type="rss"/>
-      <outline title="游侠网" xmlUrl="https://www.ali213.net/rss/rss.xml" type="rss"/>
-      <outline title="3DMGame" xmlUrl="https://www.3dmgame.com/rss/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

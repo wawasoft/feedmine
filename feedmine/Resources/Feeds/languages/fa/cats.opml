@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Persian)">
-      <outline title="گربه‌ها" xmlUrl="https://gorbeha.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

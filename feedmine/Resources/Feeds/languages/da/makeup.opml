@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Danish)">
-      <outline title="BeautyBy" xmlUrl="https://beautyby.dk/feed/" type="rss"/>
-      <outline title="Skønhedsbloggen" xmlUrl="https://skonhedsbloggen.dk/feed/" type="rss"/>
-      <outline title="Makeup.dk" xmlUrl="https://www.makeup.dk/feed/" type="rss"/>
+      <outline title="BeautyBy" xmlUrl="https://beautyby.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

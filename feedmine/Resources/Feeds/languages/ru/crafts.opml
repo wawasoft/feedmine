@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Russian)">
-      <outline title="Ярмарка Мастеров — блог" xmlUrl="https://www.livemaster.ru/blogs/rss" type="rss"/>
-      <outline title="Рукоделие — Журнал" xmlUrl="https://rukodelie-journal.ru/feed" type="rss"/>
-      <outline title="Handmade — Публикации" xmlUrl="https://handmade.ua/feed" type="rss"/>
+      <outline title="Ярмарка Мастеров — блог" xmlUrl="https://www.livemaster.ru/blogs/rss" type="rss" />
     </outline>
   </body>
 </opml>

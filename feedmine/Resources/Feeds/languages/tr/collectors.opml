@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Collectors (Turkish)">
-      <outline title="Koleksiyon Dünyası" xmlUrl="https://koleksiyondunyasi.com/feed/" type="rss"/>
-      <outline title="Antika ve Koleksiyon" xmlUrl="https://antikavekoleksiyon.com/feed/" type="rss"/>
-      <outline title="Koleksiyon Haberleri" xmlUrl="https://koleksiyonhaberleri.com/feed/" type="rss"/>
-      <outline title="Koleksiyon Merakı" xmlUrl="https://koleksiyonmeraki.com/feed/" type="rss"/>
-      <outline title="Pul Koleksiyonu" xmlUrl="https://pulkoleksiyonu.com/feed/" type="rss"/>
+      <outline title="Antika ve Koleksiyon" xmlUrl="https://antikavekoleksiyon.com/feed/" type="rss" />
+      <outline title="Pul Koleksiyonu" xmlUrl="https://pulkoleksiyonu.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

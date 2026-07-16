@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Polish)">
-      <outline title="Rękodzieło - Pasje i hobby" xmlUrl="https://rekodzielo.eu/feed/" type="rss"/>
-      <outline title="DIY - Poradnik" xmlUrl="https://diy-poradnik.pl/feed/" type="rss"/>
+      <outline title="Rękodzieło - Pasje i hobby" xmlUrl="https://rekodzielo.eu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

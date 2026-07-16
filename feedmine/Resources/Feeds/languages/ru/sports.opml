@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Sports (Russian)">
-      <outline title="Чемпионат.com - Все новости" xmlUrl="https://www.championat.com/rss/news/all.xml" type="rss"/>
-      <outline title="Sports.ru - Лента" xmlUrl="https://www.sports.ru/rss/all_news.xml" type="rss"/>
-      <outline title="Евроспорт - Новости" xmlUrl="https://www.eurosport.ru/rss.xml" type="rss"/>
-      <outline title="Спорт-Экспресс" xmlUrl="https://www.sport-express.ru/rss/" type="rss"/>
-      <outline title="Матч ТВ - Новости" xmlUrl="https://matchtv.ru/rss/news" type="rss"/>
+      <outline title="Евроспорт - Новости" xmlUrl="https://www.eurosport.ru/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Turkish)">
-      <outline title="Kitap İncelemesi" xmlUrl="https://kitapincelemesi.com/feed/" type="rss"/>
-      <outline title="Edebiyat Eleştiri" xmlUrl="https://edebiyateleştiri.com/feed/" type="rss"/>
-      <outline title="K24" xmlUrl="https://k24.com.tr/feed" type="rss"/>
-      <outline title="Notos Kitap" xmlUrl="https://www.notoskitap.com/feed/" type="rss"/>
-      <outline title="Pandora Kitap" xmlUrl="https://www.pandora.com.tr/blog/feed/" type="rss"/>
+      <outline title="Kitap İncelemesi" xmlUrl="https://kitapincelemesi.com/feed/" type="rss" />
+      <outline title="K24" xmlUrl="https://k24.com.tr/feed" type="rss" />
+      <outline title="Notos Kitap" xmlUrl="https://www.notoskitap.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

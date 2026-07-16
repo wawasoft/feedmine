@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Nerd (Slovenian)">
-      <outline title="Slo-Tech" xmlUrl="https://slo-tech.com/rss" type="rss"/>
-      <outline title="Mladina - Znanost in tehnologija" xmlUrl="https://www.mladina.si/rss/znanost-in-tehnologija/" type="rss"/>
-      <outline title="RTV Slovenija - Znanost in tehnologija" xmlUrl="https://www.rtvslo.si/znanost-in-tehnologija/rss" type="rss"/>
+      <outline title="Mladina - Znanost in tehnologija" xmlUrl="https://www.mladina.si/rss/znanost-in-tehnologija/" type="rss" />
+      <outline title="RTV Slovenija - Znanost in tehnologija" xmlUrl="https://www.rtvslo.si/znanost-in-tehnologija/rss" type="rss" />
     </outline>
   </body>
 </opml>

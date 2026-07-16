@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Music (Slovak)">
-      <outline title="Hudba.sk" xmlUrl="https://hudba.sk/rss" type="rss"/>
-      <outline title="Rádio_FM" xmlUrl="https://radiofm.sk/rss/" type="rss"/>
-      <outline title="MusicPress.sk" xmlUrl="https://musicpress.sk/feed/" type="rss"/>
-      <outline title="Headliner.sk" xmlUrl="https://headliner.sk/feed/" type="rss"/>
-      <outline title="Hudobný svet" xmlUrl="https://hudobnysvet.sk/feed/" type="rss"/>
+      <outline title="MusicPress.sk" xmlUrl="https://musicpress.sk/feed/" type="rss" />
+      <outline title="Hudobný svet" xmlUrl="https://hudobnysvet.sk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

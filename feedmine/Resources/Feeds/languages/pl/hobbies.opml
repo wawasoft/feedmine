@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Polish)">
-      <outline title="Pasja - Interia" xmlUrl="https://pasja.interia.pl/rss" type="rss"/>
-      <outline title="DIY - Poradnik" xmlUrl="https://diy.poradnik.pl/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

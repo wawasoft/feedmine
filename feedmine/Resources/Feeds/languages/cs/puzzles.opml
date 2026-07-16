@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Czech)">
-      <outline title="Křížovky – České křížovky" xmlUrl="https://www.ceskekrizovky.cz/rss/" type="rss"/>
-      <outline title="Sudoku – Sudoku.cz" xmlUrl="https://www.sudoku.cz/rss/" type="rss"/>
-      <outline title="Hádanky – Hádanky a rébusy" xmlUrl="https://www.hadanky.cz/rss/" type="rss"/>
-      <outline title="Puzzles – Puzzle klub" xmlUrl="https://www.puzzleklub.cz/rss/" type="rss"/>
-      <outline title="Křížovky – Křížovkářský slovník" xmlUrl="https://www.krizovkarsky-slovnik.cz/rss/" type="rss"/>
+      <outline title="Křížovky – Křížovkářský slovník" xmlUrl="https://www.krizovkarsky-slovnik.cz/rss/" type="rss" />
     </outline>
   </body>
 </opml>

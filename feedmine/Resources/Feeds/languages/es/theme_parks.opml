@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Spanish)">
-      <outline title="Parques de Atracciones" xmlUrl="https://parquesdeatracciones.com/feed/" type="rss"/>
-      <outline title="Roller Coaster DataBase" xmlUrl="https://rcdb.com/rss/es/" type="rss"/>
-      <outline title="Mundo Parques" xmlUrl="https://mundoparques.com/feed/" type="rss"/>
-      <outline title="Theme Park World" xmlUrl="https://themeparkworld.es/feed/" type="rss"/>
-      <outline title="Coaster World" xmlUrl="https://coasterworld.es/feed/" type="rss"/>
+      <outline title="Parques de Atracciones" xmlUrl="https://parquesdeatracciones.com/feed/" type="rss" />
+      <outline title="Mundo Parques" xmlUrl="https://mundoparques.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

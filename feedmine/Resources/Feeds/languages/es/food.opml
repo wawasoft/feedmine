@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Food (Spanish)">
-      <outline title="Directo al Paladar" xmlUrl="https://www.directoalpaladar.com/feed/" type="rss"/>
-      <outline title="Gastronomía &amp; Cía" xmlUrl="https://www.gastronomiaycia.com/feed/" type="rss"/>
-      <outline title="Bocados de Cocina" xmlUrl="https://www.bocadosdecocina.com/feed/" type="rss"/>
+      <outline title="Gastronomía &amp; Cía" xmlUrl="https://www.gastronomiaycia.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

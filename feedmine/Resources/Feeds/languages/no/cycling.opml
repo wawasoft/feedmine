@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Cycling (Norwegian)">
-      <outline title="Syklist" xmlUrl="https://syklist.no/feed" type="rss"/>
-      <outline title="Landevei" xmlUrl="https://www.landevei.no/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

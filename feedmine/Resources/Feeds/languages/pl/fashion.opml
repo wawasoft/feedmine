@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Fashion, Style (Polish)">
-      <outline title="Vogue Polska" xmlUrl="https://www.vogue.pl/feed" type="rss"/>
-      <outline title="Elle Polska" xmlUrl="https://www.elle.pl/rss.xml" type="rss"/>
-      <outline title="Moda - Polskie Radio" xmlUrl="https://www.polskieradio.pl/7/1568/Artykul/rss" type="rss"/>
-      <outline title="Fashion Biznes" xmlUrl="https://fashionbiznes.pl/feed/" type="rss"/>
-      <outline title="Modowo.pl" xmlUrl="https://modowo.pl/feed/" type="rss"/>
+      <outline title="Fashion Biznes" xmlUrl="https://fashionbiznes.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

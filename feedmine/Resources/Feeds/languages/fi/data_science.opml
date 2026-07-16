@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Finnish)">
-      <outline title="Reaktor - Data Science" xmlUrl="https://www.reaktor.com/blog/category/data-science/feed/" type="rss"/>
-      <outline title="Futurice - Data &amp; Analytics" xmlUrl="https://www.futurice.com/blog/tag/data/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

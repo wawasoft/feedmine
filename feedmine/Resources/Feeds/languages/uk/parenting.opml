@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Moms, Dads (Ukrainian)">
-      <outline title="Mamabook" xmlUrl="https://mamabook.com.ua/feed/" type="rss"/>
-      <outline title="Розумні батьки" xmlUrl="https://rozumnibatky.com.ua/feed/" type="rss"/>
+      <outline title="Mamabook" xmlUrl="https://mamabook.com.ua/feed/" type="rss" />
     </outline>
   </body>
 </opml>

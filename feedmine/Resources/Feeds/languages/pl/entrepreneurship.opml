@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Polish)">
-      <outline title="Mam Startup" xmlUrl="https://mamstartup.pl/feed" type="rss"/>
-      <outline title="Startup Academy" xmlUrl="https://startupacademy.pl/feed/" type="rss"/>
-      <outline title="Biznes w INTERIA.PL" xmlUrl="https://biznes.interia.pl/rss/startup.xml" type="rss"/>
-      <outline title="Przedsiębiorczość - Polskie Radio" xmlUrl="https://www.polskieradio.pl/7/1566/Artykul/rss" type="rss"/>
-      <outline title="Mam Biznes" xmlUrl="https://mambiznes.pl/feed/" type="rss"/>
+      <outline title="Mam Startup" xmlUrl="https://mamstartup.pl/feed" type="rss" />
+      <outline title="Startup Academy" xmlUrl="https://startupacademy.pl/feed/" type="rss" />
+      <outline title="Mam Biznes" xmlUrl="https://mambiznes.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fishing (Czech)">
-      <outline title="Rybářství" xmlUrl="https://www.rybarstvi.eu/feed/" type="rss"/>
-      <outline title="MRK - Magazín rybáře" xmlUrl="https://www.mrk.cz/rss" type="rss"/>
-      <outline title="Rybářské potřeby" xmlUrl="https://www.rybarskepotreby.cz/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

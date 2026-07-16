@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Romanian)">
-      <outline title="Folclor Românesc" xmlUrl="https://www.folclorromanesc.ro/feed/" type="rss"/>
-      <outline title="Mitologii" xmlUrl="https://mitologii.ro/feed/" type="rss"/>
-      <outline title="Tradiții și Obiceiuri" xmlUrl="https://www.traditii-si-obiceiuri.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Humor (Indonesian)">
-      <outline title="Komedi Indonesia" xmlUrl="https://komediindonesia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

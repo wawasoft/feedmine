@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Armenian)">
-      <outline title="Sport.news.am - Ֆուտբոլ" xmlUrl="https://sport.news.am/feed/football" type="rss"/>
-      <outline title="ArmFootball.am" xmlUrl="https://armfootball.am/feed" type="rss"/>
+      <outline title="ArmFootball.am" xmlUrl="https://armfootball.am/feed" type="rss" />
     </outline>
   </body>
 </opml>

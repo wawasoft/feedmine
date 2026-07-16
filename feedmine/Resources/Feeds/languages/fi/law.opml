@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Law, Legal News (Finnish)">
-      <outline title="Lakimiesuutiset" xmlUrl="https://lakimiesuutiset.fi/feed/" type="rss"/>
-      <outline title="Edilex" xmlUrl="https://www.edilex.fi/uutiset/rss" type="rss"/>
+      <outline title="Edilex" xmlUrl="https://www.edilex.fi/uutiset/rss" type="rss" />
     </outline>
   </body>
 </opml>

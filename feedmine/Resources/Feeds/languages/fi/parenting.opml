@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Moms, Dads (Finnish)">
-      <outline title="Vauva.fi" xmlUrl="https://www.vauva.fi/rss" type="rss"/>
-      <outline title="Mammat ja Papas" xmlUrl="https://www.mammatjapapas.fi/feed/" type="rss"/>
-      <outline title="Kaksplus" xmlUrl="https://www.kaksplus.fi/feed/" type="rss"/>
+      <outline title="Kaksplus" xmlUrl="https://www.kaksplus.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

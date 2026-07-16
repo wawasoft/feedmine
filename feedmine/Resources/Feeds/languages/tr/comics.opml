@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Quadrinhos (Turkish)">
-      <outline title="Çizgi Roman Haberleri" xmlUrl="https://www.cizgiromanhaberleri.com/feed/" type="rss"/>
-      <outline title="Çizgi Roman Kütüphanesi" xmlUrl="https://cizgiromankutuphanesi.com/feed/" type="rss"/>
-      <outline title="Manga ve Çizgi Roman" xmlUrl="https://mangavecizgiroman.com/feed/" type="rss"/>
-      <outline title="Çizgi Roman Dükkanı" xmlUrl="https://www.cizgiromandukkani.com/blog/feed/" type="rss"/>
-      <outline title="Turkuvaz Çizgi Roman" xmlUrl="https://turkuvazcizgiroman.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

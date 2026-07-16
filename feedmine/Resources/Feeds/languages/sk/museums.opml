@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Slovak)">
-      <outline title="Slovenské múzeum" xmlUrl="https://www.snm.sk/rss/" type="rss"/>
-      <outline title="Múzeá na Slovensku" xmlUrl="https://muzeum.sk/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Health (Polish)">
-      <outline title="Medycyna Praktyczna" xmlUrl="https://www.mp.pl/rss/aktualnosci.xml" type="rss"/>
-      <outline title="Zdrowie - Onet" xmlUrl="https://zdrowie.onet.pl/rss" type="rss"/>
-      <outline title="Poradnik Zdrowie" xmlUrl="https://www.poradnikzdrowie.pl/rss" type="rss"/>
+      <outline title="Poradnik Zdrowie" xmlUrl="https://www.poradnikzdrowie.pl/rss" type="rss" />
     </outline>
   </body>
 </opml>

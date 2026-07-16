@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Serbian)">
-      <outline title="Putovanja sa Jelenom" xmlUrl="https://putovanjasajelenom.com/feed/" type="rss"/>
-      <outline title="Travel magazin" xmlUrl="https://travelmagazin.rs/feed/" type="rss"/>
-      <outline title="Lonely Planet Srbija" xmlUrl="https://www.lonelyplanet.rs/feed/" type="rss"/>
-      <outline title="Adventure Serbia" xmlUrl="https://adventureserbia.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

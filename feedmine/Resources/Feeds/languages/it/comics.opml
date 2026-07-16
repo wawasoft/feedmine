@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Quadrinhos (Italian)">
-      <outline title="Fumettologica" xmlUrl="https://www.fumettologica.it/feed/" type="rss"/>
-      <outline title="Lo Spazio Bianco" xmlUrl="https://www.lospaziobianco.it/feed/" type="rss"/>
-      <outline title="MangaForever" xmlUrl="https://www.mangaforever.net/feed/" type="rss"/>
-      <outline title="C4 Comic" xmlUrl="https://www.c4comic.it/feed/" type="rss"/>
+      <outline title="Fumettologica" xmlUrl="https://www.fumettologica.it/feed/" type="rss" />
+      <outline title="Lo Spazio Bianco" xmlUrl="https://www.lospaziobianco.it/feed/" type="rss" />
+      <outline title="MangaForever" xmlUrl="https://www.mangaforever.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

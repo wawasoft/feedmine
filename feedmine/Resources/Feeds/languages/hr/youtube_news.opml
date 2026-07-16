@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="YouTube News (Croatian)">
-      <outline title="HRT - Vijesti" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCX6pI1qW6q6qJ6qJ6qJ6qJ6Q" type="rss"/>
-      <outline title="N1 Hrvatska - YouTube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZ6pI1qW6q6qJ6qJ6qJ6qJ6Q" type="rss"/>
-      <outline title="RTL Danas - YouTube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCY6pI1qW6q6qJ6qJ6qJ6qJ6Q" type="rss"/>
-      <outline title="24sata - YouTube Vijesti" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCG6pI1qW6q6qJ6qJ6qJ6qJ6Q" type="rss"/>
-      <outline title="Dnevnik.hr - YouTube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCW6pI1qW6q6qJ6qJ6qJ6qJ6Q" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Polish)">
-      <outline title="Produktywny.pl" xmlUrl="https://produktywny.pl/feed" type="rss"/>
-      <outline title="Lifehacker Polska" xmlUrl="https://lifehacker.pl/feed" type="rss"/>
-      <outline title="SzybkiStart" xmlUrl="https://szybkistart.pl/feed" type="rss"/>
-      <outline title="GTD Polska" xmlUrl="https://gtdpolska.pl/feed" type="rss"/>
-      <outline title="Marcin Żukowski" xmlUrl="https://marcinzukowski.pl/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Art Galleries (Portuguese)">
-      <outline title="Arte Que Acontece" xmlUrl="https://www.artequeacontece.com.br/feed/" type="rss"/>
-      <outline title="Arte e Cultura" xmlUrl="https://arteecultura.com.br/feed/" type="rss"/>
-      <outline title="Revista ARTE!Brasileiros" xmlUrl="https://artebrasileiros.com.br/feed/" type="rss"/>
-      <outline title="Select Art Magazine" xmlUrl="https://select.art.br/feed/" type="rss"/>
+      <outline title="Arte Que Acontece" xmlUrl="https://www.artequeacontece.com.br/feed/" type="rss" />
+      <outline title="Revista ARTE!Brasileiros" xmlUrl="https://artebrasileiros.com.br/feed/" type="rss" />
+      <outline title="Select Art Magazine" xmlUrl="https://select.art.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

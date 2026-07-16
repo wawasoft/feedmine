@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Italian)">
-      <outline title="Superando" xmlUrl="https://www.superando.it/feed/" type="rss"/>
-      <outline title="Handimatica" xmlUrl="https://www.handimatica.org/feed/" type="rss"/>
+      <outline title="Superando" xmlUrl="https://www.superando.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

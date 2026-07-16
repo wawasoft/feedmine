@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Bulgarian)">
-      <outline title="Аудио-драми от БНР" xmlUrl="https://bnr.bg/rss/audiodrama" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

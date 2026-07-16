@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="News Feeds (Persian)">
-      <outline title="بی‌بی‌سی فارسی" xmlUrl="https://www.bbc.com/persian/feeds" type="rss"/>
-      <outline title="رادیو فردا" xmlUrl="https://www.radiofarda.com/feed" type="rss"/>
-      <outline title="ایران اینترنشنال" xmlUrl="https://www.iranintl.com/feed" type="rss"/>
+      <outline title="بی‌بی‌سی فارسی" xmlUrl="https://www.bbc.com/persian/feeds" type="rss" />
+      <outline title="ایران اینترنشنال" xmlUrl="https://www.iranintl.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

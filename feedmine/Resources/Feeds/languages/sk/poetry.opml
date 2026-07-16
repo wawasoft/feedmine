@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Poetry (Slovak)">
-      <outline title="Poézia na Slovensku" xmlUrl="https://poezia.sk/rss" type="rss"/>
-      <outline title="Literárny týždenník" xmlUrl="https://www.literarnytyzdennik.sk/rss" type="rss"/>
+      <outline title="Literárny týždenník" xmlUrl="https://www.literarnytyzdennik.sk/rss" type="rss" />
     </outline>
   </body>
 </opml>

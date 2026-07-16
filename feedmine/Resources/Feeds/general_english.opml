@@ -208,7 +208,6 @@
     </outline>
     <outline text="Mountaineering">
       <outline title="Climbing Magazine" xmlUrl="https://www.climbing.com/feed/" type="rss" />
-      <outline title="Alpinist Magazine" xmlUrl="https://alpinist.com/feed/" type="rss" />
       <outline title="ExplorersWeb" xmlUrl="https://explorersweb.com/feed/" type="rss" />
       <outline title="Rock and Ice" xmlUrl="https://www.rockandice.com/feed/" type="rss" />
     </outline>
@@ -1067,7 +1066,6 @@
       <outline title="Arrested Motion" xmlUrl="https://arrestedmotion.com/feed/" type="rss" />
     </outline>
     <outline text="Digital Art">
-      <outline title="Creative Applications Network (CAN)" xmlUrl="https://www.creativeapplications.net/feed/" type="rss" />
       <outline title="Digital Arts Online" xmlUrl="https://www.digitalartsonline.co.uk/rss/" type="rss" />
     </outline>
     <outline text="Performance Art">
@@ -1497,7 +1495,6 @@
       <outline title="Critical Review of International Social &amp; Political Philosophy" xmlUrl="https://www.tandfonline.com/feed/rss/fcri20" type="rss" />
       <outline title="Boston Review (Philosophy &amp; Politics)" xmlUrl="https://www.bostonreview.net/feed/" type="rss" />
       <outline title="Crooked Timber (Political Philosophy Blog)" xmlUrl="https://crookedtimber.org/feed/" type="rss" />
-      <outline title="Public Reason (Journal)" xmlUrl="https://publicreason.ro/rss/" type="rss" />
       <outline title="The Utopian (Political Philosophy Blog)" xmlUrl="https://www.the-utopian.org/rss" type="rss" />
     </outline>
     <outline text="Ethics">
@@ -2417,7 +2414,6 @@
     </outline>
     <outline text="SEO &amp; Search">
       <outline title="Search Engine Journal" xmlUrl="https://www.searchenginejournal.com/feed/" type="rss" />
-      <outline title="Search Engine Land" xmlUrl="https://searchengineland.com/feed/" type="rss" />
       <outline title="Ahrefs Blog" xmlUrl="https://ahrefs.com/blog/feed/" type="rss" />
       <outline title="SEMrush Blog" xmlUrl="https://www.semrush.com/blog/feed/" type="rss" />
       <outline title="Moz Blog" xmlUrl="https://moz.com/blog/feed" type="rss" />
@@ -3888,7 +3884,6 @@
       <outline title="Management Consulted (Blog)" xmlUrl="https://managementconsulted.com/feed/" type="rss" />
     </outline>
     <outline text="Operations Management &amp; Process Excellence">
-      <outline title="APICS (Supply Chain &amp; Ops Blog)" xmlUrl="https://www.ascm.org/rss" type="rss" />
       <outline title="The Operations Blog" xmlUrl="https://theoperationsblog.wordpress.com/feed/" type="rss" />
       <outline title="BPI (Business Process Improvement Blog)" xmlUrl="https://bpiexcellence.wordpress.com/feed/" type="rss" />
     </outline>
@@ -4969,7 +4964,6 @@
       <outline title="The Diesel Mechanic (Blog)" xmlUrl="https://thedieselmechanic.wordpress.com/feed/" type="rss" />
       <outline title="IRTE (Institute of Road Transport Engineers, UK)" xmlUrl="https://www.irte.org/rss" type="rss" />
       <outline title="Diesel Career (Blog)" xmlUrl="https://dieselcareer.wordpress.com/feed/" type="rss" />
-      <outline title="SOE (Society of Operations Engineers, UK)" xmlUrl="https://www.soe.org.uk/rss" type="rss" />
       <outline title="Heavy Duty (Blog)" xmlUrl="https://heavydutydiesel.wordpress.com/feed/" type="rss" />
     </outline>
     <outline text="Farm Worker &amp; Agricultural Labor Career">

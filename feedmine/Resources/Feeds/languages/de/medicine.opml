@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (German)">
-      <outline title="Ärzteblatt" xmlUrl="https://www.aerzteblatt.de/rss/aktuell.asp" type="rss"/>
-      <outline title="Deutsches Ärzteblatt" xmlUrl="https://www.aerzteblatt.de/rss/politik.asp" type="rss"/>
-      <outline title="Pharmazeutische Zeitung" xmlUrl="https://www.pharmazeutische-zeitung.de/rss/aktuelles.xml" type="rss"/>
-      <outline title="Medscape Deutschland" xmlUrl="https://www.medscape.com/feeds/de/all" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

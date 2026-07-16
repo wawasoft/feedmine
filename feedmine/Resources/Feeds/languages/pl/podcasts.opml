@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Polish)">
-      <outline title="Podcast Polskiego Radia" xmlUrl="https://www.polskieradio.pl/feed/podcast" type="rss"/>
-      <outline title="Raport o stanie świata" xmlUrl="https://raportostanieswiata.pl/feed/podcast" type="rss"/>
-      <outline title="Podróż przez kulturę" xmlUrl="https://podrozkultura.pl/feed/podcast" type="rss"/>
-      <outline title="Nauka to lubię" xmlUrl="https://naukatolubie.pl/feed/podcast" type="rss"/>
-      <outline title="Porozmawiajmy o IT" xmlUrl="https://porozmawiajmyoit.pl/feed/podcast" type="rss"/>
+      <outline title="Nauka to lubię" xmlUrl="https://naukatolubie.pl/feed/podcast" type="rss" />
+      <outline title="Porozmawiajmy o IT" xmlUrl="https://porozmawiajmyoit.pl/feed/podcast" type="rss" />
     </outline>
   </body>
 </opml>

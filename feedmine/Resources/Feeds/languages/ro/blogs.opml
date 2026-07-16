@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Romanian)">
-      <outline title="Un Blog de Om" xmlUrl="https://unblogdeom.ro/feed" type="rss"/>
-      <outline title="Gânduri și Cuvinte" xmlUrl="https://gandurisicuvinte.ro/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

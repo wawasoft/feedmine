@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Drag, Queer (German)">
-      <outline title="Queer.de" xmlUrl="https://www.queer.de/rss.xml" type="rss"/>
-      <outline title="Siegesäule - Das queere Stadtmagazin" xmlUrl="https://www.siegesaeule.de/rss.xml" type="rss"/>
-      <outline title="L-MAG - Das Magazin für Lesben" xmlUrl="https://www.l-mag.de/feed.rss" type="rss"/>
-      <outline title="Drag Race Germany News" xmlUrl="https://www.dragracegermany.com/feed/" type="rss"/>
+      <outline title="Drag Race Germany News" xmlUrl="https://www.dragracegermany.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

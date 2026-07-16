@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Food (Slovak)">
-      <outline title="Varíme.sk" xmlUrl="https://www.varime.sk/rss/" type="rss"/>
-      <outline title="Jedlo.sme.sk" xmlUrl="https://jedlo.sme.sk/rss/" type="rss"/>
-      <outline title="Dobré jedlo" xmlUrl="https://www.dobrejedlo.sk/feed/" type="rss"/>
-      <outline title="Foodblog.sk" xmlUrl="https://foodblog.sk/feed/" type="rss"/>
+      <outline title="Dobré jedlo" xmlUrl="https://www.dobrejedlo.sk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

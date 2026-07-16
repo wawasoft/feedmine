@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Reference Journalists (Russian)">
-      <outline title="Meduza" xmlUrl="https://meduza.io/rss/all" type="rss"/>
-      <outline title="The Insider" xmlUrl="https://theins.ru/feed" type="rss"/>
-      <outline title="Republic" xmlUrl="https://republic.ru/export/rss.xml" type="rss"/>
+      <outline title="Meduza" xmlUrl="https://meduza.io/rss/all" type="rss" />
+      <outline title="The Insider" xmlUrl="https://theins.ru/feed" type="rss" />
     </outline>
   </body>
 </opml>

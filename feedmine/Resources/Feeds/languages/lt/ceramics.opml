@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (Lithuanian)">
-      <outline title="Keramikos studija &quot;Molio pasaulis&quot;" xmlUrl="https://moliopasaulis.lt/feed/" type="rss"/>
-      <outline title="Keramika.lt naujienos" xmlUrl="https://www.keramika.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

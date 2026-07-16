@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Travel (Thai)">
-      <outline title="เที่ยว - ไทยรัฐ" xmlUrl="https://www.thairath.co.th/travel/feed" type="rss"/>
-      <outline title="เที่ยว - มติชน" xmlUrl="https://www.matichon.co.th/travel/feed" type="rss"/>
-      <outline title="เที่ยว - เดลินิวส์" xmlUrl="https://www.dailynews.co.th/travel/feed" type="rss"/>
-      <outline title="Chillpainai" xmlUrl="https://www.chillpainai.com/rss.xml" type="rss"/>
-      <outline title="Tripgether" xmlUrl="https://www.tripgether.com/feed/" type="rss"/>
+      <outline title="เที่ยว - มติชน" xmlUrl="https://www.matichon.co.th/travel/feed" type="rss" />
+      <outline title="Chillpainai" xmlUrl="https://www.chillpainai.com/rss.xml" type="rss" />
+      <outline title="Tripgether" xmlUrl="https://www.tripgether.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

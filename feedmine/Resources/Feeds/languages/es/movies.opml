@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Movies (Spanish)">
-      <outline title="Fotogramas" xmlUrl="https://www.fotogramas.es/rss.xml" type="rss"/>
-      <outline title="Sensacine" xmlUrl="https://www.sensacine.com/rss/" type="rss"/>
-      <outline title="Blog de Cine" xmlUrl="https://www.blogdecine.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

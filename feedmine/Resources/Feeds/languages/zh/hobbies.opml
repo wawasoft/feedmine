@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Hobbies (Chinese)">
-      <outline title="手工客" xmlUrl="https://www.sogoke.com/rss/feed.xml" type="rss"/>
-      <outline title="什么值得买" xmlUrl="https://www.smzdm.com/rss/feed.xml" type="rss"/>
-      <outline title="蜂鸟网" xmlUrl="https://www.fengniao.com/rss/feed.xml" type="rss"/>
-      <outline title="豆瓣小组热门" xmlUrl="https://www.douban.com/group/explore?type=hot&amp;format=rss" type="rss"/>
-      <outline title="知乎" xmlUrl="https://www.zhihu.com/rss/hot" type="rss"/>
+      <outline title="什么值得买" xmlUrl="https://www.smzdm.com/rss/feed.xml" type="rss" />
+      <outline title="豆瓣小组热门" xmlUrl="https://www.douban.com/group/explore?type=hot&amp;format=rss" type="rss" />
+      <outline title="知乎" xmlUrl="https://www.zhihu.com/rss/hot" type="rss" />
     </outline>
   </body>
 </opml>

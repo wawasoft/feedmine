@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Hungarian)">
-      <outline title="Hobbi Magazin" xmlUrl="https://hobbimagazin.hu/feed" type="rss"/>
-      <outline title="Kreatív Hobby" xmlUrl="https://kreativhobby.hu/feed" type="rss"/>
-      <outline title="Fotóművészet" xmlUrl="https://fotomuveszet.hu/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Culture Feeds (Arabic)">
-      <outline title="ميدان الجزيرة" xmlUrl="https://www.aljazeera.net/feeds/culture" type="rss"/>
-      <outline title="العربية.نت ثقافة" xmlUrl="https://www.alarabiya.net/feeds/culture" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Arabic)">
-      <outline title="عالم القطط" xmlUrl="https://www.alamalqitat.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

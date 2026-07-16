@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Lithuanian)">
-      <outline title="Medicina (LRT)" xmlUrl="https://www.lrt.lt/mediateka/rss/gyvenimas/medicina" type="rss"/>
-      <outline title="Sveikata (Delfi)" xmlUrl="https://www.delfi.lt/rss/sveikata" type="rss"/>
+      <outline title="Sveikata (Delfi)" xmlUrl="https://www.delfi.lt/rss/sveikata" type="rss" />
     </outline>
   </body>
 </opml>

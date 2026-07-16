@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Croatian)">
-      <outline title="Hrvatski podcastovi" xmlUrl="https://hrvatskipodcastovi.com/feed/" type="rss"/>
-      <outline title="Podcast Inovacije" xmlUrl="https://inovacije.net/feed/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

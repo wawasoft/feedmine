@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Norwegian)">
-      <outline title="Teknisk Ukeblad – Metall" xmlUrl="https://www.tu.no/emner/metall/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

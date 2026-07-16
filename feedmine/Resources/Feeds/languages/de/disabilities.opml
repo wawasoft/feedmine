@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Deaf, Blind (German)">
-      <outline title="Taubenschlag" xmlUrl="https://www.taubenschlag.de/feed/" type="rss"/>
-      <outline title="Blindensein" xmlUrl="https://blindensein.de/feed/" type="rss"/>
-      <outline title="Deaf News" xmlUrl="https://www.deafnews.de/feed/" type="rss"/>
-      <outline title="Behindertenverband" xmlUrl="https://www.behindertenverband.de/feed/" type="rss"/>
+      <outline title="Taubenschlag" xmlUrl="https://www.taubenschlag.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

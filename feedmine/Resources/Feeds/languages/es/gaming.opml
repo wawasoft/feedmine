@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Videogames (Spanish)">
-      <outline title="Vida Extra" xmlUrl="https://www.vidaextra.com/feed" type="rss"/>
-      <outline title="Eurogamer España" xmlUrl="https://www.eurogamer.es/feed" type="rss"/>
-      <outline title="Hobby Consolas" xmlUrl="https://www.hobbyconsolas.com/rss/" type="rss"/>
-      <outline title="MeriStation" xmlUrl="https://as.com/meristation/rss/" type="rss"/>
-      <outline title="3DJuegos" xmlUrl="https://www.3djuegos.com/rss/" type="rss"/>
+      <outline title="Eurogamer España" xmlUrl="https://www.eurogamer.es/feed" type="rss" />
+      <outline title="Hobby Consolas" xmlUrl="https://www.hobbyconsolas.com/rss/" type="rss" />
     </outline>
   </body>
 </opml>

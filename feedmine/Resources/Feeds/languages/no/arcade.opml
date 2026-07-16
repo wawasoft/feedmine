@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Norwegian)">
-      <outline title="Norsk RetroSpillforening" xmlUrl="https://retrospillforening.no/feed/" type="rss"/>
-      <outline title="Arkade.no" xmlUrl="https://www.arkade.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

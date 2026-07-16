@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Czech)">
-      <outline title="Módnípeklo.cz" xmlUrl="https://www.modnipeklo.cz/feed/" type="rss"/>
-      <outline title="Dolce Vita" xmlUrl="https://www.dolcevita.cz/feed/" type="rss"/>
+      <outline title="Dolce Vita" xmlUrl="https://www.dolcevita.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

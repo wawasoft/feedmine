@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Danish)">
-      <outline title="Historisk Tidsskrift" xmlUrl="https://tidsskrift.dk/historisktidsskrift/feed/" type="rss"/>
-      <outline title="Danmarks Historien" xmlUrl="https://danmarkshistorien.dk/feed/" type="rss"/>
-      <outline title="Historie Online" xmlUrl="https://historie-online.dk/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

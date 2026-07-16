@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Chinese)">
-      <outline title="建筑-筑龙网" xmlUrl="https://www.zhulong.com/rss/construction.xml" type="rss"/>
-      <outline title="中国建设报" xmlUrl="https://www.chinajsb.cn/rss.xml" type="rss"/>
+      <outline title="建筑-筑龙网" xmlUrl="https://www.zhulong.com/rss/construction.xml" type="rss" />
     </outline>
   </body>
 </opml>

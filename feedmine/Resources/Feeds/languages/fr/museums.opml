@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Museums (French)">
-      <outline title="La Tribune de l'Art" xmlUrl="https://www.latribunedelart.com/feed" type="rss"/>
-      <outline title="Le Journal des Arts" xmlUrl="https://www.lejournaldesarts.fr/rss.xml" type="rss"/>
-      <outline title="Connaissance des Arts" xmlUrl="https://www.connaissancedesarts.com/feed/" type="rss"/>
-      <outline title="Musée du Louvre - Actualités" xmlUrl="https://www.louvre.fr/rss/actualites.xml" type="rss"/>
-      <outline title="Artips" xmlUrl="https://artips.fr/feed/" type="rss"/>
+      <outline title="Le Journal des Arts" xmlUrl="https://www.lejournaldesarts.fr/rss.xml" type="rss" />
+      <outline title="Connaissance des Arts" xmlUrl="https://www.connaissancedesarts.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

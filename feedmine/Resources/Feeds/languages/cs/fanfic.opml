@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Fanfiction, Fandom Communities (Czech)">
-      <outline title="Fandom.cz" xmlUrl="https://www.fandom.cz/rss" type="rss"/>
-      <outline title="Fantasy Planet" xmlUrl="https://www.fantasyplanet.cz/rss" type="rss"/>
+      <outline title="Fantasy Planet" xmlUrl="https://www.fantasyplanet.cz/rss" type="rss" />
     </outline>
   </body>
 </opml>

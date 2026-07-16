@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Aviation (Portuguese)">
-      <outline title="Aviação Brasil" xmlUrl="https://www.aviacaobrasil.com.br/feed/" type="rss"/>
-      <outline title="Portal Aviação" xmlUrl="https://www.portalaviacao.com/feed/" type="rss"/>
+      <outline title="Aviação Brasil" xmlUrl="https://www.aviacaobrasil.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

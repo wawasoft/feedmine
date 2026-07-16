@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (German)">
-      <outline title="Rätsel der Woche" xmlUrl="https://www.raetsel-der-woche.de/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

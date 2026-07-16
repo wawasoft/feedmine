@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Norwegian)">
-      <outline title="UT.no" xmlUrl="https://www.ut.no/rss/" type="rss"/>
-      <outline title="Turistforeningen" xmlUrl="https://www.dnt.no/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

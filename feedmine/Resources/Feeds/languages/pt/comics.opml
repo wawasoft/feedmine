@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Quadrinhos (Portuguese)">
-      <outline title="Universo HQ" xmlUrl="https://www.universohq.com/feed/" type="rss"/>
-      <outline title="Omelete Quadrinhos" xmlUrl="https://www.omelete.com.br/quadrinhos/feed" type="rss"/>
-      <outline title="Judão HQ" xmlUrl="https://www.judao.com.br/feed/" type="rss"/>
-      <outline title="Quadrinhos na Cia" xmlUrl="https://www.quadrinhosnacia.com.br/feed/" type="rss"/>
-      <outline title="HQManiacs" xmlUrl="https://www.hqmaniacs.com/feed/" type="rss"/>
+      <outline title="Universo HQ" xmlUrl="https://www.universohq.com/feed/" type="rss" />
+      <outline title="Judão HQ" xmlUrl="https://www.judao.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

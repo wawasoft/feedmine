@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Russian)">
-      <outline title="Flot.com — Новости" xmlUrl="https://flot.com/rss/news.xml" type="rss"/>
-      <outline title="Морской бюллетень" xmlUrl="https://www.morvesti.ru/rss/" type="rss"/>
-      <outline title="Корабел.ру" xmlUrl="https://www.korabel.ru/rss/all.xml" type="rss"/>
-      <outline title="Морской флот — PortNews" xmlUrl="https://portnews.ru/rss/" type="rss"/>
-      <outline title="Военное обозрение — Флот" xmlUrl="https://topwar.ru/rss/navy/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

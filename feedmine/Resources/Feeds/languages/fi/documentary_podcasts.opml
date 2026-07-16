@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Documentary (Finnish)">
-      <outline title="Yle Areena - Dokumentit" xmlUrl="https://feeds.yle.fi/areena/v1/series/1-1438745.rss" type="rss"/>
-      <outline title="Suomen Kuvalehti - Dokumenttipodcast" xmlUrl="https://suomenkuvalehti.fi/feed/podcast/" type="rss"/>
+      <outline title="Suomen Kuvalehti - Dokumenttipodcast" xmlUrl="https://suomenkuvalehti.fi/feed/podcast/" type="rss" />
     </outline>
   </body>
 </opml>

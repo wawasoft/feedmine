@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Movies (Azerbaijani)">
-      <outline title="KinoTAP.Az - Filmlər" xmlUrl="https://kinotap.az/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

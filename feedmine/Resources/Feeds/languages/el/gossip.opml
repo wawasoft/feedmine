@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Greek)">
-      <outline title="Fthis" xmlUrl="https://www.fthis.gr/feed" type="rss"/>
-      <outline title="ZappIT" xmlUrl="https://www.zappit.gr/feed" type="rss"/>
-      <outline title="People Greece" xmlUrl="https://www.peoplegreece.com/feed/" type="rss"/>
+      <outline title="ZappIT" xmlUrl="https://www.zappit.gr/feed" type="rss" />
+      <outline title="People Greece" xmlUrl="https://www.peoplegreece.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

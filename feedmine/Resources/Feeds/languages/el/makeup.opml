@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Greek)">
-      <outline title="Beauty Stories Greece" xmlUrl="https://www.beautystories.gr/feed/" type="rss"/>
-      <outline title="Queen.gr - Ομορφιά" xmlUrl="https://www.queen.gr/beauty/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

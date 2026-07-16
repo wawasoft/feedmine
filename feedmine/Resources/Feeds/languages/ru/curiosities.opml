@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Russian)">
-      <outline title="Научпоп — Элементы" xmlUrl="https://elementy.ru/rss" type="rss"/>
-      <outline title="Мир фантастики — Занимательное" xmlUrl="https://www.mirf.ru/feed" type="rss"/>
-      <outline title="Кот Шрёдингера — Журнал" xmlUrl="https://kot.sh/feed" type="rss"/>
+      <outline title="Научпоп — Элементы" xmlUrl="https://elementy.ru/rss" type="rss" />
+      <outline title="Мир фантастики — Занимательное" xmlUrl="https://www.mirf.ru/feed" type="rss" />
     </outline>
   </body>
 </opml>

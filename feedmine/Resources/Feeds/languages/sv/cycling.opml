@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Cycling (Swedish)">
-      <outline title="Cykelbloggen" xmlUrl="https://cykelbloggen.se/feed/" type="rss"/>
-      <outline title="Svenska Cykelförbundet" xmlUrl="https://scf.se/feed/" type="rss"/>
-      <outline title="Happyride" xmlUrl="https://happyride.se/feed/" type="rss"/>
+      <outline title="Svenska Cykelförbundet" xmlUrl="https://scf.se/feed/" type="rss" />
+      <outline title="Happyride" xmlUrl="https://happyride.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

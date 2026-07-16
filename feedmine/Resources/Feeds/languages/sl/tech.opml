@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Tech Feeds (Slovenian)">
-      <outline title="Monitor" xmlUrl="https://www.monitor.si/rss/" type="rss"/>
-      <outline title="Siol.net - Tehnologija" xmlUrl="https://siol.net/tehnologija/rss" type="rss"/>
-      <outline title="RTV Slovenija - Tehnologija" xmlUrl="https://www.rtvslo.si/znanost-in-tehnologija/rss" type="rss"/>
-      <outline title="24ur.com - Tehnologija" xmlUrl="https://www.24ur.com/rss/tehnologija.xml" type="rss"/>
+      <outline title="Monitor" xmlUrl="https://www.monitor.si/rss/" type="rss" />
+      <outline title="RTV Slovenija - Tehnologija" xmlUrl="https://www.rtvslo.si/znanost-in-tehnologija/rss" type="rss" />
     </outline>
   </body>
 </opml>

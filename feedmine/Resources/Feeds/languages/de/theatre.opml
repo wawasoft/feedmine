@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (German)">
-      <outline title="Theater der Zeit" xmlUrl="https://www.theaterderzeit.de/rss/" type="rss"/>
-      <outline title="Nachtkritik" xmlUrl="https://nachtkritik.de/rss.xml" type="rss"/>
-      <outline title="Deutschlandfunk Kultur - Theater" xmlUrl="https://www.deutschlandfunkkultur.de/rss/theater" type="rss"/>
+      <outline title="Theater der Zeit" xmlUrl="https://www.theaterderzeit.de/rss/" type="rss" />
     </outline>
   </body>
 </opml>

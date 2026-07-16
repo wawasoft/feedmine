@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Persian)">
-      <outline title="رترو تکنولوژی | وبلاگ فناوری قدیمی" xmlUrl="https://retrotech.ir/feed" type="rss"/>
-      <outline title="کامپیوترهای قدیمی | وبلاگ فارسی" xmlUrl="https://oldcomputers.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

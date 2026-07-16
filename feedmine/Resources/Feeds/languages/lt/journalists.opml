@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Lithuanian)">
-      <outline title="Žurnalistika (LRT)" xmlUrl="https://www.lrt.lt/mediateka/rss/zinios/zurnalistika" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

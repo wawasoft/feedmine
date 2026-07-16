@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Universities (Danish)">
-      <outline title="Københavns Universitet - Nyheder" xmlUrl="https://nyheder.ku.dk/feed/" type="rss"/>
-      <outline title="Aarhus Universitet - Nyhedsfeed" xmlUrl="https://nyheder.au.dk/feed/" type="rss"/>
-      <outline title="Syddansk Universitet - Nyheder" xmlUrl="https://www.sdu.dk/da/nyheder/rss" type="rss"/>
-      <outline title="Aalborg Universitet - Nyhedsfeed" xmlUrl="https://www.aau.dk/nyheder/rss" type="rss"/>
-      <outline title="Danmarks Tekniske Universitet - Nyheder" xmlUrl="https://www.dtu.dk/nyhedsfeed" type="rss"/>
+      <outline title="Københavns Universitet - Nyheder" xmlUrl="https://nyheder.ku.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

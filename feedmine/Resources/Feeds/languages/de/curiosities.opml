@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (German)">
-      <outline title="Kurioses aus der Wissenschaft" xmlUrl="https://www.wissenschaft.de/feed/" type="rss"/>
-      <outline title="Merkur Kurioses" xmlUrl="https://www.merkur.de/vermischtes/kurioses/feed.rss" type="rss"/>
-      <outline title="Kurioses - Stern" xmlUrl="https://www.stern.de/feed/panorama/kurioses/" type="rss"/>
-      <outline title="Kurioses - t-online" xmlUrl="https://www.t-online.de/feed/leben/kurioses/" type="rss"/>
+      <outline title="Kurioses aus der Wissenschaft" xmlUrl="https://www.wissenschaft.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

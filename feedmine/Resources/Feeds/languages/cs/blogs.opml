@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Czech)">
-      <outline title="Bloguje.cz" xmlUrl="https://bloguje.cz/rss/" type="rss"/>
-      <outline title="Český blogovací servis" xmlUrl="https://www.ceskyblog.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

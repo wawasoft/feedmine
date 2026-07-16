@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Science Feeds (Danish)">
-      <outline title="Videnskab.dk" xmlUrl="https://videnskab.dk/feed" type="rss"/>
-      <outline title="Illustreret Videnskab" xmlUrl="https://illvid.dk/feed" type="rss"/>
+      <outline title="Videnskab.dk" xmlUrl="https://videnskab.dk/feed" type="rss" />
     </outline>
   </body>
 </opml>

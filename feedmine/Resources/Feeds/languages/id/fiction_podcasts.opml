@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Indonesian)">
-      <outline title="Podcast Fiksi Indonesia" xmlUrl="https://podcastfiksiindonesia.com/feed" type="rss"/>
-      <outline title="Cerita Malam" xmlUrl="https://ceritamalam.com/feed" type="rss"/>
-      <outline title="Dongeng Kita" xmlUrl="https://dongengkita.com/feed" type="rss"/>
-      <outline title="Audio Drama Indonesia" xmlUrl="https://audiodramaindonesia.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

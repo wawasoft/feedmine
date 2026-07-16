@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Computing (Italian)">
-      <outline title="HTML.it - Guide e Tutorial" xmlUrl="https://www.html.it/feed/" type="rss"/>
-      <outline title="Punto Informatico" xmlUrl="https://www.puntoinformatico.it/feed/" type="rss"/>
-      <outline title="Hwupgrade.it" xmlUrl="https://www.hwupgrade.it/feed/" type="rss"/>
-      <outline title="Webnews" xmlUrl="https://www.webnews.it/feed/" type="rss"/>
-      <outline title="Developer Italia" xmlUrl="https://www.developeritalia.it/feed/" type="rss"/>
+      <outline title="HTML.it - Guide e Tutorial" xmlUrl="https://www.html.it/feed/" type="rss" />
+      <outline title="Webnews" xmlUrl="https://www.webnews.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

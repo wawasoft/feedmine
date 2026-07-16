@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Dutch)">
-      <outline title="Datascience.nl" xmlUrl="https://www.datascience.nl/feed/" type="rss"/>
-      <outline title="Jeroen Boeye" xmlUrl="https://jeroenboeye.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

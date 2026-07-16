@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Russian)">
-      <outline title="Dislife — Новости" xmlUrl="https://dislife.ru/feed" type="rss"/>
-      <outline title="Особый взгляд — Блог" xmlUrl="https://specialview.ru/feed" type="rss"/>
-      <outline title="Глухих.нет — Новости" xmlUrl="https://gluhih.net/feed" type="rss"/>
+      <outline title="Dislife — Новости" xmlUrl="https://dislife.ru/feed" type="rss" />
     </outline>
   </body>
 </opml>

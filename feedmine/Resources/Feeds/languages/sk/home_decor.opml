@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Slovak)">
-      <outline title="Bývanie.sk" xmlUrl="https://www.byvanie.sk/rss/" type="rss"/>
-      <outline title="Dizajn interiéru" xmlUrl="https://dizajninterieru.sk/feed/" type="rss"/>
-      <outline title="Home Deco SK" xmlUrl="https://homedeco.sk/feed/" type="rss"/>
-      <outline title="Moderné bývanie" xmlUrl="https://modernebyvanie.sk/feed/" type="rss"/>
-      <outline title="Drevo v interiéri" xmlUrl="https://drevovinterieri.sk/feed/" type="rss"/>
+      <outline title="Bývanie.sk" xmlUrl="https://www.byvanie.sk/rss/" type="rss" />
+      <outline title="Dizajn interiéru" xmlUrl="https://dizajninterieru.sk/feed/" type="rss" />
+      <outline title="Moderné bývanie" xmlUrl="https://modernebyvanie.sk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

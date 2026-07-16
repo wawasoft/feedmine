@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Moms, Dads (Persian)">
-      <outline title="مادران امروز" xmlUrl="https://madaraneemrooz.ir/feed" type="rss"/>
-      <outline title="نی نی سایت" xmlUrl="https://www.ninisite.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

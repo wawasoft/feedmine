@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Danish)">
-      <outline title="Litteratursiden" xmlUrl="https://www.litteratursiden.dk/rss" type="rss"/>
-      <outline title="BogMarkedet" xmlUrl="https://bogmarkedet.dk/feed/" type="rss"/>
-      <outline title="Kulturkapellet" xmlUrl="https://kulturkapellet.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

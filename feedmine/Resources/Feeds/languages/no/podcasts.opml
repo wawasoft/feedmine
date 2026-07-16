@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Norwegian)">
-      <outline title="Podcast – NRK" xmlUrl="https://podkast.nrk.no/" type="rss"/>
-      <outline title="Podcastepisode – Norsk podcast" xmlUrl="https://www.norskpodcast.no/feed/" type="rss"/>
+      <outline title="Podcast – NRK" xmlUrl="https://podkast.nrk.no/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Cycling (Slovak)">
-      <outline title="Cyklonovinky" xmlUrl="https://www.cyklonovinky.sk/rss" type="rss"/>
-      <outline title="Cykloportál" xmlUrl="https://www.cykloportal.sk/rss" type="rss"/>
+      <outline title="Cykloportál" xmlUrl="https://www.cykloportal.sk/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Surfing Feeds (Filipino)">
-      <outline title="Surfing Philippines" xmlUrl="https://surfingphilippines.com/feed/" type="rss"/>
-      <outline title="Siargao Surf" xmlUrl="https://siargaosurf.com/feed/" type="rss"/>
+      <outline title="Siargao Surf" xmlUrl="https://siargaosurf.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

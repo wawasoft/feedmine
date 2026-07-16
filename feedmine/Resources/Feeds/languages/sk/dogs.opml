@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Dogs (Slovak)">
-      <outline title="Psie srdce" xmlUrl="https://www.psiesrdce.sk/rss" type="rss"/>
-      <outline title="Psy - Pravda" xmlUrl="https://psy.pravda.sk/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

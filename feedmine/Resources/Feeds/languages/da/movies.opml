@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Movies (Danish)">
-      <outline title="Filmmagasinet Ekko" xmlUrl="https://www.ekkofilm.dk/rss/" type="rss"/>
-      <outline title="Kino.dk" xmlUrl="https://www.kino.dk/feed" type="rss"/>
-      <outline title="Soundvenue Film" xmlUrl="https://soundvenue.com/film/feed" type="rss"/>
+      <outline title="Soundvenue Film" xmlUrl="https://soundvenue.com/film/feed" type="rss" />
     </outline>
   </body>
 </opml>

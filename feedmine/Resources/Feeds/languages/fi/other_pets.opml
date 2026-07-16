@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Finnish)">
-      <outline title="Lemmikkilehti" xmlUrl="https://lemmikkilehti.fi/feed/" type="rss"/>
-      <outline title="Musti ja Mirri" xmlUrl="https://www.mustijamirri.fi/blogi/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

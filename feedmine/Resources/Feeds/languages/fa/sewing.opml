@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Persian)">
-      <outline title="خیاطی و دوخت | وبلاگ آموزش خیاطی" xmlUrl="https://khayati.ir/feed" type="rss"/>
-      <outline title="نقش و دوخت | مجله خیاطی" xmlUrl="https://naghshodokht.ir/feed" type="rss"/>
-      <outline title="دوزندگی | وبلاگ خیاطی" xmlUrl="https://doozandegi.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

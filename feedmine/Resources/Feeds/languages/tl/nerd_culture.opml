@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Nerd (Filipino)">
-      <outline title="Gadget Pilipinas" xmlUrl="https://www.gadgetpilipinas.net/feed/" type="rss"/>
-      <outline title="Pikapika.ph" xmlUrl="https://pikapika.ph/feed" type="rss"/>
+      <outline title="Gadget Pilipinas" xmlUrl="https://www.gadgetpilipinas.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

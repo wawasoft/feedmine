@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Italian)">
-      <outline title="Calcio - La Gazzetta dello Sport" xmlUrl="https://www.gazzetta.it/rss/calcio.xml" type="rss"/>
-      <outline title="Sky Sport Calcio" xmlUrl="https://sport.sky.it/calcio/feed.xml" type="rss"/>
-      <outline title="Tuttosport" xmlUrl="https://www.tuttosport.com/rss/calcio.xml" type="rss"/>
-      <outline title="Corriere dello Sport" xmlUrl="https://www.corrieredellosport.it/rss/calcio.xml" type="rss"/>
-      <outline title="Goal.com Italia" xmlUrl="https://www.goal.com/feed/italy/" type="rss"/>
+      <outline title="Calcio - La Gazzetta dello Sport" xmlUrl="https://www.gazzetta.it/rss/calcio.xml" type="rss" />
+      <outline title="Tuttosport" xmlUrl="https://www.tuttosport.com/rss/calcio.xml" type="rss" />
+      <outline title="Corriere dello Sport" xmlUrl="https://www.corrieredellosport.it/rss/calcio.xml" type="rss" />
     </outline>
   </body>
 </opml>

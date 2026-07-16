@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (German)">
-      <outline title="Holzwerken" xmlUrl="https://www.holzwerken.net/feed/" type="rss"/>
-      <outline title="Woodworking Germany" xmlUrl="https://woodworking.de/feed/" type="rss"/>
-      <outline title="Selbst ist der Mann" xmlUrl="https://www.selbst.de/feed" type="rss"/>
+      <outline title="Holzwerken" xmlUrl="https://www.holzwerken.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

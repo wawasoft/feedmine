@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Whisky (Hungarian)">
-      <outline title="Whisky &amp; Travel Blog" xmlUrl="https://whiskyandtravel.blog/feed/" type="rss"/>
-      <outline title="Whisky Club Hungary" xmlUrl="https://whiskyclubhungary.hu/feed/" type="rss"/>
-      <outline title="WhiskyNet Blog" xmlUrl="https://whiskynet.blog.hu/feed" type="rss"/>
+      <outline title="WhiskyNet Blog" xmlUrl="https://whiskynet.blog.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

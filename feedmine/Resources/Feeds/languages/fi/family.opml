@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (Finnish)">
-      <outline title="Vauva.fi RSS" xmlUrl="https://www.vauva.fi/feed" type="rss"/>
-      <outline title="Meillä kotona - RSS" xmlUrl="https://www.meillakotona.fi/feed" type="rss"/>
-      <outline title="Perhe - Yle" xmlUrl="https://feeds.yle.fi/uutiset/v1/majorTopic/PERHE.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

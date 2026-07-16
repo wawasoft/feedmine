@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Hobbies (Russian)">
-      <outline title="Хобби и рукоделие" xmlUrl="https://hobbyhobby.ru/feed/" type="rss"/>
-      <outline title="Ярмарка Мастеров" xmlUrl="https://www.livemaster.ru/rss/news" type="rss"/>
-      <outline title="Клуб рукоделия" xmlUrl="https://klubok-rukodelie.ru/feed/" type="rss"/>
-      <outline title="Сделай сам" xmlUrl="https://sdelay-sam.ru/feed/" type="rss"/>
+      <outline title="Ярмарка Мастеров" xmlUrl="https://www.livemaster.ru/rss/news" type="rss" />
     </outline>
   </body>
 </opml>

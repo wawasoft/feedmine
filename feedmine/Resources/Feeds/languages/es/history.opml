@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="History Feeds (Spanish)">
-      <outline title="Historia - National Geographic España" xmlUrl="https://www.nationalgeographic.com.es/historia/feed.rss" type="rss"/>
-      <outline title="Historia - ABC" xmlUrl="https://www.abc.es/historia/feed.rss" type="rss"/>
-      <outline title="Historia - El País" xmlUrl="https://elpais.com/historia/feed.rss" type="rss"/>
-      <outline title="Historia - Muy Interesante" xmlUrl="https://www.muyinteresante.es/rss/feed/historia" type="rss"/>
-      <outline title="Historia National Geographic" xmlUrl="https://historia.nationalgeographic.com.es/rss/" type="rss"/>
+      <outline title="Historia - Muy Interesante" xmlUrl="https://www.muyinteresante.es/rss/feed/historia" type="rss" />
     </outline>
   </body>
 </opml>

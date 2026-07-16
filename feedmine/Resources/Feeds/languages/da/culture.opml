@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Danish)">
-      <outline title="Kulturmonitor" xmlUrl="https://kulturmonitor.dk/feed/" type="rss"/>
-      <outline title="Information - Kultur" xmlUrl="https://www.information.dk/feed/kultur" type="rss"/>
-      <outline title="Politiken - Kultur" xmlUrl="https://politiken.dk/kultur/rss.xml" type="rss"/>
+      <outline title="Kulturmonitor" xmlUrl="https://kulturmonitor.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

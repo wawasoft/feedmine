@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Audiophilia, Vinyl Records (Portuguese)">
-      <outline title="Audiophile Brasil" xmlUrl="https://www.audiophilebrasil.com.br/feed/" type="rss"/>
-      <outline title="Vinil Records Brasil" xmlUrl="https://vinilrecords.com.br/feed/" type="rss"/>
+      <outline title="Vinil Records Brasil" xmlUrl="https://vinilrecords.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Family, Relationships (Lithuanian)">
-      <outline title="Šeimos gidas" xmlUrl="https://www.seimosgidas.lt/feed/" type="rss"/>
-      <outline title="Tėvų darželis" xmlUrl="https://www.tevudarzelis.lt/feed/" type="rss"/>
-      <outline title="Mamos žurnalas" xmlUrl="https://www.mamoszurnalas.lt/feed/" type="rss"/>
+      <outline title="Šeimos gidas" xmlUrl="https://www.seimosgidas.lt/feed/" type="rss" />
+      <outline title="Mamos žurnalas" xmlUrl="https://www.mamoszurnalas.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

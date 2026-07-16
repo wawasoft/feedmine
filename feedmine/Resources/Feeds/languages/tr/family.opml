@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Family, Relationships (Turkish)">
-      <outline title="Anne Olunca Anladım" xmlUrl="https://www.anneoluncaanladim.com/feed/" type="rss"/>
-      <outline title="Bebek.com" xmlUrl="https://www.bebek.com/rss" type="rss"/>
-      <outline title="Kadınlar Kulübü" xmlUrl="https://www.kadinlarkulubu.com/rss/" type="rss"/>
-      <outline title="Aile Hekimi" xmlUrl="https://www.ailehekimi.com.tr/feed/" type="rss"/>
-      <outline title="Evlilik Okulu" xmlUrl="https://www.evlilikokulu.com/feed/" type="rss"/>
+      <outline title="Anne Olunca Anladım" xmlUrl="https://www.anneoluncaanladim.com/feed/" type="rss" />
+      <outline title="Bebek.com" xmlUrl="https://www.bebek.com/rss" type="rss" />
     </outline>
   </body>
 </opml>

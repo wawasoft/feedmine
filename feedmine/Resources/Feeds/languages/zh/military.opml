@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Military (Chinese)">
-      <outline title="环球军事" xmlUrl="https://www.huanqiumilitary.com/rss.xml" type="rss"/>
-      <outline title="中国军网" xmlUrl="https://www.81.cn/rss/" type="rss"/>
-      <outline title="新浪军事" xmlUrl="https://mil.news.sina.com.cn/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

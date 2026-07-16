@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Greek)">
-      <outline title="Ποίηση - Diastixo" xmlUrl="https://diastixo.gr/poihsh?format=feed&amp;type=rss" type="rss"/>
-      <outline title="Ποίηση - Book Press" xmlUrl="https://bookpress.gr/tag/%CF%80%CE%BF%CE%AF%CE%B7%CF%83%CE%B7/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

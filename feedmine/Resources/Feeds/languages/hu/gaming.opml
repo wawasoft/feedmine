@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Videogames (Hungarian)">
-      <outline title="GameStar Hungary" xmlUrl="https://www.gamestar.hu/feed" type="rss"/>
-      <outline title="IGN Hungary" xmlUrl="https://hu.ign.com/feed.xml" type="rss"/>
-      <outline title="PlayStation Hungary Blog" xmlUrl="https://blog.hu.playstation.com/feed/" type="rss"/>
+      <outline title="IGN Hungary" xmlUrl="https://hu.ign.com/feed.xml" type="rss" />
     </outline>
   </body>
 </opml>

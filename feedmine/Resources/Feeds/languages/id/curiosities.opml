@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Indonesian)">
-      <outline title="Bobo.id" xmlUrl="https://bobo.grid.id/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

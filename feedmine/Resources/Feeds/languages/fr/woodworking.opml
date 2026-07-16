@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (French)">
-      <outline title="Passion Menuiserie" xmlUrl="https://www.passion-menuiserie.com/feed/" type="rss"/>
-      <outline title="Bricoleur Pro - Menuiserie" xmlUrl="https://www.bricoleurpro.com/menuiserie/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Health (Ukrainian)">
-      <outline title="Медичний портал" xmlUrl="https://medportal.com.ua/feed/" type="rss"/>
-      <outline title="Здоров'я 24" xmlUrl="https://health24.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

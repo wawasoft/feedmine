@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Design Feeds (Turkish)">
-      <outline title="Tasarım Günlükleri" xmlUrl="https://www.tasarimgunlukleri.com/feed/" type="rss"/>
-      <outline title="XXI Tasarım Dergisi" xmlUrl="https://xxi.com.tr/rss" type="rss"/>
+      <outline title="Tasarım Günlükleri" xmlUrl="https://www.tasarimgunlukleri.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

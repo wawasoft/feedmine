@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Museums (Portuguese)">
-      <outline title="Museu de Arte de São Paulo" xmlUrl="https://masp.org.br/feed" type="rss"/>
-      <outline title="Museu Nacional" xmlUrl="https://www.museunacional.ufrj.br/feed/" type="rss"/>
-      <outline title="Instituto Moreira Salles" xmlUrl="https://ims.com.br/feed/" type="rss"/>
+      <outline title="Museu de Arte de São Paulo" xmlUrl="https://masp.org.br/feed" type="rss" />
+      <outline title="Instituto Moreira Salles" xmlUrl="https://ims.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

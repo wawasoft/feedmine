@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Azerbaijani)">
-      <outline title="Azərbaycan Dilində Bloq" xmlUrl="https://azerbaycandilindebloq.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="Fikirlər" xmlUrl="https://fikirler.wordpress.com/feed/" type="rss"/>
+      <outline title="Fikirlər" xmlUrl="https://fikirler.wordpress.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

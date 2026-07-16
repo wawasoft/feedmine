@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Architecture (Persian)">
-      <outline title="معماری نیوز" xmlUrl="https://www.memarinews.com/rss" type="rss"/>
-      <outline title="آرچ دیلی فارسی" xmlUrl="https://www.archdaily.com/fa/feed" type="rss"/>
+      <outline title="آرچ دیلی فارسی" xmlUrl="https://www.archdaily.com/fa/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Malay)">
-      <outline title="Malaysia Blog" xmlUrl="https://malaysiablog.com/feed/" type="rss"/>
-      <outline title="Blog Malaysia" xmlUrl="https://blogmalaysia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

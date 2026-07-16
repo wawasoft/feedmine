@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (French)">
-      <outline title="Historia" xmlUrl="https://www.historia.fr/rss.xml" type="rss"/>
-      <outline title="L'Histoire" xmlUrl="https://www.lhistoire.fr/rss.xml" type="rss"/>
-      <outline title="France Culture - Histoire" xmlUrl="https://www.franceculture.fr/histoire/rss" type="rss"/>
-      <outline title="Clio" xmlUrl="https://www.clio.fr/rss/actualites.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

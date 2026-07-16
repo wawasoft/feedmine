@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Construction, Building (Persian)">
-      <outline title="ساخت و ساز" xmlUrl="https://www.sakhtosaz.com/rss" type="rss"/>
-      <outline title="معماری و ساختمان" xmlUrl="https://www.architecture-building.ir/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Chinese)">
-      <outline title="木工爱好者" xmlUrl="https://www.mugong.com/feed/" type="rss"/>
-      <outline title="木工论坛" xmlUrl="https://www.woodworking.cn/feed/" type="rss"/>
+      <outline title="木工论坛" xmlUrl="https://www.woodworking.cn/feed/" type="rss" />
     </outline>
   </body>
 </opml>

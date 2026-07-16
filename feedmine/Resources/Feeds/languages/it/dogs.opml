@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Dogs (Italian)">
-      <outline title="Cani.com" xmlUrl="https://www.cani.com/feed/" type="rss"/>
-      <outline title="Animali e Cani" xmlUrl="https://www.animaliecan.it/feed/" type="rss"/>
-      <outline title="Dog's Life" xmlUrl="https://www.dogslife.it/feed/" type="rss"/>
+      <outline title="Cani.com" xmlUrl="https://www.cani.com/feed/" type="rss" />
+      <outline title="Dog's Life" xmlUrl="https://www.dogslife.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

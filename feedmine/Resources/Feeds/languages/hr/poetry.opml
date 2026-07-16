@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Poetry (Croatian)">
-      <outline title="Poezija.hr" xmlUrl="https://poezija.hr/feed/" type="rss"/>
-      <outline title="Stihovi.hr" xmlUrl="https://stihovi.hr/feed/" type="rss"/>
+      <outline title="Poezija.hr" xmlUrl="https://poezija.hr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

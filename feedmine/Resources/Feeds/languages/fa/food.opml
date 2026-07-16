@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Food (Persian)">
-      <outline title="آشپزی ایرانی" xmlUrl="https://ashpaziirani.com/feed/" type="rss"/>
-      <outline title="نوش جان" xmlUrl="https://nooshjan.com/feed/" type="rss"/>
-      <outline title="سفره ایرانی" xmlUrl="https://sofreirani.com/feed/" type="rss"/>
+      <outline title="آشپزی ایرانی" xmlUrl="https://ashpaziirani.com/feed/" type="rss" />
+      <outline title="سفره ایرانی" xmlUrl="https://sofreirani.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

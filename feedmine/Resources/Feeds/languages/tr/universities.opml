@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Universities (Turkish)">
-      <outline title="YÖK Haberler" xmlUrl="https://www.yok.gov.tr/Sayfalar/Haberler/haberler-rss.aspx" type="rss"/>
-      <outline title="İstanbul Üniversitesi Haberler" xmlUrl="https://www.istanbul.edu.tr/tr/haber/rss" type="rss"/>
-      <outline title="ODTÜ Haberler" xmlUrl="https://www.metu.edu.tr/tr/rss/haberler" type="rss"/>
-      <outline title="Boğaziçi Üniversitesi Haber" xmlUrl="https://www.boun.edu.tr/tr_TR/rss/haber" type="rss"/>
-      <outline title="Ankara Üniversitesi Haber" xmlUrl="https://www.ankara.edu.tr/rss/haberler" type="rss"/>
+      <outline title="İstanbul Üniversitesi Haberler" xmlUrl="https://www.istanbul.edu.tr/tr/haber/rss" type="rss" />
+      <outline title="Ankara Üniversitesi Haber" xmlUrl="https://www.ankara.edu.tr/rss/haberler" type="rss" />
     </outline>
   </body>
 </opml>

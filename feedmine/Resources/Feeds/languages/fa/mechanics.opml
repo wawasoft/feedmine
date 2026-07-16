@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Persian)">
-      <outline title="مهندسی مکانیک" xmlUrl="https://www.mechanic.ir/feed" type="rss"/>
-      <outline title="وبلاگ مکانیک خودرو" xmlUrl="https://www.automechanic.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

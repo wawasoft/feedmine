@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Persian)">
-      <outline title="تاریخ ایران" xmlUrl="https://www.tarikheiran.ir/feed" type="rss"/>
-      <outline title="موسسه مطالعات تاریخ معاصر ایران" xmlUrl="https://www.iichs.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

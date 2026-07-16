@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (Bulgarian)">
-      <outline title="Театър - Actualno.com" xmlUrl="https://www.actualno.com/rss/theatre" type="rss"/>
-      <outline title="Театър - Art.bg" xmlUrl="https://art.bg/rss/theatre" type="rss"/>
+      <outline title="Театър - Actualno.com" xmlUrl="https://www.actualno.com/rss/theatre" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Thai)">
-      <outline title="เรื่องแปลก" xmlUrl="https://www.sanook.com/feed/" type="rss"/>
-      <outline title="ความรู้รอบตัว" xmlUrl="https://www.kapook.com/feed/" type="rss"/>
+      <outline title="ความรู้รอบตัว" xmlUrl="https://www.kapook.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

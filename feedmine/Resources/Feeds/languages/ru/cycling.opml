@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Cycling (Russian)">
-      <outline title="Velomania — Новости" xmlUrl="https://velomania.ru/rss" type="rss"/>
-      <outline title="Вело — Трек" xmlUrl="https://velotrek.ru/feed" type="rss"/>
-      <outline title="Велодрайв — Блог" xmlUrl="https://velodrive.ru/feed" type="rss"/>
+      <outline title="Velomania — Новости" xmlUrl="https://velomania.ru/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Finnish)">
-      <outline title="Yrittajat.fi RSS" xmlUrl="https://www.yrittajat.fi/feed" type="rss"/>
-      <outline title="Kauppalehti - Yrittäjyys" xmlUrl="https://www.kauppalehti.fi/rss/yrittajyys" type="rss"/>
-      <outline title="Startup Life - RSS" xmlUrl="https://startuplife.fi/feed/" type="rss"/>
+      <outline title="Yrittajat.fi RSS" xmlUrl="https://www.yrittajat.fi/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Swedish)">
-      <outline title="Dagens Juridik" xmlUrl="https://www.dagensjuridik.se/feed/" type="rss"/>
-      <outline title="Juridikens Värld" xmlUrl="https://www.juridikensvarld.se/feed/" type="rss"/>
-      <outline title="Svenska Juristtidningen" xmlUrl="https://svjt.se/feed/" type="rss"/>
-      <outline title="Advokaten" xmlUrl="https://www.advokaten.se/rss" type="rss"/>
-      <outline title="Infotorg Juridik" xmlUrl="https://www.infotorgjuridik.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

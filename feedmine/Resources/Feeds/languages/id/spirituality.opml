@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Indonesian)">
-      <outline title="NU Online" xmlUrl="https://www.nu.or.id/feed" type="rss"/>
-      <outline title="Hidayatullah.com" xmlUrl="https://www.hidayatullah.com/feed" type="rss"/>
-      <outline title="Bincang Syariah" xmlUrl="https://bincangsyariah.com/feed/" type="rss"/>
-      <outline title="Mojok.co" xmlUrl="https://mojok.co/feed/" type="rss"/>
-      <outline title="Meditasi &amp; Mindfulness Indonesia" xmlUrl="https://meditasiindonesia.com/feed/" type="rss"/>
+      <outline title="NU Online" xmlUrl="https://www.nu.or.id/feed" type="rss" />
+      <outline title="Bincang Syariah" xmlUrl="https://bincangsyariah.com/feed/" type="rss" />
+      <outline title="Mojok.co" xmlUrl="https://mojok.co/feed/" type="rss" />
     </outline>
   </body>
 </opml>

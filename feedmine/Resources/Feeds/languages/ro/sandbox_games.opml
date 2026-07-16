@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Romanian)">
-      <outline title="Minecraft Romania" xmlUrl="https://minecraft-romania.ro/feed/" type="rss"/>
-      <outline title="Roblox Romania" xmlUrl="https://roblox-romania.ro/feed/" type="rss"/>
-      <outline title="Gaming Romanesc" xmlUrl="https://gaming-romanesc.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

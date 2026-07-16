@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Retro Technology (Dutch)">
-      <outline title="Retro Computer Museum" xmlUrl="https://www.retrocomputermuseum.nl/feed/" type="rss"/>
-      <outline title="Homecomputer Museum" xmlUrl="https://www.homecomputermuseum.nl/feed/" type="rss"/>
-      <outline title="RetroTijd" xmlUrl="https://retrotijd.nl/feed/" type="rss"/>
-      <outline title="Oude Computers" xmlUrl="https://oudecomputers.nl/feed/" type="rss"/>
-      <outline title="Vintage Computer" xmlUrl="https://vintagecomputer.nl/feed/" type="rss"/>
+      <outline title="Homecomputer Museum" xmlUrl="https://www.homecomputermuseum.nl/feed/" type="rss" />
+      <outline title="RetroTijd" xmlUrl="https://retrotijd.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

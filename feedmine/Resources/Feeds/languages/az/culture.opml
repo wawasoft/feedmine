@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Azerbaijani)">
-      <outline title="Kultura.az" xmlUrl="https://kultura.az/rss" type="rss"/>
-      <outline title="Azərbaycan Dövlət İnformasiya Agentliyi - Mədəniyyət" xmlUrl="https://azertag.az/ru/xeber/madeniyyet_rss" type="rss"/>
+      <outline title="Kultura.az" xmlUrl="https://kultura.az/rss" type="rss" />
     </outline>
   </body>
 </opml>

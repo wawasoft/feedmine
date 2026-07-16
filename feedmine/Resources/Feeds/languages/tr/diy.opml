@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="DIY (Turkish)">
-      <outline title="Kendin Yap" xmlUrl="https://www.kendinyap.com/feed/" type="rss"/>
-      <outline title="Yapım Atölyesi" xmlUrl="https://yapimatalyasi.com/feed/" type="rss"/>
+      <outline title="Kendin Yap" xmlUrl="https://www.kendinyap.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

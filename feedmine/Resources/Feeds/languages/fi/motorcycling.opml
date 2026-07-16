@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Motorcycling (Finnish)">
-      <outline title="Moottoripyöräily - Moottori" xmlUrl="https://moottori.fi/moottoripyoraily/feed/" type="rss"/>
-      <outline title="MP-Forum" xmlUrl="https://mp-forum.fi/forums/-/index.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

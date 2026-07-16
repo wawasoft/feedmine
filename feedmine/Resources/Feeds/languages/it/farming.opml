@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Italian)">
-      <outline title="Terra e Vita" xmlUrl="https://terraevita.edagricole.it/feed/" type="rss"/>
-      <outline title="Agricoltura Moderna" xmlUrl="https://www.agricoltura-moderna.it/feed/" type="rss"/>
-      <outline title="L'Informatore Agrario" xmlUrl="https://www.informatoreagrario.it/feed/" type="rss"/>
-      <outline title="Il Fatto Alimentare - Agricoltura" xmlUrl="https://ilfattoalimentare.it/agricoltura/feed" type="rss"/>
-      <outline title="AgroNotizie" xmlUrl="https://www.agronotizie.it/feed" type="rss"/>
+      <outline title="Terra e Vita" xmlUrl="https://terraevita.edagricole.it/feed/" type="rss" />
+      <outline title="L'Informatore Agrario" xmlUrl="https://www.informatoreagrario.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

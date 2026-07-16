@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Polish)">
-      <outline title="Urządzamy.pl" xmlUrl="https://urzadzamy.pl/rss" type="rss"/>
-      <outline title="Dom - Onet" xmlUrl="https://dom.onet.pl/rss" type="rss"/>
-      <outline title="M jak Mieszkanie" xmlUrl="https://www.mjakmieszkanie.pl/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (Swedish)">
-      <outline title="Familjeliv" xmlUrl="https://www.familjeliv.se/feed/" type="rss"/>
-      <outline title="Allt för Föräldrar" xmlUrl="https://www.alltforforaldrar.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

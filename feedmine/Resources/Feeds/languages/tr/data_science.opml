@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Turkish)">
-      <outline title="Veri Bilimi Okulu" xmlUrl="https://veribilimiokulu.com/feed/" type="rss"/>
-      <outline title="Data Science Türkiye" xmlUrl="https://datascienceturkiye.com/feed/" type="rss"/>
+      <outline title="Veri Bilimi Okulu" xmlUrl="https://veribilimiokulu.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

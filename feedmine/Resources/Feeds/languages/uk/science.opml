@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Science Feeds (Ukrainian)">
-      <outline title="Наука.UA" xmlUrl="https://nauka.ua/feed/" type="rss"/>
-      <outline title="Всеукраїнська наукова спільнота" xmlUrl="https://science-community.org/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

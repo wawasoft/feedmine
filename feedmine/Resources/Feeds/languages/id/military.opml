@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Military (Indonesian)">
-      <outline title="TNI Angkatan Darat" xmlUrl="https://www.tniad.mil.id/feed" type="rss"/>
-      <outline title="TNI Angkatan Laut" xmlUrl="https://www.tnial.mil.id/feed" type="rss"/>
-      <outline title="TNI Angkatan Udara" xmlUrl="https://www.tni-au.mil.id/feed" type="rss"/>
-      <outline title="Kompas.com - Militer" xmlUrl="https://www.kompas.com/tag/militer/rss" type="rss"/>
-      <outline title="Tempo.co - Militer" xmlUrl="https://www.tempo.co/tag/militer/rss" type="rss"/>
+      <outline title="TNI Angkatan Darat" xmlUrl="https://www.tniad.mil.id/feed" type="rss" />
+      <outline title="TNI Angkatan Udara" xmlUrl="https://www.tni-au.mil.id/feed" type="rss" />
     </outline>
   </body>
 </opml>

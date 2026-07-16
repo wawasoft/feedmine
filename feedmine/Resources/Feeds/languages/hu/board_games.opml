@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Hungarian)">
-      <outline title="Társasjátékok" xmlUrl="https://tarsasjatekok.com/feed/" type="rss"/>
-      <outline title="Szerepjáték" xmlUrl="https://szerepjatek.hu/feed/" type="rss"/>
-      <outline title="Gémklub" xmlUrl="https://gemklub.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

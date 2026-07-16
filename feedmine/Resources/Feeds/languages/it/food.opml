@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Food (Italian)">
-      <outline title="Giallo Zafferano" xmlUrl="https://www.giallozafferano.it/feed/" type="rss"/>
-      <outline title="La Cucina Italiana" xmlUrl="https://www.lacucinaitaliana.it/feed/" type="rss"/>
-      <outline title="Dissapore" xmlUrl="https://www.dissapore.com/feed/" type="rss"/>
-      <outline title="Cucina Naturale" xmlUrl="https://www.cucinanaturale.it/feed/" type="rss"/>
-      <outline title="Agrodolce" xmlUrl="https://www.agrodolce.it/feed/" type="rss"/>
+      <outline title="Giallo Zafferano" xmlUrl="https://www.giallozafferano.it/feed/" type="rss" />
+      <outline title="Dissapore" xmlUrl="https://www.dissapore.com/feed/" type="rss" />
+      <outline title="Agrodolce" xmlUrl="https://www.agrodolce.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

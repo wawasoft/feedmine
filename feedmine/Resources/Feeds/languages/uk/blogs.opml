@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Ukrainian)">
-      <outline title="UA Blog" xmlUrl="https://uablog.com.ua/feed/" type="rss"/>
-      <outline title="Блог UA" xmlUrl="https://blog-ua.com/feed/" type="rss"/>
+      <outline title="UA Blog" xmlUrl="https://uablog.com.ua/feed/" type="rss" />
     </outline>
   </body>
 </opml>

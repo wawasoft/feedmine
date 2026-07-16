@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (French)">
-      <outline title="Le Blog du Chat" xmlUrl="https://www.leblogduchat.com/feed/" type="rss"/>
-      <outline title="Chats et Compagnie" xmlUrl="https://www.chatsetcompagnie.fr/feed/" type="rss"/>
-      <outline title="Miaou Magazine" xmlUrl="https://www.miaoumaga.fr/feed/" type="rss"/>
-      <outline title="Les Chats de l'Ombre" xmlUrl="https://www.chatsdelombre.com/feed/" type="rss"/>
-      <outline title="Planète Chat" xmlUrl="https://www.planete-chat.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

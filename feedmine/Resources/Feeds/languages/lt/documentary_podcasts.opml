@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Lithuanian)">
-      <outline title="LRT Dokumentika" xmlUrl="https://www.lrt.lt/rss/dokumentika" type="rss"/>
-      <outline title="NARA Dokumentika" xmlUrl="https://nara.lt/rss/dokumentika" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

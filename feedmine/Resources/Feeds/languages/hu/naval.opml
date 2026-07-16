@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Hungarian)">
-      <outline title="Hajózás.hu" xmlUrl="https://hajozas.hu/feed" type="rss"/>
-      <outline title="Tengerész Szövetség" xmlUrl="https://tengereszszovetseg.hu/feed" type="rss"/>
+      <outline title="Hajózás.hu" xmlUrl="https://hajozas.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Retro Technology (Finnish)">
-      <outline title="Retro-Tietokoneet" xmlUrl="https://retro-tietokoneet.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="Peliplaneetta" xmlUrl="https://www.peliplaneetta.net/feed/" type="rss"/>
+      <outline title="Peliplaneetta" xmlUrl="https://www.peliplaneetta.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

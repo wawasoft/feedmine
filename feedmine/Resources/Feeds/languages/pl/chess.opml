@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Chess Feeds (Polish)">
-      <outline title="Szachy w Polsce" xmlUrl="https://szachywpolsce.pl/feed/" type="rss"/>
-      <outline title="Infoszachy" xmlUrl="https://infoszachy.pl/feed/" type="rss"/>
-      <outline title="Chess.com Polska" xmlUrl="https://www.chess.com/pl/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Turkish)">
-      <outline title="Türk Mitolojisi" xmlUrl="https://www.turkmitolojisi.com/feed/" type="rss"/>
-      <outline title="Halk Bilimi" xmlUrl="https://www.halkbilimi.org/feed/" type="rss"/>
-      <outline title="Masal Oku" xmlUrl="https://www.masaloku.com/feed/" type="rss"/>
-      <outline title="Mitoloji ve Efsaneler" xmlUrl="https://www.mitoloji.com/feed/" type="rss"/>
-      <outline title="Türk Halk Edebiyatı" xmlUrl="https://www.turkhalkedebiyati.com/feed/" type="rss"/>
+      <outline title="Türk Mitolojisi" xmlUrl="https://www.turkmitolojisi.com/feed/" type="rss" />
+      <outline title="Masal Oku" xmlUrl="https://www.masaloku.com/feed/" type="rss" />
+      <outline title="Mitoloji ve Efsaneler" xmlUrl="https://www.mitoloji.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

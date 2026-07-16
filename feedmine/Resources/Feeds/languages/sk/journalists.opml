@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Slovak)">
-      <outline title="O médiách" xmlUrl="https://www.omediach.com/feed" type="rss"/>
-      <outline title="Mediálne.sk" xmlUrl="https://medialne.etrend.sk/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

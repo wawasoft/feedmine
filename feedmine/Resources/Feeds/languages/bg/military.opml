@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Military (Bulgarian)">
-      <outline title="Военни новини - Pan.bg" xmlUrl="https://pan.bg/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

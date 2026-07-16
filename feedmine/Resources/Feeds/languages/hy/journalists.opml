@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Armenian)">
-      <outline title="Լրագրողների միություն" xmlUrl="https://www.aj.am/feed/" type="rss"/>
-      <outline title="Լրագրողների ռեսուրսային կենտրոն" xmlUrl="https://jrc.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

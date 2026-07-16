@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Wicca, Witchcraft, Paganism (French)">
-      <outline title="Esoterique - Wicca" xmlUrl="https://www.esoterique.com/feed/" type="rss"/>
-      <outline title="Paganisme - Pagan Federation France" xmlUrl="https://www.paganfederation.org/france/feed/" type="rss"/>
+      <outline title="Esoterique - Wicca" xmlUrl="https://www.esoterique.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

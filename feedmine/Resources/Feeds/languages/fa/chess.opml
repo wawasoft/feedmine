@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Chess Feeds (Persian)">
-      <outline title="فدراسیون شطرنج ایران" xmlUrl="https://www.irchess.com/rss" type="rss"/>
-      <outline title="شطرنج باز" xmlUrl="https://www.shatranj-baz.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

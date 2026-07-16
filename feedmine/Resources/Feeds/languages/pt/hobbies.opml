@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Portuguese)">
-      <outline title="Artesanato Brasil" xmlUrl="https://www.artesanatobrasil.com.br/feed/" type="rss"/>
-      <outline title="Mundo dos Tricôs" xmlUrl="https://www.mundodostricos.com.br/feed/" type="rss"/>
-      <outline title="Fotografia Dicas" xmlUrl="https://fotografiadicas.com/feed/" type="rss"/>
-      <outline title="Jardinagem e Paisagismo" xmlUrl="https://www.jardinagemepaisagismo.com.br/feed/" type="rss"/>
-      <outline title="Culinária e Receitas" xmlUrl="https://culinariaereceitas.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

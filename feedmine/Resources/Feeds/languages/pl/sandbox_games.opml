@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Polish)">
-      <outline title="Minecraft Polska" xmlUrl="https://minecraftpolska.pl/feed" type="rss"/>
-      <outline title="Roblox Polska" xmlUrl="https://robloxpolska.pl/feed" type="rss"/>
-      <outline title="Minecraft.net Polska" xmlUrl="https://www.minecraft.net/pl-pl/feed" type="rss"/>
-      <outline title="Gracz Polski" xmlUrl="https://graczpolski.pl/feed" type="rss"/>
-      <outline title="Planeta Minecraft" xmlUrl="https://planetaminecraft.pl/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

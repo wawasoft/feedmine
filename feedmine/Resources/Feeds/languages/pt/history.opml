@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="History Feeds (Portuguese)">
-      <outline title="História Hoje" xmlUrl="https://www.historiahoje.com/feed/" type="rss"/>
-      <outline title="Aventuras na História" xmlUrl="https://aventurasnahistoria.uol.com.br/feed/" type="rss"/>
-      <outline title="História Digital" xmlUrl="https://historiadigital.org/feed/" type="rss"/>
-      <outline title="Brasiliana" xmlUrl="https://www.brasiliana.com.br/feed/" type="rss"/>
+      <outline title="História Hoje" xmlUrl="https://www.historiahoje.com/feed/" type="rss" />
+      <outline title="História Digital" xmlUrl="https://historiadigital.org/feed/" type="rss" />
     </outline>
   </body>
 </opml>

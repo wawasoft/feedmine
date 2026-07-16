@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Spanish)">
-      <outline title="Jugando en Pareja" xmlUrl="https://jugandoenpareja.com/feed/" type="rss"/>
-      <outline title="La BSK" xmlUrl="https://labsk.net/feed/" type="rss"/>
-      <outline title="Rol y Juegos de Mesa" xmlUrl="https://rolyjuegosdemesa.com/feed/" type="rss"/>
-      <outline title="Juegos de Mesa y Rol" xmlUrl="https://juegosdemesayrol.com/feed/" type="rss"/>
-      <outline title="El Club del Juego" xmlUrl="https://elclubdeljuego.com/feed/" type="rss"/>
+      <outline title="Juegos de Mesa y Rol" xmlUrl="https://juegosdemesayrol.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

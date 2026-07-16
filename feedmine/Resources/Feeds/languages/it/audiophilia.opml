@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Audiophilia, Vinyl Records (Italian)">
-      <outline title="AudioReview" xmlUrl="https://www.audioreview.it/feed/" type="rss"/>
-      <outline title="Vinilemania" xmlUrl="https://www.vinilemania.it/feed/" type="rss"/>
-      <outline title="Hi-Fi &amp; Records" xmlUrl="https://www.hifiandrecords.it/feed/" type="rss"/>
-      <outline title="Suono Stereo" xmlUrl="https://www.suonostereo.com/feed/" type="rss"/>
+      <outline title="AudioReview" xmlUrl="https://www.audioreview.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Cycling (Turkish)">
-      <outline title="Bisiklet Haber" xmlUrl="https://www.bisiklethaber.com/feed/" type="rss"/>
-      <outline title="Bisiklet Dergisi" xmlUrl="https://www.bisikletdergisi.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

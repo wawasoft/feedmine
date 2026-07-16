@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Dutch)">
-      <outline title="Docupod" xmlUrl="https://www.docupod.nl/feed/podcast/" type="rss"/>
-      <outline title="NPO Documentaire" xmlUrl="https://www.nporadio1.nl/podcasts/documentaire/feed.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

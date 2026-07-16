@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Travel (Portuguese)">
-      <outline title="Viaje na Viagem" xmlUrl="https://www.viajenaviagem.com/feed/" type="rss"/>
-      <outline title="Melhores Destinos" xmlUrl="https://www.melhoresdestinos.com.br/feed/" type="rss"/>
-      <outline title="360 Meridianos" xmlUrl="https://360meridianos.com/feed/" type="rss"/>
-      <outline title="Vou na Onda" xmlUrl="https://vounaonda.com.br/feed/" type="rss"/>
-      <outline title="Bem na Viagem" xmlUrl="https://bemnaviagem.com/feed/" type="rss"/>
+      <outline title="Viaje na Viagem" xmlUrl="https://www.viajenaviagem.com/feed/" type="rss" />
+      <outline title="Melhores Destinos" xmlUrl="https://www.melhoresdestinos.com.br/feed/" type="rss" />
+      <outline title="360 Meridianos" xmlUrl="https://360meridianos.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

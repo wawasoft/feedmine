@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Czech)">
-      <outline title="Czech Startup" xmlUrl="https://www.czechstartup.cz/feed/" type="rss"/>
-      <outline title="Podnikatel.cz" xmlUrl="https://www.podnikatel.cz/rss/clanky/" type="rss"/>
-      <outline title="StartupJobs blog" xmlUrl="https://www.startupjobs.cz/blog/feed" type="rss"/>
+      <outline title="Czech Startup" xmlUrl="https://www.czechstartup.cz/feed/" type="rss" />
+      <outline title="Podnikatel.cz" xmlUrl="https://www.podnikatel.cz/rss/clanky/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Wine (Czech)">
-      <outline title="Vína z Moravy a vína z Čech" xmlUrl="https://www.vinazmoravy.cz/feed/" type="rss"/>
-      <outline title="Magazín Víno" xmlUrl="https://www.magazinvino.cz/feed/" type="rss"/>
-      <outline title="Vínařský obzor" xmlUrl="https://www.vinarskyobzor.cz/feed/" type="rss"/>
-      <outline title="Burgundské víno" xmlUrl="https://www.burgundskevino.cz/feed/" type="rss"/>
-      <outline title="Vína a degustace" xmlUrl="https://vinaadegustace.cz/feed/" type="rss"/>
+      <outline title="Vínařský obzor" xmlUrl="https://www.vinarskyobzor.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -40,7 +40,6 @@
     </outline>
     <outline text="Food">
       <outline title="Buenazo" xmlUrl="https://www.buenazo.pe/rss/" type="rss" />
-      <outline title="Mistura" xmlUrl="https://www.mistura.pe/feed/" type="rss" />
       <outline title="Comida Peruana" xmlUrl="https://www.comida-peruana.com/feed/" type="rss" />
       <outline title="Peru Delights" xmlUrl="https://www.perudelights.com/feed/" type="rss" />
       <outline title="Gastro Peru" xmlUrl="https://www.gastroperu.com/feed/" type="rss" />

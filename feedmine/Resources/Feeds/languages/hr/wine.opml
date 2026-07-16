@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Wine (Croatian)">
-      <outline title="Vinski vodič - Novosti" xmlUrl="https://www.vinskiportal.hr/feed/" type="rss"/>
-      <outline title="Vinarija.com - Blog" xmlUrl="https://www.vinarija.com/blog/feed/" type="rss"/>
-      <outline title="Gospodarski list - Vino" xmlUrl="https://www.gospodarski.hr/rubrika/vino/feed/" type="rss"/>
-      <outline title="Agroklub - Vino" xmlUrl="https://www.agroklub.hr/vino/feed/" type="rss"/>
-      <outline title="Poslovni dnevnik - Vino" xmlUrl="https://www.poslovni.hr/teme/vino/feed/" type="rss"/>
+      <outline title="Agroklub - Vino" xmlUrl="https://www.agroklub.hr/vino/feed/" type="rss" />
     </outline>
   </body>
 </opml>

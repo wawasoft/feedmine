@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Turkish)">
-      <outline title="Şiir Defteri" xmlUrl="https://siirdefteri.com/feed/" type="rss"/>
-      <outline title="Edebiyat Dergisi" xmlUrl="https://edebiyatdergisi.com/feed/" type="rss"/>
-      <outline title="Şiir Atlası" xmlUrl="https://siiratlas.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

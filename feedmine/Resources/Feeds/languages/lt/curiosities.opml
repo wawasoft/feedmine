@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Lithuanian)">
-      <outline title="Įdomu.lt" xmlUrl="https://www.idomu.lt/feed/" type="rss"/>
-      <outline title="Keistenybės" xmlUrl="https://keistenybes.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

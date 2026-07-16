@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Hungarian)">
-      <outline title="Kreatív blog - Kézműves ötletek" xmlUrl="https://kreativblog.hu/feed" type="rss"/>
-      <outline title="Művészetek Háza - Kézművesség" xmlUrl="https://muveszetekhaza.hu/feed" type="rss"/>
+      <outline title="Kreatív blog - Kézműves ötletek" xmlUrl="https://kreativblog.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

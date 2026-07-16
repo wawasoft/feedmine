@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Spanish)">
-      <outline title="Discapacidad y Accesibilidad" xmlUrl="https://discapacidadyaccesibilidad.com/feed/" type="rss"/>
-      <outline title="Fundación CNSE" xmlUrl="https://www.fundacioncnse.org/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

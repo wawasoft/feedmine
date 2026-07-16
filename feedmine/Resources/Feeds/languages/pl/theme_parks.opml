@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Polish)">
-      <outline title="Parki Rozrywki - Parkmania.pl" xmlUrl="https://parkmania.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

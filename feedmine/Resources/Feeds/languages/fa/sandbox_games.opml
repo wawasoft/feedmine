@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Persian)">
-      <outline title="ماینکرفت فارسی | وبلاگ ماینکرفت" xmlUrl="https://minecraftfa.ir/feed" type="rss"/>
-      <outline title="رابلکس فارسی | وبلاگ رابلکس" xmlUrl="https://roboxfa.ir/feed" type="rss"/>
-      <outline title="ماینکرفت ایران | انجمن و وبلاگ" xmlUrl="https://minecraftiran.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

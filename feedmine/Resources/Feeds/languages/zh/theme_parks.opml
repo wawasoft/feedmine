@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Chinese)">
-      <outline title="主题公园界" xmlUrl="https://www.themeparkchina.com/feed" type="rss"/>
-      <outline title="游乐网" xmlUrl="https://www.youlewang.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

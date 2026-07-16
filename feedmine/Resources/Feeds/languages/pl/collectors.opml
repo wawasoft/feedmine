@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Collectors (Polish)">
-      <outline title="Kolekcjonerzy" xmlUrl="https://kolekcjonerzy.pl/feed/" type="rss"/>
-      <outline title="Allegro - Kolekcje" xmlUrl="https://allegro.pl/rss/kolekcje" type="rss"/>
-      <outline title="Numizmatyka i nie tylko" xmlUrl="https://numizmatykainie.pl/feed/" type="rss"/>
+      <outline title="Allegro - Kolekcje" xmlUrl="https://allegro.pl/rss/kolekcje" type="rss" />
     </outline>
   </body>
 </opml>

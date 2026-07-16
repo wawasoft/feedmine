@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Slovak)">
-      <outline title="Mačky.sk" xmlUrl="https://macky.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

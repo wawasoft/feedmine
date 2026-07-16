@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Ukrainian)">
-      <outline title="Музейний простір" xmlUrl="https://muzei.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

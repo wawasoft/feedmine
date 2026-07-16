@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Ukrainian)">
-      <outline title="Котики UA" xmlUrl="https://kotiki.ua/feed/" type="rss"/>
-      <outline title="Муркотун" xmlUrl="https://murkotun.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

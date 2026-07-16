@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Apple (Polish)">
-      <outline title="AppleWorld" xmlUrl="https://appleworld.pl/feed/" type="rss"/>
-      <outline title="MyApple" xmlUrl="https://myapple.pl/feed" type="rss"/>
-      <outline title="iMagazine" xmlUrl="https://imagazine.pl/feed/" type="rss"/>
-      <outline title="ApplePost" xmlUrl="https://applepost.pl/feed/" type="rss"/>
-      <outline title="Tabletowo" xmlUrl="https://tabletowo.pl/kategoria/apple/feed/" type="rss"/>
+      <outline title="AppleWorld" xmlUrl="https://appleworld.pl/feed/" type="rss" />
+      <outline title="iMagazine" xmlUrl="https://imagazine.pl/feed/" type="rss" />
+      <outline title="Tabletowo" xmlUrl="https://tabletowo.pl/kategoria/apple/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Sports (Vietnamese)">
-      <outline title="VnExpress - Thể thao" xmlUrl="https://vnexpress.net/rss/the-thao.rss" type="rss"/>
-      <outline title="Thể Thao 247" xmlUrl="https://thethao247.vn/rss/home.rss" type="rss"/>
-      <outline title="Báo Bóng Đá" xmlUrl="https://bongda.com.vn/rss/" type="rss"/>
-      <outline title="Dân Trí - Thể thao" xmlUrl="https://dantri.com.vn/the-thao.rss" type="rss"/>
-      <outline title="Zing News - Thể thao" xmlUrl="https://zingnews.vn/the-thao.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

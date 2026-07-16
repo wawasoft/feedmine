@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Indonesian)">
-      <outline title="Menjahit Yuk" xmlUrl="https://menjahityuk.com/feed/" type="rss"/>
-      <outline title="Jahit Kreasi" xmlUrl="https://jahitkreasi.com/feed/" type="rss"/>
-      <outline title="Belajar Menjahit" xmlUrl="https://belajarmenjahit.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

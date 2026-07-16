@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (German)">
-      <outline title="GALA - Stars &amp; Klatsch" xmlUrl="https://www.gala.de/rss/star-news/" type="rss"/>
-      <outline title="VIP.de - Klatsch und Tratsch" xmlUrl="https://www.vip.de/rss/klatsch" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

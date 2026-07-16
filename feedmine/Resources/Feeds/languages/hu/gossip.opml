@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Hungarian)">
-      <outline title="Blikk" xmlUrl="https://www.blikk.hu/feed" type="rss"/>
-      <outline title="Bors Online" xmlUrl="https://www.borsonline.hu/feed" type="rss"/>
-      <outline title="Story Online" xmlUrl="https://www.storyonline.hu/feed" type="rss"/>
+      <outline title="Blikk" xmlUrl="https://www.blikk.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

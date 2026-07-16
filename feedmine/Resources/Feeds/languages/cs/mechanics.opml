@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Czech)">
-      <outline title="Technický týdeník" xmlUrl="https://www.technickytydenik.cz/rss/" type="rss"/>
-      <outline title="MM Průmyslové spektrum" xmlUrl="https://www.mmspektrum.com/rss/clanky" type="rss"/>
+      <outline title="Technický týdeník" xmlUrl="https://www.technickytydenik.cz/rss/" type="rss" />
     </outline>
   </body>
 </opml>

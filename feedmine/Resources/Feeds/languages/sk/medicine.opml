@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Slovak)">
-      <outline title="Medical News" xmlUrl="https://www.medicalnews.sk/feed/" type="rss"/>
-      <outline title="Zdravotníctvo a farmácia" xmlUrl="https://www.zdravotnictvo.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

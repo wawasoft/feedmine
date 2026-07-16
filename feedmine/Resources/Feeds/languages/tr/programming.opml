@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Turkish)">
-      <outline title="Yazılım Geliştirici" xmlUrl="https://yazilimgelistirici.com/feed/" type="rss"/>
-      <outline title="Coder Türkiye" xmlUrl="https://coderturkiye.com/feed/" type="rss"/>
-      <outline title="Türkçe Kod" xmlUrl="https://turkcekod.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

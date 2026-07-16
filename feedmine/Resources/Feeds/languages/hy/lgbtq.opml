@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Drag, Queer (Armenian)">
-      <outline title="Քվիր Հայաստան" xmlUrl="https://queerarmenia.wordpress.com/feed/" type="rss"/>
-      <outline title="Ինքնություն" xmlUrl="https://inknutyun.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

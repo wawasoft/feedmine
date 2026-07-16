@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Finnish)">
-      <outline title="Kiiltomato" xmlUrl="https://www.kiiltomato.net/feed/" type="rss"/>
-      <outline title="Parnasso" xmlUrl="https://parnasso.fi/feed/" type="rss"/>
+      <outline title="Kiiltomato" xmlUrl="https://www.kiiltomato.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

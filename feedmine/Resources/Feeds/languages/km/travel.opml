@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Khmer)">
-      <outline title="ទេសចរណ៍ខ្មែរ" xmlUrl="https://www.khmer-travel.com/feed" type="rss"/>
-      <outline title="ដំណើរកម្សាន្ត" xmlUrl="https://www.travelkhmer.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

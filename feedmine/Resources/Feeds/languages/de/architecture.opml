@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Architecture (German)">
-      <outline title="BauNetz" xmlUrl="https://www.baunetz.de/rss/aktuell.xml" type="rss"/>
-      <outline title="Detail" xmlUrl="https://www.detail.de/rss/aktuell.xml" type="rss"/>
-      <outline title="Deutsches Architektenblatt" xmlUrl="https://www.dabonline.de/feed/" type="rss"/>
-      <outline title="Architektur &amp; Wohnen" xmlUrl="https://www.awmagazin.de/feed" type="rss"/>
-      <outline title="Stylepark" xmlUrl="https://www.stylepark.com/de/rss/news" type="rss"/>
+      <outline title="Architektur &amp; Wohnen" xmlUrl="https://www.awmagazin.de/feed" type="rss" />
     </outline>
   </body>
 </opml>

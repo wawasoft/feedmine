@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="UFOs, Conspiracies (German)">
-      <outline title="Mystery Files" xmlUrl="https://mystery-files.de/feed/" type="rss"/>
-      <outline title="ExoMagazin" xmlUrl="https://exomagazin.de/feed/" type="rss"/>
-      <outline title="Kopp Report" xmlUrl="https://www.kopp-report.de/feed/" type="rss"/>
+      <outline title="Mystery Files" xmlUrl="https://mystery-files.de/feed/" type="rss" />
+      <outline title="Kopp Report" xmlUrl="https://www.kopp-report.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

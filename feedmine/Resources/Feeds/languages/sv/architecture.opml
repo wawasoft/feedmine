@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Architecture (Swedish)">
-      <outline title="Arkitektur" xmlUrl="https://arkitektur.se/feed/" type="rss"/>
-      <outline title="Byggindustrin" xmlUrl="https://www.byggindustrin.se/feed/" type="rss"/>
-      <outline title="White Arkitekter" xmlUrl="https://whitearkitekter.com/se/feed/" type="rss"/>
+      <outline title="Arkitektur" xmlUrl="https://arkitektur.se/feed/" type="rss" />
+      <outline title="White Arkitekter" xmlUrl="https://whitearkitekter.com/se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

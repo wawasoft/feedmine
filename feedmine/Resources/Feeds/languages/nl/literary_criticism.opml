@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Dutch)">
-      <outline title="De Reactor" xmlUrl="https://www.dereactor.org/rss" type="rss"/>
-      <outline title="Tzum" xmlUrl="https://www.tzum.info/feed/" type="rss"/>
-      <outline title="De Groene Amsterdammer - Literatuur" xmlUrl="https://www.groene.nl/rss/onderwerp/literatuur" type="rss"/>
+      <outline title="De Reactor" xmlUrl="https://www.dereactor.org/rss" type="rss" />
+      <outline title="Tzum" xmlUrl="https://www.tzum.info/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Famous People (Hungarian)">
-      <outline title="Hírességek világa" xmlUrl="https://hirek.ma/celeb/feed" type="rss"/>
-      <outline title="Celebritás Blog" xmlUrl="https://celebritas.blog.hu/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

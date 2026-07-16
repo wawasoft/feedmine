@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Surfing Feeds (Czech)">
-      <outline title="Surfing.cz" xmlUrl="https://www.surfing.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

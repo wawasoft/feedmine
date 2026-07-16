@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Swedish)">
-      <outline title="P1 Dokumentär" xmlUrl="https://sverigesradio.se/rss/program.aspx?programid=909" type="rss"/>
-      <outline title="Dokumentär om ..." xmlUrl="https://poddtoppen.se/podcast/1479494111/dokumentar-om" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

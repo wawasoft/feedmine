@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Turkish)">
-      <outline title="Webrazzi" xmlUrl="https://webrazzi.com/feed/" type="rss"/>
-      <outline title="Startup Türkiye" xmlUrl="https://startupturkiye.com/feed/" type="rss"/>
-      <outline title="Girişim Haberleri" xmlUrl="https://girisimhaberleri.com/feed/" type="rss"/>
-      <outline title="BTG Haber" xmlUrl="https://www.btghaber.com/feed/" type="rss"/>
-      <outline title="Girişimci Kadınlar" xmlUrl="https://www.girisimcikadinlar.com/feed/" type="rss"/>
+      <outline title="Webrazzi" xmlUrl="https://webrazzi.com/feed/" type="rss" />
+      <outline title="Girişim Haberleri" xmlUrl="https://girisimhaberleri.com/feed/" type="rss" />
+      <outline title="Girişimci Kadınlar" xmlUrl="https://www.girisimcikadinlar.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

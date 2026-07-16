@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Military (Norwegian)">
-      <outline title="Forsvaret" xmlUrl="https://www.forsvaret.no/aktuelt/rss" type="rss"/>
-      <outline title="Aldrimer.no" xmlUrl="https://www.aldrimer.no/feed/" type="rss"/>
+      <outline title="Aldrimer.no" xmlUrl="https://www.aldrimer.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Sports (Azerbaijani)">
-      <outline title="Sportal.az" xmlUrl="https://sportal.az/rss.xml" type="rss"/>
-      <outline title="Azerisport.com" xmlUrl="https://www.azerisport.com/rss.xml" type="rss"/>
-      <outline title="İdman.az" xmlUrl="https://idman.az/rss.xml" type="rss"/>
-      <outline title="Sportinfo.az" xmlUrl="https://sportinfo.az/rss.xml" type="rss"/>
+      <outline title="İdman.az" xmlUrl="https://idman.az/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

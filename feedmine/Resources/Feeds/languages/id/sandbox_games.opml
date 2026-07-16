@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Indonesian)">
-      <outline title="Minecraft Indonesia" xmlUrl="https://minecraftindonesia.id/feed/" type="rss"/>
-      <outline title="Roblox Indonesia" xmlUrl="https://robloxindonesia.com/feed/" type="rss"/>
-      <outline title="Gamers Indonesia" xmlUrl="https://gamersindonesia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

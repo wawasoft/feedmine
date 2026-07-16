@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Programming (Italian)">
-      <outline title="HTML.it" xmlUrl="https://www.html.it/feed/" type="rss"/>
-      <outline title="Programmazione.it" xmlUrl="https://www.programmazione.it/feed/" type="rss"/>
-      <outline title="ItalianCoders" xmlUrl="https://www.italiancoders.it/feed/" type="rss"/>
+      <outline title="HTML.it" xmlUrl="https://www.html.it/feed/" type="rss" />
+      <outline title="ItalianCoders" xmlUrl="https://www.italiancoders.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

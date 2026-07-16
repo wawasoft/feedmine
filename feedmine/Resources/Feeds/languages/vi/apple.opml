@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Apple (Vietnamese)">
-      <outline title="Tinhte.vn - Apple" xmlUrl="https://tinhte.vn/rss/category/apple.20/" type="rss"/>
-      <outline title="GenK - Apple" xmlUrl="https://genk.vn/apple.rss" type="rss"/>
-      <outline title="Techrum.vn - Apple" xmlUrl="https://techrum.vn/forums/apple.2/index.rss" type="rss"/>
+      <outline title="Tinhte.vn - Apple" xmlUrl="https://tinhte.vn/rss/category/apple.20/" type="rss" />
     </outline>
   </body>
 </opml>

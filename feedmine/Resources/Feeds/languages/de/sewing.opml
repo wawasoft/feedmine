@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (German)">
-      <outline title="Nähblog – Nadel &amp; Faden" xmlUrl="https://nadelundfaden.de/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

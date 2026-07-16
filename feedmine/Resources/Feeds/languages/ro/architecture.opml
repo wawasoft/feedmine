@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Architecture (Romanian)">
-      <outline title="Arhitectura Design" xmlUrl="https://www.arhitecturadesign.ro/feed" type="rss"/>
-      <outline title="Zeppelin" xmlUrl="https://www.zeppelin.ro/feed" type="rss"/>
+      <outline title="Zeppelin" xmlUrl="https://www.zeppelin.ro/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Science Feeds (Turkish)">
-      <outline title="Bilim ve Teknik" xmlUrl="https://bilimteknik.tubitak.gov.tr/feed" type="rss"/>
-      <outline title="Bilim Dünyası" xmlUrl="https://bilimdunyasi.com/feed/" type="rss"/>
-      <outline title="Evrim Ağacı" xmlUrl="https://evrimagaci.org/rss/" type="rss"/>
+      <outline title="Bilim ve Teknik" xmlUrl="https://bilimteknik.tubitak.gov.tr/feed" type="rss" />
+      <outline title="Evrim Ağacı" xmlUrl="https://evrimagaci.org/rss/" type="rss" />
     </outline>
   </body>
 </opml>

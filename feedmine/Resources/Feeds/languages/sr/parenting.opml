@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Moms, Dads (Serbian)">
-      <outline title="Roditelji" xmlUrl="https://www.roditelji.rs/feed/" type="rss"/>
-      <outline title="Mama i beba" xmlUrl="https://www.mamaibeba.com/feed/" type="rss"/>
+      <outline title="Mama i beba" xmlUrl="https://www.mamaibeba.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (Portuguese)">
-      <outline title="Cerâmica &amp; Artesanato" xmlUrl="https://www.ceramicaeartesanato.com.br/feed/" type="rss"/>
-      <outline title="Revista Cerâmica" xmlUrl="https://www.revistaceramica.com.br/feed/" type="rss"/>
-      <outline title="Mundo Cerâmico" xmlUrl="https://www.mundoceramico.com.br/feed/" type="rss"/>
-      <outline title="Cerâmica &amp; Cia" xmlUrl="https://www.ceramicaecia.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

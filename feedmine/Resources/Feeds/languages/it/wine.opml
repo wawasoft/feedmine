@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Wine (Italian)">
-      <outline title="Wine News Italia" xmlUrl="https://www.winenews.it/feed/" type="rss"/>
-      <outline title="Gambero Rosso Vino" xmlUrl="https://www.gamberorosso.it/vino/feed/" type="rss"/>
-      <outline title="Il Sommelier" xmlUrl="https://www.ilsommelier.eu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

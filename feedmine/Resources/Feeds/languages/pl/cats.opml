@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Cat Lovers (Polish)">
-      <outline title="Koty.pl" xmlUrl="https://koty.pl/feed/" type="rss"/>
-      <outline title="Miau.pl" xmlUrl="https://miau.pl/feed/" type="rss"/>
-      <outline title="Kocie Sprawy" xmlUrl="https://kociesprawy.pl/feed/" type="rss"/>
-      <outline title="Koci Świat" xmlUrl="https://kociswiat.pl/feed/" type="rss"/>
-      <outline title="Dachowiec" xmlUrl="https://dachowiec.pl/feed/" type="rss"/>
+      <outline title="Koty.pl" xmlUrl="https://koty.pl/feed/" type="rss" />
+      <outline title="Miau.pl" xmlUrl="https://miau.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

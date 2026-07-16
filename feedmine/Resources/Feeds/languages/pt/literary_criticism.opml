@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Portuguese)">
-      <outline title="Rascunho" xmlUrl="https://rascunho.com.br/feed/" type="rss"/>
-      <outline title="Quatro Cinco Um" xmlUrl="https://www.quatrocincoum.com.br/feed/" type="rss"/>
-      <outline title="Revista Caju" xmlUrl="https://revistacaju.com.br/feed/" type="rss"/>
-      <outline title="Bula Revista" xmlUrl="https://www.bularevista.com.br/feed/" type="rss"/>
+      <outline title="Rascunho" xmlUrl="https://rascunho.com.br/feed/" type="rss" />
+      <outline title="Quatro Cinco Um" xmlUrl="https://www.quatrocincoum.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Persian)">
-      <outline title="خبرگزاری حقوقی ایران" xmlUrl="https://www.legalnews.ir/feed" type="rss"/>
-      <outline title="وبلاگ وکلا" xmlUrl="https://www.vokala.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

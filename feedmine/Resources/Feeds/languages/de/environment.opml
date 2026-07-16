@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Nature, Ecology (German)">
-      <outline title="WWF Deutschland" xmlUrl="https://www.wwf.de/feed.rss" type="rss"/>
-      <outline title="NABU" xmlUrl="https://www.nabu.de/feed.xml" type="rss"/>
-      <outline title="BUND" xmlUrl="https://www.bund.net/rss/aktuelles.xml" type="rss"/>
-      <outline title="Utopia.de" xmlUrl="https://utopia.de/feed/" type="rss"/>
-      <outline title="Klimareporter" xmlUrl="https://www.klimareporter.de/feed" type="rss"/>
+      <outline title="Utopia.de" xmlUrl="https://utopia.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

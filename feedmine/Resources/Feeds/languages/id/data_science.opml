@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Indonesian)">
-      <outline title="Data Science Indonesia" xmlUrl="https://datascience.or.id/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

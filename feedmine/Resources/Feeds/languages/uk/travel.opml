@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Ukrainian)">
-      <outline title="Мандри" xmlUrl="https://mandry.info/feed/" type="rss"/>
-      <outline title="Travel Ukraine" xmlUrl="https://travel-ukraine.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

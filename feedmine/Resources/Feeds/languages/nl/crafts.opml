@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Dutch)">
-      <outline title="Handwerk.nl" xmlUrl="https://handwerk.nl/feed/" type="rss"/>
-      <outline title="Creacafé" xmlUrl="https://creacafe.nl/feed/" type="rss"/>
+      <outline title="Handwerk.nl" xmlUrl="https://handwerk.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

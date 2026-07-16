@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Skateboarding (Finnish)">
-      <outline title="Suomen Rullalautaliitto" xmlUrl="https://www.rullalautaliitto.fi/feed/" type="rss"/>
-      <outline title="Skateboard Finland" xmlUrl="https://skateboardfinland.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

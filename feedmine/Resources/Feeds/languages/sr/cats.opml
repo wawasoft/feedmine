@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Serbian)">
-      <outline title="Mačke i mačići" xmlUrl="https://mackeimacici.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

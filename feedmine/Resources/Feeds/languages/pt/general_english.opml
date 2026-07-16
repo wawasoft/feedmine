@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="General English Feeds (Portuguese)">
-      <outline title="BBC News" xmlUrl="https://feeds.bbci.co.uk/news/rss.xml" type="rss"/>
-      <outline title="CNN.com" xmlUrl="http://rss.cnn.com/rss/cnn_topstories.rss" type="rss"/>
-      <outline title="Reuters Top News" xmlUrl="https://www.reutersagency.com/feed/" type="rss"/>
-      <outline title="The Guardian" xmlUrl="https://www.theguardian.com/world/rss" type="rss"/>
-      <outline title="NPR News" xmlUrl="https://feeds.npr.org/1001/rss.xml" type="rss"/>
+      <outline title="BBC News" xmlUrl="https://feeds.bbci.co.uk/news/rss.xml" type="rss" />
+      <outline title="CNN.com" xmlUrl="http://rss.cnn.com/rss/cnn_topstories.rss" type="rss" />
+      <outline title="The Guardian" xmlUrl="https://www.theguardian.com/world/rss" type="rss" />
+      <outline title="NPR News" xmlUrl="https://feeds.npr.org/1001/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

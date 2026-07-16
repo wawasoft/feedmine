@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Dutch)">
-      <outline title="YouTube Nederland Blog" xmlUrl="https://nl.youtube.com/feed/trending" type="rss"/>
-      <outline title="YouTube Creators Blog (NL)" xmlUrl="https://youtube-creators.googleblog.com/nl/feeds/posts/default" type="rss"/>
+      <outline title="YouTube Nederland Blog" xmlUrl="https://nl.youtube.com/feed/trending" type="rss" />
     </outline>
   </body>
 </opml>

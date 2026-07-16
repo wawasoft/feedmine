@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Portuguese)">
-      <outline title="Globo Esporte - Futebol" xmlUrl="https://ge.globo.com/rss/" type="rss"/>
-      <outline title="Lance! - Futebol" xmlUrl="https://www.lance.com.br/rss/" type="rss"/>
-      <outline title="UOL Esporte - Futebol" xmlUrl="https://esporte.uol.com.br/futebol/ultimas/index.xml" type="rss"/>
-      <outline title="ESPN Brasil - Futebol" xmlUrl="https://www.espn.com.br/rss/futebol" type="rss"/>
-      <outline title="Trivela" xmlUrl="https://trivela.com.br/feed/" type="rss"/>
+      <outline title="UOL Esporte - Futebol" xmlUrl="https://esporte.uol.com.br/futebol/ultimas/index.xml" type="rss" />
+      <outline title="ESPN Brasil - Futebol" xmlUrl="https://www.espn.com.br/rss/futebol" type="rss" />
+      <outline title="Trivela" xmlUrl="https://trivela.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

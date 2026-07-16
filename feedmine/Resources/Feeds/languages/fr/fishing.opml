@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Fishing (French)">
-      <outline title="Pêche Passion" xmlUrl="https://www.pechepassion.fr/feed/" type="rss"/>
-      <outline title="Fishing France" xmlUrl="https://www.fishingfrance.fr/feed/" type="rss"/>
-      <outline title="Pêche à la Mouche" xmlUrl="https://www.pechealamouche.com/feed/" type="rss"/>
-      <outline title="Le Repère du Pêcheur" xmlUrl="https://www.lereperedupecheur.fr/feed/" type="rss"/>
-      <outline title="Pêche et Poissons" xmlUrl="https://www.peche-et-poissons.com/feed/" type="rss"/>
+      <outline title="Pêche Passion" xmlUrl="https://www.pechepassion.fr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

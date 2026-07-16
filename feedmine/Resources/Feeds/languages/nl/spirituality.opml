@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Dutch)">
-      <outline title="Spiritualiteit Blog" xmlUrl="https://spiritualiteit.blog/feed/" type="rss"/>
-      <outline title="Mindfulness Vlaanderen" xmlUrl="https://www.mindfulnessvlaanderen.be/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

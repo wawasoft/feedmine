@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Universities (Vietnamese)">
-      <outline title="Đại học Quốc gia Hà Nội" xmlUrl="https://vnu.edu.vn/rss/" type="rss"/>
-      <outline title="Đại học Quốc gia TP.HCM" xmlUrl="https://vnuhcm.edu.vn/rss/" type="rss"/>
-      <outline title="Đại học Bách khoa Hà Nội" xmlUrl="https://www.hust.edu.vn/rss/" type="rss"/>
-      <outline title="Đại học Kinh tế Quốc dân" xmlUrl="https://www.neu.edu.vn/rss/" type="rss"/>
-      <outline title="Đại học Ngoại thương" xmlUrl="https://www.ftu.edu.vn/rss/" type="rss"/>
+      <outline title="Đại học Quốc gia Hà Nội" xmlUrl="https://vnu.edu.vn/rss/" type="rss" />
+      <outline title="Đại học Quốc gia TP.HCM" xmlUrl="https://vnuhcm.edu.vn/rss/" type="rss" />
+      <outline title="Đại học Kinh tế Quốc dân" xmlUrl="https://www.neu.edu.vn/rss/" type="rss" />
     </outline>
   </body>
 </opml>

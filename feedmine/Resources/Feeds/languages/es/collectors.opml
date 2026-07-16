@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Collectors (Spanish)">
-      <outline title="Coleccionismo (TodoColección)" xmlUrl="https://www.todocoleccion.net/blog/feed" type="rss"/>
-      <outline title="El coleccionista (20minutos)" xmlUrl="https://blogs.20minutos.es/el-coleccionista/feed/" type="rss"/>
-      <outline title="Foro de coleccionismo" xmlUrl="https://www.forodecoleccionismo.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

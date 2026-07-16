@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Drag, Queer (Polish)">
-      <outline title="Replika Online" xmlUrl="https://replika-online.pl/feed/" type="rss"/>
-      <outline title="Queer.pl" xmlUrl="https://queer.pl/rss.xml" type="rss"/>
-      <outline title="Kampania Przeciw Homofobii" xmlUrl="https://kph.org.pl/feed/" type="rss"/>
-      <outline title="Tęczowy Blog" xmlUrl="https://teczowyblog.pl/feed/" type="rss"/>
+      <outline title="Replika Online" xmlUrl="https://replika-online.pl/feed/" type="rss" />
+      <outline title="Kampania Przeciw Homofobii" xmlUrl="https://kph.org.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

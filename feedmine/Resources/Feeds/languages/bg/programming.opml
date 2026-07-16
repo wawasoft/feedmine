@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Programming (Bulgarian)">
-      <outline title="Програмиране.бг" xmlUrl="https://programirane.bg/rss/" type="rss"/>
-      <outline title="Dev.BG" xmlUrl="https://dev.bg/feed/" type="rss"/>
-      <outline title="Code.bg" xmlUrl="https://code.bg/rss/" type="rss"/>
-      <outline title="SoftUni Blog" xmlUrl="https://softuni.bg/blog/feed" type="rss"/>
+      <outline title="Dev.BG" xmlUrl="https://dev.bg/feed/" type="rss" />
+      <outline title="SoftUni Blog" xmlUrl="https://softuni.bg/blog/feed" type="rss" />
     </outline>
   </body>
 </opml>

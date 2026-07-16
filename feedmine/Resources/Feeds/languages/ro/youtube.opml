@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Romanian)">
-      <outline title="YouTube România - Blog" xmlUrl="https://youtuberomania.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="YT Tips România" xmlUrl="https://yttips.ro/feed/" type="rss"/>
+      <outline title="YouTube România - Blog" xmlUrl="https://youtuberomania.blogspot.com/feeds/posts/default" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Chess Feeds (German)">
-      <outline title="Schach Nachrichten" xmlUrl="https://www.schach-nachrichten.de/feed/" type="rss"/>
-      <outline title="Schachfeld" xmlUrl="https://www.schachfeld.de/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

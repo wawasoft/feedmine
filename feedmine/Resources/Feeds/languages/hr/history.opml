@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Croatian)">
-      <outline title="Hrvatski povijesni portal" xmlUrl="https://povijest.hr/feed/" type="rss"/>
-      <outline title="Povijest.hr" xmlUrl="https://www.povijest.hr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

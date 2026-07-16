@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Universities (Polish)">
-      <outline title="Forum Akademickie" xmlUrl="https://forumakademickie.pl/feed/" type="rss"/>
-      <outline title="Uniwersytet Warszawski" xmlUrl="https://www.uw.edu.pl/feed/" type="rss"/>
-      <outline title="Politechnika Warszawska" xmlUrl="https://www.pw.edu.pl/feed" type="rss"/>
+      <outline title="Forum Akademickie" xmlUrl="https://forumakademickie.pl/feed/" type="rss" />
+      <outline title="Uniwersytet Warszawski" xmlUrl="https://www.uw.edu.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Ukrainian)">
-      <outline title="Астрономічний календар" xmlUrl="https://astroncalendar.com.ua/feed/" type="rss"/>
-      <outline title="Всесвіт UA" xmlUrl="https://vsesvit.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

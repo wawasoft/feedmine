@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Vietnamese)">
-      <outline title="Báo Quốc tế" xmlUrl="https://baoquocte.vn/feed.rss" type="rss"/>
-      <outline title="VnExpress Thế giới" xmlUrl="https://vnexpress.net/rss/the-gioi.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

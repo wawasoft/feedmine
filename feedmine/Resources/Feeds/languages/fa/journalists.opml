@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Persian)">
-      <outline title="اتاق خبر" xmlUrl="https://otagheekhabar.ir/feed" type="rss"/>
-      <outline title="روزنامه نگاران جوان" xmlUrl="https://www.rouznamehnegar.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Universities (Khmer)">
-      <outline title="ព័ត៌មានសាកលវិទ្យាល័យភូមិន្ទភ្នំពេញ" xmlUrl="https://www.rupp.edu.kh/feed/" type="rss"/>
-      <outline title="ព័ត៌មានសាកលវិទ្យាល័យជាតិបាត់ដំបង" xmlUrl="https://www.nubb.edu.kh/feed/" type="rss"/>
-      <outline title="ព័ត៌មានសាកលវិទ្យាល័យវិទ្យាសាស្ត្រសុខាភិបាល" xmlUrl="https://www.uhs.edu.kh/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

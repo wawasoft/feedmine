@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Spanish)">
-      <outline title="Agroinformación" xmlUrl="https://www.agroinformacion.com/feed/" type="rss"/>
-      <outline title="Vida en el Campo" xmlUrl="https://www.vidaenelcampo.com/feed/" type="rss"/>
-      <outline title="Campo Galego" xmlUrl="https://www.campogalego.com/feed/" type="rss"/>
+      <outline title="Agroinformación" xmlUrl="https://www.agroinformacion.com/feed/" type="rss" />
+      <outline title="Campo Galego" xmlUrl="https://www.campogalego.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

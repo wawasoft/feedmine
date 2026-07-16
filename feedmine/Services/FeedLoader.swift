@@ -169,22 +169,16 @@ final class FeedLoader {
     // MARK: - Filtered Items (reads from FeedStore as single source)
 
     private var _cachedFiltered: [FeedItem] = []
-    private var _cacheKey: UInt64 = .max
-    /// Previous visibleItemsGeneration — used to detect real mutations from
-    /// FeedStore (replacements, reorderings, filter changes) reliably,
-    /// unlike count-based detection which misses same-size replacements.
+    private var _cachedGeneration: UInt64?
+    private var _cachedSearchQuery: String?
 
     var filteredItems: [FeedItem] {
-        // Use FeedStore's monotonic generation counter for cache invalidation.
-        // Catches ALL mutations — same-count replacements, reorderings,
-        // content/region/filter/taxonomy changes — not just count deltas.
         let generation = store.visibleItemsGeneration
-        var hasher = Hasher()
-        hasher.combine(generation)
-        hasher.combine(searchQuery)
-        let key = UInt64(bitPattern: Int64(hasher.finalize()))
-        if key == _cacheKey { return _cachedFiltered }
-        _cacheKey = key
+        if _cachedGeneration == generation, _cachedSearchQuery == searchQuery {
+            return _cachedFiltered
+        }
+        _cachedGeneration = generation
+        _cachedSearchQuery = searchQuery
         var result = items
         let query = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         if !query.isEmpty {
@@ -206,16 +200,16 @@ final class FeedLoader {
     }
 
     private var _cachedSections: [DateSection] = []
-    private var _sectionsCacheKey: UInt64 = .max
+    private var _cachedDateSectionsGen: UInt64?
+    private var _cachedDateSectionsQuery: String?
 
     var dateSections: [DateSection] {
-        // Force filteredItems to refresh _cacheKey and _cachedFiltered before
-        // we read either — without this, dateSections can return stale sections
-        // when accessed before filteredItems in a SwiftUI body evaluation.
         let items = filteredItems
-        let key = _cacheKey
-        if key == _sectionsCacheKey, !_cachedSections.isEmpty { return _cachedSections }
-        _sectionsCacheKey = key
+        if _cachedDateSectionsGen == _cachedGeneration, _cachedDateSectionsQuery == _cachedSearchQuery {
+            return _cachedSections
+        }
+        _cachedDateSectionsGen = _cachedGeneration
+        _cachedDateSectionsQuery = _cachedSearchQuery
         let calendar = Calendar.current; let now = Date()
         // Ordered grouping — Dictionary(grouping:) does not preserve array
         // order, which caused visible cards to reorder on every cache miss.

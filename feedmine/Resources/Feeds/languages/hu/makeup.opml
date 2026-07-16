@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Hungarian)">
-      <outline title="Sminkmanus" xmlUrl="https://sminkmanus.hu/feed/" type="rss"/>
-      <outline title="Szépségpraxis" xmlUrl="https://szepsegpraxis.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

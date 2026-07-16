@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Art Galleries (Indonesian)">
-      <outline title="Arti Galeri" xmlUrl="https://artigaleri.com/feed/" type="rss"/>
-      <outline title="Galeri Nasional Indonesia" xmlUrl="https://galeri-nasional.or.id/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

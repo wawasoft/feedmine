@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Music (Ukrainian)">
-      <outline title="Слух" xmlUrl="https://slukh.media/feed/" type="rss"/>
-      <outline title="Liroom" xmlUrl="https://liroom.com.ua/feed/" type="rss"/>
+      <outline title="Liroom" xmlUrl="https://liroom.com.ua/feed/" type="rss" />
     </outline>
   </body>
 </opml>

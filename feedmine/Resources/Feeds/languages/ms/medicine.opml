@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Malay)">
-      <outline title="Portal Perubatan" xmlUrl="https://portalperubatan.blogspot.com/feeds/posts/default?alt=rss" type="rss"/>
-      <outline title="Farmasi Malaysia" xmlUrl="https://www.farmasimalaysia.com/feed/" type="rss"/>
-      <outline title="Kesihatan dan Perubatan" xmlUrl="https://kesihatan-perubatan.blogspot.com/feeds/posts/default?alt=rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

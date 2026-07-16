@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Sports (Portuguese)">
-      <outline title="Globo Esporte" xmlUrl="https://ge.globo.com/rss/" type="rss"/>
-      <outline title="Lance!" xmlUrl="https://www.lance.com.br/rss/" type="rss"/>
-      <outline title="UOL Esporte" xmlUrl="https://esporte.uol.com.br/ultimas/index.xml" type="rss"/>
-      <outline title="ESPN Brasil" xmlUrl="https://www.espn.com.br/rss/" type="rss"/>
-      <outline title="SporTV" xmlUrl="https://sportv.globo.com/rss/" type="rss"/>
+      <outline title="UOL Esporte" xmlUrl="https://esporte.uol.com.br/ultimas/index.xml" type="rss" />
+      <outline title="ESPN Brasil" xmlUrl="https://www.espn.com.br/rss/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Slovenian)">
-      <outline title="Programiranje.si" xmlUrl="https://programiranje.si/feed/" type="rss"/>
-      <outline title="Slo-Tech" xmlUrl="https://www.slo-tech.com/rss/" type="rss"/>
-      <outline title="Računalniške novice" xmlUrl="https://racunalniske-novice.si/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

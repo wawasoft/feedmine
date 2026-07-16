@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Swedish)">
-      <outline title="Läkartidningen" xmlUrl="https://lakartidningen.se/feed/" type="rss"/>
-      <outline title="Dagens Medicin" xmlUrl="https://www.dagensmedicin.se/rss/" type="rss"/>
-      <outline title="Sjukhusläkaren" xmlUrl="https://www.sjukhuslakaren.se/feed/" type="rss"/>
-      <outline title="Farmaceutiska Notiser" xmlUrl="https://www.farmaceutiskanotiser.se/feed/" type="rss"/>
+      <outline title="Läkartidningen" xmlUrl="https://lakartidningen.se/feed/" type="rss" />
+      <outline title="Sjukhusläkaren" xmlUrl="https://www.sjukhuslakaren.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

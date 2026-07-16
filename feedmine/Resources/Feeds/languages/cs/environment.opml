@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Czech)">
-      <outline title="Ekolist.cz" xmlUrl="https://ekolist.cz/rss/xml/zpravodajstvi" type="rss"/>
-      <outline title="Příroda.cz" xmlUrl="https://www.priroda.cz/rss.xml" type="rss"/>
-      <outline title="Hnutí DUHA" xmlUrl="https://www.hnutiduha.cz/rss.xml" type="rss"/>
-      <outline title="Veronica" xmlUrl="https://www.veronica.cz/rss" type="rss"/>
+      <outline title="Příroda.cz" xmlUrl="https://www.priroda.cz/rss.xml" type="rss" />
+      <outline title="Veronica" xmlUrl="https://www.veronica.cz/rss" type="rss" />
     </outline>
   </body>
 </opml>

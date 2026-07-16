@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Serbian)">
-      <outline title="Booka" xmlUrl="https://booka.rs/feed/" type="rss"/>
-      <outline title="Laguna" xmlUrl="https://www.laguna.rs/feed/" type="rss"/>
+      <outline title="Booka" xmlUrl="https://booka.rs/feed/" type="rss" />
     </outline>
   </body>
 </opml>

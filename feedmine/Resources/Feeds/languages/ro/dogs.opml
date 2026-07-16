@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Dogs (Romanian)">
-      <outline title="Câini în România" xmlUrl="https://cainiromania.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

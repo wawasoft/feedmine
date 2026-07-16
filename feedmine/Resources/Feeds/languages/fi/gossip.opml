@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Finnish)">
-      <outline title="Seiska" xmlUrl="https://www.seiska.fi/rss" type="rss"/>
-      <outline title="Iltalehti Viihde" xmlUrl="https://www.iltalehti.fi/rss/viihde.xml" type="rss"/>
-      <outline title="Ilta-Sanomat Viihde" xmlUrl="https://www.is.fi/rss/viihde.xml" type="rss"/>
+      <outline title="Iltalehti Viihde" xmlUrl="https://www.iltalehti.fi/rss/viihde.xml" type="rss" />
+      <outline title="Ilta-Sanomat Viihde" xmlUrl="https://www.is.fi/rss/viihde.xml" type="rss" />
     </outline>
   </body>
 </opml>

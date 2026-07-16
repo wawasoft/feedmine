@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Design Feeds (Malay)">
-      <outline title="Design Malaysia" xmlUrl="https://designmalaysia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

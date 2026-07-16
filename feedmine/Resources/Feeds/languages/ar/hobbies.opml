@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Arabic)">
-      <outline title="هوايات - سيدتي" xmlUrl="https://www.sayidaty.net/ar/hobbies/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

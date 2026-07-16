@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Audiophilia, Vinyl Records (Dutch)">
-      <outline title="Hifi.nl" xmlUrl="https://www.hifi.nl/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

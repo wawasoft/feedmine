@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Serbian)">
-      <outline title="Podcast.rs" xmlUrl="https://podcast.rs/feed.xml" type="rss"/>
-      <outline title="SBS Serbian Podcast" xmlUrl="https://www.sbs.com.au/language/serbian/podcast/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

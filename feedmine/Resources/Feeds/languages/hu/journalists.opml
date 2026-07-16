@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Hungarian)">
-      <outline title="MédiaKutató" xmlUrl="https://mediakutato.hu/feed/" type="rss"/>
-      <outline title="Újságírók a sajtószabadságért" xmlUrl="https://ujsagirok.blog.hu/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

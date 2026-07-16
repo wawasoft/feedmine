@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Czech)">
-      <outline title="iLiteratura.cz" xmlUrl="https://www.iliteratura.cz/feed/rss" type="rss"/>
-      <outline title="H7O" xmlUrl="https://www.h7o.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

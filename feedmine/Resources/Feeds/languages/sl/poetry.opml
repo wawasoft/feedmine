@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Poetry (Slovenian)">
-      <outline title="Pesem.si" xmlUrl="https://www.pesem.si/rss/" type="rss"/>
-      <outline title="Literatura.si" xmlUrl="https://www.literatura.si/rss/" type="rss"/>
-      <outline title="Slovenske poezije" xmlUrl="https://slovenskepoezije.si/feed/" type="rss"/>
+      <outline title="Literatura.si" xmlUrl="https://www.literatura.si/rss/" type="rss" />
     </outline>
   </body>
 </opml>

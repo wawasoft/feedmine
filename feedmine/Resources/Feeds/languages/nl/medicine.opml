@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Dutch)">
-      <outline title="Medisch Contact" xmlUrl="https://www.medischcontact.nl/rss" type="rss"/>
-      <outline title="Nederlands Tijdschrift voor Geneeskunde" xmlUrl="https://www.ntvg.nl/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

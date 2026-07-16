@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Turkish)">
-      <outline title="Fularsız Entellik" xmlUrl="https://feeds.simplecast.com/Lq3X1jXq" type="rss"/>
-      <outline title="Radyo Tiyatrosu" xmlUrl="https://radyotiyatrosu.com/feed/podcast/" type="rss"/>
-      <outline title="Sesli Kitaplar" xmlUrl="https://www.seslikitaplar.com/feed/podcast/" type="rss"/>
+      <outline title="Sesli Kitaplar" xmlUrl="https://www.seslikitaplar.com/feed/podcast/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Videogames (Filipino)">
-      <outline title="PikoyGamer" xmlUrl="https://pikoygamer.com/feed/" type="rss"/>
-      <outline title="GameOps" xmlUrl="https://gameops.net/feed/" type="rss"/>
-      <outline title="Filipino Gamer" xmlUrl="https://filipinogamer.com/feed/" type="rss"/>
+      <outline title="Filipino Gamer" xmlUrl="https://filipinogamer.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

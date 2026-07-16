@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Arabic)">
-      <outline title="جمعية التوحد السعودية" xmlUrl="https://www.autismsa.org.sa/feed" type="rss"/>
-      <outline title="متلازمة داون" xmlUrl="https://www.downsyndrome.org.sa/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

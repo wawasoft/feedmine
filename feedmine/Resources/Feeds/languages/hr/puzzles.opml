@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Croatian)">
-      <outline title="Križaljke.hr" xmlUrl="https://krizaljke.hr/feed/" type="rss"/>
-      <outline title="Sudoku.hr" xmlUrl="https://sudoku.hr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

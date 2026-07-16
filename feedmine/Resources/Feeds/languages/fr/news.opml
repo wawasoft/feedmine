@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="News Feeds (French)">
-      <outline title="Le Monde" xmlUrl="https://www.lemonde.fr/rss/une.xml" type="rss"/>
-      <outline title="France Info" xmlUrl="https://www.francetvinfo.fr/titres.rss" type="rss"/>
-      <outline title="Le Figaro" xmlUrl="https://www.lefigaro.fr/rss/figaro_actualites.xml" type="rss"/>
-      <outline title="Libération" xmlUrl="https://www.liberation.fr/feed/" type="rss"/>
-      <outline title="20 Minutes" xmlUrl="https://www.20minutes.fr/feeds/rss-une.xml" type="rss"/>
+      <outline title="Le Monde" xmlUrl="https://www.lemonde.fr/rss/une.xml" type="rss" />
+      <outline title="France Info" xmlUrl="https://www.francetvinfo.fr/titres.rss" type="rss" />
+      <outline title="Le Figaro" xmlUrl="https://www.lefigaro.fr/rss/figaro_actualites.xml" type="rss" />
+      <outline title="20 Minutes" xmlUrl="https://www.20minutes.fr/feeds/rss-une.xml" type="rss" />
     </outline>
   </body>
 </opml>

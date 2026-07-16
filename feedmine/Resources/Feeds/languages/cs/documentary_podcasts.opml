@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Czech)">
-      <outline title="Český rozhlas - Dokument" xmlUrl="https://www.rozhlas.cz/dokument/feed/" type="rss"/>
-      <outline title="Dokumentární podcast - Seznam Zprávy" xmlUrl="https://www.seznamzpravy.cz/sekce/dokumentarni-podcasty/rss" type="rss"/>
-      <outline title="PODCAST: Dokumenty" xmlUrl="https://www.podcast.cz/dokumenty/feed/" type="rss"/>
-      <outline title="Dokumentární tvorba - Radio Wave" xmlUrl="https://wave.rozhlas.cz/dokument/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

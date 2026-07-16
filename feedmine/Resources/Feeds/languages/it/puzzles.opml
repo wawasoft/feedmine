@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Italian)">
-      <outline title="Cruciverba Online" xmlUrl="https://www.cruciverbaonline.com/feed/" type="rss"/>
-      <outline title="Sudoku.it" xmlUrl="https://www.sudoku.it/feed/" type="rss"/>
+      <outline title="Sudoku.it" xmlUrl="https://www.sudoku.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

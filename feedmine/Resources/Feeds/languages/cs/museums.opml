@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Czech)">
-      <outline title="Museion.cz" xmlUrl="https://www.museion.cz/rss/" type="rss"/>
-      <outline title="Národní muzeum" xmlUrl="https://www.nm.cz/rss/aktuality.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

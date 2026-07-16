@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="YouTube Feeds (French)">
-      <outline title="YouTube France - Blog" xmlUrl="https://blog.youtube/intl/fr-fr/feed/" type="rss"/>
-      <outline title="Numerama - YouTube" xmlUrl="https://www.numerama.com/tag/youtube/feed/" type="rss"/>
+      <outline title="Numerama - YouTube" xmlUrl="https://www.numerama.com/tag/youtube/feed/" type="rss" />
     </outline>
   </body>
 </opml>

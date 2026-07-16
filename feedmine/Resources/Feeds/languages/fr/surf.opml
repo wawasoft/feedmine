@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Surfing Feeds (French)">
-      <outline title="Surf Session" xmlUrl="https://www.surfsession.com/feed/" type="rss"/>
-      <outline title="Surf Report France" xmlUrl="https://www.surfreport.fr/feed/" type="rss"/>
-      <outline title="Wipeout Magazine" xmlUrl="https://www.wipeoutmag.com/feed/" type="rss"/>
-      <outline title="Surfing France" xmlUrl="https://www.surfingfrance.com/feed/" type="rss"/>
-      <outline title="Boardlife" xmlUrl="https://www.boardlife.fr/feed/" type="rss"/>
+      <outline title="Surf Session" xmlUrl="https://www.surfsession.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

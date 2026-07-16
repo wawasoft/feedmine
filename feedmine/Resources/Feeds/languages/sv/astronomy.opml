@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Astronomy (Swedish)">
-      <outline title="Populär Astronomi" xmlUrl="https://www.popularastronomi.se/feed/" type="rss"/>
-      <outline title="Rymdstyrelsen" xmlUrl="https://www.rymdstyrelsen.se/feed/" type="rss"/>
+      <outline title="Populär Astronomi" xmlUrl="https://www.popularastronomi.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

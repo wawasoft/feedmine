@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Italian)">
-      <outline title="Organizzazione e Produttività" xmlUrl="https://www.organizzazioneeproduttivita.it/feed/" type="rss"/>
-      <outline title="Metodo GTD Italia" xmlUrl="https://www.metodogtd.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Videogames (Indonesian)">
-      <outline title="Kincir Gaming" xmlUrl="https://kincir.com/feed/" type="rss"/>
-      <outline title="Gamebrott" xmlUrl="https://gamebrott.com/feed/" type="rss"/>
-      <outline title="Duniapong" xmlUrl="https://duniapong.com/feed/" type="rss"/>
+      <outline title="Kincir Gaming" xmlUrl="https://kincir.com/feed/" type="rss" />
+      <outline title="Gamebrott" xmlUrl="https://gamebrott.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

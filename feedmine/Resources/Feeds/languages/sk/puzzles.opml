@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Slovak)">
-      <outline title="Krížovky.sk" xmlUrl="https://www.krizovky.sk/rss/" type="rss"/>
-      <outline title="Sudoku.sk" xmlUrl="https://www.sudoku.sk/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

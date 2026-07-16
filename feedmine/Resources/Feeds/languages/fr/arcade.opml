@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (French)">
-      <outline title="Arcade Belgique" xmlUrl="https://www.arcadebelgique.be/feed/" type="rss"/>
-      <outline title="Pinball Magazine" xmlUrl="https://www.pinballmagazine.com/feed/" type="rss"/>
-      <outline title="Arcade Attack" xmlUrl="https://www.arcadeattack.fr/feed/" type="rss"/>
-      <outline title="Les Flippers" xmlUrl="https://www.lesflippers.com/feed/" type="rss"/>
+      <outline title="Les Flippers" xmlUrl="https://www.lesflippers.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

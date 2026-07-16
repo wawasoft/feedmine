@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Finnish)">
-      <outline title="Ompelublogi" xmlUrl="https://ompelublogi.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="Käsityölehti" xmlUrl="https://kasityolehti.fi/feed/" type="rss"/>
+      <outline title="Käsityölehti" xmlUrl="https://kasityolehti.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

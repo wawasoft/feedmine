@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Swedish)">
-      <outline title="Retro Game Sweden" xmlUrl="https://retrogamesweden.se/feed/" type="rss"/>
-      <outline title="Datormuseum" xmlUrl="https://datormuseum.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

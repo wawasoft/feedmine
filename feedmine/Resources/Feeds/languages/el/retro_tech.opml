@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Greek)">
-      <outline title="Retro Computing - Retromaniax" xmlUrl="https://www.retromaniax.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Polish)">
-      <outline title="DIY - Poradnik" xmlUrl="https://diy-poradnik.pl/feed/" type="rss"/>
-      <outline title="Majsterkowanie" xmlUrl="https://majsterkowanie.eu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

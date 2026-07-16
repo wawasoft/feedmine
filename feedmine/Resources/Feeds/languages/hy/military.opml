@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Military (Armenian)">
-      <outline title="Պաշտպանության նախարարություն" xmlUrl="https://www.mil.am/feed/" type="rss"/>
-      <outline title="Ռազմական լուրեր" xmlUrl="https://razmakan.am/feed/" type="rss"/>
-      <outline title="Զինվորական" xmlUrl="https://zinvorakan.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

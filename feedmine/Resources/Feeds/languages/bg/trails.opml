@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Bulgarian)">
-      <outline title="Планинарство и туризъм" xmlUrl="https://planinarstvo.bg/feed/" type="rss"/>
-      <outline title="BGTourism.bg" xmlUrl="https://bgtourism.bg/rss/trails" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

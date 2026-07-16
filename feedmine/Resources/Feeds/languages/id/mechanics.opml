@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Indonesian)">
-      <outline title="Otomotif Kompas" xmlUrl="https://otomotif.kompas.com/rss" type="rss"/>
-      <outline title="DetikOto" xmlUrl="https://www.detik.com/oto/rss" type="rss"/>
-      <outline title="GridOto" xmlUrl="https://www.gridoto.com/rss" type="rss"/>
-      <outline title="Oto.id" xmlUrl="https://www.oto.id/feed" type="rss"/>
-      <outline title="Motorplus" xmlUrl="https://www.motorplus-online.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

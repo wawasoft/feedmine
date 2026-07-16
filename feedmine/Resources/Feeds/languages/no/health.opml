@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Health (Norwegian)">
-      <outline title="Dagens Medisin" xmlUrl="https://www.dagensmedisin.no/rss" type="rss"/>
-      <outline title="Helsenett" xmlUrl="https://www.helsenett.no/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="News Feeds (Burmese)">
-      <outline title="BBC News မြန်မာ" xmlUrl="https://www.bbc.com/burmese/index.xml" type="rss"/>
-      <outline title="ဧရာဝတီ" xmlUrl="https://burma.irrawaddy.com/feed" type="rss"/>
-      <outline title="RFA မြန်မာဘာသာ" xmlUrl="https://www.rfa.org/burmese/feed/rss.xml" type="rss"/>
-      <outline title="မဇ္ဈိမ" xmlUrl="https://www.mizzima.com/feed" type="rss"/>
-      <outline title="ဒီမိုကရက်တစ်မြန်မာ့အသံ" xmlUrl="https://www.dvb.no/feed" type="rss"/>
+      <outline title="BBC News မြန်မာ" xmlUrl="https://www.bbc.com/burmese/index.xml" type="rss" />
+      <outline title="ဒီမိုကရက်တစ်မြန်မာ့အသံ" xmlUrl="https://www.dvb.no/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Croatian)">
-      <outline title="HNS - Hrvatski nogometni savez" xmlUrl="https://hns-cff.hr/rss/" type="rss"/>
-      <outline title="Sportnet - Nogomet" xmlUrl="https://sportnet.hr/rss/nogomet/" type="rss"/>
-      <outline title="Index.hr - Nogomet" xmlUrl="https://www.index.hr/rss/nogomet" type="rss"/>
-      <outline title="24sata - Nogomet" xmlUrl="https://www.24sata.hr/rss/sport/nogomet" type="rss"/>
-      <outline title="Goal.com Hrvatska" xmlUrl="https://www.goal.com/hr/feed" type="rss"/>
+      <outline title="HNS - Hrvatski nogometni savez" xmlUrl="https://hns-cff.hr/rss/" type="rss" />
+      <outline title="Sportnet - Nogomet" xmlUrl="https://sportnet.hr/rss/nogomet/" type="rss" />
     </outline>
   </body>
 </opml>

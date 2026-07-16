@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Burmese)">
-      <outline title="စက်မှုအင်ဂျင်နီယာ" xmlUrl="https://mechanicsmyanmar.com/rss" type="rss"/>
-      <outline title="အင်ဂျင်နီယာဂျာနယ်" xmlUrl="https://www.engineeringjournalmm.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Arabic)">
-      <outline title="بودكاست الخيال العلمي" xmlUrl="https://www.khayalpodcast.com/feed/podcast/" type="rss"/>
-      <outline title="مسموع" xmlUrl="https://www.masmoo3.com/feed/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

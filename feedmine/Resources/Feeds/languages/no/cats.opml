@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Norwegian)">
-      <outline title="Katter.no" xmlUrl="https://www.katter.no/feed/" type="rss"/>
-      <outline title="Katteglede" xmlUrl="https://katteglede.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

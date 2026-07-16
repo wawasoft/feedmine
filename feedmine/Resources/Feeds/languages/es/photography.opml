@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Photography (Spanish)">
-      <outline title="Xataka Foto" xmlUrl="https://www.xatakafoto.com/feed" type="rss"/>
-      <outline title="Oscar en Fotos" xmlUrl="https://oscarenfotos.com/feed/" type="rss"/>
-      <outline title="Blog del Fotógrafo" xmlUrl="https://www.blogdelfotografo.com/feed/" type="rss"/>
-      <outline title="Foto DNG" xmlUrl="https://fotodng.com/feed/" type="rss"/>
-      <outline title="Capturando Luz" xmlUrl="https://capturandoluz.com/feed/" type="rss"/>
+      <outline title="Oscar en Fotos" xmlUrl="https://oscarenfotos.com/feed/" type="rss" />
+      <outline title="Foto DNG" xmlUrl="https://fotodng.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (French)">
-      <outline title="Beauté Test" xmlUrl="https://www.beaute-test.com/feed.rss" type="rss"/>
-      <outline title="Makeup.fr" xmlUrl="https://www.makeup.fr/blog/feed/" type="rss"/>
-      <outline title="Les Nouvelles Esthétiques" xmlUrl="https://www.nouvellesesthetiques.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

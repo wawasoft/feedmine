@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Apple (Dutch)">
-      <outline title="iCulture" xmlUrl="https://www.iculture.nl/feed/" type="rss"/>
-      <outline title="OneMoreThing" xmlUrl="https://onemorething.nl/feed/" type="rss"/>
+      <outline title="iCulture" xmlUrl="https://www.iculture.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

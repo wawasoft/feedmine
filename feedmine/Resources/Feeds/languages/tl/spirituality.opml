@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Filipino)">
-      <outline title="Simbahang Lingkod ng Bayan" xmlUrl="https://slb.ph/feed/" type="rss"/>
-      <outline title="Sangha Philippines" xmlUrl="https://sanghaphilippines.org/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

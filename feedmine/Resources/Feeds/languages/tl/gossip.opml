@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Filipino)">
-      <outline title="PEP.ph" xmlUrl="https://www.pep.ph/rss/pep_rss_main.xml" type="rss"/>
-      <outline title="ABS-CBN Entertainment" xmlUrl="https://entertainment.abs-cbn.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

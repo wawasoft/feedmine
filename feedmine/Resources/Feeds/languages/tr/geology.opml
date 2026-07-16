@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Turkish)">
-      <outline title="TMMOB Jeoloji Mühendisleri Odası" xmlUrl="https://www.jmo.org.tr/rss" type="rss"/>
-      <outline title="Yerbilimleri" xmlUrl="https://yerbilimleri.hacettepe.edu.tr/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

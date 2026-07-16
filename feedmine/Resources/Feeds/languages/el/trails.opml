@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Greek)">
-      <outline title="Explore Greece - Πεζοπορία" xmlUrl="https://www.exploregreece.gr/feed/" type="rss"/>
-      <outline title="Ορειβασία και Πεζοπορία" xmlUrl="https://www.oreivatein.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

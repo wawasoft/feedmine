@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Law, Legal News (Italian)">
-      <outline title="Altalex" xmlUrl="https://www.altalex.com/feed" type="rss"/>
-      <outline title="La Legge per Tutti" xmlUrl="https://www.laleggepertutti.it/feed" type="rss"/>
-      <outline title="Studio Cataldi - Il diritto quotidiano" xmlUrl="https://www.studiocataldi.it/feed" type="rss"/>
+      <outline title="La Legge per Tutti" xmlUrl="https://www.laleggepertutti.it/feed" type="rss" />
+      <outline title="Studio Cataldi - Il diritto quotidiano" xmlUrl="https://www.studiocataldi.it/feed" type="rss" />
     </outline>
   </body>
 </opml>

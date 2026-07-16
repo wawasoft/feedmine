@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Hungarian)">
-      <outline title="Nemzeti Sport - Labdarúgás" xmlUrl="https://www.nemzetisport.hu/rss/labdarugas.xml" type="rss"/>
-      <outline title="M4 Sport - Labdarúgás" xmlUrl="https://m4sport.hu/rss/labdarugas" type="rss"/>
-      <outline title="Csakfoci.hu RSS" xmlUrl="https://www.csakfoci.hu/feed" type="rss"/>
-      <outline title="Rangadó.hu RSS" xmlUrl="https://rangado.hu/feed/" type="rss"/>
-      <outline title="Foci24 RSS" xmlUrl="https://foci24.hu/feed/" type="rss"/>
+      <outline title="M4 Sport - Labdarúgás" xmlUrl="https://m4sport.hu/rss/labdarugas" type="rss" />
+      <outline title="Csakfoci.hu RSS" xmlUrl="https://www.csakfoci.hu/feed" type="rss" />
+      <outline title="Rangadó.hu RSS" xmlUrl="https://rangado.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

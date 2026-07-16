@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Danish)">
-      <outline title="Nationalmuseet" xmlUrl="https://natmus.dk/feed/" type="rss"/>
-      <outline title="Museum for Varde og Omegn" xmlUrl="https://www.museetforvardeogomegn.dk/feed/" type="rss"/>
-      <outline title="Kunsthal Aarhus" xmlUrl="https://kunsthalaarhus.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

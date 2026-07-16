@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Swedish)">
-      <outline title="Veterinären" xmlUrl="https://www.veterinaren.se/feed/" type="rss"/>
-      <outline title="Djurens Rätt" xmlUrl="https://www.djurensratt.se/feed/" type="rss"/>
-      <outline title="Kattliv" xmlUrl="https://www.kattliv.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

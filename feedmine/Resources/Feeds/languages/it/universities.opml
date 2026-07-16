@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Universities (Italian)">
-      <outline title="Università degli Studi di Milano" xmlUrl="https://www.unimi.it/it/feed" type="rss"/>
-      <outline title="Alma Mater Studiorum Università di Bologna" xmlUrl="https://www.unibo.it/it/feed/rss/notizie" type="rss"/>
-      <outline title="Sapienza Università di Roma" xmlUrl="https://www.uniroma1.it/it/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

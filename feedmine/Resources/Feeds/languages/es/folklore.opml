@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Spanish)">
-      <outline title="Mitos y Leyendas" xmlUrl="https://www.mitosyleyendas.com/feed/" type="rss"/>
-      <outline title="Leyendas de España" xmlUrl="https://www.leyendasdeespana.com/feed/" type="rss"/>
-      <outline title="Folklore y Tradiciones" xmlUrl="https://www.folkloretradiciones.com/feed/" type="rss"/>
+      <outline title="Mitos y Leyendas" xmlUrl="https://www.mitosyleyendas.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

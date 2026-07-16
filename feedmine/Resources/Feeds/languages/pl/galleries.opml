@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Art Galleries (Polish)">
-      <outline title="Sztuka Publiczna" xmlUrl="https://sztukapubliczna.pl/feed/" type="rss"/>
-      <outline title="Magazyn Sztuki" xmlUrl="https://magazynsztuki.pl/feed/" type="rss"/>
-      <outline title="Artinfo.pl" xmlUrl="https://artinfo.pl/feed" type="rss"/>
+      <outline title="Magazyn Sztuki" xmlUrl="https://magazynsztuki.pl/feed/" type="rss" />
+      <outline title="Artinfo.pl" xmlUrl="https://artinfo.pl/feed" type="rss" />
     </outline>
   </body>
 </opml>

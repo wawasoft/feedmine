@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Architecture (Turkish)">
-      <outline title="Arkitera" xmlUrl="https://www.arkitera.com/feed/" type="rss"/>
-      <outline title="Mimdap" xmlUrl="https://www.mimdap.org/feed/" type="rss"/>
-      <outline title="Yapı Dergisi" xmlUrl="https://www.yapi.com.tr/rss" type="rss"/>
-      <outline title="Mimarizm" xmlUrl="https://www.mimarizm.com/rss" type="rss"/>
-      <outline title="Peyzaj Mimarlığı" xmlUrl="https://www.peyzajmimarisi.com/feed/" type="rss"/>
+      <outline title="Arkitera" xmlUrl="https://www.arkitera.com/feed/" type="rss" />
+      <outline title="Mimdap" xmlUrl="https://www.mimdap.org/feed/" type="rss" />
+      <outline title="Yapı Dergisi" xmlUrl="https://www.yapi.com.tr/rss" type="rss" />
     </outline>
   </body>
 </opml>

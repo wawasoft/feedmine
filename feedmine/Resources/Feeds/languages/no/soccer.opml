@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Norwegian)">
-      <outline title="NFF - Norges Fotballforbund" xmlUrl="https://www.fotball.no/rss/nyheter" type="rss"/>
-      <outline title="VG Sport - Fotball" xmlUrl="https://www.vg.no/rss/sport/fotball" type="rss"/>
-      <outline title="Dagbladet Sport - Fotball" xmlUrl="https://www.dagbladet.no/rss/sport/fotball" type="rss"/>
-      <outline title="Nettavisen Sport - Fotball" xmlUrl="https://www.nettavisen.no/rss/sport/fotball" type="rss"/>
-      <outline title="Eurosport Norge - Fotball" xmlUrl="https://www.eurosport.no/rss/fotball" type="rss"/>
+      <outline title="Nettavisen Sport - Fotball" xmlUrl="https://www.nettavisen.no/rss/sport/fotball" type="rss" />
     </outline>
   </body>
 </opml>

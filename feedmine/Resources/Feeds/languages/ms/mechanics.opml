@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Malay)">
-      <outline title="Kejuruteraan Mekanikal" xmlUrl="https://kejuruteraanmekanikal.blogspot.com/feeds/posts/default?alt=rss" type="rss"/>
-      <outline title="Malaysia Automotive" xmlUrl="https://www.malaysiaautomotive.com/feed/" type="rss"/>
+      <outline title="Kejuruteraan Mekanikal" xmlUrl="https://kejuruteraanmekanikal.blogspot.com/feeds/posts/default?alt=rss" type="rss" />
     </outline>
   </body>
 </opml>

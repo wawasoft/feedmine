@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Wine (Hungarian)">
-      <outline title="Borkultúra Magazin" xmlUrl="https://borkultura.hu/feed/" type="rss"/>
-      <outline title="BORÁSZAT.HU" xmlUrl="https://boraszat.hu/feed/" type="rss"/>
-      <outline title="Vinum Magazin" xmlUrl="https://vinum.hu/feed/" type="rss"/>
-      <outline title="Bortársaság Blog" xmlUrl="https://bortarsasag.hu/blog/feed/" type="rss"/>
+      <outline title="Borkultúra Magazin" xmlUrl="https://borkultura.hu/feed/" type="rss" />
+      <outline title="BORÁSZAT.HU" xmlUrl="https://boraszat.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="UFOs, Conspiracies (Czech)">
-      <outline title="Záhady a UFO" xmlUrl="https://www.zahadyaufo.cz/feed/" type="rss"/>
-      <outline title="Konspirační teorie" xmlUrl="https://konspiracniteorie.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

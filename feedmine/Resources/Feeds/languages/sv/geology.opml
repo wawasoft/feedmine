@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Geology, Geography (Swedish)">
-      <outline title="Geologiska Föreningen" xmlUrl="https://www.geologiskaforeningen.se/feed/" type="rss"/>
-      <outline title="Sveriges Geologiska Undersökning (SGU)" xmlUrl="https://www.sgu.se/feed/" type="rss"/>
-      <outline title="Naturvetarna - Geologi" xmlUrl="https://www.naturvetarna.se/feed/?category=geologi" type="rss"/>
+      <outline title="Geologiska Föreningen" xmlUrl="https://www.geologiskaforeningen.se/feed/" type="rss" />
+      <outline title="Sveriges Geologiska Undersökning (SGU)" xmlUrl="https://www.sgu.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

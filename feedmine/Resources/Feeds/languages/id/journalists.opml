@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Reference Journalists (Indonesian)">
-      <outline title="Kompas.com - Referensi Jurnalis" xmlUrl="https://www.kompas.com/rss" type="rss"/>
-      <outline title="Tempo.co" xmlUrl="https://www.tempo.co/rss" type="rss"/>
-      <outline title="Detik.com" xmlUrl="https://www.detik.com/rss" type="rss"/>
-      <outline title="Republika Online" xmlUrl="https://www.republika.co.id/rss" type="rss"/>
-      <outline title="Media Indonesia" xmlUrl="https://www.mediaindonesia.com/rss" type="rss"/>
+      <outline title="Republika Online" xmlUrl="https://www.republika.co.id/rss" type="rss" />
+      <outline title="Media Indonesia" xmlUrl="https://www.mediaindonesia.com/rss" type="rss" />
     </outline>
   </body>
 </opml>

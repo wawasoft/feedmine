@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Slovenian)">
-      <outline title="Fotografija.si" xmlUrl="https://www.fotografija.si/feed/" type="rss"/>
-      <outline title="Fototriper" xmlUrl="https://fototriper.com/feed/" type="rss"/>
-      <outline title="Fotografski blog" xmlUrl="https://fotografskiblog.si/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

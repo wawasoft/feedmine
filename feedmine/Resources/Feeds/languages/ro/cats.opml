@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Romanian)">
-      <outline title="Lumea Pisicilor" xmlUrl="https://lumeapisicilor.ro/feed" type="rss"/>
-      <outline title="Pisici și Oameni" xmlUrl="https://pisicisioameni.ro/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

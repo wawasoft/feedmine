@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Norwegian)">
-      <outline title="Minecraft – Spill.no" xmlUrl="https://www.spill.no/emner/minecraft/feed" type="rss"/>
-      <outline title="Roblox – Spill.no" xmlUrl="https://www.spill.no/emner/roblox/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

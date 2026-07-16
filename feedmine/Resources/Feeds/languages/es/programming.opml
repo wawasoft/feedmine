@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Programming (Spanish)">
-      <outline title="Genbeta Dev" xmlUrl="https://www.genbeta.com/dev/feed" type="rss"/>
-      <outline title="Programación en Español" xmlUrl="https://programacion-es.dev/feed.xml" type="rss"/>
-      <outline title="MuyLinux" xmlUrl="https://www.muylinux.com/feed" type="rss"/>
-      <outline title="Código Facilito" xmlUrl="https://codigofacilito.com/feed" type="rss"/>
-      <outline title="Parzibyte" xmlUrl="https://parzibyte.me/blog/feed/" type="rss"/>
+      <outline title="Programación en Español" xmlUrl="https://programacion-es.dev/feed.xml" type="rss" />
+      <outline title="MuyLinux" xmlUrl="https://www.muylinux.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

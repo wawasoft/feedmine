@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Universities (Finnish)">
-      <outline title="Helsingin yliopiston uutiset" xmlUrl="https://www.helsinki.fi/fi/uutiset/rss.xml" type="rss"/>
-      <outline title="Aalto-yliopiston uutiset" xmlUrl="https://www.aalto.fi/fi/uutiset/rss.xml" type="rss"/>
-      <outline title="Tampereen yliopiston uutiset" xmlUrl="https://www.tuni.fi/fi/uutiset/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

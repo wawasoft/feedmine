@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Finnish)">
-      <outline title="Meriliitto" xmlUrl="https://meriliitto.fi/feed/" type="rss"/>
-      <outline title="Merenkulkulaitos" xmlUrl="https://www.merenkulkulaitos.fi/feed" type="rss"/>
+      <outline title="Merenkulkulaitos" xmlUrl="https://www.merenkulkulaitos.fi/feed" type="rss" />
     </outline>
   </body>
 </opml>

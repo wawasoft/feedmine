@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Croatian)">
-      <outline title="Gradimo.hr" xmlUrl="https://www.gradimo.hr/rss" type="rss"/>
-      <outline title="Energetika-Efika" xmlUrl="https://www.energetika-efika.hr/feed/" type="rss"/>
+      <outline title="Gradimo.hr" xmlUrl="https://www.gradimo.hr/rss" type="rss" />
     </outline>
   </body>
 </opml>

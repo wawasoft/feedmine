@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Skateboarding (Romanian)">
-      <outline title="Skateboard Romania" xmlUrl="https://skateboardromania.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

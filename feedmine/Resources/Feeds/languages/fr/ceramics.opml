@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (French)">
-      <outline title="La Revue de la Céramique et du Verre" xmlUrl="https://www.revue-ceramique-verre.com/feed/" type="rss"/>
-      <outline title="Ceramic Magazine" xmlUrl="https://www.ceramicmagazine.fr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

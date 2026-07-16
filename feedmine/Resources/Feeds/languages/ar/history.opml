@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Arabic)">
-      <outline title="تاريخ - الجزيرة" xmlUrl="https://www.aljazeera.net/rss/history" type="rss"/>
-      <outline title="الموسوعة التاريخية" xmlUrl="https://www.history-museum.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

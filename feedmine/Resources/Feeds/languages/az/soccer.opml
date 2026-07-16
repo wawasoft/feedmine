@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Azerbaijani)">
-      <outline title="Qol.az" xmlUrl="https://qol.az/rss.xml" type="rss"/>
-      <outline title="Futbolpress.az" xmlUrl="https://futbolpress.az/rss.xml" type="rss"/>
-      <outline title="Sportal.az" xmlUrl="https://sportal.az/rss.xml" type="rss"/>
-      <outline title="Football.az" xmlUrl="https://football.az/rss.xml" type="rss"/>
-      <outline title="Azerisport.com" xmlUrl="https://www.azerisport.com/rss.xml" type="rss"/>
+      <outline title="Futbolpress.az" xmlUrl="https://futbolpress.az/rss.xml" type="rss" />
+      <outline title="Football.az" xmlUrl="https://football.az/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

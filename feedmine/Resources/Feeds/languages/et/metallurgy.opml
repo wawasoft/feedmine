@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Estonian)">
-      <outline title="Metallitööstuse Uudised" xmlUrl="https://www.metallitööstus.ee/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

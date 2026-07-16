@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Estonian)">
-      <outline title="Merendus - Postimees" xmlUrl="https://majandus.postimees.ee/rss/merendus" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

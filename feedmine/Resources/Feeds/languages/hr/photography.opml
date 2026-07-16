@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Croatian)">
-      <outline title="Fotografija.hr" xmlUrl="https://www.fotografija.hr/feed/" type="rss"/>
-      <outline title="PhotoArt.hr" xmlUrl="https://photoart.hr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

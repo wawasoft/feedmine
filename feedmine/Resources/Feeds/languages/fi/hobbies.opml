@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Hobbies (Finnish)">
-      <outline title="Harrastus.net" xmlUrl="https://www.harrastus.net/feed/" type="rss"/>
-      <outline title="Käsityö" xmlUrl="https://www.kasityo.fi/feed/" type="rss"/>
-      <outline title="Yle Harrastukset" xmlUrl="https://yle.fi/aihe/rss/harrastukset" type="rss"/>
+      <outline title="Käsityö" xmlUrl="https://www.kasityo.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Drag, Queer (Malay)">
-      <outline title="MyTransgender Malaysia" xmlUrl="https://mytransgender.com.my/feed/" type="rss"/>
-      <outline title="Pelangi Kampung" xmlUrl="https://pelangikampung.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

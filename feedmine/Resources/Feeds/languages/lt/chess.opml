@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Chess Feeds (Lithuanian)">
-      <outline title="Lietuvos šachmatų federacija" xmlUrl="https://lse.lt/feed/" type="rss"/>
-      <outline title="Šachmatų pasaulis" xmlUrl="https://sachmatupasaulis.lt/feed/" type="rss"/>
+      <outline title="Lietuvos šachmatų federacija" xmlUrl="https://lse.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

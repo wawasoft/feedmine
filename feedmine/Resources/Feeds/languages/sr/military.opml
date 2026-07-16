@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Military (Serbian)">
-      <outline title="Odbrana" xmlUrl="https://www.odbrana.mod.gov.rs/feed/" type="rss"/>
-      <outline title="Vojska Srbije" xmlUrl="https://www.vs.rs/feed/" type="rss"/>
+      <outline title="Vojska Srbije" xmlUrl="https://www.vs.rs/feed/" type="rss" />
     </outline>
   </body>
 </opml>

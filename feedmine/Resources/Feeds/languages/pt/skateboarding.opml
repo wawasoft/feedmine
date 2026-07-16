@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Skateboarding (Portuguese)">
-      <outline title="Skate Total" xmlUrl="https://skatetotal.com/feed/" type="rss"/>
-      <outline title="ZonaSkate" xmlUrl="https://zonaskate.com.br/feed/" type="rss"/>
-      <outline title="Skateboard.com.br" xmlUrl="https://skateboard.com.br/feed/" type="rss"/>
-      <outline title="Skate Brazil" xmlUrl="https://skatebrazil.com.br/feed/" type="rss"/>
-      <outline title="Fisk Skate" xmlUrl="https://fiskskate.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

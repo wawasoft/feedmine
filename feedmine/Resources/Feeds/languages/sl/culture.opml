@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Culture Feeds (Slovenian)">
-      <outline title="RTV Slovenija - Kultura" xmlUrl="https://www.rtvslo.si/kultura/feed/" type="rss"/>
-      <outline title="Delo - Kultura" xmlUrl="https://www.delo.si/kultura/feed/" type="rss"/>
-      <outline title="Mladina - Kultura" xmlUrl="https://www.mladina.si/feed/category/18/" type="rss"/>
-      <outline title="Siol.net - Kultura" xmlUrl="https://siol.net/feed/kultura" type="rss"/>
-      <outline title="Dnevnik - Kultura" xmlUrl="https://www.dnevnik.si/feed/kultura" type="rss"/>
+      <outline title="RTV Slovenija - Kultura" xmlUrl="https://www.rtvslo.si/kultura/feed/" type="rss" />
+      <outline title="Mladina - Kultura" xmlUrl="https://www.mladina.si/feed/category/18/" type="rss" />
     </outline>
   </body>
 </opml>

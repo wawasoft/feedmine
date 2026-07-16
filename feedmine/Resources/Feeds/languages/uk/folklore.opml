@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Ukrainian)">
-      <outline title="Український фольклор" xmlUrl="https://folklore.ua/feed" type="rss"/>
-      <outline title="Міфологія України" xmlUrl="https://mythology.ua/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Russian)">
-      <outline title="Чемпионат.com - Футбол" xmlUrl="https://www.championat.com/rss/news/football.xml" type="rss"/>
-      <outline title="Sports.ru - Футбол" xmlUrl="https://www.sports.ru/rss/football.xml" type="rss"/>
-      <outline title="Евроспорт - Футбол" xmlUrl="https://www.eurosport.ru/football/rss.xml" type="rss"/>
-      <outline title="Football.ua - Новости" xmlUrl="https://football.ua/rss/news.xml" type="rss"/>
-      <outline title="Бомбардир - Футбол" xmlUrl="https://bombardir.ru/rss" type="rss"/>
+      <outline title="Евроспорт - Футбол" xmlUrl="https://www.eurosport.ru/football/rss.xml" type="rss" />
+      <outline title="Бомбардир - Футбол" xmlUrl="https://bombardir.ru/rss" type="rss" />
     </outline>
   </body>
 </opml>

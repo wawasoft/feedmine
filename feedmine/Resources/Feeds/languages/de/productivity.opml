@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (German)">
-      <outline title="Produktivität &amp; Zeitmanagement Blog" xmlUrl="https://produktivitaet.org/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

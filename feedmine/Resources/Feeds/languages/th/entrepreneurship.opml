@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Thai)">
-      <outline title="Startup Thailand" xmlUrl="https://www.startupthailand.org/feed/" type="rss"/>
-      <outline title="Techsauce" xmlUrl="https://techsauce.co/feed" type="rss"/>
-      <outline title="Brand Inside" xmlUrl="https://brandinside.blog/feed/" type="rss"/>
+      <outline title="Startup Thailand" xmlUrl="https://www.startupthailand.org/feed/" type="rss" />
+      <outline title="Techsauce" xmlUrl="https://techsauce.co/feed" type="rss" />
     </outline>
   </body>
 </opml>

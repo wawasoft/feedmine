@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Norwegian)">
-      <outline title="Hørselhemmede" xmlUrl="https://www.horselshemmede.no/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

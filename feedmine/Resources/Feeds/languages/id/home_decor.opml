@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Indonesian)">
-      <outline title="Dekoruma" xmlUrl="https://www.dekoruma.com/blog/feed/" type="rss"/>
-      <outline title="Rumah.com" xmlUrl="https://www.rumah.com/feed/" type="rss"/>
-      <outline title="Arsitag" xmlUrl="https://www.arsitag.com/feed/" type="rss"/>
+      <outline title="Rumah.com" xmlUrl="https://www.rumah.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

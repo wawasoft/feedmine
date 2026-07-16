@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (French)">
-      <outline title="Purepeople" xmlUrl="https://www.purepeople.com/rss.xml" type="rss"/>
-      <outline title="Voici" xmlUrl="https://www.voici.fr/rss.xml" type="rss"/>
-      <outline title="Closer" xmlUrl="https://www.closermag.fr/rss.xml" type="rss"/>
-      <outline title="Public" xmlUrl="https://www.public.fr/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

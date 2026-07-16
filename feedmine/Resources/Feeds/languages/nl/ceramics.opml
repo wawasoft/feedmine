@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Pottery (Dutch)">
-      <outline title="Kleiwijs - Keramiek blog" xmlUrl="https://kleiwijs.nl/feed/" type="rss"/>
-      <outline title="Keramiek Atelier - Blog" xmlUrl="https://www.keramiekatelier.nl/feed/" type="rss"/>
-      <outline title="Pottenbakken.nl" xmlUrl="https://pottenbakken.nl/feed/" type="rss"/>
+      <outline title="Keramiek Atelier - Blog" xmlUrl="https://www.keramiekatelier.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -68,7 +68,6 @@
     <outline text="More Substack &amp; Independent">
       <outline title="Scott Alexander — Astral Codex Ten" xmlUrl="https://astralcodexten.substack.com/feed" type="rss" />
       <outline title="David Remnick — New Yorker" xmlUrl="https://www.newyorker.com/feed/contributor/david-remnick" type="rss" />
-      <outline title="George Packer — The Atlantic" xmlUrl="https://www.theatlantic.com/feed/author/george-packer/" type="rss" />
       <outline title="Masha Gessen — New Yorker" xmlUrl="https://www.newyorker.com/feed/contributor/masha-gessen" type="rss" />
       <outline title="Jonah Goldberg — The Remnant" xmlUrl="https://thedispatch.com/feed/" type="rss" />
       <outline title="Damon Linker" xmlUrl="https://damonlinker.substack.com/feed" type="rss" />

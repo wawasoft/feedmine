@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Architecture (Russian)">
-      <outline title="Architecture &amp; Design" xmlUrl="https://www.architecturedesign.ru/feed" type="rss"/>
-      <outline title="Архитектурный вестник" xmlUrl="https://arhvestnik.ru/feed" type="rss"/>
+      <outline title="Architecture &amp; Design" xmlUrl="https://www.architecturedesign.ru/feed" type="rss" />
     </outline>
   </body>
 </opml>

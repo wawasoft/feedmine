@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Tech Feeds (Serbian)">
-      <outline title="Benchmark" xmlUrl="https://benchmark.rs/rss" type="rss"/>
-      <outline title="PC Press" xmlUrl="https://pcpress.rs/feed/" type="rss"/>
-      <outline title="Netokracija" xmlUrl="https://www.netokracija.rs/feed/" type="rss"/>
-      <outline title="Bug" xmlUrl="https://bug.hr/rss/" type="rss"/>
+      <outline title="Benchmark" xmlUrl="https://benchmark.rs/rss" type="rss" />
+      <outline title="Netokracija" xmlUrl="https://www.netokracija.rs/feed/" type="rss" />
+      <outline title="Bug" xmlUrl="https://bug.hr/rss/" type="rss" />
     </outline>
   </body>
 </opml>

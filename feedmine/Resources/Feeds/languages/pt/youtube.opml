@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Portuguese)">
-      <outline title="YouTube Brasil Blog" xmlUrl="https://blog.youtube/pt-br/feed/" type="rss"/>
-      <outline title="YouTube Criadores" xmlUrl="https://blog.youtube/creator/pt-br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

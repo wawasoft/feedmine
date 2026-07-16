@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Law, Legal News (Estonian)">
-      <outline title="Õigusabi.ee" xmlUrl="https://www.oigusabi.ee/feed" type="rss"/>
-      <outline title="Riigi Teataja" xmlUrl="https://www.riigiteataja.ee/feed/" type="rss"/>
-      <outline title="Advokaadibüroo Triniti" xmlUrl="https://www.triniti.ee/feed/" type="rss"/>
+      <outline title="Riigi Teataja" xmlUrl="https://www.riigiteataja.ee/feed/" type="rss" />
+      <outline title="Advokaadibüroo Triniti" xmlUrl="https://www.triniti.ee/feed/" type="rss" />
     </outline>
   </body>
 </opml>

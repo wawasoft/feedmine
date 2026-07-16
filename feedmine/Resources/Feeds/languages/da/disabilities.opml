@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Danish)">
-      <outline title="Døvebladet" xmlUrl="https://døvebladet.dk/feed/" type="rss"/>
-      <outline title="Blindesagen" xmlUrl="https://blindesagen.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

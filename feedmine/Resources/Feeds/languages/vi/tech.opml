@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Tech Feeds (Vietnamese)">
-      <outline title="VNReview - Công nghệ" xmlUrl="https://vnreview.vn/rss/cong-nghe.rss" type="rss"/>
-      <outline title="Techzine" xmlUrl="https://techzine.vn/feed/" type="rss"/>
-      <outline title="GenK" xmlUrl="https://genk.vn/rss/home.rss" type="rss"/>
-      <outline title="VnExpress - Số hóa" xmlUrl="https://vnexpress.net/rss/so-hoa.rss" type="rss"/>
-      <outline title="ICTNews" xmlUrl="https://ictnews.vietnamnet.vn/rss/" type="rss"/>
+      <outline title="VNReview - Công nghệ" xmlUrl="https://vnreview.vn/rss/cong-nghe.rss" type="rss" />
+      <outline title="GenK" xmlUrl="https://genk.vn/rss/home.rss" type="rss" />
+      <outline title="ICTNews" xmlUrl="https://ictnews.vietnamnet.vn/rss/" type="rss" />
     </outline>
   </body>
 </opml>

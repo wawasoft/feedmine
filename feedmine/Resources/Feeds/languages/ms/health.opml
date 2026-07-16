@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Health (Malay)">
-      <outline title="Portal Kesihatan Malaysia" xmlUrl="https://www.kesihatan.com.my/feed/" type="rss"/>
-      <outline title="Hello Doktor" xmlUrl="https://hellodoktor.com/feed/" type="rss"/>
+      <outline title="Hello Doktor" xmlUrl="https://hellodoktor.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

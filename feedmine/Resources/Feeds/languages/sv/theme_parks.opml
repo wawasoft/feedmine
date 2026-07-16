@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Swedish)">
-      <outline title="Nojesfalken" xmlUrl="https://www.nojesfalken.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

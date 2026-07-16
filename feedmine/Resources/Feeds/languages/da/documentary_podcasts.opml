@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Danish)">
-      <outline title="DR Lyd - Dokumentar" xmlUrl="https://www.dr.dk/lyd/podcast/dokumentar/rss.xml" type="rss"/>
-      <outline title="Podcast.dk - Dokumentar" xmlUrl="https://podcast.dk/kategori/dokumentar/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

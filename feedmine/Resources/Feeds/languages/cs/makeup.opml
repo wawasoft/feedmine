@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Czech)">
-      <outline title="Líčení a kosmetika" xmlUrl="https://liceniakosmetika.cz/feed/" type="rss"/>
-      <outline title="Kosmetika v kostce" xmlUrl="https://kosmetikavkostce.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

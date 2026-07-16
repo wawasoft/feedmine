@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Thai)">
-      <outline title="งานอดิเรก" xmlUrl="https://www.hobbythai.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Vietnamese)">
-      <outline title="Blog Của Tôi - Blog cá nhân" xmlUrl="https://blogcuatoi.com/feed/" type="rss"/>
-      <outline title="Spiderum - Blog" xmlUrl="https://spiderum.com/rss" type="rss"/>
-      <outline title="VnBlogs - Top blog Việt" xmlUrl="https://vnblogs.com/feed/" type="rss"/>
+      <outline title="Blog Của Tôi - Blog cá nhân" xmlUrl="https://blogcuatoi.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

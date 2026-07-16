@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Family, Relationships (Italian)">
-      <outline title="Uppa" xmlUrl="https://www.uppa.it/feed/" type="rss"/>
-      <outline title="BimbiSaniBelli" xmlUrl="https://www.bimbisani.belli.it/feed/" type="rss"/>
-      <outline title="Genitorialmente" xmlUrl="https://www.genitorialmente.it/feed/" type="rss"/>
-      <outline title="La Tela" xmlUrl="https://www.latela.it/feed/" type="rss"/>
-      <outline title="Mamma Che Bontà" xmlUrl="https://www.mammachebonta.it/feed/" type="rss"/>
+      <outline title="Uppa" xmlUrl="https://www.uppa.it/feed/" type="rss" />
+      <outline title="Genitorialmente" xmlUrl="https://www.genitorialmente.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

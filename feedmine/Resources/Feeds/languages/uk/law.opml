@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Ukrainian)">
-      <outline title="Юридична газета" xmlUrl="https://yur-gazeta.com/rss.xml" type="rss"/>
-      <outline title="Закон і Бізнес" xmlUrl="https://zib.com.ua/rss.xml" type="rss"/>
-      <outline title="ЛІГА:Закон" xmlUrl="https://news.liga.net/law/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

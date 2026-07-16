@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Automotive (Arabic)">
-      <outline title="عالم السيارات" xmlUrl="https://www.alamalsyarat.com/feed/" type="rss"/>
-      <outline title="موتري" xmlUrl="https://www.motory.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

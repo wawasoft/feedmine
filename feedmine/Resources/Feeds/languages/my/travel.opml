@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Burmese)">
-      <outline title="ခရီးသွားမြန်မာ" xmlUrl="https://travelmyanmar.com/rss" type="rss"/>
-      <outline title="မြန်မာ့ခရီးသွား" xmlUrl="https://myanmartravelblog.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Design Feeds (Czech)">
-      <outline title="DesignMagazin.cz" xmlUrl="https://www.designmagazin.cz/feed/" type="rss"/>
-      <outline title="CzechDesign" xmlUrl="https://www.czechdesign.cz/feed/" type="rss"/>
-      <outline title="Design Cabinet" xmlUrl="https://www.designcabinet.cz/feed/" type="rss"/>
-      <outline title="Earch.cz - Architektura a design" xmlUrl="https://www.earch.cz/feed/" type="rss"/>
-      <outline title="Grafika.cz" xmlUrl="https://www.grafika.cz/feed/" type="rss"/>
+      <outline title="DesignMagazin.cz" xmlUrl="https://www.designmagazin.cz/feed/" type="rss" />
+      <outline title="CzechDesign" xmlUrl="https://www.czechdesign.cz/feed/" type="rss" />
+      <outline title="Grafika.cz" xmlUrl="https://www.grafika.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

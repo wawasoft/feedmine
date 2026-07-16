@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Romanian)">
-      <outline title="Arcade Romania" xmlUrl="https://arcaderomania.ro/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

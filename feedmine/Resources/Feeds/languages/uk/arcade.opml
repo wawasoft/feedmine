@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Ukrainian)">
-      <outline title="Pinball News Україна" xmlUrl="https://pinball.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

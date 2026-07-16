@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Cycling (Finnish)">
-      <outline title="Pyöräilyliitto" xmlUrl="https://www.pyorailyliitto.fi/feed/" type="rss"/>
-      <outline title="Fillari-lehti" xmlUrl="https://fillarilehti.fi/feed/" type="rss"/>
-      <outline title="Pyöräilykuntien verkosto" xmlUrl="https://www.pyoraily.fi/feed/" type="rss"/>
+      <outline title="Pyöräilykuntien verkosto" xmlUrl="https://www.pyoraily.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

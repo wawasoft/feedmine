@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Dogs (Norwegian)">
-      <outline title="Hund" xmlUrl="https://www.hund.no/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

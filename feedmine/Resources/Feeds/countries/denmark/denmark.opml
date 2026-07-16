@@ -29,7 +29,6 @@
       <outline title="MereMobil" xmlUrl="https://meremobil.dk/rss/" type="rss" />
       <outline title="Techsavvy" xmlUrl="https://techsavvy.dk/feed/" type="rss" />
       <outline title="Digital DK" xmlUrl="https://www.digital.dk/feed/" type="rss" />
-      <outline title="Prosa" xmlUrl="https://www.prosa.dk/rss/" type="rss" />
     </outline>
     <outline text="Science">
       <outline title="Videnskab.dk" xmlUrl="https://videnskab.dk/rss.xml" type="rss" />
@@ -97,7 +96,6 @@
       <outline title="Havedesign" xmlUrl="https://www.havedesign.dk/feed/" type="rss" />
     </outline>
     <outline text="History">
-      <outline title="Nationalmuseet" xmlUrl="https://natmus.dk/rss/" type="rss" />
       <outline title="Rigsarkivet" xmlUrl="https://www.sa.dk/rss/" type="rss" />
     </outline>
     <outline text="Architecture">

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Persian)">
-      <outline title="متن‌های حاشیه‌ای" xmlUrl="https://matnha.ir/feed" type="rss"/>
-      <outline title="وبلاگ کتاب" xmlUrl="https://www.ketab.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

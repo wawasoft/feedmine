@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="News Feeds (Armenian)">
-      <outline title="Ազատություն ռադիոկայան" xmlUrl="https://www.azatutyun.am/rss/hy/" type="rss"/>
-      <outline title="PanARMENIAN.Net" xmlUrl="https://www.panarmenian.net/rss/hy/" type="rss"/>
-      <outline title="Armenpress" xmlUrl="https://armenpress.am/arm/rss.xml" type="rss"/>
-      <outline title="Hetq Online" xmlUrl="https://hetq.am/hy/rss" type="rss"/>
-      <outline title="News.am" xmlUrl="https://news.am/arm/rss/" type="rss"/>
+      <outline title="Ազատություն ռադիոկայան" xmlUrl="https://www.azatutyun.am/rss/hy/" type="rss" />
+      <outline title="Hetq Online" xmlUrl="https://hetq.am/hy/rss" type="rss" />
+      <outline title="News.am" xmlUrl="https://news.am/arm/rss/" type="rss" />
     </outline>
   </body>
 </opml>

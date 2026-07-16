@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Indonesian)">
-      <outline title="Teka Teki Silang Indonesia" xmlUrl="https://tekatekisilangindonesia.wordpress.com/feed/" type="rss"/>
-      <outline title="Asah Otak" xmlUrl="https://asahotak.com/feed/" type="rss"/>
+      <outline title="Teka Teki Silang Indonesia" xmlUrl="https://tekatekisilangindonesia.wordpress.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

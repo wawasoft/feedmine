@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Vietnamese)">
-      <outline title="Nội thất &amp; Trang trí" xmlUrl="https://noithatviet.vn/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

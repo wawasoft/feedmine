@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Serbian)">
-      <outline title="EkoBlog" xmlUrl="https://ekoblog.rs/feed/" type="rss"/>
-      <outline title="Zelena Srbija" xmlUrl="https://zelenasrbija.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Greek)">
-      <outline title="Σταυρόλεξα - Crossword.gr" xmlUrl="https://www.crossword.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

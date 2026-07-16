@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Computing (Spanish)">
-      <outline title="Genbeta" xmlUrl="https://www.genbeta.com/feed" type="rss"/>
-      <outline title="Xataka" xmlUrl="https://www.xataka.com/feed" type="rss"/>
-      <outline title="MuyComputer" xmlUrl="https://www.muycomputer.com/feed/" type="rss"/>
-      <outline title="El Androide Libre" xmlUrl="https://elandroidelibre.elespanol.com/feed" type="rss"/>
-      <outline title="Computer Hoy" xmlUrl="https://computerhoy.com/feed" type="rss"/>
+      <outline title="MuyComputer" xmlUrl="https://www.muycomputer.com/feed/" type="rss" />
+      <outline title="El Androide Libre" xmlUrl="https://elandroidelibre.elespanol.com/feed" type="rss" />
+      <outline title="Computer Hoy" xmlUrl="https://computerhoy.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Arabic)">
-      <outline title="العلاقات الدولية - الجزيرة" xmlUrl="https://www.aljazeera.net/rss/international" type="rss"/>
-      <outline title="مركز الجزيرة للدراسات" xmlUrl="https://studies.aljazeera.net/ar/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Documentary (Russian)">
-      <outline title="Радио Свобода — Подкасты" xmlUrl="https://www.svoboda.org/rss/podcast" type="rss"/>
-      <outline title="Теория всего — Подкаст" xmlUrl="https://theoryofeverything.ru/feed" type="rss"/>
-      <outline title="Зачем я это увидел? — Подкаст" xmlUrl="https://zachemyaetouvidell.ru/feed" type="rss"/>
+      <outline title="Радио Свобода — Подкасты" xmlUrl="https://www.svoboda.org/rss/podcast" type="rss" />
     </outline>
   </body>
 </opml>

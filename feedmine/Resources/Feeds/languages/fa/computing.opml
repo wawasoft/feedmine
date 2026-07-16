@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Computing (Persian)">
-      <outline title="رایانه" xmlUrl="https://www.rayaneh.com/rss" type="rss"/>
-      <outline title="وبلاگ فناوری" xmlUrl="https://www.technologyblog.ir/rss" type="rss"/>
+      <outline title="رایانه" xmlUrl="https://www.rayaneh.com/rss" type="rss" />
     </outline>
   </body>
 </opml>

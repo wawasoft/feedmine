@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Greek)">
-      <outline title="Spirituality - Ψυχική Υγεία" xmlUrl="https://www.psychologynow.gr/rss/spirituality.xml" type="rss"/>
-      <outline title="Ενσυνειδητότητα - Mindfulness" xmlUrl="https://www.mindfulness.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

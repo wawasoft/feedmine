@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Hungarian)">
-      <outline title="Folklore.hu" xmlUrl="https://folklore.hu/feed/" type="rss"/>
-      <outline title="Néprajz" xmlUrl="https://neprajz.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

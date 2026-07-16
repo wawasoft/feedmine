@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Thai)">
-      <outline title="อ่านเอาเรื่อง" xmlUrl="https://readawruang.com/feed/" type="rss"/>
-      <outline title="The Booksmith" xmlUrl="https://www.thebooksmith.co/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

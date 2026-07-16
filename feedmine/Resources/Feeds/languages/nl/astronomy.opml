@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Dutch)">
-      <outline title="Astronomie.nl" xmlUrl="https://www.astronomie.nl/nieuws/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

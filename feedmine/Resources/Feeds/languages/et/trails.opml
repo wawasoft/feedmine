@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Estonian)">
-      <outline title="RMK Matkateed" xmlUrl="https://www.rmk.ee/rss/matkateed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

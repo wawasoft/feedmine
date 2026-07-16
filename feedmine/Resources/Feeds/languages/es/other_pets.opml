@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Spanish)">
-      <outline title="Mundo Animal" xmlUrl="https://www.mundoanimalia.com/feed/" type="rss"/>
-      <outline title="Experto Animal" xmlUrl="https://www.expertoanimal.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

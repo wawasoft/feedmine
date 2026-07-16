@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Sports (Estonian)">
-      <outline title="Delfi Sport" xmlUrl="https://www.delfi.ee/rss/sport" type="rss"/>
-      <outline title="Postimees Sport" xmlUrl="https://sport.postimees.ee/rss" type="rss"/>
-      <outline title="ERR Sport" xmlUrl="https://sport.err.ee/rss" type="rss"/>
+      <outline title="Postimees Sport" xmlUrl="https://sport.postimees.ee/rss" type="rss" />
+      <outline title="ERR Sport" xmlUrl="https://sport.err.ee/rss" type="rss" />
     </outline>
   </body>
 </opml>

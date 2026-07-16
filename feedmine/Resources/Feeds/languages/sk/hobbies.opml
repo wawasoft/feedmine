@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Hobbies (Slovak)">
-      <outline title="Záhradkár.sk" xmlUrl="https://www.zahradkar.sk/rss/" type="rss"/>
-      <outline title="Rybolov.sk" xmlUrl="https://www.rybolov.sk/rss/" type="rss"/>
-      <outline title="Modelár.sk" xmlUrl="https://modelar.sk/feed/" type="rss"/>
-      <outline title="Fotografovanie.sk" xmlUrl="https://fotografovanie.sk/feed/" type="rss"/>
-      <outline title="Hubár.sk" xmlUrl="https://hubar.sk/feed/" type="rss"/>
+      <outline title="Záhradkár.sk" xmlUrl="https://www.zahradkar.sk/rss/" type="rss" />
     </outline>
   </body>
 </opml>

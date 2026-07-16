@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Swedish)">
-      <outline title="Svenska Pinball" xmlUrl="https://www.svenskapinball.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

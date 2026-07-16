@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Amharic)">
-      <outline title="የዩቲዩብ አማርኛ ቻናሎች ዜና" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQlB4k5eM5m5m5m5m5m5m5m5" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

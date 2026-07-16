@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (Russian)">
-      <outline title="Театральный журнал" xmlUrl="https://teatr-journal.ru/feed/" type="rss"/>
-      <outline title="Театрон" xmlUrl="https://teatron-journal.ru/feed/" type="rss"/>
-      <outline title="Петербургский театральный журнал" xmlUrl="https://ptj.spb.ru/feed/" type="rss"/>
-      <outline title="Театрал" xmlUrl="https://teatral-online.ru/feed/" type="rss"/>
-      <outline title="Московский театр" xmlUrl="https://moskovskij-teatr.ru/feed/" type="rss"/>
+      <outline title="Петербургский театральный журнал" xmlUrl="https://ptj.spb.ru/feed/" type="rss" />
     </outline>
   </body>
 </opml>

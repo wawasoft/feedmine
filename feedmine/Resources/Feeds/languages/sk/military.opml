@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Military (Slovak)">
-      <outline title="Armáda SR" xmlUrl="https://www.mosr.sk/feed/" type="rss"/>
-      <outline title="Vojenský magazín" xmlUrl="https://www.vojensky-magazin.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

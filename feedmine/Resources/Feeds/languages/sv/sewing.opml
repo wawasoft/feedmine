@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Swedish)">
-      <outline title="Sömnadsbloggen" xmlUrl="https://somandsbloggen.se/feed/" type="rss"/>
-      <outline title="Allt om Symaskiner" xmlUrl="https://alltomsymaskiner.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Wine (German)">
-      <outline title="Wein-Plus Magazin" xmlUrl="https://www.wein-plus.eu/de/feed.rss" type="rss"/>
-      <outline title="Vinum Magazin" xmlUrl="https://www.vinum.eu/feed/" type="rss"/>
-      <outline title="Weinblog.de" xmlUrl="https://weinblog.de/feed/" type="rss"/>
+      <outline title="Wein-Plus Magazin" xmlUrl="https://www.wein-plus.eu/de/feed.rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Lithuanian)">
-      <outline title="Duomenų mokslas Lietuvoje" xmlUrl="https://duomenumokslas.lt/feed/" type="rss"/>
-      <outline title="VU Duomenų mokslas" xmlUrl="https://www.vu.lt/rss/duomenu-mokslas" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

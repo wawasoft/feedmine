@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Lithuanian)">
-      <outline title="Lietuvių folkloras" xmlUrl="https://www.folkloras.lt/feed/" type="rss"/>
-      <outline title="Tautosakos darbai" xmlUrl="https://www.tautosakosdarbai.lt/feed/" type="rss"/>
-      <outline title="Mitologija ir folkloras" xmlUrl="https://www.mitologija.lt/feed/" type="rss"/>
+      <outline title="Lietuvių folkloras" xmlUrl="https://www.folkloras.lt/feed/" type="rss" />
+      <outline title="Mitologija ir folkloras" xmlUrl="https://www.mitologija.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

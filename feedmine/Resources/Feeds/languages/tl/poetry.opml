@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Poetry (Filipino)">
-      <outline title="Poetry in Filipino" xmlUrl="https://poetryinphilippines.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="Tula Pilipinas" xmlUrl="https://tulapilipinas.blogspot.com/feeds/posts/default" type="rss"/>
+      <outline title="Tula Pilipinas" xmlUrl="https://tulapilipinas.blogspot.com/feeds/posts/default" type="rss" />
     </outline>
   </body>
 </opml>

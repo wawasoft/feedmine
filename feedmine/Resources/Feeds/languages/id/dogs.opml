@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Dogs (Indonesian)">
-      <outline title="Anjing Indah" xmlUrl="https://anjingindah.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

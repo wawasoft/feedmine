@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Tech Feeds (Hungarian)">
-      <outline title="TechWorld.hu RSS" xmlUrl="https://techworld.hu/feed/" type="rss"/>
-      <outline title="HWSW RSS" xmlUrl="https://www.hwsw.hu/rss.xml" type="rss"/>
-      <outline title="Prohardver.hu RSS" xmlUrl="https://prohardver.hu/rss.xml" type="rss"/>
-      <outline title="IT café RSS" xmlUrl="https://itcafe.hu/rss.xml" type="rss"/>
-      <outline title="Mobilarena RSS" xmlUrl="https://mobilarena.hu/rss.xml" type="rss"/>
+      <outline title="TechWorld.hu RSS" xmlUrl="https://techworld.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

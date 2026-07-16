@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Wine (French)">
-      <outline title="La Revue du vin de France" xmlUrl="https://www.larvf.com/feed/" type="rss"/>
-      <outline title="Terre de Vins" xmlUrl="https://www.terredevins.com/feed/" type="rss"/>
-      <outline title="Le Figaro Vin" xmlUrl="https://avis-vin.lefigaro.fr/feed/" type="rss"/>
+      <outline title="Terre de Vins" xmlUrl="https://www.terredevins.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

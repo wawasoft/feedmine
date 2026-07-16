@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Tech Feeds (Burmese)">
-      <outline title="မြန်မာနည်းပညာ" xmlUrl="https://myanmartechnews.com/rss" type="rss"/>
-      <outline title="အိုင်တီနှင့်နည်းပညာ" xmlUrl="https://itmyanmar.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

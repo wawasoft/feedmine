@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Dutch)">
-      <outline title="Wandelroutes" xmlUrl="https://www.wandelroutes.nl/feed/" type="rss"/>
-      <outline title="Fietsroutes" xmlUrl="https://www.fietsroutes.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

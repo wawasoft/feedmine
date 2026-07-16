@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Health (Filipino)">
-      <outline title="Philstar Health" xmlUrl="https://www.philstar.com/rss/health" type="rss"/>
-      <outline title="Inquirer Health" xmlUrl="https://www.inquirer.net/fullsearch?q=health&amp;format=rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

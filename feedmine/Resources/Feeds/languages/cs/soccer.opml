@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Czech)">
-      <outline title="Fotbal.cz" xmlUrl="https://www.fotbal.cz/rss/" type="rss"/>
-      <outline title="iSport Fotbal" xmlUrl="https://isport.blesk.cz/rss/fotbal.xml" type="rss"/>
-      <outline title="EuroFotbal" xmlUrl="https://www.eurofotbal.cz/rss/" type="rss"/>
+      <outline title="iSport Fotbal" xmlUrl="https://isport.blesk.cz/rss/fotbal.xml" type="rss" />
     </outline>
   </body>
 </opml>

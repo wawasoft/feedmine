@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Finnish)">
-      <outline title="Ajanhallinta.fi" xmlUrl="https://ajanhallinta.fi/feed/" type="rss"/>
-      <outline title="GTD Finland" xmlUrl="https://gtd.fi/feed/" type="rss"/>
+      <outline title="GTD Finland" xmlUrl="https://gtd.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

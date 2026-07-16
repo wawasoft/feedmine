@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Design Feeds (Ukrainian)">
-      <outline title="Дизайн в Україні" xmlUrl="https://designinua.com/feed/" type="rss"/>
-      <outline title="Creatives" xmlUrl="https://creatives.com.ua/feed/" type="rss"/>
-      <outline title="Web Design UA" xmlUrl="https://webdesign.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

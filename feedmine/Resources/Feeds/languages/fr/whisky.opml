@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Whisky (French)">
-      <outline title="Whisky Magazine France" xmlUrl="https://www.whiskymag.fr/feed/" type="rss"/>
-      <outline title="La Maison du Whisky" xmlUrl="https://www.whisky.fr/blog/feed/" type="rss"/>
+      <outline title="Whisky Magazine France" xmlUrl="https://www.whiskymag.fr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

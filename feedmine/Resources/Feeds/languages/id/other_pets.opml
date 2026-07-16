@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Indonesian)">
-      <outline title="HaiBunda - Hewan Peliharaan" xmlUrl="https://www.haibunda.com/feed/hewan-peliharaan" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

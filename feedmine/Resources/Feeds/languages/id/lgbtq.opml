@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Drag, Queer (Indonesian)">
-      <outline title="Suara.com - LGBTQ" xmlUrl="https://www.suara.com/tag/lgbt/rss" type="rss"/>
-      <outline title="Kumparan - LGBTQ" xmlUrl="https://kumparan.com/tag/lgbt/rss" type="rss"/>
-      <outline title="Tirto.id - LGBTQ" xmlUrl="https://tirto.id/tag/lgbt/rss" type="rss"/>
-      <outline title="Detik.com - LGBTQ" xmlUrl="https://www.detik.com/tag/lgbt/rss" type="rss"/>
-      <outline title="CNN Indonesia - LGBTQ" xmlUrl="https://www.cnnindonesia.com/tag/lgbt/rss" type="rss"/>
+      <outline title="Suara.com - LGBTQ" xmlUrl="https://www.suara.com/tag/lgbt/rss" type="rss" />
     </outline>
   </body>
 </opml>

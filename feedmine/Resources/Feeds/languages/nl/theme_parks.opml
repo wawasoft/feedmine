@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Dutch)">
-      <outline title="Pretparken" xmlUrl="https://www.pretparken.be/feed/" type="rss"/>
-      <outline title="Looopings" xmlUrl="https://www.looopings.nl/feed.xml" type="rss"/>
+      <outline title="Looopings" xmlUrl="https://www.looopings.nl/feed.xml" type="rss" />
     </outline>
   </body>
 </opml>

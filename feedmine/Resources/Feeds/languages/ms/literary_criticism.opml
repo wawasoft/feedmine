@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Malay)">
-      <outline title="Kakiseni" xmlUrl="https://www.kakiseni.com/feed/" type="rss"/>
-      <outline title="Buku dan Sastera" xmlUrl="https://bukudansastera.blogspot.com/feeds/posts/default?alt=rss" type="rss"/>
+      <outline title="Kakiseni" xmlUrl="https://www.kakiseni.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

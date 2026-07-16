@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Audiophilia, Vinyl Records (German)">
-      <outline title="LowBeats" xmlUrl="https://www.lowbeats.de/feed/" type="rss"/>
-      <outline title="Fairaudio" xmlUrl="https://www.fairaudio.de/feed/" type="rss"/>
-      <outline title="Vinylfan" xmlUrl="https://www.vinylfan.de/feed/" type="rss"/>
-      <outline title="Hörzone" xmlUrl="https://www.hoerzone.de/feed/" type="rss"/>
-      <outline title="Analog Audio" xmlUrl="https://www.analog-audio.de/feed/" type="rss"/>
+      <outline title="LowBeats" xmlUrl="https://www.lowbeats.de/feed/" type="rss" />
+      <outline title="Fairaudio" xmlUrl="https://www.fairaudio.de/feed/" type="rss" />
+      <outline title="Hörzone" xmlUrl="https://www.hoerzone.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

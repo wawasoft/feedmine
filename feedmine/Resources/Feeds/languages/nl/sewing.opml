@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Dutch)">
-      <outline title="NaaiBlog" xmlUrl="https://naaiblog.nl/feed/" type="rss"/>
-      <outline title="Knippie" xmlUrl="https://www.knippie.nl/feed/" type="rss"/>
-      <outline title="Patroonpraat" xmlUrl="https://patroonpraat.nl/feed/" type="rss"/>
-      <outline title="Naaimachine Blog" xmlUrl="https://naaimachineblog.nl/feed/" type="rss"/>
-      <outline title="Mode &amp; Kleding" xmlUrl="https://modeenkleding.nl/feed/" type="rss"/>
+      <outline title="Knippie" xmlUrl="https://www.knippie.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

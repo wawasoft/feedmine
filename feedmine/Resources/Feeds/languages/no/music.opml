@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Music (Norwegian)">
-      <outline title="NRK Musikk" xmlUrl="https://nrk.no/musikk/feed" type="rss"/>
-      <outline title="Ballade" xmlUrl="https://www.ballade.no/feed/" type="rss"/>
-      <outline title="Musikknyheter.no" xmlUrl="https://musikknyheter.no/feed/" type="rss"/>
+      <outline title="Ballade" xmlUrl="https://www.ballade.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

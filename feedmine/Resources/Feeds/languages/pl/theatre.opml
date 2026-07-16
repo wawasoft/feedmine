@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Theatre (Polish)">
-      <outline title="Teatr - e-teatr.pl" xmlUrl="https://e-teatr.pl/rss.xml" type="rss"/>
-      <outline title="Teatr - Teatralny.pl" xmlUrl="https://teatralny.pl/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="YouTube News (Russian)">
-      <outline title="YouTube Russia News" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwL9DLZ1sX7B8C9bX5X7X7Q" type="rss"/>
-      <outline title="Новости YouTube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvqRdlKsE5Q8mfN2w0s3K4g" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

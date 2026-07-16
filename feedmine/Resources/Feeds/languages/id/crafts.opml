@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Indonesian)">
-      <outline title="Kreasi Ceria" xmlUrl="https://kreasiceria.com/feed/" type="rss"/>
-      <outline title="Dekoruma Blog" xmlUrl="https://www.dekoruma.com/blog/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

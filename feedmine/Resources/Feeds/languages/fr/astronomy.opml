@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (French)">
-      <outline title="Ciel &amp; Espace" xmlUrl="https://www.cieletespace.fr/rss" type="rss"/>
-      <outline title="Astronomie Magazine" xmlUrl="https://www.astronomie-magazine.fr/feed/" type="rss"/>
-      <outline title="Futura Sciences - Astronomie" xmlUrl="https://www.futura-sciences.com/sciences/astronomie/rss.xml" type="rss"/>
-      <outline title="Association Française d'Astronomie" xmlUrl="https://www.afastronomie.fr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

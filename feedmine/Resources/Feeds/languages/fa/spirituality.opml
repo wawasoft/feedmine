@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Persian)">
-      <outline title="مجله اینترنتی عرفان" xmlUrl="https://erfan.ir/fa/rss" type="rss"/>
-      <outline title="آرامش و ذهن" xmlUrl="https://aramishezehn.com/feed/" type="rss"/>
+      <outline title="مجله اینترنتی عرفان" xmlUrl="https://erfan.ir/fa/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Arabic)">
-      <outline title="مدونة أحمد الشقيري" xmlUrl="https://www.ahmadalshugairi.com/feed/" type="rss"/>
-      <outline title="مدونة محمد الطويان" xmlUrl="https://www.mohammedaltuwayan.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

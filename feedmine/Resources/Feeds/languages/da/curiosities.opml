@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Danish)">
-      <outline title="Videnskab.dk - Kuriosa" xmlUrl="https://videnskab.dk/emne/kuriosa/feed" type="rss"/>
-      <outline title="Historie-online.dk" xmlUrl="https://historie-online.dk/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

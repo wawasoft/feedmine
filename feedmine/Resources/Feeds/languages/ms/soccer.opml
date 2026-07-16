@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Malay)">
-      <outline title="MakanBola" xmlUrl="https://www.makanbola.com/feed" type="rss"/>
-      <outline title="Berita Bola Sepak - Astro Awani" xmlUrl="https://www.astroawani.com/rss/bola-sepak" type="rss"/>
+      <outline title="MakanBola" xmlUrl="https://www.makanbola.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

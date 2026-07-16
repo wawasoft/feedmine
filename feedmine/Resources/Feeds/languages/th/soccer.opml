@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Thai)">
-      <outline title="ฟุตบอลไทย - thsport.com" xmlUrl="https://www.thsport.com/rss/feed.xml" type="rss"/>
-      <outline title="Goal Thailand" xmlUrl="https://www.goal.com/th/feeds/news?format=rss" type="rss"/>
-      <outline title="FourFourTwo Thailand" xmlUrl="https://www.fourfourtwo.com/th/feed" type="rss"/>
-      <outline title="สยามกีฬา - ฟุตบอล" xmlUrl="https://www.siamsport.co.th/rss/football.xml" type="rss"/>
+      <outline title="FourFourTwo Thailand" xmlUrl="https://www.fourfourtwo.com/th/feed" type="rss" />
     </outline>
   </body>
 </opml>

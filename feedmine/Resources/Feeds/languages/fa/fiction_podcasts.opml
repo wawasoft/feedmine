@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Persian)">
-      <outline title="رادیو داستان" xmlUrl="https://radiodastan.com/feed/" type="rss"/>
-      <outline title="پادکست نمایشی" xmlUrl="https://namayeshi.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

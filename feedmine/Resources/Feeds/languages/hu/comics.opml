@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Quadrinhos (Hungarian)">
-      <outline title="Képregény Blog" xmlUrl="https://kepregeny.blog.hu/rss" type="rss"/>
-      <outline title="Képregényvilág" xmlUrl="https://kepregenyvilag.hu/feed" type="rss"/>
+      <outline title="Képregény Blog" xmlUrl="https://kepregeny.blog.hu/rss" type="rss" />
     </outline>
   </body>
 </opml>

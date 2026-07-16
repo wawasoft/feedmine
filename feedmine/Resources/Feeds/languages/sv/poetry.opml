@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Swedish)">
-      <outline title="Poeter.se" xmlUrl="https://www.poeter.se/feed" type="rss"/>
-      <outline title="Lyrikvännen" xmlUrl="https://lyrikvannen.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

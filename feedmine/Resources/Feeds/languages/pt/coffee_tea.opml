@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Coffee (Portuguese)">
-      <outline title="Café &amp; Café" xmlUrl="https://www.cafeeafe.com.br/feed/" type="rss"/>
-      <outline title="Revista Espresso" xmlUrl="https://www.revistaespresso.com.br/feed/" type="rss"/>
-      <outline title="Chá &amp; Café Brasil" xmlUrl="https://www.chaecafebrasil.com.br/feed/" type="rss"/>
-      <outline title="Café Point" xmlUrl="https://www.cafepoint.com.br/feed/" type="rss"/>
-      <outline title="Mundo do Café" xmlUrl="https://www.mundodocafe.com.br/feed/" type="rss"/>
+      <outline title="Revista Espresso" xmlUrl="https://www.revistaespresso.com.br/feed/" type="rss" />
+      <outline title="Mundo do Café" xmlUrl="https://www.mundodocafe.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Estonian)">
-      <outline title="Luulekogu" xmlUrl="https://luulekogu.ee/feed/" type="rss"/>
-      <outline title="Sirp - Luule" xmlUrl="https://www.sirp.ee/category/luule/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

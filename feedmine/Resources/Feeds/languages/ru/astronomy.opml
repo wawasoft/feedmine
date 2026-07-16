@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Russian)">
-      <outline title="Astronet" xmlUrl="http://www.astronet.ru/db/rss/apod.xml" type="rss"/>
-      <outline title="Космос и астрономия" xmlUrl="https://kosmos.izmuroma.ru/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

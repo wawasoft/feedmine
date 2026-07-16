@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Portuguese)">
-      <outline title="Construção e Reforma" xmlUrl="https://www.construcaoereforma.com.br/feed/" type="rss"/>
-      <outline title="Revista Construir" xmlUrl="https://www.revistaconstruir.com.br/feed/" type="rss"/>
-      <outline title="AECweb" xmlUrl="https://www.aecweb.com.br/feed/" type="rss"/>
-      <outline title="Construção Civil" xmlUrl="https://www.construcaocivil.com.br/feed/" type="rss"/>
-      <outline title="Obra Prima" xmlUrl="https://www.obraprima.com.br/feed/" type="rss"/>
+      <outline title="Construção e Reforma" xmlUrl="https://www.construcaoereforma.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

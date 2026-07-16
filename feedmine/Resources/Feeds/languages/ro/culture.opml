@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Romanian)">
-      <outline title="Dilema veche" xmlUrl="https://dilemaveche.ro/feed/" type="rss"/>
-      <outline title="Observator Cultural" xmlUrl="https://www.observatorcultural.ro/feed/" type="rss"/>
+      <outline title="Observator Cultural" xmlUrl="https://www.observatorcultural.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

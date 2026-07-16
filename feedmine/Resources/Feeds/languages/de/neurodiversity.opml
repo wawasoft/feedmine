@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (German)">
-      <outline title="Autismus-Kultur" xmlUrl="https://autismus-kultur.de/feed/" type="rss"/>
-      <outline title="Down-Syndrom Netzwerk" xmlUrl="https://www.down-syndrom-netzwerk.de/feed/" type="rss"/>
-      <outline title="Aspies e.V." xmlUrl="https://www.aspies.de/feed/" type="rss"/>
+      <outline title="Autismus-Kultur" xmlUrl="https://autismus-kultur.de/feed/" type="rss" />
+      <outline title="Down-Syndrom Netzwerk" xmlUrl="https://www.down-syndrom-netzwerk.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

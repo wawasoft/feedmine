@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (German)">
-      <outline title="Literaturkritik.de" xmlUrl="https://www.literaturkritik.de/rss/aktuelles.rss" type="rss"/>
-      <outline title="FAZ - Literatur" xmlUrl="https://www.faz.net/rss/aktuell/feuilleton/buecher/" type="rss"/>
-      <outline title="Die Zeit - Literatur" xmlUrl="https://www.zeit.de/kultur/literatur/index/rss.xml" type="rss"/>
+      <outline title="Literaturkritik.de" xmlUrl="https://www.literaturkritik.de/rss/aktuelles.rss" type="rss" />
+      <outline title="FAZ - Literatur" xmlUrl="https://www.faz.net/rss/aktuell/feuilleton/buecher/" type="rss" />
     </outline>
   </body>
 </opml>

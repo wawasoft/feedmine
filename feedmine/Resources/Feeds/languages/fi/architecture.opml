@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Architecture (Finnish)">
-      <outline title="Arkkitehtuurimuseo" xmlUrl="https://www.mfa.fi/feed/" type="rss"/>
-      <outline title="Arkkitehtiuutiset" xmlUrl="https://www.ark.fi/feed/" type="rss"/>
+      <outline title="Arkkitehtuurimuseo" xmlUrl="https://www.mfa.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Architecture (Norwegian)">
-      <outline title="Arkitektnytt" xmlUrl="https://www.arkitektnytt.no/feed" type="rss"/>
-      <outline title="Byggeindustrien" xmlUrl="https://www.bygg.no/rss/arkitektur" type="rss"/>
-      <outline title="Norske arkitekter" xmlUrl="https://www.arkitektur.no/rss/nyheter" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

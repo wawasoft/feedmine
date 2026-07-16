@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Architecture (Ukrainian)">
-      <outline title="Architectural Digest Ukraine" xmlUrl="https://www.adukraine.com.ua/feed/" type="rss"/>
-      <outline title="Прагматика" xmlUrl="https://pragmatika.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

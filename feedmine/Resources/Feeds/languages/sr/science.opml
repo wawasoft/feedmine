@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Science Feeds (Serbian)">
-      <outline title="Nauka.rs" xmlUrl="https://nauka.rs/feed/" type="rss"/>
-      <outline title="RTS Nauka" xmlUrl="https://www.rts.rs/rss/nauka.xml" type="rss"/>
-      <outline title="B92 Nauka" xmlUrl="https://www.b92.net/rss/info/nauka.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

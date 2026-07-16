@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Nerd (Arabic)">
-      <outline title="عالم التقنية" xmlUrl="https://www.tech-wd.com/feed" type="rss"/>
-      <outline title="أكشنها" xmlUrl="https://www.actionha.net/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

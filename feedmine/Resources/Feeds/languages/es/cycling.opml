@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Cycling (Spanish)">
-      <outline title="Ciclismo a Fondo" xmlUrl="https://ciclismoafondo.com/feed/" type="rss"/>
-      <outline title="Biciciclismo" xmlUrl="https://www.biciciclismo.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

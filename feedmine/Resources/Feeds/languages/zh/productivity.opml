@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Chinese)">
-      <outline title="褪墨" xmlUrl="https://www.mifengtd.cn/feed/" type="rss"/>
-      <outline title="战隼的学习探索" xmlUrl="https://www.read.org.cn/feed/" type="rss"/>
-      <outline title="简书 - 时间管理" xmlUrl="https://www.jianshu.com/c/1b7b8b2c0e6a/feed" type="rss"/>
+      <outline title="褪墨" xmlUrl="https://www.mifengtd.cn/feed/" type="rss" />
+      <outline title="简书 - 时间管理" xmlUrl="https://www.jianshu.com/c/1b7b8b2c0e6a/feed" type="rss" />
     </outline>
   </body>
 </opml>

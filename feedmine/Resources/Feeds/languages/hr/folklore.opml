@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Croatian)">
-      <outline title="Hrvatska mitologija" xmlUrl="https://hrvatskamitologija.com/feed/" type="rss"/>
-      <outline title="Mitovi i legende" xmlUrl="https://mitoviilegende.hr/feed/" type="rss"/>
-      <outline title="Folklorni ansambli" xmlUrl="https://folklorniansambli.hr/feed/" type="rss"/>
-      <outline title="Tradicijska kultura" xmlUrl="https://tradicijskakultura.hr/feed/" type="rss"/>
-      <outline title="Bajke i priče" xmlUrl="https://bajkeiprice.hr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

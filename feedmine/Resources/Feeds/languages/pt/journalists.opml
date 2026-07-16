@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Reference Journalists (Portuguese)">
-      <outline title="Observatório da Imprensa" xmlUrl="https://www.observatoriodaimprensa.com.br/feed/" type="rss"/>
-      <outline title="Jornalistas&amp;Cia" xmlUrl="https://jornalistas-e-cia.news/feed/" type="rss"/>
+      <outline title="Observatório da Imprensa" xmlUrl="https://www.observatoriodaimprensa.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Greek)">
-      <outline title="Χειροτεχνίες - Feax" xmlUrl="https://www.feax.gr/feeds/feeds.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

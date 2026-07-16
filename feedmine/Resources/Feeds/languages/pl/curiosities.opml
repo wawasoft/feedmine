@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Polish)">
-      <outline title="Ciekawostki - Onet" xmlUrl="https://ciekawostki.onet.pl/rss" type="rss"/>
-      <outline title="Ciekawostki Historyczne" xmlUrl="https://ciekawostkihistoryczne.pl/feed/" type="rss"/>
+      <outline title="Ciekawostki Historyczne" xmlUrl="https://ciekawostkihistoryczne.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

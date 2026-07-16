@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Romanian)">
-      <outline title="Retro Tech Romania" xmlUrl="https://retrotech.ro/feed/" type="rss"/>
-      <outline title="OldTech" xmlUrl="https://oldtech.ro/feed/" type="rss"/>
-      <outline title="Vintage Tech" xmlUrl="https://vintagetech.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Burmese)">
-      <outline title="မိတ်ကပ်အနုပညာ" xmlUrl="https://makeupmyanmar.com/rss" type="rss"/>
-      <outline title="အလှအပသတင်း" xmlUrl="https://www.beautynewsmn.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

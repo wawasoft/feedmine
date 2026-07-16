@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Humor (French)">
-      <outline title="Humoristes.fr" xmlUrl="https://www.humoristes.fr/feed/" type="rss"/>
-      <outline title="Le Gorafi" xmlUrl="https://www.legorafi.fr/feed/" type="rss"/>
+      <outline title="Le Gorafi" xmlUrl="https://www.legorafi.fr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

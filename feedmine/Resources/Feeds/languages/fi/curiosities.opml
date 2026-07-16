@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Finnish)">
-      <outline title="Tiedetuubi" xmlUrl="https://www.tiedetuubi.fi/feed/" type="rss"/>
-      <outline title="Historia ja ihmemaa" xmlUrl="https://historiajaihmemaa.fi/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

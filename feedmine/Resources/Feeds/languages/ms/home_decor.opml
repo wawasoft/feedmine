@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Malay)">
-      <outline title="Inspirasi Hiasan Rumah" xmlUrl="https://inspirasihiasanrumah.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

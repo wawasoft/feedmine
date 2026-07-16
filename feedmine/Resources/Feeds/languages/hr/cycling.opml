@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cycling (Croatian)">
-      <outline title="Biciklistički portal" xmlUrl="https://www.biciklisticki-portal.hr/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

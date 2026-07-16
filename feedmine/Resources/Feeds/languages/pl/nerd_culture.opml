@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Nerd (Polish)">
-      <outline title="Polygamia" xmlUrl="https://polygamia.pl/feed/" type="rss"/>
-      <outline title="CD-Action" xmlUrl="https://www.cdaction.pl/rss.xml" type="rss"/>
-      <outline title="Komputer Świat" xmlUrl="https://www.komputerswiat.pl/rss/feed.xml" type="rss"/>
+      <outline title="Polygamia" xmlUrl="https://polygamia.pl/feed/" type="rss" />
+      <outline title="CD-Action" xmlUrl="https://www.cdaction.pl/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

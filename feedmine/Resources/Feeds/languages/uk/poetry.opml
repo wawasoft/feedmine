@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Ukrainian)">
-      <outline title="Поетичні майстерні" xmlUrl="https://maysterni.com/feed/" type="rss"/>
-      <outline title="ЛітАкцент" xmlUrl="https://litakcent.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

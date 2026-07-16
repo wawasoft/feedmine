@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Dogs (Dutch)">
-      <outline title="Hondencentrum" xmlUrl="https://www.hondencentrum.com/feed/" type="rss"/>
-      <outline title="Hondenforum" xmlUrl="https://www.hondenforum.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

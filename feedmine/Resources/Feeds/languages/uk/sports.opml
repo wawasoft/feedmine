@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Sports (Ukrainian)">
-      <outline title="Спорт.ua" xmlUrl="https://sport.ua/rss" type="rss"/>
-      <outline title="Чемпіон" xmlUrl="https://champion.com.ua/rss" type="rss"/>
+      <outline title="Чемпіон" xmlUrl="https://champion.com.ua/rss" type="rss" />
     </outline>
   </body>
 </opml>

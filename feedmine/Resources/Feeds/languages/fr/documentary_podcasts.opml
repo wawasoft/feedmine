@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (French)">
-      <outline title="Arte Radio" xmlUrl="https://www.arteradio.com/rss.xml" type="rss"/>
-      <outline title="France Culture - Documentaires" xmlUrl="https://www.franceculture.fr/documentaires/rss.xml" type="rss"/>
-      <outline title="Les Pieds sur Terre" xmlUrl="https://www.franceculture.fr/emissions/pieds-sur-terre/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

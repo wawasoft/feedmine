@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Greek)">
-      <outline title="Φωτογραφία - LiFO" xmlUrl="https://www.lifo.gr/tags/fotografia/rss" type="rss"/>
-      <outline title="Φωτογραφία - in.gr" xmlUrl="https://www.in.gr/tag/%CF%86%CF%89%CF%84%CE%BF%CE%B3%CF%81%CE%B1%CF%86%CE%AF%CE%B1/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

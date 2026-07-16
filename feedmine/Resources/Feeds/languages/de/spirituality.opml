@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (German)">
-      <outline title="Spirituell Leben" xmlUrl="https://spirituell-leben.com/feed/" type="rss"/>
-      <outline title="Achtsamkeit &amp; Meditation" xmlUrl="https://achtsamkeit-meditation.de/feed/" type="rss"/>
-      <outline title="Yoga Journal Deutschland" xmlUrl="https://www.yogajournal.de/feed/" type="rss"/>
+      <outline title="Achtsamkeit &amp; Meditation" xmlUrl="https://achtsamkeit-meditation.de/feed/" type="rss" />
+      <outline title="Yoga Journal Deutschland" xmlUrl="https://www.yogajournal.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

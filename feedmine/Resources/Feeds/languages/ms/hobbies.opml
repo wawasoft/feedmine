@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Malay)">
-      <outline title="Kraftangan Malaysia" xmlUrl="https://www.kraftanganmalaysia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

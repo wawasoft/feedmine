@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Photography (Italian)">
-      <outline title="Fotografia Artistica" xmlUrl="https://www.fotografiaartistica.it/feed/" type="rss"/>
-      <outline title="Nikonisti" xmlUrl="https://www.nikonisti.it/feed/" type="rss"/>
-      <outline title="FotoComeFare" xmlUrl="https://www.fotocomefare.com/feed/" type="rss"/>
+      <outline title="Fotografia Artistica" xmlUrl="https://www.fotografiaartistica.it/feed/" type="rss" />
+      <outline title="FotoComeFare" xmlUrl="https://www.fotocomefare.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

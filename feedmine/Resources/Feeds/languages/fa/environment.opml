@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Persian)">
-      <outline title="انجمن محیط زیست ایران" xmlUrl="https://iranenvironment.org/feed/" type="rss"/>
-      <outline title="سبزپوشان" xmlUrl="https://sabzpoushan.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

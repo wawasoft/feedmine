@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="UFOs, Conspiracies (Portuguese)">
-      <outline title="Mistérios do Mundo" xmlUrl="https://www.misteriosdomundo.com/feed/" type="rss"/>
-      <outline title="Conspirações e Mistérios" xmlUrl="https://conspiracoesemisterios.com/feed/" type="rss"/>
-      <outline title="UFO Portugal" xmlUrl="https://ufoportugal.pt/feed/" type="rss"/>
-      <outline title="Mundo UFO" xmlUrl="https://www.mundoufo.com/feed/" type="rss"/>
-      <outline title="Conspiração Total" xmlUrl="https://conspiracaototal.com/feed/" type="rss"/>
+      <outline title="Mistérios do Mundo" xmlUrl="https://www.misteriosdomundo.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="UFOs, Conspiracies (Italian)">
-      <outline title="UFO Italia" xmlUrl="https://www.ufoitalia.com/feed/" type="rss"/>
-      <outline title="Cospirazioni.net" xmlUrl="https://www.cospirazioni.net/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

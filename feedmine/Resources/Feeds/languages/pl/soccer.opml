@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Polish)">
-      <outline title="Piłka Nożna - Sport.pl" xmlUrl="https://www.sport.pl/pilka-nozna/feed" type="rss"/>
-      <outline title="Przegląd Sportowy - Piłka Nożna" xmlUrl="https://przegladsportowy.onet.pl/pilka-nozna/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

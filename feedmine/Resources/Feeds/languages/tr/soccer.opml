@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Turkish)">
-      <outline title="Fanatik - Futbol" xmlUrl="https://www.fanatik.com.tr/rss/futbol.xml" type="rss"/>
-      <outline title="Sporx - Futbol" xmlUrl="https://www.sporx.com/rss/futbol.xml" type="rss"/>
-      <outline title="NTV Spor - Futbol" xmlUrl="https://www.ntvspor.net/rss/futbol" type="rss"/>
-      <outline title="BeIN Sports Türkiye - Futbol" xmlUrl="https://beinsports.com.tr/rss/futbol" type="rss"/>
-      <outline title="TRT Spor - Futbol" xmlUrl="https://www.trtspor.com.tr/rss/futbol.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Family, Relationships (Polish)">
-      <outline title="MjakMama" xmlUrl="https://mjakmama.pl/feed/" type="rss"/>
-      <outline title="Dziecko w INTERIA.PL" xmlUrl="https://dziecko.interia.pl/rss.xml" type="rss"/>
-      <outline title="Rodzice - Polskie Radio" xmlUrl="https://www.polskieradio.pl/7/1571/Artykul/rss" type="rss"/>
-      <outline title="Blog Ojciec" xmlUrl="https://blogojciec.pl/feed/" type="rss"/>
-      <outline title="Familie.pl" xmlUrl="https://familie.pl/feed/" type="rss"/>
+      <outline title="Blog Ojciec" xmlUrl="https://blogojciec.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Swedish)">
-      <outline title="Träslöjd - Slöjdpodden" xmlUrl="https://slojdpodden.se/feed/podcast/" type="rss"/>
-      <outline title="Woodworking Sweden" xmlUrl="https://woodworking.se/feed/" type="rss"/>
-      <outline title="Trä &amp; Verktyg" xmlUrl="https://traochverktyg.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

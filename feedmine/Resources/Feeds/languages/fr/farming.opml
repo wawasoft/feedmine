@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (French)">
-      <outline title="Terre-net" xmlUrl="https://www.terre-net.fr/rss.xml" type="rss"/>
-      <outline title="La France Agricole" xmlUrl="https://www.lafranceagricole.fr/rss" type="rss"/>
-      <outline title="Agri-Culture" xmlUrl="https://www.agri-culture.com/feed/" type="rss"/>
-      <outline title="Paysan Breton" xmlUrl="https://www.paysan-breton.fr/feed/" type="rss"/>
-      <outline title="Rustica" xmlUrl="https://www.rustica.fr/rss" type="rss"/>
+      <outline title="La France Agricole" xmlUrl="https://www.lafranceagricole.fr/rss" type="rss" />
+      <outline title="Agri-Culture" xmlUrl="https://www.agri-culture.com/feed/" type="rss" />
+      <outline title="Paysan Breton" xmlUrl="https://www.paysan-breton.fr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

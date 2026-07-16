@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Italian)">
-      <outline title="BoardGameItalia" xmlUrl="https://www.boardgameitalia.it/feed/" type="rss"/>
-      <outline title="La Tana dei Goblin" xmlUrl="https://www.goblins.net/feed" type="rss"/>
-      <outline title="Giochi da Tavolo" xmlUrl="https://www.giochidatavolo.net/feed/" type="rss"/>
-      <outline title="Il Blog dei Giochi" xmlUrl="https://www.ilblogdeigiochi.it/feed/" type="rss"/>
-      <outline title="RPG Italia" xmlUrl="https://www.rpgitalia.net/feed/" type="rss"/>
+      <outline title="BoardGameItalia" xmlUrl="https://www.boardgameitalia.it/feed/" type="rss" />
+      <outline title="Giochi da Tavolo" xmlUrl="https://www.giochidatavolo.net/feed/" type="rss" />
+      <outline title="RPG Italia" xmlUrl="https://www.rpgitalia.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -6,7 +6,6 @@
   </head>
   <body>
     <outline text="News">
-      <outline title="Channel 24 BD" xmlUrl="https://www.channel24bd.tv/rss/" type="rss" />
       <outline title="Google News — BANGLADESH (en)" xmlUrl="https://news.google.com/rss?hl=en&amp;gl=BD&amp;ceid=BD:en" type="rss" />
     </outline>
     <outline text="Sports">

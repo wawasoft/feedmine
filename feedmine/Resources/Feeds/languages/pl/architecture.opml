@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Architecture (Polish)">
-      <outline title="Architektura.info" xmlUrl="https://architektura.info/feed/" type="rss"/>
-      <outline title="Sztuka Architektury" xmlUrl="https://sztuka-architektury.pl/feed/" type="rss"/>
-      <outline title="Architektura Murator" xmlUrl="https://architektura.muratorplus.pl/feed/" type="rss"/>
-      <outline title="Architektura i Biznes" xmlUrl="https://architekturaibiznes.pl/feed/" type="rss"/>
-      <outline title="Architektura Krajobrazu" xmlUrl="https://architekturakrajobrazu.pl/feed/" type="rss"/>
+      <outline title="Architektura Krajobrazu" xmlUrl="https://architekturakrajobrazu.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

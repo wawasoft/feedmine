@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Polish)">
-      <outline title="Stolarstwo.pl" xmlUrl="https://stolarstwo.pl/feed/" type="rss"/>
-      <outline title="Majster w Drewnie" xmlUrl="https://majsterwdrewnie.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

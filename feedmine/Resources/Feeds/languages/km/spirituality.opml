@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Khmer)">
-      <outline title="ពុទ្ធសាសនា" xmlUrl="https://www.buddhismtoday.com/khmer/feed/" type="rss"/>
-      <outline title="សមាធិខ្មែរ" xmlUrl="https://www.meditationkhmer.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

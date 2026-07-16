@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Czech)">
-      <outline title="Deskovky.com" xmlUrl="https://www.deskovky.com/rss/" type="rss"/>
-      <outline title="Hrajeme.cz" xmlUrl="https://www.hrajeme.cz/feed/" type="rss"/>
+      <outline title="Hrajeme.cz" xmlUrl="https://www.hrajeme.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

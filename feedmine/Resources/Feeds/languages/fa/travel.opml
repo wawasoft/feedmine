@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Persian)">
-      <outline title="سفرزون" xmlUrl="https://safarzon.com/feed/" type="rss"/>
-      <outline title="لست سکند" xmlUrl="https://lastsecond.ir/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

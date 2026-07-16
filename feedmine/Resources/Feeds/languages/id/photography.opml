@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Indonesian)">
-      <outline title="Fotografer.net" xmlUrl="https://www.fotografer.net/feed/" type="rss"/>
-      <outline title="Kelas Fotografi" xmlUrl="https://kelasfotografi.com/feed/" type="rss"/>
-      <outline title="Jepretan" xmlUrl="https://jepretan.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Swedish)">
-      <outline title="Byggindustrin" xmlUrl="https://www.byggindustrin.se/feed/" type="rss"/>
-      <outline title="Byggvärlden" xmlUrl="https://www.byggvarlden.se/feed/" type="rss"/>
+      <outline title="Byggvärlden" xmlUrl="https://www.byggvarlden.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

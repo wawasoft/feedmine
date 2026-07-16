@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Danish)">
-      <outline title="DIIS - Dansk Institut for Internationale Studier" xmlUrl="https://www.diis.dk/rss" type="rss"/>
-      <outline title="Udenrigsministeriet" xmlUrl="https://um.dk/rss/nyheder" type="rss"/>
-      <outline title="Ræson" xmlUrl="https://raeson.dk/feed/" type="rss"/>
+      <outline title="Ræson" xmlUrl="https://raeson.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

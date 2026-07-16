@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Slovenian)">
-      <outline title="Retro Računalniki" xmlUrl="https://retro-racunalniki.si/feed/" type="rss"/>
-      <outline title="Slo-Tech Retro" xmlUrl="https://www.slo-tech.com/retro/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Astronomy (Slovak)">
-      <outline title="Astro.sk" xmlUrl="https://www.astro.sk/rss/" type="rss"/>
-      <outline title="Kozmos.sk" xmlUrl="https://kozmos.sk/feed/" type="rss"/>
+      <outline title="Astro.sk" xmlUrl="https://www.astro.sk/rss/" type="rss" />
     </outline>
   </body>
 </opml>

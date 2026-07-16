@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Humor (Turkish)">
-      <outline title="Komik Haberler" xmlUrl="https://www.komikhaberler.com/feed/" type="rss"/>
-      <outline title="Gırgır Mizah Dergisi" xmlUrl="https://www.girgir.com.tr/rss" type="rss"/>
-      <outline title="Leman Dergisi" xmlUrl="https://www.lemandergisi.com.tr/rss" type="rss"/>
-      <outline title="Uykusuz Dergisi" xmlUrl="https://www.uykusuzdergisi.com/rss" type="rss"/>
-      <outline title="Mizah Sitesi" xmlUrl="https://www.mizahsitesi.com/feed/" type="rss"/>
+      <outline title="Komik Haberler" xmlUrl="https://www.komikhaberler.com/feed/" type="rss" />
+      <outline title="Gırgır Mizah Dergisi" xmlUrl="https://www.girgir.com.tr/rss" type="rss" />
     </outline>
   </body>
 </opml>

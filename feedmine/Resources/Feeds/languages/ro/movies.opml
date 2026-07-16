@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Movies (Romanian)">
-      <outline title="Cinemagia" xmlUrl="https://www.cinemagia.ro/rss/" type="rss"/>
-      <outline title="Film Menu" xmlUrl="https://filmmenu.ro/feed/" type="rss"/>
-      <outline title="Movies Magazine" xmlUrl="https://moviesmagazine.ro/feed/" type="rss"/>
+      <outline title="Cinemagia" xmlUrl="https://www.cinemagia.ro/rss/" type="rss" />
     </outline>
   </body>
 </opml>

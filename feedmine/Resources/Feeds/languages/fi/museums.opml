@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Museums (Finnish)">
-      <outline title="Museoliitto" xmlUrl="https://www.museoliitto.fi/feed" type="rss"/>
-      <outline title="Kansallismuseo" xmlUrl="https://www.kansallismuseo.fi/fi/feed" type="rss"/>
+      <outline title="Museoliitto" xmlUrl="https://www.museoliitto.fi/feed" type="rss" />
     </outline>
   </body>
 </opml>

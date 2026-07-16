@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Dutch)">
-      <outline title="Nieuwe Oogst" xmlUrl="https://www.nieuweoogst.nl/rss" type="rss"/>
-      <outline title="Boerderij" xmlUrl="https://www.boerderij.nl/rss/" type="rss"/>
-      <outline title="LTO Nederland" xmlUrl="https://www.lto.nl/rss/nieuws/" type="rss"/>
-      <outline title="Akkerwijzer" xmlUrl="https://www.akkerwijzer.nl/rss/" type="rss"/>
-      <outline title="Veehouderij" xmlUrl="https://www.veehouderij.nl/rss/" type="rss"/>
+      <outline title="Nieuwe Oogst" xmlUrl="https://www.nieuweoogst.nl/rss" type="rss" />
+      <outline title="LTO Nederland" xmlUrl="https://www.lto.nl/rss/nieuws/" type="rss" />
+      <outline title="Veehouderij" xmlUrl="https://www.veehouderij.nl/rss/" type="rss" />
     </outline>
   </body>
 </opml>

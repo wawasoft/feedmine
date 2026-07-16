@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Czech)">
-      <outline title="Námořní obzor" xmlUrl="https://www.namorniobzor.cz/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

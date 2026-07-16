@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Skateboarding (Polish)">
-      <outline title="Deskorolka.pl" xmlUrl="https://deskorolka.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

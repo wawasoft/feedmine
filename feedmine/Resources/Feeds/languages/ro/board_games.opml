@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Romanian)">
-      <outline title="Board Games Romania" xmlUrl="https://boardgamesromania.ro/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

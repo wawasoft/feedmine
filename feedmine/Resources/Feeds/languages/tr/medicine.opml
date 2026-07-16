@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Turkish)">
-      <outline title="Medimagazin" xmlUrl="https://www.medimagazin.com.tr/rss" type="rss"/>
-      <outline title="Tıp Dünyası" xmlUrl="https://www.tipdunyasi.com/feed/" type="rss"/>
-      <outline title="Sağlık Haberleri" xmlUrl="https://www.saglikhaberleri.com/feed/" type="rss"/>
-      <outline title="Pharma Türkiye" xmlUrl="https://www.pharmaturkiye.com/feed/" type="rss"/>
-      <outline title="Türk Kardiyoloji Derneği" xmlUrl="https://tkd.org.tr/rss" type="rss"/>
+      <outline title="Tıp Dünyası" xmlUrl="https://www.tipdunyasi.com/feed/" type="rss" />
+      <outline title="Sağlık Haberleri" xmlUrl="https://www.saglikhaberleri.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

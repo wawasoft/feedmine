@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Portuguese)">
-      <outline title="Cultura e Arte" xmlUrl="https://www.culturaearte.com/feed/" type="rss"/>
-      <outline title="Revista Prosa Verso e Arte" xmlUrl="https://www.revistaprosaversoearte.com/feed/" type="rss"/>
-      <outline title="Mundo Cultural" xmlUrl="https://www.mundocultural.com.br/feed/" type="rss"/>
+      <outline title="Revista Prosa Verso e Arte" xmlUrl="https://www.revistaprosaversoearte.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

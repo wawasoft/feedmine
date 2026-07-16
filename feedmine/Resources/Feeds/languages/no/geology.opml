@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Norwegian)">
-      <outline title="Norsk Geologisk Forening" xmlUrl="https://www.geologi.no/rss" type="rss"/>
-      <outline title="NGU - Norges geologiske undersøkelse" xmlUrl="https://www.ngu.no/rss/nyheter" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

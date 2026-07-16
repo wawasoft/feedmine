@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Food (Czech)">
-      <outline title="Toprecepty.cz" xmlUrl="https://www.toprecepty.cz/rss" type="rss"/>
-      <outline title="Kuchařka pro dceru" xmlUrl="https://www.kucharkaprodceru.cz/feed/" type="rss"/>
-      <outline title="Labužník.cz" xmlUrl="https://www.labuznik.cz/rss" type="rss"/>
-      <outline title="Fitness jídlo" xmlUrl="https://www.fitnessjidlo.cz/feed/" type="rss"/>
+      <outline title="Toprecepty.cz" xmlUrl="https://www.toprecepty.cz/rss" type="rss" />
+      <outline title="Kuchařka pro dceru" xmlUrl="https://www.kucharkaprodceru.cz/feed/" type="rss" />
+      <outline title="Labužník.cz" xmlUrl="https://www.labuznik.cz/rss" type="rss" />
     </outline>
   </body>
 </opml>

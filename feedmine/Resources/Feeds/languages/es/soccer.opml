@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Spanish)">
-      <outline title="Marca Fútbol" xmlUrl="https://e00-marca.uecdn.es/rss/futbol.xml" type="rss"/>
-      <outline title="AS Fútbol" xmlUrl="https://as.com/rss/futbol.xml" type="rss"/>
-      <outline title="Sport Fútbol" xmlUrl="https://www.sport.es/es/rss/futbol/rss.xml" type="rss"/>
-      <outline title="Mundo Deportivo Fútbol" xmlUrl="https://www.mundodeportivo.com/rss/futbol.xml" type="rss"/>
-      <outline title="Fútbol en la Red" xmlUrl="https://www.futbolenlared.com/feed/" type="rss"/>
+      <outline title="Marca Fútbol" xmlUrl="https://e00-marca.uecdn.es/rss/futbol.xml" type="rss" />
+      <outline title="Sport Fútbol" xmlUrl="https://www.sport.es/es/rss/futbol/rss.xml" type="rss" />
+      <outline title="Mundo Deportivo Fútbol" xmlUrl="https://www.mundodeportivo.com/rss/futbol.xml" type="rss" />
     </outline>
   </body>
 </opml>

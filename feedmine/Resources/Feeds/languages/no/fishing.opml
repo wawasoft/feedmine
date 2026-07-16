@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fishing (Norwegian)">
-      <outline title="Fiskeribladet" xmlUrl="https://fiskeribladet.no/feed/" type="rss"/>
-      <outline title="Norsk Fiskeritidende" xmlUrl="https://norskfiskeritidende.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

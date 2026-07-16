@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Ukrainian)">
-      <outline title="Petmaliovka" xmlUrl="https://petmaliovka.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

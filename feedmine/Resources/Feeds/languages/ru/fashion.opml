@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Fashion, Style (Russian)">
-      <outline title="Vogue Россия" xmlUrl="https://vogue.ru/feed/" type="rss"/>
-      <outline title="Elle Россия" xmlUrl="https://elle.ru/feed/" type="rss"/>
-      <outline title="Buro 24/7" xmlUrl="https://buro247.ru/feed" type="rss"/>
-      <outline title="Fashion United Russia" xmlUrl="https://fashionunited.ru/feed" type="rss"/>
-      <outline title="Интернет-журнал о моде" xmlUrl="https://moda.ru/feed" type="rss"/>
+      <outline title="Интернет-журнал о моде" xmlUrl="https://moda.ru/feed" type="rss" />
     </outline>
   </body>
 </opml>

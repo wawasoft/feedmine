@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Vietnamese)">
-      <outline title="Đẹp Magazine" xmlUrl="https://dep.com.vn/rss/lam-dep.rss" type="rss"/>
-      <outline title="Kênh 14 - Làm đẹp" xmlUrl="https://kenh14.vn/rss/lam-dep.rss" type="rss"/>
-      <outline title="Báo Mới - Làm đẹp" xmlUrl="https://baomoi.com/lam-dep.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

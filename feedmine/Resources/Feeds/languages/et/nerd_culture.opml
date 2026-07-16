@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Nerd (Estonian)">
-      <outline title="Tehnika - Geenius" xmlUrl="https://geenius.ee/rss/tehnika" type="rss"/>
-      <outline title="Mängud - Postimees" xmlUrl="https://tehnika.postimees.ee/rss/mangud" type="rss"/>
+      <outline title="Tehnika - Geenius" xmlUrl="https://geenius.ee/rss/tehnika" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Aviation (Danish)">
-      <outline title="Check-In.dk" xmlUrl="https://www.check-in.dk/feed/" type="rss"/>
-      <outline title="Flyv Magasinet" xmlUrl="https://flyvmagasinet.dk/feed/" type="rss"/>
+      <outline title="Check-In.dk" xmlUrl="https://www.check-in.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

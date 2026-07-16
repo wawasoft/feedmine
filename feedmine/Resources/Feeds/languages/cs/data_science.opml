@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Czech)">
-      <outline title="DataScience.cz" xmlUrl="https://www.datascience.cz/feed/" type="rss"/>
-      <outline title="Analytický blog - Pavel Kříž" xmlUrl="https://www.pavelkriz.cz/feed/" type="rss"/>
-      <outline title="Data Studio - Petr Šimánek" xmlUrl="https://www.datastudio.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

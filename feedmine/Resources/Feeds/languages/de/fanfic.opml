@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Fanfiction, Fandom Communities (German)">
-      <outline title="FanFiktion.de" xmlUrl="https://www.fanfiktion.de/rss/aktuell" type="rss"/>
-      <outline title="Animexx" xmlUrl="https://www.animexx.de/feed/" type="rss"/>
-      <outline title="FFN Deutschland" xmlUrl="https://www.fanfiction.net/community/Deutschland/" type="rss"/>
-      <outline title="Elysion" xmlUrl="https://elysion.de/feed" type="rss"/>
-      <outline title="Zauberspiegel" xmlUrl="https://www.zauberspiegel-online.de/feed/" type="rss"/>
+      <outline title="Animexx" xmlUrl="https://www.animexx.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

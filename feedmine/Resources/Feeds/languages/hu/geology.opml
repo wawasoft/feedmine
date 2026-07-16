@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Hungarian)">
-      <outline title="Magyarhoni Földtani Társulat" xmlUrl="https://www.mfgt.hu/feed/" type="rss"/>
-      <outline title="Földrajzi Közlemények" xmlUrl="https://www.foldrajzitarsasag.hu/feed/" type="rss"/>
-      <outline title="Geológia blog" xmlUrl="https://geologiablog.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

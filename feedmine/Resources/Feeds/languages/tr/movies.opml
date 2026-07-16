@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Movies (Turkish)">
-      <outline title="Beyazperde Film Haberleri" xmlUrl="https://www.beyazperde.com/haberler/rss.xml" type="rss"/>
-      <outline title="Film Haberleri - NTV" xmlUrl="https://www.ntv.com.tr/sanat/film.rss" type="rss"/>
-      <outline title="Sinema Haberleri - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/kultur-sanat/sinema" type="rss"/>
+      <outline title="Sinema Haberleri - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/kultur-sanat/sinema" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Automotive (Slovenian)">
-      <outline title="Avtomobilizem.com" xmlUrl="https://www.avtomobilizem.com/rss" type="rss"/>
-      <outline title="Siol.net - Avto" xmlUrl="https://siol.net/avto/rss" type="rss"/>
-      <outline title="Avto-magazin.si" xmlUrl="https://www.avto-magazin.si/rss" type="rss"/>
-      <outline title="Mojavto.si" xmlUrl="https://www.mojavto.si/rss" type="rss"/>
-      <outline title="AMZS - Motorevija" xmlUrl="https://www.amzs.si/motorevija/rss" type="rss"/>
+      <outline title="Avto-magazin.si" xmlUrl="https://www.avto-magazin.si/rss" type="rss" />
+      <outline title="Mojavto.si" xmlUrl="https://www.mojavto.si/rss" type="rss" />
     </outline>
   </body>
 </opml>

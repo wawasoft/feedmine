@@ -1289,6 +1289,7 @@ final class FeedStore {
             if let urls = taxonomyURLs, !urls.isEmpty {
                 let urlArray = Array(urls)
                 let batchSize = 999
+                let perChunkLimit = 400
                 var allItems: [FeedItemRecord] = []
                 for chunkStart in stride(from: 0, to: urlArray.count, by: batchSize) {
                     let chunk = Array(urlArray[chunkStart..<min(chunkStart + batchSize, urlArray.count)])
@@ -1299,13 +1300,16 @@ final class FeedStore {
                     )
                     let batchItems = try chunkRequest
                         .order(Column("published_at").desc)
+                        .limit(perChunkLimit)
                         .fetchAll(db)
                     allItems.append(contentsOf: batchItems)
                 }
                 // Sort merged batches by published_at desc so the most recent
                 // items appear first regardless of which batch they came from.
                 allItems.sort { $0.publishedAt > $1.publishedAt }
-                return allItems
+                // Global cap prevents memory runaway from very broad taxonomy nodes.
+                let topN = min(allItems.count, 600)
+                return Array(allItems.prefix(topN))
             }
 
             return try request

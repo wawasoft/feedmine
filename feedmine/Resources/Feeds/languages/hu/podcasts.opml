@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Hungarian)">
-      <outline title="Index - Podcast" xmlUrl="https://index.hu/ podcast/" type="rss"/>
-      <outline title="24.hu - Podcast" xmlUrl="https://24.hu/podcast/feed/" type="rss"/>
-      <outline title="Telex - Podcast" xmlUrl="https://telex.hu/podcast/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

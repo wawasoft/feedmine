@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Hobbies (German)">
-      <outline title="Hobby - Das Magazin" xmlUrl="https://www.hobby-magazin.de/rss/" type="rss"/>
-      <outline title="Bastel- und Hobbywelt" xmlUrl="https://www.bastel-hobbywelt.de/feed/" type="rss"/>
+      <outline title="Hobby - Das Magazin" xmlUrl="https://www.hobby-magazin.de/rss/" type="rss" />
     </outline>
   </body>
 </opml>

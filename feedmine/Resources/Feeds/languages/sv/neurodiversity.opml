@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Swedish)">
-      <outline title="Autism Sverige" xmlUrl="https://www.autism.se/feed/" type="rss"/>
-      <outline title="Attention" xmlUrl="https://attention.se/feed/" type="rss"/>
-      <outline title="Downs Syndrom" xmlUrl="https://www.downs-syndrom.se/feed/" type="rss"/>
+      <outline title="Attention" xmlUrl="https://attention.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

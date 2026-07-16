@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (German)">
-      <outline title="Beautyblog Deutschland" xmlUrl="https://www.beautyblog.de/feed/" type="rss"/>
-      <outline title="Makeup.de" xmlUrl="https://www.makeup.de/feed/" type="rss"/>
-      <outline title="Glamour Germany Beauty" xmlUrl="https://www.glamour.de/beauty/rss.xml" type="rss"/>
+      <outline title="Beautyblog Deutschland" xmlUrl="https://www.beautyblog.de/feed/" type="rss" />
+      <outline title="Makeup.de" xmlUrl="https://www.makeup.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

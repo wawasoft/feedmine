@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Greek)">
-      <outline title="Προσωπικό Blog του Νίκου" xmlUrl="https://nikosblog.gr/feed/" type="rss"/>
-      <outline title="Ημερολόγιο Καταστρώματος" xmlUrl="https://imerologiokatastromatos.gr/feed/" type="rss"/>
-      <outline title="Σκέψεις ενός Απλού Ανθρώπου" xmlUrl="https://skepseis.gr/feed/" type="rss"/>
-      <outline title="Ταξίδια και Αναμνήσεις" xmlUrl="https://taxidiakainanamniseis.gr/feed/" type="rss"/>
-      <outline title="Μαγειρικές Ιστορίες" xmlUrl="https://mageirikesistories.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Drag, Queer (Norwegian)">
-      <outline title="Blikk" xmlUrl="https://blikk.no/feed" type="rss"/>
-      <outline title="Gaysir" xmlUrl="https://www.gaysir.no/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

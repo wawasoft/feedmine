@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (Filipino)">
-      <outline title="Theatre Philippines" xmlUrl="https://theatrephilippines.com/feed/" type="rss"/>
-      <outline title="PETA" xmlUrl="https://www.petatheater.com/feed/" type="rss"/>
+      <outline title="PETA" xmlUrl="https://www.petatheater.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

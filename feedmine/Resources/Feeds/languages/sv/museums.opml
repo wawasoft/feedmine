@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Museums (Swedish)">
-      <outline title="Sveriges Museer" xmlUrl="https://www.sverigesmuseer.se/feed/" type="rss"/>
-      <outline title="Historiska Museet" xmlUrl="https://historiska.se/feed/" type="rss"/>
-      <outline title="Nationalmuseum" xmlUrl="https://www.nationalmuseum.se/feed/" type="rss"/>
+      <outline title="Sveriges Museer" xmlUrl="https://www.sverigesmuseer.se/feed/" type="rss" />
+      <outline title="Historiska Museet" xmlUrl="https://historiska.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

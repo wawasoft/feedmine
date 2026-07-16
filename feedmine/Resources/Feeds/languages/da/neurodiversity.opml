@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Danish)">
-      <outline title="Autismeforeningen" xmlUrl="https://www.autismeforeningen.dk/feed/" type="rss"/>
-      <outline title="Landsforeningen Autisme" xmlUrl="https://www.autisme.dk/feed/" type="rss"/>
-      <outline title="Downs Syndrom Foreningen" xmlUrl="https://www.downsforeningen.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

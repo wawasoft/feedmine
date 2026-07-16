@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Sports (Filipino)">
-      <outline title="ABS-CBN Sports" xmlUrl="https://sports.abs-cbn.com/feed" type="rss"/>
-      <outline title="Sports Gateway PH" xmlUrl="https://sportsgateway.ph/feed/" type="rss"/>
-      <outline title="Bandalera Sports" xmlUrl="https://bandalerasports.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

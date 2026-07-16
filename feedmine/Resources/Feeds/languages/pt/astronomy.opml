@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Astronomy (Portuguese)">
-      <outline title="Astronomia Online" xmlUrl="https://www.astronomiaonline.com/feed/" type="rss"/>
-      <outline title="Observatório Nacional" xmlUrl="https://www.on.br/feed/" type="rss"/>
-      <outline title="UOL Astronomia" xmlUrl="https://noticias.uol.com.br/ciencia/astronomia/rss.xml" type="rss"/>
+      <outline title="Astronomia Online" xmlUrl="https://www.astronomiaonline.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

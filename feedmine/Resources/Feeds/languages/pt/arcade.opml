@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Portuguese)">
-      <outline title="Arcade Brasil" xmlUrl="https://www.arcadebrasil.com.br/feed/" type="rss"/>
-      <outline title="Pinball Brasil" xmlUrl="https://pinballbrasil.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

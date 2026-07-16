@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Italian)">
-      <outline title="Ingegneri.info" xmlUrl="https://www.ingegneri.info/feed" type="rss"/>
-      <outline title="Meccanica News" xmlUrl="https://www.meccanicanews.com/feed" type="rss"/>
-      <outline title="Automazione e Strumentazione" xmlUrl="https://www.automazione-strumentazione.it/feed" type="rss"/>
+      <outline title="Ingegneri.info" xmlUrl="https://www.ingegneri.info/feed" type="rss" />
     </outline>
   </body>
 </opml>

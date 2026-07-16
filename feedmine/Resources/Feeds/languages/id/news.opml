@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="News Feeds (Indonesian)">
-      <outline title="Kompas.com" xmlUrl="https://www.kompas.com/feed" type="rss"/>
-      <outline title="Detik.com" xmlUrl="https://www.detik.com/rss" type="rss"/>
-      <outline title="Tempo.co" xmlUrl="https://www.tempo.co/feed" type="rss"/>
-      <outline title="CNN Indonesia" xmlUrl="https://www.cnnindonesia.com/rss" type="rss"/>
+      <outline title="CNN Indonesia" xmlUrl="https://www.cnnindonesia.com/rss" type="rss" />
     </outline>
   </body>
 </opml>

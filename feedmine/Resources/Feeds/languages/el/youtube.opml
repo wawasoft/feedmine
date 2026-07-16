@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Greek)">
-      <outline title="YouTube Greece - Τάσεις" xmlUrl="https://www.youtube.com/feeds/trending?gl=GR&amp;hl=el" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

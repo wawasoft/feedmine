@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Italian)">
-      <outline title="Il Libraio" xmlUrl="https://www.illibraio.it/feed" type="rss"/>
-      <outline title="Nazione Indiana" xmlUrl="https://www.nazioneindiana.com/feed" type="rss"/>
-      <outline title="Minima&amp;Moralia" xmlUrl="https://www.minimamoralia.it/feed" type="rss"/>
+      <outline title="Il Libraio" xmlUrl="https://www.illibraio.it/feed" type="rss" />
+      <outline title="Nazione Indiana" xmlUrl="https://www.nazioneindiana.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

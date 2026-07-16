@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Hungarian)">
-      <outline title="Faipari Hírek" xmlUrl="https://faiparihirek.hu/feed/" type="rss"/>
-      <outline title="Asztalos Blog" xmlUrl="https://asztalos.blog.hu/feed" type="rss"/>
-      <outline title="Barkácsolj Velünk" xmlUrl="https://barkacsoljvelunk.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

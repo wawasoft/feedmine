@@ -87,7 +87,6 @@
       <outline title="Egyptian Archeology" xmlUrl="https://www.egyptianarchaeology.com/feed/" type="rss" />
     </outline>
     <outline text="Architecture">
-      <outline title="Urban Egypt" xmlUrl="https://www.urbanegypt.com/feed/" type="rss" />
       <outline title="Alexandria Architecture" xmlUrl="https://www.alexarch.com/feed/" type="rss" />
       <outline title="ArchCairo" xmlUrl="https://www.archcairo.com/feed/" type="rss" />
     </outline>

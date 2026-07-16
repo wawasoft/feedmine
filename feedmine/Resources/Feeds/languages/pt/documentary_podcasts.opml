@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Documentary (Portuguese)">
-      <outline title="Podcast Documentário" xmlUrl="https://podcastdocumentario.com.br/feed/podcast/" type="rss"/>
-      <outline title="Rádio Novelo" xmlUrl="https://radionovelo.com.br/feed/podcast/" type="rss"/>
-      <outline title="Café da Manhã" xmlUrl="https://feeds.feedburner.com/cafedamanha" type="rss"/>
+      <outline title="Rádio Novelo" xmlUrl="https://radionovelo.com.br/feed/podcast/" type="rss" />
+      <outline title="Café da Manhã" xmlUrl="https://feeds.feedburner.com/cafedamanha" type="rss" />
     </outline>
   </body>
 </opml>

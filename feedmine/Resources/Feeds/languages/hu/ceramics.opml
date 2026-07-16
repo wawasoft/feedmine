@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (Hungarian)">
-      <outline title="Kerámia Műhely" xmlUrl="https://keramia-muhely.hu/feed" type="rss"/>
-      <outline title="Fazekasok Világa" xmlUrl="https://fazekasokvilaga.hu/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

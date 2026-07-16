@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Croatian)">
-      <outline title="Audio drama podcast" xmlUrl="https://audiodrama.podbean.com/feed.xml" type="rss"/>
-      <outline title="Priče iz naftalina" xmlUrl="https://priceiznaftalina.podbean.com/feed.xml" type="rss"/>
-      <outline title="Radio drama Hrvatska" xmlUrl="https://radiodramahrvatska.podbean.com/feed.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

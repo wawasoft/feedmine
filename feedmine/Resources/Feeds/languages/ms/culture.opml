@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Culture Feeds (Malay)">
-      <outline title="Budaya Kita" xmlUrl="https://www.budayakita.com/feed/" type="rss"/>
-      <outline title="Malaysia Kini - Budaya" xmlUrl="https://www.malaysiakini.com/my/feeds/category/budaya" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

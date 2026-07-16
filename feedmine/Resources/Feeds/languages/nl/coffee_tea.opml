@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Coffee (Dutch)">
-      <outline title="Koffiepraat" xmlUrl="https://koffiepraat.nl/feed/" type="rss"/>
-      <outline title="Theevisie" xmlUrl="https://theevisie.nl/feed/" type="rss"/>
-      <outline title="Brandzaak Koffie" xmlUrl="https://brandzaak.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

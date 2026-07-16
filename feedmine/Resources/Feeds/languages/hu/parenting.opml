@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Moms, Dads (Hungarian)">
-      <outline title="Szülők Lapja" xmlUrl="https://szuloklapja.hu/feed" type="rss"/>
-      <outline title="Családinet" xmlUrl="https://csaladinet.hu/rss" type="rss"/>
-      <outline title="Mamami" xmlUrl="https://mamami.hu/feed" type="rss"/>
-      <outline title="Apukakönyv" xmlUrl="https://apukakonyv.hu/feed" type="rss"/>
+      <outline title="Családinet" xmlUrl="https://csaladinet.hu/rss" type="rss" />
+      <outline title="Mamami" xmlUrl="https://mamami.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

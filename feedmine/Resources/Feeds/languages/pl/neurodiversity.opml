@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Polish)">
-      <outline title="Fundacja JiM" xmlUrl="https://fundacjajim.pl/feed/" type="rss"/>
-      <outline title="Autyzm – Poradnik" xmlUrl="https://autyzmporadnik.pl/feed/" type="rss"/>
-      <outline title="Zespół Downa – Blog" xmlUrl="https://zespoldowna.info/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

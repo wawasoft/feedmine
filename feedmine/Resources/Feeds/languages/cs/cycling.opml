@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Cycling (Czech)">
-      <outline title="Cyklonovinky" xmlUrl="https://www.cyklonovinky.cz/feed/" type="rss"/>
-      <outline title="RoadCycling.cz" xmlUrl="https://www.roadcycling.cz/feed/" type="rss"/>
-      <outline title="BikePort.cz" xmlUrl="https://www.bikeport.cz/feed/" type="rss"/>
-      <outline title="NaKole.cz" xmlUrl="https://www.nakole.cz/feed/" type="rss"/>
-      <outline title="MTBS.cz" xmlUrl="https://www.mtbs.cz/feed/" type="rss"/>
+      <outline title="BikePort.cz" xmlUrl="https://www.bikeport.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

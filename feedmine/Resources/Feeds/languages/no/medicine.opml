@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Norwegian)">
-      <outline title="Tidsskrift for Den norske legeforening" xmlUrl="https://tidsskriftet.no/feed" type="rss"/>
-      <outline title="Dagens Medisin" xmlUrl="https://www.dagensmedisin.no/feed" type="rss"/>
-      <outline title="Legenytt" xmlUrl="https://legenytt.no/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

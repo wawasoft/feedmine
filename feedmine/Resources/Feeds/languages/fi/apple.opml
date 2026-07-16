@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Apple (Finnish)">
-      <outline title="MacWorld Suomi" xmlUrl="https://www.macworld.fi/feed/" type="rss"/>
-      <outline title="iPhoneland" xmlUrl="https://www.iphone.fi/feed/" type="rss"/>
+      <outline title="MacWorld Suomi" xmlUrl="https://www.macworld.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

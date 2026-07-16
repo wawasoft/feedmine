@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Persian)">
-      <outline title="آخرین خبر" xmlUrl="https://www.akharinkhabar.ir/feed" type="rss"/>
-      <outline title="برترین‌ها" xmlUrl="https://www.bartarinha.ir/feed" type="rss"/>
+      <outline title="آخرین خبر" xmlUrl="https://www.akharinkhabar.ir/feed" type="rss" />
     </outline>
   </body>
 </opml>

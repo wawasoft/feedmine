@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Universities (Croatian)">
-      <outline title="Sveučilište u Zagrebu - Novosti" xmlUrl="https://www.unizg.hr/novosti/rss" type="rss"/>
-      <outline title="Sveučilište u Splitu - Obavijesti" xmlUrl="https://www.unist.hr/obavijesti/rss" type="rss"/>
-      <outline title="Sveučilište u Rijeci - Novosti" xmlUrl="https://www.uniri.hr/novosti/rss" type="rss"/>
-      <outline title="Sveučilište u Osijeku - Vijesti" xmlUrl="https://www.unios.hr/vijesti/rss" type="rss"/>
-      <outline title="Sveučilište u Zadru - Novosti" xmlUrl="https://www.unizd.hr/novosti/rss" type="rss"/>
+      <outline title="Sveučilište u Zadru - Novosti" xmlUrl="https://www.unizd.hr/novosti/rss" type="rss" />
     </outline>
   </body>
 </opml>

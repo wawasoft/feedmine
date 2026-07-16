@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Sports (Hungarian)">
-      <outline title="Nemzeti Sport RSS" xmlUrl="https://www.nemzetisport.hu/rss" type="rss"/>
-      <outline title="M4 Sport RSS" xmlUrl="https://m4sport.hu/rss" type="rss"/>
-      <outline title="Sport24.hu RSS" xmlUrl="https://sport24.hu/feed/" type="rss"/>
-      <outline title="Origo Sport RSS" xmlUrl="https://www.origo.hu/sport/rss" type="rss"/>
-      <outline title="Index Sport RSS" xmlUrl="https://index.hu/sport/rss" type="rss"/>
+      <outline title="Index Sport RSS" xmlUrl="https://index.hu/sport/rss" type="rss" />
     </outline>
   </body>
 </opml>

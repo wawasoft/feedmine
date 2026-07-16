@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Indonesian)">
-      <outline title="Fimela - Fashion" xmlUrl="https://www.fimela.com/fashion/rss" type="rss"/>
-      <outline title="Vemale.com - Fashion" xmlUrl="https://www.vemale.com/fashion/rss" type="rss"/>
-      <outline title="Wolipop" xmlUrl="https://www.wolipop.com/rss" type="rss"/>
-      <outline title="Kompas.com - Fashion" xmlUrl="https://www.kompas.com/tag/fashion/rss" type="rss"/>
-      <outline title="Tempo.co - Fashion" xmlUrl="https://www.tempo.co/tag/fashion/rss" type="rss"/>
+      <outline title="Wolipop" xmlUrl="https://www.wolipop.com/rss" type="rss" />
     </outline>
   </body>
 </opml>

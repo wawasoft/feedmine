@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Spanish)">
-      <outline title="El Mundo - Gente" xmlUrl="https://www.elmundo.es/loc/feed.rss" type="rss"/>
-      <outline title="ABC Gente" xmlUrl="https://www.abc.es/gente/feed.rss" type="rss"/>
-      <outline title="Hola!" xmlUrl="https://www.hola.com/rss/" type="rss"/>
-      <outline title="Diez Minutos" xmlUrl="https://www.diezminutos.es/rss/" type="rss"/>
-      <outline title="Vanitatis - El Confidencial" xmlUrl="https://www.vanitatis.elconfidencial.com/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

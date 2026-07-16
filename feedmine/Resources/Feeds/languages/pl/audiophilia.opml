@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Audiophilia, Vinyl Records (Polish)">
-      <outline title="Audio" xmlUrl="https://audio.com.pl/feed" type="rss"/>
-      <outline title="High Fidelity" xmlUrl="https://highfidelity.pl/feed/" type="rss"/>
-      <outline title="Vinylove" xmlUrl="https://vinylove.pl/feed/" type="rss"/>
-      <outline title="Audiofilskie Forum" xmlUrl="https://audiofilskieforum.pl/feed/" type="rss"/>
-      <outline title="Gramofon Online" xmlUrl="https://gramofononline.pl/feed/" type="rss"/>
+      <outline title="Vinylove" xmlUrl="https://vinylove.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

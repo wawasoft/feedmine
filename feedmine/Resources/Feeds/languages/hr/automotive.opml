@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Automotive (Croatian)">
-      <outline title="Auto klub" xmlUrl="https://www.autoklub.hr/rss" type="rss"/>
-      <outline title="Jutarnji list - Auto" xmlUrl="https://www.jutarnji.hr/rss/auto" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

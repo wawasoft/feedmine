@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="DIY (Spanish)">
-      <outline title="Bricolaje y DIY" xmlUrl="https://www.bricolajeydiy.com/feed/" type="rss"/>
-      <outline title="Hazlo tú mismo" xmlUrl="https://hazlotumismo.com/feed/" type="rss"/>
+      <outline title="Hazlo tú mismo" xmlUrl="https://hazlotumismo.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

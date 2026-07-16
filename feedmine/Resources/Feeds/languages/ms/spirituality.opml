@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Malay)">
-      <outline title="Iluminasi - Kerohanian" xmlUrl="https://www.iluminasi.com/category/kerohanian/feed" type="rss"/>
-      <outline title="Tazkirah - Tazkirah.net" xmlUrl="https://tazkirah.net/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

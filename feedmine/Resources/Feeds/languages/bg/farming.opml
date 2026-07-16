@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Bulgarian)">
-      <outline title="Агроновини" xmlUrl="https://agronovini.bg/feed/" type="rss"/>
-      <outline title="Фермер.бг" xmlUrl="https://fermer.bg/feed/" type="rss"/>
+      <outline title="Фермер.бг" xmlUrl="https://fermer.bg/feed/" type="rss" />
     </outline>
   </body>
 </opml>

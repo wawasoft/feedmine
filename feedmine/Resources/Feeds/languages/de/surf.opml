@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Surfing Feeds (German)">
-      <outline title="Surf Magazin" xmlUrl="https://www.surf-magazin.de/feed/" type="rss"/>
-      <outline title="Surfer Today Deutschland" xmlUrl="https://www.surfertoday.com/de/feed" type="rss"/>
-      <outline title="Wellenreiten.de" xmlUrl="https://www.wellenreiten.de/feed/" type="rss"/>
+      <outline title="Surfer Today Deutschland" xmlUrl="https://www.surfertoday.com/de/feed" type="rss" />
+      <outline title="Wellenreiten.de" xmlUrl="https://www.wellenreiten.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

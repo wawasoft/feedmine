@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Bulgarian)">
-      <outline title="Hobby.bg" xmlUrl="https://hobby.bg/rss" type="rss"/>
-      <outline title="Моето хоби" xmlUrl="https://moetohobi.com/feed" type="rss"/>
-      <outline title="Майстори и занаяти" xmlUrl="https://maistoriznayati.bg/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

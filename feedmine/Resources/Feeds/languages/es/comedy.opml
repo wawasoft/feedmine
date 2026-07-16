@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Humor (Spanish)">
-      <outline title="El Mundo Today" xmlUrl="https://www.elmundotoday.com/feed/" type="rss"/>
-      <outline title="Humor (La Voz de Galicia)" xmlUrl="https://www.lavozdegalicia.es/rss/humor.xml" type="rss"/>
-      <outline title="Yorokobu" xmlUrl="https://www.yorokobu.es/feed/" type="rss"/>
-      <outline title="El Chigüire Bipolar" xmlUrl="https://www.elchiguirebipolar.net/feed/" type="rss"/>
-      <outline title="Humor (El País)" xmlUrl="https://elpais.com/noticias/humor/" type="rss"/>
+      <outline title="El Mundo Today" xmlUrl="https://www.elmundotoday.com/feed/" type="rss" />
+      <outline title="Yorokobu" xmlUrl="https://www.yorokobu.es/feed/" type="rss" />
+      <outline title="El Chigüire Bipolar" xmlUrl="https://www.elchiguirebipolar.net/feed/" type="rss" />
+      <outline title="Humor (El País)" xmlUrl="https://elpais.com/noticias/humor/" type="rss" />
     </outline>
   </body>
 </opml>

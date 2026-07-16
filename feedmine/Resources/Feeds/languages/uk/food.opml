@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Food (Ukrainian)">
-      <outline title="Смакота" xmlUrl="https://smakota.ua/feed" type="rss"/>
-      <outline title="Їжа та напої" xmlUrl="https://food.ua/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

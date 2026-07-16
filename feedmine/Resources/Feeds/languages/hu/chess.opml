@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Chess Feeds (Hungarian)">
-      <outline title="Sakkozók Online" xmlUrl="https://sakkozokonline.hu/feed" type="rss"/>
-      <outline title="Sakkvilág" xmlUrl="https://sakkvilag.hu/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

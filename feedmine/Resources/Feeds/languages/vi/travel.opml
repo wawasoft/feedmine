@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Vietnamese)">
-      <outline title="Ivivu - Tin tức du lịch" xmlUrl="https://ivivu.com/blog/feed/" type="rss"/>
-      <outline title="VnExpress - Du lịch" xmlUrl="https://vnexpress.net/rss/du-lich.rss" type="rss"/>
-      <outline title="Dân Trí - Du lịch" xmlUrl="https://dantri.com.vn/du-lich.rss" type="rss"/>
-      <outline title="Phượt - Kinh nghiệm" xmlUrl="https://phuot.vn/rss/kinh-nghiem.rss" type="rss"/>
-      <outline title="Báo Du Lịch" xmlUrl="http://baodulich.net.vn/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

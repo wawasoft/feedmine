@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Chess Feeds (Portuguese)">
-      <outline title="Xadrez Total" xmlUrl="https://www.xadreztotal.com.br/feed/" type="rss"/>
-      <outline title="Clube de Xadrez Online" xmlUrl="https://www.clubedexadrezonline.com.br/feed/" type="rss"/>
-      <outline title="Xadrez Brasil" xmlUrl="https://www.xadrezbrasil.com.br/feed/" type="rss"/>
-      <outline title="Mestre Xadrez" xmlUrl="https://www.mestrexadrez.com.br/feed/" type="rss"/>
+      <outline title="Xadrez Total" xmlUrl="https://www.xadreztotal.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

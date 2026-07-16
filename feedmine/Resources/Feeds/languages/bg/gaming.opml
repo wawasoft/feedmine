@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Videogames (Bulgarian)">
-      <outline title="GG.bg" xmlUrl="https://gg.bg/rss" type="rss"/>
-      <outline title="Gamers.bg" xmlUrl="https://gamers.bg/rss" type="rss"/>
-      <outline title="PlayZone.bg" xmlUrl="https://playzone.bg/feed" type="rss"/>
+      <outline title="PlayZone.bg" xmlUrl="https://playzone.bg/feed" type="rss" />
     </outline>
   </body>
 </opml>

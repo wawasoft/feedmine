@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Danish)">
-      <outline title="Eurowoman" xmlUrl="https://www.eurowoman.dk/rss/mode" type="rss"/>
-      <outline title="Costume" xmlUrl="https://www.costume.dk/rss/mode" type="rss"/>
-      <outline title="Fashion Forum" xmlUrl="https://fashionforum.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

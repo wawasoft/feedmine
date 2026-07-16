@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Armenian)">
-      <outline title="Նորաձևության աշխարհ" xmlUrl="https://fashionworld.am/feed/" type="rss"/>
-      <outline title="Նորաձևություն" xmlUrl="https://norajevutyun.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

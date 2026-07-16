@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Spanish)">
-      <outline title="Senderos de España" xmlUrl="https://senderosdeespana.es/feed/" type="rss"/>
-      <outline title="Rutas y Senderos" xmlUrl="https://rutasysenderos.com/feed/" type="rss"/>
-      <outline title="Montañas y Rutas" xmlUrl="https://montañas y rutas.com/feed/" type="rss"/>
-      <outline title="Senderismo en la Red" xmlUrl="https://senderismoenlared.com/feed/" type="rss"/>
-      <outline title="Rutas de Senderismo" xmlUrl="https://rutasdesenderismo.es/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

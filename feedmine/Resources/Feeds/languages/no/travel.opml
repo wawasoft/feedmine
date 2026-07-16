@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Travel (Norwegian)">
-      <outline title="Reiseklar" xmlUrl="https://www.reiseklar.no/feed/" type="rss"/>
-      <outline title="Vagabond" xmlUrl="https://www.vagabond.no/feed/" type="rss"/>
-      <outline title="Globetrotter" xmlUrl="https://www.globetrotter.no/feed/" type="rss"/>
-      <outline title="TravelNews" xmlUrl="https://www.travelnews.no/feed/" type="rss"/>
-      <outline title="Reiselyst" xmlUrl="https://www.reiselyst.no/feed/" type="rss"/>
+      <outline title="Vagabond" xmlUrl="https://www.vagabond.no/feed/" type="rss" />
+      <outline title="TravelNews" xmlUrl="https://www.travelnews.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

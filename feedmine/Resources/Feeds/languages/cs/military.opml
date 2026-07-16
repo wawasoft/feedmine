@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Military (Czech)">
-      <outline title="Armádní noviny" xmlUrl="https://www.armadninoviny.cz/feed/" type="rss"/>
-      <outline title="CZDEFENCE" xmlUrl="https://www.czdefence.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

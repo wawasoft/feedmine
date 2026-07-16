@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="News Feeds (Portuguese)">
-      <outline title="G1" xmlUrl="https://g1.globo.com/rss/g1/" type="rss"/>
-      <outline title="UOL Notícias" xmlUrl="https://noticias.uol.com.br/feed.xml" type="rss"/>
-      <outline title="Folha de S.Paulo" xmlUrl="https://www1.folha.uol.com.br/feed/" type="rss"/>
-      <outline title="Estadão" xmlUrl="https://www.estadao.com.br/rss/" type="rss"/>
+      <outline title="G1" xmlUrl="https://g1.globo.com/rss/g1/" type="rss" />
+      <outline title="Folha de S.Paulo" xmlUrl="https://www1.folha.uol.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

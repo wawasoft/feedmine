@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Documentary (Ukrainian)">
-      <outline title="Документальні подкасти (UA)" xmlUrl="https://podcasts.ua/documentary/feed.xml" type="rss"/>
-      <outline title="Радіо Свобода: Документальні програми" xmlUrl="https://www.radiosvoboda.org/rss/doc/" type="rss"/>
-      <outline title="Українське радіо: Документалістика" xmlUrl="https://ukr.radio/rss/dokumentalistyka.xml" type="rss"/>
+      <outline title="Радіо Свобода: Документальні програми" xmlUrl="https://www.radiosvoboda.org/rss/doc/" type="rss" />
+      <outline title="Українське радіо: Документалістика" xmlUrl="https://ukr.radio/rss/dokumentalistyka.xml" type="rss" />
     </outline>
   </body>
 </opml>

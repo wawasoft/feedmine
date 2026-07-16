@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (Turkish)">
-      <outline title="Seramik Türkiye" xmlUrl="https://seramikturkiye.com/feed/" type="rss"/>
-      <outline title="Seramik Sanatı" xmlUrl="https://seramiksanati.com/feed/" type="rss"/>
-      <outline title="Çömlekçilik ve Seramik" xmlUrl="https://comlekcilikveseramik.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="Seramik Hakkında Her Şey" xmlUrl="https://seramikhakkindahersey.com/feed/" type="rss"/>
-      <outline title="El Sanatları - Seramik" xmlUrl="https://elsanatlari.com/category/seramik/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

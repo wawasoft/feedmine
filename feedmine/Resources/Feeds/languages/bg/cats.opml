@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Bulgarian)">
-      <outline title="Котките на България" xmlUrl="https://kotkite.bg/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

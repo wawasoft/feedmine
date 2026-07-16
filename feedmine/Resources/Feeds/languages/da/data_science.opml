@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Danish)">
-      <outline title="Data Science Blog" xmlUrl="https://datascience.dk/feed/" type="rss"/>
-      <outline title="Version2 - Data" xmlUrl="https://www.version2.dk/emne/data/feed" type="rss"/>
+      <outline title="Data Science Blog" xmlUrl="https://datascience.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Fashion, Style (Persian)">
-      <outline title="مد و استایل" xmlUrl="https://modostyle.com/feed/" type="rss"/>
-      <outline title="فشن‌پرس" xmlUrl="https://fashionpress.ir/feed/" type="rss"/>
+      <outline title="مد و استایل" xmlUrl="https://modostyle.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

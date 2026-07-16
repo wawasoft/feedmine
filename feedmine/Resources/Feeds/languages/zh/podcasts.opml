@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Chinese)">
-      <outline title="播客志" xmlUrl="https://www.podcastz.com/feed/" type="rss"/>
-      <outline title="播客一下" xmlUrl="https://www.xyzfm.com/feed/" type="rss"/>
-      <outline title="播客先声" xmlUrl="https://www.podcastxiansheng.com/feed/" type="rss"/>
+      <outline title="播客志" xmlUrl="https://www.podcastz.com/feed/" type="rss" />
+      <outline title="播客一下" xmlUrl="https://www.xyzfm.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

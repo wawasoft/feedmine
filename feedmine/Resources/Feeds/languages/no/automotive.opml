@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Automotive (Norwegian)">
-      <outline title="Motor.no" xmlUrl="https://www.motor.no/rss/nyheter" type="rss"/>
-      <outline title="Bilnorge.no" xmlUrl="https://www.bilnorge.no/feed/" type="rss"/>
-      <outline title="Tek.no: Bil" xmlUrl="https://www.tek.no/rss/bil" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

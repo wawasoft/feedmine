@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Hobbies (Dutch)">
-      <outline title="Hobby.blogo.nl" xmlUrl="https://hobby.blogo.nl/feed/" type="rss"/>
-      <outline title="Handwerk" xmlUrl="https://www.handwerk.nl/rss" type="rss"/>
-      <outline title="Tuinadvies" xmlUrl="https://www.tuinadvies.nl/rss" type="rss"/>
-      <outline title="Knutselen" xmlUrl="https://www.knutselen.nl/rss" type="rss"/>
+      <outline title="Hobby.blogo.nl" xmlUrl="https://hobby.blogo.nl/feed/" type="rss" />
+      <outline title="Handwerk" xmlUrl="https://www.handwerk.nl/rss" type="rss" />
+      <outline title="Knutselen" xmlUrl="https://www.knutselen.nl/rss" type="rss" />
     </outline>
   </body>
 </opml>

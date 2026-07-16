@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Fishing (German)">
-      <outline title="Blinker" xmlUrl="https://www.blinker.de/feed/" type="rss"/>
-      <outline title="Angelwoche" xmlUrl="https://www.angelwoche.de/feed" type="rss"/>
-      <outline title="Fisch &amp; Fang" xmlUrl="https://www.fischundfang.de/feed" type="rss"/>
-      <outline title="Deutscher Angelfischerverband" xmlUrl="https://www.dafv.de/feed" type="rss"/>
-      <outline title="Angelblog" xmlUrl="https://www.angelblog.de/feed" type="rss"/>
+      <outline title="Blinker" xmlUrl="https://www.blinker.de/feed/" type="rss" />
+      <outline title="Angelwoche" xmlUrl="https://www.angelwoche.de/feed" type="rss" />
+      <outline title="Angelblog" xmlUrl="https://www.angelblog.de/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Surfing Feeds (Dutch)">
-      <outline title="Surfnieuws" xmlUrl="https://www.surfnieuws.nl/feed/" type="rss"/>
-      <outline title="Surf Magazine Nederland" xmlUrl="https://www.surfm.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

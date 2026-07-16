@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Poetry (Polish)">
-      <outline title="Zeszyty Poetyckie" xmlUrl="https://zeszytopoetyckie.pl/feed" type="rss"/>
-      <outline title="Biuro Literackie" xmlUrl="https://biuroliterackie.pl/feed" type="rss"/>
-      <outline title="Dwutygodnik" xmlUrl="https://www.dwutygodnik.com/feed" type="rss"/>
-      <outline title="Poezja.org" xmlUrl="https://poezja.org/feed" type="rss"/>
-      <outline title="Kwartalnik Artystyczny" xmlUrl="https://kwartalnikartystyczny.pl/feed" type="rss"/>
+      <outline title="Biuro Literackie" xmlUrl="https://biuroliterackie.pl/feed" type="rss" />
+      <outline title="Dwutygodnik" xmlUrl="https://www.dwutygodnik.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

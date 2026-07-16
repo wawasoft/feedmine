@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Videogames (Ukrainian)">
-      <outline title="PlayUA" xmlUrl="https://playua.com/feed/" type="rss"/>
-      <outline title="ITC.ua Ігри" xmlUrl="https://itc.ua/feed/" type="rss"/>
+      <outline title="ITC.ua Ігри" xmlUrl="https://itc.ua/feed/" type="rss" />
     </outline>
   </body>
 </opml>

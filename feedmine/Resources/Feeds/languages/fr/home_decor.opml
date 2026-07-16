@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (French)">
-      <outline title="Côté Maison" xmlUrl="https://www.cotemaison.fr/rss.xml" type="rss"/>
-      <outline title="Maison &amp; Travaux" xmlUrl="https://www.maison-travaux.fr/feed/" type="rss"/>
-      <outline title="Elle Décoration" xmlUrl="https://www.elle.fr/decoration/rss.xml" type="rss"/>
-      <outline title="Déco.fr" xmlUrl="https://www.deco.fr/rss.xml" type="rss"/>
+      <outline title="Maison &amp; Travaux" xmlUrl="https://www.maison-travaux.fr/feed/" type="rss" />
+      <outline title="Déco.fr" xmlUrl="https://www.deco.fr/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

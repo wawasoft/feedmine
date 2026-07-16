@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Military (Burmese)">
-      <outline title="စစ်ရေးသတင်း" xmlUrl="https://militarymyanmar.com/rss" type="rss"/>
-      <outline title="တပ်မတော်သတင်း" xmlUrl="https://www.tatmadawnewsmm.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

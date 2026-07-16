@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Family, Relationships (Hungarian)">
-      <outline title="Családi Háló" xmlUrl="https://csaladihalo.hu/feed/" type="rss"/>
-      <outline title="Anyafotel" xmlUrl="https://anyafotel.hu/feed/" type="rss"/>
+      <outline title="Családi Háló" xmlUrl="https://csaladihalo.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

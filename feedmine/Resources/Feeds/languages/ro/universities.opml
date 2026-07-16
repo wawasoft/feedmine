@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Universities (Romanian)">
-      <outline title="Universitatea din București - Știri" xmlUrl="https://unibuc.ro/feed/" type="rss"/>
-      <outline title="Universitatea Babeș-Bolyai - Știri" xmlUrl="https://news.ubbcluj.ro/feed/" type="rss"/>
-      <outline title="Universitatea Politehnica Timișoara - Știri" xmlUrl="https://www.upt.ro/feed/" type="rss"/>
-      <outline title="Universitatea Alexandru Ioan Cuza - Știri" xmlUrl="https://www.uaic.ro/feed/" type="rss"/>
-      <outline title="Universitatea de Vest Timișoara - Știri" xmlUrl="https://www.uvt.ro/feed/" type="rss"/>
+      <outline title="Universitatea din București - Știri" xmlUrl="https://unibuc.ro/feed/" type="rss" />
+      <outline title="Universitatea Babeș-Bolyai - Știri" xmlUrl="https://news.ubbcluj.ro/feed/" type="rss" />
+      <outline title="Universitatea Alexandru Ioan Cuza - Știri" xmlUrl="https://www.uaic.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

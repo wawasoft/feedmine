@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Slovak)">
-      <outline title="Právne listy" xmlUrl="https://www.pravnelisty.sk/rss" type="rss"/>
-      <outline title="iPrávnik" xmlUrl="https://www.ipravnik.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Hungarian)">
-      <outline title="Blog.hu" xmlUrl="https://blog.hu/feed/" type="rss"/>
-      <outline title="Index - Blog" xmlUrl="https://index.hu/24ora/feed/" type="rss"/>
-      <outline title="Origo - Blog" xmlUrl="https://origo.hu/blog/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

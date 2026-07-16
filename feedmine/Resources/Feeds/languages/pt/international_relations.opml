@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Portuguese)">
-      <outline title="Politize!" xmlUrl="https://www.politize.com.br/feed/" type="rss"/>
-      <outline title="Brasil247" xmlUrl="https://www.brasil247.com/feed/" type="rss"/>
-      <outline title="Carta Capital" xmlUrl="https://www.cartacapital.com.br/feed/" type="rss"/>
-      <outline title="Jornal GGN" xmlUrl="https://jornalggn.com.br/feed/" type="rss"/>
-      <outline title="O Globo - Mundo" xmlUrl="https://oglobo.globo.com/mundo/feed/" type="rss"/>
+      <outline title="Politize!" xmlUrl="https://www.politize.com.br/feed/" type="rss" />
+      <outline title="Brasil247" xmlUrl="https://www.brasil247.com/feed/" type="rss" />
+      <outline title="Carta Capital" xmlUrl="https://www.cartacapital.com.br/feed/" type="rss" />
+      <outline title="Jornal GGN" xmlUrl="https://jornalggn.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

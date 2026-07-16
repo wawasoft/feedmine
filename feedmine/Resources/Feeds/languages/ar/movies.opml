@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Movies (Arabic)">
-      <outline title="سينماتك" xmlUrl="https://www.cinematik.net/feed" type="rss"/>
-      <outline title="فيلم" xmlUrl="https://www.film.com.sa/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

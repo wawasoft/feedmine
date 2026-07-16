@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Hungarian)">
-      <outline title="Greenfo" xmlUrl="https://greenfo.hu/feed/" type="rss"/>
-      <outline title="National Geographic Magyarország - Természet" xmlUrl="https://ng.hu/termeszet/feed/" type="rss"/>
-      <outline title="Okopédia" xmlUrl="https://okopedia.hu/feed/" type="rss"/>
+      <outline title="Greenfo" xmlUrl="https://greenfo.hu/feed/" type="rss" />
+      <outline title="National Geographic Magyarország - Természet" xmlUrl="https://ng.hu/termeszet/feed/" type="rss" />
     </outline>
   </body>
 </opml>

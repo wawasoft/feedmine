@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Polish)">
-      <outline title="Murator" xmlUrl="https://www.murator.pl/rss.xml" type="rss"/>
-      <outline title="Budujesz.pl" xmlUrl="https://budujesz.pl/feed/" type="rss"/>
-      <outline title="Inżynier Budownictwa" xmlUrl="https://inzynierbudownictwa.pl/feed/" type="rss"/>
-      <outline title="Dachy i ściany" xmlUrl="https://dachysciany.pl/feed/" type="rss"/>
+      <outline title="Budujesz.pl" xmlUrl="https://budujesz.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

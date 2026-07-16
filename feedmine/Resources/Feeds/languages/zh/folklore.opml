@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Chinese)">
-      <outline title="中国民俗学网" xmlUrl="https://www.chinesefolklore.org.cn/feed/" type="rss"/>
-      <outline title="神话与传说" xmlUrl="https://www.shenhua.com/rss.xml" type="rss"/>
-      <outline title="民间故事" xmlUrl="https://www.minjiangushi.com/rss/" type="rss"/>
-      <outline title="中国神话故事" xmlUrl="https://www.zhongguoshenhua.com/rss.xml" type="rss"/>
-      <outline title="民俗文化" xmlUrl="https://www.minsuwenhua.com/rss/" type="rss"/>
+      <outline title="民间故事" xmlUrl="https://www.minjiangushi.com/rss/" type="rss" />
     </outline>
   </body>
 </opml>

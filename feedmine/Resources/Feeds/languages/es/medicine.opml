@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Spanish)">
-      <outline title="Diario Médico" xmlUrl="https://www.diariomedico.com/feed" type="rss"/>
-      <outline title="El Médico Interactivo" xmlUrl="https://www.elmedicointeractivo.com/feed/" type="rss"/>
-      <outline title="Redacción Médica" xmlUrl="https://www.redaccionmedica.com/feed" type="rss"/>
-      <outline title="Medicina y Salud Pública" xmlUrl="https://www.medicinaysaludpublica.com/feed/" type="rss"/>
-      <outline title="Farmacia Profesional" xmlUrl="https://www.farmaciaprofesional.es/feed/" type="rss"/>
+      <outline title="Diario Médico" xmlUrl="https://www.diariomedico.com/feed" type="rss" />
+      <outline title="El Médico Interactivo" xmlUrl="https://www.elmedicointeractivo.com/feed/" type="rss" />
+      <outline title="Medicina y Salud Pública" xmlUrl="https://www.medicinaysaludpublica.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

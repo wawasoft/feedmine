@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Romanian)">
-      <outline title="Hobby-uri.ro" xmlUrl="https://www.hobby-uri.ro/feed/" type="rss"/>
-      <outline title="Pasiuni.ro" xmlUrl="https://www.pasiuni.ro/feed/" type="rss"/>
-      <outline title="DIY și Crafturi" xmlUrl="https://www.diycrafturi.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

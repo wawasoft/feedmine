@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Reference Journalists (Vietnamese)">
-      <outline title="Báo Nhà báo &amp; Công luận" xmlUrl="https://www.congluan.vn/rss/nha-bao.rss" type="rss"/>
-      <outline title="Hội Nhà báo Việt Nam" xmlUrl="https://hoinhabaovietnam.vn/rss/tin-tuc.rss" type="rss"/>
+      <outline title="Báo Nhà báo &amp; Công luận" xmlUrl="https://www.congluan.vn/rss/nha-bao.rss" type="rss" />
     </outline>
   </body>
 </opml>

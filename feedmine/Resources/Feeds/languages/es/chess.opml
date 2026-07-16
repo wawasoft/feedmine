@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Chess Feeds (Spanish)">
-      <outline title="Chess.com ES - Blog" xmlUrl="https://www.chess.com/es/blog?rss=1" type="rss"/>
-      <outline title="Ajedrez de ataque" xmlUrl="https://ajedrezdeataque.com/feed/" type="rss"/>
-      <outline title="Noticias de ajedrez (Chess24 ES)" xmlUrl="https://chess24.com/es/feed" type="rss"/>
-      <outline title="El rincón del ajedrez" xmlUrl="https://elrincondelajedrez.com/feed/" type="rss"/>
-      <outline title="Ajedrez social" xmlUrl="https://ajedrezsocial.com/feed/" type="rss"/>
+      <outline title="Chess.com ES - Blog" xmlUrl="https://www.chess.com/es/blog?rss=1" type="rss" />
+      <outline title="Ajedrez social" xmlUrl="https://ajedrezsocial.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

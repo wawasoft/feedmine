@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Design Feeds (Portuguese)">
-      <outline title="Design Culture" xmlUrl="https://www.designculture.com.br/feed/" type="rss"/>
-      <outline title="Choco Design" xmlUrl="https://chocodesign.com.br/feed/" type="rss"/>
-      <outline title="Designerd" xmlUrl="https://designerd.com.br/feed/" type="rss"/>
+      <outline title="Design Culture" xmlUrl="https://www.designculture.com.br/feed/" type="rss" />
+      <outline title="Designerd" xmlUrl="https://designerd.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Portuguese)">
-      <outline title="Metalurgia &amp; Materiais" xmlUrl="https://www.metalurgiamateriais.com.br/feed/" type="rss"/>
-      <outline title="ABM - Associação Brasileira de Metalurgia, Materiais e Mineração" xmlUrl="https://www.abmbrasil.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

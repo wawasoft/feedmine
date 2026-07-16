@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Whisky (Czech)">
-      <outline title="Whisky Magazine CZ" xmlUrl="https://www.whiskymag.cz/feed/" type="rss"/>
-      <outline title="Whisky.cz blog" xmlUrl="https://www.whisky.cz/blog/feed/" type="rss"/>
-      <outline title="Pivní a whisky recenze" xmlUrl="https://pivniwhiskyrecenze.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

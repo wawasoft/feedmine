@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Dutch)">
-      <outline title="Katten Blog" xmlUrl="https://www.kattenblog.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

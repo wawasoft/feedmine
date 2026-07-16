@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Tech Feeds (French)">
-      <outline title="01net" xmlUrl="https://www.01net.com/rss/actualites/" type="rss"/>
-      <outline title="Frandroid" xmlUrl="https://www.frandroid.com/feed" type="rss"/>
-      <outline title="Les Numériques" xmlUrl="https://www.lesnumeriques.com/rss/" type="rss"/>
-      <outline title="Clubic" xmlUrl="https://www.clubic.com/feed/" type="rss"/>
-      <outline title="ZDNet France" xmlUrl="https://www.zdnet.fr/feeds/rss/" type="rss"/>
+      <outline title="01net" xmlUrl="https://www.01net.com/rss/actualites/" type="rss" />
+      <outline title="Frandroid" xmlUrl="https://www.frandroid.com/feed" type="rss" />
+      <outline title="ZDNet France" xmlUrl="https://www.zdnet.fr/feeds/rss/" type="rss" />
     </outline>
   </body>
 </opml>

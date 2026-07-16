@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Spanish)">
-      <outline title="Decoración - El Mueble" xmlUrl="https://www.elmueble.com/rss/" type="rss"/>
-      <outline title="Deco - Hogarmania" xmlUrl="https://www.hogarmania.com/decoracion/feed/" type="rss"/>
-      <outline title="Interiorismo - Arquitectura y Diseño" xmlUrl="https://www.arquitecturaydiseno.es/rss/" type="rss"/>
-      <outline title="Decoración - Casa Diez" xmlUrl="https://www.casadiez.com/rss/" type="rss"/>
-      <outline title="Decoesfera" xmlUrl="https://www.decoesfera.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

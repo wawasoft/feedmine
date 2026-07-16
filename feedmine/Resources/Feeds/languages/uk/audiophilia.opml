@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Audiophilia, Vinyl Records (Ukrainian)">
-      <outline title="Hi-Fi UA" xmlUrl="https://hifi.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

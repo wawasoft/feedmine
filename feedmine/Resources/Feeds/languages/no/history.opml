@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="History Feeds (Norwegian)">
-      <outline title="Historieblogg" xmlUrl="https://historieblogg.no/feed/" type="rss"/>
-      <outline title="Norgeshistorie" xmlUrl="https://www.norgeshistorie.no/feed/" type="rss"/>
+      <outline title="Historieblogg" xmlUrl="https://historieblogg.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

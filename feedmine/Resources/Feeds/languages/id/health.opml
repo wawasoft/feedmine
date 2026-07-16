@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Health (Indonesian)">
-      <outline title="Kompas Health" xmlUrl="https://health.kompas.com/feed/" type="rss"/>
-      <outline title="SehatQ" xmlUrl="https://www.sehatq.com/feed" type="rss"/>
-      <outline title="Alodokter" xmlUrl="https://www.alodokter.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

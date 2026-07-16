@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Travel (Filipino)">
-      <outline title="TravelBook.ph" xmlUrl="https://www.travelbook.ph/feed/" type="rss"/>
-      <outline title="Our Awesome Planet" xmlUrl="https://www.ourawesomeplanet.com/feed/" type="rss"/>
-      <outline title="Backpacking Philippines" xmlUrl="https://www.backpackingphilippines.com/feed/" type="rss"/>
+      <outline title="TravelBook.ph" xmlUrl="https://www.travelbook.ph/feed/" type="rss" />
+      <outline title="Our Awesome Planet" xmlUrl="https://www.ourawesomeplanet.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

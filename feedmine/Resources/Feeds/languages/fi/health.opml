@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Health (Finnish)">
-      <outline title="Terveyskirjasto" xmlUrl="https://www.terveyskirjasto.fi/rss/terveyskirjasto.rss" type="rss"/>
-      <outline title="Käypä hoito" xmlUrl="https://www.kaypahoito.fi/rss/ajankohtaista.rss" type="rss"/>
-      <outline title="Terveyden ja hyvinvoinnin laitos" xmlUrl="https://thl.fi/fi/-/rss/uutiset" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

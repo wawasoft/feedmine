@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Polish)">
-      <outline title="Pudelek" xmlUrl="https://www.pudelek.pl/feed" type="rss"/>
-      <outline title="Plotek" xmlUrl="https://www.plotek.pl/feed" type="rss"/>
-      <outline title="Jastrząb Post" xmlUrl="https://jastrzabpost.pl/feed" type="rss"/>
+      <outline title="Pudelek" xmlUrl="https://www.pudelek.pl/feed" type="rss" />
+      <outline title="Jastrząb Post" xmlUrl="https://jastrzabpost.pl/feed" type="rss" />
     </outline>
   </body>
 </opml>

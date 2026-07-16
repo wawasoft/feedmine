@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Sports (Croatian)">
-      <outline title="Sportnet.hr" xmlUrl="https://sportnet.hr/rss/" type="rss"/>
-      <outline title="Index.hr - Sport" xmlUrl="https://www.index.hr/rss/sport" type="rss"/>
-      <outline title="24sata - Sport" xmlUrl="https://www.24sata.hr/rss/sport" type="rss"/>
-      <outline title="Sportske novosti" xmlUrl="https://sportske.jutarnji.hr/rss/" type="rss"/>
-      <outline title="HRT Sport" xmlUrl="https://sport.hrt.hr/rss/" type="rss"/>
+      <outline title="Sportnet.hr" xmlUrl="https://sportnet.hr/rss/" type="rss" />
+      <outline title="Index.hr - Sport" xmlUrl="https://www.index.hr/rss/sport" type="rss" />
+      <outline title="24sata - Sport" xmlUrl="https://www.24sata.hr/rss/sport" type="rss" />
     </outline>
   </body>
 </opml>

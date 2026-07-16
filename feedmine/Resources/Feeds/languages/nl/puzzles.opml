@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Dutch)">
-      <outline title="Puzzelclub" xmlUrl="https://www.puzzelclub.nl/feed/" type="rss"/>
-      <outline title="Denksport" xmlUrl="https://www.denksport.nl/feed/" type="rss"/>
-      <outline title="Puzzelsite" xmlUrl="https://www.puzzelsite.nl/feed/" type="rss"/>
-      <outline title="Puzzelwoordenboek" xmlUrl="https://www.puzzelwoordenboek.nl/feed/" type="rss"/>
-      <outline title="Sudoku.nl" xmlUrl="https://www.sudoku.nl/feed/" type="rss"/>
+      <outline title="Puzzelclub" xmlUrl="https://www.puzzelclub.nl/feed/" type="rss" />
+      <outline title="Puzzelsite" xmlUrl="https://www.puzzelsite.nl/feed/" type="rss" />
+      <outline title="Puzzelwoordenboek" xmlUrl="https://www.puzzelwoordenboek.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

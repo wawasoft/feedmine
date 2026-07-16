@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Portuguese)">
-      <outline title="Marcenaria Criativa" xmlUrl="https://marcenariacriativa.com.br/feed/" type="rss"/>
-      <outline title="Mundo da Carpintaria" xmlUrl="https://mundodacarpintaria.com.br/feed/" type="rss"/>
-      <outline title="Trabalhos em Madeira" xmlUrl="https://trabalhosemmadeira.com.br/feed/" type="rss"/>
-      <outline title="Marcenaria Fácil" xmlUrl="https://marcenariafacil.com.br/feed/" type="rss"/>
-      <outline title="Oficina de Madeira" xmlUrl="https://oficinademadeira.com.br/feed/" type="rss"/>
+      <outline title="Marcenaria Criativa" xmlUrl="https://marcenariacriativa.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

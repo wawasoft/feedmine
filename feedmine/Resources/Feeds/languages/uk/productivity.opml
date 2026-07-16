@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Ukrainian)">
-      <outline title="Продуктивність" xmlUrl="https://productivity.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

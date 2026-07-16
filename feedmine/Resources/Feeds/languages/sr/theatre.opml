@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (Serbian)">
-      <outline title="Teatrologija" xmlUrl="https://teatrologija.rs/feed/" type="rss"/>
-      <outline title="Bitef teatar" xmlUrl="https://bitef.rs/feed/" type="rss"/>
-      <outline title="Jugoslovensko dramsko pozorište" xmlUrl="https://jdp.rs/feed/" type="rss"/>
+      <outline title="Jugoslovensko dramsko pozorište" xmlUrl="https://jdp.rs/feed/" type="rss" />
     </outline>
   </body>
 </opml>

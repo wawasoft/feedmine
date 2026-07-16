@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Aviation (Ukrainian)">
-      <outline title="Aviation Today Ukraine" xmlUrl="https://aviationtoday.com.ua/feed/" type="rss"/>
-      <outline title="Український авіаційний портал" xmlUrl="https://aviation.org.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="News Feeds (Croatian)">
-      <outline title="Index.hr" xmlUrl="https://www.index.hr/rss" type="rss"/>
-      <outline title="Jutarnji list" xmlUrl="https://www.jutarnji.hr/rss/" type="rss"/>
-      <outline title="Večernji list" xmlUrl="https://www.vecernji.hr/rss/" type="rss"/>
-      <outline title="HRT vijesti" xmlUrl="https://vijesti.hrt.hr/feed" type="rss"/>
-      <outline title="Dnevnik.hr" xmlUrl="https://dnevnik.hr/rss/" type="rss"/>
+      <outline title="Index.hr" xmlUrl="https://www.index.hr/rss" type="rss" />
+      <outline title="Večernji list" xmlUrl="https://www.vecernji.hr/rss/" type="rss" />
+      <outline title="Dnevnik.hr" xmlUrl="https://dnevnik.hr/rss/" type="rss" />
     </outline>
   </body>
 </opml>

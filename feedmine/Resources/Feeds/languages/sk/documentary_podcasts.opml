@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Slovak)">
-      <outline title="Dokumentárne podcasty RTVS" xmlUrl="https://www.rtvs.sk/rss/podcasty/dokumentarne" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Filipino)">
-      <outline title="Theme Park PH" xmlUrl="https://themeparkph.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

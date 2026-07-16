@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Aviation (Polish)">
-      <outline title="Lotnictwo" xmlUrl="https://www.lotnictwo.com.pl/feed/" type="rss"/>
-      <outline title="Pasazer.com" xmlUrl="https://www.pasazer.com/feed/" type="rss"/>
-      <outline title="Aviation24.pl" xmlUrl="https://aviation24.pl/feed/" type="rss"/>
-      <outline title="Skrzydła.org" xmlUrl="https://skrzydla.org/feed/" type="rss"/>
-      <outline title="Altair.com.pl" xmlUrl="https://www.altair.com.pl/feed" type="rss"/>
+      <outline title="Pasazer.com" xmlUrl="https://www.pasazer.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Filipino)">
-      <outline title="Foreign Service Institute" xmlUrl="https://fsi.gov.ph/feed/" type="rss"/>
-      <outline title="Rappler World" xmlUrl="https://www.rappler.com/world/feed/" type="rss"/>
+      <outline title="Rappler World" xmlUrl="https://www.rappler.com/world/feed/" type="rss" />
     </outline>
   </body>
 </opml>

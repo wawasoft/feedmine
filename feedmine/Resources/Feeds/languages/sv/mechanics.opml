@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Swedish)">
-      <outline title="Verkstäderna" xmlUrl="https://www.verkstaderna.se/feed/" type="rss"/>
-      <outline title="Teknikens Värld" xmlUrl="https://www.teknikensvarld.se/feed/" type="rss"/>
-      <outline title="Ny Teknik" xmlUrl="https://www.nyteknik.se/rss" type="rss"/>
-      <outline title="Industriarbetsgivarna" xmlUrl="https://www.industriarbetsgivarna.se/feed/" type="rss"/>
+      <outline title="Industriarbetsgivarna" xmlUrl="https://www.industriarbetsgivarna.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

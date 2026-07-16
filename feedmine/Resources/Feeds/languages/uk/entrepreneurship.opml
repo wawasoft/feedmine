@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Ukrainian)">
-      <outline title="Бізнес-журнал" xmlUrl="https://business.ua/feed" type="rss"/>
-      <outline title="Startup.ua" xmlUrl="https://startup.ua/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

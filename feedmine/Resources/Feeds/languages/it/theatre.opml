@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (Italian)">
-      <outline title="Teatro - Corriere della Sera" xmlUrl="https://www.corriere.it/rss/teatro.xml" type="rss"/>
-      <outline title="Teatro.it" xmlUrl="https://www.teatro.it/feed/" type="rss"/>
-      <outline title="Hystrio" xmlUrl="https://www.hystrio.it/feed/" type="rss"/>
+      <outline title="Hystrio" xmlUrl="https://www.hystrio.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Art Galleries (Dutch)">
-      <outline title="Museum Boijmans Van Beuningen" xmlUrl="https://www.boijmans.nl/nl/rss" type="rss"/>
-      <outline title="Stedelijk Museum Amsterdam" xmlUrl="https://www.stedelijk.nl/nl/rss" type="rss"/>
-      <outline title="Rijksmuseum" xmlUrl="https://www.rijksmuseum.nl/nl/rss" type="rss"/>
+      <outline title="Stedelijk Museum Amsterdam" xmlUrl="https://www.stedelijk.nl/nl/rss" type="rss" />
     </outline>
   </body>
 </opml>

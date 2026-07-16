@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Hungarian)">
-      <outline title="Siketek és Nagyothallók Országos Szövetsége" xmlUrl="https://sinosz.hu/feed" type="rss"/>
-      <outline title="Vakok és Gyengénlátók Országos Szövetsége" xmlUrl="https://vgyosz.hu/feed" type="rss"/>
+      <outline title="Siketek és Nagyothallók Országos Szövetsége" xmlUrl="https://sinosz.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

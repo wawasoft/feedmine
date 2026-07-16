@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Dogs (Ukrainian)">
-      <outline title="Собаки в Україні" xmlUrl="https://dogs.ua/feed/" type="rss"/>
-      <outline title="DogUA" xmlUrl="https://dogua.com/feed/" type="rss"/>
-      <outline title="Мій пес" xmlUrl="https://mijpes.com/feed/" type="rss"/>
+      <outline title="DogUA" xmlUrl="https://dogua.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

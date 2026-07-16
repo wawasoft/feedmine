@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (Bulgarian)">
-      <outline title="Детски дневник" xmlUrl="https://detskidnevnik.bg/feed/" type="rss"/>
-      <outline title="Mama.bg" xmlUrl="https://mama.bg/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Videogames (Romanian)">
-      <outline title="Jocuri Video" xmlUrl="https://jocurivideo.ro/feed/" type="rss"/>
-      <outline title="PlayStation România Blog" xmlUrl="https://blog.ro.playstation.com/feed/" type="rss"/>
-      <outline title="Gameroom" xmlUrl="https://www.gameroom.ro/feed/" type="rss"/>
-      <outline title="LevelUp" xmlUrl="https://levelup.ro/feed/" type="rss"/>
+      <outline title="Jocuri Video" xmlUrl="https://jocurivideo.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

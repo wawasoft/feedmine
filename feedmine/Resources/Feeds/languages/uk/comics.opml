@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Quadrinhos (Ukrainian)">
-      <outline title="UA Comics" xmlUrl="https://uacomics.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

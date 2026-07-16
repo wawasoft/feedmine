@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Croatian)">
-      <outline title="Agroklub" xmlUrl="https://www.agroklub.hr/feed/" type="rss"/>
-      <outline title="Gospodarski list" xmlUrl="https://gospodarskilist.hr/feed/" type="rss"/>
-      <outline title="Poljoprivreda.hr" xmlUrl="https://poljoprivreda.hr/feed/" type="rss"/>
-      <outline title="Agroportal" xmlUrl="https://www.agroportal.hr/feed/" type="rss"/>
-      <outline title="Savjetodavna služba" xmlUrl="https://www.savjetodavna.hr/feed/" type="rss"/>
+      <outline title="Agroportal" xmlUrl="https://www.agroportal.hr/feed/" type="rss" />
+      <outline title="Savjetodavna služba" xmlUrl="https://www.savjetodavna.hr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

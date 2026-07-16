@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Chess Feeds (Russian)">
-      <outline title="Chess.com Россия" xmlUrl="https://www.chess.com/ru/news/feed" type="rss"/>
-      <outline title="Федерация шахмат России" xmlUrl="https://ruchess.ru/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

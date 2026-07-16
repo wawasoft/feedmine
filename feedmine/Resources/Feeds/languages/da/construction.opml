@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Construction, Building (Danish)">
-      <outline title="Byggeplads.dk" xmlUrl="https://byggeplads.dk/rss" type="rss"/>
-      <outline title="Byggeri &amp; Anlæg" xmlUrl="https://www.byggerioganlaeg.dk/rss" type="rss"/>
-      <outline title="Dansk Byggeri" xmlUrl="https://www.danskbyggeri.dk/rss/nyheder" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

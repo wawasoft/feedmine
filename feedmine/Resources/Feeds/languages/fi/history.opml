@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Finnish)">
-      <outline title="Historia" xmlUrl="https://historia.net/feed" type="rss"/>
-      <outline title="Suomen historian aikakauskirja" xmlUrl="https://www.historiantutkimus.fi/feed/" type="rss"/>
-      <outline title="Kansallismuseo" xmlUrl="https://www.kansallismuseo.fi/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

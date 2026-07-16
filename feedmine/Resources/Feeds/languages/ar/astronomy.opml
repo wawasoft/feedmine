@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Arabic)">
-      <outline title="الجمعية الفلكية بجدة" xmlUrl="https://www.jas.org.sa/feed/" type="rss"/>
-      <outline title="مركز الفلك الدولي" xmlUrl="https://www.astronomycenter.net/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

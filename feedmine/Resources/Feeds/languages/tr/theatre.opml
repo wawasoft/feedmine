@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Theatre (Turkish)">
-      <outline title="Tiyatro Dergisi" xmlUrl="https://www.tiyatrodergisi.com.tr/rss.xml" type="rss"/>
-      <outline title="Tiyatro Online" xmlUrl="https://www.tiyatroonline.com/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

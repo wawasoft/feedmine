@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Slovak)">
-      <outline title="Folklór.sk" xmlUrl="https://www.folklor.sk/feed/" type="rss"/>
-      <outline title="Ľudová kultúra" xmlUrl="https://www.ludovakultura.sk/rss/" type="rss"/>
-      <outline title="Mýty a legendy" xmlUrl="https://mytialegendy.sk/feed/" type="rss"/>
+      <outline title="Folklór.sk" xmlUrl="https://www.folklor.sk/feed/" type="rss" />
+      <outline title="Ľudová kultúra" xmlUrl="https://www.ludovakultura.sk/rss/" type="rss" />
     </outline>
   </body>
 </opml>

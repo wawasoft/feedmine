@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Thai)">
-      <outline title="ธรรมะไทย" xmlUrl="https://www.dhammathai.org/rss.xml" type="rss"/>
-      <outline title="สติปัฏฐาน" xmlUrl="https://www.satipatthana.org/feed/" type="rss"/>
-      <outline title="พันทิป - ห้องศาสนา" xmlUrl="https://pantip.com/forum/religion/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

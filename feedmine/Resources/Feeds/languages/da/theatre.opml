@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Theatre (Danish)">
-      <outline title="Teateravisen" xmlUrl="https://www.teateravisen.dk/feed/" type="rss"/>
-      <outline title="Kulturmonitor - Teater" xmlUrl="https://kulturmonitor.dk/feed/" type="rss"/>
-      <outline title="Det Kongelige Teater - Nyheder" xmlUrl="https://kglteater.dk/nyheder?format=feed" type="rss"/>
-      <outline title="Aalborg Teater - Nyheder" xmlUrl="https://www.aalborgteater.dk/feed/" type="rss"/>
+      <outline title="Teateravisen" xmlUrl="https://www.teateravisen.dk/feed/" type="rss" />
+      <outline title="Kulturmonitor - Teater" xmlUrl="https://kulturmonitor.dk/feed/" type="rss" />
+      <outline title="Aalborg Teater - Nyheder" xmlUrl="https://www.aalborgteater.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

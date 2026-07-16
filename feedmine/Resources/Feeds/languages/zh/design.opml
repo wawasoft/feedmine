@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Design Feeds (Chinese)">
-      <outline title="设计癖" xmlUrl="https://www.shejipi.com/feed" type="rss"/>
-      <outline title="优设网" xmlUrl="https://www.uisdc.com/feed" type="rss"/>
-      <outline title="站酷" xmlUrl="https://www.zcool.com.cn/feed" type="rss"/>
+      <outline title="优设网" xmlUrl="https://www.uisdc.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

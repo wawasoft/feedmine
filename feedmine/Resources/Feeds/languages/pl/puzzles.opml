@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Polish)">
-      <outline title="Łamigłówki" xmlUrl="https://lamiglowki.pl/feed" type="rss"/>
-      <outline title="Krzyżówki online" xmlUrl="https://krzyzowki-online.pl/feed" type="rss"/>
-      <outline title="Sudoku.pl" xmlUrl="https://sudoku.pl/feed" type="rss"/>
-      <outline title="Rozrywka" xmlUrl="https://rozrywka.pl/feed" type="rss"/>
-      <outline title="Puzzle Factory" xmlUrl="https://puzzlefactory.pl/feed" type="rss"/>
+      <outline title="Sudoku.pl" xmlUrl="https://sudoku.pl/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Poetry (Armenian)">
-      <outline title="Gisher" xmlUrl="https://gisher.org/feed/" type="rss"/>
-      <outline title="Hayeren Poesia" xmlUrl="https://hayerenpoesia.wordpress.com/feed/" type="rss"/>
+      <outline title="Hayeren Poesia" xmlUrl="https://hayerenpoesia.wordpress.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

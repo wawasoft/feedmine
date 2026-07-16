@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Portuguese)">
-      <outline title="Curiosidades" xmlUrl="https://www.curiosidades.com.br/feed/" type="rss"/>
-      <outline title="Mega Curioso" xmlUrl="https://www.megacurioso.com.br/feed/" type="rss"/>
-      <outline title="HypeScience" xmlUrl="https://hypescience.com/feed/" type="rss"/>
+      <outline title="Curiosidades" xmlUrl="https://www.curiosidades.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

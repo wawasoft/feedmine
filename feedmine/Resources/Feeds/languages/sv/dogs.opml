@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Dogs (Swedish)">
-      <outline title="Svenska Kennelklubben" xmlUrl="https://www.skk.se/feed/" type="rss"/>
-      <outline title="Hundliv" xmlUrl="https://hundliv.se/feed/" type="rss"/>
-      <outline title="Hundforum" xmlUrl="https://hundforum.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Astronomy (Vietnamese)">
-      <outline title="Thiên Văn Việt Nam" xmlUrl="https://thienvanvietnam.org/feed/" type="rss"/>
-      <outline title="VnExpress - Khoa học vũ trụ" xmlUrl="https://vnexpress.net/rss/khoa-hoc/vu-tru.rss" type="rss"/>
-      <outline title="Tuổi Trẻ Online - Thiên văn" xmlUrl="https://tuoitre.vn/rss/thien-van.htm" type="rss"/>
+      <outline title="Tuổi Trẻ Online - Thiên văn" xmlUrl="https://tuoitre.vn/rss/thien-van.htm" type="rss" />
     </outline>
   </body>
 </opml>

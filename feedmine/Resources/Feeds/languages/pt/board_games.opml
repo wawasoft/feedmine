@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Portuguese)">
-      <outline title="Ludopedia" xmlUrl="https://www.ludopedia.com.br/feed/noticias" type="rss"/>
-      <outline title="Board Game Brasil" xmlUrl="https://boardgamebrasil.com.br/feed/" type="rss"/>
-      <outline title="RPG Brasil" xmlUrl="https://rpgbrasil.com.br/feed/" type="rss"/>
+      <outline title="RPG Brasil" xmlUrl="https://rpgbrasil.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

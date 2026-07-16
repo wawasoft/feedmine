@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Sports (Norwegian)">
-      <outline title="VG Sporten" xmlUrl="https://www.vg.no/rss/sport" type="rss"/>
-      <outline title="Dagbladet Sport" xmlUrl="https://www.dagbladet.no/rss/sport" type="rss"/>
-      <outline title="Nettavisen Sport" xmlUrl="https://www.nettavisen.no/rss/sport" type="rss"/>
-      <outline title="NRK Sport" xmlUrl="https://www.nrk.no/sport/toppsaker.rss" type="rss"/>
-      <outline title="Aftenposten Sport" xmlUrl="https://www.aftenposten.no/rss/sport" type="rss"/>
+      <outline title="Nettavisen Sport" xmlUrl="https://www.nettavisen.no/rss/sport" type="rss" />
+      <outline title="NRK Sport" xmlUrl="https://www.nrk.no/sport/toppsaker.rss" type="rss" />
+      <outline title="Aftenposten Sport" xmlUrl="https://www.aftenposten.no/rss/sport" type="rss" />
     </outline>
   </body>
 </opml>

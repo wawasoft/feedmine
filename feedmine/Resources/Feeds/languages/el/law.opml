@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Greek)">
-      <outline title="Lawspot.gr" xmlUrl="https://www.lawspot.gr/rss.xml" type="rss"/>
-      <outline title="Νομικός Κόσμος" xmlUrl="https://www.nomikoskosmos.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

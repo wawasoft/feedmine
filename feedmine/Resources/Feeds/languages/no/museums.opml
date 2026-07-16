@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Norwegian)">
-      <outline title="Norsk Folkemuseum" xmlUrl="https://norskfolkemuseum.no/feed" type="rss"/>
-      <outline title="Vikingskipshuset" xmlUrl="https://www.khm.uio.no/feed.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Indonesian)">
-      <outline title="Kementerian Pendidikan dan Kebudayaan - Museum" xmlUrl="https://www.kemdikbud.go.id/main/feed/berita/museum" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

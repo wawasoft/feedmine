@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Norwegian)">
-      <outline title="Kryssord – Aftenposten" xmlUrl="https://www.aftenposten.no/emner/kryssord/feed" type="rss"/>
-      <outline title="Sudoku – NRK" xmlUrl="https://www.nrk.no/sudoku/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Quadrinhos (German)">
-      <outline title="Comicforum" xmlUrl="https://www.comicforum.de/feed/" type="rss"/>
-      <outline title="Comic.de" xmlUrl="https://www.comic.de/feed/" type="rss"/>
+      <outline title="Comic.de" xmlUrl="https://www.comic.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

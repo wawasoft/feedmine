@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Culture Feeds (Bulgarian)">
-      <outline title="Либерален преглед" xmlUrl="https://www.librev.com/index.php?option=com_ninjarsssyndicator&amp;feed_id=1&amp;format=raw" type="rss"/>
-      <outline title="Култура" xmlUrl="https://kultura.bg/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

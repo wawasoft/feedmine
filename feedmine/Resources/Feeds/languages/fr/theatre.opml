@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (French)">
-      <outline title="Théâtre Online" xmlUrl="https://www.theatreonline.com/feed/" type="rss"/>
-      <outline title="Scène Web" xmlUrl="https://www.sceneweb.fr/feed/" type="rss"/>
-      <outline title="Les Théâtres" xmlUrl="https://www.lestheatres.com/feed/" type="rss"/>
-      <outline title="Théâtrales" xmlUrl="https://www.theatrales.fr/feed/" type="rss"/>
-      <outline title="WebThéâtre" xmlUrl="https://www.webtheatre.fr/feed/" type="rss"/>
+      <outline title="Scène Web" xmlUrl="https://www.sceneweb.fr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

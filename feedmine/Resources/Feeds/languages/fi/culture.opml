@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Culture Feeds (Finnish)">
-      <outline title="Yle Kulttuuri" xmlUrl="https://feeds.yle.fi/uutiset/v1/recent?feed=rss&amp;region=fi&amp;category=kulttuuri" type="rss"/>
-      <outline title="Helsingin Sanomat - Kulttuuri" xmlUrl="https://www.hs.fi/rss/kulttuuri.xml" type="rss"/>
-      <outline title="Kulttuuritoimitus" xmlUrl="https://kulttuuritoimitus.fi/feed/" type="rss"/>
+      <outline title="Helsingin Sanomat - Kulttuuri" xmlUrl="https://www.hs.fi/rss/kulttuuri.xml" type="rss" />
+      <outline title="Kulttuuritoimitus" xmlUrl="https://kulttuuritoimitus.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

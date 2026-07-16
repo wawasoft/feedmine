@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Computing (Croatian)">
-      <outline title="Bug Online" xmlUrl="https://www.bug.hr/rss" type="rss"/>
-      <outline title="Mreža" xmlUrl="https://mreza.bug.hr/feed/" type="rss"/>
+      <outline title="Bug Online" xmlUrl="https://www.bug.hr/rss" type="rss" />
     </outline>
   </body>
 </opml>

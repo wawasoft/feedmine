@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Ukrainian)">
-      <outline title="BeautyHack Ukraine" xmlUrl="https://beautyhack.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

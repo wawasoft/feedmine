@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Spanish)">
-      <outline title="MetalSpain" xmlUrl="https://www.metalspain.com/feed/" type="rss"/>
-      <outline title="Revista Metal Actual" xmlUrl="https://www.metalactual.com/feed/" type="rss"/>
-      <outline title="Interempresas - Metal" xmlUrl="https://www.interempresas.net/Metal/Feed" type="rss"/>
-      <outline title="Acero y Metal" xmlUrl="https://www.aceroymetal.com/feed/" type="rss"/>
+      <outline title="Revista Metal Actual" xmlUrl="https://www.metalactual.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

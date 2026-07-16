@@ -41,7 +41,6 @@
       <outline title="Al-Fan" xmlUrl="https://www.alfan.com/rss/" type="rss" />
     </outline>
     <outline text="Food">
-      <outline title="Saudi Food" xmlUrl="https://www.saudifood.com/feed/" type="rss" />
       <outline title="Taste Saudi" xmlUrl="https://www.tastesaudi.com/feed/" type="rss" />
     </outline>
     <outline text="Travel">

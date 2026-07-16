@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Estonian)">
-      <outline title="IseTee" xmlUrl="https://isetee.ee/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

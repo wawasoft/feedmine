@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Indonesian)">
-      <outline title="TNI AL - Berita" xmlUrl="https://www.tnial.mil.id/feed/berita" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

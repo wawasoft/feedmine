@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Chinese)">
-      <outline title="果壳网" xmlUrl="https://www.guokr.com/rss" type="rss"/>
-      <outline title="奇趣发现" xmlUrl="https://www.qiqufaxian.com/feed" type="rss"/>
-      <outline title="冷知识" xmlUrl="https://www.lengzhishi.com/feed" type="rss"/>
+      <outline title="冷知识" xmlUrl="https://www.lengzhishi.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

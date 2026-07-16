@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Moms, Dads (Romanian)">
-      <outline title="Părinți și Copii" xmlUrl="https://www.parintisicopii.ro/feed/" type="rss"/>
-      <outline title="Despre Copii" xmlUrl="https://www.desprecopii.ro/feed/" type="rss"/>
-      <outline title="BabyBlog" xmlUrl="https://babyblog.ro/feed/" type="rss"/>
+      <outline title="Despre Copii" xmlUrl="https://www.desprecopii.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>
