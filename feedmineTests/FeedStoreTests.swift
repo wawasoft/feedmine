@@ -315,4 +315,73 @@ final class FeedStoreTests: XCTestCase {
         XCTAssertEqual(dbLanguage, "pt",
                        "SQLite must also store the explicit source language")
     }
+
+    // MARK: - Language code normalization (BCP 47 → ISO 639-1)
+
+    func testNormalizedLanguageCodeExtractsBaseCode() {
+        XCTAssertEqual(FeedStore.normalizedLanguageCode("pt-BR"), "pt")
+        XCTAssertEqual(FeedStore.normalizedLanguageCode("pt_BR"), "pt")
+        XCTAssertEqual(FeedStore.normalizedLanguageCode(" EN-us "), "en")
+        XCTAssertEqual(FeedStore.normalizedLanguageCode("zh-Hant"), "zh")
+        XCTAssertEqual(FeedStore.normalizedLanguageCode("fr-CA"), "fr")
+        XCTAssertEqual(FeedStore.normalizedLanguageCode("es-MX"), "es")
+        XCTAssertNil(FeedStore.normalizedLanguageCode(""))
+        XCTAssertNil(FeedStore.normalizedLanguageCode("   "))
+        XCTAssertNil(FeedStore.normalizedLanguageCode(nil))
+        // Already-clean codes pass through unchanged
+        XCTAssertEqual(FeedStore.normalizedLanguageCode("pt"), "pt")
+        XCTAssertEqual(FeedStore.normalizedLanguageCode("ja"), "ja")
+    }
+
+    func testBCP47ItemMatchesBaseCodeFilter() {
+        // pt-BR vs pt → must match
+        XCTAssertTrue(FeedStore.languageFilterMatches(
+            itemLanguage: "pt-BR", selectedLanguages: ["pt"], deviceLanguage: "en"))
+        // en-US vs en → must match
+        XCTAssertTrue(FeedStore.languageFilterMatches(
+            itemLanguage: "en-US", selectedLanguages: ["en"], deviceLanguage: "pt"))
+        // fr-CA vs fr → must match
+        XCTAssertTrue(FeedStore.languageFilterMatches(
+            itemLanguage: "fr-CA", selectedLanguages: ["fr"], deviceLanguage: "en"))
+    }
+
+    func testBCP47ItemBlockedByDifferentBaseCodeFilter() {
+        // pt-BR vs en → must NOT match
+        XCTAssertFalse(FeedStore.languageFilterMatches(
+            itemLanguage: "pt-BR", selectedLanguages: ["en"], deviceLanguage: "en"))
+        // en-US vs ja → must NOT match
+        XCTAssertFalse(FeedStore.languageFilterMatches(
+            itemLanguage: "en-US", selectedLanguages: ["ja"], deviceLanguage: "en"))
+    }
+
+    func testBCP47PersistedAsBaseCode() async throws {
+        let store = try FeedStore(inMemory: true)
+        let source = FeedSource(title: "Test", url: "https://test.com/feed",
+                                category: "News", region: "countries/brazil", language: "pt-BR")
+        store.registry.sources = [source]
+
+        let item = FeedItem(
+            id: "bcp47-1", sourceTitle: "Test",
+            sourceURL: "https://test.com/feed",
+            category: "News",
+            title: "Título em português do Brasil",
+            excerpt: "Conteúdo do artigo com texto suficiente para detecção confiável de idioma.",
+            url: "https://test.com/article/1", imageURL: nil,
+            publishedAt: Date(),
+            region: "countries/brazil",
+            language: "pt-BR"  // BCP 47 — must be stored as "pt"
+        )
+
+        let result = await store.persistFetchedItems([item])
+        let returned: FeedItem = try XCTUnwrap(result.first)
+
+        XCTAssertEqual(returned.language, "pt",
+                       "BCP 47 'pt-BR' must be normalized to 'pt' in returned item")
+
+        let dbLanguage: String? = try await store.db.read { db in
+            try String.fetchOne(db, sql: "SELECT language FROM feed_item WHERE id = ?", arguments: [item.id])
+        }
+        XCTAssertEqual(dbLanguage, "pt",
+                       "BCP 47 'pt-BR' must be stored as 'pt' in SQLite")
+    }
 }

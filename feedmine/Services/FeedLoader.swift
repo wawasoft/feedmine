@@ -246,11 +246,10 @@ final class FeedLoader {
     }
     var availableLanguages: [LanguageInfo] {
         // Use enabled sources so counts reflect what the user can actually see.
-        // Group by language safely without force-unwrap — filter nil first,
-        // then compactMap to extract code+source pairs.
+        // Normalize to ISO 639-1 base codes so "pt-BR" and "pt" merge into one entry.
         let withLang = store.registry.enabledSources.compactMap { src -> (code: String, source: FeedSource)? in
-            guard let code = src.language, !code.isEmpty else { return nil }
-            return (code, src)
+            guard let normalized = FeedStore.normalizedLanguageCode(src.language) else { return nil }
+            return (normalized, src)
         }
         let grouped = Dictionary(grouping: withLang, by: \.code)
         return grouped.compactMap { code, pairs -> LanguageInfo? in
