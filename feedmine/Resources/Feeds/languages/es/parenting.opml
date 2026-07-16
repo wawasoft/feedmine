@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Moms, Dads (Spanish)">
-      <outline title="Ser Padres" xmlUrl="https://www.serpadres.es/rss" type="rss"/>
-      <outline title="Bebés y más" xmlUrl="https://www.bebesymas.com/feed" type="rss"/>
-      <outline title="Madres Hoy" xmlUrl="https://madreshoy.com/feed/" type="rss"/>
+      <outline title="Ser Padres" xmlUrl="https://www.serpadres.es/rss" type="rss" />
+      <outline title="Madres Hoy" xmlUrl="https://madreshoy.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

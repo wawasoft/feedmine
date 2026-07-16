@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Quadrinhos (Lithuanian)">
-      <outline title="Komiksai.lt" xmlUrl="https://komiksai.lt/feed/" type="rss"/>
-      <outline title="Lietuvos komiksų bendruomenė" xmlUrl="https://komiksai.org/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

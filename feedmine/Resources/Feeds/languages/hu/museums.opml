@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Museums (Hungarian)">
-      <outline title="MúzeumCafé" xmlUrl="https://muzeumcafe.hu/feed" type="rss"/>
-      <outline title="Magyar Múzeumok" xmlUrl="https://magyarmuzeumok.hu/feed" type="rss"/>
-      <outline title="Szépművészeti Múzeum" xmlUrl="https://www.szepmuveszeti.hu/rss/hirek" type="rss"/>
+      <outline title="Magyar Múzeumok" xmlUrl="https://magyarmuzeumok.hu/feed" type="rss" />
+      <outline title="Szépművészeti Múzeum" xmlUrl="https://www.szepmuveszeti.hu/rss/hirek" type="rss" />
     </outline>
   </body>
 </opml>

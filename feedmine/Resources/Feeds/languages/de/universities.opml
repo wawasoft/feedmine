@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Universities (German)">
-      <outline title="Hochschulbildungsreport" xmlUrl="https://hochschulbildungsreport.de/feed/" type="rss"/>
-      <outline title="Deutsches Zentrum für Hochschul- und Wissenschaftsforschung" xmlUrl="https://www.dzhw.eu/aktuelles/feeds/aktuelles.rss" type="rss"/>
-      <outline title="Studis Online" xmlUrl="https://www.studis-online.de/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

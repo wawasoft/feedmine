@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Danish)">
-      <outline title="Iværksættere" xmlUrl="https://www.ivaerksaettere.dk/feed/" type="rss"/>
-      <outline title="Startup Denmark" xmlUrl="https://startupdenmark.dk/feed/" type="rss"/>
-      <outline title="Børsen - Iværksætteri" xmlUrl="https://borsen.dk/iværksætteri/rss" type="rss"/>
+      <outline title="Startup Denmark" xmlUrl="https://startupdenmark.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

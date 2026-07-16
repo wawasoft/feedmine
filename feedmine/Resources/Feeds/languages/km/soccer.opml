@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Khmer)">
-      <outline title="បាល់ទាត់ខ្មែរ" xmlUrl="https://www.khmerfootball.com/feed" type="rss"/>
-      <outline title="ហ្វីហ្វា កម្ពុជា" xmlUrl="https://www.ffcambodia.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

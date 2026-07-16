@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Armenian)">
-      <outline title="Armenia Travel" xmlUrl="https://armenia.travel/feed" type="rss"/>
-      <outline title="Travel Armenia Blog" xmlUrl="https://travelarmeniablog.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

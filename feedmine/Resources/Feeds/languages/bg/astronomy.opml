@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Bulgarian)">
-      <outline title="Българско астрономическо дружество" xmlUrl="https://www.astro-bg.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

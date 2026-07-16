@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Dutch)">
-      <outline title="Geologie van Nederland" xmlUrl="https://www.geologievannederland.nl/rss" type="rss"/>
-      <outline title="TNO Geologische Dienst" xmlUrl="https://www.tno.nl/nl/rss/geologische-dienst/" type="rss"/>
-      <outline title="Nederlands Centrum voor Biodiversiteit Naturalis" xmlUrl="https://www.naturalis.nl/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

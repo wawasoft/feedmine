@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Motorcycling (Romanian)">
-      <outline title="MotoLife" xmlUrl="https://www.motolife.ro/feed/" type="rss"/>
-      <outline title="MotoRomania" xmlUrl="https://motoromania.ro/feed/" type="rss"/>
+      <outline title="MotoRomania" xmlUrl="https://motoromania.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

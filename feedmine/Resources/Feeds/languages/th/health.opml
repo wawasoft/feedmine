@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Health (Thai)">
-      <outline title="Health Kapook" xmlUrl="https://health.kapook.com/feed" type="rss"/>
-      <outline title="Thaihealth" xmlUrl="https://www.thaihealth.or.th/feed" type="rss"/>
+      <outline title="Health Kapook" xmlUrl="https://health.kapook.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

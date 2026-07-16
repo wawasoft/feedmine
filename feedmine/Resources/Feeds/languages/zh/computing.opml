@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Computing (Chinese)">
-      <outline title="CSDN-技术博客" xmlUrl="https://blog.csdn.net/rss/热门技术.xml" type="rss"/>
-      <outline title="InfoQ中文" xmlUrl="https://www.infoq.cn/rss.xml" type="rss"/>
+      <outline title="InfoQ中文" xmlUrl="https://www.infoq.cn/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

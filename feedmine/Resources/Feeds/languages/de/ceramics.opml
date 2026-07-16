@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (German)">
-      <outline title="Keramik-Magazin" xmlUrl="https://www.keramik-magazin.com/feed/" type="rss"/>
-      <outline title="Töpferei Blog" xmlUrl="https://toepferei-blog.de/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

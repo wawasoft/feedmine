@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Science Feeds (Estonian)">
-      <outline title="Novaator" xmlUrl="https://novaator.err.ee/feed/" type="rss"/>
-      <outline title="Teadus" xmlUrl="https://www.teadus.ee/feed/" type="rss"/>
-      <outline title="Horisont" xmlUrl="https://www.horisont.ee/feed/" type="rss"/>
+      <outline title="Novaator" xmlUrl="https://novaator.err.ee/feed/" type="rss" />
+      <outline title="Teadus" xmlUrl="https://www.teadus.ee/feed/" type="rss" />
     </outline>
   </body>
 </opml>

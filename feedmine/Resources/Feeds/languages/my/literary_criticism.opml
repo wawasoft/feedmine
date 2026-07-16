@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Burmese)">
-      <outline title="စာပေဝေဖန်ရေး" xmlUrl="https://www.sapayway.com/rss" type="rss"/>
-      <outline title="စာအုပ်မိတ်ဆက်" xmlUrl="https://sautpmyitsat.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

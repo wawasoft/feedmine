@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Collectors (German)">
-      <outline title="Sammler.com" xmlUrl="https://www.sammler.com/feed/" type="rss"/>
-      <outline title="Münzen Magazin" xmlUrl="https://www.muenzen-magazin.de/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

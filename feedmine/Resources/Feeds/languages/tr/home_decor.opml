@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Turkish)">
-      <outline title="Dekorasyon - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/dekorasyon" type="rss"/>
-      <outline title="Ev Dekorasyonu - Milliyet" xmlUrl="https://www.milliyet.com.tr/rss/ev-dekorasyon" type="rss"/>
-      <outline title="Dekorasyon - NTV" xmlUrl="https://www.ntv.com.tr/rss/dekorasyon" type="rss"/>
+      <outline title="Dekorasyon - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/dekorasyon" type="rss" />
+      <outline title="Ev Dekorasyonu - Milliyet" xmlUrl="https://www.milliyet.com.tr/rss/ev-dekorasyon" type="rss" />
     </outline>
   </body>
 </opml>

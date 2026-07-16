@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Tech Feeds (Portuguese)">
-      <outline title="TecMundo" xmlUrl="https://www.tecmundo.com.br/rss" type="rss"/>
-      <outline title="Canaltech" xmlUrl="https://canaltech.com.br/rss/" type="rss"/>
-      <outline title="Olhar Digital" xmlUrl="https://olhardigital.com.br/rss" type="rss"/>
-      <outline title="Gizmodo Brasil" xmlUrl="https://gizmodo.uol.com.br/feed/" type="rss"/>
-      <outline title="TechTudo" xmlUrl="https://www.techtudo.com.br/rss" type="rss"/>
+      <outline title="TecMundo" xmlUrl="https://www.tecmundo.com.br/rss" type="rss" />
+      <outline title="Canaltech" xmlUrl="https://canaltech.com.br/rss/" type="rss" />
+      <outline title="Olhar Digital" xmlUrl="https://olhardigital.com.br/rss" type="rss" />
     </outline>
   </body>
 </opml>

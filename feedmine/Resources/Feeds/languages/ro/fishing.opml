@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fishing (Romanian)">
-      <outline title="Pescuit Sportiv" xmlUrl="https://www.pescuitsportiv.ro/feed/" type="rss"/>
-      <outline title="Romania Pescarilor" xmlUrl="https://www.romaniapescarilor.ro/feed/" type="rss"/>
-      <outline title="Pescarul" xmlUrl="https://www.pescarul.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

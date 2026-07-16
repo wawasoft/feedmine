@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Culture Feeds (Slovak)">
-      <outline title="SME Kultúra" xmlUrl="https://kultura.sme.sk/rss" type="rss"/>
-      <outline title="Pravda Kultúra" xmlUrl="https://kultura.pravda.sk/rss" type="rss"/>
-      <outline title="Aktuality.sk Kultúra" xmlUrl="https://www.aktuality.sk/rss/kultura/" type="rss"/>
-      <outline title="HN Kultúra" xmlUrl="https://hnonline.sk/kultura/rss" type="rss"/>
+      <outline title="SME Kultúra" xmlUrl="https://kultura.sme.sk/rss" type="rss" />
+      <outline title="Aktuality.sk Kultúra" xmlUrl="https://www.aktuality.sk/rss/kultura/" type="rss" />
     </outline>
   </body>
 </opml>

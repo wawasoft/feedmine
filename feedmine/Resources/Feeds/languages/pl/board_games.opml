@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Polish)">
-      <outline title="Planszówki" xmlUrl="https://planszowki.pl/feed/" type="rss"/>
-      <outline title="Gamezilla Planszówki" xmlUrl="https://gamezilla.pl/planszowki/feed/" type="rss"/>
-      <outline title="RPG Polska" xmlUrl="https://rpgpolska.pl/feed/" type="rss"/>
-      <outline title="Kostka i Kości" xmlUrl="https://kostkaikoscio.pl/feed/" type="rss"/>
-      <outline title="BoardGameGeek Polska" xmlUrl="https://boardgamegeek.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Tech Feeds (Greek)">
-      <outline title="Techgear.gr" xmlUrl="https://www.techgear.gr/feed/" type="rss"/>
-      <outline title="Insomnia.gr - Τεχνολογία" xmlUrl="https://www.insomnia.gr/rss/forums/1-νέα-τεχνολογίας/" type="rss"/>
-      <outline title="Pestaola.gr" xmlUrl="https://www.pestaola.gr/feed/" type="rss"/>
+      <outline title="Techgear.gr" xmlUrl="https://www.techgear.gr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

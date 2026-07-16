@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Dogs (Finnish)">
-      <outline title="Suomen Kennelliitto" xmlUrl="https://www.kennelliitto.fi/feed/" type="rss"/>
-      <outline title="Koiramme-lehti" xmlUrl="https://koiramme.fi/feed/" type="rss"/>
+      <outline title="Koiramme-lehti" xmlUrl="https://koiramme.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

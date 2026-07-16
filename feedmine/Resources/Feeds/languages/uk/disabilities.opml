@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Ukrainian)">
-      <outline title="Інклюзія" xmlUrl="https://inklyuziya.com.ua/feed/" type="rss"/>
-      <outline title="Глухі та сліпі" xmlUrl="https://gluhi-slipi.org.ua/feed/" type="rss"/>
-      <outline title="Доступність" xmlUrl="https://dostupnist.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Science Feeds (Filipino)">
-      <outline title="Agham Pilipinas" xmlUrl="https://aghamfilipino.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="Science and Technology in the Philippines" xmlUrl="https://scitechph.blogspot.com/feeds/posts/default" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

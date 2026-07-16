@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Coffee (Lithuanian)">
-      <outline title="Kavos gidas" xmlUrl="https://kavosgidas.lt/feed/" type="rss"/>
-      <outline title="Arbata.lt" xmlUrl="https://arbata.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

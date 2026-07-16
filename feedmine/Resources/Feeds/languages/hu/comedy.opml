@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Humor (Hungarian)">
-      <outline title="Humorterápia" xmlUrl="https://humorterapia.hu/feed" type="rss"/>
-      <outline title="Röhögő Görög" xmlUrl="https://rohogogorog.blog.hu/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

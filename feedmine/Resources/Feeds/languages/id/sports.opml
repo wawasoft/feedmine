@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Sports (Indonesian)">
-      <outline title="Bola.net - Olahraga" xmlUrl="https://www.bola.net/olahraga/feed/" type="rss"/>
-      <outline title="Detik Sport" xmlUrl="https://sport.detik.com/feed" type="rss"/>
-      <outline title="Kompas Olahraga" xmlUrl="https://olahraga.kompas.com/feed/" type="rss"/>
-      <outline title="Liputan6 Sport" xmlUrl="https://www.liputan6.com/olahraga/rss" type="rss"/>
-      <outline title="VIVA Olahraga" xmlUrl="https://www.viva.co.id/olahraga/feed" type="rss"/>
+      <outline title="Kompas Olahraga" xmlUrl="https://olahraga.kompas.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Movies (Czech)">
-      <outline title="MovieZone.cz" xmlUrl="https://www.moviezone.cz/rss/clanky/" type="rss"/>
-      <outline title="Kinobox.cz" xmlUrl="https://www.kinobox.cz/rss/clanky" type="rss"/>
-      <outline title="ČSFD.cz" xmlUrl="https://www.csfd.cz/rss/novinky/" type="rss"/>
+      <outline title="MovieZone.cz" xmlUrl="https://www.moviezone.cz/rss/clanky/" type="rss" />
     </outline>
   </body>
 </opml>

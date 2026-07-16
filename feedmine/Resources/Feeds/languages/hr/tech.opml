@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Tech Feeds (Croatian)">
-      <outline title="Bug.hr" xmlUrl="https://www.bug.hr/rss" type="rss"/>
-      <outline title="Mreža" xmlUrl="https://mreza.bug.hr/rss/" type="rss"/>
-      <outline title="Zimo.dnevnik.hr" xmlUrl="https://zimo.dnevnik.hr/rss/" type="rss"/>
-      <outline title="Tehnopolis" xmlUrl="https://tehnopolis.hr/feed/" type="rss"/>
-      <outline title="Lider Media - Tech" xmlUrl="https://lider.media/rss/tehnologija" type="rss"/>
+      <outline title="Bug.hr" xmlUrl="https://www.bug.hr/rss" type="rss" />
+      <outline title="Mreža" xmlUrl="https://mreza.bug.hr/rss/" type="rss" />
+      <outline title="Zimo.dnevnik.hr" xmlUrl="https://zimo.dnevnik.hr/rss/" type="rss" />
     </outline>
   </body>
 </opml>

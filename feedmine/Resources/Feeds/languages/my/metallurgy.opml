@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Burmese)">
-      <outline title="သတ္တုဗေဒ" xmlUrl="https://metallurgymyanmar.com/rss" type="rss"/>
-      <outline title="သတ္တုနည်းပညာ" xmlUrl="https://www.metalsmm.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

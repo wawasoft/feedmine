@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Health (Vietnamese)">
-      <outline title="Sức khỏe đời sống" xmlUrl="https://suckhoedoisong.vn/feed.rss" type="rss"/>
-      <outline title="VnExpress Sức khỏe" xmlUrl="https://vnexpress.net/rss/suc-khoe.rss" type="rss"/>
+      <outline title="Sức khỏe đời sống" xmlUrl="https://suckhoedoisong.vn/feed.rss" type="rss" />
     </outline>
   </body>
 </opml>

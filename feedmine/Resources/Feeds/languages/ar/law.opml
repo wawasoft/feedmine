@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Arabic)">
-      <outline title="المحاماة" xmlUrl="https://www.al-mohamah.com/feed/" type="rss"/>
-      <outline title="منتدى القانون" xmlUrl="https://www.law-forum.net/feed/" type="rss"/>
-      <outline title="قانون.كوم" xmlUrl="https://www.qanun.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

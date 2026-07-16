@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Architecture (Czech)">
-      <outline title="Architektura a urbanismus" xmlUrl="https://www.architekturaurbanismus.cz/feed/" type="rss"/>
-      <outline title="Earch.cz" xmlUrl="https://www.earch.cz/rss" type="rss"/>
-      <outline title="Archizoom" xmlUrl="https://www.archizoom.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

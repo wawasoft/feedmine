@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Spanish)">
-      <outline title="Vogue España" xmlUrl="https://www.vogue.es/feed/rss" type="rss"/>
-      <outline title="Elle España" xmlUrl="https://www.elle.com/es/feed/" type="rss"/>
-      <outline title="Harper's Bazaar España" xmlUrl="https://www.harpersbazaar.com/es/feed/" type="rss"/>
-      <outline title="Trendencias" xmlUrl="https://www.trendencias.com/feed" type="rss"/>
-      <outline title="Modaes" xmlUrl="https://www.modaes.com/feed" type="rss"/>
+      <outline title="Vogue España" xmlUrl="https://www.vogue.es/feed/rss" type="rss" />
     </outline>
   </body>
 </opml>

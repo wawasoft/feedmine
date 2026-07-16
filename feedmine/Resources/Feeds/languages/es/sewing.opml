@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Spanish)">
-      <outline title="Costura y Patchwork" xmlUrl="https://www.costuraypatchwork.com/feed/" type="rss"/>
-      <outline title="Telas y Costura" xmlUrl="https://telasycostura.com/feed/" type="rss"/>
-      <outline title="El Rincón de la Costura" xmlUrl="https://elrincondelacostura.com/feed/" type="rss"/>
-      <outline title="Patrones de Costura" xmlUrl="https://patronesdecostura.es/feed/" type="rss"/>
-      <outline title="La Maison Victor" xmlUrl="https://www.lamaisonvictor.com/feed/" type="rss"/>
+      <outline title="Patrones de Costura" xmlUrl="https://patronesdecostura.es/feed/" type="rss" />
     </outline>
   </body>
 </opml>

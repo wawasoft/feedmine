@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Wicca, Witchcraft, Paganism (Swedish)">
-      <outline title="Häxans Hemsida" xmlUrl="https://haxanshemsida.se/feed/" type="rss"/>
-      <outline title="Månens Magi" xmlUrl="https://manensmagi.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

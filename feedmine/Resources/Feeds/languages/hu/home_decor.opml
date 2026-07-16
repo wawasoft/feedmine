@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Hungarian)">
-      <outline title="Lakáskultúra" xmlUrl="https://lakaskultura.hu/feed" type="rss"/>
-      <outline title="Otthon Magazin" xmlUrl="https://otthonmagazin.hu/feed" type="rss"/>
-      <outline title="Designsztori" xmlUrl="https://designsztori.hu/feed" type="rss"/>
+      <outline title="Lakáskultúra" xmlUrl="https://lakaskultura.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

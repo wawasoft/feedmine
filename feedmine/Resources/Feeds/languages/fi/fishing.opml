@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Fishing (Finnish)">
-      <outline title="Vapaa-ajan Kalastaja - RSS" xmlUrl="https://www.vapaa-ajankalastaja.fi/feed" type="rss"/>
-      <outline title="Kalastus.com - RSS" xmlUrl="https://www.kalastus.com/feed" type="rss"/>
+      <outline title="Vapaa-ajan Kalastaja - RSS" xmlUrl="https://www.vapaa-ajankalastaja.fi/feed" type="rss" />
     </outline>
   </body>
 </opml>

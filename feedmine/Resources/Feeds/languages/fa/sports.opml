@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Sports (Persian)">
-      <outline title="ورزش سه" xmlUrl="https://www.varzesh3.com/rss/feed" type="rss"/>
-      <outline title="خبر ورزشی" xmlUrl="https://www.khabarvarzeshi.com/rss" type="rss"/>
+      <outline title="خبر ورزشی" xmlUrl="https://www.khabarvarzeshi.com/rss" type="rss" />
     </outline>
   </body>
 </opml>

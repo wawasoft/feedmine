@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Slovak)">
-      <outline title="FotoVideo" xmlUrl="https://www.fotovideo.sk/rss.xml" type="rss"/>
-      <outline title="DigiNeff" xmlUrl="https://www.digineff.sk/feed/" type="rss"/>
-      <outline title="Fotonews" xmlUrl="https://www.fotonews.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Trails, Routes (Serbian)">
-      <outline title="Planinarski savez Srbije" xmlUrl="https://pss.rs/feed/" type="rss"/>
-      <outline title="Staze i bogaze" xmlUrl="https://stazeibogaze.rs/feed/" type="rss"/>
+      <outline title="Planinarski savez Srbije" xmlUrl="https://pss.rs/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Bulgarian)">
-      <outline title="Духовност и медитация" xmlUrl="https://duhovnost.bg/feed/" type="rss"/>
-      <outline title="Spirituality.bg" xmlUrl="https://spirituality.bg/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

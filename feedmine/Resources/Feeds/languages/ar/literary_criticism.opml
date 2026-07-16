@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Arabic)">
-      <outline title="أدب ونقد" xmlUrl="https://adabwanaqd.com/feed/" type="rss"/>
-      <outline title="الكتاب" xmlUrl="https://alkitab.com/feed/" type="rss"/>
-      <outline title="موقع الكتابة" xmlUrl="https://www.alkitaba.com/feed/" type="rss"/>
+      <outline title="الكتاب" xmlUrl="https://alkitab.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

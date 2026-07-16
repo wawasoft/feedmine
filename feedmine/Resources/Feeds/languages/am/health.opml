@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Health (Amharic)">
-      <outline title="ጤና ኢትዮጵያ" xmlUrl="https://tenaethiopia.com/feed/" type="rss"/>
-      <outline title="ህክምና ማዕከል" xmlUrl="https://hkmcenter.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

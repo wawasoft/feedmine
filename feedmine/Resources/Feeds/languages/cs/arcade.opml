@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Czech)">
-      <outline title="Pinball News" xmlUrl="https://www.pinballnews.com/feed.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

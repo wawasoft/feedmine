@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Chinese)">
-      <outline title="数独爱好者" xmlUrl="https://www.sudoku.name/feed/" type="rss"/>
-      <outline title="谜题大全" xmlUrl="https://www.mitidaquan.com/feed/" type="rss"/>
-      <outline title="纵横字谜" xmlUrl="https://www.crossword.cn/feed/" type="rss"/>
+      <outline title="数独爱好者" xmlUrl="https://www.sudoku.name/feed/" type="rss" />
+      <outline title="纵横字谜" xmlUrl="https://www.crossword.cn/feed/" type="rss" />
     </outline>
   </body>
 </opml>

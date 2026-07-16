@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Chinese)">
-      <outline title="Vogue中国" xmlUrl="https://www.vogue.com.cn/rss/" type="rss"/>
-      <outline title="时尚芭莎" xmlUrl="https://www.bazaar.com.cn/rss/" type="rss"/>
-      <outline title="华丽志" xmlUrl="https://www.luxe.co/feed/" type="rss"/>
+      <outline title="Vogue中国" xmlUrl="https://www.vogue.com.cn/rss/" type="rss" />
+      <outline title="华丽志" xmlUrl="https://www.luxe.co/feed/" type="rss" />
     </outline>
   </body>
 </opml>

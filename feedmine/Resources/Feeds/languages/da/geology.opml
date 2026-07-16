@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Geology, Geography (Danish)">
-      <outline title="Geoviden" xmlUrl="https://geoviden.dk/feed/" type="rss"/>
-      <outline title="Geologisk Institut - Aarhus Universitet" xmlUrl="https://geo.au.dk/nyheder/rss" type="rss"/>
+      <outline title="Geoviden" xmlUrl="https://geoviden.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

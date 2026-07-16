@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fishing (Lithuanian)">
-      <outline title="Žvejys" xmlUrl="https://www.zvejys.lt/feed/" type="rss"/>
-      <outline title="Žvejyba Lietuvoje" xmlUrl="https://www.zvejybaltuvoje.lt/feed/" type="rss"/>
-      <outline title="Mūsų žvejyba" xmlUrl="https://www.musuzvejyba.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

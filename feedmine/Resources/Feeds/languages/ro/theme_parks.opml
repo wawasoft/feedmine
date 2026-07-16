@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Romanian)">
-      <outline title="Parcuri de Distractii Romania" xmlUrl="https://parcuridedistractii.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

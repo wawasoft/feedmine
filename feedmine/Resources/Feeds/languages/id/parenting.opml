@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Moms, Dads (Indonesian)">
-      <outline title="HaiBunda" xmlUrl="https://www.haibunda.com/feed" type="rss"/>
-      <outline title="Popmama.com" xmlUrl="https://www.popmama.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

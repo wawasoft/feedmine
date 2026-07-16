@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Danish)">
-      <outline title="Fotografisk Tidsskrift" xmlUrl="https://fotografisktidsskrift.dk/feed/" type="rss"/>
-      <outline title="Dansk Fotografisk Forening" xmlUrl="https://danskfotografiskforening.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

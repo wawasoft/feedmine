@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Polish)">
-      <outline title="Duchowość - Deon.pl" xmlUrl="https://deon.pl/duchowosc/feed" type="rss"/>
-      <outline title="Mindfulness - Sztuka Uważności" xmlUrl="https://sztukauwaznosci.pl/feed/" type="rss"/>
+      <outline title="Mindfulness - Sztuka Uważności" xmlUrl="https://sztukauwaznosci.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

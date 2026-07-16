@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Collectors (Portuguese)">
-      <outline title="Colecionadores Brasil" xmlUrl="https://www.colecionadoresbrasil.com.br/feed/" type="rss"/>
-      <outline title="Revista do Colecionador" xmlUrl="https://www.revistadocolecionador.com.br/feed/" type="rss"/>
-      <outline title="Mundo dos Colecionáveis" xmlUrl="https://www.mundodoscolecionaveis.com.br/feed/" type="rss"/>
-      <outline title="Colecionismo em Foco" xmlUrl="https://www.colecionismoemfoco.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Amharic)">
-      <outline title="ኢትዮጵያ ዛሬ" xmlUrl="https://www.ethiopiaza.re.com/feed/" type="rss"/>
-      <outline title="ባህል እና ወግ" xmlUrl="https://bahlweweg.wordpress.com/feed/" type="rss"/>
+      <outline title="ባህል እና ወግ" xmlUrl="https://bahlweweg.wordpress.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Motorcycling (German)">
-      <outline title="Motorrad Online" xmlUrl="https://www.motorradonline.de/feed/" type="rss"/>
-      <outline title="1000PS - Motorrad News" xmlUrl="https://www.1000ps.de/rss/news.xml" type="rss"/>
-      <outline title="Motorradfahrer" xmlUrl="https://www.motorradfahrer.de/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

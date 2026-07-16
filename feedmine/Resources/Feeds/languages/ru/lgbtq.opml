@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Drag, Queer (Russian)">
-      <outline title="Открытые" xmlUrl="https://otkrytie.org/rss.xml" type="rss"/>
-      <outline title="Парни ПЛЮС" xmlUrl="https://parniplus.com/feed/" type="rss"/>
+      <outline title="Парни ПЛЮС" xmlUrl="https://parniplus.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

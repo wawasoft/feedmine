@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Armenian)">
-      <outline title="armphoto" xmlUrl="https://armphoto.am/feed/" type="rss"/>
-      <outline title="Fotolur" xmlUrl="https://fotolur.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

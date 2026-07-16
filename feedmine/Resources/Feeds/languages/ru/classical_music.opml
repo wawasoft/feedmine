@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Classical Music (Russian)">
-      <outline title="Музыкальная жизнь" xmlUrl="https://muzlifemagazine.ru/feed/" type="rss"/>
-      <outline title="Belcanto.ru" xmlUrl="https://www.belcanto.ru/rss/news.xml" type="rss"/>
+      <outline title="Музыкальная жизнь" xmlUrl="https://muzlifemagazine.ru/feed/" type="rss" />
     </outline>
   </body>
 </opml>

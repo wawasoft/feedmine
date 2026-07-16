@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Armenian)">
-      <outline title="Բժշկական լուրեր" xmlUrl="https://mednews.am/feed/" type="rss"/>
-      <outline title="Դեղագործություն" xmlUrl="https://pharma.am/feed/" type="rss"/>
-      <outline title="Առողջապահություն" xmlUrl="https://aroghjapahutyun.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

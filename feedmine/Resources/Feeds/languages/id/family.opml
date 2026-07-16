@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Family, Relationships (Indonesian)">
-      <outline title="Hipwee - Keluarga" xmlUrl="https://www.hipwee.com/category/keluarga/feed" type="rss"/>
-      <outline title="Popmama.com" xmlUrl="https://www.popmama.com/feed" type="rss"/>
-      <outline title="IDN Times - Keluarga" xmlUrl="https://www.idntimes.com/life/family/feed" type="rss"/>
-      <outline title="KumparanMOM" xmlUrl="https://kumparan.com/kumparanmom/feed" type="rss"/>
+      <outline title="Hipwee - Keluarga" xmlUrl="https://www.hipwee.com/category/keluarga/feed" type="rss" />
     </outline>
   </body>
 </opml>

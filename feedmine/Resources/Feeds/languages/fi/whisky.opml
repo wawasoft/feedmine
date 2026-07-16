@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Whisky (Finnish)">
-      <outline title="Viskiä-blogi" xmlUrl="https://viskia.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="Whisky.fi" xmlUrl="https://whisky.fi/feed/" type="rss"/>
+      <outline title="Viskiä-blogi" xmlUrl="https://viskia.blogspot.com/feeds/posts/default" type="rss" />
     </outline>
   </body>
 </opml>

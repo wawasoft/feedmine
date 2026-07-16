@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Universities (French)">
-      <outline title="Le Monde - Université" xmlUrl="https://www.lemonde.fr/universite/rss_full.xml" type="rss"/>
-      <outline title="EducPros" xmlUrl="https://www.letudiant.fr/educpros/rss.xml" type="rss"/>
-      <outline title="Campus France" xmlUrl="https://www.campusfrance.org/fr/feed" type="rss"/>
+      <outline title="EducPros" xmlUrl="https://www.letudiant.fr/educpros/rss.xml" type="rss" />
+      <outline title="Campus France" xmlUrl="https://www.campusfrance.org/fr/feed" type="rss" />
     </outline>
   </body>
 </opml>

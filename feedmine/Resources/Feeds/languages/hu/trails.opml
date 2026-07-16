@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Hungarian)">
-      <outline title="Turista Magazin RSS" xmlUrl="https://www.turistamagazin.hu/rss" type="rss"/>
-      <outline title="Természetjáró RSS" xmlUrl="https://termeszetjaro.hu/feed/" type="rss"/>
-      <outline title="Magyar Természetjáró Szövetség RSS" xmlUrl="https://termeszetjaro.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

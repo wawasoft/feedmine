@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Design Feeds (Russian)">
-      <outline title="Designer — Сообщество" xmlUrl="https://designer.ru/rss" type="rss"/>
-      <outline title="Типографика — Блог" xmlUrl="https://typographica.pro/feed" type="rss"/>
-      <outline title="Design Pub — Блог" xmlUrl="https://designpub.ru/feed" type="rss"/>
-      <outline title="Бюро — Журнал" xmlUrl="https://bureau.ru/feed" type="rss"/>
+      <outline title="Design Pub — Блог" xmlUrl="https://designpub.ru/feed" type="rss" />
     </outline>
   </body>
 </opml>

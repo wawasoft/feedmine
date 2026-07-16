@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Cycling (Ukrainian)">
-      <outline title="Велосипедний журнал" xmlUrl="https://velojurnal.com/feed/" type="rss"/>
-      <outline title="ВелоКиїв" xmlUrl="https://velokyiv.com/feed/" type="rss"/>
-      <outline title="Велоінфо" xmlUrl="https://veloinfo.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

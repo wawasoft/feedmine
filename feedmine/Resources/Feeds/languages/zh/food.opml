@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Food (Chinese)">
-      <outline title="下厨房" xmlUrl="https://www.xiachufang.com/rss/" type="rss"/>
-      <outline title="美食天下" xmlUrl="https://www.meishichina.com/rss/" type="rss"/>
-      <outline title="豆果美食" xmlUrl="https://www.douguo.com/rss/" type="rss"/>
-      <outline title="美食杰" xmlUrl="https://www.meishijie.com/rss.xml" type="rss"/>
-      <outline title="舌尖上的中国" xmlUrl="https://www.shejian.com/rss/" type="rss"/>
+      <outline title="美食杰" xmlUrl="https://www.meishijie.com/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

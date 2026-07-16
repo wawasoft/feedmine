@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Trails, Routes (Romanian)">
-      <outline title="Cai de drumetie Romania" xmlUrl="https://www.carpati.org/rss/trasee.xml" type="rss"/>
-      <outline title="Drumetii pe munte" xmlUrl="https://drumetiipemunte.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

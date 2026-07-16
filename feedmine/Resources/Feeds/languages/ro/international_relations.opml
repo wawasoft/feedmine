@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Romanian)">
-      <outline title="Foreign Policy România" xmlUrl="https://www.foreignpolicy.ro/feed/" type="rss"/>
-      <outline title="Geopolitica.ro" xmlUrl="https://www.geopolitica.ro/feed/" type="rss"/>
-      <outline title="Revista 22" xmlUrl="https://revista22.ro/feed" type="rss"/>
-      <outline title="Adevărul - Internațional" xmlUrl="https://adevarul.ro/international/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

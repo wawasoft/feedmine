@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Sports (Chinese)">
-      <outline title="腾讯体育" xmlUrl="https://sports.qq.com/rss/sports.xml" type="rss"/>
-      <outline title="新浪体育" xmlUrl="https://sports.sina.com.cn/rss/all.xml" type="rss"/>
-      <outline title="网易体育" xmlUrl="https://sports.163.com/rss/sports.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

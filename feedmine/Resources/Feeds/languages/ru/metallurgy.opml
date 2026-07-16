@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Russian)">
-      <outline title="Металлоснабжение и сбыт" xmlUrl="https://metalinfo.ru/rss/" type="rss"/>
-      <outline title="Металлургия.рф" xmlUrl="https://metallurgy.rf/feed/" type="rss"/>
-      <outline title="Русская металлургия" xmlUrl="https://rusmet.ru/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Estonian)">
-      <outline title="Ristsõna" xmlUrl="https://ristsona.ee/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Travel (Indonesian)">
-      <outline title="Detik Travel" xmlUrl="https://travel.detik.com/feed" type="rss"/>
-      <outline title="Kompas Travel" xmlUrl="https://travel.kompas.com/feed/" type="rss"/>
-      <outline title="Liputan6 Travel" xmlUrl="https://www.liputan6.com/travel/rss" type="rss"/>
-      <outline title="Lonely Planet Indonesia" xmlUrl="https://www.lonelyplanet.com/indonesia/feed" type="rss"/>
-      <outline title="Traveling Yuk" xmlUrl="https://travelingyuk.com/feed/" type="rss"/>
+      <outline title="Traveling Yuk" xmlUrl="https://travelingyuk.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

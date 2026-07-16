@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Tech Feeds (Slovak)">
-      <outline title="Zive.sk" xmlUrl="https://www.zive.sk/rss/" type="rss"/>
-      <outline title="MobilMania.sk" xmlUrl="https://www.mobilmania.sk/rss/" type="rss"/>
-      <outline title="Techbox.sk" xmlUrl="https://www.techbox.sk/feed/" type="rss"/>
-      <outline title="Digitálny svet" xmlUrl="https://www.digitalnysvet.sk/feed/" type="rss"/>
-      <outline title="PCRevue.sk" xmlUrl="https://www.pcrevue.sk/rss/" type="rss"/>
+      <outline title="Zive.sk" xmlUrl="https://www.zive.sk/rss/" type="rss" />
+      <outline title="MobilMania.sk" xmlUrl="https://www.mobilmania.sk/rss/" type="rss" />
+      <outline title="Techbox.sk" xmlUrl="https://www.techbox.sk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

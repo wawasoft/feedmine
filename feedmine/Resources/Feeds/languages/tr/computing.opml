@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Computing (Turkish)">
-      <outline title="CHIP Online Türkiye" xmlUrl="https://www.chip.com.tr/rss/" type="rss"/>
-      <outline title="ShiftDelete.Net" xmlUrl="https://shiftdelete.net/feed" type="rss"/>
-      <outline title="Webtekno" xmlUrl="https://www.webtekno.com/feed" type="rss"/>
-      <outline title="DonanımHaber" xmlUrl="https://www.donanimhaber.com/rss.xml" type="rss"/>
-      <outline title="Technopat" xmlUrl="https://www.technopat.net/feed/" type="rss"/>
+      <outline title="CHIP Online Türkiye" xmlUrl="https://www.chip.com.tr/rss/" type="rss" />
+      <outline title="ShiftDelete.Net" xmlUrl="https://shiftdelete.net/feed" type="rss" />
+      <outline title="Technopat" xmlUrl="https://www.technopat.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

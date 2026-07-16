@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Food (Indonesian)">
-      <outline title="Resep Koki" xmlUrl="https://resepkoki.id/feed" type="rss"/>
-      <outline title="Cookpad Indonesia" xmlUrl="https://cookpad.com/id/feed" type="rss"/>
-      <outline title="Tastemade Indonesia" xmlUrl="https://www.tastemade.co.id/feed" type="rss"/>
-      <outline title="Kumparan - Food" xmlUrl="https://kumparan.com/feed/food" type="rss"/>
-      <outline title="IDN Times - Food" xmlUrl="https://www.idntimes.com/food/feed" type="rss"/>
+      <outline title="Resep Koki" xmlUrl="https://resepkoki.id/feed" type="rss" />
     </outline>
   </body>
 </opml>

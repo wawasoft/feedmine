@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Swedish)">
-      <outline title="Folklorens Hus" xmlUrl="https://folklorens.se/feed/" type="rss"/>
-      <outline title="Svenska Folkminnen" xmlUrl="https://svenskafolkminnen.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

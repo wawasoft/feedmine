@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Thai)">
-      <outline title="งานฝีมือไทย" xmlUrl="https://www.banidea.com/feed/" type="rss"/>
-      <outline title="DIY &amp; งานฝีมือ" xmlUrl="https://www.sanook.com/home/tag/งานฝีมือ/feed/" type="rss"/>
+      <outline title="DIY &amp; งานฝีมือ" xmlUrl="https://www.sanook.com/home/tag/งานฝีมือ/feed/" type="rss" />
     </outline>
   </body>
 </opml>

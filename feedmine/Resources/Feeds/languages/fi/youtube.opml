@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Finnish)">
-      <outline title="Suosituimmat YouTube-videot Suomessa" xmlUrl="https://www.youtube.com/feeds/videos.xml?playlist_id=PLrAXtmErZgOeT2hGmT1zVr5nVq5c6kR0H" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

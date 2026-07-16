@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Russian)">
-      <outline title="BeautyHack" xmlUrl="https://beautyhack.ru/feed" type="rss"/>
-      <outline title="Makeup.ru" xmlUrl="https://makeup.ru/rss" type="rss"/>
-      <outline title="Elle Girl Россия" xmlUrl="https://ellegirl.ru/rss/" type="rss"/>
+      <outline title="BeautyHack" xmlUrl="https://beautyhack.ru/feed" type="rss" />
     </outline>
   </body>
 </opml>

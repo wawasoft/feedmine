@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (French)">
-      <outline title="Techno-Science.net" xmlUrl="https://www.techno-science.net/feed.rss" type="rss"/>
-      <outline title="Industrie &amp; Technologies" xmlUrl="https://www.industrie-technologies.com/feed/" type="rss"/>
-      <outline title="Mécano Blog" xmlUrl="https://mecanoblog.com/feed/" type="rss"/>
+      <outline title="Industrie &amp; Technologies" xmlUrl="https://www.industrie-technologies.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

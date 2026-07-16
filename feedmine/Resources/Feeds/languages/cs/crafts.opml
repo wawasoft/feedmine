@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Czech)">
-      <outline title="Kreativní svět" xmlUrl="https://www.kreativnisvet.cz/feed/" type="rss"/>
-      <outline title="Tvořeníčko" xmlUrl="https://tvoreni.cz/feed/" type="rss"/>
-      <outline title="Ruční práce" xmlUrl="https://www.rucniprace.cz/feed/" type="rss"/>
+      <outline title="Tvořeníčko" xmlUrl="https://tvoreni.cz/feed/" type="rss" />
+      <outline title="Ruční práce" xmlUrl="https://www.rucniprace.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

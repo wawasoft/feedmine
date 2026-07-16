@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Russian)">
-      <outline title="Эзотерика и духовность" xmlUrl="https://ezoterik.ru/feed/" type="rss"/>
-      <outline title="Орден Золотого Века - Духовность" xmlUrl="https://www.ozv.ru/feed/" type="rss"/>
-      <outline title="Мир Духовности" xmlUrl="https://mir-duhovnosti.ru/feed/" type="rss"/>
-      <outline title="Самопознание.ру" xmlUrl="https://samopoznanie.ru/rss/" type="rss"/>
-      <outline title="Духовный путь" xmlUrl="https://duhovnyj-put.ru/feed/" type="rss"/>
+      <outline title="Орден Золотого Века - Духовность" xmlUrl="https://www.ozv.ru/feed/" type="rss" />
     </outline>
   </body>
 </opml>

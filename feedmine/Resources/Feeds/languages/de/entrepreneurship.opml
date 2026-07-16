@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (German)">
-      <outline title="Deutsche Startups" xmlUrl="https://www.deutsche-startups.de/feed/" type="rss"/>
-      <outline title="Gründer.de" xmlUrl="https://www.gruender.de/feed/" type="rss"/>
-      <outline title="Entrepreneur.de" xmlUrl="https://www.entrepreneur.de/feed/" type="rss"/>
-      <outline title="Startup Valley" xmlUrl="https://www.startupvalley.news/feed/" type="rss"/>
-      <outline title="Gründerszene" xmlUrl="https://www.gruenderszene.de/feed" type="rss"/>
+      <outline title="Deutsche Startups" xmlUrl="https://www.deutsche-startups.de/feed/" type="rss" />
+      <outline title="Gründer.de" xmlUrl="https://www.gruender.de/feed/" type="rss" />
+      <outline title="Startup Valley" xmlUrl="https://www.startupvalley.news/feed/" type="rss" />
+      <outline title="Gründerszene" xmlUrl="https://www.gruenderszene.de/feed" type="rss" />
     </outline>
   </body>
 </opml>

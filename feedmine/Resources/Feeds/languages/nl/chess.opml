@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Chess Feeds (Dutch)">
-      <outline title="Schaaksite.nl" xmlUrl="https://www.schaaksite.nl/feed/" type="rss"/>
-      <outline title="Chess.com Nederlands" xmlUrl="https://www.chess.com/nl/feed" type="rss"/>
-      <outline title="Nederlandse Schaakbond" xmlUrl="https://schaakbond.nl/feed/" type="rss"/>
+      <outline title="Schaaksite.nl" xmlUrl="https://www.schaaksite.nl/feed/" type="rss" />
+      <outline title="Nederlandse Schaakbond" xmlUrl="https://schaakbond.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

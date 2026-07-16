@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fanfiction, Fandom Communities (Greek)">
-      <outline title="Fandom Greek" xmlUrl="https://fandomgr.weebly.com/feed" type="rss"/>
-      <outline title="Anime Planet Greece" xmlUrl="https://www.animeplanet.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Science Feeds (German)">
-      <outline title="Spektrum der Wissenschaft" xmlUrl="https://www.spektrum.de/feed/" type="rss"/>
-      <outline title="scinexx" xmlUrl="https://www.scinexx.de/feed/" type="rss"/>
+      <outline title="scinexx" xmlUrl="https://www.scinexx.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

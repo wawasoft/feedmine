@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Health (Danish)">
-      <outline title="Sundhedsstyrelsen" xmlUrl="https://www.sst.dk/rss/nyheder" type="rss"/>
-      <outline title="Netdoktor" xmlUrl="https://www.netdoktor.dk/rss" type="rss"/>
-      <outline title="Patienthåndbogen" xmlUrl="https://www.sundhed.dk/sundhedsfaglig/information-til-sundhedsfaglige/patienthaandbogen/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

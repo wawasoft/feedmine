@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Science Feeds (Indonesian)">
-      <outline title="Sains Kompas" xmlUrl="https://sains.kompas.com/rss" type="rss"/>
-      <outline title="Tekno Tempo" xmlUrl="https://tekno.tempo.co/rss" type="rss"/>
-      <outline title="Sains.me" xmlUrl="https://sains.me/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

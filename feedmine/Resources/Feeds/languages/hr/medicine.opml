@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Croatian)">
-      <outline title="Medicina.hr" xmlUrl="https://www.medicina.hr/feed" type="rss"/>
-      <outline title="PLIVA Zdravlje" xmlUrl="https://www.plivazdravlje.hr/feed" type="rss"/>
-      <outline title="Liječničke novine" xmlUrl="https://www.lijecnicke-novine.hr/feed" type="rss"/>
+      <outline title="Medicina.hr" xmlUrl="https://www.medicina.hr/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Turkish)">
-      <outline title="Dış Haberler - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/dis-haberler" type="rss"/>
-      <outline title="Dış Politika - Milliyet" xmlUrl="https://www.milliyet.com.tr/rss/dis-politika" type="rss"/>
-      <outline title="Dünya - NTV" xmlUrl="https://www.ntv.com.tr/rss/dunya" type="rss"/>
+      <outline title="Dış Haberler - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/dis-haberler" type="rss" />
+      <outline title="Dış Politika - Milliyet" xmlUrl="https://www.milliyet.com.tr/rss/dis-politika" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Drag, Queer (Vietnamese)">
-      <outline title="Vietnam LGBT+" xmlUrl="https://vietnamlgbt.com/feed/" type="rss"/>
-      <outline title="LGBT Việt Nam" xmlUrl="https://lgbtvietnam.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

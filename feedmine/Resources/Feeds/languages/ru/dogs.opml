@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Dogs (Russian)">
-      <outline title="Собака — Журнал" xmlUrl="https://www.sobaka.ru/rss" type="rss"/>
-      <outline title="Дог — Блог" xmlUrl="https://dog-blog.ru/feed" type="rss"/>
-      <outline title="Хвост Ньюс — Новости" xmlUrl="https://hvost.news/feed" type="rss"/>
-      <outline title="Пёс и Кот — Журнал" xmlUrl="https://pesikot.ru/feed" type="rss"/>
+      <outline title="Собака — Журнал" xmlUrl="https://www.sobaka.ru/rss" type="rss" />
     </outline>
   </body>
 </opml>

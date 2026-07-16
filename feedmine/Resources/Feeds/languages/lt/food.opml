@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Food (Lithuanian)">
-      <outline title="Maisto gidas" xmlUrl="https://www.maistogidas.lt/feed/" type="rss"/>
-      <outline title="Lietuviški receptai" xmlUrl="https://www.lietuviskreceptai.lt/feed/" type="rss"/>
-      <outline title="Gurmanų pasaulis" xmlUrl="https://www.gurmanupasaulis.lt/feed/" type="rss"/>
-      <outline title="Sveikas maistas" xmlUrl="https://www.sveikasmaistas.lt/feed/" type="rss"/>
+      <outline title="Maisto gidas" xmlUrl="https://www.maistogidas.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Estonian)">
-      <outline title="Tark Tegu" xmlUrl="https://tarktegu.ee/feed/" type="rss"/>
-      <outline title="Äripäeva juhtimine" xmlUrl="https://www.aripaev.ee/juhtimine/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

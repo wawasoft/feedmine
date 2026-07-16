@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Travel (Czech)">
-      <outline title="Cestování iDNES" xmlUrl="https://cestovani.idnes.cz/rss/" type="rss"/>
-      <outline title="Cestomila" xmlUrl="https://www.cestomila.cz/feed/" type="rss"/>
-      <outline title="Cestujlevne.com" xmlUrl="https://www.cestujlevne.com/rss/" type="rss"/>
-      <outline title="HedvabnaStezka.cz" xmlUrl="https://www.hedvabnastezka.cz/feed/" type="rss"/>
-      <outline title="Travel portal" xmlUrl="https://www.travelportal.cz/rss/" type="rss"/>
+      <outline title="Cestování iDNES" xmlUrl="https://cestovani.idnes.cz/rss/" type="rss" />
+      <outline title="Cestujlevne.com" xmlUrl="https://www.cestujlevne.com/rss/" type="rss" />
+      <outline title="HedvabnaStezka.cz" xmlUrl="https://www.hedvabnastezka.cz/feed/" type="rss" />
+      <outline title="Travel portal" xmlUrl="https://www.travelportal.cz/rss/" type="rss" />
     </outline>
   </body>
 </opml>

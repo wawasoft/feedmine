@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Finnish)">
-      <outline title="Suosituimmat blogit" xmlUrl="https://www.blogit.fi/feed/" type="rss"/>
-      <outline title="Blogilista" xmlUrl="https://www.blogilista.fi/feed/" type="rss"/>
+      <outline title="Suosituimmat blogit" xmlUrl="https://www.blogit.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

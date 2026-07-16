@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Sports (Khmer)">
-      <outline title="កីឡាខ្មែរ" xmlUrl="https://www.khmer-sports.com/feed" type="rss"/>
-      <outline title="សារព័ត៌មានកីឡា" xmlUrl="https://www.sportsnews-kh.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

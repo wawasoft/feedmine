@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Serbian)">
-      <outline title="Blog o svemu" xmlUrl="https://blogosvemu.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

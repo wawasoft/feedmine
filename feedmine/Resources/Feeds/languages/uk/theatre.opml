@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Theatre (Ukrainian)">
-      <outline title="Театральний портал" xmlUrl="https://theatre.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

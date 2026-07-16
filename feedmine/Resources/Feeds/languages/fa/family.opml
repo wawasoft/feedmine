@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (Persian)">
-      <outline title="خانواده ایرانی" xmlUrl="https://khanevadeirani.com/feed/" type="rss"/>
-      <outline title="روابط عاطفی" xmlUrl="https://ravabeteatefi.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

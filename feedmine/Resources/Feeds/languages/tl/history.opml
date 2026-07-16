@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="History Feeds (Filipino)">
-      <outline title="Filipino Historian" xmlUrl="https://filipinohistorian.wordpress.com/feed/" type="rss"/>
-      <outline title="National Historical Commission" xmlUrl="https://nhcp.gov.ph/feed/" type="rss"/>
+      <outline title="Filipino Historian" xmlUrl="https://filipinohistorian.wordpress.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

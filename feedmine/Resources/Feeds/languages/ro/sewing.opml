@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Romanian)">
-      <outline title="Croitorie si Cusut" xmlUrl="https://croitoriesicusut.ro/feed/" type="rss"/>
-      <outline title="Sewing Romania" xmlUrl="https://sewing-romania.ro/feed/" type="rss"/>
-      <outline title="Atelierul de Cusut" xmlUrl="https://atelieruldecusut.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

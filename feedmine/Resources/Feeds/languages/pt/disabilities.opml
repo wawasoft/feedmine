@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Portuguese)">
-      <outline title="Inclusive" xmlUrl="https://www.inclusive.org.br/feed/" type="rss"/>
-      <outline title="Bengala Legal" xmlUrl="https://www.bengalalegal.com/feed/" type="rss"/>
-      <outline title="Acessibilidade Legal" xmlUrl="https://acessibilidadelegal.com/feed/" type="rss"/>
+      <outline title="Acessibilidade Legal" xmlUrl="https://acessibilidadelegal.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

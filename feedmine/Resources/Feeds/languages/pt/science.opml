@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Science Feeds (Portuguese)">
-      <outline title="Ciência Hoje" xmlUrl="https://cienciahoje.org.br/feed/" type="rss"/>
-      <outline title="Revista Fapesp" xmlUrl="https://revistapesquisa.fapesp.br/feed/" type="rss"/>
-      <outline title="Galileu" xmlUrl="https://revistagalileu.globo.com/feed/" type="rss"/>
+      <outline title="Ciência Hoje" xmlUrl="https://cienciahoje.org.br/feed/" type="rss" />
+      <outline title="Revista Fapesp" xmlUrl="https://revistapesquisa.fapesp.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

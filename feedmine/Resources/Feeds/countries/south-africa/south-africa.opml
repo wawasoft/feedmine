@@ -40,7 +40,6 @@
     <outline text="Culture">
       <outline title="Art Times" xmlUrl="https://www.arttimes.co.za/rss/" type="rss" />
       <outline title="Between 10 and 5" xmlUrl="https://www.10and5.com/feed/" type="rss" />
-      <outline title="Design Indaba" xmlUrl="https://www.designindaba.com/rss/" type="rss" />
       <outline title="Zeitz MOCAA" xmlUrl="https://www.zeitzmocaa.museum/rss/" type="rss" />
     </outline>
     <outline text="Movies">
@@ -90,7 +89,6 @@
       <outline title="GroundUp" xmlUrl="https://www.groundup.org.za/rss/" type="rss" />
     </outline>
     <outline text="Design">
-      <outline title="Design Indaba" xmlUrl="https://www.designindaba.com/rss/" type="rss" />
       <outline title="Between 10 and 5" xmlUrl="https://www.10and5.com/feed/" type="rss" />
       <outline title="House and Leisure" xmlUrl="https://www.houseandleisure.co.za/rss/" type="rss" />
       <outline title="VISI Magazine" xmlUrl="https://www.visi.co.za/rss/" type="rss" />

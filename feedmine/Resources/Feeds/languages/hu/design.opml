@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Design Feeds (Hungarian)">
-      <outline title="Designsztori" xmlUrl="https://designsztori.hu/feed" type="rss"/>
-      <outline title="Artportal - Design" xmlUrl="https://artportal.hu/feed/design" type="rss"/>
+      <outline title="Artportal - Design" xmlUrl="https://artportal.hu/feed/design" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Military (Russian)">
-      <outline title="Военное обозрение" xmlUrl="https://topwar.ru/rss.xml" type="rss"/>
-      <outline title="Армейский вестник" xmlUrl="https://army-news.ru/feed/" type="rss"/>
-      <outline title="Naked Science - Военное" xmlUrl="https://naked-science.ru/feed/military" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

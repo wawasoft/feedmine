@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Programming (Persian)">
-      <outline title="راهکارهای برنامه‌نویسی | وبلاگ فارسی" xmlUrl="https://www.programming.ir/feed" type="rss"/>
-      <outline title="ویرگول | برنامه‌نویسی و طراحی وب" xmlUrl="https://virgool.io/topic/programming/feed" type="rss"/>
-      <outline title="جادی | وبلاگ برنامه‌نویسی و لینوکس" xmlUrl="https://jadi.net/feed" type="rss"/>
-      <outline title="سورس‌باران | دانلود سورس کد و آموزش" xmlUrl="https://sourcebaran.ir/feed" type="rss"/>
-      <outline title="توسعه‌دهندگان | انجمن برنامه‌نویسان" xmlUrl="https://tose-deh.ir/feed" type="rss"/>
+      <outline title="راهکارهای برنامه‌نویسی | وبلاگ فارسی" xmlUrl="https://www.programming.ir/feed" type="rss" />
+      <outline title="ویرگول | برنامه‌نویسی و طراحی وب" xmlUrl="https://virgool.io/topic/programming/feed" type="rss" />
+      <outline title="جادی | وبلاگ برنامه‌نویسی و لینوکس" xmlUrl="https://jadi.net/feed" type="rss" />
+      <outline title="سورس‌باران | دانلود سورس کد و آموزش" xmlUrl="https://sourcebaran.ir/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Music (Indonesian)">
-      <outline title="Kincir - Musik" xmlUrl="https://kincir.com/feed/musik" type="rss"/>
-      <outline title="Hai - Musik" xmlUrl="https://hai.grid.id/feed/musik" type="rss"/>
+      <outline title="Kincir - Musik" xmlUrl="https://kincir.com/feed/musik" type="rss" />
     </outline>
   </body>
 </opml>

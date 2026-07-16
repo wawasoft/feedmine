@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Finnish)">
-      <outline title="Sisustus" xmlUrl="https://www.sisustus.fi/feed/" type="rss"/>
-      <outline title="Kodin kuvalehti" xmlUrl="https://www.kodinkuvalehti.fi/rss" type="rss"/>
-      <outline title="Avotakka" xmlUrl="https://www.avotakka.fi/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Science Feeds (Greek)">
-      <outline title="Επιστήμη - Physics4u" xmlUrl="https://www.physics4u.gr/feed/" type="rss"/>
-      <outline title="Επιστήμη - ScienceArchives" xmlUrl="https://www.sciencearchives.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

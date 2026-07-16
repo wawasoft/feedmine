@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Whisky (Portuguese)">
-      <outline title="Whisky Brasil" xmlUrl="https://whiskybrasil.com.br/feed/" type="rss"/>
-      <outline title="Mundo do Whisky" xmlUrl="https://www.mundodowhisky.com.br/feed/" type="rss"/>
-      <outline title="Whisky &amp; Destilados" xmlUrl="https://whiskyedestilados.com.br/feed/" type="rss"/>
-      <outline title="O Whisky" xmlUrl="https://owhisky.com.br/feed/" type="rss"/>
-      <outline title="Whisky em Foco" xmlUrl="https://whiskyemfoco.com.br/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

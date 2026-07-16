@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Indonesian)">
-      <outline title="RetroTekno" xmlUrl="https://retrotekno.com/feed/" type="rss"/>
-      <outline title="Museum Komputer Indonesia" xmlUrl="https://museumkomputer.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Wine (Swedish)">
-      <outline title="Vinjournalen" xmlUrl="https://www.vinjournalen.se/feed/" type="rss"/>
-      <outline title="Vin &amp; Matguiden" xmlUrl="https://www.vinochmatguiden.se/feed/" type="rss"/>
-      <outline title="Allt om Vin" xmlUrl="https://alltomvin.se/feed/" type="rss"/>
-      <outline title="Vinguiden" xmlUrl="https://www.vinguiden.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Chinese)">
-      <outline title="古董电脑" xmlUrl="https://www.gudongdiannao.com/feed/" type="rss"/>
-      <outline title="老电脑之家" xmlUrl="https://www.laodiannao.com/feed/" type="rss"/>
-      <outline title="怀旧游戏" xmlUrl="https://www.huaijiuyouxi.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

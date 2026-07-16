@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fishing (Bulgarian)">
-      <outline title="Риболовен свят" xmlUrl="https://ribolovensviat.com/feed/" type="rss"/>
-      <outline title="Риболов.бг" xmlUrl="https://ribolov.bg/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

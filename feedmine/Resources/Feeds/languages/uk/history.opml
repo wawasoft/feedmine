@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Ukrainian)">
-      <outline title="Історична правда" xmlUrl="https://www.istpravda.com.ua/rss/" type="rss"/>
-      <outline title="Локальна історія" xmlUrl="https://localhistory.org.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

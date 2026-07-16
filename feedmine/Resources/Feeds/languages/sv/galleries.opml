@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Art Galleries (Swedish)">
-      <outline title="Konstnärernas Riksorganisation" xmlUrl="https://www.kro.se/feed/" type="rss"/>
-      <outline title="Svenska Dagbladet - Konst" xmlUrl="https://www.svd.se/feed/articles.rss?tag=konst" type="rss"/>
-      <outline title="Dagens Nyheter - Konst" xmlUrl="https://www.dn.se/rss/kultur-konst/" type="rss"/>
+      <outline title="Svenska Dagbladet - Konst" xmlUrl="https://www.svd.se/feed/articles.rss?tag=konst" type="rss" />
     </outline>
   </body>
 </opml>

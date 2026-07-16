@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Humor (Italian)">
-      <outline title="Zelig - Comedy Club" xmlUrl="https://www.zelig.it/feed/" type="rss"/>
-      <outline title="Comedy Central Italia" xmlUrl="https://www.comedycentral.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

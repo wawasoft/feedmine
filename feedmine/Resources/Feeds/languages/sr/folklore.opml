@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Serbian)">
-      <outline title="Folklor Srbije" xmlUrl="https://folklor-srbije.rs/feed/" type="rss"/>
-      <outline title="Mitologija" xmlUrl="https://mitologija.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

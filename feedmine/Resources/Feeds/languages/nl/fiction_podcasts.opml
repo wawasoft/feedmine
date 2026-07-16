@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Dutch)">
-      <outline title="NRC Audio - Verhalen" xmlUrl="https://www.nrc.nl/rss/audio/" type="rss"/>
-      <outline title="De Luisterlingen Podcast" xmlUrl="https://deluisterlingen.podbean.com/feed.xml" type="rss"/>
-      <outline title="Hoorspelletjes" xmlUrl="https://hoorspelletjes.nl/feed/" type="rss"/>
-      <outline title="Podcast Luister" xmlUrl="https://www.podcastluister.nl/feed/" type="rss"/>
-      <outline title="Het Geluid van..." xmlUrl="https://hetgeluidvan.podbean.com/feed.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

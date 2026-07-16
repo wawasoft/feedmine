@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Portuguese)">
-      <outline title="((o))eco" xmlUrl="https://oeco.org.br/feed/" type="rss"/>
-      <outline title="EcoDebate" xmlUrl="https://www.ecodebate.com.br/feed/" type="rss"/>
-      <outline title="Ambiente Brasil" xmlUrl="https://www.ambientebrasil.com.br/feed/" type="rss"/>
-      <outline title="Planeta Sustentável" xmlUrl="https://planetasustentavel.abril.com.br/feed/" type="rss"/>
-      <outline title="Observatório do Clima" xmlUrl="https://www.oc.eco.br/feed/" type="rss"/>
+      <outline title="((o))eco" xmlUrl="https://oeco.org.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

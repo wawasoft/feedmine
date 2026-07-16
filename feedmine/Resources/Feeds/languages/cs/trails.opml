@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Trails, Routes (Czech)">
-      <outline title="Turistické trasy" xmlUrl="https://www.turisticketrasy.cz/feed/" type="rss"/>
-      <outline title="Naše trasy" xmlUrl="https://www.nasetrasy.cz/rss/" type="rss"/>
+      <outline title="Turistické trasy" xmlUrl="https://www.turisticketrasy.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

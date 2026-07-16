@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Serbian)">
-      <outline title="Astronomski magazin" xmlUrl="https://astronomskimagazin.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

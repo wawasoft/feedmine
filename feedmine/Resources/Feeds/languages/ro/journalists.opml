@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Reference Journalists (Romanian)">
-      <outline title="Pagina de Media" xmlUrl="https://www.paginademedia.ro/feed" type="rss"/>
-      <outline title="Revista Presei" xmlUrl="https://revistapresei.ro/feed/" type="rss"/>
+      <outline title="Pagina de Media" xmlUrl="https://www.paginademedia.ro/feed" type="rss" />
     </outline>
   </body>
 </opml>

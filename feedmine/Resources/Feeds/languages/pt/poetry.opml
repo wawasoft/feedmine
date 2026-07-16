@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Poetry (Portuguese)">
-      <outline title="Escritas.org" xmlUrl="https://www.escritas.org/feed" type="rss"/>
-      <outline title="Poesia na Alma" xmlUrl="https://poesianaalma.blogspot.com/feeds/posts/default" type="rss"/>
+      <outline title="Poesia na Alma" xmlUrl="https://poesianaalma.blogspot.com/feeds/posts/default" type="rss" />
     </outline>
   </body>
 </opml>

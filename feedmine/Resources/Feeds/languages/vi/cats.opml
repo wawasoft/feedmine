@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Cat Lovers (Vietnamese)">
-      <outline title="Mèo Cảnh - Tin tức mèo" xmlUrl="https://meocanh.net/feed/" type="rss"/>
-      <outline title="Pet Mart - Mèo" xmlUrl="https://petmart.vn/blogs/meo/feed/" type="rss"/>
-      <outline title="Bác Sĩ Mèo - Sức khỏe mèo" xmlUrl="https://bacsimeo.com/feed/" type="rss"/>
+      <outline title="Pet Mart - Mèo" xmlUrl="https://petmart.vn/blogs/meo/feed/" type="rss" />
     </outline>
   </body>
 </opml>

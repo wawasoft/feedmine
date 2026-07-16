@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Polish)">
-      <outline title="Kultura - Polskie Radio" xmlUrl="https://www.polskieradio.pl/8/Kultura/feed.xml" type="rss"/>
-      <outline title="Dwutygodnik" xmlUrl="https://www.dwutygodnik.com/feed/" type="rss"/>
-      <outline title="Culture.pl" xmlUrl="https://culture.pl/pl/rss" type="rss"/>
+      <outline title="Dwutygodnik" xmlUrl="https://www.dwutygodnik.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

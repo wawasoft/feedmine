@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Turkish)">
-      <outline title="Belgesel Podcast" xmlUrl="https://www.belgeselpodcast.com/feed/podcast/" type="rss"/>
-      <outline title="Radyo Belgesel" xmlUrl="https://radyobelgesel.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

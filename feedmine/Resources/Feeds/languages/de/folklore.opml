@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (German)">
-      <outline title="Märchenblog" xmlUrl="https://www.maerchenblog.de/feed/" type="rss"/>
-      <outline title="Sagen.at" xmlUrl="https://www.sagen.at/feed" type="rss"/>
-      <outline title="Volkskunde" xmlUrl="https://www.volkskunde.at/feed" type="rss"/>
-      <outline title="Mythos Magazin" xmlUrl="https://www.mythos-magazin.de/feed" type="rss"/>
-      <outline title="Brauchtum.de" xmlUrl="https://www.brauchtum.de/feed" type="rss"/>
+      <outline title="Märchenblog" xmlUrl="https://www.maerchenblog.de/feed/" type="rss" />
+      <outline title="Sagen.at" xmlUrl="https://www.sagen.at/feed" type="rss" />
+      <outline title="Volkskunde" xmlUrl="https://www.volkskunde.at/feed" type="rss" />
     </outline>
   </body>
 </opml>

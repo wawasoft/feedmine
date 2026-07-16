@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Chess Feeds (Chinese)">
-      <outline title="中国象棋协会" xmlUrl="https://www.xiangqi.com/rss.xml" type="rss"/>
-      <outline title="国际象棋-新浪体育" xmlUrl="https://sports.sina.com.cn/rss/chess.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

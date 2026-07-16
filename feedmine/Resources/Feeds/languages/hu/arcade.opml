@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Hungarian)">
-      <outline title="Pinball Hungary" xmlUrl="https://pinballhungary.hu/feed/" type="rss"/>
-      <outline title="Retro Játékok" xmlUrl="https://retrojatekok.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

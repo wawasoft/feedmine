@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Universities (Greek)">
-      <outline title="Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών - Νέα" xmlUrl="https://www.uoa.gr/rss/nea.xml" type="rss"/>
-      <outline title="Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης - Νέα" xmlUrl="https://www.auth.gr/feed/" type="rss"/>
-      <outline title="Πανεπιστήμιο Πατρών - Ανακοινώσεις" xmlUrl="https://www.upatras.gr/feed/" type="rss"/>
-      <outline title="Πανεπιστήμιο Κρήτης - Ειδήσεις" xmlUrl="https://www.uoc.gr/el/feed" type="rss"/>
-      <outline title="Οικονομικό Πανεπιστήμιο Αθηνών - Νέα" xmlUrl="https://www.aueb.gr/el/rss.xml" type="rss"/>
+      <outline title="Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης - Νέα" xmlUrl="https://www.auth.gr/feed/" type="rss" />
+      <outline title="Πανεπιστήμιο Πατρών - Ανακοινώσεις" xmlUrl="https://www.upatras.gr/feed/" type="rss" />
+      <outline title="Πανεπιστήμιο Κρήτης - Ειδήσεις" xmlUrl="https://www.uoc.gr/el/feed" type="rss" />
+      <outline title="Οικονομικό Πανεπιστήμιο Αθηνών - Νέα" xmlUrl="https://www.aueb.gr/el/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

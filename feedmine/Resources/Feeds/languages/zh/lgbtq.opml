@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Drag, Queer (Chinese)">
-      <outline title="酷儿新闻" xmlUrl="https://www.queernews.cn/feed/" type="rss"/>
-      <outline title="彩虹资讯" xmlUrl="https://www.caihongzixun.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Malay)">
-      <outline title="Kucing Malaysia" xmlUrl="https://kucingmalaysia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

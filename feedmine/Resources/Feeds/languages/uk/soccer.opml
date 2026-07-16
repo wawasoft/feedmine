@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Ukrainian)">
-      <outline title="Футбол 24" xmlUrl="https://football24.ua/rss" type="rss"/>
-      <outline title="Український футбол" xmlUrl="https://www.ua-football.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

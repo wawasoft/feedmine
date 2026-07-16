@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Indonesian)">
-      <outline title="Podcast Indonesia" xmlUrl="https://podcastindonesia.id/feed/" type="rss"/>
-      <outline title="Bosan Podcast" xmlUrl="https://anchor.fm/s/10e0f0c/podcast/rss" type="rss"/>
-      <outline title="Siniar (Podcast) by Tirto.id" xmlUrl="https://tirto.id/feed/podcast" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

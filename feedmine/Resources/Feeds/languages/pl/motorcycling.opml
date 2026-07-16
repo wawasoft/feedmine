@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Motorcycling (Polish)">
-      <outline title="Ścigacz.pl" xmlUrl="https://www.scigacz.pl/rss.xml" type="rss"/>
-      <outline title="Motocyklista" xmlUrl="https://motocyklista.pl/feed/" type="rss"/>
-      <outline title="Motormania" xmlUrl="https://www.motormania.com.pl/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

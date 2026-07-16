@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Motorcycling (Czech)">
-      <outline title="Motorkáři.cz" xmlUrl="https://www.motorkari.cz/rss/clanky.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

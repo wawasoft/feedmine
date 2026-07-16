@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Famous People (Indonesian)">
-      <outline title="Artis Indonesia" xmlUrl="https://www.artisindonesia.com/feed/" type="rss"/>
-      <outline title="Selebriti News" xmlUrl="https://selebriti.news/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

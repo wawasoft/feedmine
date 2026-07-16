@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Science Feeds (Swedish)">
-      <outline title="Forskning &amp; Framsteg" xmlUrl="https://fof.se/feed/" type="rss"/>
-      <outline title="Illustrerad Vetenskap" xmlUrl="https://illvet.se/feed" type="rss"/>
-      <outline title="Populär Astronomi" xmlUrl="https://popast.nu/feed/" type="rss"/>
+      <outline title="Forskning &amp; Framsteg" xmlUrl="https://fof.se/feed/" type="rss" />
+      <outline title="Populär Astronomi" xmlUrl="https://popast.nu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

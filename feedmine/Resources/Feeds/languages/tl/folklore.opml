@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Filipino)">
-      <outline title="Philippine Mythology" xmlUrl="https://philippine-mythology.com/feed/" type="rss"/>
-      <outline title="The Aswang Project" xmlUrl="https://www.aswangproject.com/feed/" type="rss"/>
-      <outline title="Folklore Philippines" xmlUrl="https://folklorephilippines.com/feed/" type="rss"/>
-      <outline title="RAPPLER - Folklore" xmlUrl="https://www.rappler.com/topic/folklore/feed" type="rss"/>
+      <outline title="The Aswang Project" xmlUrl="https://www.aswangproject.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

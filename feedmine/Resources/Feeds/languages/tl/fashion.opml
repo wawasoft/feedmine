@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Fashion, Style (Filipino)">
-      <outline title="Preview.ph" xmlUrl="https://www.preview.ph/rss" type="rss"/>
-      <outline title="Spot.ph - Fashion" xmlUrl="https://www.spot.ph/fashion/feed" type="rss"/>
-      <outline title="Style Bible" xmlUrl="https://stylebible.ph/feed/" type="rss"/>
-      <outline title="The Philippine Star - Fashion &amp; Beauty" xmlUrl="https://www.philstar.com/lifestyle/fashion-and-beauty/feed" type="rss"/>
-      <outline title="RAPPLER - Style" xmlUrl="https://www.rappler.com/style/feed" type="rss"/>
+      <outline title="Style Bible" xmlUrl="https://stylebible.ph/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Finnish)">
-      <outline title="Ursa" xmlUrl="https://www.ursa.fi/feed/" type="rss"/>
-      <outline title="Tähtitieteellinen yhdistys" xmlUrl="https://www.astro.utu.fi/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

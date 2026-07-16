@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Aviation (Indonesian)">
-      <outline title="Aviasi Indonesia" xmlUrl="https://aviasiindonesia.co.id/feed/" type="rss"/>
-      <outline title="IndoAviation Plus" xmlUrl="https://indoaviationplus.com/feed/" type="rss"/>
-      <outline title="AirNav Indonesia Blog" xmlUrl="https://www.airnavindonesia.co.id/blog/feed/" type="rss"/>
+      <outline title="AirNav Indonesia Blog" xmlUrl="https://www.airnavindonesia.co.id/blog/feed/" type="rss" />
     </outline>
   </body>
 </opml>

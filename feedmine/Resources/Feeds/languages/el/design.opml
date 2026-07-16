@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Design Feeds (Greek)">
-      <outline title="Design - DesignBoom GR" xmlUrl="https://www.designboom.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

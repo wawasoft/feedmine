@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Thai)">
-      <outline title="ตำนานไทย" xmlUrl="https://www.tamnan-thai.com/feed/" type="rss"/>
-      <outline title="ศิลปวัฒนธรรม" xmlUrl="https://www.silpa-mag.com/feed" type="rss"/>
+      <outline title="ศิลปวัฒนธรรม" xmlUrl="https://www.silpa-mag.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

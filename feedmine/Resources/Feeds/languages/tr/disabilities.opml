@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Turkish)">
-      <outline title="Engelsiz Sesler" xmlUrl="https://www.engelsizsesler.org/feed/" type="rss"/>
-      <outline title="Türkiye Sağırlar Derneği" xmlUrl="https://www.tsd.org.tr/feed/" type="rss"/>
+      <outline title="Türkiye Sağırlar Derneği" xmlUrl="https://www.tsd.org.tr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Travel (Finnish)">
-      <outline title="Rantapallo" xmlUrl="https://www.rantapallo.fi/feed/" type="rss"/>
-      <outline title="Matkablogi" xmlUrl="https://matkablogi.com/feed/" type="rss"/>
-      <outline title="Mondo" xmlUrl="https://www.mondo.fi/rss/artikkelit" type="rss"/>
+      <outline title="Rantapallo" xmlUrl="https://www.rantapallo.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

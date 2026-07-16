@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Trails, Routes (German)">
-      <outline title="Outdoor Magazin" xmlUrl="https://www.outdoor-magazin.com/rss/" type="rss"/>
-      <outline title="Bergwelten" xmlUrl="https://www.bergwelten.com/rss" type="rss"/>
-      <outline title="Wandermagazin" xmlUrl="https://www.wandermagazin.de/feed/" type="rss"/>
+      <outline title="Outdoor Magazin" xmlUrl="https://www.outdoor-magazin.com/rss/" type="rss" />
+      <outline title="Wandermagazin" xmlUrl="https://www.wandermagazin.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

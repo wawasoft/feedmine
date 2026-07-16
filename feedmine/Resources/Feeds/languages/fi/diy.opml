@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Finnish)">
-      <outline title="Puuilo" xmlUrl="https://www.puuilo.fi/feed/" type="rss"/>
-      <outline title="K-Rauta - tee se itse" xmlUrl="https://www.k-rauta.fi/tee-se-itse/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

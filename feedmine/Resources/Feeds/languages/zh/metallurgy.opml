@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Chinese)">
-      <outline title="中国冶金报" xmlUrl="https://www.metallurgy.com.cn/rss.xml" type="rss"/>
-      <outline title="冶金之家" xmlUrl="https://www.yejin.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

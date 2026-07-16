@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Health (Estonian)">
-      <outline title="Tervis - Postimees" xmlUrl="https://tervis.postimees.ee/rss" type="rss"/>
-      <outline title="Tervis - Delfi" xmlUrl="https://tervis.delfi.ee/rss" type="rss"/>
-      <outline title="Õhtuleht - Tervis" xmlUrl="https://www.ohtuleht.ee/rss/tervis" type="rss"/>
+      <outline title="Tervis - Postimees" xmlUrl="https://tervis.postimees.ee/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (French)">
-      <outline title="Mots-croisés.ch" xmlUrl="https://www.mots-croises.ch/feed/" type="rss"/>
-      <outline title="Cruciverbiste" xmlUrl="https://cruciverbiste.com/feed/" type="rss"/>
-      <outline title="Sudoku France" xmlUrl="https://www.sudoku-france.com/feed/" type="rss"/>
+      <outline title="Cruciverbiste" xmlUrl="https://cruciverbiste.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

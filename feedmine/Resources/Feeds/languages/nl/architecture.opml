@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Architecture (Dutch)">
-      <outline title="Architectenweb" xmlUrl="https://www.architectenweb.nl/rss/nieuws.xml" type="rss"/>
-      <outline title="De Architect" xmlUrl="https://www.dearchitect.nl/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

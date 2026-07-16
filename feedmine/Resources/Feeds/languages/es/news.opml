@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="News Feeds (Spanish)">
-      <outline title="El País" xmlUrl="https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada" type="rss"/>
-      <outline title="El Mundo" xmlUrl="https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml" type="rss"/>
-      <outline title="ABC" xmlUrl="https://www.abc.es/rss/" type="rss"/>
-      <outline title="La Vanguardia" xmlUrl="https://www.lavanguardia.com/rss/" type="rss"/>
+      <outline title="El País" xmlUrl="https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada" type="rss" />
+      <outline title="El Mundo" xmlUrl="https://e00-elmundo.uecdn.es/elmundo/rss/portada.xml" type="rss" />
+      <outline title="ABC" xmlUrl="https://www.abc.es/rss/" type="rss" />
     </outline>
   </body>
 </opml>

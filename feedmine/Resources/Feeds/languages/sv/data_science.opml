@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Swedish)">
-      <outline title="Data Science Sweden" xmlUrl="https://datascience.se/feed/" type="rss"/>
-      <outline title="AI Sweden" xmlUrl="https://www.ai.se/feed" type="rss"/>
+      <outline title="Data Science Sweden" xmlUrl="https://datascience.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

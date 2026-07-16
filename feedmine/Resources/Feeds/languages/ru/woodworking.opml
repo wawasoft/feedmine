@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Russian)">
-      <outline title="Столярное дело" xmlUrl="https://stolyarnoe-delo.ru/feed" type="rss"/>
-      <outline title="Woodcraft" xmlUrl="https://woodcraft.su/feed" type="rss"/>
-      <outline title="Дом и мастерская" xmlUrl="https://domimaster.ru/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

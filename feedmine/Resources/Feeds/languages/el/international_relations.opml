@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Greek)">
-      <outline title="Foreign Affairs Greece" xmlUrl="https://www.foreignaffairs.gr/feed" type="rss"/>
-      <outline title="Geopolitica" xmlUrl="https://www.geopolitica.gr/feed/" type="rss"/>
-      <outline title="Eirini News" xmlUrl="https://www.eirinnews.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

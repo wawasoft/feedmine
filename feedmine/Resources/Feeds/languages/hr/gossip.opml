@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Croatian)">
-      <outline title="Story.hr" xmlUrl="https://story.hr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

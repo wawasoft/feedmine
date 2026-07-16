@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Military (Croatian)">
-      <outline title="Hrvatski vojnik" xmlUrl="https://www.hrvatski-vojnik.hr/feed" type="rss"/>
-      <outline title="MORH - Vijesti" xmlUrl="https://www.morh.hr/feed" type="rss"/>
-      <outline title="Obrana i sigurnost" xmlUrl="https://www.obrana-sigurnost.hr/feed" type="rss"/>
+      <outline title="Hrvatski vojnik" xmlUrl="https://www.hrvatski-vojnik.hr/feed" type="rss" />
+      <outline title="MORH - Vijesti" xmlUrl="https://www.morh.hr/feed" type="rss" />
     </outline>
   </body>
 </opml>

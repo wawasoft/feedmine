@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Turkish)">
-      <outline title="Masaüstü Oyunları - Board Game Türkiye" xmlUrl="https://www.boardgameturkiye.com/feed/" type="rss"/>
-      <outline title="Oyun Kulesi" xmlUrl="https://www.oyunkulesi.com/feed/" type="rss"/>
-      <outline title="Zar Atışı" xmlUrl="https://www.zaratisi.com/feed/" type="rss"/>
-      <outline title="Dungeon Türkiye" xmlUrl="https://www.dungeonturkiye.com/feed/" type="rss"/>
-      <outline title="Rol Yapma Oyunları Derneği" xmlUrl="https://www.ryod.org.tr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

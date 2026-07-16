@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Music (Filipino)">
-      <outline title="PEP.ph - Music" xmlUrl="https://www.pep.ph/rss/music" type="rss"/>
-      <outline title="Bandwagon Asia - Philippines" xmlUrl="https://www.bandwagon.asia/feed/philippines" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

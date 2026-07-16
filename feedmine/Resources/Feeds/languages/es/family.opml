@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Family, Relationships (Spanish)">
-      <outline title="Bebés y más" xmlUrl="https://www.bebesymas.com/feed" type="rss"/>
-      <outline title="Ser Padres" xmlUrl="https://www.serpadres.es/feed/" type="rss"/>
-      <outline title="Mamá Psicóloga Infantil" xmlUrl="https://www.mamapsicologainfantil.com/feed/" type="rss"/>
+      <outline title="Ser Padres" xmlUrl="https://www.serpadres.es/feed/" type="rss" />
+      <outline title="Mamá Psicóloga Infantil" xmlUrl="https://www.mamapsicologainfantil.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

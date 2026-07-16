@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Humor (German)">
-      <outline title="Lachen.de" xmlUrl="https://www.lachen.de/feed/" type="rss"/>
-      <outline title="Quatsch Comedy Club" xmlUrl="https://www.quatsch-comedy-club.de/feed/" type="rss"/>
+      <outline title="Quatsch Comedy Club" xmlUrl="https://www.quatsch-comedy-club.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

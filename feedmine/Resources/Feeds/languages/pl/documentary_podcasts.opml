@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Polish)">
-      <outline title="Podcast: Reportaż - Polskie Radio" xmlUrl="https://www.polskieradio.pl/18/Reportaz/feed.xml" type="rss"/>
-      <outline title="Audycje dokumentalne - Radio TOK FM" xmlUrl="https://audycje.tokfm.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Swedish)">
-      <outline title="Effektivare.se" xmlUrl="https://effektivare.se/feed/" type="rss"/>
-      <outline title="Personlig Utveckling" xmlUrl="https://personligutveckling.se/feed/" type="rss"/>
-      <outline title="GTD Sverige" xmlUrl="https://gtd.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

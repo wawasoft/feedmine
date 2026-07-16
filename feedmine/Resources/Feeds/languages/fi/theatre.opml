@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Theatre (Finnish)">
-      <outline title="Teatteri-lehti" xmlUrl="https://www.teatterilehti.fi/feed/" type="rss"/>
-      <outline title="Suomen Teatterit" xmlUrl="https://www.suomenteatterit.fi/feed/" type="rss"/>
+      <outline title="Suomen Teatterit" xmlUrl="https://www.suomenteatterit.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

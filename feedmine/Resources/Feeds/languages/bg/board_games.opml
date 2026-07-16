@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Bulgarian)">
-      <outline title="Настолни игри БГ" xmlUrl="https://nastolnite-igri.bg/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

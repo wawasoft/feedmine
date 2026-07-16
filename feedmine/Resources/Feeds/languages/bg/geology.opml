@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Bulgarian)">
-      <outline title="Геоложки институт" xmlUrl="https://www.geology.bg/rss" type="rss"/>
-      <outline title="Българско географско дружество" xmlUrl="https://geography.bg/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

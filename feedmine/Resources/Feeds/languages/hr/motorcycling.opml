@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Motorcycling (Croatian)">
-      <outline title="Moto klubovi Hrvatska" xmlUrl="https://www.moto-klubovi.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

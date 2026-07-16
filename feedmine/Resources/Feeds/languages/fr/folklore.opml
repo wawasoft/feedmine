@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (French)">
-      <outline title="Mythes et Légendes" xmlUrl="https://www.mythes-legendes.com/feed/" type="rss"/>
-      <outline title="Folklore de France" xmlUrl="https://www.folklore-de-france.com/feed/" type="rss"/>
-      <outline title="Mythologica" xmlUrl="https://www.mythologica.fr/feed/" type="rss"/>
-      <outline title="Les Contes de Fées" xmlUrl="https://www.contes-de-fees.com/feed/" type="rss"/>
-      <outline title="Légendes et Mystères" xmlUrl="https://www.legendes-et-mysteres.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

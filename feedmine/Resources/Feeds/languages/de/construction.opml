@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (German)">
-      <outline title="BauNetz" xmlUrl="https://www.baunetz.de/feed/" type="rss"/>
-      <outline title="Baublatt" xmlUrl="https://www.baublatt.de/feed/" type="rss"/>
+      <outline title="Baublatt" xmlUrl="https://www.baublatt.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

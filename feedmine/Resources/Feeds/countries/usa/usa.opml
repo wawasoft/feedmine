@@ -15,7 +15,6 @@
       <outline title="The Hill" xmlUrl="https://thehill.com/rss" type="rss" />
       <outline title="Politico" xmlUrl="https://rss.politico.com/congress.xml" type="rss" />
       <outline title="Time Magazine" xmlUrl="https://time.com/feed/" type="rss" />
-      <outline title="The Atlantic" xmlUrl="https://www.theatlantic.com/feed/all/" type="rss" />
       <outline title="Vox" xmlUrl="https://www.vox.com/rss/index.xml" type="rss" />
       <outline title="ProPublica" xmlUrl="https://www.propublica.org/feeds/propublica/main" type="rss" />
       <outline title="Mother Jones" xmlUrl="https://www.motherjones.com/feed/" type="rss" />

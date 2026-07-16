@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Italian)">
-      <outline title="Autismo Italia" xmlUrl="https://www.autismoitalia.org/feed" type="rss"/>
-      <outline title="Angsa Onlus" xmlUrl="https://www.angsaonlus.org/feed" type="rss"/>
-      <outline title="Downsyndrome.it" xmlUrl="https://www.downsyndrome.it/feed" type="rss"/>
-      <outline title="Aipd Onlus" xmlUrl="https://www.aipd.it/feed" type="rss"/>
-      <outline title="Neurodiversità" xmlUrl="https://www.neurodiversita.it/feed" type="rss"/>
+      <outline title="Autismo Italia" xmlUrl="https://www.autismoitalia.org/feed" type="rss" />
+      <outline title="Aipd Onlus" xmlUrl="https://www.aipd.it/feed" type="rss" />
     </outline>
   </body>
 </opml>

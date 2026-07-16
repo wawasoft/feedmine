@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Danish)">
-      <outline title="Folklore på dansk" xmlUrl="https://folklorepaadansk.dk/feed/" type="rss"/>
-      <outline title="Nordisk Mytologi" xmlUrl="https://nordiskmytologi.dk/feed/" type="rss"/>
-      <outline title="Sagn og Myter" xmlUrl="https://sagnogmyter.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

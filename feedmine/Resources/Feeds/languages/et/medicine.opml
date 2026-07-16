@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Estonian)">
-      <outline title="Med24" xmlUrl="https://www.med24.ee/feed/" type="rss"/>
-      <outline title="Eesti Arst" xmlUrl="https://www.eestiarst.ee/feed/" type="rss"/>
-      <outline title="Tervise Arengu Instituut" xmlUrl="https://www.tai.ee/feed/" type="rss"/>
+      <outline title="Eesti Arst" xmlUrl="https://www.eestiarst.ee/feed/" type="rss" />
     </outline>
   </body>
 </opml>

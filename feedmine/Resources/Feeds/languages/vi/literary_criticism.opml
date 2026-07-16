@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Vietnamese)">
-      <outline title="Tạp chí Văn nghệ" xmlUrl="https://vannghequandoi.com.vn/rss/van-hoc.rss" type="rss"/>
-      <outline title="Báo Văn nghệ" xmlUrl="https://baovannghe.com.vn/rss/van-hoc.rss" type="rss"/>
-      <outline title="Tạp chí Sông Hương" xmlUrl="https://tapchisonghuong.com.vn/rss/van-hoc.rss" type="rss"/>
+      <outline title="Báo Văn nghệ" xmlUrl="https://baovannghe.com.vn/rss/van-hoc.rss" type="rss" />
     </outline>
   </body>
 </opml>

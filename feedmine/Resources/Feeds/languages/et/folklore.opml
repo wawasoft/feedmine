@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Estonian)">
-      <outline title="Folkloor.ee" xmlUrl="https://folkloor.ee/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

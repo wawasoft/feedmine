@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Romanian)">
-      <outline title="InfoQ Romania" xmlUrl="https://www.infoq.com/ro/feed/" type="rss"/>
-      <outline title="Programare.NET" xmlUrl="https://programare.net/feed/" type="rss"/>
-      <outline title="DevTalks Romania" xmlUrl="https://www.devtalks.ro/feed/" type="rss"/>
-      <outline title="RoDeveloper" xmlUrl="https://rodeveloper.ro/feed/" type="rss"/>
-      <outline title="Adevarul IT" xmlUrl="https://adevarul.ro/feed/it/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

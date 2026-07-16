@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Aviation (Russian)">
-      <outline title="Aviation Explorer" xmlUrl="https://www.aex.ru/rss/" type="rss"/>
-      <outline title="Авиация России" xmlUrl="https://aviaru.net/rss" type="rss"/>
+      <outline title="Aviation Explorer" xmlUrl="https://www.aex.ru/rss/" type="rss" />
     </outline>
   </body>
 </opml>

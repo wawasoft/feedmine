@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Science Feeds (Armenian)">
-      <outline title="Armenian Science" xmlUrl="https://science.sci.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

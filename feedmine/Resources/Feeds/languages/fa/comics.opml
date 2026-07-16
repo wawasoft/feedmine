@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Quadrinhos (Persian)">
-      <outline title="کمیک‌استریپ فارسی" xmlUrl="https://www.comicstrip.ir/rss" type="rss"/>
-      <outline title="انیمه و مانگا" xmlUrl="https://www.anime-manga.ir/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

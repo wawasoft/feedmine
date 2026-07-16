@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Croatian)">
-      <outline title="Startup.hr" xmlUrl="https://startup.hr/feed/" type="rss"/>
-      <outline title="Business.hr" xmlUrl="https://www.business.hr/feed/" type="rss"/>
-      <outline title="Poduzetnik.hr" xmlUrl="https://poduzetnik.hr/feed/" type="rss"/>
-      <outline title="Lider Media" xmlUrl="https://lider.media/feed/" type="rss"/>
-      <outline title="Netokracija" xmlUrl="https://www.netokracija.hr/feed/" type="rss"/>
+      <outline title="Business.hr" xmlUrl="https://www.business.hr/feed/" type="rss" />
+      <outline title="Poduzetnik.hr" xmlUrl="https://poduzetnik.hr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

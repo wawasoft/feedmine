@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Swedish)">
-      <outline title="Funktionsrätt Sverige" xmlUrl="https://funktionsratt.se/feed/" type="rss"/>
-      <outline title="Hörselskadades Riksförbund" xmlUrl="https://hrf.se/feed/" type="rss"/>
-      <outline title="Synskadades Riksförbund" xmlUrl="https://srf.nu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

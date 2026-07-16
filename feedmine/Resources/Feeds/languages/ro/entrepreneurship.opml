@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Romanian)">
-      <outline title="Start-Up.ro" xmlUrl="https://www.start-up.ro/feed/" type="rss"/>
-      <outline title="BusinessCover" xmlUrl="https://www.businesscover.ro/feed/" type="rss"/>
-      <outline title="Antreprenoriat Social" xmlUrl="https://antreprenoriatsocial.com/feed/" type="rss"/>
-      <outline title="Wall-Street.ro - Antreprenoriat" xmlUrl="https://www.wall-street.ro/rss/antreprenoriat.xml" type="rss"/>
+      <outline title="Start-Up.ro" xmlUrl="https://www.start-up.ro/feed/" type="rss" />
+      <outline title="BusinessCover" xmlUrl="https://www.businesscover.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

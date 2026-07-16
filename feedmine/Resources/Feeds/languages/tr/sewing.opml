@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Turkish)">
-      <outline title="Dikiş Dünyası" xmlUrl="https://dikisdunyasi.com/feed/" type="rss"/>
-      <outline title="Terzi Defteri" xmlUrl="https://terzidefteri.com/feed/" type="rss"/>
-      <outline title="El İşi Dergisi" xmlUrl="https://elisidergisi.com/feed/" type="rss"/>
+      <outline title="Dikiş Dünyası" xmlUrl="https://dikisdunyasi.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

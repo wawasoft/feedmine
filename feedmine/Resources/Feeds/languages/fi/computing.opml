@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Computing (Finnish)">
-      <outline title="MikroBitti" xmlUrl="https://www.mikrobitti.fi/feed/" type="rss"/>
-      <outline title="AfterDawn" xmlUrl="https://www.afterdawn.com/uutiset/rss.cfm" type="rss"/>
-      <outline title="ITviikko" xmlUrl="https://www.itviikko.fi/rss/" type="rss"/>
+      <outline title="MikroBitti" xmlUrl="https://www.mikrobitti.fi/feed/" type="rss" />
+      <outline title="ITviikko" xmlUrl="https://www.itviikko.fi/rss/" type="rss" />
     </outline>
   </body>
 </opml>

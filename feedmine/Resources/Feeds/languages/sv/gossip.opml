@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Swedish)">
-      <outline title="Svensk Damtidning" xmlUrl="https://www.svenskdam.se/feed/" type="rss"/>
-      <outline title="Aftonbladet - Kändis" xmlUrl="https://www.aftonbladet.se/rss/tagg/kandis" type="rss"/>
-      <outline title="Expressen - Kändis" xmlUrl="https://www.expressen.se/rss/kandis/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

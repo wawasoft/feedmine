@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Drag, Queer (Hungarian)">
-      <outline title="Háttér Társaság" xmlUrl="https://hatter.hu/rss" type="rss"/>
-      <outline title="Labrisz Leszbikus Egyesület" xmlUrl="https://labrisz.hu/rss" type="rss"/>
+      <outline title="Labrisz Leszbikus Egyesület" xmlUrl="https://labrisz.hu/rss" type="rss" />
     </outline>
   </body>
 </opml>

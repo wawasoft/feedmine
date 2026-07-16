@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="News Feeds (Romanian)">
-      <outline title="HotNews" xmlUrl="https://www.hotnews.ro/rss" type="rss"/>
-      <outline title="Digi24" xmlUrl="https://www.digi24.ro/rss" type="rss"/>
-      <outline title="Mediafax" xmlUrl="https://www.mediafax.ro/rss" type="rss"/>
-      <outline title="Știrile ProTV" xmlUrl="https://stirileprotv.ro/rss" type="rss"/>
-      <outline title="Adevărul" xmlUrl="https://adevarul.ro/feed/" type="rss"/>
+      <outline title="HotNews" xmlUrl="https://www.hotnews.ro/rss" type="rss" />
+      <outline title="Digi24" xmlUrl="https://www.digi24.ro/rss" type="rss" />
+      <outline title="Mediafax" xmlUrl="https://www.mediafax.ro/rss" type="rss" />
+      <outline title="Știrile ProTV" xmlUrl="https://stirileprotv.ro/rss" type="rss" />
     </outline>
   </body>
 </opml>

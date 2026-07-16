@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Estonian)">
-      <outline title="Välisuudised - Postimees" xmlUrl="https://välisuudised.postimees.ee/rss" type="rss"/>
-      <outline title="Maailm - Delfi" xmlUrl="https://maailm.delfi.ee/rss" type="rss"/>
-      <outline title="Välismaa - ERR" xmlUrl="https://www.err.ee/rss/valismaa" type="rss"/>
+      <outline title="Välismaa - ERR" xmlUrl="https://www.err.ee/rss/valismaa" type="rss" />
     </outline>
   </body>
 </opml>

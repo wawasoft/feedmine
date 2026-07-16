@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Turkish)">
-      <outline title="Doğa Derneği" xmlUrl="https://www.dogadernegi.org/rss/" type="rss"/>
-      <outline title="Ekolojist" xmlUrl="https://ekolojist.net/feed/" type="rss"/>
-      <outline title="Sürdürülebilir Yaşam" xmlUrl="https://www.surdurulebiliryasam.com/feed/" type="rss"/>
-      <outline title="Yeşil Gazete" xmlUrl="https://yesilgazete.org/feed/" type="rss"/>
-      <outline title="TEMA Vakfı" xmlUrl="https://www.tema.org.tr/rss" type="rss"/>
+      <outline title="Doğa Derneği" xmlUrl="https://www.dogadernegi.org/rss/" type="rss" />
+      <outline title="Ekolojist" xmlUrl="https://ekolojist.net/feed/" type="rss" />
+      <outline title="Sürdürülebilir Yaşam" xmlUrl="https://www.surdurulebiliryasam.com/feed/" type="rss" />
+      <outline title="Yeşil Gazete" xmlUrl="https://yesilgazete.org/feed/" type="rss" />
     </outline>
   </body>
 </opml>

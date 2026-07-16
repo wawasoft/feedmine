@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Travel (German)">
-      <outline title="Travelbook" xmlUrl="https://www.travelbook.de/feed" type="rss"/>
-      <outline title="Urlaubsguru" xmlUrl="https://www.urlaubsguru.de/feed/" type="rss"/>
-      <outline title="Lonely Planet Deutschland" xmlUrl="https://www.lonelyplanet.de/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

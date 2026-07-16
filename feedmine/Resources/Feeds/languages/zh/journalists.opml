@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Chinese)">
-      <outline title="记者网" xmlUrl="https://www.jzwcom.com/rss.xml" type="rss"/>
-      <outline title="新闻记者" xmlUrl="https://www.xinwenjizhe.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

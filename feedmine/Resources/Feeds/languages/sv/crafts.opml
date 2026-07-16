@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Swedish)">
-      <outline title="Allt om Hemslöjd" xmlUrl="https://hemslojd.se/feed/" type="rss"/>
-      <outline title="Syskons" xmlUrl="https://syskons.se/feed/" type="rss"/>
-      <outline title="Virkvågen" xmlUrl="https://virkvagen.se/feed/" type="rss"/>
+      <outline title="Allt om Hemslöjd" xmlUrl="https://hemslojd.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

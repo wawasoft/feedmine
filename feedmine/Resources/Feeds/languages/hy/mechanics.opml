@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Armenian)">
-      <outline title="Մեքենաշինություն" xmlUrl="https://mexanika.am/feed/" type="rss"/>
-      <outline title="Ինժեներական լուրեր" xmlUrl="https://engineeringnews.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Programming (German)">
-      <outline title="heise developer" xmlUrl="https://www.heise.de/developer/rss/news-atom.xml" type="rss"/>
-      <outline title="t3n – Programmierung" xmlUrl="https://t3n.de/tag/programmierung/feed/" type="rss"/>
+      <outline title="heise developer" xmlUrl="https://www.heise.de/developer/rss/news-atom.xml" type="rss" />
     </outline>
   </body>
 </opml>

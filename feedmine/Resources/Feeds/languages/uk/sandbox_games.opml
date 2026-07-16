@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Ukrainian)">
-      <outline title="Майнкрафт українською" xmlUrl="https://minecraft-ua.com/feed/" type="rss"/>
-      <outline title="Roblox Україна" xmlUrl="https://roblox-ua.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

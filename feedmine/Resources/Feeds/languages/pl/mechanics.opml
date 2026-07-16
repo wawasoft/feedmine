@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Polish)">
-      <outline title="Mechanik Online" xmlUrl="https://mechanik.media.pl/rss.xml" type="rss"/>
-      <outline title="Inżynieria i Mechanika" xmlUrl="https://inzynieriamechanika.pl/feed/" type="rss"/>
-      <outline title="Automatyka i Mechanika" xmlUrl="https://automatykamechanika.pl/feed/" type="rss"/>
-      <outline title="Mechanika i Budowa Maszyn - PWN" xmlUrl="https://pwn.pl/mechanika/feed/" type="rss"/>
-      <outline title="Portal Mechanika" xmlUrl="https://portalmechanika.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

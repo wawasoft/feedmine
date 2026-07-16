@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Astronomy (Persian)">
-      <outline title="انجمن نجوم ایران" xmlUrl="https://www.astronomy.ir/fa/rss" type="rss"/>
-      <outline title="خبرگزاری نجوم" xmlUrl="https://www.nojomnews.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

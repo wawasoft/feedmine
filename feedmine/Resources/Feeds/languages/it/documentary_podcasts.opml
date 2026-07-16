@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Italian)">
-      <outline title="Rai Radio 1 - Documentari" xmlUrl="https://www.raiplayradio.it/rss/rairadio1/documentari.xml" type="rss"/>
-      <outline title="La Repubblica - Podcast" xmlUrl="https://www.repubblica.it/rss/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

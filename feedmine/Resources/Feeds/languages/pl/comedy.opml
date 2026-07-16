@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Humor (Polish)">
-      <outline title="Kabaret w sieci" xmlUrl="https://kabaretwsieci.pl/feed/" type="rss"/>
-      <outline title="Humor z życia" xmlUrl="https://humorzzycia.pl/feed/" type="rss"/>
-      <outline title="Memy i śmieszne obrazki" xmlUrl="https://memy.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

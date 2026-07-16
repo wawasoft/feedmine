@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Nerd (Lithuanian)">
-      <outline title="Nerodomas" xmlUrl="https://nerodomas.lt/feed/" type="rss"/>
-      <outline title="Kultūros dienoraštis" xmlUrl="https://kulturosdienorastis.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

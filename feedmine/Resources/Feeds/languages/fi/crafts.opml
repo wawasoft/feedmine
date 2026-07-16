@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Finnish)">
-      <outline title="Käsityöblogit" xmlUrl="https://www.kasityoblogit.fi/feed/" type="rss"/>
-      <outline title="Taitoliitto" xmlUrl="https://www.taito.fi/feed/" type="rss"/>
-      <outline title="Ohjeita ja malleja - Novita" xmlUrl="https://www.novita.fi/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Arabic)">
-      <outline title="البيئة والتنمية" xmlUrl="https://www.aleqt.com/feed/environment" type="rss"/>
-      <outline title="مبادرة الشرق الأوسط الأخضر" xmlUrl="https://www.green-mideast.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

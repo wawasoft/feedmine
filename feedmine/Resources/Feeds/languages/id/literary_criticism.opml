@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Indonesian)">
-      <outline title="Bentara Budaya" xmlUrl="https://bentarabudaya.com/feed" type="rss"/>
-      <outline title="Goodreads Indonesia" xmlUrl="https://www.goodreads.com/blog/indonesian_feed.rss" type="rss"/>
-      <outline title="Tempo.co - Sastra" xmlUrl="https://www.tempo.co/tag/sastra/rss" type="rss"/>
-      <outline title="Kompas.com - Buku" xmlUrl="https://www.kompas.com/tag/buku/rss" type="rss"/>
-      <outline title="Harian Jogja - Sastra" xmlUrl="https://www.harianjogja.com/rss/sastra.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

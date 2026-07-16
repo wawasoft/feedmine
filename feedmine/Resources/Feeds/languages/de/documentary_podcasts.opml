@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Documentary (German)">
-      <outline title="Dokumentationen Podcast" xmlUrl="https://www.ardaudiothek.de/feed/dokumentationen" type="rss"/>
-      <outline title="SWR2 Wissen" xmlUrl="https://www.swr.de/swr2/wissen/index.rss" type="rss"/>
-      <outline title="WDR 5 Dok 5" xmlUrl="https://www1.wdr.de/mediathek/audio/wdr5/wdr5-dok5/index.rss" type="rss"/>
-      <outline title="Dokumentationen - Deutschlandfunk" xmlUrl="https://www.deutschlandfunk.de/dokumentationen.rss" type="rss"/>
-      <outline title="NDR Info Dokumentationen" xmlUrl="https://www.ndr.de/ndrinfo/dokumentationen/index.rss" type="rss"/>
+      <outline title="SWR2 Wissen" xmlUrl="https://www.swr.de/swr2/wissen/index.rss" type="rss" />
     </outline>
   </body>
 </opml>

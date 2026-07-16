@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Bulgarian)">
-      <outline title="Международни отношения" xmlUrl="https://internationalrelations.bg/rss" type="rss"/>
-      <outline title="Геополитика" xmlUrl="https://geopolitica.bg/rss" type="rss"/>
-      <outline title="Светът днес" xmlUrl="https://svetatdnes.bg/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

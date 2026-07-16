@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Music (Finnish)">
-      <outline title="Soundi" xmlUrl="https://www.soundi.fi/feed/" type="rss"/>
-      <outline title="Rumba" xmlUrl="https://www.rumba.fi/feed/" type="rss"/>
-      <outline title="YleX" xmlUrl="https://yle.fi/aihe/feed/ylex" type="rss"/>
+      <outline title="Soundi" xmlUrl="https://www.soundi.fi/feed/" type="rss" />
+      <outline title="Rumba" xmlUrl="https://www.rumba.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

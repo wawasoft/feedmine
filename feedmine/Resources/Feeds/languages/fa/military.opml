@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Military (Persian)">
-      <outline title="دفاع پرس" xmlUrl="https://www.defapress.ir/feed" type="rss"/>
-      <outline title="مشرق نیوز - نظامی" xmlUrl="https://www.mashreghnews.ir/rss/military" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

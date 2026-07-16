@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Poetry (Dutch)">
-      <outline title="Poëzieclub" xmlUrl="https://www.poezieclub.nl/feed/" type="rss"/>
-      <outline title="Meander Magazine" xmlUrl="https://meandermagazine.nl/feed/" type="rss"/>
-      <outline title="De Nieuwe Poëzie" xmlUrl="https://www.denieuwepoezie.nl/feed/" type="rss"/>
-      <outline title="Poëziecentrum" xmlUrl="https://www.poeziecentrum.be/feed/" type="rss"/>
-      <outline title="Het Liegend Konijn" xmlUrl="https://www.hetliegendkonijn.be/feed/" type="rss"/>
+      <outline title="Meander Magazine" xmlUrl="https://meandermagazine.nl/feed/" type="rss" />
+      <outline title="Het Liegend Konijn" xmlUrl="https://www.hetliegendkonijn.be/feed/" type="rss" />
     </outline>
   </body>
 </opml>

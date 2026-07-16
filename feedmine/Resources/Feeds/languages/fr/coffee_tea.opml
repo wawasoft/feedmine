@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Coffee (French)">
-      <outline title="Le Café de l'Horloge" xmlUrl="https://www.cafedelhorloge.com/feed/" type="rss"/>
-      <outline title="Tea &amp; Co" xmlUrl="https://www.tea-and-co.com/blog/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

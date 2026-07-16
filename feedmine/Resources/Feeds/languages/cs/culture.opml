@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Czech)">
-      <outline title="Český rozhlas - Kultura" xmlUrl="https://www.rozhlas.cz/kultura/feed/" type="rss"/>
-      <outline title="Aktuálně.cz - Kultura" xmlUrl="https://magazin.aktualne.cz/kultura/rss/" type="rss"/>
-      <outline title="iDNES.cz - Kultura" xmlUrl="https://www.idnes.cz/kultura/rss" type="rss"/>
-      <outline title="Novinky.cz - Kultura" xmlUrl="https://www.novinky.cz/kultura/rss" type="rss"/>
-      <outline title="Artikl" xmlUrl="https://www.artikl.org/rss.xml" type="rss"/>
+      <outline title="Český rozhlas - Kultura" xmlUrl="https://www.rozhlas.cz/kultura/feed/" type="rss" />
     </outline>
   </body>
 </opml>

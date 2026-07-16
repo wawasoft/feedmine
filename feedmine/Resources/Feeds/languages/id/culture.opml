@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Indonesian)">
-      <outline title="Kebudayaan Indonesia" xmlUrl="https://kebudayaan.kemdikbud.go.id/feed/" type="rss"/>
-      <outline title="Indonesia Kaya" xmlUrl="https://www.indonesiakaya.com/feed" type="rss"/>
+      <outline title="Indonesia Kaya" xmlUrl="https://www.indonesiakaya.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

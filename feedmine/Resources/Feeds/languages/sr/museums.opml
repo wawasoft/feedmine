@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Museums (Serbian)">
-      <outline title="Muzej Vuka i Dositeja" xmlUrl="https://muzejvukaidositeja.rs/feed/" type="rss"/>
-      <outline title="Narodni muzej Srbije" xmlUrl="https://www.narodnimuzej.rs/feed/" type="rss"/>
+      <outline title="Narodni muzej Srbije" xmlUrl="https://www.narodnimuzej.rs/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Reference Journalists (Greek)">
-      <outline title="The Press Project" xmlUrl="https://www.thepressproject.gr/feed/" type="rss"/>
-      <outline title="EfSyn.gr - Ρεπορτάζ" xmlUrl="https://www.efsyn.gr/rss/reportaz.xml" type="rss"/>
+      <outline title="The Press Project" xmlUrl="https://www.thepressproject.gr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

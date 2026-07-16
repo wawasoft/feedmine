@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Slovak)">
-      <outline title="Ekotrend.sk" xmlUrl="https://ekotrend.sk/feed/" type="rss"/>
-      <outline title="Enviroportál" xmlUrl="https://www.enviroportal.sk/rss/" type="rss"/>
-      <outline title="Zelená domácnosť" xmlUrl="https://zelenadomacnost.sk/feed/" type="rss"/>
-      <outline title="Ochrana prírody" xmlUrl="https://www.ochranaprirody.sk/rss/" type="rss"/>
+      <outline title="Ekotrend.sk" xmlUrl="https://ekotrend.sk/feed/" type="rss" />
+      <outline title="Zelená domácnosť" xmlUrl="https://zelenadomacnost.sk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Norwegian)">
-      <outline title="Boligpluss" xmlUrl="https://www.boligpluss.no/rss" type="rss"/>
-      <outline title="Interiør.no" xmlUrl="https://www.interior.no/rss" type="rss"/>
+      <outline title="Interiør.no" xmlUrl="https://www.interior.no/rss" type="rss" />
     </outline>
   </body>
 </opml>

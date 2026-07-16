@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Automotive (Serbian)">
-      <outline title="Auto Blog" xmlUrl="https://autoblog.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

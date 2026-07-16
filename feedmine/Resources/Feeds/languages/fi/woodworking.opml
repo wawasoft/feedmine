@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Finnish)">
-      <outline title="Puutyö-blogi" xmlUrl="https://puutyo.blogspot.com/feeds/posts/default" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

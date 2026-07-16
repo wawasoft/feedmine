@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Cycling (Lithuanian)">
-      <outline title="Dviratis.lt" xmlUrl="https://www.dviratis.lt/feed/" type="rss"/>
-      <outline title="Lietuvos dviračių sporto federacija" xmlUrl="https://www.lsfed.lt/rss/dviraciu-sportas" type="rss"/>
+      <outline title="Dviratis.lt" xmlUrl="https://www.dviratis.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Dutch)">
-      <outline title="Kennislink" xmlUrl="https://www.kennislink.nl/feed/" type="rss"/>
-      <outline title="Quest" xmlUrl="https://www.quest.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Finnish)">
-      <outline title="Suomalaisen Kirjallisuuden Seura - Kansanrunous" xmlUrl="https://www.finlit.fi/feed/kansanrunous" type="rss"/>
-      <outline title="Kalevala - RSS" xmlUrl="https://kalevalaseura.fi/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

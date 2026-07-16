@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Culture Feeds (Vietnamese)">
-      <outline title="VnExpress - Văn hóa" xmlUrl="https://vnexpress.net/rss/van-hoa.rss" type="rss"/>
-      <outline title="Tuổi Trẻ - Văn hóa - Giải trí" xmlUrl="https://tuoitre.vn/rss/van-hoa-giai-tri.rss" type="rss"/>
-      <outline title="Báo Thanh Niên - Văn hóa" xmlUrl="https://thanhnien.vn/rss/van-hoa.rss" type="rss"/>
-      <outline title="Báo Nhân Dân - Văn hóa" xmlUrl="https://nhandan.vn/rss/van-hoa.rss" type="rss"/>
-      <outline title="VOV - Văn hóa" xmlUrl="https://vov.vn/rss/van-hoa.rss" type="rss"/>
+      <outline title="Báo Thanh Niên - Văn hóa" xmlUrl="https://thanhnien.vn/rss/van-hoa.rss" type="rss" />
+      <outline title="Báo Nhân Dân - Văn hóa" xmlUrl="https://nhandan.vn/rss/van-hoa.rss" type="rss" />
+      <outline title="VOV - Văn hóa" xmlUrl="https://vov.vn/rss/van-hoa.rss" type="rss" />
     </outline>
   </body>
 </opml>

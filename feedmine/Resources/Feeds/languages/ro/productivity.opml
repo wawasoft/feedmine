@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Romanian)">
-      <outline title="Productivitate.ro" xmlUrl="https://productivitate.ro/feed/" type="rss"/>
-      <outline title="GTD Romania" xmlUrl="https://gtfromania.ro/feed/" type="rss"/>
-      <outline title="Eficienta Personala" xmlUrl="https://eficientapersonala.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

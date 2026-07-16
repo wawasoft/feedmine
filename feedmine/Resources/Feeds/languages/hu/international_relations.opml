@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Hungarian)">
-      <outline title="Külügyi Szemle" xmlUrl="https://kulugyiszemle.hu/feed" type="rss"/>
-      <outline title="HVG Világ" xmlUrl="https://hvg.hu/vilag/feed" type="rss"/>
-      <outline title="Magyar Nemzet Külföld" xmlUrl="https://magyarnemzet.hu/kulfold/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

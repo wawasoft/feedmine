@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Spanish)">
-      <outline title="Museo del Prado" xmlUrl="https://www.museodelprado.es/rss/" type="rss"/>
-      <outline title="Museo Reina Sofía" xmlUrl="https://www.museoreinasofia.es/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

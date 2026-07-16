@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Swedish)">
-      <outline title="P3 Drama" xmlUrl="https://sverigesradio.se/rss/podd/3794" type="rss"/>
-      <outline title="Radioteatern" xmlUrl="https://sverigesradio.se/rss/podd/3795" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

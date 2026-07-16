@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Drag, Queer (Burmese)">
-      <outline title="LGBTQ မြန်မာ" xmlUrl="https://lgbtqmyanmar.com/feed" type="rss"/>
-      <outline title="ချစ်ခြင်းမေတ္တာ" xmlUrl="https://chitthimettamm.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

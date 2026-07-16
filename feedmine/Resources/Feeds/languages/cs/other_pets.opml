@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Czech)">
-      <outline title="Fauna.cz" xmlUrl="https://www.fauna.cz/rss/" type="rss"/>
-      <outline title="Můj pes" xmlUrl="https://www.mujpes.cz/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

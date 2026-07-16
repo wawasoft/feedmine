@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Romanian)">
-      <outline title="Agrointeligența" xmlUrl="https://agrointeligenta.ro/feed/" type="rss"/>
-      <outline title="AgroTV" xmlUrl="https://www.agrotv.ro/feed/" type="rss"/>
-      <outline title="Ferma" xmlUrl="https://www.ferma.ro/feed/" type="rss"/>
-      <outline title="Agricultura României" xmlUrl="https://www.agriculturaromaniei.ro/feed/" type="rss"/>
+      <outline title="Agrointeligența" xmlUrl="https://agrointeligenta.ro/feed/" type="rss" />
+      <outline title="Agricultura României" xmlUrl="https://www.agriculturaromaniei.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

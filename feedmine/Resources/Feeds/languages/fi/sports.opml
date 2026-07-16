@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Sports (Finnish)">
-      <outline title="Yle Urheilu" xmlUrl="https://feeds.yle.fi/uutiset/v1/major/0/urheilu.rss" type="rss"/>
-      <outline title="MTV Urheilu" xmlUrl="https://www.mtvuutiset.fi/rss/urheilu.xml" type="rss"/>
-      <outline title="Iltalehti Urheilu" xmlUrl="https://www.iltalehti.fi/rss/urheilu.xml" type="rss"/>
+      <outline title="Iltalehti Urheilu" xmlUrl="https://www.iltalehti.fi/rss/urheilu.xml" type="rss" />
     </outline>
   </body>
 </opml>

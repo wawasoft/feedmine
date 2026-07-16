@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Collectors (Chinese)">
-      <outline title="收藏-新浪收藏" xmlUrl="https://collection.sina.com.cn/rss.xml" type="rss"/>
-      <outline title="雅昌艺术网-收藏" xmlUrl="https://www.artron.net/rss/collection.xml" type="rss"/>
+      <outline title="雅昌艺术网-收藏" xmlUrl="https://www.artron.net/rss/collection.xml" type="rss" />
     </outline>
   </body>
 </opml>

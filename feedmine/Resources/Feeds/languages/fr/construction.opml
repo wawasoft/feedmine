@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Construction, Building (French)">
-      <outline title="Le Moniteur" xmlUrl="https://www.lemoniteur.fr/rss/actualites.xml" type="rss"/>
-      <outline title="Batiweb" xmlUrl="https://www.batiweb.com/rss/actualites.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Culture Feeds (Norwegian)">
-      <outline title="Kulturbloggen" xmlUrl="https://kulturbloggen.com/feed" type="rss"/>
-      <outline title="NRK Kultur" xmlUrl="https://www.nrk.no/kultur/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

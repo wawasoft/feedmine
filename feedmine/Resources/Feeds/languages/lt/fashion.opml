@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fashion, Style (Lithuanian)">
-      <outline title="Mados savaitė" xmlUrl="https://www.madossavaite.lt/feed/" type="rss"/>
-      <outline title="Stiliaus patarimai" xmlUrl="https://www.stiliauspatarimai.lt/feed/" type="rss"/>
-      <outline title="Mados tendencijos" xmlUrl="https://www.madostendencijos.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

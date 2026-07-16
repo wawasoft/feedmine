@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Chinese)">
-      <outline title="PChouse家居杂志" xmlUrl="https://www.pchouse.com.cn/rss/pchouse.xml" type="rss"/>
-      <outline title="住小帮" xmlUrl="https://www.zhuxiaobang.com/rss/feed.xml" type="rss"/>
-      <outline title="设计本" xmlUrl="https://www.shejiben.com/rss/feed.xml" type="rss"/>
-      <outline title="装修情报" xmlUrl="https://www.ourjia.com/rss/feed.xml" type="rss"/>
-      <outline title="家居廊" xmlUrl="https://www.ellechina.com/rss/home.xml" type="rss"/>
+      <outline title="PChouse家居杂志" xmlUrl="https://www.pchouse.com.cn/rss/pchouse.xml" type="rss" />
+      <outline title="装修情报" xmlUrl="https://www.ourjia.com/rss/feed.xml" type="rss" />
+      <outline title="家居廊" xmlUrl="https://www.ellechina.com/rss/home.xml" type="rss" />
     </outline>
   </body>
 </opml>

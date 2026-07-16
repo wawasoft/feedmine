@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Woodworking, Carpentry (Spanish)">
-      <outline title="Carpintería y Bricolaje" xmlUrl="https://carpinteriaybricolaje.com/feed/" type="rss"/>
-      <outline title="Maderas y Herramientas" xmlUrl="https://maderasyherramientas.com/feed/" type="rss"/>
-      <outline title="El Taller de Carpintería" xmlUrl="https://eltallerdecarpinteria.com/feed/" type="rss"/>
-      <outline title="Carpintería Fácil" xmlUrl="https://carpinteriafacil.com/feed/" type="rss"/>
-      <outline title="Bricolaje y Madera" xmlUrl="https://bricolajeymadera.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

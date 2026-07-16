@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Nerd (Italian)">
-      <outline title="NerdPool.it" xmlUrl="https://www.nerdpool.it/feed" type="rss"/>
-      <outline title="Nerdando" xmlUrl="https://www.nerdando.com/feed" type="rss"/>
-      <outline title="Nerdgate" xmlUrl="https://www.nerdgate.it/feed" type="rss"/>
-      <outline title="Nerdlandia" xmlUrl="https://www.nerdlandia.it/feed" type="rss"/>
-      <outline title="NerdPlanet" xmlUrl="https://www.nerdplanet.it/feed" type="rss"/>
+      <outline title="NerdPool.it" xmlUrl="https://www.nerdpool.it/feed" type="rss" />
+      <outline title="Nerdgate" xmlUrl="https://www.nerdgate.it/feed" type="rss" />
+      <outline title="NerdPlanet" xmlUrl="https://www.nerdplanet.it/feed" type="rss" />
     </outline>
   </body>
 </opml>

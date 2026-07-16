@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Slovenian)">
-      <outline title="Zveza društev gluhih in naglušnih Slovenije" xmlUrl="https://www.zveza-gns.si/feed/" type="rss"/>
-      <outline title="Društvo slepih in slabovidnih Slovenije" xmlUrl="https://www.drss.si/feed/" type="rss"/>
+      <outline title="Zveza društev gluhih in naglušnih Slovenije" xmlUrl="https://www.zveza-gns.si/feed/" type="rss" />
     </outline>
   </body>
 </opml>

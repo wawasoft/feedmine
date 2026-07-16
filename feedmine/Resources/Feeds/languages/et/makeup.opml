@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Estonian)">
-      <outline title="Ilublogi" xmlUrl="https://ilublogi.ee/feed/" type="rss"/>
-      <outline title="Make-up.ee" xmlUrl="https://www.make-up.ee/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

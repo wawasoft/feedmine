@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Food (Romanian)">
-      <outline title="Gustos.ro" xmlUrl="https://www.gustos.ro/feed/" type="rss"/>
-      <outline title="Retete Practice" xmlUrl="https://www.retetepractice.ro/feed/" type="rss"/>
-      <outline title="Bucătăria Tradițională" xmlUrl="https://www.bucatariatraditionala.ro/feed/" type="rss"/>
-      <outline title="Food Story" xmlUrl="https://www.foodstory.ro/feed/" type="rss"/>
+      <outline title="Gustos.ro" xmlUrl="https://www.gustos.ro/feed/" type="rss" />
+      <outline title="Retete Practice" xmlUrl="https://www.retetepractice.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

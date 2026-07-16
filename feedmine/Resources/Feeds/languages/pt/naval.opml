@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Portuguese)">
-      <outline title="Marinha do Brasil" xmlUrl="https://www.marinha.mil.br/rss/noticias" type="rss"/>
-      <outline title="Portos e Navios" xmlUrl="https://www.portosenavios.com.br/feed" type="rss"/>
-      <outline title="Náutica Press" xmlUrl="https://www.nauticapress.com/feed/" type="rss"/>
+      <outline title="Náutica Press" xmlUrl="https://www.nauticapress.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

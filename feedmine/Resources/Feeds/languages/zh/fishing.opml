@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Fishing (Chinese)">
-      <outline title="钓鱼人" xmlUrl="https://www.diaoyuren.com/rss.xml" type="rss"/>
-      <outline title="中国钓鱼" xmlUrl="https://www.chinafishing.com/rss/" type="rss"/>
-      <outline title="路亚之家" xmlUrl="https://www.lurehome.com/rss.xml" type="rss"/>
-      <outline title="海钓网" xmlUrl="https://www.haidiao.com/rss/" type="rss"/>
-      <outline title="钓鱼翁" xmlUrl="https://www.diaoyuweng.com/rss.xml" type="rss"/>
+      <outline title="中国钓鱼" xmlUrl="https://www.chinafishing.com/rss/" type="rss" />
+      <outline title="钓鱼翁" xmlUrl="https://www.diaoyuweng.com/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

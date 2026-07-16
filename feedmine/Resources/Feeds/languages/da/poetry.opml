@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Poetry (Danish)">
-      <outline title="Poesi.dk" xmlUrl="https://poesi.dk/feed/" type="rss"/>
-      <outline title="Litteratursiden" xmlUrl="https://litteratursiden.dk/feed/poesi" type="rss"/>
+      <outline title="Litteratursiden" xmlUrl="https://litteratursiden.dk/feed/poesi" type="rss" />
     </outline>
   </body>
 </opml>

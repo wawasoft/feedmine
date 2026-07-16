@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Bulgarian)">
-      <outline title="Български фолклор" xmlUrl="https://bulgarianfolklore.com/feed/" type="rss"/>
-      <outline title="Фолклор - БНР" xmlUrl="https://bnr.bg/rss/folklore" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

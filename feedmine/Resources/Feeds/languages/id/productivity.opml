@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Indonesian)">
-      <outline title="Halo Productivity" xmlUrl="https://haloproductivity.com/feed/" type="rss"/>
-      <outline title="Lifehack Indonesia" xmlUrl="https://lifehack.id/feed/" type="rss"/>
-      <outline title="Zenius Blog" xmlUrl="https://www.zenius.net/blog/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

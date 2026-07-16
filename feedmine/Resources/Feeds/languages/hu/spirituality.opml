@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Hungarian)">
-      <outline title="Mandala - Spiritualitás" xmlUrl="https://mandala.hu/rss/spiritualitas.xml" type="rss"/>
-      <outline title="Spirituális Út RSS" xmlUrl="https://spiritualisut.hu/feed/" type="rss"/>
-      <outline title="Buddhista Központ RSS" xmlUrl="https://buddhista-kozpont.hu/feed/" type="rss"/>
-      <outline title="Jóga Magazin RSS" xmlUrl="https://jogamagazin.hu/feed/" type="rss"/>
-      <outline title="Meditáció Blog RSS" xmlUrl="https://meditacio.blog.hu/feed" type="rss"/>
+      <outline title="Jóga Magazin RSS" xmlUrl="https://jogamagazin.hu/feed/" type="rss" />
+      <outline title="Meditáció Blog RSS" xmlUrl="https://meditacio.blog.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

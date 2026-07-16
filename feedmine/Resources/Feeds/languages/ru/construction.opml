@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Russian)">
-      <outline title="Строительство и ремонт" xmlUrl="https://www.stroyremont.ru/feed/" type="rss"/>
-      <outline title="RSS строительство" xmlUrl="https://rss.stroitelstvo.ru/" type="rss"/>
+      <outline title="Строительство и ремонт" xmlUrl="https://www.stroyremont.ru/feed/" type="rss" />
     </outline>
   </body>
 </opml>

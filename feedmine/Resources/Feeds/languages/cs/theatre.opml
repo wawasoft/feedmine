@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Theatre (Czech)">
-      <outline title="Divadelní noviny" xmlUrl="https://www.divadelni-noviny.cz/feed/" type="rss"/>
-      <outline title="Dilia" xmlUrl="https://www.dilia.cz/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

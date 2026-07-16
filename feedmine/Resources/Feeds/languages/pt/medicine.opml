@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Portuguese)">
-      <outline title="PebMed" xmlUrl="https://pebmed.com.br/feed/" type="rss"/>
-      <outline title="Medscape Brasil" xmlUrl="https://portugues.medscape.com/feed" type="rss"/>
-      <outline title="Sociedade Brasileira de Medicina de Família e Comunidade" xmlUrl="https://www.sbmfc.org.br/feed/" type="rss"/>
+      <outline title="Sociedade Brasileira de Medicina de Família e Comunidade" xmlUrl="https://www.sbmfc.org.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

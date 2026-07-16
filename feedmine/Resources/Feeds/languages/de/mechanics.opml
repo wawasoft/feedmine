@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (German)">
-      <outline title="Konstruktionspraxis" xmlUrl="https://www.konstruktionspraxis.vogel.de/rss/" type="rss"/>
-      <outline title="Maschinenmarkt" xmlUrl="https://www.maschinenmarkt.vogel.de/rss/" type="rss"/>
-      <outline title="Ingenieur.de - Maschinenbau" xmlUrl="https://www.ingenieur.de/themen/maschinenbau/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

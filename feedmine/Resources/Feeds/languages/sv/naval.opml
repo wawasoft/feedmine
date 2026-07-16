@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Swedish)">
-      <outline title="Sjöfartstidningen" xmlUrl="https://www.sjofartstidningen.se/feed/" type="rss"/>
-      <outline title="Marinen" xmlUrl="https://www.forsvarsmakten.se/sv/var-verksamhet/marinen/feed/" type="rss"/>
-      <outline title="Sjöhistoriska museet" xmlUrl="https://www.sjohistoriska.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

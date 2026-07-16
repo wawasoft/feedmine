@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Norwegian)">
-      <outline title="Norske Dikt – Dikt.org" xmlUrl="https://www.dikt.org/feed/" type="rss"/>
-      <outline title="Dikt i dag – Aftenposten" xmlUrl="https://www.aftenposten.no/kultur/dikt/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

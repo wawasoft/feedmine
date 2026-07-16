@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Armenian)">
-      <outline title="Մետաղագործություն" xmlUrl="https://metalurg.am/feed/" type="rss"/>
-      <outline title="Հանքարդյունաբերություն" xmlUrl="https://mining.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

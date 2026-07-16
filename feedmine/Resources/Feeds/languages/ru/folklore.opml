@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Russian)">
-      <outline title="Русский фольклор" xmlUrl="https://rusfolk.ru/feed/" type="rss"/>
-      <outline title="Фольклор и мифология" xmlUrl="https://folklor-mif.ru/feed/" type="rss"/>
-      <outline title="Мифы народов мира" xmlUrl="https://mif-narodov.ru/feed/" type="rss"/>
-      <outline title="Славянская мифология" xmlUrl="https://slav-mif.ru/feed/" type="rss"/>
-      <outline title="Библиотека фольклора" xmlUrl="https://folklor-biblio.ru/feed/" type="rss"/>
+      <outline title="Русский фольклор" xmlUrl="https://rusfolk.ru/feed/" type="rss" />
     </outline>
   </body>
 </opml>

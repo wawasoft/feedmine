@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Surfing Feeds (Norwegian)">
-      <outline title="Surfmagasinet" xmlUrl="https://surfmagasinet.no/feed/" type="rss"/>
-      <outline title="Norsk Surfeforening" xmlUrl="https://www.surfeforeningen.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

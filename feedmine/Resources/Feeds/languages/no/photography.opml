@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Norwegian)">
-      <outline title="Fotografi – Nikon Norge" xmlUrl="https://www.nikon.no/no_NO/learn-and-explore/feed" type="rss"/>
-      <outline title="Fotografi.no" xmlUrl="https://www.fotografi.no/feed/" type="rss"/>
-      <outline title="Norsk Fotografisk Tidsskrift" xmlUrl="https://norskfotografisk.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

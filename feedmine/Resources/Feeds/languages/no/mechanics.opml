@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Norwegian)">
-      <outline title="Teknisk Ukeblad" xmlUrl="https://www.tu.no/feed" type="rss"/>
-      <outline title="Maskinregisteret" xmlUrl="https://www.maskinregisteret.no/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

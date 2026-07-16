@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Greek)">
-      <outline title="Book Press" xmlUrl="https://www.bookpress.gr/feed" type="rss"/>
-      <outline title="O Anagnostis" xmlUrl="https://www.oanagnostis.gr/feed/" type="rss"/>
+      <outline title="O Anagnostis" xmlUrl="https://www.oanagnostis.gr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Greek)">
-      <outline title="Boardgame Greece" xmlUrl="https://boardgamegreece.gr/feed/" type="rss"/>
-      <outline title="Epitrapezia Paixnidia" xmlUrl="https://epitrapeziapaixnidia.gr/feed/" type="rss"/>
-      <outline title="RPG Greece" xmlUrl="https://rpggreece.gr/feed/" type="rss"/>
-      <outline title="Tabletop Games Greece" xmlUrl="https://tabletopgames.gr/feed/" type="rss"/>
+      <outline title="Tabletop Games Greece" xmlUrl="https://tabletopgames.gr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

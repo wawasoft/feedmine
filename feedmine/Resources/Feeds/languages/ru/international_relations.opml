@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Russian)">
-      <outline title="РСМД" xmlUrl="https://russiancouncil.ru/rss/" type="rss"/>
-      <outline title="Международная жизнь" xmlUrl="https://interaffairs.ru/rss/" type="rss"/>
-      <outline title="ТАСС - Международная панорама" xmlUrl="https://tass.ru/rss/v2/mezhdunarodnaya-panorama.xml" type="rss"/>
-      <outline title="РИА Новости - Мир" xmlUrl="https://ria.ru/export/rss2/world/index.xml" type="rss"/>
-      <outline title="Коммерсантъ - В мире" xmlUrl="https://www.kommersant.ru/rss/world" type="rss"/>
+      <outline title="РСМД" xmlUrl="https://russiancouncil.ru/rss/" type="rss" />
+      <outline title="Международная жизнь" xmlUrl="https://interaffairs.ru/rss/" type="rss" />
     </outline>
   </body>
 </opml>

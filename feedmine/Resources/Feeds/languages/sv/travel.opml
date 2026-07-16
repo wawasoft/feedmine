@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Travel (Swedish)">
-      <outline title="Vagabond" xmlUrl="https://www.vagabond.se/rss" type="rss"/>
-      <outline title="Reseguiden" xmlUrl="https://www.reseguiden.se/rss" type="rss"/>
+      <outline title="Vagabond" xmlUrl="https://www.vagabond.se/rss" type="rss" />
     </outline>
   </body>
 </opml>

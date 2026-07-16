@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Persian)">
-      <outline title="دیپلماسی ایرانی" xmlUrl="https://www.irdiplomacy.ir/feed" type="rss"/>
-      <outline title="مرکز مطالعات استراتژیک خاورمیانه" xmlUrl="https://www.csr.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

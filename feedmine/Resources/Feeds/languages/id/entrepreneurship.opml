@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Indonesian)">
-      <outline title="DailySocial - Startup" xmlUrl="https://dailysocial.id/startup/feed" type="rss"/>
-      <outline title="Tech in Asia Indonesia" xmlUrl="https://id.techinasia.com/feed" type="rss"/>
-      <outline title="Kumparan - Startup" xmlUrl="https://kumparan.com/feed/startup" type="rss"/>
-      <outline title="Bisnis.com - Wirausaha" xmlUrl="https://bisnis.com/feed/wirausaha" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

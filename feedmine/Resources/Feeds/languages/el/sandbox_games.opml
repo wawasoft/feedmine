@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Greek)">
-      <outline title="Minecraft - Greek Minecraft" xmlUrl="https://www.greekminecraft.gr/feed/" type="rss"/>
-      <outline title="Roblox - Roblox Greece" xmlUrl="https://www.robloxgreece.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

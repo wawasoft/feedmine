@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Danish)">
-      <outline title="Danmarks Naturfredningsforening" xmlUrl="https://www.dn.dk/feed/" type="rss"/>
-      <outline title="Verdens Skove" xmlUrl="https://www.verdensskove.org/feed/" type="rss"/>
-      <outline title="Natur og Miljø" xmlUrl="https://natur-og-miljoe.dk/feed/" type="rss"/>
-      <outline title="Miljøstyrelsen" xmlUrl="https://mst.dk/feed/" type="rss"/>
+      <outline title="Verdens Skove" xmlUrl="https://www.verdensskove.org/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Theatre (Armenian)">
-      <outline title="Թատրոնի լուրեր" xmlUrl="https://theatre.am/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

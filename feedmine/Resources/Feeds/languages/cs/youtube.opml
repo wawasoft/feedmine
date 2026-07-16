@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Czech)">
-      <outline title="YouTube Česko Blog" xmlUrl="https://blog.youtube/intl/cs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fanfiction, Fandom Communities (Hungarian)">
-      <outline title="Fanfiction.hu" xmlUrl="https://fanfiction.hu/feed/" type="rss"/>
-      <outline title="Fandom.hu" xmlUrl="https://fandom.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

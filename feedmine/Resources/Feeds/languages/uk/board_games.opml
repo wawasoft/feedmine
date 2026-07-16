@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Ukrainian)">
-      <outline title="Ігромаг" xmlUrl="https://igromag.ua/feed/" type="rss"/>
-      <outline title="Board Games UA" xmlUrl="https://boardgames.ua/feed/" type="rss"/>
+      <outline title="Ігромаг" xmlUrl="https://igromag.ua/feed/" type="rss" />
     </outline>
   </body>
 </opml>

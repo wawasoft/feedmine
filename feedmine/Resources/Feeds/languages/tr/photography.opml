@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Photography (Turkish)">
-      <outline title="Fotoğraf Dergisi" xmlUrl="https://fotografdergisi.com/feed/" type="rss"/>
-      <outline title="Fotoğraf Gezginleri" xmlUrl="https://fotografgezginleri.com/feed/" type="rss"/>
-      <outline title="Fotoğraf Okulu" xmlUrl="https://fotografokulu.com/feed/" type="rss"/>
+      <outline title="Fotoğraf Dergisi" xmlUrl="https://fotografdergisi.com/feed/" type="rss" />
+      <outline title="Fotoğraf Okulu" xmlUrl="https://fotografokulu.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Construction, Building (Ukrainian)">
-      <outline title="Будівельний портал" xmlUrl="https://budport.com.ua/feed" type="rss"/>
-      <outline title="ProfBuild" xmlUrl="https://profbuild.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

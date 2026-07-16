@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Naval, Maritime (French)">
-      <outline title="Mer et Marine" xmlUrl="https://www.meretmarine.com/rss.xml" type="rss"/>
-      <outline title="Le Marin" xmlUrl="https://www.lemarin.fr/rss.xml" type="rss"/>
-      <outline title="ActuNautique" xmlUrl="https://www.actunautique.com/feed/" type="rss"/>
-      <outline title="Voiles et Voiliers" xmlUrl="https://www.voilesetvoiliers.com/feed/" type="rss"/>
-      <outline title="Marine nationale - Actualités" xmlUrl="https://www.defense.gouv.fr/marine/rss/actualites.xml" type="rss"/>
+      <outline title="Mer et Marine" xmlUrl="https://www.meretmarine.com/rss.xml" type="rss" />
+      <outline title="ActuNautique" xmlUrl="https://www.actunautique.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

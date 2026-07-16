@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Tech Feeds (Romanian)">
-      <outline title="Go4IT" xmlUrl="https://www.go4it.ro/feed/" type="rss"/>
-      <outline title="PlayTech" xmlUrl="https://www.playtech.ro/feed/" type="rss"/>
-      <outline title="CursDeGuvernare - Tech" xmlUrl="https://cursdeguvernare.ro/category/tech/feed/" type="rss"/>
-      <outline title="Stirile ProTV - Tech" xmlUrl="https://stirileprotv.ro/rss/tehnologie.xml" type="rss"/>
-      <outline title="Ziare.com - Tech" xmlUrl="https://www.ziare.com/rss/stiinta-tehnologie.xml" type="rss"/>
+      <outline title="Go4IT" xmlUrl="https://www.go4it.ro/feed/" type="rss" />
+      <outline title="PlayTech" xmlUrl="https://www.playtech.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

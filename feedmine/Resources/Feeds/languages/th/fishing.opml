@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fishing (Thai)">
-      <outline title="ตกปลาไทย" xmlUrl="https://www.tokplathai.com/feed/" type="rss"/>
-      <outline title="เว็บบอร์ดตกปลา" xmlUrl="https://www.fishingthailand.com/board/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

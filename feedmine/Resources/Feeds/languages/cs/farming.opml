@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Czech)">
-      <outline title="Agronavigátor" xmlUrl="https://www.agronavigator.cz/rss" type="rss"/>
-      <outline title="Farmářská škola" xmlUrl="https://www.farmarskaskola.cz/rss.xml" type="rss"/>
-      <outline title="Zemědělec" xmlUrl="https://zemedelec.cz/feed/" type="rss"/>
+      <outline title="Agronavigátor" xmlUrl="https://www.agronavigator.cz/rss" type="rss" />
+      <outline title="Zemědělec" xmlUrl="https://zemedelec.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

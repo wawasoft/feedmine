@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Armenian)">
-      <outline title="ArmLinux" xmlUrl="https://armlinux.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

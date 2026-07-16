@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Movies (Hungarian)">
-      <outline title="Filmvilág" xmlUrl="https://filmvilag.hu/rss.xml" type="rss"/>
-      <outline title="Port.hu Filmek" xmlUrl="https://port.hu/rss/film" type="rss"/>
-      <outline title="Index - Mozi" xmlUrl="https://index.hu/kultur/mozi/rss" type="rss"/>
-      <outline title="24.hu - Film" xmlUrl="https://24.hu/kultura/film/feed" type="rss"/>
+      <outline title="Index - Mozi" xmlUrl="https://index.hu/kultur/mozi/rss" type="rss" />
+      <outline title="24.hu - Film" xmlUrl="https://24.hu/kultura/film/feed" type="rss" />
     </outline>
   </body>
 </opml>

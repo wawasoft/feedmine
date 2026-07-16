@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Serbian)">
-      <outline title="Elle Serbia" xmlUrl="https://elle.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

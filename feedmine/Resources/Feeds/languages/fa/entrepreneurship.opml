@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Persian)">
-      <outline title="کارآفرینی پلاس" xmlUrl="https://karafariniplus.com/feed/" type="rss"/>
-      <outline title="راه کارآفرینی" xmlUrl="https://rahekarafarini.com/feed/" type="rss"/>
-      <outline title="استارتاپ‌ها" xmlUrl="https://startupiha.com/feed/" type="rss"/>
+      <outline title="استارتاپ‌ها" xmlUrl="https://startupiha.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

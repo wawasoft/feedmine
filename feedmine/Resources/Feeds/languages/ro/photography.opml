@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Romanian)">
-      <outline title="Fotografii.ro" xmlUrl="https://www.fotografii.ro/feed" type="rss"/>
-      <outline title="FotoBlog" xmlUrl="https://fotoblog.ro/feed" type="rss"/>
-      <outline title="Photocult" xmlUrl="https://www.photocult.ro/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Greek)">
-      <outline title="DIY - Feax" xmlUrl="https://www.feax.gr/feeds/feeds.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

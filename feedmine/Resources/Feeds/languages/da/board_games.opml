@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Danish)">
-      <outline title="Brettspil.nu" xmlUrl="https://brettspil.nu/feed/" type="rss"/>
-      <outline title="Spilbloggen" xmlUrl="https://spilbloggen.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

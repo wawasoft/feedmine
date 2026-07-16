@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Malay)">
-      <outline title="Fesyen Malaysia" xmlUrl="https://fesyenmalaysia.com/feed/" type="rss"/>
-      <outline title="Mutiara Fesyen" xmlUrl="https://mutiara-fesyen.blogspot.com/feeds/posts/default?alt=rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

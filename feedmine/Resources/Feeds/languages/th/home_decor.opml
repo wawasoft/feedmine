@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Thai)">
-      <outline title="บ้านและสวน" xmlUrl="https://www.baanlaesuan.com/feed" type="rss"/>
-      <outline title="Home Buy Guide" xmlUrl="https://www.homebuyguide.com/feed" type="rss"/>
+      <outline title="บ้านและสวน" xmlUrl="https://www.baanlaesuan.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

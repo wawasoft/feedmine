@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Military (Italian)">
-      <outline title="Analisi Difesa" xmlUrl="https://www.analisidifesa.it/feed" type="rss"/>
-      <outline title="Rivista Italiana Difesa" xmlUrl="https://www.rid.it/feed" type="rss"/>
-      <outline title="Difesa Online" xmlUrl="https://www.difesaonline.it/feed" type="rss"/>
+      <outline title="Analisi Difesa" xmlUrl="https://www.analisidifesa.it/feed" type="rss" />
+      <outline title="Difesa Online" xmlUrl="https://www.difesaonline.it/feed" type="rss" />
     </outline>
   </body>
 </opml>

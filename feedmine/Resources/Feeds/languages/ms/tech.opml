@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Tech Feeds (Malay)">
-      <outline title="Tech - Amanz" xmlUrl="https://amanz.my/feed" type="rss"/>
-      <outline title="Teknologi - Astro Awani" xmlUrl="https://www.astroawani.com/rss/teknologi" type="rss"/>
+      <outline title="Tech - Amanz" xmlUrl="https://amanz.my/feed" type="rss" />
     </outline>
   </body>
 </opml>

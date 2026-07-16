@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Greek)">
-      <outline title="Home Design Greece" xmlUrl="https://www.homedesign.gr/feed/" type="rss"/>
-      <outline title="Archisearch" xmlUrl="https://www.archisearch.gr/feed/" type="rss"/>
-      <outline title="Decor Trends" xmlUrl="https://www.decortrends.gr/feed/" type="rss"/>
+      <outline title="Archisearch" xmlUrl="https://www.archisearch.gr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

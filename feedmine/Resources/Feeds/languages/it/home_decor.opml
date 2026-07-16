@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Italian)">
-      <outline title="Casa e Design" xmlUrl="https://www.casaedesign.it/feed/" type="rss"/>
-      <outline title="Architettura e Design" xmlUrl="https://www.architetturaedesign.it/feed/" type="rss"/>
-      <outline title="Design Mag" xmlUrl="https://www.designmag.it/feed/" type="rss"/>
-      <outline title="Living Corriere" xmlUrl="https://living.corriere.it/feed/" type="rss"/>
-      <outline title="Arredamento Moderno" xmlUrl="https://www.arredamentomoderno.net/feed/" type="rss"/>
+      <outline title="Design Mag" xmlUrl="https://www.designmag.it/feed/" type="rss" />
+      <outline title="Living Corriere" xmlUrl="https://living.corriere.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

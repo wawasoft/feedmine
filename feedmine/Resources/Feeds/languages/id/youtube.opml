@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Indonesian)">
-      <outline title="YouTube Indonesia Blog" xmlUrl="https://blog.youtube/intl/id/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Aviation (German)">
-      <outline title="FlugRevue" xmlUrl="https://www.flugrevue.de/rss/aktuell.xml" type="rss"/>
-      <outline title="Aerobuzz" xmlUrl="https://www.aerobuzz.de/feed/" type="rss"/>
-      <outline title="Airliners.de" xmlUrl="https://www.airliners.de/feed/" type="rss"/>
-      <outline title="FliegerWeb" xmlUrl="https://www.fliegerweb.com/feed/" type="rss"/>
-      <outline title="Pilot und Flugzeug" xmlUrl="https://www.pilotundflugzeug.de/feed/" type="rss"/>
+      <outline title="Aerobuzz" xmlUrl="https://www.aerobuzz.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

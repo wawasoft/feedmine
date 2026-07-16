@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Dutch)">
-      <outline title="Arcade Games Blog" xmlUrl="https://www.arcadegamesblog.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

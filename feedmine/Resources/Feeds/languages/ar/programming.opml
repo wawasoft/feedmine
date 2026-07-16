@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Arabic)">
-      <outline title="مدونة حسوب" xmlUrl="https://blog.hsoub.com/feed" type="rss"/>
-      <outline title="أكاديمية حسوب" xmlUrl="https://academy.hsoub.com/rss/" type="rss"/>
-      <outline title="مدونة طه زروق" xmlUrl="https://tahazrq.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Hungarian)">
-      <outline title="Fémipari Hírek" xmlUrl="https://femipar.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

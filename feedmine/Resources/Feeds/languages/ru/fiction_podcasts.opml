@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Russian)">
-      <outline title="Модель для сборки" xmlUrl="https://mds.podcast.ru/rss/" type="rss"/>
-      <outline title="Театр у микрофона" xmlUrl="https://teatr.podcast.ru/rss/" type="rss"/>
-      <outline title="Аудиокниги на ЛитРес" xmlUrl="https://litres.ru/rss/podcasts/" type="rss"/>
-      <outline title="Радиоспектакли" xmlUrl="https://radiospektakli.ru/rss/" type="rss"/>
-      <outline title="Фантастика и фэнтези" xmlUrl="https://fantasy.podcast.ru/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

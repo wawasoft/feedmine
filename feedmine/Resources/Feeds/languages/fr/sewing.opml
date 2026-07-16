@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (French)">
-      <outline title="Couture Enfant" xmlUrl="https://www.couture-enfant.com/feed/" type="rss"/>
-      <outline title="Les Lubies de Lili" xmlUrl="https://www.leslubiesdelili.com/feed/" type="rss"/>
-      <outline title="Coudre Ensemble" xmlUrl="https://coudreensemble.com/feed/" type="rss"/>
+      <outline title="Coudre Ensemble" xmlUrl="https://coudreensemble.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

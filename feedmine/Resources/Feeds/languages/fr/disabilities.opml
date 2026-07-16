@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Deaf, Blind (French)">
-      <outline title="Blog Surdi" xmlUrl="https://blog.surdi.info/feed/" type="rss"/>
-      <outline title="Aveugles et Malvoyants" xmlUrl="https://aveugles-malvoyants.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

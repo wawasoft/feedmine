@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Science Feeds (Bulgarian)">
-      <outline title="Наука.бг" xmlUrl="https://nauka.bg/rss/" type="rss"/>
-      <outline title="Българска академия на науките" xmlUrl="https://www.bas.bg/rss/" type="rss"/>
-      <outline title="Природа и наука" xmlUrl="https://priroda-nauka.bg/feed/" type="rss"/>
+      <outline title="Наука.бг" xmlUrl="https://nauka.bg/rss/" type="rss" />
     </outline>
   </body>
 </opml>

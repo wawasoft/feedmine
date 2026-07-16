@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Slovak)">
-      <outline title="Agroporadenstvo.sk" xmlUrl="https://www.agroporadenstvo.sk/rss/" type="rss"/>
-      <outline title="Poľnohospodár.sk" xmlUrl="https://polnohospodar.sk/feed/" type="rss"/>
-      <outline title="Farmárske noviny" xmlUrl="https://www.farmarskenoviny.sk/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Norwegian)">
-      <outline title="Produktivitet – Ledernytt" xmlUrl="https://www.ledernytt.no/emne/produktivitet/feed" type="rss"/>
-      <outline title="GTD Norge" xmlUrl="https://gtdnorge.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

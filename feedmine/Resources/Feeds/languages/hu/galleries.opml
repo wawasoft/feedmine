@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Art Galleries (Hungarian)">
-      <outline title="Artmagazin" xmlUrl="https://artmagazin.hu/feed/" type="rss"/>
-      <outline title="Kortárs Online" xmlUrl="https://www.kortarsonline.hu/feed/" type="rss"/>
-      <outline title="Balkon" xmlUrl="https://balkon.hu/feed/" type="rss"/>
+      <outline title="Balkon" xmlUrl="https://balkon.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

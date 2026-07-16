@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Croatian)">
-      <outline title="IUS-INFO" xmlUrl="https://www.iusinfo.hr/feed" type="rss"/>
-      <outline title="Law.hr" xmlUrl="https://www.law.hr/feed" type="rss"/>
-      <outline title="Poslovni dnevnik - Pravo" xmlUrl="https://www.poslovni.hr/tag/pravo/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

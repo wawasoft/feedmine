@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Construction, Building (Turkish)">
-      <outline title="Yapı Haberleri" xmlUrl="https://www.yapihaberleri.com/feed/" type="rss"/>
-      <outline title="İnşaat Dergisi" xmlUrl="https://www.insaatdergisi.com/feed/" type="rss"/>
-      <outline title="Yapı ve İnşaat" xmlUrl="https://www.yapiveinsaat.com/feed/" type="rss"/>
-      <outline title="İnşaat Haber" xmlUrl="https://www.insaathaber.com/feed/" type="rss"/>
-      <outline title="Yapı Kataloğu" xmlUrl="https://www.yapikatalogu.com/feed/" type="rss"/>
+      <outline title="Yapı Haberleri" xmlUrl="https://www.yapihaberleri.com/feed/" type="rss" />
+      <outline title="İnşaat Dergisi" xmlUrl="https://www.insaatdergisi.com/feed/" type="rss" />
+      <outline title="İnşaat Haber" xmlUrl="https://www.insaathaber.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

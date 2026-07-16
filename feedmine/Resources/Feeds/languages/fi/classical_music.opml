@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Classical Music (Finnish)">
-      <outline title="Yle Klassinen" xmlUrl="https://feeds.yle.fi/klassinen/rss/klassinen.xml" type="rss"/>
-      <outline title="Helsingin Sanomat - Klassinen musiikki" xmlUrl="https://www.hs.fi/rss/taide-ja-kulttuuri-klassinen-musiikki.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

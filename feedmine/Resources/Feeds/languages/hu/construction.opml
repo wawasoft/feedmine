@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Hungarian)">
-      <outline title="Építőipari Magazin" xmlUrl="https://epitoiparimagazin.hu/feed" type="rss"/>
-      <outline title="Építészfórum" xmlUrl="https://epiteszforum.hu/rss" type="rss"/>
+      <outline title="Építészfórum" xmlUrl="https://epiteszforum.hu/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Sinhala)">
-      <outline title="සිංහල බ්ලොග් එකතුව" xmlUrl="https://sinhalablog.wordpress.com/feed/" type="rss"/>
-      <outline title="ලංකා බ්ලොග්" xmlUrl="https://lankablog.lk/feed/" type="rss"/>
+      <outline title="සිංහල බ්ලොග් එකතුව" xmlUrl="https://sinhalablog.wordpress.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

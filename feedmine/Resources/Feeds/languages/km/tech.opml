@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Tech Feeds (Khmer)">
-      <outline title="បច្ចេកវិទ្យាខ្មែរ" xmlUrl="https://www.khmertech.com/feed" type="rss"/>
-      <outline title="ឌីជីថលខ្មែរ" xmlUrl="https://www.digitalkhmer.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

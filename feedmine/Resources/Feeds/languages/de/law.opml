@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (German)">
-      <outline title="Legal Tribune Online" xmlUrl="https://www.lto.de/feed.rss" type="rss"/>
-      <outline title="Beck aktuell" xmlUrl="https://rss.beck.de/beck-aktuell" type="rss"/>
-      <outline title="Anwalt.de - Rechtstipps" xmlUrl="https://www.anwalt.de/rechtstipps/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

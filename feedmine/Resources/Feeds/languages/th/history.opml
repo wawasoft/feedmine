@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="History Feeds (Thai)">
-      <outline title="ประวัติศาสตร์ไทย" xmlUrl="https://www.silpa-mag.com/history/feed" type="rss"/>
-      <outline title="ประวัติศาสตร์" xmlUrl="https://www.baanjomyut.com/history/feed" type="rss"/>
+      <outline title="ประวัติศาสตร์ไทย" xmlUrl="https://www.silpa-mag.com/history/feed" type="rss" />
     </outline>
   </body>
 </opml>

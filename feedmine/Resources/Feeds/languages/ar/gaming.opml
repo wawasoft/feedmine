@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Videogames (Arabic)">
-      <outline title="عالم التقنية - ألعاب" xmlUrl="https://www.tech-wd.com/wd/feed/gaming" type="rss"/>
-      <outline title="سعودي جيمر" xmlUrl="https://www.saudi-gamer.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

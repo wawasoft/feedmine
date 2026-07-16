@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Design Feeds (Swedish)">
-      <outline title="Svensk Form" xmlUrl="https://svenskform.se/feed/" type="rss"/>
-      <outline title="Form Magazine" xmlUrl="https://formmagazine.com/feed/" type="rss"/>
-      <outline title="Designboost" xmlUrl="https://designboost.se/feed/" type="rss"/>
+      <outline title="Svensk Form" xmlUrl="https://svenskform.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

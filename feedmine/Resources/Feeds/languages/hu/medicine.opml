@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Hungarian)">
-      <outline title="Medical Online" xmlUrl="https://medicalonline.hu/rss" type="rss"/>
-      <outline title="Patika Magazin" xmlUrl="https://patikamagazin.hu/feed/" type="rss"/>
+      <outline title="Patika Magazin" xmlUrl="https://patikamagazin.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

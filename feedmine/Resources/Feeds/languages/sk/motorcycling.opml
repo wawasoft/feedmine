@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Motorcycling (Slovak)">
-      <outline title="Motožurnál" xmlUrl="https://www.motozurnal.sk/rss" type="rss"/>
-      <outline title="Motosvet" xmlUrl="https://www.motosvet.sk/rss" type="rss"/>
+      <outline title="Motosvet" xmlUrl="https://www.motosvet.sk/rss" type="rss" />
     </outline>
   </body>
 </opml>

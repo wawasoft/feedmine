@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Apple (Czech)">
-      <outline title="Jablíčkář.cz" xmlUrl="https://jablickar.cz/feed/" type="rss"/>
-      <outline title="Letem světem Applem" xmlUrl="https://www.letemsvetemapplem.eu/feed/" type="rss"/>
-      <outline title="MacMan.cz" xmlUrl="https://www.macman.cz/rss" type="rss"/>
+      <outline title="Jablíčkář.cz" xmlUrl="https://jablickar.cz/feed/" type="rss" />
+      <outline title="Letem světem Applem" xmlUrl="https://www.letemsvetemapplem.eu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

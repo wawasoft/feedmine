@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Tech Feeds (Turkish)">
-      <outline title="Webtekno" xmlUrl="https://www.webtekno.com/rss.xml" type="rss"/>
-      <outline title="ShiftDelete.Net" xmlUrl="https://shiftdelete.net/rss.xml" type="rss"/>
-      <outline title="DonanımHaber" xmlUrl="https://www.donanimhaber.com/rss.xml" type="rss"/>
-      <outline title="Teknolojioku" xmlUrl="https://www.teknolojioku.com/rss.xml" type="rss"/>
-      <outline title="CHIP Online Türkiye" xmlUrl="https://www.chip.com.tr/rss.xml" type="rss"/>
+      <outline title="Webtekno" xmlUrl="https://www.webtekno.com/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

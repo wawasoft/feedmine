@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Wine (Slovak)">
-      <outline title="Vino.sk - Články" xmlUrl="https://www.vino.sk/rss/clanky/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Greek)">
-      <outline title="Pod.gr" xmlUrl="https://www.pod.gr/feed/" type="rss"/>
-      <outline title="Radio Athina" xmlUrl="https://www.radioathina.gr/feed/" type="rss"/>
+      <outline title="Pod.gr" xmlUrl="https://www.pod.gr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

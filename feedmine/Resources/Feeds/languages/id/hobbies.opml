@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Indonesian)">
-      <outline title="HobiKita" xmlUrl="https://hobikita.com/feed/" type="rss"/>
-      <outline title="Kreativv" xmlUrl="https://kreativv.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

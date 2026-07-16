@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Norwegian)">
-      <outline title="Brettspillguiden" xmlUrl="https://brettspillguiden.no/feed/" type="rss"/>
-      <outline title="Norske brettspill" xmlUrl="https://norskebrettspill.no/feed/" type="rss"/>
+      <outline title="Brettspillguiden" xmlUrl="https://brettspillguiden.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

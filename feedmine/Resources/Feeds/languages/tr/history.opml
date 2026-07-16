@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="History Feeds (Turkish)">
-      <outline title="Tarih - NTV" xmlUrl="https://www.ntv.com.tr/rss/tarih" type="rss"/>
-      <outline title="Tarih - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/tarih" type="rss"/>
-      <outline title="Arkeofili" xmlUrl="https://arkeofili.com/feed/" type="rss"/>
+      <outline title="Tarih - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/tarih" type="rss" />
+      <outline title="Arkeofili" xmlUrl="https://arkeofili.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

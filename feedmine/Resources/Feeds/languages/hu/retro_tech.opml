@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Hungarian)">
-      <outline title="Retro Tech Blog" xmlUrl="https://retrotech.blog/feed/" type="rss"/>
-      <outline title="Vintage Computer Club Hungary" xmlUrl="https://vintagecomputerclub.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

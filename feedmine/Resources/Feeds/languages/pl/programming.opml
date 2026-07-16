@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Programming (Polish)">
-      <outline title="Programista.org" xmlUrl="https://programista.org/feed" type="rss"/>
-      <outline title="Pasja Informatyki" xmlUrl="https://pasja-informatyki.pl/feed" type="rss"/>
-      <outline title="DevEnv" xmlUrl="https://devenv.pl/feed" type="rss"/>
-      <outline title="Kodilla" xmlUrl="https://kodilla.com/pl/blog/feed" type="rss"/>
-      <outline title="Marcin Kwiatkowski" xmlUrl="https://marcinkwiatkowski.pl/feed" type="rss"/>
+      <outline title="Pasja Informatyki" xmlUrl="https://pasja-informatyki.pl/feed" type="rss" />
+      <outline title="Kodilla" xmlUrl="https://kodilla.com/pl/blog/feed" type="rss" />
     </outline>
   </body>
 </opml>

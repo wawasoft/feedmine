@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Fishing (Russian)">
-      <outline title="Рыбалка в России" xmlUrl="https://rybalka-v-rossii.ru/feed/" type="rss"/>
-      <outline title="Клёвое место" xmlUrl="https://klevoe-mesto.ru/feed/" type="rss"/>
-      <outline title="Рыболовный журнал" xmlUrl="https://rybolovnyj-zhurnal.ru/feed/" type="rss"/>
-      <outline title="Рыбак" xmlUrl="https://rybak.ru/feed/" type="rss"/>
-      <outline title="Охота и рыбалка" xmlUrl="https://ohota-rybalka.ru/feed/" type="rss"/>
+      <outline title="Клёвое место" xmlUrl="https://klevoe-mesto.ru/feed/" type="rss" />
     </outline>
   </body>
 </opml>

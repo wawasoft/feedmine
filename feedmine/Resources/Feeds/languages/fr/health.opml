@@ -7,10 +7,6 @@
   </head>
   <body>
     <outline text="Health (French)">
-      <outline title="Santé Magazine" xmlUrl="https://www.santemagazine.fr/feed/" type="rss"/>
-      <outline title="Doctissimo" xmlUrl="https://www.doctissimo.fr/rss/actualites.xml" type="rss"/>
-      <outline title="Le Figaro Santé" xmlUrl="https://sante.lefigaro.fr/rss/actualites.xml" type="rss"/>
-      <outline title="Medisite" xmlUrl="https://www.medisite.fr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

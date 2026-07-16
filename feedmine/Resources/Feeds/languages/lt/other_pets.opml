@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Lithuanian)">
-      <outline title="Gyvūnai" xmlUrl="https://www.gyvunai.lt/feed/" type="rss"/>
-      <outline title="Augintinis" xmlUrl="https://augintinis.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

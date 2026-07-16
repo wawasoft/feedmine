@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (German)">
-      <outline title="Geschichte - Spektrum der Wissenschaft" xmlUrl="https://www.spektrum.de/rss/archiv/geschichte/" type="rss"/>
-      <outline title="Damals.de - Magazin für Geschichte" xmlUrl="https://www.damals.de/rss/aktuelles.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

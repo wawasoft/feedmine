@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Wicca, Witchcraft, Paganism (Spanish)">
-      <outline title="Wicca España" xmlUrl="https://www.wicca.es/feed/" type="rss"/>
-      <outline title="El Aquelarre" xmlUrl="https://elaquelarre.com/feed/" type="rss"/>
-      <outline title="Brujería y Magia" xmlUrl="https://brujeriaymagia.com/feed/" type="rss"/>
-      <outline title="Paganismo Ibérico" xmlUrl="https://paganismoiberico.org/feed/" type="rss"/>
-      <outline title="Mundo Esotérico" xmlUrl="https://mundoesoterico.com/feed/" type="rss"/>
+      <outline title="Wicca España" xmlUrl="https://www.wicca.es/feed/" type="rss" />
+      <outline title="Mundo Esotérico" xmlUrl="https://mundoesoterico.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

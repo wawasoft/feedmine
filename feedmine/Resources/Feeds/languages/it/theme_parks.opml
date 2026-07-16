@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Theme Parks, Rollercoasters (Italian)">
-      <outline title="Parchi Divertimento" xmlUrl="https://www.parchidivertimento.it/feed/" type="rss"/>
-      <outline title="Parco divertimenti - Viaggi" xmlUrl="https://www.viaggi.it/rss/parchi-divertimento.xml" type="rss"/>
+      <outline title="Parchi Divertimento" xmlUrl="https://www.parchidivertimento.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

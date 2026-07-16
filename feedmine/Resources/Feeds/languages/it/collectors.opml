@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Collectors (Italian)">
-      <outline title="Collezionismo - Il Giornale delle Collezioni" xmlUrl="https://www.ilgiornaledellecollezioni.it/feed/" type="rss"/>
-      <outline title="Collezionismo &amp; Antiquariato" xmlUrl="https://www.collezionismoantiquariato.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Thai)">
-      <outline title="เทคโนโลยีชาวบ้าน" xmlUrl="https://www.technologychaoban.com/feed" type="rss"/>
-      <outline title="เกษตรกรก้าวหน้า" xmlUrl="https://www.kasetkornkao.com/feed/" type="rss"/>
-      <outline title="สำนักงานเศรษฐกิจการเกษตร" xmlUrl="https://www.oae.go.th/feed/" type="rss"/>
+      <outline title="เทคโนโลยีชาวบ้าน" xmlUrl="https://www.technologychaoban.com/feed" type="rss" />
+      <outline title="สำนักงานเศรษฐกิจการเกษตร" xmlUrl="https://www.oae.go.th/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Dogs (Slovenian)">
-      <outline title="Pasji Svet" xmlUrl="https://www.pasji-svet.si/feed/" type="rss"/>
-      <outline title="Kinološka zveza Slovenije" xmlUrl="https://www.kinoloska-zveza.si/feed/" type="rss"/>
+      <outline title="Kinološka zveza Slovenije" xmlUrl="https://www.kinoloska-zveza.si/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Italian)">
-      <outline title="Pianeta Navi" xmlUrl="https://www.pianetanavi.it/feed" type="rss"/>
-      <outline title="Nautica Report" xmlUrl="https://www.nauticareport.it/feed" type="rss"/>
-      <outline title="Marina Militare" xmlUrl="https://www.marina.difesa.it/feed" type="rss"/>
-      <outline title="Ship2Shore" xmlUrl="https://www.ship2shore.it/feed" type="rss"/>
-      <outline title="Nautica.it" xmlUrl="https://www.nautica.it/feed" type="rss"/>
+      <outline title="Pianeta Navi" xmlUrl="https://www.pianetanavi.it/feed" type="rss" />
+      <outline title="Ship2Shore" xmlUrl="https://www.ship2shore.it/feed" type="rss" />
+      <outline title="Nautica.it" xmlUrl="https://www.nautica.it/feed" type="rss" />
     </outline>
   </body>
 </opml>

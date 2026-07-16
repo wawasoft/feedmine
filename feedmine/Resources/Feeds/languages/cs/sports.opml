@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Sports (Czech)">
-      <outline title="Sport.cz" xmlUrl="https://www.sport.cz/rss/" type="rss"/>
-      <outline title="iSport" xmlUrl="https://isport.blesk.cz/rss/" type="rss"/>
-      <outline title="Český sport" xmlUrl="https://www.ceskysport.cz/feed/" type="rss"/>
+      <outline title="Sport.cz" xmlUrl="https://www.sport.cz/rss/" type="rss" />
+      <outline title="iSport" xmlUrl="https://isport.blesk.cz/rss/" type="rss" />
     </outline>
   </body>
 </opml>

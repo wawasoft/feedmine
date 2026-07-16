@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Persian)">
-      <outline title="پت پال" xmlUrl="https://petpal.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

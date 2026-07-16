@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Design Feeds (Finnish)">
-      <outline title="Muotoilu.info" xmlUrl="https://www.muotoilu.info/feed/" type="rss"/>
-      <outline title="Design Stories" xmlUrl="https://www.designstories.fi/feed/" type="rss"/>
-      <outline title="Arkkitehtuurin ja muotoilun tiedotus" xmlUrl="https://www.arkkitehtuurinmuotoilu.fi/feed/" type="rss"/>
+      <outline title="Muotoilu.info" xmlUrl="https://www.muotoilu.info/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Malay)">
-      <outline title="Sejarah Malaysia" xmlUrl="https://www.sejarahmalaysia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Military (Danish)">
-      <outline title="Forsvaret" xmlUrl="https://www.forsvaret.dk/rss/nyheder" type="rss"/>
-      <outline title="Militært Tidsskrift" xmlUrl="https://militært-tidsskrift.dk/feed/" type="rss"/>
-      <outline title="Krigsvidenskab" xmlUrl="https://krigsvidenskab.dk/feed/" type="rss"/>
+      <outline title="Krigsvidenskab" xmlUrl="https://krigsvidenskab.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

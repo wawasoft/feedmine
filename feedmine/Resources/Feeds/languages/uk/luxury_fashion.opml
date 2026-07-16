@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Ukrainian)">
-      <outline title="Vogue Ukraine" xmlUrl="https://vogue.ua/feed.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Turkish)">
-      <outline title="Bulmaca Dünyası" xmlUrl="https://bulmacadunyasi.com/feed/" type="rss"/>
-      <outline title="Sudoku Türkiye" xmlUrl="https://sudokuturkiye.com/feed/" type="rss"/>
-      <outline title="Bulmaca Merkezi" xmlUrl="https://bulmacamerkezi.com/feed/" type="rss"/>
+      <outline title="Bulmaca Dünyası" xmlUrl="https://bulmacadunyasi.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

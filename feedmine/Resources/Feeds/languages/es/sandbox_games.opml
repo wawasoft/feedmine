@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Spanish)">
-      <outline title="Minecraft en Español" xmlUrl="https://minecraftenespanol.com/feed/" type="rss"/>
-      <outline title="Minecraft Blog" xmlUrl="https://minecraftblog.es/feed/" type="rss"/>
-      <outline title="Roblox en Español" xmlUrl="https://robloxenespanol.com/feed/" type="rss"/>
-      <outline title="Minecraft y Roblox" xmlUrl="https://minecraftyroblox.com/feed/" type="rss"/>
-      <outline title="Crafteo Minecraft" xmlUrl="https://crafteominecraft.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

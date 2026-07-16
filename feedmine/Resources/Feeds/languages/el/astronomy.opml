@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Astronomy (Greek)">
-      <outline title="Astronomos.gr" xmlUrl="https://astronomos.gr/feed/" type="rss"/>
-      <outline title="Ελληνική Αστρονομική Εταιρεία" xmlUrl="https://www.astronomos.gr/feed/" type="rss"/>
-      <outline title="AstroVox" xmlUrl="https://astrovox.gr/feed/" type="rss"/>
+      <outline title="Astronomos.gr" xmlUrl="https://astronomos.gr/feed/" type="rss" />
+      <outline title="Ελληνική Αστρονομική Εταιρεία" xmlUrl="https://www.astronomos.gr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

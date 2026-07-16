@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Persian)">
-      <outline title="چیدانه" xmlUrl="https://www.chidaneh.com/feed" type="rss"/>
-      <outline title="دکوراسیون داخلی منزل" xmlUrl="https://www.decoriran.ir/feed" type="rss"/>
+      <outline title="چیدانه" xmlUrl="https://www.chidaneh.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

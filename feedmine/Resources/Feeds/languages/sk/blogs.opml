@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Slovak)">
-      <outline title="Blog.sme.sk" xmlUrl="https://blog.sme.sk/rss/" type="rss"/>
-      <outline title="Blog.pravda.sk" xmlUrl="https://blog.pravda.sk/rss/" type="rss"/>
+      <outline title="Blog.pravda.sk" xmlUrl="https://blog.pravda.sk/rss/" type="rss" />
     </outline>
   </body>
 </opml>

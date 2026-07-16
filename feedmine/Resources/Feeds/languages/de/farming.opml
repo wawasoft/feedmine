@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (German)">
-      <outline title="agrarheute" xmlUrl="https://www.agrarheute.com/rss" type="rss"/>
-      <outline title="Bauernverband" xmlUrl="https://www.bauernverband.de/rss/aktuelles.xml" type="rss"/>
-      <outline title="Top Agrar" xmlUrl="https://www.topagrar.com/feed.rss" type="rss"/>
-      <outline title="Landwirtschaftskammer" xmlUrl="https://www.landwirtschaftskammer.de/rss/aktuelles.xml" type="rss"/>
-      <outline title="Ökologische Landwirtschaft" xmlUrl="https://www.oekolandbau.de/feed/" type="rss"/>
+      <outline title="agrarheute" xmlUrl="https://www.agrarheute.com/rss" type="rss" />
+      <outline title="Landwirtschaftskammer" xmlUrl="https://www.landwirtschaftskammer.de/rss/aktuelles.xml" type="rss" />
     </outline>
   </body>
 </opml>

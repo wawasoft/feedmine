@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Food (Finnish)">
-      <outline title="Glorian Ruoka &amp; Viini - RSS" xmlUrl="https://www.glorianruokaviini.fi/feed" type="rss"/>
-      <outline title="Kotiliesi - Ruoka" xmlUrl="https://www.kotiliesi.fi/feed/ruoka" type="rss"/>
-      <outline title="Yle - Ruoka" xmlUrl="https://feeds.yle.fi/uutiset/v1/majorTopic/RUOKA.rss" type="rss"/>
+      <outline title="Kotiliesi - Ruoka" xmlUrl="https://www.kotiliesi.fi/feed/ruoka" type="rss" />
     </outline>
   </body>
 </opml>

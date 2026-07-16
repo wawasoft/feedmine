@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Danish)">
-      <outline title="Se og Hør" xmlUrl="https://www.seoghoer.dk/rss" type="rss"/>
-      <outline title="Her &amp; Nu" xmlUrl="https://www.herognu.dk/rss" type="rss"/>
-      <outline title="Billed Bladet" xmlUrl="https://www.billedbladet.dk/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

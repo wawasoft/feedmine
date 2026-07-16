@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Finnish)">
-      <outline title="Yle Areena - Podcastit" xmlUrl="https://feeds.yle.fi/areena/v1/series/1-2345678.rss" type="rss"/>
-      <outline title="Suomen Podcastmedia" xmlUrl="https://www.podcastmedia.fi/feed/" type="rss"/>
-      <outline title="Podcastit.fi" xmlUrl="https://podcastit.fi/feed/" type="rss"/>
+      <outline title="Suomen Podcastmedia" xmlUrl="https://www.podcastmedia.fi/feed/" type="rss" />
+      <outline title="Podcastit.fi" xmlUrl="https://podcastit.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

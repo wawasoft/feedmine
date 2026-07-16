@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Danish)">
-      <outline title="Ingeniøren" xmlUrl="https://ing.dk/rss/mekanik" type="rss"/>
-      <outline title="Teknisk Set" xmlUrl="https://teknisk-set.dk/feed/" type="rss"/>
-      <outline title="Maskinbladet" xmlUrl="https://maskinbladet.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

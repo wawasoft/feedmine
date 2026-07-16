@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (French)">
-      <outline title="Curioctopus" xmlUrl="https://curioctopus.fr/feed/" type="rss"/>
-      <outline title="Koreus" xmlUrl="https://www.koreus.com/feed/" type="rss"/>
-      <outline title="Pause Canap" xmlUrl="https://www.pausecanap.com/feed/" type="rss"/>
+      <outline title="Curioctopus" xmlUrl="https://curioctopus.fr/feed/" type="rss" />
+      <outline title="Koreus" xmlUrl="https://www.koreus.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

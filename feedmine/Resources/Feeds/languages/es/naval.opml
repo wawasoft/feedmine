@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Spanish)">
-      <outline title="Todo a Babor" xmlUrl="https://www.todoababor.es/feed/" type="rss"/>
-      <outline title="Vida Marítima" xmlUrl="https://vidamaritima.com/feed/" type="rss"/>
+      <outline title="Vida Marítima" xmlUrl="https://vidamaritima.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

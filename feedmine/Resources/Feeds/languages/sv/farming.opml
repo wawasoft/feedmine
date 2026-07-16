@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Swedish)">
-      <outline title="Lantbruk &amp; Skogsland" xmlUrl="https://www.lantbruk.com/rss" type="rss"/>
-      <outline title="Jordbruksaktuellt" xmlUrl="https://www.ja.se/rss" type="rss"/>
+      <outline title="Jordbruksaktuellt" xmlUrl="https://www.ja.se/rss" type="rss" />
     </outline>
   </body>
 </opml>

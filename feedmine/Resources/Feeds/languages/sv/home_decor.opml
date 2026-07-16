@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (Swedish)">
-      <outline title="Elle Decoration Sverige" xmlUrl="https://elledecoration.se/feed/" type="rss"/>
-      <outline title="Sköna Hem" xmlUrl="https://skonahem.com/feed/" type="rss"/>
-      <outline title="Lantliv" xmlUrl="https://lantliv.com/feed/" type="rss"/>
+      <outline title="Elle Decoration Sverige" xmlUrl="https://elledecoration.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Lithuanian)">
-      <outline title="Autizmo spektras" xmlUrl="https://autizmospektras.lt/feed/" type="rss"/>
-      <outline title="VšĮ Autizmo asociacija" xmlUrl="https://autizmoasociacija.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

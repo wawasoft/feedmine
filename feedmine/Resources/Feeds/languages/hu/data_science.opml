@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Hungarian)">
-      <outline title="DataScience.hu" xmlUrl="https://datascience.hu/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

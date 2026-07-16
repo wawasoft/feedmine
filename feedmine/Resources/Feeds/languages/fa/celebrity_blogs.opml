@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Famous People (Persian)">
-      <outline title="بی‌بی‌سی فارسی - مشاهیر" xmlUrl="https://www.bbc.com/persian/feeds/celebrities.rss" type="rss"/>
-      <outline title="رادیو فردا - فرهنگ و هنر" xmlUrl="https://www.radiofarda.com/rss/culture-and-art" type="rss"/>
+      <outline title="رادیو فردا - فرهنگ و هنر" xmlUrl="https://www.radiofarda.com/rss/culture-and-art" type="rss" />
     </outline>
   </body>
 </opml>

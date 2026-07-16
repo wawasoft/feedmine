@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Portuguese)">
-      <outline title="Startupi" xmlUrl="https://startupi.com.br/feed/" type="rss"/>
-      <outline title="Pequenas Empresas &amp; Grandes Negócios" xmlUrl="https://revistapegn.globo.com/rss/pegn" type="rss"/>
-      <outline title="Empreendedorismo - Sebrae" xmlUrl="https://www.sebrae.com.br/Sebrae/Portal%20Sebrae/Artigos/Feed.xml" type="rss"/>
-      <outline title="Administradores.com" xmlUrl="https://www.administradores.com.br/rss/empreendedorismo" type="rss"/>
-      <outline title="NeoFeed" xmlUrl="https://neofeed.com.br/feed/" type="rss"/>
+      <outline title="Startupi" xmlUrl="https://startupi.com.br/feed/" type="rss" />
+      <outline title="Pequenas Empresas &amp; Grandes Negócios" xmlUrl="https://revistapegn.globo.com/rss/pegn" type="rss" />
+      <outline title="NeoFeed" xmlUrl="https://neofeed.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

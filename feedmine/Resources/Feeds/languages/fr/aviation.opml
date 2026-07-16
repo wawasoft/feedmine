@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Aviation (French)">
-      <outline title="Aerobuzz" xmlUrl="https://www.aerobuzz.fr/feed/" type="rss"/>
-      <outline title="Aviation Civile" xmlUrl="https://www.aviation-civile.com/feed/" type="rss"/>
-      <outline title="Air Journal" xmlUrl="https://www.air-journal.fr/feed/" type="rss"/>
-      <outline title="AéroWeb" xmlUrl="https://www.aeroweb-fr.net/feed/" type="rss"/>
+      <outline title="Aerobuzz" xmlUrl="https://www.aerobuzz.fr/feed/" type="rss" />
+      <outline title="Air Journal" xmlUrl="https://www.air-journal.fr/feed/" type="rss" />
+      <outline title="AéroWeb" xmlUrl="https://www.aeroweb-fr.net/feed/" type="rss" />
     </outline>
   </body>
 </opml>

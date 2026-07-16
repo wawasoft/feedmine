@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Computing (German)">
-      <outline title="Golem.de" xmlUrl="https://www.golem.de/feed/" type="rss"/>
-      <outline title="Heise Online" xmlUrl="https://www.heise.de/rss/heise.rdf" type="rss"/>
-      <outline title="ComputerBase" xmlUrl="https://www.computerbase.de/feed/" type="rss"/>
+      <outline title="Heise Online" xmlUrl="https://www.heise.de/rss/heise.rdf" type="rss" />
     </outline>
   </body>
 </opml>

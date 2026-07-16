@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="UFOs, Conspiracies (Danish)">
-      <outline title="UFO-nyheder" xmlUrl="https://www.ufo-nyheder.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

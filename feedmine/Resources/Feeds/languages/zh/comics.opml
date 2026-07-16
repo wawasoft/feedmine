@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Quadrinhos (Chinese)">
-      <outline title="有妖气漫画" xmlUrl="https://www.u17.com/rss.xml" type="rss"/>
-      <outline title="腾讯动漫" xmlUrl="https://ac.qq.com/rss.xml" type="rss"/>
+      <outline title="腾讯动漫" xmlUrl="https://ac.qq.com/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

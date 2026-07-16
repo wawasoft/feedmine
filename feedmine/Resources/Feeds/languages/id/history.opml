@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Indonesian)">
-      <outline title="Historia.id" xmlUrl="https://historia.id/feed/" type="rss"/>
-      <outline title="Kompas Sejarah" xmlUrl="https://sejarah.kompas.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

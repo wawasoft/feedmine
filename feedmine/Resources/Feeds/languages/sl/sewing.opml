@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Slovenian)">
-      <outline title="Šivanje.si" xmlUrl="https://sivanje.si/feed/" type="rss"/>
-      <outline title="Krojaštvo.si" xmlUrl="https://krojastvo.si/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Computing (Lithuanian)">
-      <outline title="IT žinios" xmlUrl="https://itzinios.lt/feed/" type="rss"/>
-      <outline title="Technologijos.lt" xmlUrl="https://www.technologijos.lt/rss/" type="rss"/>
+      <outline title="IT žinios" xmlUrl="https://itzinios.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Cycling (French)">
-      <outline title="Le Cycle" xmlUrl="https://www.lecycle.fr/feed/" type="rss"/>
-      <outline title="Vélo Vert" xmlUrl="https://www.velovert.com/feed/" type="rss"/>
-      <outline title="Cyclisme &amp; Actu" xmlUrl="https://www.cyclisme-actu.com/feed/" type="rss"/>
+      <outline title="Le Cycle" xmlUrl="https://www.lecycle.fr/feed/" type="rss" />
     </outline>
   </body>
 </opml>

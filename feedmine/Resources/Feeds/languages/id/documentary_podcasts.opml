@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Documentary (Indonesian)">
-      <outline title="Dokumenter Podcast Indonesia" xmlUrl="https://dokumenterpodcast.com/feed/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

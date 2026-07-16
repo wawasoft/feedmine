@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Automotive (Swedish)">
-      <outline title="Teknikens Värld" xmlUrl="https://teknikensvarld.se/feed/" type="rss"/>
-      <outline title="Auto Motor &amp; Sport" xmlUrl="https://www.automotorsport.se/feed/" type="rss"/>
-      <outline title="Bilsport" xmlUrl="https://www.bilsport.se/feed/" type="rss"/>
+      <outline title="Auto Motor &amp; Sport" xmlUrl="https://www.automotorsport.se/feed/" type="rss" />
+      <outline title="Bilsport" xmlUrl="https://www.bilsport.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

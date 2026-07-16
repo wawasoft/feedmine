@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Design Feeds (Indonesian)">
-      <outline title="Arsitag" xmlUrl="https://www.arsitag.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

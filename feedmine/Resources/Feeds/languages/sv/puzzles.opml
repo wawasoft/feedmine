@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Swedish)">
-      <outline title="Korsord.se" xmlUrl="https://www.korsord.se/feed/" type="rss"/>
-      <outline title="Pysselbloggen" xmlUrl="https://pysselbloggen.se/feed/" type="rss"/>
+      <outline title="Korsord.se" xmlUrl="https://www.korsord.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Reference Journalists (Polish)">
-      <outline title="Press.pl - Dziennikarze" xmlUrl="https://www.press.pl/rss/dziennikarze.xml" type="rss"/>
-      <outline title="Stowarzyszenie Dziennikarzy Polskich" xmlUrl="https://sdp.pl/feed/" type="rss"/>
-      <outline title="Dziennikarstwo - Gazeta Prawna" xmlUrl="https://www.gazetaprawna.pl/rss/dziennikarstwo.xml" type="rss"/>
-      <outline title="Reporterzy.info" xmlUrl="https://reporterzy.info/feed/" type="rss"/>
+      <outline title="Press.pl - Dziennikarze" xmlUrl="https://www.press.pl/rss/dziennikarze.xml" type="rss" />
+      <outline title="Stowarzyszenie Dziennikarzy Polskich" xmlUrl="https://sdp.pl/feed/" type="rss" />
+      <outline title="Reporterzy.info" xmlUrl="https://reporterzy.info/feed/" type="rss" />
     </outline>
   </body>
 </opml>

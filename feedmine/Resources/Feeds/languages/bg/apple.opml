@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Apple (Bulgarian)">
-      <outline title="Apple България" xmlUrl="https://apple.bg/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Collectors (Dutch)">
-      <outline title="Verzamelaars Forum" xmlUrl="https://www.verzamelaarsforum.nl/feed/" type="rss"/>
-      <outline title="Munt- en Postzegelblog" xmlUrl="https://www.muntpostzegelblog.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

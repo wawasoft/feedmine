@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fashion, Style (Estonian)">
-      <outline title="Moekunst" xmlUrl="https://moekunst.ee/feed" type="rss"/>
-      <outline title="Buduaar - Moed" xmlUrl="https://buduaar.ee/rss/moed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

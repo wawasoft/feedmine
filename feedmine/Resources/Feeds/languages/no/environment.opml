@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Nature, Ecology (Norwegian)">
-      <outline title="Norsk institutt for naturforskning (NINA)" xmlUrl="https://www.nina.no/Om-NINA/Nyheter/RSS-feed" type="rss"/>
-      <outline title="WWF Verdens naturfond" xmlUrl="https://www.wwf.no/feed" type="rss"/>
-      <outline title="Miljødirektoratet" xmlUrl="https://www.miljodirektoratet.no/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

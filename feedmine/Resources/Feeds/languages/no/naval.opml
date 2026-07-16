@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Norwegian)">
-      <outline title="Maritimt Magasin" xmlUrl="https://maritimt.com/feed/" type="rss"/>
-      <outline title="Kystverket" xmlUrl="https://kystverket.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

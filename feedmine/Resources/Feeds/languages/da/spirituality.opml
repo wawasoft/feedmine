@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Danish)">
-      <outline title="Spiritualitet.dk - Blog" xmlUrl="https://spiritualitet.dk/feed/" type="rss"/>
-      <outline title="Mindfulness Danmark - Artikler" xmlUrl="https://mindfulnessdanmark.dk/feed/" type="rss"/>
-      <outline title="Livsstil og Spiritualitet - Kristeligt Dagblad" xmlUrl="https://www.kristeligt-dagblad.dk/rss/spiritualitet" type="rss"/>
+      <outline title="Spiritualitet.dk - Blog" xmlUrl="https://spiritualitet.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

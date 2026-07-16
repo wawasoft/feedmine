@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Tech Feeds (Russian)">
-      <outline title="Хабр" xmlUrl="https://habr.com/ru/rss/all/all/" type="rss"/>
-      <outline title="iXBT.com" xmlUrl="https://www.ixbt.com/export/news.rss" type="rss"/>
-      <outline title="3DNews - Новости" xmlUrl="https://3dnews.ru/rss/news/" type="rss"/>
-      <outline title="CNews" xmlUrl="https://www.cnews.ru/inc/rss/news.xml" type="rss"/>
-      <outline title="Tproger" xmlUrl="https://tproger.ru/feed/" type="rss"/>
+      <outline title="Хабр" xmlUrl="https://habr.com/ru/rss/all/all/" type="rss" />
+      <outline title="iXBT.com" xmlUrl="https://www.ixbt.com/export/news.rss" type="rss" />
+      <outline title="CNews" xmlUrl="https://www.cnews.ru/inc/rss/news.xml" type="rss" />
+      <outline title="Tproger" xmlUrl="https://tproger.ru/feed/" type="rss" />
     </outline>
   </body>
 </opml>

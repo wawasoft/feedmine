@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Music (Turkish)">
-      <outline title="Müzik Haberleri - NTV" xmlUrl="https://www.ntv.com.tr/sanat/muzik.rss" type="rss"/>
-      <outline title="Müzik Haberleri - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/kultur-sanat/muzik" type="rss"/>
-      <outline title="Radyo Eksen Blog" xmlUrl="https://www.radyoeksen.com/feed/" type="rss"/>
+      <outline title="Müzik Haberleri - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/kultur-sanat/muzik" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="DIY (Dutch)">
-      <outline title="Doe-het-zelf" xmlUrl="https://www.doe-het-zelf.nl/feed/" type="rss"/>
-      <outline title="Klusidee" xmlUrl="https://www.klusidee.nl/feed/" type="rss"/>
+      <outline title="Klusidee" xmlUrl="https://www.klusidee.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

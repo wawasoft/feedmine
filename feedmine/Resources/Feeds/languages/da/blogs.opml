@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Danish)">
-      <outline title="Bloggers Delight" xmlUrl="https://bloggersdelight.dk/feed/" type="rss"/>
-      <outline title="Bloggen" xmlUrl="https://bloggen.dk/feed/" type="rss"/>
-      <outline title="Madsens Blog" xmlUrl="https://madsensblog.dk/feed/" type="rss"/>
+      <outline title="Bloggers Delight" xmlUrl="https://bloggersdelight.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

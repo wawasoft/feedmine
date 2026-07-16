@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Ukrainian)">
-      <outline title="Кросворди онлайн" xmlUrl="https://krosvord.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

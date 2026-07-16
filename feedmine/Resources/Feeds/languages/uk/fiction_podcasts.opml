@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Ukrainian)">
-      <outline title="Аудіокниги українською" xmlUrl="https://audioknygy.com.ua/feed" type="rss"/>
-      <outline title="Подкасти UA" xmlUrl="https://podcasts.ua/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

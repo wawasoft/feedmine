@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Cat Lovers (Spanish)">
-      <outline title="Gatos y Respeto" xmlUrl="https://gatosyrespeto.org/feed/" type="rss"/>
-      <outline title="El Blog de los Gatos" xmlUrl="https://elblogdelosgatos.com/feed/" type="rss"/>
-      <outline title="Mis Gatos" xmlUrl="https://misgatos.com/feed/" type="rss"/>
-      <outline title="Gatopedia" xmlUrl="https://gatopedia.com/feed/" type="rss"/>
-      <outline title="Amantes de los Gatos" xmlUrl="https://amantesdelosgatos.com/feed/" type="rss"/>
+      <outline title="Gatos y Respeto" xmlUrl="https://gatosyrespeto.org/feed/" type="rss" />
+      <outline title="Mis Gatos" xmlUrl="https://misgatos.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

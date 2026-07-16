@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Wicca, Witchcraft, Paganism (Hungarian)">
-      <outline title="Boszorkánykonyha" xmlUrl="https://boszorkanykonyha.hu/feed/" type="rss"/>
-      <outline title="Ezoterikus Magazin" xmlUrl="https://ezoterikusmagazin.hu/feed/" type="rss"/>
-      <outline title="Pogány Magyarok" xmlUrl="https://poganyok.blog.hu/feed" type="rss"/>
+      <outline title="Pogány Magyarok" xmlUrl="https://poganyok.blog.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

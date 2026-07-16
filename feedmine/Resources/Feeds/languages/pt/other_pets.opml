@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Other Pets (Portuguese)">
-      <outline title="CachorroGato" xmlUrl="https://www.cachorrogato.com.br/feed/" type="rss"/>
-      <outline title="Portal do Animal" xmlUrl="https://www.portaldogato.com.br/feed/" type="rss"/>
-      <outline title="Anda" xmlUrl="https://anda.jor.br/feed/" type="rss"/>
+      <outline title="CachorroGato" xmlUrl="https://www.cachorrogato.com.br/feed/" type="rss" />
+      <outline title="Portal do Animal" xmlUrl="https://www.portaldogato.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

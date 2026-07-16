@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Azerbaijani)">
-      <outline title="Islam.az" xmlUrl="https://islam.az/rss.xml" type="rss"/>
-      <outline title="Qafqazinfo.az - Dini" xmlUrl="https://qafqazinfo.az/rss/din.xml" type="rss"/>
-      <outline title="Mənəvi Dəyərlər" xmlUrl="https://manevideyerler.az/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

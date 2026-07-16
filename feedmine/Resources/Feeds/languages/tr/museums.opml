@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Turkish)">
-      <outline title="Müze Haberleri - NTV" xmlUrl="https://www.ntv.com.tr/sanat/muze.rss" type="rss"/>
-      <outline title="Müze Blog - Müzeler Haftası" xmlUrl="https://muzelerhaftasi.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Motorcycling (French)">
-      <outline title="Moto Journal" xmlUrl="https://www.moto-journal.fr/feed/" type="rss"/>
-      <outline title="Le Repaire des Motards" xmlUrl="https://www.lerepairedesmotards.com/rss/actualites.xml" type="rss"/>
-      <outline title="Moto-Station" xmlUrl="https://www.moto-station.com/feed" type="rss"/>
-      <outline title="Paddock GP" xmlUrl="https://paddock-gp.com/feed/" type="rss"/>
-      <outline title="Motoservices" xmlUrl="https://www.motoservices.com/actualites-moto/rss.xml" type="rss"/>
+      <outline title="Moto Journal" xmlUrl="https://www.moto-journal.fr/feed/" type="rss" />
+      <outline title="Paddock GP" xmlUrl="https://paddock-gp.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

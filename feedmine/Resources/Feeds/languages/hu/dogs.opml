@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Dogs (Hungarian)">
-      <outline title="Kutya Magazin" xmlUrl="https://kutyamagazin.hu/feed" type="rss"/>
-      <outline title="Ebtenyésztők Országos Egyesülete" xmlUrl="https://ebtenyesztok.hu/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

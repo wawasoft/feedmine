@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Puzzles, Crosswords, Sudoku (Romanian)">
-      <outline title="Puzzle Romania" xmlUrl="https://puzzle-romania.ro/feed/" type="rss"/>
-      <outline title="Rebus Online" xmlUrl="https://rebus-online.ro/feed/" type="rss"/>
-      <outline title="Sudoku Romania" xmlUrl="https://sudoku-romania.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Health (Bulgarian)">
-      <outline title="Puls.bg" xmlUrl="https://puls.bg/rss" type="rss"/>
-      <outline title="Zdrave.bg" xmlUrl="https://zdrave.bg/rss" type="rss"/>
-      <outline title="BgMedic" xmlUrl="https://bgmedic.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

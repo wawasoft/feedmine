@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Sports (German)">
-      <outline title="Sport1" xmlUrl="https://www.sport1.de/rss/sport1.xml" type="rss"/>
-      <outline title="Kicker Sport" xmlUrl="https://www.kicker.de/rss/sport" type="rss"/>
-      <outline title="Sportschau" xmlUrl="https://www.sportschau.de/rss/sportschau" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

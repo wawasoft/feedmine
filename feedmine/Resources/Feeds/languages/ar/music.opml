@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Music (Arabic)">
-      <outline title="ماي سيما" xmlUrl="https://www.my-cima.com/feed" type="rss"/>
-      <outline title="أغاني" xmlUrl="https://www.aghani.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

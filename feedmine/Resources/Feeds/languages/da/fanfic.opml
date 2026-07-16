@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fanfiction, Fandom Communities (Danish)">
-      <outline title="Fanfiktion.dk" xmlUrl="https://fanfiktion.dk/feed/" type="rss"/>
-      <outline title="Fandom på dansk" xmlUrl="https://fandompaadansk.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

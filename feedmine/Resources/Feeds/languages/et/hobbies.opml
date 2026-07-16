@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Estonian)">
-      <outline title="Hobid - Postimees" xmlUrl="https://hobid.postimees.ee/rss" type="rss"/>
-      <outline title="Huvitavat - Delfi" xmlUrl="https://huvitavat.delfi.ee/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

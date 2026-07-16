@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Croatian)">
-      <outline title="Programiranje.hr" xmlUrl="https://programiranje.hr/feed/" type="rss"/>
-      <outline title="Hrvatski developer" xmlUrl="https://hrvatskideveloper.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

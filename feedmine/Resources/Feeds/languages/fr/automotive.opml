@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Automotive (French)">
-      <outline title="Caradisiac" xmlUrl="https://www.caradisiac.com/rss/actu.xml" type="rss"/>
-      <outline title="L'Argus" xmlUrl="https://www.largus.fr/rss/actualites.xml" type="rss"/>
-      <outline title="Automobile Magazine" xmlUrl="https://www.automobile-magazine.fr/rss.xml" type="rss"/>
-      <outline title="Turbo.fr" xmlUrl="https://www.turbo.fr/rss/actualites.xml" type="rss"/>
-      <outline title="Le Blog Auto" xmlUrl="https://www.leblogauto.com/feed/" type="rss"/>
+      <outline title="Automobile Magazine" xmlUrl="https://www.automobile-magazine.fr/rss.xml" type="rss" />
+      <outline title="Le Blog Auto" xmlUrl="https://www.leblogauto.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

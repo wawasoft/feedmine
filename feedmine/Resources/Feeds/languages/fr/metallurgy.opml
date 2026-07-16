@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (French)">
-      <outline title="Métal Infos" xmlUrl="https://www.metalinfos.com/feed/" type="rss"/>
-      <outline title="L'Usine Nouvelle - Métallurgie" xmlUrl="https://www.usinenouvelle.com/rss/rubrique/metallurgie.xml" type="rss"/>
-      <outline title="Actu-Environnement - Métallurgie" xmlUrl="https://www.actu-environnement.com/rss/theme/metallurgie.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

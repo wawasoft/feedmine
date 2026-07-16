@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Polish)">
-      <outline title="Portal Morski" xmlUrl="https://www.portalmorski.pl/feed" type="rss"/>
-      <outline title="Gospodarka Morska" xmlUrl="https://www.gospodarkamorska.pl/feed" type="rss"/>
-      <outline title="Żeglarski.info" xmlUrl="https://zeglarski.info/feed/" type="rss"/>
+      <outline title="Portal Morski" xmlUrl="https://www.portalmorski.pl/feed" type="rss" />
+      <outline title="Żeglarski.info" xmlUrl="https://zeglarski.info/feed/" type="rss" />
     </outline>
   </body>
 </opml>

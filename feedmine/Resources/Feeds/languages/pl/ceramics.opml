@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (Polish)">
-      <outline title="Ceramika i garncarstwo - blog" xmlUrl="https://ceramikainie.pl/feed/" type="rss"/>
-      <outline title="Sztuka ceramiki" xmlUrl="https://sztukaceramiki.pl/feed/" type="rss"/>
-      <outline title="Ceramika ręcznie robiona" xmlUrl="https://ceramikarecznierobiona.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Moms, Dads (German)">
-      <outline title="Urbia.de" xmlUrl="https://www.urbia.de/rss/forum" type="rss"/>
-      <outline title="Eltern.de" xmlUrl="https://www.eltern.de/feed" type="rss"/>
-      <outline title="NetMoms" xmlUrl="https://www.netmoms.de/rss" type="rss"/>
-      <outline title="Väterzeit" xmlUrl="https://www.vaeterzeit.de/feed/" type="rss"/>
+      <outline title="Eltern.de" xmlUrl="https://www.eltern.de/feed" type="rss" />
     </outline>
   </body>
 </opml>

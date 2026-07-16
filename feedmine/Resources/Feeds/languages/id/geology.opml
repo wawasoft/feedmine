@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Indonesian)">
-      <outline title="Badan Geologi" xmlUrl="https://geologi.esdm.go.id/rss/berita" type="rss"/>
-      <outline title="Geomagz" xmlUrl="https://geomagz.geologi.esdm.go.id/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

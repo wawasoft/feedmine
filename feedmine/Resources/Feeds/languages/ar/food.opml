@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Food (Arabic)">
-      <outline title="أطيب طبخة" xmlUrl="https://www.atyabtabkha.com/feed" type="rss"/>
-      <outline title="شيف العرب" xmlUrl="https://www.chefalarab.com/feed" type="rss"/>
+      <outline title="أطيب طبخة" xmlUrl="https://www.atyabtabkha.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

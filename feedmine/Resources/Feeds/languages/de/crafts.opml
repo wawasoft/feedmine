@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (German)">
-      <outline title="Handmade Kultur" xmlUrl="https://handmadekultur.de/feed/" type="rss"/>
-      <outline title="Bastelfrau" xmlUrl="https://www.bastelfrau.de/feed/" type="rss"/>
-      <outline title="Talu.de - Basteln" xmlUrl="https://www.talu.de/feed/" type="rss"/>
-      <outline title="DIY Academy" xmlUrl="https://www.diy-academy.eu/feed/" type="rss"/>
-      <outline title="Kreativfieber" xmlUrl="https://kreativfieber.de/feed/" type="rss"/>
+      <outline title="Handmade Kultur" xmlUrl="https://handmadekultur.de/feed/" type="rss" />
+      <outline title="Bastelfrau" xmlUrl="https://www.bastelfrau.de/feed/" type="rss" />
+      <outline title="Talu.de - Basteln" xmlUrl="https://www.talu.de/feed/" type="rss" />
+      <outline title="Kreativfieber" xmlUrl="https://kreativfieber.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

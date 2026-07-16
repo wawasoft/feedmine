@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Danish)">
-      <outline title="Hørespil" xmlUrl="https://horespil.dk/feed/podcast/" type="rss"/>
-      <outline title="Fiktionspodcast" xmlUrl="https://fiktionspodcast.dk/feed/" type="rss"/>
-      <outline title="Lydbøger og Fiktion" xmlUrl="https://lydbogerogfiktion.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Chess Feeds (Serbian)">
-      <outline title="Šahovski savez Srbije" xmlUrl="https://chess-srbija.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

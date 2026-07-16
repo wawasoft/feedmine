@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Design Feeds (Spanish)">
-      <outline title="Diseño Gráfico" xmlUrl="https://disenografico.com/feed/" type="rss"/>
-      <outline title="Domestika Blog" xmlUrl="https://www.domestika.org/es/blog/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

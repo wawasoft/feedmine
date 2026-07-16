@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Motorcycling (Persian)">
-      <outline title="موتورسواران ایران" xmlUrl="https://www.motorsavar.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Design Feeds (Slovak)">
-      <outline title="Designum" xmlUrl="https://www.designum.sk/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

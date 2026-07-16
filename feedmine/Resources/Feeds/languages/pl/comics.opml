@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Quadrinhos (Polish)">
-      <outline title="Komiksy - Gildia Komiksu" xmlUrl="https://gildiakomiksu.pl/feed/" type="rss"/>
-      <outline title="Polski Komiks" xmlUrl="https://polskikomiks.pl/feed/" type="rss"/>
-      <outline title="Komiksomania" xmlUrl="https://komiksomania.pl/feed/" type="rss"/>
-      <outline title="Kolorowe Zeszyty" xmlUrl="https://kolorowezeszyty.pl/feed/" type="rss"/>
+      <outline title="Kolorowe Zeszyty" xmlUrl="https://kolorowezeszyty.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

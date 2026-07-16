@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (Russian)">
-      <outline title="Деловой мир" xmlUrl="https://delovoymir.biz/feed" type="rss"/>
-      <outline title="Rusbase" xmlUrl="https://rb.ru/feed.rss" type="rss"/>
-      <outline title="Inc. Russia" xmlUrl="https://incrussia.ru/feed" type="rss"/>
-      <outline title="VC.ru" xmlUrl="https://vc.ru/rss" type="rss"/>
-      <outline title="Бизнес-журнал" xmlUrl="https://b-mag.ru/feed/" type="rss"/>
+      <outline title="Inc. Russia" xmlUrl="https://incrussia.ru/feed" type="rss" />
+      <outline title="VC.ru" xmlUrl="https://vc.ru/rss" type="rss" />
     </outline>
   </body>
 </opml>

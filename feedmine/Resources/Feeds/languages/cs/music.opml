@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Music (Czech)">
-      <outline title="Musicserver.cz" xmlUrl="https://musicserver.cz/rss/" type="rss"/>
-      <outline title="Full Moon Magazine" xmlUrl="https://fullmoonzine.cz/feed" type="rss"/>
-      <outline title="Headliner.cz" xmlUrl="https://www.headliner.cz/rss" type="rss"/>
+      <outline title="Musicserver.cz" xmlUrl="https://musicserver.cz/rss/" type="rss" />
     </outline>
   </body>
 </opml>

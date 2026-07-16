@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Hungarian)">
-      <outline title="Luxus Divat Magazin" xmlUrl="https://luxusdivatmagazin.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

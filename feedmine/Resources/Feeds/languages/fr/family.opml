@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (French)">
-      <outline title="Magic Maman" xmlUrl="https://www.magicmaman.com/rss/" type="rss"/>
-      <outline title="Parents" xmlUrl="https://www.parents.fr/rss" type="rss"/>
-      <outline title="Famille Chrétienne" xmlUrl="https://www.famillechretienne.fr/rss" type="rss"/>
-      <outline title="Psychologies - Famille" xmlUrl="https://www.psychologies.com/Famille/RSS" type="rss"/>
-      <outline title="Enfant.com" xmlUrl="https://www.enfant.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

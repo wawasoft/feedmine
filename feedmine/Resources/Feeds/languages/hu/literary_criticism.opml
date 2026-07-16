@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Hungarian)">
-      <outline title="Litera" xmlUrl="https://litera.hu/rss.xml" type="rss"/>
-      <outline title="KönyvesBlog" xmlUrl="https://konyvesblog.hu/feed/" type="rss"/>
-      <outline title="Ekultura" xmlUrl="https://ekultura.hu/rss" type="rss"/>
+      <outline title="KönyvesBlog" xmlUrl="https://konyvesblog.hu/feed/" type="rss" />
+      <outline title="Ekultura" xmlUrl="https://ekultura.hu/rss" type="rss" />
     </outline>
   </body>
 </opml>

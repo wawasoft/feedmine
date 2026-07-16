@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Coffee (Indonesian)">
-      <outline title="Kopi Indonesia" xmlUrl="https://kopiindonesia.com/feed/" type="rss"/>
-      <outline title="Teh Indonesia" xmlUrl="https://tehindonesia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

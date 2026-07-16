@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Arcade Games, Pinball (Greek)">
-      <outline title="Pinball Greece" xmlUrl="https://pinballgreece.gr/feed/" type="rss"/>
-      <outline title="Arcade Greece" xmlUrl="https://arcadegreece.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

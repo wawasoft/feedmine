@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Wine (Danish)">
-      <outline title="Vinos.dk" xmlUrl="https://vinos.dk/feed/" type="rss"/>
-      <outline title="Vinguiden.dk" xmlUrl="https://vinguiden.dk/feed/" type="rss"/>
-      <outline title="Vinbladet" xmlUrl="https://vinbladet.dk/feed/" type="rss"/>
+      <outline title="Vinguiden.dk" xmlUrl="https://vinguiden.dk/feed/" type="rss" />
+      <outline title="Vinbladet" xmlUrl="https://vinbladet.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="News Feeds (Vietnamese)">
-      <outline title="VnExpress - Tin tức tổng hợp" xmlUrl="https://vnexpress.net/rss/tin-moi-nhat.rss" type="rss"/>
-      <outline title="Tuổi Trẻ Online" xmlUrl="https://tuoitre.vn/rss/tin-moi-nhat.rss" type="rss"/>
-      <outline title="Thanh Niên" xmlUrl="https://thanhnien.vn/rss/home.rss" type="rss"/>
-      <outline title="Dân Trí" xmlUrl="https://dantri.com.vn/rss/tin-tuc.rss" type="rss"/>
-      <outline title="VietnamNet" xmlUrl="https://vietnamnet.vn/rss/home.rss" type="rss"/>
+      <outline title="Tuổi Trẻ Online" xmlUrl="https://tuoitre.vn/rss/tin-moi-nhat.rss" type="rss" />
+      <outline title="Thanh Niên" xmlUrl="https://thanhnien.vn/rss/home.rss" type="rss" />
     </outline>
   </body>
 </opml>

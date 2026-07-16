@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Universities (Slovak)">
-      <outline title="Univerzita Komenského - Aktuality" xmlUrl="https://uniba.sk/rss/aktuality/" type="rss"/>
-      <outline title="Univerzita Pavla Jozefa Šafárika - Novinky" xmlUrl="https://www.upjs.sk/rss/novinky/" type="rss"/>
-      <outline title="Slovenská technická univerzita - Udalosti" xmlUrl="https://www.stuba.sk/rss/udalosti/" type="rss"/>
+      <outline title="Univerzita Pavla Jozefa Šafárika - Novinky" xmlUrl="https://www.upjs.sk/rss/novinky/" type="rss" />
     </outline>
   </body>
 </opml>

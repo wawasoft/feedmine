@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Law, Legal News (Serbian)">
-      <outline title="Pravni portal" xmlUrl="https://www.pravniportal.com/feed/" type="rss"/>
-      <outline title="Paragraf Lex" xmlUrl="https://www.paragraf.rs/feed/" type="rss"/>
+      <outline title="Pravni portal" xmlUrl="https://www.pravniportal.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

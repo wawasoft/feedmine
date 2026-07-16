@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Art Galleries (Arabic)">
-      <outline title="متحف الفن الإسلامي" xmlUrl="https://www.mia.org.qa/ar/feed" type="rss"/>
-      <outline title="جمعية الإمارات للفنون التشكيلية" xmlUrl="https://www.emiratesfinearts.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

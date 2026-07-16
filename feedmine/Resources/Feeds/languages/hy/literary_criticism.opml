@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Armenian)">
-      <outline title="Գրականություն" xmlUrl="https://granish.org/feed/" type="rss"/>
-      <outline title="Գրական թերթ" xmlUrl="https://www.grakantert.am/feed/" type="rss"/>
-      <outline title="Գրականություն և արվեստ" xmlUrl="https://www.artliterature.am/feed/" type="rss"/>
+      <outline title="Գրականություն" xmlUrl="https://granish.org/feed/" type="rss" />
+      <outline title="Գրական թերթ" xmlUrl="https://www.grakantert.am/feed/" type="rss" />
     </outline>
   </body>
 </opml>

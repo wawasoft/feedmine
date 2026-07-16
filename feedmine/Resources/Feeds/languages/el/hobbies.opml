@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Greek)">
-      <outline title="DIY Greece" xmlUrl="https://www.diygreece.gr/feed/" type="rss"/>
-      <outline title="Gardening Greece" xmlUrl="https://www.gardening.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

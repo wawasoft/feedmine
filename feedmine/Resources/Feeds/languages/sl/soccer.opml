@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Slovenian)">
-      <outline title="Nogomania" xmlUrl="https://www.nogomania.com/RSS.aspx" type="rss"/>
-      <outline title="RTV Slovenija - Nogomet" xmlUrl="https://www.rtvslo.si/sport/nogomet/rss" type="rss"/>
-      <outline title="Siol.net - Nogomet" xmlUrl="https://siol.net/sport/nogomet/rss" type="rss"/>
-      <outline title="24ur.com - Nogomet" xmlUrl="https://www.24ur.com/rss/sport/nogomet.xml" type="rss"/>
+      <outline title="Nogomania" xmlUrl="https://www.nogomania.com/RSS.aspx" type="rss" />
+      <outline title="RTV Slovenija - Nogomet" xmlUrl="https://www.rtvslo.si/sport/nogomet/rss" type="rss" />
     </outline>
   </body>
 </opml>

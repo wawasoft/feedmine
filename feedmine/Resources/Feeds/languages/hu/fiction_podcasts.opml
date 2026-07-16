@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Hungarian)">
-      <outline title="Hangjáték Podcast" xmlUrl="https://hangjatekpodcast.hu/feed/podcast/" type="rss"/>
-      <outline title="Szabad Föld Audio" xmlUrl="https://szabadfold.hu/feed/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

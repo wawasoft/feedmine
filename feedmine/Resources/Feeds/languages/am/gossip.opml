@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Amharic)">
-      <outline title="የኢትዮጵያ ወሬ" xmlUrl="https://ethiogossip.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

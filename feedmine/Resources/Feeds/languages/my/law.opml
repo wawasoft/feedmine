@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Law, Legal News (Burmese)">
-      <outline title="ဥပဒေသတင်း" xmlUrl="https://lawnewsmm.com/rss" type="rss"/>
-      <outline title="ဥပဒေဂျာနယ်" xmlUrl="https://www.lawjournalmm.net/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

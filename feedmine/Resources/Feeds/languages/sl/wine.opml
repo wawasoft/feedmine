@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Wine (Slovenian)">
-      <outline title="Vino &amp; Svet - Novice o vinu" xmlUrl="https://www.vinosvet.si/feed/" type="rss"/>
-      <outline title="Društvo ljubiteljev vina - Novice" xmlUrl="https://www.drustvo-ljubiteljev-vina.si/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

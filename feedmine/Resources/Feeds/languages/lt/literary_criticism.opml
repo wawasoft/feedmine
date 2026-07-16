@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Lithuanian)">
-      <outline title="Literatūra (LRT)" xmlUrl="https://www.lrt.lt/mediateka/rss/kultura/literatura" type="rss"/>
-      <outline title="Literatūra (Bernardinai)" xmlUrl="https://www.bernardinai.lt/rss/kategorija/kultura/literatura" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

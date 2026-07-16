@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Indonesian)">
-      <outline title="Kompas Internasional" xmlUrl="https://internasional.kompas.com/feed/" type="rss"/>
-      <outline title="Detik Internasional" xmlUrl="https://www.detik.com/tag/internasional/feed/" type="rss"/>
-      <outline title="CSIS Indonesia" xmlUrl="https://www.csis.or.id/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

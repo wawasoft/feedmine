@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Romanian)">
-      <outline title="Desteptarea - Spiritualitate" xmlUrl="https://www.desteptarea.ro/category/spiritualitate/feed/" type="rss"/>
-      <outline title="CrestinOrtodox - Spiritualitate" xmlUrl="https://www.crestinortodox.ro/rss/spiritualitate.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

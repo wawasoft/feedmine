@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Videogames (Swedish)">
-      <outline title="FZ.se" xmlUrl="https://www.fz.se/rss" type="rss"/>
-      <outline title="Gamereactor Sverige" xmlUrl="https://www.gamereactor.se/rss/" type="rss"/>
-      <outline title="Spelnyheter.se" xmlUrl="https://spelnyheter.se/feed/" type="rss"/>
+      <outline title="Gamereactor Sverige" xmlUrl="https://www.gamereactor.se/rss/" type="rss" />
     </outline>
   </body>
 </opml>

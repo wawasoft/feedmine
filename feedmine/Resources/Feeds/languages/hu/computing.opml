@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Computing (Hungarian)">
-      <outline title="Számítástechnika Blog" xmlUrl="https://szamitastechnika.blog.hu/rss" type="rss"/>
-      <outline title="IT Café" xmlUrl="https://itcafe.hu/rss" type="rss"/>
+      <outline title="Számítástechnika Blog" xmlUrl="https://szamitastechnika.blog.hu/rss" type="rss" />
     </outline>
   </body>
 </opml>

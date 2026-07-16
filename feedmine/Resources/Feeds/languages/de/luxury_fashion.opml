@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (German)">
-      <outline title="Vogue Germany" xmlUrl="https://www.vogue.de/feed.rss" type="rss"/>
-      <outline title="Harper's Bazaar Germany" xmlUrl="https://www.harpersbazaar.de/feed.rss" type="rss"/>
-      <outline title="Elle Germany" xmlUrl="https://www.elle.de/feed.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

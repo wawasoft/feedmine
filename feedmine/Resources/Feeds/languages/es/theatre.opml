@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Theatre (Spanish)">
-      <outline title="Teatro a Teatro" xmlUrl="https://teatroateatro.com/feed/" type="rss"/>
-      <outline title="Revista Teatros" xmlUrl="https://www.revistateatros.com/feed/" type="rss"/>
-      <outline title="Godot" xmlUrl="https://www.godot.es/feed/" type="rss"/>
-      <outline title="Artezblai" xmlUrl="https://www.artezblai.com/feed/" type="rss"/>
-      <outline title="Teatro Madrid" xmlUrl="https://www.teatromadrid.com/feed/" type="rss"/>
+      <outline title="Artezblai" xmlUrl="https://www.artezblai.com/feed/" type="rss" />
+      <outline title="Teatro Madrid" xmlUrl="https://www.teatromadrid.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

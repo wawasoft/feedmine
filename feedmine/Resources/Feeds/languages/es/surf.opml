@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Surfing Feeds (Spanish)">
-      <outline title="Surf 30" xmlUrl="https://www.surf30.com/feed/" type="rss"/>
-      <outline title="Duke Surf" xmlUrl="https://dukesurf.com/feed/" type="rss"/>
-      <outline title="Surf &amp; Sun" xmlUrl="https://surfysun.com/feed/" type="rss"/>
-      <outline title="Aqua Magazine Surf" xmlUrl="https://www.aquamagazine.com/surf/rss/" type="rss"/>
-      <outline title="Olas y Viento" xmlUrl="https://olas y viento.com/feed/" type="rss"/>
+      <outline title="Surf 30" xmlUrl="https://www.surf30.com/feed/" type="rss" />
+      <outline title="Duke Surf" xmlUrl="https://dukesurf.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

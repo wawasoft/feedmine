@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Bulgarian)">
-      <outline title="Литературен клуб" xmlUrl="https://litclub.bg/rss/" type="rss"/>
-      <outline title="Аз чета" xmlUrl="https://azcheta.com/feed/" type="rss"/>
+      <outline title="Аз чета" xmlUrl="https://azcheta.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

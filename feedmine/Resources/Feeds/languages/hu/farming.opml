@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Hungarian)">
-      <outline title="Agroinform" xmlUrl="https://agroinform.hu/feed/" type="rss"/>
-      <outline title="Magyar Mezőgazdaság" xmlUrl="https://magyarmezogazdasag.hu/feed/" type="rss"/>
+      <outline title="Magyar Mezőgazdaság" xmlUrl="https://magyarmezogazdasag.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

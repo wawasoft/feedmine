@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Norwegian)">
-      <outline title="Sying – Husflid" xmlUrl="https://www.husflid.no/emner/sying/feed" type="rss"/>
-      <outline title="Søm – Norsk Quilteforbund" xmlUrl="https://norskquilteforbund.no/feed/" type="rss"/>
+      <outline title="Sying – Husflid" xmlUrl="https://www.husflid.no/emner/sying/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Greek)">
-      <outline title="Γεωλογικά Νέα" xmlUrl="https://geonews.gr/feed/" type="rss"/>
-      <outline title="Earthquake Protection" xmlUrl="https://www.earthquake-protection.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Whisky (German)">
-      <outline title="Whiskyexperts" xmlUrl="https://whiskyexperts.de/feed/" type="rss"/>
-      <outline title="Whisky.com" xmlUrl="https://whisky.com/de/feed.rss" type="rss"/>
-      <outline title="Der Whisky-Blog" xmlUrl="https://www.der-whisky-blog.de/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

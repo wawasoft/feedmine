@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (Russian)">
-      <outline title="Гончарное дело" xmlUrl="https://goncharnoedelo.ru/feed/" type="rss"/>
-      <outline title="Керамика и глина" xmlUrl="https://keramika-i-glina.ru/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

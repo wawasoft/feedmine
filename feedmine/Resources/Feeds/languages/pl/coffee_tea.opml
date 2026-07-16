@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Coffee (Polish)">
-      <outline title="Kawa i herbata - blog" xmlUrl="https://kawaiherbata.pl/feed/" type="rss"/>
-      <outline title="Świat Kawy" xmlUrl="https://swiatkawy.pl/feed/" type="rss"/>
-      <outline title="Herbata Polska" xmlUrl="https://herbatapolska.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Bulgarian)">
-      <outline title="Блясък" xmlUrl="https://bljasak.bg/rss" type="rss"/>
-      <outline title="HotNews.bg - Клюки" xmlUrl="https://hotnews.bg/rss/gossip" type="rss"/>
-      <outline title="LifeNews.bg" xmlUrl="https://lifenews.bg/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Bulgarian)">
-      <outline title="Музеи - БНР" xmlUrl="https://bnr.bg/rss/tag/музеи" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

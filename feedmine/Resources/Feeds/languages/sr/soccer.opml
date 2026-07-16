@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Serbian)">
-      <outline title="Mozzart Sport - Fudbal" xmlUrl="https://www.mozzartsport.com/fudbal/rss" type="rss"/>
-      <outline title="B92 Sport - Fudbal" xmlUrl="https://www.b92.net/sport/fudbal/vesti.xml" type="rss"/>
-      <outline title="Sportklub - Fudbal" xmlUrl="https://sportklub.rs/rss/fudbal/" type="rss"/>
-      <outline title="RTS Sport - Fudbal" xmlUrl="https://www.rts.rs/page/sport/sr/fudbal/rss.html" type="rss"/>
-      <outline title="N1 Sport - Fudbal" xmlUrl="https://rs.n1info.com/sport/fudbal/feed/" type="rss"/>
+      <outline title="Mozzart Sport - Fudbal" xmlUrl="https://www.mozzartsport.com/fudbal/rss" type="rss" />
+      <outline title="Sportklub - Fudbal" xmlUrl="https://sportklub.rs/rss/fudbal/" type="rss" />
+      <outline title="RTS Sport - Fudbal" xmlUrl="https://www.rts.rs/page/sport/sr/fudbal/rss.html" type="rss" />
     </outline>
   </body>
 </opml>

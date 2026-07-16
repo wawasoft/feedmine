@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Chinese)">
-      <outline title="手工客" xmlUrl="https://www.sogoke.com/feed" type="rss"/>
-      <outline title="DIY手工制作" xmlUrl="https://diy.zhihu.com/rss" type="rss"/>
-      <outline title="创意手工" xmlUrl="https://www.shejipi.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

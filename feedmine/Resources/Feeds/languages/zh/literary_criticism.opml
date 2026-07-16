@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Chinese)">
-      <outline title="文学报" xmlUrl="https://www.wxb.com/rss.xml" type="rss"/>
-      <outline title="书评周刊" xmlUrl="https://www.bookreviewweekly.com/feed/" type="rss"/>
-      <outline title="豆瓣读书" xmlUrl="https://book.douban.com/feed/" type="rss"/>
+      <outline title="文学报" xmlUrl="https://www.wxb.com/rss.xml" type="rss" />
+      <outline title="书评周刊" xmlUrl="https://www.bookreviewweekly.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

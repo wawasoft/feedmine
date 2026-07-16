@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Military (Finnish)">
-      <outline title="Suomen Sotilas" xmlUrl="https://suomensotilas.fi/feed/" type="rss"/>
-      <outline title="Ruotuväki" xmlUrl="https://ruotuvaki.fi/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Italian)">
-      <outline title="Gatti e Gattini" xmlUrl="https://www.gatti-e-gattini.it/feed/" type="rss"/>
-      <outline title="Mondo Gatto" xmlUrl="https://www.mondogatto.it/feed/" type="rss"/>
-      <outline title="Il Gatto e l'Uomo" xmlUrl="https://www.ilgattoeluomo.it/feed/" type="rss"/>
-      <outline title="Gattolico" xmlUrl="https://www.gattolico.it/feed/" type="rss"/>
-      <outline title="Amici di Gatto" xmlUrl="https://www.amicidigatto.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

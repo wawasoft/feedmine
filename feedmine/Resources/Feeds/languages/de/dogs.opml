@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Dogs (German)">
-      <outline title="Hunde.de" xmlUrl="https://www.hunde.de/feed/" type="rss"/>
-      <outline title="DeineTierwelt Blog" xmlUrl="https://blog.deine-tierwelt.de/category/hunde/feed/" type="rss"/>
-      <outline title="Hundewelt" xmlUrl="https://www.hundewelt.de/feed/" type="rss"/>
-      <outline title="Hundeprofi" xmlUrl="https://hundeprofi.de/feed/" type="rss"/>
-      <outline title="Hunde News" xmlUrl="https://www.hunde-news.de/feed/" type="rss"/>
+      <outline title="DeineTierwelt Blog" xmlUrl="https://blog.deine-tierwelt.de/category/hunde/feed/" type="rss" />
+      <outline title="Hunde News" xmlUrl="https://www.hunde-news.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

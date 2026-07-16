@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="History Feeds (Hungarian)">
-      <outline title="Múlt-kor" xmlUrl="https://mult-kor.hu/feed" type="rss"/>
-      <outline title="Rubicon Online" xmlUrl="https://rubicon.hu/feed" type="rss"/>
-      <outline title="Történelemportál" xmlUrl="https://tortenelemportal.hu/feed" type="rss"/>
+      <outline title="Múlt-kor" xmlUrl="https://mult-kor.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

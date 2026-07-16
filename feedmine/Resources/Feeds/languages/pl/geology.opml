@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Geology, Geography (Polish)">
-      <outline title="Geologia - Państwowy Instytut Geologiczny" xmlUrl="https://www.pgi.gov.pl/feed/aktualnosci.html" type="rss"/>
-      <outline title="Przegląd Geologiczny" xmlUrl="https://www.przegladgeologiczny.pl/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

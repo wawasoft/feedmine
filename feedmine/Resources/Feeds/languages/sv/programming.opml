@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Swedish)">
-      <outline title="Stack Overflow på svenska" xmlUrl="https://stackoverflow.com/feeds/tag?tagnames=swedish&amp;sort=newest" type="rss"/>
-      <outline title="Programmera i Sverige" xmlUrl="https://programmera.se/feed/" type="rss"/>
-      <outline title="Kodsnack" xmlUrl="https://kodsnack.se/feed.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

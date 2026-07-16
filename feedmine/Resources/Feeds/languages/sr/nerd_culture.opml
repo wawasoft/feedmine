@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Nerd (Serbian)">
-      <outline title="PC Press" xmlUrl="https://pcpress.rs/feed/" type="rss"/>
-      <outline title="Benchmark" xmlUrl="https://benchmark.rs/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Dutch)">
-      <outline title="Villamedia" xmlUrl="https://www.villamedia.nl/rss" type="rss"/>
-      <outline title="Nederlands Tijdschrift voor Journalistiek" xmlUrl="https://www.tijdschriftvoorjournalistiek.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

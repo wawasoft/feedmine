@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Greek)">
-      <outline title="Cat Lovers Greece" xmlUrl="https://catlovers.gr/feed/" type="rss"/>
-      <outline title="Gatofiles" xmlUrl="https://gatofiles.gr/feed/" type="rss"/>
-      <outline title="Ellinikes Gata" xmlUrl="https://ellinikesgata.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

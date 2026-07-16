@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Videogames (Russian)">
-      <outline title="StopGame.ru" xmlUrl="https://stopgame.ru/rss/news" type="rss"/>
-      <outline title="Dtf.ru" xmlUrl="https://dtf.ru/rss" type="rss"/>
-      <outline title="Игромания" xmlUrl="https://www.igromania.ru/rss/news.xml" type="rss"/>
-      <outline title="Kanobu.ru" xmlUrl="https://kanobu.ru/rss/" type="rss"/>
-      <outline title="Riot Pixels" xmlUrl="https://rss.riotpixels.com/" type="rss"/>
+      <outline title="Dtf.ru" xmlUrl="https://dtf.ru/rss" type="rss" />
+      <outline title="Игромания" xmlUrl="https://www.igromania.ru/rss/news.xml" type="rss" />
+      <outline title="Kanobu.ru" xmlUrl="https://kanobu.ru/rss/" type="rss" />
     </outline>
   </body>
 </opml>

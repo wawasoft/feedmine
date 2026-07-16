@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Museums (Persian)">
-      <outline title="موزه ملی ایران" xmlUrl="https://irannationalmuseum.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

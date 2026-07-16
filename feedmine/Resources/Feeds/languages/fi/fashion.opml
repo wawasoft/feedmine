@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Fashion, Style (Finnish)">
-      <outline title="Ellit - Muoti" xmlUrl="https://www.ellit.fi/feed/muoti" type="rss"/>
-      <outline title="Me Naiset - Muoti" xmlUrl="https://www.menaiset.fi/feed/muoti" type="rss"/>
-      <outline title="Trendi - RSS" xmlUrl="https://www.trendi.fi/feed" type="rss"/>
+      <outline title="Ellit - Muoti" xmlUrl="https://www.ellit.fi/feed/muoti" type="rss" />
+      <outline title="Me Naiset - Muoti" xmlUrl="https://www.menaiset.fi/feed/muoti" type="rss" />
     </outline>
   </body>
 </opml>

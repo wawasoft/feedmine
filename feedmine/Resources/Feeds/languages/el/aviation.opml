@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Aviation (Greek)">
-      <outline title="Aeronews" xmlUrl="https://www.aeronews.gr/feed/" type="rss"/>
-      <outline title="Greek Aviation" xmlUrl="https://greekaviation.gr/feed/" type="rss"/>
-      <outline title="Aviation24.gr" xmlUrl="https://aviation24.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

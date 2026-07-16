@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (French)">
-      <outline title="L'Équipe - Football" xmlUrl="https://www.lequipe.fr/rss/actu_rss_Football.xml" type="rss"/>
-      <outline title="France Football" xmlUrl="https://www.francefootball.fr/rss/" type="rss"/>
-      <outline title="Foot Mercato" xmlUrl="https://www.footmercato.net/feed/" type="rss"/>
-      <outline title="So Foot" xmlUrl="https://www.sofoot.com/feed/" type="rss"/>
-      <outline title="Canal Supporters" xmlUrl="https://www.canal-supporters.com/feed/" type="rss"/>
+      <outline title="Canal Supporters" xmlUrl="https://www.canal-supporters.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

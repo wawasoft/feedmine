@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Estonian)">
-      <outline title="Kroonika" xmlUrl="https://kroonika.delfi.ee/rss" type="rss"/>
-      <outline title="Elu24 - Postimees" xmlUrl="https://elu24.postimees.ee/rss" type="rss"/>
-      <outline title="Õhtuleht - Meedia" xmlUrl="https://www.ohtuleht.ee/rss/meedia" type="rss"/>
+      <outline title="Elu24 - Postimees" xmlUrl="https://elu24.postimees.ee/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Wine (Bulgarian)">
-      <outline title="Българско вино - Новини" xmlUrl="https://www.bulgarianwine.bg/novini?format=feed" type="rss"/>
-      <outline title="Wine.bg - Новини" xmlUrl="https://wine.bg/novini?format=feed" type="rss"/>
-      <outline title="Вино и култура - Блог" xmlUrl="https://vinoicultura.bg/feed/" type="rss"/>
-      <outline title="DiVino - Новини" xmlUrl="https://divino.bg/novini?format=feed" type="rss"/>
+      <outline title="DiVino - Новини" xmlUrl="https://divino.bg/novini?format=feed" type="rss" />
     </outline>
   </body>
 </opml>

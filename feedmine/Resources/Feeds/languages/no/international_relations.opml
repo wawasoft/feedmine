@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Norwegian)">
-      <outline title="NUPI" xmlUrl="https://www.nupi.no/rss" type="rss"/>
-      <outline title="Minerva" xmlUrl="https://www.minerva.no/rss" type="rss"/>
+      <outline title="Minerva" xmlUrl="https://www.minerva.no/rss" type="rss" />
     </outline>
   </body>
 </opml>

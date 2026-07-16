@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (Russian)">
-      <outline title="Семья и дети" xmlUrl="https://semya-i-deti.ru/feed/" type="rss"/>
-      <outline title="Psychologies Россия" xmlUrl="https://psychologies.ru/feed/" type="rss"/>
-      <outline title="Материнство" xmlUrl="https://materinstvo.ru/feed/" type="rss"/>
-      <outline title="Детский сад" xmlUrl="https://detsad-kitty.ru/feed/" type="rss"/>
-      <outline title="Семейный доктор" xmlUrl="https://semeyniy-doktor.ru/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

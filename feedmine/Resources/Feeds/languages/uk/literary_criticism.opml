@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Ukrainian)">
-      <outline title="ЛітАкцент" xmlUrl="https://litakcent.com/feed/" type="rss"/>
-      <outline title="Буквоїд" xmlUrl="https://bukvoid.com.ua/rss.xml" type="rss"/>
-      <outline title="Читомо" xmlUrl="https://chytomo.com/feed/" type="rss"/>
+      <outline title="Читомо" xmlUrl="https://chytomo.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

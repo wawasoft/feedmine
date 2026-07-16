@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Cat Lovers (Finnish)">
-      <outline title="Kissaliitto" xmlUrl="https://www.kissaliitto.fi/feed/" type="rss"/>
-      <outline title="Kissablogi" xmlUrl="https://www.kissablogi.com/feed/" type="rss"/>
+      <outline title="Kissaliitto" xmlUrl="https://www.kissaliitto.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

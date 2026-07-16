@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (German)">
-      <outline title="Podcast-Feed.de" xmlUrl="https://podcast-feed.de/feed/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

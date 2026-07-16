@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Autism, Down Syndrome (Turkish)">
-      <outline title="Otizm Haberleri - NTV" xmlUrl="https://www.ntv.com.tr/saglik/otizm.rss" type="rss"/>
-      <outline title="Down Sendromu Derneği Blog" xmlUrl="https://www.downsendromu.org/feed/" type="rss"/>
-      <outline title="Otizm Platformu Haberleri" xmlUrl="https://www.otizmplatformu.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

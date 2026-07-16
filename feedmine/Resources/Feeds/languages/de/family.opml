@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (German)">
-      <outline title="Eltern.de" xmlUrl="https://www.eltern.de/feed.rss" type="rss"/>
-      <outline title="Familie.de" xmlUrl="https://www.familie.de/feed/" type="rss"/>
-      <outline title="Leben &amp; erziehen" xmlUrl="https://www.leben-und-erziehen.de/feed" type="rss"/>
-      <outline title="Urbia.de" xmlUrl="https://www.urbia.de/feed" type="rss"/>
-      <outline title="Netmoms" xmlUrl="https://www.netmoms.de/feed.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

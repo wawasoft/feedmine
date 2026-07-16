@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Romanian)">
-      <outline title="Beau Monde România" xmlUrl="https://www.beaumonde.ro/feed/" type="rss"/>
-      <outline title="Vogue România" xmlUrl="https://www.vogue.ro/feed/" type="rss"/>
+      <outline title="Vogue România" xmlUrl="https://www.vogue.ro/feed/" type="rss" />
     </outline>
   </body>
 </opml>

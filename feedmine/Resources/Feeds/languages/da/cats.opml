@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Cat Lovers (Danish)">
-      <outline title="Katteklubben" xmlUrl="https://katteklubben.dk/feed/" type="rss"/>
-      <outline title="Katteverden" xmlUrl="https://katteverden.dk/feed/" type="rss"/>
-      <outline title="Mis.dk" xmlUrl="https://mis.dk/feed/" type="rss"/>
+      <outline title="Mis.dk" xmlUrl="https://mis.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

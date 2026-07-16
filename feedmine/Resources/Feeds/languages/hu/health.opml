@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Health (Hungarian)">
-      <outline title="HáziPatika" xmlUrl="https://www.hazipatika.com/feed" type="rss"/>
-      <outline title="WebBeteg" xmlUrl="https://www.webbeteg.hu/feed" type="rss"/>
-      <outline title="EgészségKalauz" xmlUrl="https://www.egeszsegkalauz.hu/feed" type="rss"/>
+      <outline title="EgészségKalauz" xmlUrl="https://www.egeszsegkalauz.hu/feed" type="rss" />
     </outline>
   </body>
 </opml>

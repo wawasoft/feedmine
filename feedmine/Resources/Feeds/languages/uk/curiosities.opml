@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Curiosities, Trivia (Ukrainian)">
-      <outline title="Цікавинки" xmlUrl="https://tsikavynky.com/feed/" type="rss"/>
-      <outline title="Неймовірно" xmlUrl="https://neymovirno.com.ua/feed/" type="rss"/>
-      <outline title="Факти та історії" xmlUrl="https://fakty.ua/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

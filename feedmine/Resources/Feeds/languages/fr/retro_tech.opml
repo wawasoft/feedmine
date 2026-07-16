@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (French)">
-      <outline title="Siliconium" xmlUrl="https://www.siliconium.org/feed/" type="rss"/>
-      <outline title="Retro-Info" xmlUrl="https://www.retro-info.fr/feed/" type="rss"/>
-      <outline title="Oldies &amp; Goodies" xmlUrl="https://oldies-goodies.net/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

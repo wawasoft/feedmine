@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Photography (Swedish)">
-      <outline title="Fotosidan" xmlUrl="https://www.fotosidan.se/rss.xml" type="rss"/>
-      <outline title="Kamerabloggen" xmlUrl="https://www.kamerabloggen.se/feed/" type="rss"/>
-      <outline title="Fotografisk Tidskrift" xmlUrl="https://fotografisktidskrift.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

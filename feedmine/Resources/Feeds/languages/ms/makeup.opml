@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Malay)">
-      <outline title="Beauty Malaysia" xmlUrl="https://www.beautymalaysia.com/feed/" type="rss"/>
-      <outline title="Soleha Beauty" xmlUrl="https://solehabeauty.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Minecraft, Roblox (Serbian)">
-      <outline title="Minecraft Srbija" xmlUrl="https://minecraftsrbija.com/feed/" type="rss"/>
-      <outline title="Roblox Srbija" xmlUrl="https://robloxsrbija.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

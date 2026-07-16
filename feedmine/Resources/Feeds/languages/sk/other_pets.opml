@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Slovak)">
-      <outline title="Chovateľský portál" xmlUrl="https://chovatelskyportal.sk/feed/" type="rss"/>
-      <outline title="Môj maznáčik" xmlUrl="https://mojmaznacik.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

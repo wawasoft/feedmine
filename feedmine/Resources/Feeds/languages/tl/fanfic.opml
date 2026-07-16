@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fanfiction, Fandom Communities (Filipino)">
-      <outline title="FanFiction.net - Filipino Stories" xmlUrl="https://www.fanfiction.net/community/Filipino-Stories/100000/feed/" type="rss"/>
-      <outline title="Wattpad - Filipino" xmlUrl="https://www.wattpad.com/tag/filipino/feed" type="rss"/>
-      <outline title="Archive of Our Own - Filipino" xmlUrl="https://archiveofourown.org/tags/Filipino/works/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

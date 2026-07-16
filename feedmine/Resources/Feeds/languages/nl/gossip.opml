@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Dutch)">
-      <outline title="RTL Boulevard" xmlUrl="https://www.rtlboulevard.nl/rss" type="rss"/>
-      <outline title="Privé" xmlUrl="https://www.prive.nl/rss" type="rss"/>
-      <outline title="Story" xmlUrl="https://www.story.nl/rss" type="rss"/>
-      <outline title="NU.nl Sterren" xmlUrl="https://www.nu.nl/sterren/rss" type="rss"/>
+      <outline title="RTL Boulevard" xmlUrl="https://www.rtlboulevard.nl/rss" type="rss" />
+      <outline title="Story" xmlUrl="https://www.story.nl/rss" type="rss" />
+      <outline title="NU.nl Sterren" xmlUrl="https://www.nu.nl/sterren/rss" type="rss" />
     </outline>
   </body>
 </opml>

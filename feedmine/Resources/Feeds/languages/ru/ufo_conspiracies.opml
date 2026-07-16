@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="UFOs, Conspiracies (Russian)">
-      <outline title="Тайны мира" xmlUrl="https://tainy.net/feed" type="rss"/>
-      <outline title="Новости НЛО" xmlUrl="https://nlo-mir.ru/rss.xml" type="rss"/>
-      <outline title="Конспирология" xmlUrl="https://konspirolog.org/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

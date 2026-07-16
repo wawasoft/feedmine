@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Construction, Building (Lithuanian)">
-      <outline title="Statybos ir architektūra" xmlUrl="https://www.sa.lt/feed/" type="rss"/>
-      <outline title="Statybų naujienos" xmlUrl="https://statybunaujienos.lt/feed/" type="rss"/>
+      <outline title="Statybos ir architektūra" xmlUrl="https://www.sa.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

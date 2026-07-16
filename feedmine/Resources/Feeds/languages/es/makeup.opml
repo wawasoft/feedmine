@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Spanish)">
-      <outline title="Belelu" xmlUrl="https://www.belelu.com/feed/" type="rss"/>
-      <outline title="Cosas de Belleza" xmlUrl="https://www.cosasdebelleza.com/feed/" type="rss"/>
-      <outline title="Maquillaje y Moda" xmlUrl="https://www.maquillajeymoda.com/feed/" type="rss"/>
-      <outline title="El Blog de Maquillaje" xmlUrl="https://www.elblogdemaquillaje.com/feed/" type="rss"/>
-      <outline title="Makeup.es" xmlUrl="https://www.makeup.es/feed/" type="rss"/>
+      <outline title="Cosas de Belleza" xmlUrl="https://www.cosasdebelleza.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

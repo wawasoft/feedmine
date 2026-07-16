@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Cat Lovers (Czech)">
-      <outline title="Kočky online" xmlUrl="https://www.kockyonline.cz/feed/" type="rss"/>
-      <outline title="Můj kocourek" xmlUrl="https://www.mujkocourek.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

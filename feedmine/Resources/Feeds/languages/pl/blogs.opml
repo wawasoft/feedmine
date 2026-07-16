@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Personal Blogs (Polish)">
-      <outline title="M jak Mama" xmlUrl="https://mjakmama.pl/feed/" type="rss"/>
-      <outline title="Masz Wiedzieć" xmlUrl="https://maszwiedziec.pl/feed/" type="rss"/>
-      <outline title="Blog Kasi" xmlUrl="https://blogkasi.pl/feed/" type="rss"/>
-      <outline title="Okiem Młodego" xmlUrl="https://okiemmlodego.pl/feed/" type="rss"/>
-      <outline title="Książki i Podróże" xmlUrl="https://ksiazkiipodroze.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

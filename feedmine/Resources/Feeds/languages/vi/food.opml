@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Food (Vietnamese)">
-      <outline title="Ẩm thực - Báo Thanh Niên" xmlUrl="https://thanhnien.vn/rss/am-thuc.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

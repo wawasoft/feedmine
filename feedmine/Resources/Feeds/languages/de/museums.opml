@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Museums (German)">
-      <outline title="Museumswelt" xmlUrl="https://www.museumswelt.de/feed/" type="rss"/>
-      <outline title="Deutsches Museumsbund" xmlUrl="https://www.museumsbund.de/feed/" type="rss"/>
+      <outline title="Deutsches Museumsbund" xmlUrl="https://www.museumsbund.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

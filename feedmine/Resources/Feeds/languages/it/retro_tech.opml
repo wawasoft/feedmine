@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Italian)">
-      <outline title="Retro Magazine" xmlUrl="https://www.retromagazine.eu/feed/" type="rss"/>
-      <outline title="Vintage Computer Italia" xmlUrl="https://www.vintagecomputer.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

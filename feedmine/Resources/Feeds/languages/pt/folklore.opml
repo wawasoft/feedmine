@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Portuguese)">
-      <outline title="Brasil Folclore" xmlUrl="https://brasilfolclore.com.br/feed/" type="rss"/>
-      <outline title="Folclore BR" xmlUrl="https://folclorebr.com.br/feed/" type="rss"/>
-      <outline title="Mundo Folclore" xmlUrl="https://mundofolclore.com.br/feed/" type="rss"/>
-      <outline title="Lendas do Brasil" xmlUrl="https://lendasdobrasil.com.br/feed/" type="rss"/>
-      <outline title="Cultura Mix - Folclore" xmlUrl="https://cultura.culturamix.com/folclore/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Greek)">
-      <outline title="Folklore Greece" xmlUrl="https://www.folklore.gr/feed/" type="rss"/>
-      <outline title="Laografika" xmlUrl="https://www.laografika.gr/feed/" type="rss"/>
-      <outline title="Mythologia" xmlUrl="https://www.mythologia.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

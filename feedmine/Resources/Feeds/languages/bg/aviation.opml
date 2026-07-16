@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Aviation (Bulgarian)">
-      <outline title="Авиация България" xmlUrl="https://aviationbg.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

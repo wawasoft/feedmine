@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Serbian)">
-      <outline title="Medicina danas" xmlUrl="https://medicinadanas.rs/feed/" type="rss"/>
-      <outline title="Puls online" xmlUrl="https://www.pulsonline.rs/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

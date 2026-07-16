@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Polish)">
-      <outline title="Rolnicze ABC" xmlUrl="https://rolniczeabc.pl/feed/" type="rss"/>
-      <outline title="Tygodnik Rolniczy" xmlUrl="https://tygodnik-rolniczy.pl/feed/" type="rss"/>
-      <outline title="Farmer.pl" xmlUrl="https://www.farmer.pl/rss.xml" type="rss"/>
-      <outline title="AgroNews" xmlUrl="https://agronews.com.pl/feed/" type="rss"/>
-      <outline title="Rolnik Online" xmlUrl="https://rolnikonline.pl/feed/" type="rss"/>
+      <outline title="Tygodnik Rolniczy" xmlUrl="https://tygodnik-rolniczy.pl/feed/" type="rss" />
+      <outline title="AgroNews" xmlUrl="https://agronews.com.pl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

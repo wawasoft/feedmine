@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="DIY (Swedish)">
-      <outline title="Gör Det Själv" xmlUrl="https://www.gds.se/feed/" type="rss"/>
-      <outline title="Byggahus.se" xmlUrl="https://www.byggahus.se/feed" type="rss"/>
-      <outline title="Renovera" xmlUrl="https://renovera.se/feed/" type="rss"/>
+      <outline title="Gör Det Själv" xmlUrl="https://www.gds.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Movies (Swedish)">
-      <outline title="MovieZine" xmlUrl="https://www.moviezine.se/rss" type="rss"/>
-      <outline title="Filmtopp" xmlUrl="https://www.filmtopp.se/feed/" type="rss"/>
-      <outline title="SVT Film" xmlUrl="https://www.svt.se/kultur/film/rss.xml" type="rss"/>
+      <outline title="MovieZine" xmlUrl="https://www.moviezine.se/rss" type="rss" />
     </outline>
   </body>
 </opml>

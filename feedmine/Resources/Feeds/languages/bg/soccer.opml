@@ -7,10 +7,9 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Bulgarian)">
-      <outline title="Sportal.bg - Футбол" xmlUrl="https://www.sportal.bg/rss/football.xml" type="rss"/>
-      <outline title="Gong.bg - Футбол" xmlUrl="https://www.gong.bg/rss/football" type="rss"/>
-      <outline title="Topsport.bg - Футбол" xmlUrl="https://topsport.bg/rss/football" type="rss"/>
-      <outline title="Actualno.com - Футбол" xmlUrl="https://www.actualno.com/rss/football" type="rss"/>
+      <outline title="Gong.bg - Футбол" xmlUrl="https://www.gong.bg/rss/football" type="rss" />
+      <outline title="Topsport.bg - Футбол" xmlUrl="https://topsport.bg/rss/football" type="rss" />
+      <outline title="Actualno.com - Футбол" xmlUrl="https://www.actualno.com/rss/football" type="rss" />
     </outline>
   </body>
 </opml>

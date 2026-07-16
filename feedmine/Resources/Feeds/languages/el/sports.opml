@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Sports (Greek)">
-      <outline title="Sport24" xmlUrl="https://www.sport24.gr/rss/latest.xml" type="rss"/>
-      <outline title="Gazzetta" xmlUrl="https://www.gazzetta.gr/rss/all.xml" type="rss"/>
-      <outline title="SDNA" xmlUrl="https://www.sdna.gr/rss/all.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

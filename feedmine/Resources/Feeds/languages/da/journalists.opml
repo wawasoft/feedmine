@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Reference Journalists (Danish)">
-      <outline title="Journalisten" xmlUrl="https://journalisten.dk/feed/" type="rss"/>
-      <outline title="Politikens Embedsværk" xmlUrl="https://politiken.dk/embedsvaerk/rss.xml" type="rss"/>
-      <outline title="Danmarks Journalisthøjskole" xmlUrl="https://journalisthoejskolen.dk/feed/" type="rss"/>
+      <outline title="Journalisten" xmlUrl="https://journalisten.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

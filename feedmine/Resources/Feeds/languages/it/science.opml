@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Science Feeds (Italian)">
-      <outline title="Scienza in Rete" xmlUrl="https://www.scienzainrete.it/feed/" type="rss"/>
-      <outline title="Le Scienze" xmlUrl="https://www.lescienze.it/feed/" type="rss"/>
-      <outline title="Focus.it" xmlUrl="https://www.focus.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

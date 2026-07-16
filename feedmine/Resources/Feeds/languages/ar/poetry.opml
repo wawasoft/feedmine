@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Arabic)">
-      <outline title="ديوان الشعر العربي" xmlUrl="https://diwanalarab.com/rss.xml" type="rss"/>
-      <outline title="مجلة الشعر العربي" xmlUrl="https://www.almustaqbal.com/ar/feeds/poetry/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

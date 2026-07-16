@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="News Feeds (Azerbaijani)">
-      <outline title="Azadlıq Radiosu" xmlUrl="https://www.azadliq.org/api/zvqjqyqivq" type="rss"/>
-      <outline title="BBC News Azərbaycanca" xmlUrl="https://www.bbc.com/azeri/index.xml" type="rss"/>
-      <outline title="Trend News Agency" xmlUrl="https://www.trend.az/feed/" type="rss"/>
-      <outline title="Report İnformasiya Agentliyi" xmlUrl="https://report.az/feed/" type="rss"/>
+      <outline title="Azadlıq Radiosu" xmlUrl="https://www.azadliq.org/api/zvqjqyqivq" type="rss" />
+      <outline title="BBC News Azərbaycanca" xmlUrl="https://www.bbc.com/azeri/index.xml" type="rss" />
     </outline>
   </body>
 </opml>

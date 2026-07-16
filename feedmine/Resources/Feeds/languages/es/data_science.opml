@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (Spanish)">
-      <outline title="Data Science en Español" xmlUrl="https://datascienceenespanol.com/feed/" type="rss"/>
-      <outline title="Analítica de Datos" xmlUrl="https://analyticadedatos.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

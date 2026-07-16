@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Dogs (Spanish)">
-      <outline title="Perros y más" xmlUrl="https://perrosymas.com/feed/" type="rss"/>
-      <outline title="Mundo Perros" xmlUrl="https://mundoperros.es/feed/" type="rss"/>
+      <outline title="Mundo Perros" xmlUrl="https://mundoperros.es/feed/" type="rss" />
     </outline>
   </body>
 </opml>

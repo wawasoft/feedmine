@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Programming (Finnish)">
-      <outline title="Ohjelmointiputka" xmlUrl="https://www.ohjelmointiputka.net/feed/" type="rss"/>
-      <outline title="Koodi.fi" xmlUrl="https://koodi.fi/feed/" type="rss"/>
-      <outline title="Metropolia Blogi" xmlUrl="https://blogit.metropolia.fi/teknologia/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

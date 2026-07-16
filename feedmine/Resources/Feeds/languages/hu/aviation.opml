@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Aviation (Hungarian)">
-      <outline title="Repülés" xmlUrl="https://repules.hu/feed/" type="rss"/>
-      <outline title="Aviation24.hu" xmlUrl="https://aviation24.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

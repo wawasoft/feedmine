@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Malay)">
-      <outline title="Travel - Astro Awani" xmlUrl="https://www.astroawani.com/rss/pelancongan" type="rss"/>
-      <outline title="Travel - Berita Harian" xmlUrl="https://www.bharian.com.my/feeds/travel" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

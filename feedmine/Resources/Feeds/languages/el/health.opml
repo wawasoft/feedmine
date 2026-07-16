@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Health (Greek)">
-      <outline title="iatronet" xmlUrl="https://www.iatronet.gr/feed/" type="rss"/>
-      <outline title="Healthmag" xmlUrl="https://www.healthmag.gr/feed/" type="rss"/>
-      <outline title="Onmed" xmlUrl="https://www.onmed.gr/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Movies (Norwegian)">
-      <outline title="Montages" xmlUrl="https://montages.no/feed/" type="rss"/>
-      <outline title="NRK Filmpolitiet" xmlUrl="https://nrk.no/filmpolitiet/feed" type="rss"/>
-      <outline title="Cinema.no" xmlUrl="https://cinema.no/feed/" type="rss"/>
+      <outline title="Montages" xmlUrl="https://montages.no/feed/" type="rss" />
+      <outline title="Cinema.no" xmlUrl="https://cinema.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Drag, Queer (Italian)">
-      <outline title="Gay.it" xmlUrl="https://www.gay.it/feed" type="rss"/>
-      <outline title="Queerblog" xmlUrl="https://www.queerblog.it/feed" type="rss"/>
-      <outline title="Arcigay Nazionale" xmlUrl="https://www.arcigay.it/feed" type="rss"/>
+      <outline title="Gay.it" xmlUrl="https://www.gay.it/feed" type="rss" />
+      <outline title="Arcigay Nazionale" xmlUrl="https://www.arcigay.it/feed" type="rss" />
     </outline>
   </body>
 </opml>

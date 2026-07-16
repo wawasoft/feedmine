@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Fashion, Style (Swedish)">
-      <outline title="Elle Sverige" xmlUrl="https://www.elle.se/feed/" type="rss"/>
-      <outline title="Damernas Värld" xmlUrl="https://www.damernasvarld.se/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

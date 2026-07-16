@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Law, Legal News (Hungarian)">
-      <outline title="Jogászvilág" xmlUrl="https://jogaszvilag.hu/feed/" type="rss"/>
-      <outline title="Ügyvédvilág" xmlUrl="https://ugyvedvilag.hu/feed/" type="rss"/>
+      <outline title="Jogászvilág" xmlUrl="https://jogaszvilag.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

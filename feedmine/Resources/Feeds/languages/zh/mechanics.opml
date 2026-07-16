@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Chinese)">
-      <outline title="机械工程师" xmlUrl="https://www.mechanicalengineer.cn/feed/" type="rss"/>
-      <outline title="中国机械网" xmlUrl="https://www.chinamechanical.com/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

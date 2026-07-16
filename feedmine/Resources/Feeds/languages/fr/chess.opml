@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Chess Feeds (French)">
-      <outline title="Europe Échecs" xmlUrl="https://www.europe-echecs.com/feed/" type="rss"/>
-      <outline title="Chess &amp; Strategy" xmlUrl="https://www.chess-and-strategy.com/feed/" type="rss"/>
+      <outline title="Chess &amp; Strategy" xmlUrl="https://www.chess-and-strategy.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

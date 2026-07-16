@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="News Feeds (Slovak)">
-      <outline title="SME" xmlUrl="https://www.sme.sk/rss" type="rss"/>
-      <outline title="Denník N" xmlUrl="https://dennikn.sk/feed/" type="rss"/>
-      <outline title="Pravda" xmlUrl="https://www.pravda.sk/rss" type="rss"/>
-      <outline title="HNonline" xmlUrl="https://hnonline.sk/rss" type="rss"/>
-      <outline title="Aktuality.sk" xmlUrl="https://www.aktuality.sk/rss" type="rss"/>
+      <outline title="SME" xmlUrl="https://www.sme.sk/rss" type="rss" />
+      <outline title="Denník N" xmlUrl="https://dennikn.sk/feed/" type="rss" />
+      <outline title="HNonline" xmlUrl="https://hnonline.sk/rss" type="rss" />
+      <outline title="Aktuality.sk" xmlUrl="https://www.aktuality.sk/rss" type="rss" />
     </outline>
   </body>
 </opml>

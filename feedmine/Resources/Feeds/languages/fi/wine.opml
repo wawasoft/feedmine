@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Wine (Finnish)">
-      <outline title="Viini-lehti" xmlUrl="https://viinilehti.fi/feed/" type="rss"/>
-      <outline title="Viiniposti-blogi" xmlUrl="https://viiniposti.blogspot.com/feeds/posts/default" type="rss"/>
+      <outline title="Viini-lehti" xmlUrl="https://viinilehti.fi/feed/" type="rss" />
     </outline>
   </body>
 </opml>

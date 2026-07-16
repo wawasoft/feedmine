@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Art Galleries (Ukrainian)">
-      <outline title="Арт-простір" xmlUrl="https://artspace.com.ua/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

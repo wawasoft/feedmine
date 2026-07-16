@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Italian)">
-      <outline title="Meditazione Zen" xmlUrl="https://www.meditazionezen.it/feed/" type="rss"/>
-      <outline title="La Via della Consapevolezza" xmlUrl="https://www.laviadellaconsapevolezza.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

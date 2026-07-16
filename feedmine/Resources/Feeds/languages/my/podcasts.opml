@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Burmese)">
-      <outline title="ဗုဒ္ဓဘာသာ Podcast" xmlUrl="https://buddhistpodcast.net/feed/podcast" type="rss"/>
-      <outline title="မြန်မာ့အသံ Podcast" xmlUrl="https://myanmarsound.com/feed/podcast" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (German)">
-      <outline title="Brettspielbox" xmlUrl="https://www.brettspielbox.de/feed/" type="rss"/>
-      <outline title="Spielkult" xmlUrl="https://spielkult.de/feed/" type="rss"/>
-      <outline title="H@lle 108" xmlUrl="https://halle108.de/feed/" type="rss"/>
-      <outline title="Rezensionen für Millionen" xmlUrl="https://www.rezensionen-fuer-millionen.de/feed/" type="rss"/>
-      <outline title="Brettspielblog" xmlUrl="https://brettspielblog.net/feed/" type="rss"/>
+      <outline title="Brettspielbox" xmlUrl="https://www.brettspielbox.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

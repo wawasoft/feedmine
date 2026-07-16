@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Norwegian)">
-      <outline title="Hobbybloggen" xmlUrl="https://hobbybloggen.no/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

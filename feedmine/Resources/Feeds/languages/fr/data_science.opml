@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Data Science, ML, Analytics (French)">
-      <outline title="Data French" xmlUrl="https://datafrench.com/feed/" type="rss"/>
-      <outline title="Machine Learning France" xmlUrl="https://machinelearningfrance.com/feed/" type="rss"/>
-      <outline title="Stat4decision" xmlUrl="https://www.stat4decision.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

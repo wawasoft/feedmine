@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Military (Dutch)">
-      <outline title="Defensie Magazine" xmlUrl="https://magazines.defensie.nl/defensiekrant/feed" type="rss"/>
-      <outline title="De Militaire Spectator" xmlUrl="https://www.militairespectator.nl/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

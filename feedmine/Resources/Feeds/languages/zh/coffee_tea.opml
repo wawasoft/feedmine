@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Coffee (Chinese)">
-      <outline title="咖啡沙龙" xmlUrl="https://www.coffeesalon.com/rss.xml" type="rss"/>
-      <outline title="茶语网" xmlUrl="https://www.chayu.com/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

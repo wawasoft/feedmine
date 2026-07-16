@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="YouTube News (Romanian)">
-      <outline title="Știri YouTube România" xmlUrl="https://stiriyoutuberomania.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Sports (Slovenian)">
-      <outline title="RTV Slovenija - Šport" xmlUrl="https://www.rtvslo.si/sport/rss" type="rss"/>
-      <outline title="Siol.net - Šport" xmlUrl="https://siol.net/sport/rss" type="rss"/>
-      <outline title="24ur.com - Šport" xmlUrl="https://www.24ur.com/rss/sport.xml" type="rss"/>
-      <outline title="Sportklub Slovenija" xmlUrl="https://sportklub.n1info.si/feed/" type="rss"/>
+      <outline title="RTV Slovenija - Šport" xmlUrl="https://www.rtvslo.si/sport/rss" type="rss" />
+      <outline title="Sportklub Slovenija" xmlUrl="https://sportklub.n1info.si/feed/" type="rss" />
     </outline>
   </body>
 </opml>

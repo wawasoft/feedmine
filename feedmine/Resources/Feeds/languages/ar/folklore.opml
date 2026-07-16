@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Folklore, Mythology (Arabic)">
-      <outline title="الأساطير العربية" xmlUrl="https://www.asatirarab.com/feed" type="rss"/>
-      <outline title="تراث" xmlUrl="https://www.turath.com/feed" type="rss"/>
+      <outline title="تراث" xmlUrl="https://www.turath.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

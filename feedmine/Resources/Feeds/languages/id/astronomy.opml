@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Astronomy (Indonesian)">
-      <outline title="Langit Selatan" xmlUrl="https://langitselatan.com/feed/" type="rss"/>
-      <outline title="Kafe Astronomi" xmlUrl="https://kafeastronomi.com/feed/" type="rss"/>
-      <outline title="Bosscha Observatory Blog" xmlUrl="https://bosscha.itb.ac.id/feed/" type="rss"/>
+      <outline title="Langit Selatan" xmlUrl="https://langitselatan.com/feed/" type="rss" />
+      <outline title="Kafe Astronomi" xmlUrl="https://kafeastronomi.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

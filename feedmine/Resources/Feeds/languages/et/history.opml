@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="History Feeds (Estonian)">
-      <outline title="Ajalugu - Postimees" xmlUrl="https://ajalugu.postimees.ee/rss" type="rss"/>
-      <outline title="Ajalugu - Delfi" xmlUrl="https://ajalugu.delfi.ee/rss" type="rss"/>
-      <outline title="Tuna - Ajalookultuuri ajakiri" xmlUrl="https://tuna.ee/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

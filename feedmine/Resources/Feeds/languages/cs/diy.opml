@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Czech)">
-      <outline title="Diyář" xmlUrl="https://www.diyar.cz/feed/" type="rss"/>
-      <outline title="Kutilův svět" xmlUrl="https://www.kutiluvsvet.cz/feed/" type="rss"/>
-      <outline title="Udělej si sám" xmlUrl="https://www.udelejsisam.cz/feed/" type="rss"/>
-      <outline title="Návody na tvoření" xmlUrl="https://www.navodynatvoreni.cz/feed/" type="rss"/>
-      <outline title="Bastlení" xmlUrl="https://www.bastleni.cz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

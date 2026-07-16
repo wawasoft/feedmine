@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Art Galleries (Czech)">
-      <outline title="Artalk.cz" xmlUrl="https://artalk.cz/feed/" type="rss"/>
-      <outline title="Galerie Benedikta Rejta" xmlUrl="https://www.gbr.cz/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

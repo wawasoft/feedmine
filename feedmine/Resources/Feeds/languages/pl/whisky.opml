@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Whisky (Polish)">
-      <outline title="Whisky Poland" xmlUrl="https://whiskypoland.pl/feed/" type="rss"/>
-      <outline title="Klub Whisky" xmlUrl="https://klubwhisky.pl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

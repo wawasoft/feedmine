@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Podcast Feeds (Persian)">
-      <outline title="پادکست رادیو راه | پادکست فارسی" xmlUrl="https://radiorah.ir/feed/podcast" type="rss"/>
-      <outline title="پادکست بی‌پلاس | پادکست فارسی" xmlUrl="https://bpluspodcast.com/feed/podcast" type="rss"/>
-      <outline title="پادکست چنل‌بی | پادکست تکنولوژی" xmlUrl="https://channelb.ir/feed/podcast" type="rss"/>
-      <outline title="پادکست رادیو فردا | پادکست فارسی" xmlUrl="https://www.radiofarda.com/rss/podcast" type="rss"/>
-      <outline title="پادکست کست‌باکس | پادکست فارسی" xmlUrl="https://castbox.ir/feed" type="rss"/>
+      <outline title="پادکست رادیو فردا | پادکست فارسی" xmlUrl="https://www.radiofarda.com/rss/podcast" type="rss" />
     </outline>
   </body>
 </opml>

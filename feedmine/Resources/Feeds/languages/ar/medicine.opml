@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Arabic)">
-      <outline title="الطبي" xmlUrl="https://www.altibbi.com/feed/" type="rss"/>
-      <outline title="ويب طب" xmlUrl="https://www.webteb.com/feed/" type="rss"/>
-      <outline title="صحتك" xmlUrl="https://www.sehhatak.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

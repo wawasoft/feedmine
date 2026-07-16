@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Ukrainian)">
-      <outline title="Рукоділля" xmlUrl="https://rukodillya.com/feed/" type="rss"/>
-      <outline title="Майстерня" xmlUrl="https://maysternya.com/feed/" type="rss"/>
-      <outline title="Креативна майстерня" xmlUrl="https://creativemaysternya.com.ua/feed/" type="rss"/>
+      <outline title="Майстерня" xmlUrl="https://maysternya.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

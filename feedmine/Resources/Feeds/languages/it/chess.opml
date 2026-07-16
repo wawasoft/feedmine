@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Chess Feeds (Italian)">
-      <outline title="Scacchi - Chess.com Italia" xmlUrl="https://www.chess.com/it/feed" type="rss"/>
-      <outline title="Torre &amp; Cavallo" xmlUrl="https://www.torrecavallo.it/feed/" type="rss"/>
-      <outline title="Scacchierando" xmlUrl="https://www.scacchierando.it/feed/" type="rss"/>
+      <outline title="Torre &amp; Cavallo" xmlUrl="https://www.torrecavallo.it/feed/" type="rss" />
+      <outline title="Scacchierando" xmlUrl="https://www.scacchierando.it/feed/" type="rss" />
     </outline>
   </body>
 </opml>

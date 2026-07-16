@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Wine (Chinese)">
-      <outline title="葡萄酒资讯网" xmlUrl="https://www.winesinfo.com/rss.xml" type="rss"/>
-      <outline title="红酒世界网" xmlUrl="https://www.wine-world.com/rss.xml" type="rss"/>
-      <outline title="乐酒客" xmlUrl="https://www.lejiuke.com/rss.xml" type="rss"/>
+      <outline title="红酒世界网" xmlUrl="https://www.wine-world.com/rss.xml" type="rss" />
+      <outline title="乐酒客" xmlUrl="https://www.lejiuke.com/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Fishing (Spanish)">
-      <outline title="Pesca en España" xmlUrl="https://www.pescarenespana.com/feed/" type="rss"/>
-      <outline title="Revista de Pesca" xmlUrl="https://www.revistadepesca.es/feed/" type="rss"/>
-      <outline title="Pesca y Caza" xmlUrl="https://www.pescaycaza.com/feed/" type="rss"/>
+      <outline title="Pesca y Caza" xmlUrl="https://www.pescaycaza.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

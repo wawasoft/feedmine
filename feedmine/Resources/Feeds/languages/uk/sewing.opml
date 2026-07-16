@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Ukrainian)">
-      <outline title="Шиття та крій" xmlUrl="https://shyttya.com.ua/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

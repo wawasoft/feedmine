@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Turkish)">
-      <outline title="Retro Bilgisayar" xmlUrl="https://retrobilgisayar.com/feed/" type="rss"/>
-      <outline title="Eski Teknoloji" xmlUrl="https://eskiteknoloji.com/feed/" type="rss"/>
-      <outline title="Vintage Teknik" xmlUrl="https://vintageteknik.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

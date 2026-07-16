@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Estonian)">
-      <outline title="Retro Arvutid" xmlUrl="https://retroarvutid.ee/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

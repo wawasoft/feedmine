@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Slovak)">
-      <outline title="DIY - Pravda" xmlUrl="https://diy.pravda.sk/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

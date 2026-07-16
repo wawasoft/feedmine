@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Mechanics, Engineering (Hungarian)">
-      <outline title="Műszaki Magazin" xmlUrl="https://muszakimagazin.hu/feed/" type="rss"/>
-      <outline title="Gépészfórum" xmlUrl="https://gepeszforum.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

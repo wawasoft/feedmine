@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Handicrafts, DIY (Turkish)">
-      <outline title="Hobi Dünyası" xmlUrl="https://www.hobidunyasi.com/feed/" type="rss"/>
-      <outline title="Örgü Modelleri" xmlUrl="https://www.orgumodelleri.com/feed/" type="rss"/>
+      <outline title="Hobi Dünyası" xmlUrl="https://www.hobidunyasi.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

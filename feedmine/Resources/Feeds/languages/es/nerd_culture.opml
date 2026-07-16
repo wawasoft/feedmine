@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Nerd (Spanish)">
-      <outline title="Muy Interesante" xmlUrl="https://www.muyinteresante.es/feed" type="rss"/>
-      <outline title="Xataka" xmlUrl="https://www.xataka.com/feed" type="rss"/>
-      <outline title="Hipertextual" xmlUrl="https://hipertextual.com/feed" type="rss"/>
+      <outline title="Muy Interesante" xmlUrl="https://www.muyinteresante.es/feed" type="rss" />
+      <outline title="Hipertextual" xmlUrl="https://hipertextual.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

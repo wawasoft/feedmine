@@ -39,17 +39,14 @@
       <outline title="Portfolio" xmlUrl="https://www.prtfl.co.il/feed/" type="rss" />
       <outline title="Israel Museum" xmlUrl="https://www.imj.org.il/rss/" type="rss" />
       <outline title="Design Museum Holon" xmlUrl="https://www.dmh.org.il/rss/" type="rss" />
-      <outline title="Mako Culture" xmlUrl="https://www.mako.co.il/culture/rss/" type="rss" />
     </outline>
     <outline text="Movies">
       <outline title="Lev Cinema" xmlUrl="https://www.lev.co.il/rss/" type="rss" />
       <outline title="DocAviv" xmlUrl="https://www.docaviv.co.il/rss/" type="rss" />
     </outline>
     <outline text="Music">
-      <outline title="Mako Music" xmlUrl="https://www.mako.co.il/music/rss/" type="rss" />
       <outline title="Galgalatz" xmlUrl="https://www.glgltz.co.il/rss/" type="rss" />
       <outline title="Columbus Music" xmlUrl="https://www.columbusmusicmagazine.com/feed/" type="rss" />
-      <outline title="Mako Music News" xmlUrl="https://www.mako.co.il/music-news/rss/" type="rss" />
     </outline>
     <outline text="Food">
       <outline title="Foodis" xmlUrl="https://www.foodis.co.il/feed/" type="rss" />

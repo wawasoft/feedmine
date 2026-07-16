@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Vietnamese)">
-      <outline title="Ngoisao.net" xmlUrl="https://ngoisao.vnexpress.net/feed.rss" type="rss"/>
-      <outline title="Kenh14" xmlUrl="https://kenh14.vn/star.rss" type="rss"/>
-      <outline title="Yan News" xmlUrl="https://yan.vn/feed.rss" type="rss"/>
+      <outline title="Kenh14" xmlUrl="https://kenh14.vn/star.rss" type="rss" />
     </outline>
   </body>
 </opml>

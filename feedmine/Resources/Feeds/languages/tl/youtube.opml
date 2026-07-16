@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="YouTube Feeds (Filipino)">
-      <outline title="YouTube Trending Feed (Philippines)" xmlUrl="https://www.youtube.com/feeds/trending?gl=PH" type="rss"/>
-      <outline title="YouTube Gaming Feed (Philippines)" xmlUrl="https://www.youtube.com/feeds/trending?gl=PH&amp;category=Gaming" type="rss"/>
-      <outline title="YouTube Music Feed (Philippines)" xmlUrl="https://www.youtube.com/feeds/trending?gl=PH&amp;category=Music" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

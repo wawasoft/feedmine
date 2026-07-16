@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Drag, Queer (Portuguese)">
-      <outline title="A Capa" xmlUrl="https://acapa.com.br/feed/" type="rss"/>
-      <outline title="Lado Bi" xmlUrl="https://www.ladobi.com.br/feed/" type="rss"/>
-      <outline title="Observatório da Diversidade" xmlUrl="https://observatoriodadiversidade.org.br/feed/" type="rss"/>
+      <outline title="A Capa" xmlUrl="https://acapa.com.br/feed/" type="rss" />
+      <outline title="Observatório da Diversidade" xmlUrl="https://observatoriodadiversidade.org.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

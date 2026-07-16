@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Family, Relationships (Thai)">
-      <outline title="แม่และเด็ก" xmlUrl="https://www.mamaexpert.com/feed/" type="rss"/>
-      <outline title="ครอบครัวข่าวสาร" xmlUrl="https://www.familynews.co.th/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

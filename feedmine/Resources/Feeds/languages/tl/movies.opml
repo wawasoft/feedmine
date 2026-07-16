@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Movies (Filipino)">
-      <outline title="PEP.ph - Movies" xmlUrl="https://www.pep.ph/rss/movies" type="rss"/>
-      <outline title="ABS-CBN News - Movies" xmlUrl="https://news.abs-cbn.com/feed/movies" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

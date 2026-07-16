@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Coffee (Turkish)">
-      <outline title="Kahve ve Çay Haberleri" xmlUrl="https://www.kahvevechay.com/feed/" type="rss"/>
-      <outline title="Kahve Molası" xmlUrl="https://kahvemolasi.com/feed/" type="rss"/>
-      <outline title="Çay ve Kahve Dünyası" xmlUrl="https://cayvekahvedunyasi.com/feed/" type="rss"/>
-      <outline title="Kahve Keyfi" xmlUrl="https://kahvekeyfi.com/feed/" type="rss"/>
-      <outline title="Türk Kahvesi Kültürü" xmlUrl="https://turkkahvesikulturu.com/feed/" type="rss"/>
+      <outline title="Kahve Molası" xmlUrl="https://kahvemolasi.com/feed/" type="rss" />
+      <outline title="Kahve Keyfi" xmlUrl="https://kahvekeyfi.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

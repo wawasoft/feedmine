@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Norwegian)">
-      <outline title="Costume" xmlUrl="https://costume.no/feed/" type="rss"/>
-      <outline title="Elle Norge" xmlUrl="https://www.elle.no/feed/" type="rss"/>
+      <outline title="Costume" xmlUrl="https://costume.no/feed/" type="rss" />
     </outline>
   </body>
 </opml>

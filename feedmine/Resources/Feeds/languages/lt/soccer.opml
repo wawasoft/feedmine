@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Football / Soccer Feeds (Lithuanian)">
-      <outline title="Futbolas.lt" xmlUrl="https://www.futbolas.lt/rss" type="rss"/>
-      <outline title="Lietuvos futbolo federacija" xmlUrl="https://www.lff.lt/rss" type="rss"/>
-      <outline title="Sportas.lt - Futbolas" xmlUrl="https://www.sportas.lt/rss/futbolas" type="rss"/>
-      <outline title="Eurofootball.lt" xmlUrl="https://www.eurofootball.lt/rss" type="rss"/>
+      <outline title="Futbolas.lt" xmlUrl="https://www.futbolas.lt/rss" type="rss" />
+      <outline title="Lietuvos futbolo federacija" xmlUrl="https://www.lff.lt/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Chinese)">
-      <outline title="中国聋人网" xmlUrl="https://www.deafchina.com/feed" type="rss"/>
-      <outline title="盲人安卓" xmlUrl="https://www.mangren.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

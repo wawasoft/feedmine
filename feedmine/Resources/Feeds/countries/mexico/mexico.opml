@@ -65,7 +65,6 @@
       <outline title="GamerFocus" xmlUrl="https://www.gamerfocus.co/feed/" type="rss" />
       <outline title="Cultura Geek" xmlUrl="https://www.culturageek.com.mx/feed/" type="rss" />
       <outline title="No Game No Life" xmlUrl="https://nogamenolife.com/feed/" type="rss" />
-      <outline title="Geekzilla" xmlUrl="https://geekzilla.tech/feed/" type="rss" />
     </outline>
     <outline text="Travel">
       <outline title="México Desconocido" xmlUrl="https://www.mexicodesconocido.com.mx/feed/" type="rss" />

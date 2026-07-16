@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="UFOs, Conspiracies (Chinese)">
-      <outline title="UFO探秘" xmlUrl="https://ufo.0214.net/feed/" type="rss"/>
-      <outline title="阴谋论与未解之谜" xmlUrl="https://conspiracy.xyz/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

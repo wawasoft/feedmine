@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Slovak)">
-      <outline title="Manažérsky blog" xmlUrl="https://www.manazerskyblog.sk/feed/" type="rss"/>
-      <outline title="Efektívne.sk" xmlUrl="https://efektivne.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

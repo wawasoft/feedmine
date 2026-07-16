@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Music (Dutch)">
-      <outline title="OOR" xmlUrl="https://oor.nl/feed/" type="rss"/>
-      <outline title="3voor12" xmlUrl="https://3voor12.vpro.nl/rss.xml" type="rss"/>
+      <outline title="OOR" xmlUrl="https://oor.nl/feed/" type="rss" />
     </outline>
   </body>
 </opml>

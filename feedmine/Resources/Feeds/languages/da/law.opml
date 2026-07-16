@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Law, Legal News (Danish)">
-      <outline title="AdvokatWatch" xmlUrl="https://www.advokatwatch.dk/rss/nyheder" type="rss"/>
-      <outline title="Kammeradvokaten" xmlUrl="https://kammeradvokaten.dk/feed/" type="rss"/>
-      <outline title="Djøfbladet" xmlUrl="https://www.djoefbladet.dk/rss/nyheder" type="rss"/>
-      <outline title="Ret&amp;Råd" xmlUrl="https://retograad.dk/feed/" type="rss"/>
+      <outline title="Ret&amp;Råd" xmlUrl="https://retograad.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

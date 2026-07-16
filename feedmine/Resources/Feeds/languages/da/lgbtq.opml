@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Drag, Queer (Danish)">
-      <outline title="Out &amp; About" xmlUrl="https://www.outandabout.dk/feed/" type="rss"/>
-      <outline title="Panbloggen" xmlUrl="https://panbloggen.dk/feed/" type="rss"/>
-      <outline title="SabiNews" xmlUrl="https://sabine.dk/feed/" type="rss"/>
+      <outline title="Out &amp; About" xmlUrl="https://www.outandabout.dk/feed/" type="rss" />
+      <outline title="Panbloggen" xmlUrl="https://panbloggen.dk/feed/" type="rss" />
     </outline>
   </body>
 </opml>

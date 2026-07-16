@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Military (Hungarian)">
-      <outline title="Honvédelem" xmlUrl="https://honvedelem.hu/feed/" type="rss"/>
-      <outline title="Katonai Logisztika" xmlUrl="https://katonailogisztika.hu/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

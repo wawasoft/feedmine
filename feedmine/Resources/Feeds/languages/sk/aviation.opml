@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Aviation (Slovak)">
-      <outline title="Lietadlo.sk" xmlUrl="https://www.lietadlo.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

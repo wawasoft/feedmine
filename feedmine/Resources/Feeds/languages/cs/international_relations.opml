@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (Czech)">
-      <outline title="Zahraničí iDNES.cz" xmlUrl="https://zpravy.idnes.cz/rss/zahranicni.aspx" type="rss"/>
-      <outline title="ČT24 - Zahraničí" xmlUrl="https://ct24.ceskatelevize.cz/rss/zahranici" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

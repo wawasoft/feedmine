@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Other Pets (German)">
-      <outline title="Ein Herz für Tiere" xmlUrl="https://www.einherzfuertiere.de/feed/" type="rss"/>
-      <outline title="Kleintierpraxis" xmlUrl="https://www.kleintierpraxis.de/feed/" type="rss"/>
+      <outline title="Ein Herz für Tiere" xmlUrl="https://www.einherzfuertiere.de/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Slovak)">
-      <outline title="Beauty blog" xmlUrl="https://www.beautyblog.sk/feed/" type="rss"/>
-      <outline title="Líčenie a krása" xmlUrl="https://www.licenieakrasa.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Programming (Chinese)">
-      <outline title="博客园" xmlUrl="https://www.cnblogs.com/rss/" type="rss"/>
-      <outline title="CSDN" xmlUrl="https://blog.csdn.net/rss/list" type="rss"/>
-      <outline title="开源中国" xmlUrl="https://www.oschina.net/news/rss" type="rss"/>
-      <outline title="阮一峰的网络日志" xmlUrl="https://www.ruanyifeng.com/blog/atom.xml" type="rss"/>
-      <outline title="酷壳" xmlUrl="https://coolshell.cn/feed" type="rss"/>
+      <outline title="博客园" xmlUrl="https://www.cnblogs.com/rss/" type="rss" />
+      <outline title="开源中国" xmlUrl="https://www.oschina.net/news/rss" type="rss" />
+      <outline title="酷壳" xmlUrl="https://coolshell.cn/feed" type="rss" />
     </outline>
   </body>
 </opml>

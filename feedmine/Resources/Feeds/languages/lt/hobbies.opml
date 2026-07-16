@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Hobbies (Lithuanian)">
-      <outline title="Rankdarbiai.lt" xmlUrl="https://www.rankdarbiai.lt/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

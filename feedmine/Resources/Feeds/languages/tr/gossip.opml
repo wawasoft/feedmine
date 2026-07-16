@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Turkish)">
-      <outline title="Magazin Haberleri - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/magazin" type="rss"/>
-      <outline title="Magazin - Milliyet" xmlUrl="https://www.milliyet.com.tr/rss/magazin" type="rss"/>
-      <outline title="Magazin - Sabah" xmlUrl="https://www.sabah.com.tr/rss/magazin" type="rss"/>
+      <outline title="Magazin Haberleri - Hürriyet" xmlUrl="https://www.hurriyet.com.tr/rss/magazin" type="rss" />
+      <outline title="Magazin - Milliyet" xmlUrl="https://www.milliyet.com.tr/rss/magazin" type="rss" />
     </outline>
   </body>
 </opml>

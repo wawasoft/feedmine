@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Literary Criticism, Book Reviews (Slovak)">
-      <outline title="Literárny týždenník" xmlUrl="https://www.literarnytyzdennik.sk/rss" type="rss"/>
-      <outline title="Knižná revue" xmlUrl="https://www.kniznarevue.sk/rss" type="rss"/>
+      <outline title="Literárny týždenník" xmlUrl="https://www.literarnytyzdennik.sk/rss" type="rss" />
     </outline>
   </body>
 </opml>

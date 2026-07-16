@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Dogs (Turkish)">
-      <outline title="Köpek Dünyası" xmlUrl="https://www.kopekdunyasi.com/feed/" type="rss"/>
-      <outline title="Patiliyo" xmlUrl="https://www.patiliyo.com/feed/" type="rss"/>
+      <outline title="Patiliyo" xmlUrl="https://www.patiliyo.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

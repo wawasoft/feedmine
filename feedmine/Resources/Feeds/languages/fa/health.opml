@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Health (Persian)">
-      <outline title="سلامت نیوز" xmlUrl="https://www.salamatnews.com/feed" type="rss"/>
-      <outline title="وبسایت دکتر سلام" xmlUrl="https://www.drsalam.ir/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

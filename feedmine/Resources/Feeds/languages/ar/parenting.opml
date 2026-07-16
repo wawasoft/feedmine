@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Moms, Dads (Arabic)">
-      <outline title="سوبر ماما" xmlUrl="https://www.supermama.me/feed" type="rss"/>
-      <outline title="أمهات" xmlUrl="https://www.omahat.com/feed" type="rss"/>
+      <outline title="أمهات" xmlUrl="https://www.omahat.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Naval, Maritime (Chinese)">
-      <outline title="中国海军网" xmlUrl="https://navy.81.cn/feed" type="rss"/>
-      <outline title="海事服务网" xmlUrl="https://www.cnss.com.cn/rss.xml" type="rss"/>
-      <outline title="国际船舶网" xmlUrl="https://www.eworldship.com/feed" type="rss"/>
-      <outline title="航海教育网" xmlUrl="https://www.haishangjiaoyu.com/feed" type="rss"/>
-      <outline title="海洋财富网" xmlUrl="https://www.hycfw.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Travel (Chinese)">
-      <outline title="穷游网" xmlUrl="https://www.qyer.com/rss/" type="rss"/>
-      <outline title="马蜂窝" xmlUrl="https://www.mafengwo.cn/rss/" type="rss"/>
-      <outline title="携程旅行" xmlUrl="https://www.ctrip.com/rss/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

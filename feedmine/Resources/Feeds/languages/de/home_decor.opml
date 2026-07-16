@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Home Decor, Interior Design (German)">
-      <outline title="Schöner Wohnen - Einrichtung" xmlUrl="https://www.schoener-wohnen.de/rss/einrichtung.xml" type="rss"/>
-      <outline title="Wohnen.de - Magazin" xmlUrl="https://www.wohnen.de/magazin/feed/" type="rss"/>
+      <outline title="Wohnen.de - Magazin" xmlUrl="https://www.wohnen.de/magazin/feed/" type="rss" />
     </outline>
   </body>
 </opml>

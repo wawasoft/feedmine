@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Italian)">
-      <outline title="Cucito Creativo" xmlUrl="https://www.cucitocreativo.it/feed/" type="rss"/>
-      <outline title="Sartoria Web" xmlUrl="https://www.sartoriaweb.it/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

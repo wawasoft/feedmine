@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Design Feeds (Danish)">
-      <outline title="Designblog" xmlUrl="https://designblog.dk/feed/" type="rss"/>
-      <outline title="Mind Future - Design" xmlUrl="https://mindfuture.dk/emne/design/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Apple (Danish)">
-      <outline title="Appelix" xmlUrl="https://appelix.dk/feed/" type="rss"/>
-      <outline title="Macnyt" xmlUrl="https://macnyt.dk/feed/" type="rss"/>
-      <outline title="iRytter" xmlUrl="https://irytter.dk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

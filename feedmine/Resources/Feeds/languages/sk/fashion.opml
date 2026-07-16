@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fashion, Style (Slovak)">
-      <outline title="Fashion.sk" xmlUrl="https://www.fashion.sk/feed/" type="rss"/>
-      <outline title="Móda.sme.sk" xmlUrl="https://moda.sme.sk/rss/" type="rss"/>
-      <outline title="Style.sk" xmlUrl="https://www.style.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

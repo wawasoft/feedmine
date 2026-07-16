@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Entrepreneurship, Startups (French)">
-      <outline title="FrenchWeb" xmlUrl="https://www.frenchweb.fr/feed" type="rss"/>
-      <outline title="Maddyness" xmlUrl="https://www.maddyness.com/feed/" type="rss"/>
-      <outline title="Les Echos Start" xmlUrl="https://start.lesechos.fr/rss" type="rss"/>
-      <outline title="La Tribune - Start-up" xmlUrl="https://www.latribune.fr/start-up/rss.xml" type="rss"/>
-      <outline title="Entrepreneur (France)" xmlUrl="https://www.entrepreneur.com/fr/feed" type="rss"/>
+      <outline title="FrenchWeb" xmlUrl="https://www.frenchweb.fr/feed" type="rss" />
+      <outline title="Maddyness" xmlUrl="https://www.maddyness.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

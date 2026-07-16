@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Swedish)">
-      <outline title="Jernkontoret" xmlUrl="https://www.jernkontoret.se/feed/" type="rss"/>
-      <outline title="Metalliska Material" xmlUrl="https://www.metalliskamaterial.se/feed/" type="rss"/>
-      <outline title="Svensk Metallindustri" xmlUrl="https://www.svenskmetallindustri.se/feed/" type="rss"/>
+      <outline title="Jernkontoret" xmlUrl="https://www.jernkontoret.se/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Armenian)">
-      <outline title="Գեղեցկության աշխարհ" xmlUrl="https://beautyworld.am/feed/" type="rss"/>
-      <outline title="Makeup.am" xmlUrl="https://makeup.am/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

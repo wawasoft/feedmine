@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Programming (Ukrainian)">
-      <outline title="DOU.UA" xmlUrl="https://dou.ua/feed/" type="rss"/>
-      <outline title="Хабрахабр українською" xmlUrl="https://habr.com/ua/rss/interesting/" type="rss"/>
-      <outline title="ITC.UA" xmlUrl="https://itc.ua/feed/" type="rss"/>
+      <outline title="DOU.UA" xmlUrl="https://dou.ua/feed/" type="rss" />
+      <outline title="ITC.UA" xmlUrl="https://itc.ua/feed/" type="rss" />
     </outline>
   </body>
 </opml>

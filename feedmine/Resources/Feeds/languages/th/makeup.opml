@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Makeup, Beauty (Thai)">
-      <outline title="Cosmenet" xmlUrl="https://www.cosmenet.in.th/feed/" type="rss"/>
-      <outline title="Beerhunter" xmlUrl="https://www.beerhunter.in.th/feed/" type="rss"/>
+      <outline title="Cosmenet" xmlUrl="https://www.cosmenet.in.th/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,10 +7,8 @@
   </head>
   <body>
     <outline text="Law, Legal News (Portuguese)">
-      <outline title="Consultor Jurídico" xmlUrl="https://www.conjur.com.br/feed/" type="rss"/>
-      <outline title="JusBrasil Notícias" xmlUrl="https://www.jusbrasil.com.br/noticias/rss" type="rss"/>
-      <outline title="Migalhas" xmlUrl="https://www.migalhas.com.br/feed" type="rss"/>
-      <outline title="DireitoNet" xmlUrl="https://www.direitonet.com.br/noticias/rss" type="rss"/>
+      <outline title="Consultor Jurídico" xmlUrl="https://www.conjur.com.br/feed/" type="rss" />
+      <outline title="JusBrasil Notícias" xmlUrl="https://www.jusbrasil.com.br/noticias/rss" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (Burmese)">
-      <outline title="သတင်းထောက်များအသင်း" xmlUrl="https://journalistsmm.com/rss" type="rss"/>
-      <outline title="သတင်းထောက်လောက" xmlUrl="https://www.journalistworldmm.com/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

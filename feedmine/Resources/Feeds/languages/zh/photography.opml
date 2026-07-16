@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Photography (Chinese)">
-      <outline title="摄影之友" xmlUrl="https://www.fotomen.cn/feed/" type="rss"/>
-      <outline title="色影无忌" xmlUrl="https://www.xitek.com/feed/" type="rss"/>
-      <outline title="蜂鸟网" xmlUrl="https://www.fengniao.com/rss/index.xml" type="rss"/>
-      <outline title="摄影世界" xmlUrl="https://www.photoworld.com.cn/feed/" type="rss"/>
+      <outline title="摄影世界" xmlUrl="https://www.photoworld.com.cn/feed/" type="rss" />
     </outline>
   </body>
 </opml>

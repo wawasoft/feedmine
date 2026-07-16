@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Apple (Romanian)">
-      <outline title="iDevice.ro" xmlUrl="https://www.idevice.ro/feed" type="rss"/>
-      <outline title="Mobility Arena - Apple" xmlUrl="https://www.mobilityarena.ro/apple/feed" type="rss"/>
+      <outline title="iDevice.ro" xmlUrl="https://www.idevice.ro/feed" type="rss" />
     </outline>
   </body>
 </opml>

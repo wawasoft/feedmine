@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="International Relations, Geopolitics (German)">
-      <outline title="Internationale Politik - IPG" xmlUrl="https://www.ipg-journal.de/rss/" type="rss"/>
-      <outline title="Deutsche Gesellschaft für Auswärtige Politik (DGAP)" xmlUrl="https://dgap.org/de/rss.xml" type="rss"/>
+      <outline title="Deutsche Gesellschaft für Auswärtige Politik (DGAP)" xmlUrl="https://dgap.org/de/rss.xml" type="rss" />
     </outline>
   </body>
 </opml>

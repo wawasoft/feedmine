@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Humor (Persian)">
-      <outline title="طنز و کاریکاتور" xmlUrl="https://www.tanz-cartoon.com/rss" type="rss"/>
-      <outline title="بی‌بی‌سی فارسی - طنز" xmlUrl="https://www.bbc.com/persian/feeds/comedy.rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,10 +7,7 @@
   </head>
   <body>
     <outline text="Personal Blogs (Indonesian)">
-      <outline title="Kompasiana" xmlUrl="https://www.kompasiana.com/feed" type="rss"/>
-      <outline title="Blogger Indonesia" xmlUrl="https://www.bloggerindonesia.com/feed/" type="rss"/>
-      <outline title="Raditya Dika Blog" xmlUrl="https://radityadika.com/feed/" type="rss"/>
-      <outline title="Catatan Najwa" xmlUrl="https://catatannajwa.com/feed/" type="rss"/>
+      <outline title="Kompasiana" xmlUrl="https://www.kompasiana.com/feed" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Music (Slovenian)">
-      <outline title="Mladina - Glasba" xmlUrl="https://www.mladina.si/rss/glasba/" type="rss"/>
-      <outline title="RTV Slovenija - Glasba" xmlUrl="https://www.rtvslo.si/kultura/glasba/rss" type="rss"/>
-      <outline title="SIGIC - Glasbena produkcija" xmlUrl="https://www.sigic.si/rss/novice" type="rss"/>
+      <outline title="Mladina - Glasba" xmlUrl="https://www.mladina.si/rss/glasba/" type="rss" />
+      <outline title="RTV Slovenija - Glasba" xmlUrl="https://www.rtvslo.si/kultura/glasba/rss" type="rss" />
     </outline>
   </body>
 </opml>

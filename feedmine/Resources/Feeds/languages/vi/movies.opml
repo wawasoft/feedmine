@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Movies (Vietnamese)">
-      <outline title="Moveek - Tin tức phim ảnh" xmlUrl="https://moveek.com/feed" type="rss"/>
-      <outline title="VnExpress - Giải trí - Phim" xmlUrl="https://vnexpress.net/rss/giai-tri/phim.rss" type="rss"/>
-      <outline title="Zing News - Phim" xmlUrl="https://zingnews.vn/phim.rss" type="rss"/>
-      <outline title="Báo Mới - Phim" xmlUrl="https://baomoi.com/phim.rss" type="rss"/>
-      <outline title="DienAnh.Net" xmlUrl="https://www.dienanh.net/feed" type="rss"/>
+      <outline title="DienAnh.Net" xmlUrl="https://www.dienanh.net/feed" type="rss" />
     </outline>
   </body>
 </opml>

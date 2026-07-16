@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Russian)">
-      <outline title="Сделай сам — Журнал" xmlUrl="https://sdelaysam-svoimirukami.ru/feed" type="rss"/>
-      <outline title="Мастер-класс — Блог" xmlUrl="https://masterclass.ru/feed" type="rss"/>
-      <outline title="Homemaster — Блог" xmlUrl="https://homemaster.ru/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

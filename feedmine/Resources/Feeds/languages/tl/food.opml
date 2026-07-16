@@ -7,11 +7,10 @@
   </head>
   <body>
     <outline text="Food (Filipino)">
-      <outline title="Yummy.ph" xmlUrl="https://www.yummy.ph/rss" type="rss"/>
-      <outline title="Panlasang Pinoy" xmlUrl="https://panlasangpinoy.com/feed/" type="rss"/>
-      <outline title="Kawaling Pinoy" xmlUrl="https://www.kawalingpinoy.com/feed/" type="rss"/>
-      <outline title="Ang Sarap" xmlUrl="https://www.angsarap.net/feed/" type="rss"/>
-      <outline title="The Peach Kitchen" xmlUrl="https://www.thepeachkitchen.com/feed/" type="rss"/>
+      <outline title="Panlasang Pinoy" xmlUrl="https://panlasangpinoy.com/feed/" type="rss" />
+      <outline title="Kawaling Pinoy" xmlUrl="https://www.kawalingpinoy.com/feed/" type="rss" />
+      <outline title="Ang Sarap" xmlUrl="https://www.angsarap.net/feed/" type="rss" />
+      <outline title="The Peach Kitchen" xmlUrl="https://www.thepeachkitchen.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Italian)">
-      <outline title="Metallurgia Italiana" xmlUrl="https://www.metallurgia-italiana.net/feed" type="rss"/>
-      <outline title="Siderweb" xmlUrl="https://www.siderweb.com/feed" type="rss"/>
-      <outline title="Tecnologie per la Metallurgia" xmlUrl="https://www.tecnologiemetallurgia.it/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

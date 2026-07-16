@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Productivity, GTD (Turkish)">
-      <outline title="Verimlilik Rehberi" xmlUrl="https://verimlilikrehberi.com/feed/" type="rss"/>
-      <outline title="Daha Verimli" xmlUrl="https://dahaverimli.com/feed/" type="rss"/>
-      <outline title="GTD Türkiye" xmlUrl="https://gtdturkiye.com/feed/" type="rss"/>
+      <outline title="Daha Verimli" xmlUrl="https://dahaverimli.com/feed/" type="rss" />
     </outline>
   </body>
 </opml>

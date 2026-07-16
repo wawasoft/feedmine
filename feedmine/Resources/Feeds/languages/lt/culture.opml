@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Culture Feeds (Lithuanian)">
-      <outline title="15min Kultūra" xmlUrl="https://www.15min.lt/rss/kultura" type="rss"/>
-      <outline title="LRT Kultūra" xmlUrl="https://www.lrt.lt/rss/kultura" type="rss"/>
-      <outline title="Bernardinai.lt Kultūra" xmlUrl="https://www.bernardinai.lt/rss/kultura" type="rss"/>
+      <outline title="15min Kultūra" xmlUrl="https://www.15min.lt/rss/kultura" type="rss" />
     </outline>
   </body>
 </opml>

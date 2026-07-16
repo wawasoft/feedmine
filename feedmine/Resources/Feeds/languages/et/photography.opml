@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Photography (Estonian)">
-      <outline title="Fotokunstniku blogi" xmlUrl="https://fotokunstnik.ee/feed/" type="rss"/>
-      <outline title="Digifoto" xmlUrl="https://www.digifoto.ee/feed/" type="rss"/>
+      <outline title="Fotokunstniku blogi" xmlUrl="https://fotokunstnik.ee/feed/" type="rss" />
     </outline>
   </body>
 </opml>

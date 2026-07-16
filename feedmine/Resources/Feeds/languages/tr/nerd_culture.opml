@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Nerd (Turkish)">
-      <outline title="Webtekno - Teknoloji Haberleri" xmlUrl="https://www.webtekno.com/rss" type="rss"/>
-      <outline title="ShiftDelete.Net - Teknoloji Blogu" xmlUrl="https://shiftdelete.net/feed" type="rss"/>
-      <outline title="DonanımHaber - Oyun ve Teknoloji" xmlUrl="https://www.donanimhaber.com/rss.xml" type="rss"/>
+      <outline title="ShiftDelete.Net - Teknoloji Blogu" xmlUrl="https://shiftdelete.net/feed" type="rss" />
     </outline>
   </body>
 </opml>

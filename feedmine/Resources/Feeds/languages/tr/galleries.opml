@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Art Galleries (Turkish)">
-      <outline title="Sanat Duvarı" xmlUrl="https://sanatduvari.com/feed/" type="rss"/>
-      <outline title="Artfulliving" xmlUrl="https://www.artfulliving.com.tr/rss" type="rss"/>
-      <outline title="Lebriz" xmlUrl="https://lebriz.com/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

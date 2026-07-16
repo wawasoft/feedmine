@@ -7,11 +7,8 @@
   </head>
   <body>
     <outline text="Deaf, Blind (Czech)">
-      <outline title="Neslyšící.cz" xmlUrl="https://www.neslysici.cz/feed/" type="rss"/>
-      <outline title="Okamžik" xmlUrl="https://www.okamzik.cz/feed/" type="rss"/>
-      <outline title="Tyflonet" xmlUrl="https://www.tyflonet.cz/feed/" type="rss"/>
-      <outline title="Hluchota.cz" xmlUrl="https://www.hluchota.cz/feed/" type="rss"/>
-      <outline title="Pomocné tlapky" xmlUrl="https://www.pomocnetlapky.cz/feed/" type="rss"/>
+      <outline title="Okamžik" xmlUrl="https://www.okamzik.cz/feed/" type="rss" />
+      <outline title="Tyflonet" xmlUrl="https://www.tyflonet.cz/feed/" type="rss" />
     </outline>
   </body>
 </opml>

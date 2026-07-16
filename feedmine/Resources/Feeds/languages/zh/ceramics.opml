@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Pottery (Chinese)">
-      <outline title="中国陶瓷网" xmlUrl="https://www.ceramicschina.com/rss.xml" type="rss"/>
-      <outline title="陶瓷资讯" xmlUrl="https://www.taoci.com/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="News Feeds (Arabic)">
-      <outline title="الجزيرة نت" xmlUrl="https://www.aljazeera.net/rss/" type="rss"/>
-      <outline title="بي بي سي عربي" xmlUrl="https://www.bbc.com/arabic/index.xml" type="rss"/>
-      <outline title="العربية نت" xmlUrl="https://www.alarabiya.net/rss/" type="rss"/>
-      <outline title="سكاي نيوز عربية" xmlUrl="https://www.skynewsarabia.com/rss/" type="rss"/>
-      <outline title="روسيا اليوم عربي" xmlUrl="https://www.rtarabic.com/rss/" type="rss"/>
+      <outline title="بي بي سي عربي" xmlUrl="https://www.bbc.com/arabic/index.xml" type="rss" />
+      <outline title="سكاي نيوز عربية" xmlUrl="https://www.skynewsarabia.com/rss/" type="rss" />
+      <outline title="روسيا اليوم عربي" xmlUrl="https://www.rtarabic.com/rss/" type="rss" />
     </outline>
   </body>
 </opml>

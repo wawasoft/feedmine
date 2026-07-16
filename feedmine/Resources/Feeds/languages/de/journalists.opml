@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Reference Journalists (German)">
-      <outline title="Journalist.de - News für Journalisten" xmlUrl="https://www.journalist.de/feed.rss" type="rss"/>
-      <outline title="DJV - Deutscher Journalisten-Verband" xmlUrl="https://www.djv.de/startseite/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="News Feeds (Danish)">
-      <outline title="DR Nyheder" xmlUrl="https://www.dr.dk/nyheder/feed" type="rss"/>
-      <outline title="TV 2 Nyheder" xmlUrl="https://nyheder.tv2.dk/rss" type="rss"/>
-      <outline title="Politiken" xmlUrl="https://politiken.dk/feed" type="rss"/>
-      <outline title="Berlingske" xmlUrl="https://www.berlingske.dk/feed" type="rss"/>
-      <outline title="Jyllands-Posten" xmlUrl="https://jyllands-posten.dk/feed" type="rss"/>
+      <outline title="Jyllands-Posten" xmlUrl="https://jyllands-posten.dk/feed" type="rss" />
     </outline>
   </body>
 </opml>

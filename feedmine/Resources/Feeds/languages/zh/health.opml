@@ -7,11 +7,7 @@
   </head>
   <body>
     <outline text="Health (Chinese)">
-      <outline title="丁香医生" xmlUrl="https://dxy.com/rss/feed.xml" type="rss"/>
-      <outline title="健康时报" xmlUrl="https://www.jksb.com.cn/rss/jksb.xml" type="rss"/>
-      <outline title="医学界" xmlUrl="https://www.yxj.org.cn/rss/feed.xml" type="rss"/>
-      <outline title="39健康网" xmlUrl="https://www.39.net/rss/39.xml" type="rss"/>
-      <outline title="人民网健康" xmlUrl="https://health.people.com.cn/rss/health.xml" type="rss"/>
+      <outline title="39健康网" xmlUrl="https://www.39.net/rss/39.xml" type="rss" />
     </outline>
   </body>
 </opml>

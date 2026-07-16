@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Theatre (Azerbaijani)">
-      <outline title="Teatr.az" xmlUrl="https://teatr.az/rss.xml" type="rss"/>
-      <outline title="Kulis.az - Teatr" xmlUrl="https://kulis.az/rss/teatr.xml" type="rss"/>
-      <outline title="Mədəniyyət.az" xmlUrl="https://medeniyyet.az/rss.xml" type="rss"/>
+      <outline title="Teatr.az" xmlUrl="https://teatr.az/rss.xml" type="rss" />
+      <outline title="Kulis.az - Teatr" xmlUrl="https://kulis.az/rss/teatr.xml" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Poetry (Bulgarian)">
-      <outline title="Литературен клуб" xmlUrl="https://litclub.bg/rss/" type="rss"/>
-      <outline title="Поезия от България" xmlUrl="https://poezia.bg/rss/" type="rss"/>
-      <outline title="Стихове.бг" xmlUrl="https://stihove.bg/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

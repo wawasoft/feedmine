@@ -7,11 +7,6 @@
   </head>
   <body>
     <outline text="Farming, Agriculture (Chinese)">
-      <outline title="中国农业信息网" xmlUrl="https://www.agri.cn/rss/" type="rss"/>
-      <outline title="农民日报" xmlUrl="https://www.farmer.com.cn/rss/" type="rss"/>
-      <outline title="农业科技" xmlUrl="https://www.nykj.com/rss.xml" type="rss"/>
-      <outline title="中国蔬菜网" xmlUrl="https://www.vegnet.com.cn/rss/" type="rss"/>
-      <outline title="农财网" xmlUrl="https://www.nongcai.com/rss.xml" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

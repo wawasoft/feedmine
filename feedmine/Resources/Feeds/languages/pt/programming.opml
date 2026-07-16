@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Programming (Portuguese)">
-      <outline title="Tableless" xmlUrl="https://tableless.com.br/feed/" type="rss"/>
-      <outline title="iMasters" xmlUrl="https://imasters.com.br/feed" type="rss"/>
-      <outline title="Programador BR" xmlUrl="https://programadorbr.com/feed/" type="rss"/>
+      <outline title="Tableless" xmlUrl="https://tableless.com.br/feed/" type="rss" />
     </outline>
   </body>
 </opml>

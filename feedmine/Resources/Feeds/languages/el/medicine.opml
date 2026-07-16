@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Medicine, Pharma (Greek)">
-      <outline title="iatronet.gr" xmlUrl="https://www.iatronet.gr/feed/" type="rss"/>
-      <outline title="Ygeia Online" xmlUrl="https://www.ygeiaonline.gr/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

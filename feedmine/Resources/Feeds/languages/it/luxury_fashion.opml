@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Luxury Fashion, Haute Couture (Italian)">
-      <outline title="Vogue Italia" xmlUrl="https://www.vogue.it/feed" type="rss"/>
-      <outline title="Elle Italia" xmlUrl="https://www.elle.com/it/feed" type="rss"/>
-      <outline title="Vanity Fair Italia" xmlUrl="https://www.vanityfair.it/feed" type="rss"/>
+      <outline title="Vanity Fair Italia" xmlUrl="https://www.vanityfair.it/feed" type="rss" />
     </outline>
   </body>
 </opml>

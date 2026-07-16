@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Fashion, Style (Czech)">
-      <outline title="Módnípeklo.cz" xmlUrl="https://www.modnipeklo.cz/feed/" type="rss"/>
-      <outline title="Dáma.cz - Móda" xmlUrl="https://www.dama.cz/rss/moda" type="rss"/>
-      <outline title="Fashion Club" xmlUrl="https://www.fashionclub.cz/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

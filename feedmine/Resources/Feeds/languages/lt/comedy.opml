@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Humor (Lithuanian)">
-      <outline title="Humoras.lt" xmlUrl="https://humoras.lt/feed/" type="rss"/>
-      <outline title="Juokingiausi.lt" xmlUrl="https://juokingiausi.lt/feed/" type="rss"/>
+      <outline title="Humoras.lt" xmlUrl="https://humoras.lt/feed/" type="rss" />
     </outline>
   </body>
 </opml>

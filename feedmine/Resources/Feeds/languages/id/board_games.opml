@@ -7,9 +7,6 @@
   </head>
   <body>
     <outline text="Board Games, RPGs (Indonesian)">
-      <outline title="Boardgame Indonesia" xmlUrl="https://boardgameindonesia.com/feed/" type="rss"/>
-      <outline title="Dadu Bola" xmlUrl="https://dadubola.blogspot.com/feeds/posts/default" type="rss"/>
-      <outline title="RPG Indonesia" xmlUrl="https://rpgindonesia.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

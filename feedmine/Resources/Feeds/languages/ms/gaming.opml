@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Videogames (Malay)">
-      <outline title="Gamer Malaysia" xmlUrl="https://gamermalaysia.com/feed/" type="rss"/>
-      <outline title="GameStation Malaysia" xmlUrl="https://www.gamestation.com.my/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

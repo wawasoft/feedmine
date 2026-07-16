@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Whisky (Romanian)">
-      <outline title="Whisky Magazine România" xmlUrl="https://whiskymagazine.ro/feed/" type="rss"/>
-      <outline title="Băuturi Spirtoase - Blog" xmlUrl="https://www.bauturispirtoase.ro/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

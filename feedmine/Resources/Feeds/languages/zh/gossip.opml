@@ -7,11 +7,9 @@
   </head>
   <body>
     <outline text="Gossip, Celebrities (Chinese)">
-      <outline title="腾讯娱乐" xmlUrl="https://ent.qq.com/rss/ent.xml" type="rss"/>
-      <outline title="新浪娱乐" xmlUrl="https://ent.sina.com.cn/rss/ent.xml" type="rss"/>
-      <outline title="网易娱乐" xmlUrl="https://ent.163.com/rss/ent.xml" type="rss"/>
-      <outline title="搜狐娱乐" xmlUrl="https://yule.sohu.com/rss/yule.xml" type="rss"/>
-      <outline title="凤凰网娱乐" xmlUrl="https://ent.ifeng.com/rss/ent.xml" type="rss"/>
+      <outline title="腾讯娱乐" xmlUrl="https://ent.qq.com/rss/ent.xml" type="rss" />
+      <outline title="搜狐娱乐" xmlUrl="https://yule.sohu.com/rss/yule.xml" type="rss" />
+      <outline title="凤凰网娱乐" xmlUrl="https://ent.ifeng.com/rss/ent.xml" type="rss" />
     </outline>
   </body>
 </opml>

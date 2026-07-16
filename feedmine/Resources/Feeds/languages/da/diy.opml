@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="DIY (Danish)">
-      <outline title="Gør Det Selv" xmlUrl="https://www.goerdetselv.dk/rss/" type="rss"/>
-      <outline title="Bolius - Gør det selv" xmlUrl="https://www.bolius.dk/emne/goer-det-selv/feed" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

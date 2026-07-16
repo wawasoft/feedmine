@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Retro Technology (Serbian)">
-      <outline title="Retro Računari" xmlUrl="https://retroracunari.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

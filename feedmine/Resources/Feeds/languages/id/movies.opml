@@ -7,8 +7,7 @@
   </head>
   <body>
     <outline text="Movies (Indonesian)">
-      <outline title="Kincir - Film" xmlUrl="https://kincir.com/feed/film" type="rss"/>
-      <outline title="IDN Times - Hiburan" xmlUrl="https://www.idntimes.com/hiburan/feed" type="rss"/>
+      <outline title="Kincir - Film" xmlUrl="https://kincir.com/feed/film" type="rss" />
     </outline>
   </body>
 </opml>

@@ -7,9 +7,8 @@
   </head>
   <body>
     <outline text="Programming (Hungarian)">
-      <outline title="Programozás karrier" xmlUrl="https://programozaskarrier.hu/feed/" type="rss"/>
-      <outline title="Techwok" xmlUrl="https://techwok.hu/feed/" type="rss"/>
-      <outline title="LogMeIn Blog" xmlUrl="https://blog.logmein.com/feed" type="rss"/>
+      <outline title="Programozás karrier" xmlUrl="https://programozaskarrier.hu/feed/" type="rss" />
+      <outline title="Techwok" xmlUrl="https://techwok.hu/feed/" type="rss" />
     </outline>
   </body>
 </opml>

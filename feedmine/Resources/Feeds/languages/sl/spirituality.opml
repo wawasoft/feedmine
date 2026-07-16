@@ -7,9 +7,7 @@
   </head>
   <body>
     <outline text="Spirituality, Mindfulness (Slovenian)">
-      <outline title="Duhovna misel" xmlUrl="https://duhovnamisel.com/feed/" type="rss"/>
-      <outline title="Svet duhovnosti" xmlUrl="https://www.svetduhovnosti.com/feed/" type="rss"/>
-      <outline title="Duhovnost.si" xmlUrl="https://www.duhovnost.si/feed/" type="rss"/>
+      <outline title="Duhovnost.si" xmlUrl="https://www.duhovnost.si/feed/" type="rss" />
     </outline>
   </body>
 </opml>

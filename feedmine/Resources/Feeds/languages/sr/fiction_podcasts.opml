@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Fiction, Audio Drama (Serbian)">
-      <outline title="Audio Drama Podcast" xmlUrl="https://audiodramapodcast.rs/feed/podcast/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

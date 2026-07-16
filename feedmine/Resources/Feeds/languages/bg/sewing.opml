@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Sewing, Tailoring (Bulgarian)">
-      <outline title="Шиене.бг" xmlUrl="https://shiene.bg/feed/" type="rss"/>
-      <outline title="Моден шивач" xmlUrl="https://modenshivach.com/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

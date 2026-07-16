@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Skateboarding (Dutch)">
-      <outline title="Skateboarden.nl - Nieuws" xmlUrl="https://www.skateboarden.nl/feed/" type="rss"/>
-      <outline title="Skatefeed" xmlUrl="https://skatefeed.nl/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

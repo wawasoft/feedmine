@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Metallurgy, Metals (Slovak)">
-      <outline title="Hutníctvo" xmlUrl="https://www.hutnictvo.sk/feed/" type="rss"/>
-      <outline title="Kovy a technológie" xmlUrl="https://www.kovy.sk/feed/" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

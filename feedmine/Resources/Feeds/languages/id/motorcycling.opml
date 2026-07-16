@@ -7,8 +7,6 @@
   </head>
   <body>
     <outline text="Motorcycling (Indonesian)">
-      <outline title="Otoinfo - Sepeda Motor" xmlUrl="https://www.otoinfo.co.id/feed/" type="rss"/>
-      <outline title="GridOto - Motor" xmlUrl="https://www.gridoto.com/feed/motor" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>

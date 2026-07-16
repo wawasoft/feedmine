@@ -7,7 +7,6 @@
   </head>
   <body>
     <outline text="Other Pets (Slovenian)">
-      <outline title="Moj pes - forum" xmlUrl="https://www.mojpes.si/rss" type="rss"/>
-    </outline>
+      </outline>
   </body>
 </opml>
