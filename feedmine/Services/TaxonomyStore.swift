@@ -344,7 +344,7 @@ final class TaxonomyStore {
                 OPMLParser.normalizeURL(source.url),
                 source.category,
                 source.region,
-                source.language ?? "",
+                FeedStore.normalizedLanguageCode(source.language) ?? "",
                 source.mediaKind.rawValue
             ].joined(separator: "\u{1F}")  // unit separator — cannot appear in any field
         }

@@ -126,28 +126,45 @@ final class FeedStore {
     ///   language is among the selected set (the item is likely in the user's
     ///   language even if detection failed).
     /// - No selection (empty set): all items pass.
+    /// - Language codes are normalized to ISO 639-1 base codes before
+    ///   comparison (e.g. "pt-BR" matches "pt").
     static func languageFilterMatches(
         itemLanguage: String?,
         selectedLanguages: Set<String>,
         deviceLanguage: String?
     ) -> Bool {
         guard !selectedLanguages.isEmpty else { return true }
-        if let lang = itemLanguage {
+        if let raw = itemLanguage, let lang = normalizedLanguageCode(raw) {
             return selectedLanguages.contains(lang)
         }
-        // nil language: pass only if device language is selected
+        // nil or empty language: pass only if device language is selected
         if let deviceLang = deviceLanguage {
             return selectedLanguages.contains(deviceLang)
         }
         return false
     }
 
-    /// Normalize a language code: trim whitespace, lowercased, nil if empty.
-    /// Treats `""` and `"   "` the same as `nil` so the `??` chain works correctly.
-    private static func nonEmptyLanguage(_ raw: String?) -> String? {
+    /// Normalize a language tag to its ISO 639-1 base code.
+    /// - Trims whitespace, normalizes underscores to hyphens
+    /// - Extracts the primary language subtag from BCP 47 / RFC 5646 tags
+    ///   (e.g. "pt-BR" → "pt", "en_US" → "en", "zh-Hant" → "zh")
+    /// - Returns lowercase code, or nil for empty/whitespace-only input
+    nonisolated static func normalizedLanguageCode(_ raw: String?) -> String? {
         guard let raw else { return nil }
-        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? nil : trimmed.lowercased()
+        let trimmed = raw
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: "_", with: "-")
+        guard !trimmed.isEmpty else { return nil }
+        // Use Foundation's Locale.Language to extract the primary language
+        // subtag — handles arbitrary BCP 47 complexity correctly.
+        if let code = Locale.Language(identifier: trimmed).languageCode?.identifier {
+            return code.lowercased()
+        }
+        // Fallback: split on first hyphen (covers codes Foundation may reject)
+        return trimmed
+            .split(separator: "-", maxSplits: 1)
+            .first
+            .map { String($0).lowercased() }
     }
 
     /// Lightweight, Sendable input for off‑main‑actor language detection.
@@ -176,7 +193,8 @@ final class FeedStore {
             guard text.count >= 12 else { return nil }
             recognizer.reset()
             recognizer.processString(text)
-            return recognizer.dominantLanguage?.rawValue
+            // NLLanguageRecognizer may return BCP 47 tags — normalize to base code
+            return normalizedLanguageCode(recognizer.dominantLanguage?.rawValue)
         }
     }
 
@@ -1045,8 +1063,8 @@ final class FeedStore {
         // NLLanguageRecognizer runs in a detached task to avoid blocking UI.
         let regions: [String] = actualNew.map { regionOverride ?? registry.regionFor(sourceURL: $0.sourceURL) }
         let detectionInputs: [LanguageDetectionInput] = actualNew.map { item in
-            let itemLang = Self.nonEmptyLanguage(item.language)
-            let sourceLang = Self.nonEmptyLanguage(registry.languageFor(sourceURL: item.sourceURL))
+            let itemLang = Self.normalizedLanguageCode(item.language)
+            let sourceLang = Self.normalizedLanguageCode(registry.languageFor(sourceURL: item.sourceURL))
             return LanguageDetectionInput(
                 title: item.title,
                 excerpt: item.excerpt,
