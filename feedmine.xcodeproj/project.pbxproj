@@ -141,6 +141,10 @@
 		F311851139242691553818F4 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED7D05837FFFED0BCF4528A1 /* AppContext.swift */; };
 		F7849543D7C7A7076E8F8DEA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B126A0070B10B3C716D2C0C7 /* NetworkMonitor.swift */; };
 		FFE217951022C72BFF79B68E /* ro.json in Resources */ = {isa = PBXBuildFile; fileRef = 9584476DFFCB8587E082CAAF /* ro.json */; };
+		E0AD679429304DA08669998F /* Identities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5CE544FB34412A84D6D78E /* Identities.swift */; };
+		0DD663868A7142829FC73329 /* CatalogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4D2D1B37BA40D0A81CF8D8 /* CatalogModels.swift */; };
+		0B52C790E53D4510975B9FA5 /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBA91B8FA0E4914823784C8 /* Pagination.swift */; };
+		0BCBCF8A14BA4B2981AAC017 /* CatalogProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1261B134CBC04654B78C8CA0 /* CatalogProtocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,6 +303,10 @@
 		FAA7E9533053848D5E366042 /* pt-BR.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "pt-BR.json"; sourceTree = "<group>"; };
 		FCDDC3174C82B39C1ED9A1FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FDCAD69EEAB8FAB8FB974935 /* FeedFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFetchResult.swift; sourceTree = "<group>"; };
+		8C5CE544FB34412A84D6D78E /* Identities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identities.swift; sourceTree = "<group>"; };
+		9B4D2D1B37BA40D0A81CF8D8 /* CatalogModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogModels.swift; sourceTree = "<group>"; };
+		7DBA91B8FA0E4914823784C8 /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
+		1261B134CBC04654B78C8CA0 /* CatalogProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogProtocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -551,8 +559,20 @@
 				CB51B4180BE95087ECD62C86 /* Resources */,
 				A265C2B5D9700AC12D20ADF6 /* Services */,
 				4A4F050A898BB40B15DE74DE /* Views */,
+				527FCE38A4C24ACEB4D69AE0 /* FeedEngine */,
 			);
 			path = feedmine;
+			sourceTree = "<group>";
+		};
+		527FCE38A4C24ACEB4D69AE0 /* FeedEngine */ = {
+			isa = PBXGroup;
+			children = (
+				8C5CE544FB34412A84D6D78E /* Identities.swift */,
+				9B4D2D1B37BA40D0A81CF8D8 /* CatalogModels.swift */,
+				7DBA91B8FA0E4914823784C8 /* Pagination.swift */,
+				1261B134CBC04654B78C8CA0 /* CatalogProtocols.swift */,
+			);
+			path = FeedEngine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
