@@ -1,5 +1,8 @@
 # Feedmine — Roadmap de Pendências
 
+> Plano completo e atualizado de conclusão: [`FeedmineCompletionPlan.md`](FeedmineCompletionPlan.md).
+> Este arquivo permanece como roadmap histórico resumido.
+
 Organizado em ondas sequenciais. Cada onda desbloqueia a próxima.
 
 ---

@@ -27,13 +27,12 @@ struct SourceKey: RawRepresentable, Hashable, Codable, Sendable, CustomStringCon
 
 /// Compact numeric identity for a feed source.
 ///
-/// Computed as a positive 63-bit digest of `SourceKey`. The hash algorithm
-/// and canonicalization version are explicit catalog metadata. A collision
-/// with a different key fails validation rather than silently merging sources.
+/// The compiler derives this from `SourceKey` and validates collisions before
+/// publishing a catalog. The UI only carries this compact value.
 struct SourceID: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible {
-    let rawValue: Int64
+    let rawValue: UInt32
 
-    init(rawValue: Int64) {
+    init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
 
@@ -58,12 +57,11 @@ struct NodeKey: RawRepresentable, Hashable, Codable, Sendable, CustomStringConve
 
 /// Compact numeric identity for a catalog taxonomy node.
 ///
-/// Computed as a positive 63-bit digest of `NodeKey`. Same collision
-/// validation rules apply as SourceID.
+/// Derived from `NodeKey` by the compiler. `0` is reserved for the root.
 struct CatalogNodeID: RawRepresentable, Hashable, Codable, Sendable, CustomStringConvertible {
-    let rawValue: Int64
+    let rawValue: UInt32
 
-    init(rawValue: Int64) {
+    init(rawValue: UInt32) {
         self.rawValue = rawValue
     }
 
@@ -82,9 +80,10 @@ extension CatalogNodeID {
 }
 
 /// The kind of a catalog taxonomy node.
-enum CatalogNodeKind: Int, Codable, Sendable, CaseIterable {
+enum CatalogNodeKind: Int, Codable, Sendable, CaseIterable, Equatable {
     case topic = 0
     case country = 1
     case region = 2
     case subcategory = 3
+    case language = 4
 }

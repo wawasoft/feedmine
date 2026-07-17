@@ -9,6 +9,11 @@ struct FeedmineApp: App {
     @State private var audioPlayer = AudioPlayerManager.shared
     @State private var contentFilters = ContentFilterStore.shared
 
+    init() {
+        FeedMetrics.event("Process.started")
+        FeedMetrics.memory("processStarted")
+    }
+
     var body: some Scene {
         WindowGroup {
             FeedScreen()

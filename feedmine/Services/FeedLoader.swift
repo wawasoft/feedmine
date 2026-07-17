@@ -49,6 +49,8 @@ final class FeedLoader {
     var emptyStateFetchedCount: Int { store.emptyStateFetchedCount }
     var emptyStateFetchTotal: Int { store.emptyStateFetchTotal }
     var isUrgentFetching: Bool { store.isUrgentFetching }
+    var catalogDiagnosticsStatus = FeedEngineCatalogDiagnosticsStatus.idle
+    private var catalogDiagnosticsTask: Task<Void, Never>?
 
     // MARK: - Date Sections
 
@@ -479,7 +481,42 @@ final class FeedLoader {
         await refreshBookmarkLists()
         await refreshBookmarkState()
         await refreshActiveSearchState()
+        #if DEBUG || INSTRUMENTATION
+        scheduleCatalogDiagnosticsIfNeeded()
+        #endif
     }
+
+    #if DEBUG || INSTRUMENTATION
+    private func scheduleCatalogDiagnosticsIfNeeded() {
+        guard catalogDiagnosticsTask == nil else { return }
+        let sources = store.registry.sources
+
+        catalogDiagnosticsStatus = .opening
+        let diagnostics = FeedEngineCatalogDiagnostics()
+        catalogDiagnosticsTask = Task(priority: .utility) {
+            do {
+                let status = try await diagnostics.openBundledCatalog()
+                catalogDiagnosticsStatus = status
+            } catch {
+                guard !sources.isEmpty else {
+                    FeedMetrics.event("CatalogDiagnostics.failed", error.localizedDescription)
+                    catalogDiagnosticsStatus = .failed(error)
+                    catalogDiagnosticsTask = nil
+                    return
+                }
+                do {
+                    catalogDiagnosticsStatus = .compiling(sourceCount: sources.count)
+                    let status = try await diagnostics.compileLegacyCatalog(sources: sources)
+                    catalogDiagnosticsStatus = status
+                } catch {
+                    FeedMetrics.event("CatalogDiagnostics.failed", error.localizedDescription)
+                    catalogDiagnosticsStatus = .failed(error)
+                }
+            }
+            catalogDiagnosticsTask = nil
+        }
+    }
+    #endif
     func loadMoreIfNeeded(currentItem: FeedItem) async {
         await store.loadMoreIfNeeded(currentItem: currentItem)
     }
