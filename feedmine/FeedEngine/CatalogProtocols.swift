@@ -2,48 +2,64 @@ import Foundation
 
 // MARK: - FeedEngine Stage 1 Protocols
 //
-// First migration vertical: catalog compilation, browse, and search only.
-// Timeline, fetching, and the reservoir remain on the legacy FeedStore path
-// until the catalog vertical is proven.
+// This boundary is intentionally small: UI asks for bounded pages, identities
+// are numeric, details are loaded on demand, and implementation can coexist
+// beside the legacy FeedStore path.
 
-// MARK: - Catalog Reading
+// MARK: - Facade
+
+protocol FeedEngineProtocol: Sendable {
+    func browseCatalog(
+        query: CatalogBrowseQuery,
+        cursor: CatalogCursor?,
+        limit: Int
+    ) async throws -> CatalogPage
+
+    func searchCatalog(
+        query: CatalogSearchQuery,
+        cursor: CatalogCursor?,
+        limit: Int
+    ) async throws -> CatalogPage
+
+    func loadSourceDetails(
+        sourceID: SourceID
+    ) async throws -> SourceDetails
+
+    func loadTimeline(
+        query: ContentQuery,
+        cursor: TimelineCursor?,
+        limit: Int
+    ) async throws -> TimelinePage
+}
+
+// MARK: - Catalog
 
 /// Paginated, read-only access to the compiled catalog.
 /// All queries are SQLite-backed, returning bounded pages.
-/// No public API returns the entire catalog or a complete subtree as an array.
-protocol CatalogReading: Sendable {
-    /// Browse the children of a catalog node. Pass nil for root.
-    func childNodes(
-        of parentID: CatalogNodeID?,
+protocol CatalogRepository: Sendable {
+    func browseCatalog(
+        query: CatalogBrowseQuery,
         cursor: CatalogCursor?,
         limit: Int
-    ) async throws -> CatalogNodePage
+    ) async throws -> CatalogPage
 
-    /// Browse sources within a taxonomy node.
-    func sources(
-        in nodeID: CatalogNodeID,
-        cursor: CatalogCursor?,
-        limit: Int
-    ) async throws -> SourcePage
-
-    /// Full-text search over source titles, hosts, and editorial paths.
-    func searchSources(
-        text: String,
-        filters: CatalogSearchFilters,
-        cursor: CatalogCursor?,
-        limit: Int
-    ) async throws -> SourcePage
-
-    /// Load full details for a single source.
-    func sourceDetails(id: SourceID) async throws -> SourceDetails?
+    func loadSourceDetails(
+        sourceID: SourceID
+    ) async throws -> SourceDetails
 }
 
-// MARK: - Catalog Compiling
+/// Full-text catalog search backed by SQLite FTS5.
+protocol CatalogSearch: Sendable {
+    func searchCatalog(
+        query: CatalogSearchQuery,
+        cursor: CatalogCursor?,
+        limit: Int
+    ) async throws -> CatalogPage
+}
 
 /// Transforms OPML files + folder structure into a versioned SQLite catalog.
-/// Runs offline (at build time or on first launch after OPML update).
-/// Produces a staging candidate — publication is atomic and separate.
-protocol CatalogCompiling: Sendable {
+/// Produces a staging candidate; publication is atomic and separate.
+protocol CatalogCompiler: Sendable {
     /// Full rebuild from the complete OPML corpus.
     func compileFull() async throws -> CatalogCompileReport
 
@@ -53,10 +69,46 @@ protocol CatalogCompiling: Sendable {
     ) async throws -> CatalogCompileReport
 }
 
+// MARK: - Timeline / Content
+
+protocol TimelineRepository: Sendable {
+    func loadTimeline(
+        query: ContentQuery,
+        cursor: TimelineCursor?,
+        limit: Int
+    ) async throws -> TimelinePage
+}
+
+protocol FeedFetcher: Sendable {
+    func fetchFeed(
+        sourceID: SourceID,
+        requestURL: URL
+    ) async throws -> Data
+}
+
+protocol FeedParsing: Sendable {
+    func parseFeed(
+        data: Data,
+        sourceID: SourceID
+    ) async throws -> [ParsedFeedItem]
+}
+
+protocol FeedIngestion: Sendable {
+    func ingest(
+        items: [ParsedFeedItem],
+        sourceID: SourceID
+    ) async throws -> FeedIngestionReport
+}
+
+protocol UserStateRepository: Sendable {
+    func loadLastContentQuery() async throws -> (query: ContentQuery, cursor: TimelineCursor?)?
+    func saveLastContentQuery(_ query: ContentQuery, cursor: TimelineCursor?) async throws
+}
+
 // MARK: - Supporting Types
 
 /// Search filters applied to catalog source search.
-struct CatalogSearchFilters: Sendable {
+struct CatalogSearchFilters: Equatable, Sendable {
     let kind: CatalogNodeKind?
     let language: String?
     let region: String?
@@ -69,11 +121,11 @@ struct CatalogSearchFilters: Sendable {
 }
 
 /// A changed OPML file for incremental compilation.
-struct CatalogFileChange: Sendable {
+struct CatalogFileChange: Equatable, Sendable {
     let relativePath: String
     let change: FileChangeKind
 
-    enum FileChangeKind: Sendable {
+    enum FileChangeKind: Equatable, Sendable {
         case added
         case modified
         case deleted
@@ -81,8 +133,8 @@ struct CatalogFileChange: Sendable {
 }
 
 /// Compilation result report — contains counts and timing for diagnostics.
-struct CatalogCompileReport: Sendable {
-    enum Mode: Sendable {
+struct CatalogCompileReport: Equatable, Sendable {
+    enum Mode: Equatable, Sendable {
         case full
         case incremental
     }
@@ -101,3 +153,26 @@ struct CatalogCompileReport: Sendable {
     let logicalDigest: String
     let elapsed: TimeInterval
 }
+
+struct ParsedFeedItem: Equatable, Sendable {
+    let id: String
+    let title: String
+    let excerpt: String
+    let url: URL
+    let publishedAt: Date
+    let imageURL: URL?
+    let audioURL: URL?
+    let language: String?
+}
+
+struct FeedIngestionReport: Equatable, Sendable {
+    let insertedCount: Int
+    let updatedCount: Int
+    let duplicateCount: Int
+    let rejectedCount: Int
+    let elapsed: TimeInterval
+}
+
+// Backward-compatible names from the initial FeedEngine sketch.
+typealias CatalogReading = CatalogRepository
+typealias CatalogCompiling = CatalogCompiler

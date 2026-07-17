@@ -90,14 +90,25 @@ struct OPMLParser {
 
     /// Scan the app bundle for all .opml files and parse them into FeedSource entries.
     static func parseAll() async -> OPMLParseResult {
-        // Cache fast path — O(1), no filesystem walk or stat. See cacheFingerprint().
+        // Cache fast path after fingerprinting. The fingerprint still walks the
+        // bundled OPML tree to count files and read the newest mtime.
+        let endFingerprintMetric = FeedMetrics.beginInterval("OPML.fingerprint")
         let fingerprint = cacheFingerprint()
-        if let cached = loadCache(fingerprint: fingerprint) {
+        endFingerprintMetric()
+
+        let endCacheReadMetric = FeedMetrics.beginInterval("OPML.cacheRead")
+        let cached = loadCache(fingerprint: fingerprint)
+        endCacheReadMetric()
+        if let cached {
+            FeedMetrics.event("OPML.cacheHit")
             return cached
         }
+        FeedMetrics.event("OPML.cacheMiss")
 
         // Cache miss: enumerate all bundled OPML files. Bundle.urls(...) does not
         // recurse, so we walk Feeds/ manually to reach Feeds/countries/{c}/… feeds.
+        let endFullParseMetric = FeedMetrics.beginInterval("OPML.fullParse")
+        defer { endFullParseMetric() }
         var opmlFiles: [URL] = []
         if let feedsURL = Bundle.main.resourceURL?.appendingPathComponent("Feeds"),
            let enumerator = FileManager.default.enumerator(at: feedsURL, includingPropertiesForKeys: nil) {
@@ -175,6 +186,10 @@ struct OPMLParser {
             failedFileCount: failedFileCount,
             invalidSourceCount: invalidSourceCount,
             duplicateSourceCount: duplicateSourceCount
+        )
+        FeedMetrics.event(
+            "OPML.parseCounts",
+            "files=\(opmlFiles.count) sources=\(deduped.count) duplicates=\(duplicateSourceCount) invalid=\(invalidSourceCount)"
         )
         // Only cache a COMPLETE parse. A partial result from a transient file
         // failure or a cancellation must never be persisted, or it would be

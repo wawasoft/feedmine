@@ -41,6 +41,9 @@ struct DebugStatusBar: View {
                         .foregroundStyle(.secondary)
                     Text(" · ")
                 }
+                Text(loader.catalogDiagnosticsStatus.compactLabel)
+                    .foregroundStyle(loader.catalogDiagnosticsStatus.phase == .failed ? .red : .secondary)
+                Text(" · ")
                 statusIndicator
             }
             .font(.system(size: 10, design: .monospaced))

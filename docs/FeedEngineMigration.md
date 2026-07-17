@@ -1,9 +1,10 @@
 # FeedEngine Migration — Stage 1: Verified Diagnosis, Baseline & Boundary
 
 **Date:** 2026-07-16  
+**Last updated:** 2026-07-17  
 **Repository:** `wsmontes/feedmine`  
 **Reviewed branch:** `main`  
-**Reviewed commit:** `22542e60d342cba9b8f2e4ed70b8c04026564529`  
+**Reviewed commit:** `58ab9229`  
 **Status:** Stage 1 — verified diagnosis, measurement, and architectural boundary  
 **Target:** Safe, incremental migration from the in-memory `FeedStore` architecture to a paginated, SQLite-backed `FeedEngine`, without changing current user-facing behavior.
 
@@ -402,6 +403,27 @@ The editorial source of truth is:
 - explicit metadata and overrides stored in those files or approved sidecar files.
 
 The database does not invent category membership or ownership.
+
+### 9.1.1 OPML and Folder Structure as Source of Truth
+
+The editorial structure is not transferred permanently into SQLite.
+
+`catalog.sqlite` is a compiled index of the OPML and folder corpus. Deleting
+and rebuilding the catalog must produce the same logical hierarchy, source
+identity set, placements, provenance, and editorial order from the same files.
+
+A single source may appear in several OPML files or folders. That creates one
+operational source identity and multiple editorial placements; it is not an
+operational duplicate. Each placement must preserve:
+
+- OPML relative path;
+- folder-derived parent path;
+- nested outline path where applicable;
+- order within the OPML;
+- per-placement title, language, or media-kind overrides.
+
+The compiler may optimize this structure for pagination and FTS lookup, but it
+must not become the authority for the editorial model.
 
 ### 9.2 Compiled catalog
 
@@ -1086,19 +1108,97 @@ The timeline remains on `FeedStore` during this vertical.
 10. Existing tests remain green and no current screen changes behavior.
 11. Build succeeds with no new warnings.
 
+## 22.1 Implementation snapshot — 2026-07-17
+
+This snapshot completes the first boundary pass without replacing legacy
+behavior.
+
+Created or updated:
+
+- `feedmine/FeedEngine/Identities.swift`: type-safe numeric `UInt32` wrappers for `SourceID` and `CatalogNodeID`.
+- `feedmine/FeedEngine/CatalogModels.swift`: `SourceSummary`, `SourceDetails`, `CatalogNodeSummary`, `TimelineItemSummary`, `CatalogBrowseQuery`, `CatalogSearchQuery`, and `ContentQuery`.
+- `feedmine/FeedEngine/Pagination.swift`: bounded `CatalogPage`, typed page structs, versioned cursors, and `FeedEnginePageLimit`.
+- `feedmine/FeedEngine/CatalogProtocols.swift`: `FeedEngineProtocol` plus catalog, search, timeline, fetch, parsing, ingestion, and user-state repository boundaries.
+- `feedmine/Services/FeedMetrics.swift`: removable signpost and `phys_footprint` measurement wrapper.
+- `feedmine/Services/FeedStore.swift`: startup markers for backend start, OPML load, taxonomy load/build, read state, reservoir load/seed, first visible items, object counts, and memory.
+- `feedmine/Services/OPMLParser.swift`: separate signposts for OPML fingerprinting, cache read, cache hit/miss, full parse, and parse counts.
+- `feedmine/feedmineApp.swift`: process-start marker.
+- `feedmine/Views/FeedScreen.swift`: first screen and first useful content markers.
+- `feedmineTests/FeedEngineBoundaryTests.swift`: initial tests for ID equality, cursor stability, page limits, query shapes, source/details separation, multiple placements, and bounded protocol behavior.
+
+Still not implemented in this snapshot:
+
+- compiled `catalog.sqlite`;
+- full or incremental catalog compiler;
+- real catalog repository backed by GRDB;
+- FTS5 catalog search;
+- atomic catalog publication;
+- migration of any current UI screen to `FeedEngine`;
+- physical-device baseline values.
+
+The next vertical remains:
+
+```text
+OPML/pastas
+    ↓
+catalog.sqlite derivado
+    ↓
+navegação paginada
+    ↓
+busca local
+```
+
+## 22.2 Implementation snapshot — catalog vertical prototype
+
+This snapshot implements the first migration vertical as a tested,
+non-user-facing prototype. It still does **not** replace the legacy feed UI.
+
+Created or updated:
+
+- `feedmine/FeedEngine/CatalogIdentity.swift`: deterministic `UInt32` IDs for sources and catalog nodes, conservative URL keys, display host extraction, slug generation, and collision errors.
+- `feedmine/FeedEngine/CatalogInput.swift`: compiler input model for source occurrences and editorial node paths.
+- `feedmine/FeedEngine/OPMLCatalogScanner.swift`: OPML/folder scanner that preserves file provenance, outline order, language, and media overrides.
+- `feedmine/FeedEngine/SQLiteCatalogStore.swift`: GRDB schema, full compiler, atomic candidate publication, paginated catalog browse, source details, and FTS5 local search.
+- `feedmine/Services/FeedEngineCatalogDiagnostics.swift`: DEBUG/INSTRUMENTATION-only runtime compiler that builds a diagnostic catalog after legacy startup and reads the first catalog page.
+- `scripts/build_catalog.py`: build-time catalog compiler for `feedmine/Resources/Feeds`.
+- `feedmine/Resources/FeedEngine/catalog.sqlite`: precompiled derived catalog bundled with the app.
+- `feedmine/Resources/FeedEngine/catalog-manifest.json`: generated catalog build report.
+- `feedmine/Services/FeedLoader.swift`: schedules DEBUG diagnostics that open the bundled catalog read-only, falling back to legacy-source compilation only when the bundle resource is missing.
+- `feedmine/Views/DebugStatusBar.swift`: exposes compact catalog diagnostics when the existing debug bar is enabled.
+- `feedmineTests/SQLiteCatalogStoreTests.swift`: verifies source deduplication with multiple placements, direct-child pagination, source details, local FTS, and search filters.
+
+Generated catalog from `feedmine/Resources/Feeds`:
+
+- OPML files: 4,534
+- `catalog_source`: 39,717
+- `catalog_node`: 8,798
+- `catalog_placement`: 57,650
+- duplicate editorial placements: 17,933
+- generated bundle size: 34 MB
+
+Simulator verification on `iPhone 14 Plus`, iOS 26.5:
+
+- App installed and launched as `com.feedmine.app`.
+- Clean install did **not** create `Library/Application Support/FeedEngine/catalog.sqlite`; runtime opened the bundled catalog.
+- FTS query for `startupi` returned `Startupi | startupi.com.br`.
+
+Important limitation:
+
+- The feed timeline still uses the legacy `FeedStore`. The bundled catalog proves browse/search storage and read-only opening, but no current screen has been migrated to FeedEngine yet.
+
 ---
 
 ## 23. Ordered next actions
 
 1. **Stabilize current behavior:** fix the reverse-index cache restore, awaitable reservoir flush, bookmark stamping, and legacy `http` matching.
-2. **Record a real baseline:** add signposts and profile warm/cold legacy scenarios on a physical device.
-3. **Freeze identity decisions:** implement `SourceKey`, deterministic `SourceID`, `node_key`, collision validation, and URL alias rules in tests.
-4. **Create the catalog schema prototype:** include manifest, source, alias, node, placement, metadata, and FTS tables.
-5. **Prototype atomic publication:** compile a tiny fixture catalog into a candidate file, validate it, swap it, and invalidate an old cursor.
-6. **Implement full and incremental fixture compilers:** prove identical logical digests before running the complete corpus.
-7. **Compile the real bundled catalog:** record source, node, placement, duplicate, invalid, and timing reports.
-8. **Implement paginated browse and search:** verify bounded allocations and query plans.
-9. **Migrate one browse/search screen through an adapter:** keep the timeline on `FeedStore`.
+2. **Record a real baseline:** run the instrumented warm/cold legacy scenarios on a physical device and fill the baseline table.
+3. **Move catalog generation before launch:** generate `catalog.sqlite` from OPML/folders as a build artifact or explicit maintenance step, not from `SourceRegistry.sources`.
+4. **Add a manifest table/file:** store OPML path, size, modified time, and hash so incremental rebuild can run after first render.
+5. **Open production catalog read-only:** make runtime browse/search use an existing validated catalog instead of compiling one.
+6. **Add query-plan and allocation checks:** verify browse and search remain bounded on the full catalog.
+7. **Migrate one browse/search screen through an adapter:** keep the timeline on `FeedStore`.
+8. **Separate `user.sqlite` and `content.sqlite`:** move user state and operational feed state behind explicit repositories.
+9. **Implement source aliases deliberately:** support legacy row matching without declaring broad URL equivalence.
 10. **Remove legacy catalog materialization only after parity:** `SourceRegistry` and `TaxonomyStore` remain until the new vertical passes functional and performance acceptance.
 
 ---
@@ -1155,20 +1255,20 @@ These boundaries are directional. They are not all required as Stage 1 compile-t
 
 1. Current source count updated from 24,045 to the audit-reported 39,697.
 2. Precise memory and startup estimates removed from the baseline until measured.
-3. `UInt32` aliases replaced with type-safe `Int64` wrappers compatible with SQLite.
+3. `UInt32` aliases replaced with type-safe `UInt32` wrappers for compile-time clarity.
 4. Auto-generated SQLite row IDs rejected as cross-database stable identity.
 5. Deterministic logical output distinguished from byte-identical SQLite bytes.
 6. Aggressive URL normalization rejected as permanent identity policy.
 7. "First OPML occurrence wins" removed from the target metadata model.
 8. `node_source` replaced by explicit source placements with file provenance and order.
 9. Offset pagination replaced by versioned keyset cursors.
-10. Mixed node/source `CatalogPage` split into typed page models.
+10. Bounded `CatalogPage` kept for the facade, with typed node/source page models available below it.
 11. Unbounded `sourceIDs(for:)` API removed.
 12. Timeline cursor expanded from date-only to `(timestamp, itemID)`.
 13. Full catalog compilation removed from the cold-start path.
 14. Build-time catalog and background incremental hot-folder compilation made explicit.
 15. Atomic catalog publication and cursor invalidation added.
-16. `CatalogRepository`, timeline, fetch, ingestion, and user-state interfaces no longer forced into one premature Stage 1 protocol.
+16. `FeedEngineProtocol` defines the UI facade while catalog, timeline, fetch, ingestion, and user-state responsibilities stay independently testable.
 17. Reservoir reclassified as timeline working-set policy, not simply a UI concern.
 18. Current critical defects separated from the migration architecture and assigned to a stabilization track.
 19. Simulator removed as the authority for performance baselines.
