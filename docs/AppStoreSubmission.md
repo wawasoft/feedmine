@@ -10,7 +10,7 @@ privacy policy or legal advice.
 |---|---|
 | App name | FeedMine |
 | Bundle ID | `com.feedmine.app` |
-| Version / build | `1.0` / `1` |
+| Version / build | `1.0` / `2` |
 | Minimum OS | iOS 18.0 |
 | Devices | iPhone |
 | Account required | No |
@@ -26,22 +26,25 @@ privacy policy or legal advice.
   the current source audit.
 - No location APIs or weather service are included in the release build.
 
-## Required before upload
+## Completed release preparation
 
-- [ ] Create or confirm the App Store Connect record for `com.feedmine.app`.
-- [ ] Create a public privacy-policy URL that accurately covers local reading
-  data, user-added feeds, and direct requests to public feed publishers.
-- [ ] Set the App Privacy answers to match the executable build.
-- [ ] Create an App Store distribution certificate and provisioning profile, or
-  confirm that automatic signing selects them for an archive.
-- [ ] Archive a Release build and validate it in Xcode Organizer.
-- [ ] Upload the archive to App Store Connect / TestFlight.
+- [x] App Store Connect record created for `com.feedmine.app`.
+- [x] App Store distribution certificate and provisioning profile created.
+- [x] Release archive validated and uploaded to App Store Connect.
+- [x] TestFlight build `1.0 (2)` accepted by Apple with status `VALID`.
+- [x] Export compliance reported as no non-exempt encryption.
+- [x] The release build was tested on a physical iPhone 14 Plus.
+
+## Still required before App Review
+
+- [ ] Publish the privacy-policy URL. The site route exists in source but must
+  be deployed before it can be supplied to Apple.
+- [ ] Set App Privacy answers to match the executable build.
 - [ ] Supply App Store metadata: subtitle, description, keywords, support URL,
   marketing URL, copyright, category, age rating, and review contact.
 - [ ] Capture the required iPhone screenshots from the approved release build.
-- [ ] Complete export-compliance questions after inspecting the archive.
-- [ ] Test the exact archive on a physical device and submit to TestFlight
-  before App Review.
+- [ ] Add internal TestFlight testers (or create an external testing group and
+  complete its beta review) as appropriate.
 
 ## Suggested App Review notes
 
