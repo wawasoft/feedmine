@@ -2119,11 +2119,6 @@ final class FeedStore {
         }
         guard !actualNew.isEmpty else { return }
 
-        if needsInitialRunway {
-            isPreparingInitialRunway = false
-            startupRunwayReady = true
-        }
-
         // Yield again after heavy DB work before processing results
         await Task.yield()
 
@@ -2153,6 +2148,8 @@ final class FeedStore {
             await flushPendingReservoir()
         }
         if needsInitialRunway {
+            isPreparingInitialRunway = false
+            startupRunwayReady = true
             Log.feed.info("starterIngest published: visible=\(self.visibleItems.count) reservoir=\(self.reservoir.reservoirCount) elapsed=\(Date().timeIntervalSince(ingestStartedAt), format: .fixed(precision: 3))s")
         }
 
