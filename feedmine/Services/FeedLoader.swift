@@ -454,10 +454,6 @@ final class FeedLoader {
 
     // MARK: - What's New
 
-    /// What's New items — driven by the reactive pipeline in FeedStore.
-    /// Items accumulate as new content enters the database and are promoted
-    /// to the carousel when the pool reaches the threshold (10).
-    var whatIsNewItems: [FeedItem] { store.whatsNewItems }
     var whatsNewLabel: String { "What's New" }
     var whatsNewVisible = false
 
@@ -469,12 +465,6 @@ final class FeedLoader {
     /// Mark a What's New item as read and remove it from the carousel immediately.
     func markWhatsNewAsRead(_ id: String) {
         store.markAsRead(id)
-    }
-
-    func prefetchWhatsNewImages() {
-        let urls = whatIsNewItems.compactMap { $0.bestImageURL ?? $0.imageURL }
-        guard !urls.isEmpty else { return }
-        Task { await prefetcher.prefetch(urls: urls, priorityURLs: urls) }
     }
 
     // MARK: - Source health (stub)
