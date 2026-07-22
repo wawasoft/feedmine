@@ -103,6 +103,8 @@ struct MiniPlayerBar: View {
 struct FullPlayerView: View {
     @State private var player = AudioPlayerManager.shared
     @State private var artworkFailed = false
+    @State private var selectedSource: SourceReference?
+    @State private var sourceToCollect: SourceReference?
     @Environment(\.dismiss) private var dismiss
     @Environment(FeedLoader.self) private var loader
 
@@ -242,6 +244,8 @@ struct FullPlayerView: View {
             }
         }
         .presentationDetents([.large])
+        .sheet(item: $selectedSource) { SourceFeedView(source: $0) }
+        .sheet(item: $sourceToCollect) { AddSourceToCollectionSheet(source: $0) }
         .onChange(of: player.currentItem?.id) { _, _ in
             artworkFailed = false
         }
@@ -252,13 +256,14 @@ struct FullPlayerView: View {
         if let item = player.currentItem {
             BookmarkBoxContextMenu(itemID: item.id)
 
-            let ref = loader.sourceReference(for: item)
             Button {
+                selectedSource = loader.sourceReference(for: item)
             } label: {
                 Label("View Source", systemImage: "rectangle.stack")
             }
 
             Button {
+                sourceToCollect = loader.sourceReference(for: item)
             } label: {
                 Label("Add Source to Collection", systemImage: "rectangle.stack.badge.plus")
             }
