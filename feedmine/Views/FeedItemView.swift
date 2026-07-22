@@ -12,6 +12,7 @@ struct FeedItemView: View {
     var onAddSourceToCollection: (() -> Void)? = nil
 
     var body: some View {
+        let isDirectAudio = item.isDirectAudioLink
         Group {
             if loader.layout == .card {
                 FeedItemCardView(
@@ -21,7 +22,7 @@ struct FeedItemView: View {
                     onBookmark: { loader.toggleBookmark(item.id) },
                     onViewSource: onViewSource,
                     onAddSourceToCollection: onAddSourceToCollection,
-                    onImageTap: item.isPodcast ? { playPodcastAudio() } : nil,
+                    onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil,
                     isInBookmarkBox: loader.selectedBookmarkListID != nil
                 )
                 .equatable()
@@ -31,7 +32,7 @@ struct FeedItemView: View {
                     item: item,
                     isRead: item.isRead,
                     isBookmarked: item.isBookmarked,
-                    onImageTap: item.isPodcast ? { playPodcastAudio() } : nil
+                    onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil
                 )
                 Divider()
             }
@@ -40,9 +41,12 @@ struct FeedItemView: View {
         .onTapGesture {
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()
-            if item.isPodcast {
-                // Image tap plays audio (handled via onImageTap).
-                // Text area tap opens the link like any other content.
+            if isDirectAudio {
+                // Direct audio link (e.g. .mp3) — whole card plays audio.
+                playPodcastAudio()
+            } else if item.isPodcast {
+                // Podcast with article page — image tap plays audio,
+                // text area tap opens the link.
                 loader.markAsRead(item.id)
                 SessionTracker.shared.onArticleRead()
                 onOpen?()
