@@ -843,6 +843,10 @@ actor RSSFetcher {
         if lower.range(of: #"[-.]\d{2,4}x\d{2,4}"#, options: .regularExpression) != nil {
             return true
         }
+        // Site logos used as channel images (not article artwork)
+        if lower.contains("/logo") || lower.contains("-logo") || lower.contains("_logo") {
+            return true
+        }
         return false
     }
 
