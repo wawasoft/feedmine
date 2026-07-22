@@ -131,6 +131,15 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
     /// True if this item has an audio enclosure (podcast episode)
     var isPodcast: Bool { audioURL != nil }
 
+    /// True when the article URL itself is a direct audio file — no page to open.
+    var isDirectAudioLink: Bool {
+        let lower = url.lowercased()
+        return lower.hasSuffix(".mp3") || lower.hasSuffix(".m4a")
+            || lower.hasSuffix(".wav") || lower.hasSuffix(".aac")
+            || lower.hasSuffix(".ogg") || lower.hasSuffix(".flac")
+            || lower.hasSuffix(".opus")
+    }
+
     /// URL that can be handed to AVFoundation. Podcast feeds occasionally
     /// publish protocol-relative or feed-relative enclosure URLs.
     var audioPlaybackURL: URL? {
