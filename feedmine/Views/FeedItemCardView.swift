@@ -16,6 +16,7 @@ struct FeedItemCardView: View, Equatable {
     var onBookmark: (() -> Void)? = nil
     var onViewSource: (() -> Void)? = nil
     var onAddSourceToCollection: (() -> Void)? = nil
+    var onImageTap: (() -> Void)? = nil
     var isInBookmarkBox: Bool = false
     @State private var imageLoadFailed = false
     @AppStorage("fontSize") private var fontSize = "medium"
@@ -63,11 +64,13 @@ struct FeedItemCardView: View, Equatable {
     private var portraitCard: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Hero image — native media or a bounded article-page candidate.
-            if hasImage {
+            if hasImage || item.isPodcast {
                 Color.clear
                     .aspectRatio(16/9, contentMode: .fit)
                     .overlay {
-                        if imageLoadFailed {
+                        if item.isPodcast && !hasImage {
+                            podcastPlaceholder
+                        } else if imageLoadFailed {
                             imageFailurePlaceholder
                         } else {
                             CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
@@ -78,6 +81,7 @@ struct FeedItemCardView: View, Equatable {
                         }
                     }
                     .clipped()
+                    .onTapGesture { onImageTap?() }
                     .overlay(alignment: .topTrailing) {
                         cardOverlays
                     }
@@ -146,12 +150,14 @@ struct FeedItemCardView: View, Equatable {
 
     private var landscapeCard: some View {
         HStack(spacing: 12) {
-            // Thumb — honest: only show when image exists
-            if hasImage {
+            // Thumb — show for images or podcasts (audio placeholder)
+            if hasImage || item.isPodcast {
                 Color.clear
                     .frame(width: 90, height: 90)
                     .overlay {
-                        if imageLoadFailed {
+                        if item.isPodcast && !hasImage {
+                            podcastPlaceholder
+                        } else if imageLoadFailed {
                             imageFailurePlaceholder
                         } else {
                             CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
@@ -161,6 +167,7 @@ struct FeedItemCardView: View, Equatable {
                         }
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .onTapGesture { onImageTap?() }
             }
 
             // Content
@@ -218,6 +225,16 @@ struct FeedItemCardView: View, Equatable {
                 Image(systemName: "newspaper")
                     .font(.title2)
                     .foregroundStyle(categoryColor(item.category).opacity(0.55))
+            }
+    }
+
+    private var podcastPlaceholder: some View {
+        Rectangle()
+            .fill(Color.purple.opacity(0.12))
+            .overlay {
+                Image(systemName: "waveform")
+                    .font(.system(size: 32))
+                    .foregroundStyle(Color.purple.opacity(0.45))
             }
     }
 
