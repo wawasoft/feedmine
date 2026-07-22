@@ -146,36 +146,45 @@ final class FeedStore {
         Task { await prefetcher.prefetch(urls: urls, priorityURLs: urls) }
     }
 
-    /// Resolve article-page artwork before items enter the reservoir.
-    /// On success the image is cached; on failure the item is marked with
-    /// imageURL = "" so hasPotentialImage returns false and no slot is reserved.
-    /// Items are returned with updated imageURL sentinels where needed.
-    private func resolveArticleImagesBeforeReservoir(_ items: [FeedItem]) async -> [FeedItem] {
+    /// Resolve article-page artwork in parallel background tasks so images
+    /// are cached before cards render. Does NOT block the feed pipeline —
+    /// items enter the reservoir immediately. Sentinel writes on failure
+    /// prevent redundant resolution on future launches.
+    private func resolveArticleImagesInBackground(_ items: [FeedItem]) {
         let needsResolution = items.filter {
             $0.bestImageURL == nil && $0.canResolveArticleImage
         }
-        guard !needsResolution.isEmpty else { return items }
+        guard !needsResolution.isEmpty else { return }
 
-        var resolved = items
-        for (index, item) in needsResolution.enumerated() {
-            guard let articleURL = URL(string: item.url) else { continue }
-            // Time-box: don't stall pipeline for slow pages
-            let found = await prefetcher.prefetchArticleImage(for: articleURL)
-            if !found {
-                // Write sentinel to SQLite so future reads know there's no image
-                try? await db.write { db in
-                    try db.execute(sql: "UPDATE feed_item SET image_url = '' WHERE id = ?",
-                                   arguments: [item.id])
+        Task { [weak self] in
+            guard let self else { return }
+            await withTaskGroup(of: Void.self) { group in
+                var iterator = needsResolution.makeIterator()
+                let maxConcurrent = 4  // match ArticleImageResolver's limit
+                var running = 0
+
+                while running < maxConcurrent, let item = iterator.next() {
+                    group.addTask { await self.resolveOneArticleImage(item) }
+                    running += 1
                 }
-                // Update in-memory item so reservoir/visible get the definitive state
-                if let idx = resolved.firstIndex(where: { $0.id == item.id }) {
-                    resolved[idx] = item.withImageResolutionFailed()
+                while await group.next() != nil {
+                    if let item = iterator.next() {
+                        group.addTask { await self.resolveOneArticleImage(item) }
+                    }
                 }
             }
-            // Yield every 3 items to avoid blocking the cooperative thread pool
-            if index % 3 == 2 { await Task.yield() }
         }
-        return resolved
+    }
+
+    private func resolveOneArticleImage(_ item: FeedItem) async {
+        guard let articleURL = URL(string: item.url) else { return }
+        let found = await prefetcher.prefetchArticleImage(for: articleURL)
+        if !found {
+            try? await db.write { db in
+                try db.execute(sql: "UPDATE feed_item SET image_url = '' WHERE id = ?",
+                               arguments: [item.id])
+            }
+        }
     }
 
     /// Aggressive prefetch: visible items first (user sees now), then deep
@@ -2127,16 +2136,16 @@ final class FeedStore {
             logNonEnglishItems(actualNew)
         }
 
-        // Resolve article images synchronously BEFORE items enter the reservoir.
-        // Items enter with definitive image state: either cached artwork or
-        // confirmed no-image (imageURL sentinel). No placeholder uncertainty.
-        let itemsWithResolvedImages = await resolveArticleImagesBeforeReservoir(actualNew)
+        // Resolve article images in parallel background tasks — NOT blocking the
+        // pipeline. Items enter the reservoir immediately; resolution populates
+        // the image cache and writes sentinels asynchronously.
+        resolveArticleImagesInBackground(actualNew)
 
         // Prefetch feed-supplied images so downloads race ahead of card rendering.
-        prefetchImagesIfEnabled(for: itemsWithResolvedImages)
+        prefetchImagesIfEnabled(for: actualNew)
 
         // Append to the reservoir via the batched off-main interleave path.
-        throttledReservoirAppend(itemsWithResolvedImages)
+        throttledReservoirAppend(actualNew)
         // A cold feed or a nearly depleted runway cannot wait for the normal
         // three-second coalescing interval. Commit this batch now so the first
         // page appears immediately and fast scrolling always has content ahead.
