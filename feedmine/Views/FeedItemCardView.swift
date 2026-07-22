@@ -16,6 +16,7 @@ struct FeedItemCardView: View, Equatable {
     var onBookmark: (() -> Void)? = nil
     var onViewSource: (() -> Void)? = nil
     var onAddSourceToCollection: (() -> Void)? = nil
+    var onImageTap: (() -> Void)? = nil
     var isInBookmarkBox: Bool = false
     @State private var imageLoadFailed = false
     @AppStorage("fontSize") private var fontSize = "medium"
@@ -63,11 +64,13 @@ struct FeedItemCardView: View, Equatable {
     private var portraitCard: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Hero image — native media or a bounded article-page candidate.
-            if hasImage {
+            if hasImage || item.isPodcast {
                 Color.clear
                     .aspectRatio(16/9, contentMode: .fit)
                     .overlay {
-                        if imageLoadFailed {
+                        if item.isPodcast && !hasImage {
+                            podcastPlaceholder
+                        } else if imageLoadFailed {
                             imageFailurePlaceholder
                         } else {
                             CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
@@ -83,6 +86,13 @@ struct FeedItemCardView: View, Equatable {
                     }
                     .overlay {
                         mediaOverlay
+                    }
+                    .overlay {
+                        if onImageTap != nil {
+                            Color.clear
+                                .contentShape(Rectangle())
+                                .highPriorityGesture(TapGesture().onEnded { onImageTap?() })
+                        }
                     }
                     .transition(.opacity.combined(with: .scale(scale: 0.97)))
                 // Source row after image
@@ -146,12 +156,14 @@ struct FeedItemCardView: View, Equatable {
 
     private var landscapeCard: some View {
         HStack(spacing: 12) {
-            // Thumb — honest: only show when image exists
-            if hasImage {
+            // Thumb — show for images or podcasts (audio placeholder)
+            if hasImage || item.isPodcast {
                 Color.clear
                     .frame(width: 90, height: 90)
                     .overlay {
-                        if imageLoadFailed {
+                        if item.isPodcast && !hasImage {
+                            podcastPlaceholder
+                        } else if imageLoadFailed {
                             imageFailurePlaceholder
                         } else {
                             CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
@@ -161,6 +173,13 @@ struct FeedItemCardView: View, Equatable {
                         }
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .overlay {
+                        if onImageTap != nil {
+                            Color.clear
+                                .contentShape(Rectangle())
+                                .highPriorityGesture(TapGesture().onEnded { onImageTap?() })
+                        }
+                    }
             }
 
             // Content
@@ -219,6 +238,44 @@ struct FeedItemCardView: View, Equatable {
                     .font(.title2)
                     .foregroundStyle(categoryColor(item.category).opacity(0.55))
             }
+    }
+
+    private var podcastPlaceholder: some View {
+        ZStack {
+            // Background gradient
+            LinearGradient(
+                colors: [Color.purple.opacity(0.25), Color.indigo.opacity(0.10)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            // Concentric rings suggesting audio playback
+            ForEach(0..<3) { i in
+                Circle()
+                    .strokeBorder(Color.purple.opacity(0.12), lineWidth: 1)
+                    .scaleEffect(0.4 + CGFloat(i) * 0.2)
+            }
+
+            // Center play button
+            Circle()
+                .fill(Color.purple.opacity(0.18))
+                .frame(width: 52, height: 52)
+                .overlay {
+                    Image(systemName: "play.fill")
+                        .font(.system(size: 22, weight: .medium))
+                        .foregroundStyle(Color.purple.opacity(0.6))
+                        .offset(x: 1)
+                }
+
+            // Waveform at bottom
+            VStack {
+                Spacer()
+                Image(systemName: "waveform")
+                    .font(.system(size: 56, weight: .ultraLight))
+                    .foregroundStyle(Color.purple.opacity(0.20))
+                    .offset(y: 12)
+            }
+        }
     }
 
     // MARK: - Source Row (portrait only)

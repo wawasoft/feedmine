@@ -450,11 +450,18 @@ actor RSSFetcher {
             if URL(string: source.url)?.host?.lowercased() == "news.google.com" {
                 return nil
             }
-            switch feed {
-            case .atom(let a): return a.logo ?? a.icon
-            case .rss(let r):  return r.iTunes?.iTunesImage?.attributes?.href ?? r.image?.url
-            case .json(let j): return j.icon ?? j.favicon
-            }
+            let image: String? = {
+                switch feed {
+                case .atom(let a): return a.logo ?? a.icon
+                case .rss(let r):  return r.iTunes?.iTunesImage?.attributes?.href ?? r.image?.url
+                case .json(let j): return j.icon ?? j.favicon
+                }
+            }()
+            // Skip obvious favicons and tiny site logos — they block article
+            // image resolution. A missing image triggers ArticleImageResolver
+            // which finds the actual article artwork.
+            if let image, Self.isLikelyFaviconOrLogo(image) { return nil }
+            return image
         }()
 
         let entries: [FeedItem] = {
@@ -826,6 +833,28 @@ actor RSSFetcher {
                            options: .regularExpression) != nil
     }
 
+    /// Rejects channel-level images that are obviously favicons or tiny logos.
+    /// Using these as article images blocks ArticleImageResolver from finding
+    /// the actual article artwork.
+    private static func isLikelyFaviconOrLogo(_ url: String) -> Bool {
+        let lower = url.lowercased()
+        if lower.contains("favicon") || lower.contains("cropped") { return true }
+        // Match tiny favicon dimensions (-32x32, -150x150) but not large
+        // artwork (-1400x1400, -3000x3000). Threshold: ≤150px on either side.
+        if let range = lower.range(of: #"[-.](\d{2,4})x(\d{2,4})"#, options: .regularExpression) {
+            let match = String(lower[range]).dropFirst()  // strip leading - or .
+            let parts = match.split(separator: "x").compactMap { Int($0) }
+            if let w = parts.first, let h = parts.last, w <= 150 && h <= 150 {
+                return true
+            }
+        }
+        // Site logos used as channel images (not article artwork)
+        if lower.contains("/logo") || lower.contains("-logo") || lower.contains("_logo") {
+            return true
+        }
+        return false
+    }
+
     private static func upgradedKnownThumbnailURL(_ value: String) -> String {
         guard let url = URL(string: value),
               let host = url.host?.lowercased(),
@@ -833,7 +862,7 @@ actor RSSFetcher {
             return value
         }
         return value.replacingOccurrences(
-            of: #"/s(?:72|144)(?:-c)?/"#,
+            of: #"/s(?:72|144|320)(?:-w\d+-h\d+)?(?:-[a-z]+)?/"#,
             with: "/s1200/",
             options: .regularExpression
         )

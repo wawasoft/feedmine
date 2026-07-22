@@ -9,7 +9,7 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
     let title: String
     let excerpt: String
     let url: String
-    let imageURL: String?
+    var imageURL: String?
     let publishedAt: Date
     let audioURL: String?
     let duration: TimeInterval?
@@ -104,18 +104,22 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
     /// Best available image URL — RSS image takes priority over YouTube thumbnail.
     /// RSS media:content images are typically full-resolution article images (1200×800+),
     /// while YouTube thumbnails top out at 640×480 (sddefault). YouTube is the fallback.
+    /// Returns nil when imageURL is an empty sentinel ("": article resolution tried, no image).
     var bestImageURL: String? {
-        imageURL ?? youTubeThumbnailURL
+        if let img = imageURL, !img.isEmpty { return img }
+        return youTubeThumbnailURL
     }
 
     /// Direct article pages can often supply Open Graph or responsive artwork
-    /// even when their feeds omit media. Google News aggregator links are
-    /// excluded because they expose Google chrome rather than publisher art.
+    /// even when their feeds omit media or serve only thumbnails/logos.
+    /// Always attempt resolution — ImageUpgradePolicy.needsUpgrade avoids
+    /// wasted fetches when the feed image is already high quality.
+    /// Podcasts are included so episode pages with artwork get resolved.
     var canResolveArticleImage: Bool {
-        guard !isPodcast,
-              let articleURL = URL(string: url),
-              ["http", "https"].contains(articleURL.scheme?.lowercased() ?? "") else { return false }
-        return articleURL.host?.lowercased() != "news.google.com"
+        guard let articleURL = URL(string: url),
+              ["http", "https"].contains(articleURL.scheme?.lowercased() ?? ""),
+              articleURL.host?.lowercased() != "news.google.com" else { return false }
+        return true
     }
 
     var hasPotentialImage: Bool {
@@ -124,6 +128,15 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
 
     /// True if this item has an audio enclosure (podcast episode)
     var isPodcast: Bool { audioURL != nil }
+
+    /// True when the article URL itself is a direct audio file — no page to open.
+    var isDirectAudioLink: Bool {
+        let lower = url.lowercased()
+        return lower.hasSuffix(".mp3") || lower.hasSuffix(".m4a")
+            || lower.hasSuffix(".wav") || lower.hasSuffix(".aac")
+            || lower.hasSuffix(".ogg") || lower.hasSuffix(".flac")
+            || lower.hasSuffix(".opus")
+    }
 
     /// URL that can be handed to AVFoundation. Podcast feeds occasionally
     /// publish protocol-relative or feed-relative enclosure URLs.

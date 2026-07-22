@@ -307,6 +307,7 @@ struct FeedScreen: View {
                         Image(systemName: "ellipsis.circle")
                             .headerButtonStyle(accent: engine.accent)
                     }
+                    .accessibilityIdentifier("more-menu")
                 }
             }
             .padding(.horizontal, 12)
@@ -514,7 +515,13 @@ struct FeedScreen: View {
                             Section {
                                 ForEach(section.items) { item in
                                     FeedItemView(item: item,
-                                        onOpen: { articleItem = item },
+                                        onOpen: {
+                                            guard !searchFocused else {
+                                                searchFocused = false
+                                                return
+                                            }
+                                            articleItem = item
+                                        },
                                         onCopy: { toastMessage = "Link copied"; toastIcon = "doc.on.doc"; withAnimation { showToast = true } },
                                         onPlaybackFailed: {
                                             toastMessage = "Audio unavailable"

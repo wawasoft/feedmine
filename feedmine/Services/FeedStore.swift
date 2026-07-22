@@ -146,6 +146,53 @@ final class FeedStore {
         Task { await prefetcher.prefetch(urls: urls, priorityURLs: urls) }
     }
 
+    /// Resolve article-page artwork in parallel background tasks so images
+    /// are cached before cards render. Does NOT block the feed pipeline —
+    /// items enter the reservoir immediately. Sentinel writes on failure
+    /// prevent redundant resolution on future launches.
+    private func resolveArticleImagesInBackground(_ items: [FeedItem]) {
+        let needsResolution = items.filter {
+            $0.bestImageURL == nil && $0.canResolveArticleImage
+        }
+        guard !needsResolution.isEmpty else { return }
+
+        Task { [weak self] in
+            guard let self else { return }
+            await withTaskGroup(of: Void.self) { group in
+                var iterator = needsResolution.makeIterator()
+                let maxConcurrent = 4  // match ArticleImageResolver's limit
+                var running = 0
+
+                while running < maxConcurrent, let item = iterator.next() {
+                    group.addTask { await self.resolveOneArticleImage(item) }
+                    running += 1
+                }
+                while await group.next() != nil {
+                    if let item = iterator.next() {
+                        group.addTask { await self.resolveOneArticleImage(item) }
+                    }
+                }
+            }
+        }
+    }
+
+    private func resolveOneArticleImage(_ item: FeedItem) async {
+        guard let articleURL = URL(string: item.url) else { return }
+        // Skip if the article image is already cached from a previous session.
+        guard !ImageCache.hasCachedImageData(for: articleURL) else { return }
+        let found = await prefetcher.prefetchArticleImage(for: articleURL)
+        if !found {
+            do {
+                try await db.write { db in
+                    try db.execute(sql: "UPDATE feed_item SET image_url = '' WHERE id = ?",
+                                   arguments: [item.id])
+                }
+            } catch {
+                Log.feed.error("Failed to write image sentinel for \(item.id): \(error)")
+            }
+        }
+    }
+
     /// Aggressive prefetch: visible items first (user sees now), then deep
     /// reservoir batch (user scrolls to soon). Called after seed/moveToVisible
     /// so images are cached before they hit the screen.
@@ -1028,6 +1075,7 @@ final class FeedStore {
             FeedMetrics.event("FirstVisibleItems", "count=\(visibleItems.count)")
             FeedMetrics.memory("afterFirstVisible")
             loadingState = .idle
+            resolveArticleImagesInBackground(visibleItems)
             prefetchVisibleAndNext()
         }
 
@@ -2078,11 +2126,6 @@ final class FeedStore {
         }
         guard !actualNew.isEmpty else { return }
 
-        if needsInitialRunway {
-            isPreparingInitialRunway = false
-            startupRunwayReady = true
-        }
-
         // Yield again after heavy DB work before processing results
         await Task.yield()
 
@@ -2095,6 +2138,14 @@ final class FeedStore {
             logNonEnglishItems(actualNew)
         }
 
+        // Resolve article images in parallel background tasks — NOT blocking the
+        // pipeline. Items enter the reservoir immediately; resolution populates
+        // the image cache and writes sentinels asynchronously.
+        resolveArticleImagesInBackground(actualNew)
+
+        // Prefetch feed-supplied images so downloads race ahead of card rendering.
+        prefetchImagesIfEnabled(for: actualNew)
+
         // Append to the reservoir via the batched off-main interleave path.
         throttledReservoirAppend(actualNew)
         // A cold feed or a nearly depleted runway cannot wait for the normal
@@ -2104,9 +2155,10 @@ final class FeedStore {
             await flushPendingReservoir()
         }
         if needsInitialRunway {
+            isPreparingInitialRunway = false
+            startupRunwayReady = true
             Log.feed.info("starterIngest published: visible=\(self.visibleItems.count) reservoir=\(self.reservoir.reservoirCount) elapsed=\(Date().timeIntervalSince(ingestStartedAt), format: .fixed(precision: 3))s")
         }
-        prefetchImagesIfEnabled(for: actualNew)
 
         // Database retention is maintenance, not a prerequisite for showing
         // content. Run it after publication so it never extends first paint.
@@ -2890,7 +2942,7 @@ final class FeedStore {
                     .filter(Column("audio_url") == nil)
                     .filter(!Column("source_url").like("%youtube%"))
                     .filter(!Column("source_url").like("%reddit%"))
-                    .filter(Column("image_url") != nil)
+                    .filter(Column("image_url") != nil && Column("image_url") != "")
                     .order(Column("published_at").desc)
                     .limit(Self.illustratedTextCandidateReadLimit)
                     .fetchAll(db)
@@ -3285,6 +3337,29 @@ final class FeedStore {
 
     func addSource(_ source: SourceReference, toCollectionID id: Int64) async throws {
         try await sourceCollectionStore.add(source, to: id)
+    }
+
+    @discardableResult
+    func addSourceURLs(_ sourceURLs: [String], toCollectionID id: Int64) async throws -> Int {
+        var seen = Set<String>()
+        var references: [SourceReference] = []
+        for sourceURL in sourceURLs {
+            let normalized = OPMLParser.normalizeURL(sourceURL)
+            guard seen.insert(normalized).inserted else { continue }
+            guard let source = registry.source(forURL: normalized) else {
+                Log.import_.info("Skipping URL not found in registry: \(sourceURL)")
+                continue
+            }
+            references.append(SourceReference(source: source))
+        }
+        try await sourceCollectionStore.add(references, to: id)
+        return references.count
+    }
+
+    @discardableResult
+    func migrateImportedSourceCollections() async throws -> Int {
+        let importedSources = registry.sources.filter { $0.region == "imported" }
+        return try await sourceCollectionStore.migrateImportedCategoriesToCollections(importedSources)
     }
 
     func removeSource(_ sourceURL: String, fromCollectionID id: Int64) async throws {
@@ -4000,7 +4075,9 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         self.title = item.title
         self.excerpt = item.excerpt
         self.url = item.url
-        self.imageURL = item.bestImageURL  // YouTube thumbnail or RSS image
+        // Preserve sentinel ("" = confirmed no image) while falling back to
+        // YouTube thumbnail for items that genuinely have no image URL yet.
+        self.imageURL = item.imageURL ?? item.bestImageURL
         self.audioURL = item.audioURL
         self.duration = item.duration
         self.publishedAt = Int(item.publishedAt.timeIntervalSince1970)

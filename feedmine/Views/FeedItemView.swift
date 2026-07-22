@@ -12,6 +12,7 @@ struct FeedItemView: View {
     var onAddSourceToCollection: (() -> Void)? = nil
 
     var body: some View {
+        let isDirectAudio = item.isDirectAudioLink
         Group {
             if loader.layout == .card {
                 FeedItemCardView(
@@ -21,6 +22,7 @@ struct FeedItemView: View {
                     onBookmark: { loader.toggleBookmark(item.id) },
                     onViewSource: onViewSource,
                     onAddSourceToCollection: onAddSourceToCollection,
+                    onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil,
                     isInBookmarkBox: loader.selectedBookmarkListID != nil
                 )
                 .equatable()
@@ -29,7 +31,8 @@ struct FeedItemView: View {
                 FeedItemRowView(
                     item: item,
                     isRead: item.isRead,
-                    isBookmarked: item.isBookmarked
+                    isBookmarked: item.isBookmarked,
+                    onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil
                 )
                 Divider()
             }
@@ -38,14 +41,15 @@ struct FeedItemView: View {
         .onTapGesture {
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()
-            if item.isPodcast {
-                if AudioPlayerManager.shared.play(item: item) {
-                    loader.markAsRead(item.id)
-                    SessionTracker.shared.onArticleRead()
-                } else {
-                    onPlaybackFailed?()
-                    return
-                }
+            if isDirectAudio {
+                // Direct audio link (e.g. .mp3) — whole card plays audio.
+                playPodcastAudio()
+            } else if item.isPodcast {
+                // Podcast with article page — image tap plays audio,
+                // text area tap opens the link.
+                loader.markAsRead(item.id)
+                SessionTracker.shared.onArticleRead()
+                onOpen?()
             } else {
                 loader.markAsRead(item.id)
                 SessionTracker.shared.onArticleRead()
@@ -123,5 +127,14 @@ struct FeedItemView: View {
         .accessibilityIdentifier("feed-item-\(item.language ?? "und")-\(item.id)")
         .accessibilityLabel("\(item.title) from \(item.sourceTitle)")
         .accessibilityAddTraits(item.isRead ? [] : .isHeader)
+    }
+
+    private func playPodcastAudio() {
+        if AudioPlayerManager.shared.play(item: item) {
+            loader.markAsRead(item.id)
+            SessionTracker.shared.onArticleRead()
+        } else {
+            onPlaybackFailed?()
+        }
     }
 }
