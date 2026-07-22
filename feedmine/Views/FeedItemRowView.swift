@@ -4,19 +4,33 @@ struct FeedItemRowView: View {
     let item: FeedItem
     let isRead: Bool
     let isBookmarked: Bool
+    var onImageTap: (() -> Void)? = nil
 
     var body: some View {
         HStack(alignment: .top, spacing: 10) {
-            // Thumbnail
-            if item.hasPotentialImage {
-                CachedAsyncImage(
-                    url: item.bestImageURL.flatMap(URL.init(string:)),
-                    articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil
-                )
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 56, height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
-                    .overlay(isRead ? Color.black.opacity(0.15) : nil)
+            // Thumbnail — real image, podcast placeholder, or nothing
+            if item.hasPotentialImage || item.isPodcast {
+                Group {
+                    if item.isPodcast && !item.hasPotentialImage {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.purple.opacity(0.12))
+                            .overlay {
+                                Image(systemName: "waveform")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.purple.opacity(0.45))
+                            }
+                    } else {
+                        CachedAsyncImage(
+                            url: item.bestImageURL.flatMap(URL.init(string:)),
+                            articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil
+                        )
+                            .aspectRatio(contentMode: .fill)
+                    }
+                }
+                .frame(width: 56, height: 56)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+                .overlay(isRead ? Color.black.opacity(0.15) : nil)
+                .onTapGesture { onImageTap?() }
             }
 
             // Content
