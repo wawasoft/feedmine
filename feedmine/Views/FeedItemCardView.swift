@@ -59,20 +59,32 @@ struct FeedItemCardView: View, Equatable {
         .opacity(isRead ? 0.92 : 1)
     }
 
+    /// Base hero view — the placeholder itself defines the 16:9 frame so it
+    /// always fills the slot completely. The real image sits on top as an overlay.
+    @ViewBuilder
+    private var heroBase: some View {
+        if item.isPodcast && !hasImage {
+            podcastPlaceholder
+                .aspectRatio(16/9, contentMode: .fit)
+        } else {
+            contentTypePlaceholderImage
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+        }
+    }
+
     // MARK: - Portrait Card
 
     private var portraitCard: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Hero image — native media or a bounded article-page candidate.
             if hasImage || item.isPodcast {
-                Color.clear
-                    .aspectRatio(16/9, contentMode: .fit)
+                heroBase
                     .overlay {
-                        if item.isPodcast && !hasImage {
-                            podcastPlaceholder
-                        } else if imageLoadFailed {
-                            imageFailurePlaceholder
-                        } else {
+                        // Real image layered on top so it covers the placeholder
+                        // on success. CachedAsyncImage returns Color.clear on
+                        // failure, letting the placeholder show through.
+                        if hasImage, !imageLoadFailed {
                             CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
                                 if !success { imageLoadFailed = true }
                             })
@@ -158,14 +170,19 @@ struct FeedItemCardView: View, Equatable {
         HStack(spacing: 12) {
             // Thumb — show for images or podcasts (audio placeholder)
             if hasImage || item.isPodcast {
-                Color.clear
-                    .frame(width: 90, height: 90)
-                    .overlay {
-                        if item.isPodcast && !hasImage {
-                            podcastPlaceholder
-                        } else if imageLoadFailed {
-                            imageFailurePlaceholder
-                        } else {
+                Group {
+                    if item.isPodcast && !hasImage {
+                        podcastPlaceholder
+                    } else {
+                        contentTypePlaceholderImage
+                            .resizable()
+                            .scaledToFill()
+                    }
+                }
+                .frame(width: 90, height: 90)
+                .clipped()
+                .overlay {
+                    if hasImage, !imageLoadFailed {
                             CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
                                 if !success { imageLoadFailed = true }
                             })
@@ -230,14 +247,26 @@ struct FeedItemCardView: View, Equatable {
         .contextMenu { cardContextMenu }
     }
 
+    /// Placeholder shown when an article/video/forum image fails to load.
+    /// Picks a decorative asset based on content type so the empty slot still
+    /// feels intentional rather than a generic gray rectangle.
     private var imageFailurePlaceholder: some View {
-        Rectangle()
-            .fill(categoryColor(item.category).opacity(0.14))
-            .overlay {
-                Image(systemName: "newspaper")
-                    .font(.title2)
-                    .foregroundStyle(categoryColor(item.category).opacity(0.55))
-            }
+        contentTypePlaceholderImage
+            .resizable()
+            .scaledToFill()
+    }
+
+    /// Decorative placeholder asset keyed to the item's content type.
+    private var contentTypePlaceholderImage: Image {
+        if item.isYouTube {
+            Image("Placeholder-Video")
+        } else if item.isPodcast {
+            Image("Placeholder-Podcast")
+        } else if item.isForum {
+            Image("Placeholder-Forum")
+        } else {
+            Image("Placeholder-Article")
+        }
     }
 
     private var podcastPlaceholder: some View {

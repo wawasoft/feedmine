@@ -632,17 +632,10 @@ struct CachedAsyncImage: View {
                 Image(uiImage: image)
                     .resizable()
             } else if !didAttempt {
-                Rectangle()
-                    .fill(.quaternary)
+                Color.clear
                     .task(id: retryCount) { await load() }
             } else {
-                Rectangle()
-                    .fill(Color(.systemGray6))
-                    .overlay {
-                        Image(systemName: "photo.badge.exclamationmark")
-                            .font(.caption)
-                            .foregroundStyle(.tertiary)
-                    }
+                Color.clear
             }
         }
         .onChange(of: (url ?? articleURL)?.absoluteString ?? "") { _, _ in

@@ -1,55 +1,87 @@
-# Task 1 Report: CatalogBrowserViewModel
+# Task 1 Report: Make scheduleSourceEnablementRefresh collection-aware
 
 ## Status: DONE
 
-## File Created
+## Files Changed
 
-`/Users/wagnermontes/Documents/GitHub/feedmine/feedmine/FeedEngine/CatalogBrowserViewModel.swift`
+- `/Users/wagnermontes/Documents/GitHub/feedmine/feedmine/Services/FeedStore.swift` — lines 2110-2162 (the `scheduleSourceEnablementRefresh` method body)
 
-## Commit SHA(s)
+## What Changed
 
-No commits yet — working tree only, as specified.
+Added a collection-aware guard in `scheduleSourceEnablementRefresh` that runs **before** the existing `applyUpdate(.flush())` path. When a collection preset is active (`presetSourceFilter != nil` and `activePreset` is `.collection`), the method now:
 
-## Build Verification
+1. Sets `loadingState = .refreshing` and calls `refreshWhatsNew(shouldBoost: false)` — same as the flush path.
+2. Calls `hydrateCollectionPresetFromCache(collectionID:)` for immediate display from local cache.
+3. If `usesPersistentStorage`, spawns a `Task` to call `loadCollectionPresetFeed` for network refresh.
+4. Returns early without calling `applyUpdate(.flush())`.
 
-- `xcodebuild -scheme feedmine -sdk iphonesimulator build` — **BUILD SUCCEEDED**
-- No warnings emitted for the new file.
+This prevents the flush + `reloadFromSQLite` path from clearing collection content that contains external-source items or read items (which `reloadFromSQLite` filters out with `is_read == 0`).
 
-## Implementation Summary
+## Exact Diff
 
-The ViewModel wraps `FeedEngineProtocol` and provides:
+```diff
+--- a/feedmine/Services/FeedStore.swift
++++ b/feedmine/Services/FeedStore.swift
+@@ -2117,6 +2117,31 @@ class FeedStore: ObservableObject {
+                activePreset != expectedPreset || presetGeneration != generation {
+                 return
+             }
++            // If a collection preset is active, route through the collection-aware
++            // path instead of flushing. A generic flush + reloadFromSQLite would
++            // miss external-source items and read items.
++            if presetSourceFilter != nil,
++               case .collection(let cid, _) = activePreset {
++                loadingState = .refreshing
++                refreshWhatsNew(shouldBoost: false)
++                // Hydrate from cache for immediate display. Network refresh is
++                // optional — only for persistent stores to keep the feed current.
++                do {
++                    try await hydrateCollectionPresetFromCache(collectionID: cid)
++                } catch {
++                    Log.feed.error("collection source-enablement refresh hydrate failed: \(error)")
++                }
++                if usesPersistentStorage {
++                    Task {
++                        await loadCollectionPresetFeed(
++                            collectionID: cid,
++                            expectedPreset: activePreset,
++                            expectedGeneration: presetGeneration
++                        )
++                    }
++                }
++                return
++            }
+             self.loadingState = .refreshing
+             self.refreshWhatsNew(shouldBoost: false)
+             self.applyUpdate(.flush())
+```
 
-### Public API
+## Test Results
 
-- **Browse**: `loadRoot()`, `navigate(to:)`, `goBack()`, `goToRoot()`, `loadNextPage()`
-- **Search**: `runSearch()`, `loadNextSearchPage()`, `clearSearch()`
-- **Details**: `loadSourceDetails(for:)`, `clearSourceDetails()`
-- **State management**: `clearError()`
+Test `testCollectionPresetSurvivesEditorialRoundTripSlow` passed in 0.586 seconds with 0 failures.
 
-### Computed Properties
+```
+Test Case '-[feedmineTests.FeedStoreTests testCollectionPresetSurvivesEditorialRoundTripSlow]' passed (0.586 seconds).
+Test Suite 'FeedStoreTests' passed at 2026-07-22 21:57:24.314.
+     Executed 1 test, with 0 failures (0 unexpected) in 0.586 (0.587) seconds
+```
 
-- `currentNodeID`, `currentNodeName` — derived from `navigationPath`
-- `displaySources` — returns `searchResults` when searching, `sources` otherwise
-- `canLoadMoreBrowse`, `canLoadMoreSearch` — cursor-based, gated by `isSearching`
-- `hasContent` — aggregates `nodes` and `displaySources`
+## Self-Review
 
-### Required Behaviors Enforced
+1. **Preserved interfaces:** `scheduleSourceEnablementRefresh(expectedPreset:generation:)` signature is unchanged. Callers passing `generation=0` (default) still work — the collection guard fires **before** the flush in the same task body, so it intercepts all callers including `setCategoryEnabled`, `setTopicRegionsEnabled`, and `setAllCountriesEnabled`.
 
-| Requirement | Implementation |
-|---|---|
-| Browse methods await fetch before returning | All use direct `try await`, no detached `Task` |
-| Browse loading resets state | `resetBrowseState()` clears `nodes`, `sources`, `browseNextCursor`, `estimatedTotalCount` |
-| Search updates only search state | `runSearch()` writes only `searchResults`/`searchNextCursor` |
-| `loadNextPage()` no-ops while searching | Guard: `guard !isSearching, let cursor = browseNextCursor` |
-| `loadNextSearchPage()` no-ops when not searching | Guard: `guard isSearching, let cursor = searchNextCursor` |
-| `clearSearch()` resets all search state | Cancels task, clears text, `isSearching`, results, cursor |
-| Debounce ~300ms | `Task.sleep(300ms)` in `scheduleSearchIfNeeded()`, previous task cancelled |
-| `loadSourceDetails(for:)` sets loadingDetailsSourceID before fetch | Set before do-block, cleared in `defer` |
-| Cursor properties private | `browseNextCursor` and `searchNextCursor` are `private` |
-| `searchTask` `@ObservationIgnored` | Yes, to avoid observing non-Sendable Task |
+2. **Guard pattern matches existing code:** The collection check (`if presetSourceFilter != nil, case .collection(let cid, _) = activePreset`) mirrors the existing pattern used in `setPreset` and `refreshWhatsNew`.
 
-## Potential Concerns
+3. **Fire-and-forget for network:** The network refresh via `loadCollectionPresetFeed` runs in a separate `Task` so the enablement refresh returns quickly. The function's own generation guards protect against stale execution.
 
-1. **No standalone tests yet** — Task 2 will add tests for this ViewModel.
-2. **No wiring** — The ViewModel receives `engine: FeedEngineProtocol` via init. Wiring into the app is deferred to Task 4 (FeedScreen integration).
-3. **Empty search edge case** — `clearSearch()` sets `searchText = ""`, which triggers `didSet` to `scheduleSearchIfNeeded()`. The resulting debounced call to `runSearch()` encounters empty `searchText` and returns early without re-entering `clearSearch()`, avoiding recursive reset.
+4. **Cache hydrate is awaited:** `hydrateCollectionPresetFromCache` is awaited inline so the UI updates immediately with cached content.
+
+5. **Error handling:** Cache hydrate errors are logged but don't crash — consistent with the existing error handling pattern in `loadCollectionPresetFeed`.
+
+6. **Build verified:** `xcodebuild build` succeeded with no warnings or errors.
+
+## Commit
+
+```
+71322af7 - Make scheduleSourceEnablementRefresh collection-aware
+```
