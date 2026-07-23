@@ -1730,8 +1730,16 @@ final class FeedStore {
                     Log.feed.error("collection filter reload failed: \(error)")
                 }
                 // Optionally refresh the same members from the network so the
-                // feed stays current after a filter change.
-                if self.usesPersistentStorage {
+                // feed stays current after a filter change. Skip when the
+                // last network fetch is recent and we have enough visible
+                // items — the cache hydration alone is sufficient.
+                let shouldNetworkRefresh: Bool
+                if let last = lastRefreshDate {
+                    shouldNetworkRefresh = Date().timeIntervalSince(last) > 900 || visibleItems.count < 10
+                } else {
+                    shouldNetworkRefresh = true
+                }
+                if self.usesPersistentStorage, shouldNetworkRefresh {
                     self.progressiveFetchTask?.cancel()
                     self.progressiveFetchTask = Task { [weak self] in
                         guard let self else { return }
@@ -2048,6 +2056,7 @@ final class FeedStore {
             guard activePreset == expectedPreset && presetGeneration == expectedGeneration
             else { return }
             await publishCollectionPresetItems(result.items, collectionID: collectionID)
+            lastRefreshDate = .now
         } catch {
             Log.feed.error("collection preset load failed: \(error)")
         }
