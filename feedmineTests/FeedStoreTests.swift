@@ -2113,6 +2113,67 @@ final class FeedStoreTests: XCTestCase {
         XCTAssertEqual(remainingMembers.map(\.sourceURL), [reference.id])
     }
 
+    func testCollectionPresetImmediatelyHydratesCachedExternalSource() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let externalSource = SourceReference(
+            title: "Private Blog",
+            feedURL: "https://127.0.0.1:1/private-feed.xml"
+        )
+        let collectionID = try await store.createSourceCollection(name: "Private")
+        try await store.addSource(externalSource, toCollectionID: collectionID)
+
+        let cachedItem = FeedItem(
+            id: "private-cached-post",
+            sourceTitle: externalSource.title,
+            sourceURL: externalSource.feedURL,
+            category: "Personal",
+            title: "Cached private post",
+            excerpt: "Available locally before the endpoint refresh finishes.",
+            url: "https://example.com/private-cached-post",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "imported"
+        )
+        let persisted = await store.persistFetchedItems([cachedItem])
+        XCTAssertEqual(persisted.map(\.id), [cachedItem.id])
+
+        store.setPreset(.collection(
+            collectionID: collectionID,
+            collectionName: "Private"
+        ))
+
+        let deadline = Date().addingTimeInterval(2)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(20))
+        }
+
+        XCTAssertEqual(store.visibleItems.map(\.id), [cachedItem.id])
+        XCTAssertEqual(
+            store.presetSourceFilter,
+            Set([OPMLParser.normalizeURL(externalSource.feedURL)])
+        )
+
+        let unrelatedItem = FeedItem(
+            id: "unrelated-post",
+            sourceTitle: "Other",
+            sourceURL: "https://example.com/other.xml",
+            category: "News",
+            title: "Unrelated post",
+            excerpt: "Must not leak into the collection preset.",
+            url: "https://example.com/unrelated-post",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "global"
+        )
+        XCTAssertEqual(store.applyFilters([cachedItem, unrelatedItem]).map(\.id), [cachedItem.id])
+
+        // Cancel the endpoint refresh started by setPreset before releasing the store.
+        store.setPreset(.everything)
+    }
+
     func testSourceURLsCanBeFiledInBulkWithoutChangingCatalogClassification() async throws {
         let store = try FeedStore(inMemory: true)
         let catalogSource = FeedSource(
@@ -2214,5 +2275,320 @@ final class FeedStoreTests: XCTestCase {
         XCTAssertEqual(retained.count, 75)
         XCTAssertEqual(retained.first?.id, "archive-0")
         XCTAssertEqual(retained.last?.id, "archive-74")
+    }
+
+    // MARK: - Collection preset round-trip
+
+    /// Insert a single cached post directly into SQLite for an external source.
+    /// Marking it as read ensures the generic ``reloadFromSQLite`` path (which
+    /// filters `is_read == 0`) will **never** find it, while the collection-
+    /// aware ``cachedSourceItems`` path (no read filter) will always find it.
+    /// This makes the round-trip tests deterministic without needing thousands
+    /// of catalog rows.
+    private func insertReadPost(store: FeedStore, id: String, sourceURL: String, sourceTitle: String) async throws {
+        let now = Int(Date().timeIntervalSince1970)
+        try await store.db.write { db in
+            try db.execute(sql: """
+                INSERT INTO feed_item (id, source_url, source_title, region, category,
+                    title, excerpt, url, published_at, fetched_at, is_read, language)
+                VALUES (?, ?, ?, 'imported', 'Personal', ?, ?, ?, ?, ?, 1, 'en')
+                """, arguments: [
+                    id, sourceURL, sourceTitle,
+                    "Cached post \(id)", "Cached excerpt.",
+                    "https://example.com/posts/\(id)",
+                    now, now,
+                ])
+        }
+    }
+
+    func testCollectionPresetSurvivesEditorialRoundTripFast() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let externalURL = "https://127.0.0.1:1/private-feed.xml"
+        let collectionID = try await store.createSourceCollection(name: "Private")
+        try await store.addSource(
+            SourceReference(title: "Private Blog", feedURL: externalURL),
+            toCollectionID: collectionID
+        )
+
+        // Insert a read post so the generic reloadFromSQLite (is_read == 0)
+        // cannot find it, but cachedSourceItems (no read filter) can.
+        try await insertReadPost(store: store, id: "roundtrip-fast", sourceURL: externalURL, sourceTitle: "Private Blog")
+
+        // Enter collection preset — must find the read post via exact-URL query.
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
+        var deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-fast"],
+                       "Collection should hydrate the read post from cache")
+
+        // Switch to editorial — fast return before the 300 ms source-enablement
+        // refresh fires. Then immediately switch back to the collection.
+        store.setPreset(.everything)
+        // Yield a single tick so setPreset cancels stale work but does NOT
+        // wait for the 300 ms editorial flush.
+        try await Task.sleep(for: .milliseconds(10))
+
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
+        deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-fast"],
+                       "Fast return to collection must restore the cached post")
+        // Cancel any in-flight work before the store is deallocated.
+        store.setPreset(.everything)
+    }
+
+    func testCollectionPresetSurvivesEditorialRoundTripSlow() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let externalURL = "https://127.0.0.1:2/private-feed.xml"
+        let collectionID = try await store.createSourceCollection(name: "Private")
+        try await store.addSource(
+            SourceReference(title: "Private Blog", feedURL: externalURL),
+            toCollectionID: collectionID
+        )
+
+        try await insertReadPost(store: store, id: "roundtrip-slow", sourceURL: externalURL, sourceTitle: "Private Blog")
+
+        // Enter collection.
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
+        var deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-slow"])
+
+        // Switch to editorial and WAIT longer than the 300 ms source-enablement
+        // refresh delay. This gives the stale editorial flush time to fire (and
+        // be correctly discarded by the presetGeneration guard).
+        store.setPreset(.everything)
+        try await Task.sleep(for: .milliseconds(500))
+
+        // Now switch back to the collection.
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
+        deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-slow"],
+                       "Slow return must survive the 300 ms editorial flush")
+        XCTAssertEqual(
+            store.presetSourceFilter,
+            Set([OPMLParser.normalizeURL(externalURL)])
+        )
+
+        // Verify no non-member content leaked in.
+        let allSourceURLs = Set(store.visibleItems.map(\.sourceURL))
+        XCTAssertTrue(allSourceURLs.isSubset(of: [externalURL]),
+                      "No content from outside the collection should appear")
+
+        store.setPreset(.everything)
+    }
+
+    func testFilterSheetSimulationDoesNotTriggerUnnecessaryFilterReload() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let externalURL = "https://127.0.0.1:3/private-feed.xml"
+        let collectionID = try await store.createSourceCollection(name: "Private")
+        try await store.addSource(
+            SourceReference(title: "Private Blog", feedURL: externalURL),
+            toCollectionID: collectionID
+        )
+
+        try await insertReadPost(store: store, id: "filtersheet-sim", sourceURL: externalURL, sourceTitle: "Private Blog")
+
+        // Simulate FilterSheetView.onAppear
+        store.beginFilterEditing()
+
+        // Enter collection preset (simulating user selecting it in the picker)
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
+        let deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["filtersheet-sim"])
+
+        // Simulate FilterSheetView.onDisappear: set the same filters (no actual
+        // filter change — the old code would still trigger a reload because
+        // draftIsDirty was true from the preset change alone).
+        store.setFilter(region: nil, nodeIDs: [], type: .all)
+        store.endFilterEditing()
+
+        // Wait for the 80 ms filter reload debounce + some processing time.
+        try await Task.sleep(for: .milliseconds(200))
+
+        // The cached post must still be visible — the filter reload should
+        // have used the collection-aware path (or been skipped because no
+        // actual filter change occurred).
+        XCTAssertFalse(store.visibleItems.isEmpty,
+                       "FilterSheet dismiss should not flush collection content")
+        XCTAssertEqual(store.visibleItems.map(\.id), ["filtersheet-sim"])
+
+        store.setPreset(.everything)
+    }
+
+    func testCollectionToCollectionSwitch() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+
+        let urlA = "https://127.0.0.1:4/collection-a.xml"
+        let urlB = "https://127.0.0.1:5/collection-b.xml"
+
+        let collA = try await store.createSourceCollection(name: "Collection A")
+        let collB = try await store.createSourceCollection(name: "Collection B")
+        try await store.addSource(SourceReference(title: "A", feedURL: urlA), toCollectionID: collA)
+        try await store.addSource(SourceReference(title: "B", feedURL: urlB), toCollectionID: collB)
+
+        try await insertReadPost(store: store, id: "post-a", sourceURL: urlA, sourceTitle: "Source A")
+        try await insertReadPost(store: store, id: "post-b", sourceURL: urlB, sourceTitle: "Source B")
+
+        // Open collection A.
+        store.setPreset(.collection(collectionID: collA, collectionName: "Collection A"))
+        var deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["post-a"])
+
+        // Switch to collection B.
+        store.setPreset(.collection(collectionID: collB, collectionName: "Collection B"))
+        deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.map(\.id) != ["post-b"] && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["post-b"],
+                       "Collection B should show only its own content")
+
+        store.setPreset(.everything)
+    }
+
+    func testFilterChangesWhileCollectionActive() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let externalURL = "https://127.0.0.1:6/private-feed.xml"
+        let collectionID = try await store.createSourceCollection(name: "Private")
+        try await store.addSource(
+            SourceReference(title: "Private Blog", feedURL: externalURL),
+            toCollectionID: collectionID
+        )
+
+        // Insert one post in English, one in Portuguese.
+        let now = Int(Date().timeIntervalSince1970)
+        try await store.db.write { db in
+            try db.execute(sql: """
+                INSERT INTO feed_item (id, source_url, source_title, region, category,
+                    title, excerpt, url, published_at, fetched_at, is_read, language)
+                VALUES (?, ?, ?, 'imported', 'Personal', ?, ?, ?, ?, ?, 1, ?)
+                """, arguments: [
+                    "post-en", externalURL, "Private Blog",
+                    "English post", "English excerpt.",
+                    "https://example.com/en", now, now, "en",
+                ])
+            try db.execute(sql: """
+                INSERT INTO feed_item (id, source_url, source_title, region, category,
+                    title, excerpt, url, published_at, fetched_at, is_read, language)
+                VALUES (?, ?, ?, 'imported', 'Personal', ?, ?, ?, ?, ?, 1, ?)
+                """, arguments: [
+                    "post-pt", externalURL, "Private Blog",
+                    "Post em português", "Resumo em português.",
+                    "https://example.com/pt", now, now, "pt",
+                ])
+        }
+
+        // Open collection (all languages).
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
+        let deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.count < 2 && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(Set(store.visibleItems.map(\.id)), ["post-en", "post-pt"])
+
+        // Apply Portuguese-only language filter.
+        store.beginFilterEditing()
+        store.setFilter(region: nil, nodeIDs: [], type: .all, languages: ["pt"])
+        store.endFilterEditing()
+        try await Task.sleep(for: .milliseconds(200))
+
+        XCTAssertEqual(store.visibleItems.map(\.id), ["post-pt"],
+                       "Language filter should apply over the collection allowlist")
+
+        store.setPreset(.everything)
+    }
+
+    func testNoExternalContentLeaksIntoCollection() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let memberURL = "https://127.0.0.1:7/member.xml"
+        let nonMemberURL = "https://example.com/non-member.xml"
+
+        // Register the non-member source in the catalog so it has enabled
+        // status and could leak through if the allowlist is broken.
+        store.registry.sources = [
+            FeedSource(title: "Non-Member", url: nonMemberURL, category: "News", region: "global")
+        ]
+
+        let collectionID = try await store.createSourceCollection(name: "Private")
+        try await store.addSource(
+            SourceReference(title: "Member", feedURL: memberURL),
+            toCollectionID: collectionID
+        )
+
+        try await insertReadPost(store: store, id: "member-post", sourceURL: memberURL, sourceTitle: "Member")
+        try await insertReadPost(store: store, id: "non-member-post", sourceURL: nonMemberURL, sourceTitle: "Non-Member")
+
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
+        let deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+
+        XCTAssertEqual(store.visibleItems.map(\.id), ["member-post"],
+                       "Only collection member content should appear")
+        XCTAssertFalse(store.visibleItems.contains(where: { $0.id == "non-member-post" }),
+                       "Non-member content must not leak into collection")
+
+        store.setPreset(.everything)
+    }
+
+    func testEmptyCollectionShowsEmptyState() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let collectionID = try await store.createSourceCollection(name: "Empty")
+        // Collection with zero items in cache and no members with content.
+        try await store.addSource(
+            SourceReference(title: "Empty Feed", feedURL: "https://127.0.0.1:8/empty.xml"),
+            toCollectionID: collectionID
+        )
+
+        store.setPreset(.collection(collectionID: collectionID, collectionName: "Empty"))
+        // Allow the cache hydration path to run (it will find nothing).
+        try await Task.sleep(for: .milliseconds(200))
+
+        XCTAssertTrue(store.visibleItems.isEmpty,
+                      "Empty collection should show no articles")
+        // The loading state will be .refreshing while the network phase runs
+        // (the in-memory store still tries real connections which take time
+        // to fail). The key invariant is that no items appear, not that the
+        // state settles quickly.
+
+        store.setPreset(.everything)
     }
 }

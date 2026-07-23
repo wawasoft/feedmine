@@ -80,7 +80,9 @@ struct FeedScreen: View {
             if isSearching && !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 unifiedSearchPanel
             } else if loader.items.isEmpty
-                && (loader.isPreparingInitialRunway || loader.loadingState == .initial) {
+                && (loader.isPreparingInitialRunway
+                    || loader.loadingState == .initial
+                    || (loader.activePreset.collectionID != nil && loader.loadingState == .refreshing)) {
                 InitialFeedLoadingView()
             } else if loader.items.isEmpty && loader.loadingState != .initial {
                 FeedEmptyStateView(mode: emptyMode)

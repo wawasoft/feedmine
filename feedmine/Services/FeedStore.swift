@@ -114,6 +114,13 @@ final class FeedStore {
     /// (urgent fetch, reloadFromSQLite pipeline) capture the generation at launch
     /// and discard results if a newer filter has been applied in the meantime.
     private var filterGeneration: Int64 = 0
+    /// Monotonic counter incremented on every preset change. Async operations
+    /// originated by a preset selection (rebuild, source-enablement refresh,
+    /// collection hydration, filter reloads) capture the generation at launch
+    /// and discard results if a newer preset has been selected in the meantime.
+    /// This prevents a stale editorial source-enablement flush from clearing
+    /// correctly-hydrated collection content.
+    private var presetGeneration: Int64 = 0
     /// When set, the feed shows only items from this bookmark list.
     var selectedBookmarkListID: Int64?
     /// Preferred box for saving bookmarks. Defaults to the "Favorites" list.
@@ -430,14 +437,19 @@ final class FeedStore {
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
         let sourceFilter = presetSourceFilter  // nil for editorial, Set<String> for collection
         return items.filter { item in
-            isItemEnabled(item)
+            let normalizedSourceURL = OPMLParser.normalizeURL(item.sourceURL)
+            // Opening a collection is an explicit source selection. Its durable
+            // membership is therefore authoritative even when a personal source
+            // has not yet been restored into SourceRegistry during startup.
+            let isEligibleSource = sourceFilter?.contains(normalizedSourceURL)
+                ?? isItemEnabled(item)
+            return isEligibleSource
             && (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
-            && (cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(OPMLParser.normalizeURL(item.sourceURL)))
+            && (cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(normalizedSourceURL))
             && Self.languageFilterMatchesNormalized(itemLanguage: item.language, selectedLanguages: languages, deviceLanguage: deviceLanguage)
             && contentType(item)
             && (mood == .all || mood.matches(item.title))
             && !contentFilterExcludes(item, filters: contentFilters)
-            && (sourceFilter == nil || sourceFilter!.contains(OPMLParser.normalizeURL(item.sourceURL)))
         }
     }
 
@@ -1026,11 +1038,40 @@ final class FeedStore {
         FeedMetrics.event("Backend.start")
         networkMonitor.start()
 
+        // A persisted collection is already a complete source allowlist. Build
+        // it before touching the bundled catalogue so a retained personal feed
+        // can paint from SQLite while OPML/taxonomy startup continues.
+        activePreset = Settings.activePreset
+        if case .collection(let collectionID, _) = activePreset {
+            await rebuildPresetMultipliers(for: activePreset)
+
+            // Taxonomy needs the catalogue before it can be restored safely.
+            // Every other persisted overlay is independent, so restore those
+            // now and apply them to the cache-only first paint as usual.
+            if Settings.hasInitializedLanguageDefault,
+               Settings.filterTaxonomyNodes.isEmpty,
+               case .collection(let currentID, _) = activePreset,
+               currentID == collectionID {
+                restoreFilters()
+                do {
+                    try await hydrateCollectionPresetFromCache(collectionID: collectionID)
+                    if !visibleItems.isEmpty {
+                        isPreparingInitialRunway = false
+                        loadingState = .idle
+                    }
+                } catch {
+                    Log.feed.error("early collection preset cache hydration failed: \(error)")
+                }
+            }
+        }
+
         // On the first installation the full OPML registry and taxonomy still
         // need to be reconstructed. Start a small, language-matched network
         // race from the bundled compiled catalog while that CPU work runs so
         // first content is not serialized behind thousands of OPML files.
-        firstLaunchBootstrapTask = startFirstLaunchBootstrapIfNeeded()
+        if activePreset.collectionID == nil {
+            firstLaunchBootstrapTask = startFirstLaunchBootstrapIfNeeded()
+        }
 
         let endOPMLMetric = FeedMetrics.beginInterval("OPML.load")
         await registry.loadFromOPML()
@@ -1103,11 +1144,19 @@ final class FeedStore {
         reservoir.readItemIDs = readItemIDs
         bookmarkedItemIDs = bookmarkStore.allBookmarkedItemIDs()
 
-        // Warm start: hydrate from SQLite with filters already active. Reuse
-        // the same filtered path as filter changes so startup never samples a
-        // small unfiltered window and then throws most of it away.
+        // Warm start: collection presets can address sources that are absent
+        // from the bundled registry, so hydrate their exact member URLs instead
+        // of sampling the global SQLite candidate window first. Both paths feed
+        // the same reservoir and apply the same user filters.
         let endReservoirLoadMetric = FeedMetrics.beginInterval("Reservoir.load")
-        if visibleItems.isEmpty {
+        if let collectionID = activePreset.collectionID,
+           presetSourceFilter != nil {
+            do {
+                try await hydrateCollectionPresetFromCache(collectionID: collectionID)
+            } catch {
+                Log.feed.error("collection preset cache hydration failed: \(error)")
+            }
+        } else if visibleItems.isEmpty {
             await reloadFromSQLite()
         } else {
             // The parallel first-launch bootstrap may already have published a
@@ -1134,6 +1183,21 @@ final class FeedStore {
             whatsNewManager.whatsNewBaselineDate = Date()
         }
 
+        // Collection presets own an explicit source set, including personal
+        // sources that do not exist in (or depend on) the enabled catalogue.
+        // Cache hydration above owns first paint; refresh the same members
+        // asynchronously without holding FeedLoader.start() open.
+        if presetSourceFilter != nil,
+           case .collection(let cid, _) = activePreset {
+            loadingState = visibleItems.isEmpty ? .initial : .idle
+            refreshWhatsNew(shouldBoost: false)
+            progressiveFetchTask = Task { [weak self] in
+                guard let self else { return }
+                await self.loadCollectionPresetFeed(collectionID: cid)
+            }
+            return
+        }
+
         guard !registry.enabledSources.isEmpty else {
             isPreparingInitialRunway = false
             loadingState = .idle
@@ -1149,15 +1213,6 @@ final class FeedStore {
         // through the starter/progressive pipeline, so a second 30-source
         // booster would only compete with first paint for bandwidth.
         refreshWhatsNew(shouldBoost: false)
-
-        // Collection presets: eagerly load all member sources (same pipeline
-        // as "Open Collection Feed"), then skip the progressive/background flow.
-        if presetSourceFilter != nil,
-           case .collection(let cid, _) = activePreset {
-            await loadCollectionPresetFeed(collectionID: cid)
-            startBackgroundRefresh()
-            return
-        }
 
         progressiveFetchTask = Task {
             await self.firstLaunchBootstrapTask?.value
@@ -1396,6 +1451,15 @@ final class FeedStore {
     /// baseline reset. Falls back to full startup if the store never started.
     func refreshNow() async {
         guard hasStarted else { await start(); return }
+        // Collection presets may reference personal sources that are absent
+        // from the bundled registry. Route through the collection-aware path
+        // which queries exact member URLs instead of requiring enabledSources.
+        if case .collection(let cid, _) = activePreset, presetSourceFilter != nil {
+            loadingState = .refreshing
+            lastRefreshDate = nil
+            await loadCollectionPresetFeed(collectionID: cid)
+            return
+        }
         guard !registry.enabledSources.isEmpty else { return }
         loadingState = .refreshing
         lastRefreshDate = nil   // bypass the staleness gate
@@ -1429,6 +1493,21 @@ final class FeedStore {
 
     // MARK: - Stale refresh
     func refreshIfStale() async {
+        // Collection presets may reference personal sources outside the
+        // bundled registry. Use the collection-aware path which queries
+        // exact member URLs instead of depending on enabledSources.
+        if case .collection(let cid, _) = activePreset, presetSourceFilter != nil {
+            let shouldFetch: Bool
+            if let last = lastRefreshDate {
+                shouldFetch = Date().timeIntervalSince(last) > 900 || visibleItems.count < 10
+            } else {
+                shouldFetch = true
+            }
+            guard shouldFetch else { return }
+            loadingState = .refreshing
+            await loadCollectionPresetFeed(collectionID: cid)
+            return
+        }
         guard !registry.enabledSources.isEmpty else { return }
         let shouldFetch: Bool
         if let last = lastRefreshDate {
@@ -1606,6 +1685,8 @@ final class FeedStore {
 
     private func scheduleFilterReload(generation: Int64, delay: Duration) {
         filterDebounceTask?.cancel()
+        let capturedPreset = activePreset
+        let capturedPresetGen = presetGeneration
         filterDebounceTask = Task { [weak self] in
             try? await Task.sleep(for: delay)
             guard !Task.isCancelled, let self,
@@ -1614,10 +1695,41 @@ final class FeedStore {
             self.refreshCachedTaxonomyFeedURLsIfNeeded()
             let priorityURLs = self.cachedTaxonomyFeedURLs
             self.loadingState = .refreshing
+            self.refreshWhatsNew(shouldBoost: false)
+
+            // When a collection preset is active, the generic reloadFromSQLite
+            // path (global candidate windows, 30-day cutoff, is_read exclusion)
+            // can miss retained external-source items that the collection's
+            // exact-URL query finds instantly. Route through the collection-
+            // aware hydration path instead so the allowlist contract holds
+            // across filter changes.
+            if case .collection(let cid, _) = capturedPreset,
+               capturedPreset == self.activePreset,
+               capturedPresetGen == self.presetGeneration {
+                do {
+                    try await self.hydrateCollectionPresetFromCache(collectionID: cid)
+                } catch {
+                    Log.feed.error("collection filter reload failed: \(error)")
+                }
+                // Optionally refresh the same members from the network so the
+                // feed stays current after a filter change.
+                if self.usesPersistentStorage {
+                    self.progressiveFetchTask?.cancel()
+                    self.progressiveFetchTask = Task { [weak self] in
+                        guard let self else { return }
+                        await self.loadCollectionPresetFeed(
+                            collectionID: cid,
+                            expectedPreset: capturedPreset,
+                            expectedGeneration: capturedPresetGen
+                        )
+                    }
+                }
+                return
+            }
+
             // Render the matching local cache before dispatching network work.
             // Besides making a saved feed react immediately, this prevents a
             // slow source probe from competing with the first filtered frame.
-            self.refreshWhatsNew(shouldBoost: false)
             let reloadFromCacheBeforeUrgentFetch = !priorityURLs.isEmpty
             self.applyUpdate(.flush(
                 skipNetworkFetch: reloadFromCacheBeforeUrgentFetch,
@@ -1834,51 +1946,109 @@ final class FeedStore {
         guard preset != activePreset else { return }
         activePreset = preset
         Settings.activePreset = preset
+        presetGeneration &+= 1
+        let capturedGeneration = presetGeneration
         resetWhatsNewBaseline()
+
+        // Cancel every task that can publish or clear content under the old
+        // preset. Cancellation alone is not sufficient (a task may have already
+        // passed its last suspension point), so every downstream site also
+        // validates preset + generation before mutating shared state.
         presetRebuildTask?.cancel()
+        sourceEnablementRefreshTask?.cancel()
+        progressiveFetchTask?.cancel()
+        coverageMiningTask?.cancel()
+        backgroundRefreshTask?.cancel()
+        filterDebounceTask?.cancel()
+
         presetRebuildTask = Task { [weak self] in
             guard let self else { return }
             await self.rebuildPresetMultipliers(for: preset)
-            guard !Task.isCancelled, self.activePreset == preset else { return }
+            guard !Task.isCancelled, self.activePreset == preset,
+                  self.presetGeneration == capturedGeneration else { return }
 
             if case .collection(let collectionID, _) = preset {
-                // Collection preset: eagerly load all members (same as
-                // "Open Collection Feed") and seed directly into the main feed.
-                await self.loadCollectionPresetFeed(collectionID: collectionID)
+                await self.loadCollectionPresetFeed(
+                    collectionID: collectionID,
+                    expectedPreset: preset,
+                    expectedGeneration: capturedGeneration
+                )
             } else {
-                self.scheduleSourceEnablementRefresh()
+                self.scheduleSourceEnablementRefresh(
+                    expectedPreset: preset,
+                    generation: capturedGeneration
+                )
             }
         }
     }
 
-    /// Eagerly fetch and display content for a collection preset.
-    /// Mirrors `loadSourceCollectionContent` but feeds results into the main
-    /// feed reservoir instead of returning them for a separate overlay.
-    private func loadCollectionPresetFeed(collectionID: Int64) async {
+    /// Display retained collection content immediately, then refresh every
+    /// member and reseed the same reservoir with the merged result.
+    private func loadCollectionPresetFeed(
+        collectionID: Int64,
+        expectedPreset: PresetSelector? = nil,
+        expectedGeneration: Int64 = 0
+    ) async {
         loadingState = .refreshing
         defer {
-            loadingState = .idle
-            isPreparingInitialRunway = false
+            // Only clear loading state if this invocation still owns the preset.
+            // A stale or cancelled task must not overwrite state set by a newer
+            // preset selection.
+            if expectedGeneration == 0
+                || (activePreset == expectedPreset && presetGeneration == expectedGeneration) {
+                loadingState = .idle
+                isPreparingInitialRunway = false
+            }
         }
         do {
+            // Validate before mutating shared state — cancellation alone is not
+            // sufficient because the task may have passed its last suspension.
+            guard expectedGeneration == 0
+                    || (activePreset == expectedPreset && presetGeneration == expectedGeneration)
+            else { return }
+
+            try await hydrateCollectionPresetFromCache(collectionID: collectionID)
+            guard !Task.isCancelled else { return }
+
             let result = try await loadSourceCollectionContent(collectionID: collectionID)
-            guard !Task.isCancelled, case .collection(let currentID, _) = activePreset,
+            guard !Task.isCancelled,
+                  case .collection(let currentID, _) = activePreset,
                   currentID == collectionID else { return }
-            if !result.items.isEmpty {
-                // Items come exclusively from collection members — apply standard
-                // filters (language, content type, mood, content filters) but
-                // skip the presetSourceFilter since loadSourceCollectionContent
-                // already guarantees these are collection-member items.
-                let savedFilter = presetSourceFilter
-                presetSourceFilter = nil
-                await reservoir.seed(items: result.items, presetMultipliers: presetMultipliers)
-                applyUpdate(.replace(applyFilters(reservoir.visibleItems)))
-                reservoirCount = reservoir.reservoirCount
-                presetSourceFilter = savedFilter
-            }
+            // Re-validate generation before publishing; a newer preset may have
+            // been selected while the network fetch was in flight.
+            guard expectedGeneration == 0
+                    || (activePreset == expectedPreset && presetGeneration == expectedGeneration)
+            else { return }
+            await publishCollectionPresetItems(result.items, collectionID: collectionID)
         } catch {
             Log.feed.error("collection preset load failed: \(error)")
         }
+    }
+
+    /// Read only the collection's retained rows. This is the fast startup path:
+    /// no catalog-wide candidate scan and no network dependency before first paint.
+    private func hydrateCollectionPresetFromCache(collectionID: Int64) async throws {
+        let members = try await sourceCollectionStore.members(collectionID: collectionID)
+        let items = await cachedSourceItems(
+            sourceURLs: members.map(\.sourceURL),
+            limit: 1_000
+        )
+        guard !Task.isCancelled else { return }
+        await publishCollectionPresetItems(items, collectionID: collectionID)
+    }
+
+    /// Collection items still use the normal filters and Reservoir interleave;
+    /// membership merely replaces global source enablement as the allowlist.
+    private func publishCollectionPresetItems(_ items: [FeedItem], collectionID: Int64) async {
+        guard case .collection(let currentID, _) = activePreset,
+              currentID == collectionID else { return }
+        let filteredItems = applyFilters(items)
+        await reservoir.seed(items: filteredItems, presetMultipliers: presetMultipliers)
+        guard !Task.isCancelled,
+              case .collection(let latestID, _) = activePreset,
+              latestID == collectionID else { return }
+        applyUpdate(.replace(reservoir.visibleItems))
+        reservoirCount = reservoir.reservoirCount
     }
 
     /// Rebuild the `presetMultipliers` dictionary from the current preset
@@ -1937,11 +2107,20 @@ final class FeedStore {
         scheduleSourceEnablementRefresh()
     }
 
-    func scheduleSourceEnablementRefresh() {
+    func scheduleSourceEnablementRefresh(
+        expectedPreset: PresetSelector? = nil,
+        generation: Int64 = 0
+    ) {
         sourceEnablementRefreshTask?.cancel()
         sourceEnablementRefreshTask = Task { [weak self] in
             try? await Task.sleep(for: .milliseconds(300))
             guard !Task.isCancelled, let self else { return }
+            // If a newer preset was selected while this task was sleeping,
+            // discard — the flush would clear correctly-hydrated content.
+            if generation != 0,
+               activePreset != expectedPreset || presetGeneration != generation {
+                return
+            }
             self.loadingState = .refreshing
             self.refreshWhatsNew(shouldBoost: false)
             self.applyUpdate(.flush())
