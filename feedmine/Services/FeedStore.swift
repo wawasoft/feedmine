@@ -1191,9 +1191,15 @@ final class FeedStore {
            case .collection(let cid, _) = activePreset {
             loadingState = visibleItems.isEmpty ? .initial : .idle
             refreshWhatsNew(shouldBoost: false)
+            let capturedPreset = activePreset
+            let capturedGen = presetGeneration
             progressiveFetchTask = Task { [weak self] in
                 guard let self else { return }
-                await self.loadCollectionPresetFeed(collectionID: cid)
+                await self.loadCollectionPresetFeed(
+                    collectionID: cid,
+                    expectedPreset: capturedPreset,
+                    expectedGeneration: capturedGen
+                )
             }
             return
         }
@@ -1457,7 +1463,13 @@ final class FeedStore {
         if case .collection(let cid, _) = activePreset, presetSourceFilter != nil {
             loadingState = .refreshing
             lastRefreshDate = nil
-            await loadCollectionPresetFeed(collectionID: cid)
+            let capturedPreset = activePreset
+            let capturedGen = presetGeneration
+            await loadCollectionPresetFeed(
+                collectionID: cid,
+                expectedPreset: capturedPreset,
+                expectedGeneration: capturedGen
+            )
             return
         }
         guard !registry.enabledSources.isEmpty else { return }
@@ -1505,7 +1517,13 @@ final class FeedStore {
             }
             guard shouldFetch else { return }
             loadingState = .refreshing
-            await loadCollectionPresetFeed(collectionID: cid)
+            let capturedPreset = activePreset
+            let capturedGen = presetGeneration
+            await loadCollectionPresetFeed(
+                collectionID: cid,
+                expectedPreset: capturedPreset,
+                expectedGeneration: capturedGen
+            )
             return
         }
         guard !registry.enabledSources.isEmpty else { return }
@@ -1982,30 +2000,41 @@ final class FeedStore {
         }
     }
 
+    /// Fire-and-forget variant that captures the current preset and generation.
+    /// Used only when the caller has already validated externally or the
+    /// generation guard is not needed.
+    private func loadCollectionPresetFeed(
+        collectionID: Int64
+    ) async {
+        await loadCollectionPresetFeed(
+            collectionID: collectionID,
+            expectedPreset: activePreset,
+            expectedGeneration: presetGeneration
+        )
+    }
+
     /// Display retained collection content immediately, then refresh every
     /// member and reseed the same reservoir with the merged result.
+    /// Always validates that the preset and generation have not changed,
+    /// so stale tasks cannot mutate shared state.
     private func loadCollectionPresetFeed(
         collectionID: Int64,
-        expectedPreset: PresetSelector? = nil,
-        expectedGeneration: Int64 = 0
+        expectedPreset: PresetSelector,
+        expectedGeneration: Int64
     ) async {
-        loadingState = .refreshing
-        defer {
-            // Only clear loading state if this invocation still owns the preset.
-            // A stale or cancelled task must not overwrite state set by a newer
-            // preset selection.
-            if expectedGeneration == 0
-                || (activePreset == expectedPreset && presetGeneration == expectedGeneration) {
-                loadingState = .idle
-                isPreparingInitialRunway = false
-            }
-        }
         do {
             // Validate before mutating shared state — cancellation alone is not
             // sufficient because the task may have passed its last suspension.
-            guard expectedGeneration == 0
-                    || (activePreset == expectedPreset && presetGeneration == expectedGeneration)
+            guard activePreset == expectedPreset && presetGeneration == expectedGeneration
             else { return }
+
+            loadingState = .refreshing
+            defer {
+                if activePreset == expectedPreset && presetGeneration == expectedGeneration {
+                    loadingState = .idle
+                    isPreparingInitialRunway = false
+                }
+            }
 
             try await hydrateCollectionPresetFromCache(collectionID: collectionID)
             guard !Task.isCancelled else { return }
@@ -2016,8 +2045,7 @@ final class FeedStore {
                   currentID == collectionID else { return }
             // Re-validate generation before publishing; a newer preset may have
             // been selected while the network fetch was in flight.
-            guard expectedGeneration == 0
-                    || (activePreset == expectedPreset && presetGeneration == expectedGeneration)
+            guard activePreset == expectedPreset && presetGeneration == expectedGeneration
             else { return }
             await publishCollectionPresetItems(result.items, collectionID: collectionID)
         } catch {
