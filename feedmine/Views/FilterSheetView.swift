@@ -7,7 +7,8 @@ struct FilterSheetView: View {
     @State private var draftLanguages: Set<String> = []
     @State private var draftMood: FeedLoader.MoodFilter = .all
     @State private var draftPreset: PresetSelector = .everything
-    @State private var draftIsDirty = false
+    @State private var presetIsDirty = false
+    @State private var overlayFiltersAreDirty = false
     @State private var availableCollections: [SourceCollection] = []
 
     private var hasDraftFilters: Bool {
@@ -28,7 +29,8 @@ struct FilterSheetView: View {
                         draftContentType = .all
                         draftLanguages = []
                         draftMood = .all
-                        draftIsDirty = false
+                        presetIsDirty = false
+                        overlayFiltersAreDirty = false
                         loader.clearAllFilters()
                         dismiss()
                     } label: {
@@ -65,7 +67,7 @@ struct FilterSheetView: View {
                     }
                     .pickerStyle(.menu)
                     .onChange(of: draftPreset) { _, _ in
-                        draftIsDirty = true
+                        presetIsDirty = true
                     }
 
                     NavigationLink {
@@ -86,7 +88,7 @@ struct FilterSheetView: View {
                     ForEach(FeedLoader.ContentType.allCases) { type in
                         Button {
                             draftContentType = draftContentType == type ? .all : type
-                            draftIsDirty = true
+                            overlayFiltersAreDirty = true
                             UISelectionFeedbackGenerator().selectionChanged()
                         } label: {
                             HStack {
@@ -137,7 +139,7 @@ struct FilterSheetView: View {
                                 } else {
                                     draftLanguages.insert(lang.code)
                                 }
-                                draftIsDirty = true
+                                overlayFiltersAreDirty = true
                                 UISelectionFeedbackGenerator().selectionChanged()
                             } label: {
                                 HStack {
@@ -170,7 +172,7 @@ struct FilterSheetView: View {
                     ForEach(FeedLoader.MoodFilter.allCases) { mood in
                         Button {
                             draftMood = draftMood == mood ? .all : mood
-                            draftIsDirty = true
+                            overlayFiltersAreDirty = true
                             UISelectionFeedbackGenerator().selectionChanged()
                         } label: {
                             HStack {
@@ -201,7 +203,8 @@ struct FilterSheetView: View {
             draftLanguages = loader.selectedLanguages
             draftMood = loader.selectedMood
             draftPreset = loader.activePreset
-            draftIsDirty = false
+            presetIsDirty = false
+            overlayFiltersAreDirty = false
             loader.beginFilterEditing()
             Task {
                 if let collections = try? await loader.loadSourceCollections() {
@@ -210,8 +213,13 @@ struct FilterSheetView: View {
             }
         }
         .onDisappear {
-            if draftIsDirty {
+            // Apply preset and filter changes independently so a preset-only
+            // switch does not trigger a generic filter reload that would flush
+            // correctly-hydrated collection content (see scheduleFilterReload).
+            if presetIsDirty {
                 loader.setActivePreset(draftPreset)
+            }
+            if overlayFiltersAreDirty {
                 loader.applyFilterDraft(
                     type: draftContentType,
                     mood: draftMood,
