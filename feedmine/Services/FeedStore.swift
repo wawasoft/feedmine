@@ -2121,6 +2121,31 @@ final class FeedStore {
                activePreset != expectedPreset || presetGeneration != generation {
                 return
             }
+            // If a collection preset is active, route through the collection-aware
+            // path instead of flushing. A generic flush + reloadFromSQLite would
+            // miss external-source items and read items.
+            if presetSourceFilter != nil,
+               case .collection(let cid, _) = activePreset {
+                loadingState = .refreshing
+                refreshWhatsNew(shouldBoost: false)
+                // Hydrate from cache for immediate display. Network refresh is
+                // optional — only for persistent stores to keep the feed current.
+                do {
+                    try await hydrateCollectionPresetFromCache(collectionID: cid)
+                } catch {
+                    Log.feed.error("collection source-enablement refresh hydrate failed: \(error)")
+                }
+                if usesPersistentStorage {
+                    Task {
+                        await loadCollectionPresetFeed(
+                            collectionID: cid,
+                            expectedPreset: activePreset,
+                            expectedGeneration: presetGeneration
+                        )
+                    }
+                }
+                return
+            }
             self.loadingState = .refreshing
             self.refreshWhatsNew(shouldBoost: false)
             self.applyUpdate(.flush())
