@@ -2136,8 +2136,9 @@ final class FeedStore {
                     Log.feed.error("collection source-enablement refresh hydrate failed: \(error)")
                 }
                 if usesPersistentStorage {
-                    Task {
-                        await loadCollectionPresetFeed(
+                    Task { [weak self] in
+                        guard let self else { return }
+                        await self.loadCollectionPresetFeed(
                             collectionID: cid,
                             expectedPreset: activePreset,
                             expectedGeneration: presetGeneration
