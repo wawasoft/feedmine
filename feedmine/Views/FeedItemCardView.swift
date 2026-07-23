@@ -65,7 +65,6 @@ struct FeedItemCardView: View, Equatable {
     private var heroBase: some View {
         if item.isPodcast && !hasImage {
             podcastPlaceholder
-                .aspectRatio(16/9, contentMode: .fit)
         } else {
             contentTypePlaceholderImage
                 .resizable()
@@ -80,6 +79,7 @@ struct FeedItemCardView: View, Equatable {
             // Hero image — native media or a bounded article-page candidate.
             if hasImage || item.isPodcast {
                 heroBase
+                    .aspectRatio(16/9, contentMode: .fill)
                     .overlay {
                         // Real image layered on top so it covers the placeholder
                         // on success. CachedAsyncImage returns Color.clear on

@@ -1,18 +1,23 @@
-# Task 4 Report: Integrate CatalogExploreView into FeedScreen
+# Task 4: Restore 16:9 aspect ratio in heroBase
 
-## Changes Made
+## Changed Files
 
-Modified `feedmine/Views/FeedScreen.swift` with three insertions:
+| File | Line | Change |
+|------|------|--------|
+| `feedmine/Views/FeedItemCardView.swift` | 67 | Removed `.aspectRatio(16/9, contentMode: .fit)` from the podcast branch in `heroBase` |
+| `feedmine/Views/FeedItemCardView.swift` | 81 | Added `.aspectRatio(16/9, contentMode: .fill)` as a common modifier on `heroBase` at the usage site in `portraitCard` |
 
-1. **State property** (line 29): Added `@State private var showCatalogExplore = false` adjacent to the existing `showExport` flag.
+## Summary
 
-2. **Debug-only trigger button** (lines 241-249): Added a `books.vertical` icon button in the compact header's icon row, placed after the filter button and before the Menu button, guarded by `if showDebugBar`. Uses the same `.headerButtonStyle(accent:)` pattern as surrounding buttons.
+The 16:9 aspect ratio was previously applied only to the podcast branch inside `heroBase` (`@ViewBuilder`). The non-podcast branch used `.aspectRatio(contentMode: .fill)` without a ratio parameter, which relied on asset intrinsic dimensions — causing layout issues.
 
-3. **Sheet presentation** (lines 183-194): Added `.sheet(isPresented: $showCatalogExplore)` that:
-   - Attempts to open the bundled catalog read-only via `FeedEngineCatalogDiagnostics.bundledDatabaseURL()` and `SQLiteCatalogRepository`
-   - On success, presents `CatalogExploreView(engine:)`
-   - On failure, shows a `ContentUnavailableView` with a descriptive error
+**Fix:** Removed the aspect ratio from the podcast branch inside `heroBase` and instead applied `.aspectRatio(16/9, contentMode: .fill)` as a common modifier on `heroBase` at the call site in `portraitCard` (line 81). This ensures both podcast and non-podcast heroes render at a consistent 16:9 aspect ratio. The `.fill` content mode is correct because the hero area is subsequently `.clipped()` (line 95), cropping any overflow while filling the 16:9 frame.
 
-## Build Result
+Note: The `.aspectRatio` modifier cannot be applied at the declaration level of a `@ViewBuilder` computed property in SwiftUI — it must be applied at the call site or wrapped in a `Group`. The modifier was therefore placed on `heroBase` in the `portraitCard` usage, before the `.overlay` chain.
 
-`xcodebuild` completed successfully with no new warnings. The only warning is a pre-existing deprecation (`applicationIconBadgeNumber` deprecated in iOS 17.0) at line 604, unrelated to this change.
+## Build Verification
+
+```
+xcodebuild build -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 14 Plus'
+** BUILD SUCCEEDED **
+```
