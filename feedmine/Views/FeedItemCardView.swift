@@ -20,6 +20,9 @@ struct FeedItemCardView: View, Equatable {
     var isInBookmarkBox: Bool = false
     @State private var imageLoadFailed = false
     @State private var imageAppeared = false
+    @State private var downloadStatus: DownloadStatus = .queued
+    @State private var downloadProgress: Double = 0
+    @State private var downloadTask: Task<Void, Never>?
     @AppStorage("fontSize") private var fontSize = "medium"
     @State private var engine = CircadianEngine.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -384,43 +387,48 @@ struct FeedItemCardView: View, Equatable {
 
     @ViewBuilder
     private var cardOverlays: some View {
-        if isInBookmarkBox {
-            Menu {
-                BookmarkBoxContextMenu(itemID: item.id)
-                Divider()
-                Button(role: .destructive) {
+        VStack(alignment: .trailing, spacing: 6) {
+            if isInBookmarkBox {
+                Menu {
+                    BookmarkBoxContextMenu(itemID: item.id)
+                    Divider()
+                    Button(role: .destructive) {
+                        onBookmark?()
+                    } label: {
+                        Label("Remove from Box", systemImage: "bookmark.slash")
+                    }
+                } label: {
+                    Image(systemName: "bookmark.fill")
+                        .font(.title3)
+                        .foregroundStyle(.yellow)
+                        .frame(width: 36, height: 36)
+                        .background(.ultraThinMaterial, in: Circle())
+                        .shadow(color: .black.opacity(0.15), radius: 4)
+                }
+                .buttonStyle(.plain)
+            } else {
+                Button {
+                    let impact = UIImpactFeedbackGenerator(style: .light)
+                    impact.impactOccurred()
                     onBookmark?()
                 } label: {
-                    Label("Remove from Box", systemImage: "bookmark.slash")
+                    Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
+                        .font(.title3)
+                        .foregroundStyle(isBookmarked ? .yellow : .white)
+                        .frame(width: 36, height: 36)
+                        .background(.ultraThinMaterial, in: Circle())
+                        .shadow(color: .black.opacity(0.15), radius: 4)
+                        .contentTransition(.symbolEffect(.replace))
                 }
-            } label: {
-                Image(systemName: "bookmark.fill")
-                    .font(.title3)
-                    .foregroundStyle(.yellow)
-                    .frame(width: 36, height: 36)
-                    .background(.ultraThinMaterial, in: Circle())
-                    .shadow(color: .black.opacity(0.15), radius: 4)
-                    .padding(12)
+                .buttonStyle(.plain)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isBookmarked)
             }
-            .buttonStyle(.plain)
-        } else {
-            Button {
-                let impact = UIImpactFeedbackGenerator(style: .light)
-                impact.impactOccurred()
-                onBookmark?()
-            } label: {
-                Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
-                    .font(.title3)
-                    .foregroundStyle(isBookmarked ? .yellow : .white)
-                    .frame(width: 36, height: 36)
-                    .background(.ultraThinMaterial, in: Circle())
-                    .shadow(color: .black.opacity(0.15), radius: 4)
-                    .padding(12)
-                    .contentTransition(.symbolEffect(.replace))
+
+            if item.isPodcast || item.canResolveArticleImage {
+                downloadButton
             }
-            .buttonStyle(.plain)
-            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isBookmarked)
         }
+        .padding(12)
     }
 
     @ViewBuilder
@@ -437,6 +445,56 @@ struct FeedItemCardView: View, Equatable {
                 .foregroundStyle(.white)
                 .frame(width: 40, height: 40)
                 .background(.black.opacity(0.35), in: Circle())
+        }
+    }
+
+    // MARK: - Download
+
+    @ViewBuilder
+    private var downloadButton: some View {
+        let isDownloaded = downloadStatus == .completed || downloadStatus == .failedPage
+        Button {
+            handleDownloadTap()
+        } label: {
+            Image(systemName: isDownloaded ? "checkmark.circle.fill" :
+                   downloadStatus == .failedAudio ? "exclamationmark.circle.fill" :
+                   downloadStatus == .queued || downloadStatus == .downloadingAudio || downloadStatus == .downloadingPage ? "arrow.down.circle.fill" :
+                   "arrow.down.circle")
+                .font(.title3)
+                .foregroundStyle(isDownloaded ? .green : .white)
+                .shadow(color: .black.opacity(0.5), radius: 2)
+        }
+        .onAppear {
+            downloadTask = Task {
+                while !Task.isCancelled {
+                    let status = await DownloadManager.shared.status(for: item.id)
+                    let progress = await DownloadManager.shared.progress(for: item.id)
+                    await MainActor.run {
+                        self.downloadStatus = status
+                        self.downloadProgress = progress
+                    }
+                    try? await Task.sleep(for: .milliseconds(500))
+                }
+            }
+        }
+        .onDisappear { downloadTask?.cancel() }
+    }
+
+    private func handleDownloadTap() {
+        let isDone = downloadStatus == .completed || downloadStatus == .failedPage
+        if isDone {
+            Task {
+                await DownloadManager.shared.delete(itemID: item.id)
+            }
+        } else if downloadStatus == .queued || downloadStatus == .downloadingAudio || downloadStatus == .downloadingPage {
+            Task {
+                await DownloadManager.shared.cancel(itemID: item.id)
+            }
+        } else {
+            Task {
+                let type: DownloadContentType = item.isPodcast ? .podcast : .article
+                await DownloadManager.shared.enqueue(item: item, contentType: type)
+            }
         }
     }
 
