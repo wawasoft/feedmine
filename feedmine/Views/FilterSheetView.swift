@@ -104,6 +104,20 @@ struct FilterSheetView: View {
                         .accessibilityIdentifier("content-type-\(type.rawValue.lowercased())")
                         .accessibilityValue(draftContentType == type ? "selected" : "not selected")
                     }
+
+                    Button {
+                        loader.isDownloadedFilterActive.toggle()
+                        overlayFiltersAreDirty = true
+                    } label: {
+                        HStack {
+                            Label("Downloaded", systemImage: "arrow.down.circle")
+                            Spacer()
+                            if loader.isDownloadedFilterActive {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(.blue)
+                            }
+                        }
+                    }
                 }
 
                 Section("Topics") {
