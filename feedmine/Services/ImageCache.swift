@@ -623,7 +623,7 @@ final class ImageCache {
 
     // MARK: - Private
 
-    private nonisolated func cacheKey(for url: URL) -> String {
+    nonisolated func cacheKey(for url: URL) -> String {
         "img_\(Self.stableHash(url.absoluteString))"
     }
 
