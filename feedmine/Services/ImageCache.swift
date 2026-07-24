@@ -627,6 +627,11 @@ final class ImageCache {
         "img_\(Self.stableHash(url.absoluteString))"
     }
 
+    /// Full disk URL for a cached image file.
+    nonisolated func cacheFileURL(for url: URL) -> URL {
+        diskCacheURL.appendingPathComponent(cacheKey(for: url))
+    }
+
     /// Duplicated key logic for the static hasCachedImageData path.
     private nonisolated static func cacheKeyForURL(_ url: URL) -> String {
         "img_\(stableHash(url.absoluteString))"

@@ -117,13 +117,16 @@ actor DownloadManager {
         await cancel(itemID: itemID)
     }
 
+    /// In-memory cache of download statuses, updated by processNext/enqueue/cancel.
+    private var statusCache: [String: DownloadStatus] = [:]
+    private var progressCache: [String: Double] = [:]
+
     func status(for itemID: String) -> DownloadStatus {
-        // This is a synchronous lookup — caller should use cached value or await
-        return .queued  // Simplified; real impl reads from in-memory cache
+        statusCache[itemID] ?? .queued
     }
 
     func progress(for itemID: String) -> Double {
-        return 0.0  // Simplified; real impl tracks via progressHandlers
+        progressCache[itemID] ?? 0.0
     }
 
     func isDownloaded(itemID: String) -> Bool {
@@ -141,6 +144,12 @@ actor DownloadManager {
         return FileManager.default.fileExists(atPath: path.path) ? path : nil
     }
 
+    /// Non-async variant for @MainActor callers (e.g. AudioPlayerManager.play).
+    nonisolated func localAudioPathSync(for itemID: String) -> URL? {
+        let path = cachesDirectory.appendingPathComponent("\(itemID)/audio.mp3")
+        return FileManager.default.fileExists(atPath: path.path) ? path : nil
+    }
+
     func evaluateRules(for items: [FeedItem]) async {
         let db = await FeedStore.sharedDB()
         let rules: [DownloadRuleRecord]
@@ -153,9 +162,9 @@ actor DownloadManager {
         } catch { return }
         guard !rules.isEmpty else { return }
 
-        // Check connectivity
-        let isConnected = await MainActor.run { NetworkMonitor().isConnected }
-        if mode == .wifi && !isConnected {
+        // Check connectivity via shared, already-started monitor
+        let snap = NetworkMonitor.shared.snapshot()
+        if mode == .wifi && !snap.isConnected {
             return  // WiFi only and we're not on WiFi
         }
 
@@ -288,6 +297,7 @@ actor DownloadManager {
                let audioStr = record.audioURL,
                let audioURL = URL(string: audioStr) {
 
+                statusCache[record.itemID] = .downloadingAudio
                 record.status = DownloadStatus.downloadingAudio.rawValue
                 let r1 = record
                 try await db.write { db in try r1.update(db) }
@@ -295,17 +305,30 @@ actor DownloadManager {
                 let bundle = cachesDirectory.appendingPathComponent(record.itemID)
                 try? FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
 
-                let (tempURL, _) = try await session.download(from: audioURL)
-                let destURL = bundle.appendingPathComponent("audio.mp3")
-                try? FileManager.default.removeItem(at: destURL)
-                try FileManager.default.moveItem(at: tempURL, to: destURL)
+                do {
+                    let (tempURL, _) = try await session.download(from: audioURL)
+                    let destURL = bundle.appendingPathComponent("audio.mp3")
+                    try? FileManager.default.removeItem(at: destURL)
+                    try FileManager.default.moveItem(at: tempURL, to: destURL)
 
-                let fileSize = (try? destURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
-                record.audioBytes = fileSize
-                record.audioDownloaded = fileSize
-                record.audioPath = "audio.mp3"
-                record.bundlePath = bundle.path
-                record.status = DownloadStatus.downloadingPage.rawValue
+                    let fileSize = (try? destURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+                    record.audioBytes = fileSize
+                    record.audioDownloaded = fileSize
+                    record.audioPath = "audio.mp3"
+                    record.bundlePath = bundle.path
+                    record.status = DownloadStatus.downloadingPage.rawValue
+                    progressCache[record.itemID] = 0.85
+                } catch {
+                    statusCache[record.itemID] = .failedAudio
+                    var failedRec = record
+                    failedRec.status = DownloadStatus.failedAudio.rawValue
+                    failedRec.completedAt = Int(Date().timeIntervalSince1970)
+                    let rFail = failedRec
+                    try await db.write { db in try rFail.update(db) }
+                    notify(.init(event: .failed, itemID: record.itemID, sourceTitle: nil, itemTitle: nil, count: nil))
+                    await processNext()
+                    return
+                }
                 let r2 = record
                 try await db.write { db in try r2.update(db) }
             }
@@ -347,19 +370,36 @@ actor DownloadManager {
                 )
                 let pageFile = bundle.appendingPathComponent("page.html")
                 try rewrittenHTML.write(to: pageFile, atomically: true, encoding: .utf8)
+                // Hardlink cached images into bundle so WKWebView resolves them
+                let imagesDir = bundle.appendingPathComponent("images", isDirectory: true)
+                try? FileManager.default.createDirectory(at: imagesDir, withIntermediateDirectories: true)
+                for imageURL in sanitized.imageURLs {
+                    let cacheFile = await ImageCache.shared.cacheFileURL(for: imageURL)
+                    let key = await ImageCache.shared.cacheKey(for: imageURL)
+                    let dest = imagesDir.appendingPathComponent(key)
+                    if FileManager.default.fileExists(atPath: cacheFile.path),
+                       !FileManager.default.fileExists(atPath: dest.path) {
+                        try? FileManager.default.linkItem(at: cacheFile, to: dest)
+                    }
+                }
+
                 record.pagePath = "page.html"
                 record.pageBytes = (try? pageFile.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
                 record.pageDownloaded = record.pageBytes
                 record.bundlePath = bundle.path
                 record.status = DownloadStatus.completed.rawValue
                 record.completedAt = Int(Date().timeIntervalSince1970)
+                statusCache[record.itemID] = .completed
+                progressCache[record.itemID] = 1.0
             } catch {
                 // Page failed — if podcast, audio still works
                 if record.audioPath != nil {
                     record.status = DownloadStatus.failedPage.rawValue
                     record.completedAt = Int(Date().timeIntervalSince1970)
+                    statusCache[record.itemID] = .failedPage
                 } else {
                     record.status = DownloadStatus.failedPage.rawValue
+                    statusCache[record.itemID] = .failedPage
                 }
             }
             let r5 = record
@@ -376,13 +416,14 @@ actor DownloadManager {
         }
     }
 
+    /// Rewrite remote image URLs to relative paths matching the hardlinked
+    /// images/ directory. ImageCache stores files without extension, so we
+    /// use the raw key (no .jpg suffix).
     private func rewriteImagePaths(_ html: String, imageURLs: [URL]) async -> String {
         var result = html
         for url in imageURLs {
-            let cache = await ImageCache.shared
-            let key = cache.cacheKey(for: url)
-            let localPath = "images/\(key).jpg"
-            result = result.replacingOccurrences(of: url.absoluteString, with: localPath)
+            let key = await ImageCache.shared.cacheKey(for: url)
+            result = result.replacingOccurrences(of: url.absoluteString, with: "images/\(key)")
         }
         return result
     }
