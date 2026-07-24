@@ -127,6 +127,44 @@ struct FeedScreen: View {
         .task {
             await startScreen()
         }
+        .task {
+            for await notification in DownloadManager.shared.notifications {
+                await MainActor.run {
+                    switch notification.event {
+                    case .queued:
+                        if let source = notification.sourceTitle {
+                            toastMessage = "\u{2B07}\u{FE0F} Download started \u{2014} \(source)"
+                            toastIcon = "arrow.down.circle"
+                        }
+                    case .completed:
+                        if let title = notification.itemTitle {
+                            toastMessage = "\u{2705} Downloaded \u{2014} \(title)"
+                            toastIcon = "checkmark.circle.fill"
+                        }
+                    case .failed:
+                        toastMessage = "\u{26A0}\u{FE0F} Download failed \u{2014} tap to retry"
+                        toastIcon = "exclamationmark.triangle"
+                    case .batchCompleted:
+                        if let count = notification.count {
+                            toastMessage = "\u{2705} \(count) episodes downloaded"
+                            toastIcon = "checkmark.circle.fill"
+                        }
+                    case .autoDownloadStarted:
+                        if let count = notification.count {
+                            toastMessage = "\u{1F4E5} Auto-downloading \(count) new episodes\u{2026}"
+                            toastIcon = "arrow.down.circle"
+                        }
+                    case .storageFull:
+                        toastMessage = "\u{1F5D1}\u{FE0F} Storage full \u{2014} oldest downloads removed"
+                        toastIcon = "trash"
+                    case .airplaneModeNoDownloads:
+                        toastMessage = "\u{2708}\u{FE0F} No offline content \u{2014} download on WiFi first"
+                        toastIcon = "wifi.slash"
+                    }
+                    withAnimation { showToast = true }
+                }
+            }
+        }
         .onAppear { recordFirstScreenMetric() }
         .onChange(of: loader.items.count) { _, count in recordFirstUsefulContentMetric(count: count) }
         .onChange(of: scenePhase) { _, phase in handleScenePhase(phase) }
