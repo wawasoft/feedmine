@@ -512,20 +512,130 @@ identically to article reading — `WKWebView.loadHTMLString` with the cached HT
 
 ---
 
-## Feature 8: Content Organization
+## Feature 8: Storage Management & Disk Space Protection
 
-### 8.1 Downloaded Items Are NOT a Separate Collection
+### 8.1 The Problem
+
+The app writes large files (podcast audio up to 80+ MB each) to disk. Without
+protection, a user on a 128 GB iPhone with 500 MB free could start a batch
+download that fills the disk completely — crashing the app, preventing photo
+capture, and triggering iOS storage warnings.
+
+The app must be a good citizen: check BEFORE downloading, enforce a user-configurable
+limit, and have a safety margin.
+
+### 8.2 Pre-Download Gate (Every Download)
+
+Before ANY download starts (manual or auto), the `DownloadManager` checks:
+
+```swift
+enum StorageGate {
+    case allowed                          // Go ahead
+    case insufficientFree(needed: Int64, available: Int64)  // Not enough space
+    case wouldExceedUserLimit(used: Int64, limit: Int64)    // Would pass user's cap
+    case criticallyLow(available: Int64)   // < 200 MB free regardless of limit
+}
+
+func checkStorageGate(for byteCount: Int64) -> StorageGate {
+    let available = freeDiskSpace()          // FileManager query
+    let used = storageUsed()                 // Sum of our download bundles
+    let limit = storageLimit                 // User setting, default 2 GB
+
+    // 1. Critical floor: never leave less than 200 MB free
+    if available < 200_000_000 {
+        return .criticallyLow(available: available)
+    }
+
+    // 2. Check user's own limit
+    if used + byteCount > limit {
+        return .wouldExceedUserLimit(used: used, limit: limit)
+    }
+
+    // 3. Check actual free space (with 500 MB safety margin)
+    let neededWithMargin = byteCount + 500_000_000
+    if neededWithMargin > available {
+        return .insufficientFree(needed: byteCount, available: available)
+    }
+
+    return .allowed
+}
+```
+
+**When a user taps download:**
+
+| Gate Result | UX |
+|-------------|-----|
+| `allowed` | Proceed silently |
+| `insufficientFree` | Alert: "Not enough space. Need X MB, only Y MB free." Options: "Free up space" (opens Settings) / "Cancel" |
+| `wouldExceedUserLimit` | Alert: "Download limit reached (X GB). Increase limit in Settings or delete old downloads." Options: "Settings" / "Cancel" |
+| `criticallyLow` | Toast: "⚠️ Critically low storage — downloads paused." All auto-downloads paused until space recovers. |
+
+**For auto-downloads:** if the gate fails, the download is skipped (not queued).
+The user isn't spammed with alerts — the next time they open the app, a single
+toast summarizes what was skipped.
+
+### 8.3 Free Space Monitoring
+
+```swift
+extension DownloadManager {
+    /// Returns free space on the volume containing our cache directory.
+    func freeDiskSpace() -> Int64 {
+        let url = cachesDirectory
+        let values = try? url.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
+        return values?.volumeAvailableCapacityForImportantUsage ?? 0
+    }
+}
+```
+
+Using `volumeAvailableCapacityForImportantUsageKey` (not `volumeAvailableCapacityKey`)
+means we get the "important usage" number — what the OS considers actually usable
+before it starts purging caches. This is the conservative, safe number.
+
+### 8.4 Runtime Enforcement
+
+Downloads are not the only disk consumer. To prevent slow accumulation:
+
+1. **On launch:** If free space < 200 MB, auto-evict oldest completed downloads
+   until free space ≥ 500 MB or all downloads are evicted.
+
+2. **On download completion:** After each successful download, run
+   `enforceStorageLimit()`. If user's cap is exceeded, evict oldest completed
+   downloads (by `completed_at`) until within limit.
+
+3. **After playback:** If auto-delete is set to "After read" and the user
+   finishes an episode/article, schedule deletion after 1 hour (grace period
+   for re-listening).
+
+4. **Weekly cleanup:** A background task checks for orphaned bundle directories
+   (DB row deleted but files remain) and removes them.
+
+### 8.5 User Settings
+
+```
+Storage limit:  500 MB / 1 GB / 2 GB (default) / 5 GB
+Auto-delete:    After read / After 7 days / Manual
+Free space warning:  200 MB floor (non-configurable safety margin)
+```
+
+The 200 MB floor is hardcoded — it's not a user setting, it's system protection.
+The user only controls their own storage budget for downloads.
+
+---
+
+## Feature 9: Content Organization
+
+### 9.1 Downloaded Items Are NOT a Separate Collection
 
 They remain in their original contexts (main feed, collections, sources).
 The Downloaded filter simply narrows the view. There is no "Downloads" tab
 or separate screen — the filter bar is the entry point.
 
-### 8.2 Storage Display
+### 9.2 Storage Display
 
 Used storage is shown in Settings → Downloads. Individual episode sizes
 are visible in the download queue and can be deleted individually.
 
-### 8.3 What Gets Downloaded (Size Estimates)
+### 9.3 What Gets Downloaded (Size Estimates)
 
 | Content Type | Assets | Typical Total |
 |---|---|---|
@@ -544,26 +654,30 @@ With 2 GB storage limit: ~35 hour-long podcasts or ~1,300 articles.
 - Schema migration (download, download_rule tables)
 - `DownloadManager` actor with queue, progress, bundle storage
 - `ContentSanitizer` utility for intelligent HTML processing
+- `StorageGate` pre-download checks (free space, user limit, critical floor)
 - Enhanced `NetworkMonitor` with `isAirplaneMode`
 - `Downloaded` filter in `FeedStore` (SQL + in-memory)
 
-### Phase 2: Auto-Download (1 week)
+### Phase 2: Auto-Download & UX (1 week)
 - Per-source and per-collection auto-download rules UI
 - `evaluateRules` integration with `persistFetchedItems`
-- Settings screen: storage, mode, auto-delete
+- Settings screen: storage limit, mode, auto-delete
 - Download action on cards (manual download/cancel/delete)
 - Multi-asset progress tracking (audio + page)
+- Download toast notifications (queued, completed, failed, batch)
 
-### Phase 3: Playback & Reading (1 week)
+### Phase 3: Playback, Reading & Storage (1 week)
 - `AudioPlayerManager` local file playback path (prioritize downloaded files)
 - `ArticleReaderView` cached HTML loading with rewritten image paths
 - Podcast show notes viewing from cache
 - Background URL session for suspended downloads
+- `enforceStorageLimit()` with LRU eviction
+- On-launch storage check and emergency eviction
 
 ### Phase 4: Polish (3-4 days)
 - Airplane Mode auto-activation / deactivation
 - Empty states and onboarding for first-time offline users
-- Storage enforcement and LRU eviction
+- Weekly orphaned bundle cleanup
 - Edge cases: partial downloads, file system errors, migration from old schema
 
 ---
@@ -572,19 +686,19 @@ With 2 GB storage limit: ~35 hour-long podcasts or ~1,300 articles.
 
 | File | New/Modified | Purpose |
 |------|-------------|---------|
-| `Services/DownloadManager.swift` | NEW | Download actor, queue, bundle storage, multi-asset coordination |
+| `Services/DownloadManager.swift` | NEW | Download actor, queue, bundle storage, storage gate, multi-asset coordination |
 | `Services/ContentSanitizer.swift` | NEW | HTML fetch, sanitize, image extraction |
 | `Services/NetworkMonitor.swift` | MODIFIED | Add `isAirplaneMode` |
 | `Services/FeedStore.swift` | MODIFIED | Schema migration (v22), SQL filter for Downloaded |
 | `Services/FeedLoader.swift` | MODIFIED | Downloaded filter state, auto-activation |
 | `Services/AudioPlayerManager.swift` | MODIFIED | Local file playback path |
-| `Views/FeedScreen.swift` | MODIFIED | Airplane Mode banner |
+| `Views/FeedScreen.swift` | MODIFIED | Airplane Mode banner, download toast notifications |
 | `Views/FeedItemCardView.swift` | MODIFIED | Download button overlay with multi-phase progress |
-| `Views/SettingsSheetView.swift` | MODIFIED | Download settings section |
+| `Views/SettingsSheetView.swift` | MODIFIED | Download settings (limit, auto-delete, mode) |
 | `Views/FilterSheetView.swift` | MODIFIED | Downloaded filter chip |
-| `Views/SourceManagementView.swift` | MODIFIED | Per-source auto-download toggle |
+| `Views/SourceManagementView.swift` | MODIFIED | Per-source auto-download toggle + episode cap |
 | `Views/ArticleReaderView.swift` | MODIFIED | Cached HTML loading |
-| `Models/DownloadModels.swift` | NEW | Download, DownloadRule, DownloadStatus, DownloadContentType enums |
+| `Models/DownloadModels.swift` | NEW | Download, DownloadRule, DownloadStatus, DownloadContentType, StorageGate enums |
 
 ---
 
