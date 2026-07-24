@@ -108,7 +108,7 @@ final class FeedStore {
     /// Cached set of feed URLs that match the current taxonomy selection.
     /// Invalidated when activeNodeIDs changes. Makes applyFilters O(items) instead
     /// of O(items x selectedNodes).
-    private var cachedTaxonomyFeedURLs: Set<String> = []
+    private(set) var cachedTaxonomyFeedURLs: Set<String> = []
     private var cachedTaxonomyNodeIDs: Set<String> = []
     /// Monotonic counter incremented on every filter change. Async operations
     /// (urgent fetch, reloadFromSQLite pipeline) capture the generation at launch
