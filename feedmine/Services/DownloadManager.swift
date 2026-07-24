@@ -244,14 +244,18 @@ actor DownloadManager {
         return Int64(values?.volumeAvailableCapacityForImportantUsage ?? 0)
     }
 
-    func checkStorageGate(for byteCount: Int64) -> StorageGate {
-        let available = freeDiskSpace()
-        let used = storageUsed()
-        let limit = storageLimit
-        if available < 200_000_000 { return .criticallyLow(available: available) }
-        if used + byteCount > limit { return .wouldExceedUserLimit(used: used, limit: limit) }
+    /// Testable entry point — allows injecting free space and usage.
+    func checkStorageGate(for byteCount: Int64,
+                          freeSpace: Int64? = nil,
+                          used: Int64? = nil,
+                          limit: Int64? = nil) -> StorageGate {
+        let actualFree = freeSpace ?? freeDiskSpace()
+        let actualUsed = used ?? storageUsed()
+        let actualLimit = limit ?? storageLimit
+        if actualFree < 200_000_000 { return .criticallyLow(available: actualFree) }
+        if actualUsed + byteCount > actualLimit { return .wouldExceedUserLimit(used: actualUsed, limit: actualLimit) }
         let neededWithMargin = byteCount + 500_000_000
-        if neededWithMargin > available { return .insufficientFree(needed: byteCount, available: available) }
+        if neededWithMargin > actualFree { return .insufficientFree(needed: byteCount, available: actualFree) }
         return .allowed
     }
 
