@@ -1,4 +1,5 @@
 import SwiftUI
+import GRDB
 
 struct SettingsSheetView: View {
     @Environment(FeedLoader.self) private var loader
@@ -19,6 +20,13 @@ struct SettingsSheetView: View {
     @State private var showPalettePicker = false
     @State private var showFontStylePicker = false
     @State private var showRestartAlert = false
+
+    // MARK: - Download settings
+    @State private var downloadMode: DownloadMode = .wifi
+    @State private var storageLimitOption = 2  // 2 GB default (index 2)
+    @State private var autoDeleteOption = 0    // After read default (index 0)
+    @State private var activeRules: [DownloadRuleRecord] = []
+    @State private var freeSpaceBytes: Int64 = 0
 
     private var topCategory: String? {
         let readItems = loader.items.filter { loader.isRead($0.id) }
@@ -123,6 +131,44 @@ struct SettingsSheetView: View {
                 Section("Performance") {
                     Toggle("Preload Images", systemImage: "photo.stack.fill", isOn: $prefetchImages)
                         .tint(.blue)
+                }
+
+                // MARK: - Downloads
+                Section {
+                    Picker("Prefer", selection: $downloadMode) {
+                        Text("WiFi only").tag(DownloadMode.wifi)
+                        Text("WiFi + Cellular").tag(DownloadMode.cellular)
+                    }
+
+                    Picker("Storage limit", selection: $storageLimitOption) {
+                        Text("500 MB").tag(0)
+                        Text("1 GB").tag(1)
+                        Text("2 GB").tag(2)
+                        Text("5 GB").tag(3)
+                    }
+
+                    Picker("Auto-delete", selection: $autoDeleteOption) {
+                        Text("After read").tag(0)
+                        Text("After 7 days").tag(1)
+                        Text("Manual").tag(2)
+                    }
+                } header: {
+                    Label("Downloads", systemImage: "arrow.down.circle")
+                } footer: {
+                    Text("Free space: \(formattedFreeSpace) — Safe floor: 200 MB")
+                }
+
+                if !activeRules.isEmpty {
+                    Section("Active rules") {
+                        ForEach(activeRules, id: \.id) { rule in
+                            HStack {
+                                Text(ruleLabel(for: rule))
+                                Spacer()
+                                Text("\(rule.maxItems) ep")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
                 }
 
                 Section {
@@ -278,6 +324,20 @@ struct SettingsSheetView: View {
             } message: {
                 Text("Please restart FeedMine to apply the new language.")
             }
+            .task {
+                await loadSettings()
+            }
+            .onChange(of: storageLimitOption) { _, opt in
+                let limits: [Int64] = [500_000_000, 1_000_000_000, 2_000_000_000, 5_000_000_000]
+                Task { await DownloadManager.shared.storageLimit = limits[opt] }
+            }
+            .onChange(of: autoDeleteOption) { _, opt in
+                let policies: [AutoDeletePolicy] = [.afterRead, .after7Days, .manual]
+                Task { await DownloadManager.shared.autoDelete = policies[opt] }
+            }
+            .onChange(of: downloadMode) { _, mode in
+                Task { await DownloadManager.shared.mode = mode }
+            }
         }
         .presentationDetents([.medium, .large])
     }
@@ -377,6 +437,38 @@ struct SettingsSheetView: View {
         case .newYork: return "New York — serif editorial, fixed"
         case .sfMono: return "SF Mono — technical, fixed"
         case .georgia: return "Georgia — serif headlines, SF body"
+        }
+    }
+
+    // MARK: - Download Settings Helpers
+
+    private var formattedFreeSpace: String {
+        ByteCountFormatter.string(fromByteCount: freeSpaceBytes, countStyle: .file)
+    }
+
+    private func loadSettings() async {
+        let manager = DownloadManager.shared
+        downloadMode = await manager.mode
+        let limits: [Int64] = [500_000_000, 1_000_000_000, 2_000_000_000, 5_000_000_000]
+        storageLimitOption = limits.firstIndex(of: await manager.storageLimit) ?? 2
+        let policies: [AutoDeletePolicy] = [.afterRead, .after7Days, .manual]
+        autoDeleteOption = policies.firstIndex(of: await manager.autoDelete) ?? 0
+        freeSpaceBytes = await manager.freeDiskSpace()
+        do {
+            let db = await FeedStore.sharedDB()
+            activeRules = try await db.read { db in
+                try DownloadRuleRecord.filter(Column("enabled") == true).fetchAll(db)
+            }
+        } catch {
+            activeRules = []
+        }
+    }
+
+    private func ruleLabel(for rule: DownloadRuleRecord) -> String {
+        switch rule.targetType {
+        case "source": return "Source feed"
+        case "collection": return "Collection"
+        default: return "Rule"
         }
     }
 
