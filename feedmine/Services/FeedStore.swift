@@ -6,6 +6,14 @@ import Observation
 @MainActor
 @Observable
 final class FeedStore {
+    /// Exposes the GRDB DatabaseQueue for use by DownloadManager.
+    /// Only valid after the first FeedStore instance is initialized.
+    static func sharedDB() async -> DatabaseQueue {
+        await MainActor.run { /* Ensure called from main actor context */ }
+        return _sharedDB
+    }
+    private static var _sharedDB: DatabaseQueue!
+
     // MARK: - Subcomponents
     let db: DatabaseQueue
     let registry = SourceRegistry()
@@ -657,6 +665,7 @@ final class FeedStore {
         } else {
             self.db = try DatabaseQueue(path: Self.dbPath, configuration: Self.dbConfig)
         }
+        Self._sharedDB = db
         try Self.migrate(db)
         // user.sqlite — owns bookmark identity, survives catalog rebuilds
         self.userRepo = try UserStateStore(inMemory: inMemory)
