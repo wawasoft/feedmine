@@ -1,87 +1,55 @@
-# Task 1 Report: Make scheduleSourceEnablementRefresh collection-aware
+# Task 1 Report: Download Models
 
-## Status: DONE
+**Status:** DONE
 
-## Files Changed
+**Branch:** offline-features
 
-- `/Users/wagnermontes/Documents/GitHub/feedmine/feedmine/Services/FeedStore.swift` — lines 2110-2162 (the `scheduleSourceEnablementRefresh` method body)
+## Commits Made
 
-## What Changed
+- `d72f8f8f` — `feat: add download models (enums, GRDB records, notification payload)`
 
-Added a collection-aware guard in `scheduleSourceEnablementRefresh` that runs **before** the existing `applyUpdate(.flush())` path. When a collection preset is active (`presetSourceFilter != nil` and `activePreset` is `.collection`), the method now:
+## Files Created
 
-1. Sets `loadingState = .refreshing` and calls `refreshWhatsNew(shouldBoost: false)` — same as the flush path.
-2. Calls `hydrateCollectionPresetFromCache(collectionID:)` for immediate display from local cache.
-3. If `usesPersistentStorage`, spawns a `Task` to call `loadCollectionPresetFeed` for network refresh.
-4. Returns early without calling `applyUpdate(.flush())`.
+- `/Users/wagnermontes/Documents/GitHub/feedmine/feedmine/Models/DownloadModels.swift`
 
-This prevents the flush + `reloadFromSQLite` path from clearing collection content that contains external-source items or read items (which `reloadFromSQLite` filters out with `is_read == 0`).
+## Models Produced
 
-## Exact Diff
+- `DownloadStatus` — enum with states: queued, downloadingAudio, downloadingPage, completed, failedAudio, failedPage
+- `DownloadMode` — enum: wifi, cellular
+- `AutoDeletePolicy` — enum: afterRead, after7Days, manual
+- `DownloadContentType` — enum: podcast, article
+- `StorageGate` — equatable enum with allowed / insufficientFree / wouldExceedUserLimit / criticallyLow cases
+- `DownloadNotification` — struct with nested `DownloadNotificationEvent` for toast system
+- `DownloadRuleRecord` — GRDB record (`download_rule` table)
+- `DownloadRecord` — GRDB record (`download` table)
 
-```diff
---- a/feedmine/Services/FeedStore.swift
-+++ b/feedmine/Services/FeedStore.swift
-@@ -2117,6 +2117,31 @@ class FeedStore: ObservableObject {
-                activePreset != expectedPreset || presetGeneration != generation {
-                 return
-             }
-+            // If a collection preset is active, route through the collection-aware
-+            // path instead of flushing. A generic flush + reloadFromSQLite would
-+            // miss external-source items and read items.
-+            if presetSourceFilter != nil,
-+               case .collection(let cid, _) = activePreset {
-+                loadingState = .refreshing
-+                refreshWhatsNew(shouldBoost: false)
-+                // Hydrate from cache for immediate display. Network refresh is
-+                // optional — only for persistent stores to keep the feed current.
-+                do {
-+                    try await hydrateCollectionPresetFromCache(collectionID: cid)
-+                } catch {
-+                    Log.feed.error("collection source-enablement refresh hydrate failed: \(error)")
-+                }
-+                if usesPersistentStorage {
-+                    Task {
-+                        await loadCollectionPresetFeed(
-+                            collectionID: cid,
-+                            expectedPreset: activePreset,
-+                            expectedGeneration: presetGeneration
-+                        )
-+                    }
-+                }
-+                return
-+            }
-             self.loadingState = .refreshing
-             self.refreshWhatsNew(shouldBoost: false)
-             self.applyUpdate(.flush())
-```
+## Build Verification
 
-## Test Results
+`xcodebuild` completed with zero errors.
 
-Test `testCollectionPresetSurvivesEditorialRoundTripSlow` passed in 0.586 seconds with 0 failures.
+## Concerns
 
-```
-Test Case '-[feedmineTests.FeedStoreTests testCollectionPresetSurvivesEditorialRoundTripSlow]' passed (0.586 seconds).
-Test Suite 'FeedStoreTests' passed at 2026-07-22 21:57:24.314.
-     Executed 1 test, with 0 failures (0 unexpected) in 0.586 (0.587) seconds
-```
+None. Models are straightforward value types with no dependencies on other modules.
 
-## Self-Review
+## Fix: DownloadModels review findings
 
-1. **Preserved interfaces:** `scheduleSourceEnablementRefresh(expectedPreset:generation:)` signature is unchanged. Callers passing `generation=0` (default) still work — the collection guard fires **before** the flush in the same task body, so it intercepts all callers including `setCategoryEnabled`, `setTopicRegionsEnabled`, and `setAllCountriesEnabled`.
+**Commit:** `b08398e2`
 
-2. **Guard pattern matches existing code:** The collection check (`if presetSourceFilter != nil, case .collection(let cid, _) = activePreset`) mirrors the existing pattern used in `setPreset` and `refreshWhatsNew`.
+**File:** `/Users/wagnermontes/Documents/GitHub/feedmine/feedmine/Models/DownloadModels.swift`
 
-3. **Fire-and-forget for network:** The network refresh via `loadCollectionPresetFeed` runs in a separate `Task` so the enablement refresh returns quickly. The function's own generation guards protect against stale execution.
+### Fix 1 (Medium) - Sendable conformance
+Added `Sendable` to all public types:
+- `DownloadStatus`, `DownloadMode`, `AutoDeletePolicy`, `DownloadContentType` - added `Sendable` to conformance list
+- `StorageGate` - added `Sendable` alongside `Equatable`
+- `DownloadNotification`, `DownloadNotification.DownloadNotificationEvent` - added `Sendable`
+- `DownloadRuleRecord`, `DownloadRecord` - added `Sendable` to conformance
 
-4. **Cache hydrate is awaited:** `hydrateCollectionPresetFromCache` is awaited inline so the UI updates immediately with cached content.
+### Fix 2 (Medium) - Default values matching SQL column defaults
+- `DownloadRuleRecord`: `maxItems: Int = 3`, `mode: String = "wifi"`, `enabled: Bool = true`
+- `DownloadRecord`: `contentType: String = "podcast"`, `audioBytes: Int = 0`, `audioDownloaded: Int = 0`, `pageBytes: Int = 0`, `pageDownloaded: Int = 0`, `status: String = "queued"`
 
-5. **Error handling:** Cache hydrate errors are logged but don't crash — consistent with the existing error handling pattern in `loadCollectionPresetFeed`.
+### Fix 3 (Low) - String raw type
+Added `String` raw type to `DownloadNotificationEvent` enum.
 
-6. **Build verified:** `xcodebuild build` succeeded with no warnings or errors.
-
-## Commit
-
-```
-71322af7 - Make scheduleSourceEnablementRefresh collection-aware
-```
+### Build result
+Build succeeded with zero errors on iOS Simulator (iPhone 14 Plus).

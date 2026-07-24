@@ -1,23 +1,31 @@
-# Task 4: Restore 16:9 aspect ratio in heroBase
+# Task 4: DownloadManager Actor — Report
 
-## Changed Files
+## Files Created
+- `feedmine/Services/DownloadManager.swift` (new, 239 lines)
 
-| File | Line | Change |
-|------|------|--------|
-| `feedmine/Views/FeedItemCardView.swift` | 67 | Removed `.aspectRatio(16/9, contentMode: .fit)` from the podcast branch in `heroBase` |
-| `feedmine/Views/FeedItemCardView.swift` | 81 | Added `.aspectRatio(16/9, contentMode: .fill)` as a common modifier on `heroBase` at the usage site in `portraitCard` |
+## Files Modified
+- `feedmine/Services/FeedStore.swift` (+6 lines)
 
-## Summary
+## Changes
 
-The 16:9 aspect ratio was previously applied only to the podcast branch inside `heroBase` (`@ViewBuilder`). The non-podcast branch used `.aspectRatio(contentMode: .fill)` without a ratio parameter, which relied on asset intrinsic dimensions — causing layout issues.
+### DownloadManager.swift
+Created the core `DownloadManager` actor as specified in the brief:
+- **Singleton**: `DownloadManager.shared` actor
+- **Configuration**: `mode` (DownloadMode), `storageLimit` (default 2 GB), `autoDelete` (AutoDeletePolicy) — all backed by UserDefaults
+- **Storage gate**: `checkStorageGate(for:)` implements the three-tier check — 200 MB floor, 500 MB margin, user-configurable 2 GB limit
+- **Public API**: `enqueue`, `cancel`, `delete`, `status`, `progress`, `isDownloaded`, `localPagePath`, `localAudioPath`, `evaluateRules`, `storageUsed`, `enforceStorageLimit`, `freeDiskSpace`, `checkStorageGate`, `emergencyEvictIfNeeded`
+- **Notification stream**: AsyncStream of `DownloadNotification` events
+- **Queue processing**: `processNext()` stub (Phase 2)
+- **Internal state**: Background URLSession, active downloads/page tasks tracking, progress handlers
 
-**Fix:** Removed the aspect ratio from the podcast branch inside `heroBase` and instead applied `.aspectRatio(16/9, contentMode: .fill)` as a common modifier on `heroBase` at the call site in `portraitCard` (line 81). This ensures both podcast and non-podcast heroes render at a consistent 16:9 aspect ratio. The `.fill` content mode is correct because the hero area is subsequently `.clipped()` (line 95), cropping any overflow while filling the 16:9 frame.
-
-Note: The `.aspectRatio` modifier cannot be applied at the declaration level of a `@ViewBuilder` computed property in SwiftUI — it must be applied at the call site or wrapped in a `Group`. The modifier was therefore placed on `heroBase` in the `portraitCard` usage, before the `.overlay` chain.
+### FeedStore.swift
+Added the `sharedDB()` static accessor:
+- `static func sharedDB() async -> DatabaseQueue` — exposes the GRDB `DatabaseQueue` for DownloadManager
+- `private static var _sharedDB: DatabaseQueue!` — stores the database reference
+- Assignment `Self._sharedDB = db` placed in `init()` immediately after `self.db` is created
 
 ## Build Verification
+- `xcodebuild -scheme feedmine` completed with **zero errors**
 
-```
-xcodebuild build -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 14 Plus'
-** BUILD SUCCEEDED **
-```
+## Commit
+3aac1e8a on branch `offline-features`

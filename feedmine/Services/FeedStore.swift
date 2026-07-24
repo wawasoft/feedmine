@@ -2456,6 +2456,11 @@ final class FeedStore {
                 }
             }
 
+            // After items are persisted, trigger auto-download rule evaluation
+            Task {
+                await DownloadManager.shared.evaluateRules(for: actualNew)
+            }
+
             return succeeded
         } catch {
             Log.db.error("persist error: \(error.localizedDescription)")

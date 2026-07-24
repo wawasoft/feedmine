@@ -142,7 +142,55 @@ actor DownloadManager {
     }
 
     func evaluateRules(for items: [FeedItem]) async {
-        // Stub — full implementation in Phase 2
+        let db = await FeedStore.sharedDB()
+        let rules: [DownloadRuleRecord]
+        do {
+            rules = try await db.read { db in
+                try DownloadRuleRecord
+                    .filter(DownloadRuleRecord.Columns.enabled == true)
+                    .fetchAll(db)
+            }
+        } catch { return }
+        guard !rules.isEmpty else { return }
+
+        // Check connectivity
+        let isConnected = await MainActor.run { NetworkMonitor().isConnected }
+        if mode == .wifi && !isConnected {
+            return  // WiFi only and we're not on WiFi
+        }
+
+        var toEnqueue: [FeedItem] = []
+        for rule in rules {
+            let matching = items.filter { item in
+                if rule.targetType == "source" {
+                    return item.sourceURL == rule.targetID
+                }
+                // Collection matching would need collection membership lookup
+                return false
+            }
+            let sorted = matching.sorted { $0.publishedAt > $1.publishedAt }
+            let count = rule.maxItems > 0 ? min(rule.maxItems, sorted.count) : sorted.count
+            let candidates = Array(sorted.prefix(count))
+            for item in candidates {
+                let alreadyDownloaded = isDownloaded(itemID: item.id)
+                let alreadyQueued: Bool = (try? await db.read { db in
+                    try DownloadRecord
+                        .filter(DownloadRecord.Columns.itemID == item.id)
+                        .fetchCount(db)
+                } > 0) ?? true
+                if !alreadyDownloaded && !alreadyQueued {
+                    toEnqueue.append(item)
+                }
+            }
+        }
+
+        if !toEnqueue.isEmpty {
+            notify(.init(event: .autoDownloadStarted, itemID: nil, sourceTitle: nil, itemTitle: nil, count: toEnqueue.count))
+            for item in toEnqueue {
+                let type: DownloadContentType = item.isPodcast ? .podcast : .article
+                await enqueue(item: item, contentType: type)
+            }
+        }
     }
 
     func storageUsed() -> Int64 {
