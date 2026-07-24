@@ -8,6 +8,7 @@ final class NetworkMonitor {
     private let queue = DispatchQueue(label: "com.feedmine.network-monitor")
 
     private(set) var isConnected = true
+    private(set) var isAirplaneMode = false
     var wasDisconnected = false
 
     deinit {
@@ -16,13 +17,12 @@ final class NetworkMonitor {
 
     func start() {
         monitor.pathUpdateHandler = { [weak self] path in
-            Task { @MainActor in
+            Task { @MainActor [weak self] in
                 guard let self else { return }
-                let connected = path.status == .satisfied
-                if !connected {
-                    self.wasDisconnected = true
-                }
-                self.isConnected = connected
+                self.isConnected = path.status == .satisfied
+                self.wasDisconnected = self.wasDisconnected || !self.isConnected
+                // Airplane Mode = zero available interfaces (no WiFi radio, no cellular radio)
+                self.isAirplaneMode = path.availableInterfaces.isEmpty
             }
         }
         monitor.start(queue: queue)
