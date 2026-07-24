@@ -404,7 +404,27 @@ In Settings → Downloads:
 
 ---
 
-## Feature 5: Download UX on Cards
+## Feature 5: Download UX — Cards, Banners, and Notifications
+
+### 5.0 Download Notifications (System Toast)
+
+Reuse the existing `showToast`/`toastMessage`/`toastIcon` infrastructure
+in `FeedScreen`. Downloads fire toast notifications at key moments:
+
+| Event | Toast | Icon | Duration |
+|-------|-------|------|----------|
+| Download queued | "⬇️ Download started — Shipping Podcast" | `arrow.down.circle` | 2s |
+| Download complete | "✅ Downloaded — Ep 142: Future of..." | `checkmark.circle.fill` | 3s |
+| Download failed | "⚠️ Download failed — tap to retry" | `exclamationmark.triangle` | 5s (tap to retry) |
+| Batch complete | "✅ 5 episodes downloaded" | `checkmark.circle.fill` | 3s |
+| Auto-download started | "📥 Auto-downloading 3 new episodes..." | `arrow.down.circle` | 2s |
+| Storage full | "🗑️ Storage full — oldest downloads removed" | `trash` | 4s |
+| Airplane Mode + no downloads | "✈️ No offline content — download on WiFi first" | `wifi.slash` | 5s |
+
+**Implementation:** `DownloadManager` posts notifications via
+`NotificationCenter` (or an async sequence). `FeedScreen` observes them
+and triggers the existing toast system. The toast is the only persistent
+indicator — no silent downloads without user awareness.
 
 ### 5.1 Card States
 
