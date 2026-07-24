@@ -84,6 +84,10 @@ final class FeedStore {
     /// next launch the device-language default is applied again.
     var hasUserClearedLanguageFilter = false
 
+    /// Whether the Downloaded filter is currently active.
+    /// Set automatically on Airplane Mode, or manually by the user.
+    var isDownloadedFilterActive = false
+
     // MARK: - Preset state
 
     /// The active feed preset. Drives scoring multipliers across the entire
@@ -443,7 +447,7 @@ final class FeedStore {
             ? ContentFilterStore.shared.activeFilters : []
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
         let sourceFilter = presetSourceFilter  // nil for editorial, Set<String> for collection
-        return items.filter { item in
+        var filtered = items.filter { item in
             let normalizedSourceURL = OPMLParser.normalizeURL(item.sourceURL)
             // Opening a collection is an explicit source selection. Its durable
             // membership is therefore authoritative even when a personal source
@@ -458,6 +462,15 @@ final class FeedStore {
             && (mood == .all || mood.matches(item.title))
             && !contentFilterExcludes(item, filters: contentFilters)
         }
+        // Downloaded filter — only show items with completed downloads
+        if isDownloadedFilterActive {
+            filtered = filtered.filter { item in
+                let bundle = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+                    .appendingPathComponent("Downloads/\(item.id)")
+                return FileManager.default.fileExists(atPath: bundle.path)
+            }
+        }
+        return filtered
     }
 
     /// Content filter matching engine: checks if an item's title+excerpt contains any
@@ -3282,6 +3295,7 @@ final class FeedStore {
         // run off the main actor). When taxonomy is active we load matching
         // items via batched IN clause with per-chunk and global caps.
         let taxonomyURLs: Set<String>? = activeNodeIDs.isEmpty ? nil : cachedTaxonomyFeedURLs
+        let downloadFilterActive = isDownloadedFilterActive
         // Always exclude read items — the feed should only show unseen content.
         // Read/opened items are tracked continuously and this information is
         // consumed by all feed-population paths (shake, filter, startup).
@@ -3336,6 +3350,13 @@ final class FeedStore {
                         arguments: StatementArguments(allArgs)
                     )
                 }
+            }
+
+            // Downloaded filter — only items with completed downloads
+            if downloadFilterActive {
+                request = request.filter(
+                    sql: "id IN (SELECT item_id FROM download WHERE status IN ('completed', 'failed_page'))"
+                )
             }
 
             // Taxonomy filter — batched IN clause to stay within SQLite's
