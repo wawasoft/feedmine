@@ -21,7 +21,7 @@ final class FeedStore {
     let reservoir = Reservoir()
     let fetcher = RSSFetcher()
     let prefetcher = ImagePrefetcher()
-    let networkMonitor = NetworkMonitor()
+    let networkMonitor = NetworkMonitor.shared
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
     let sourceCollectionStore: SourceCollectionStore

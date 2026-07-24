@@ -452,28 +452,32 @@ struct FeedItemCardView: View, Equatable {
 
     @ViewBuilder
     private var downloadButton: some View {
-        let isDownloaded = downloadStatus == .completed || downloadStatus == .failedPage
+        let isDone = downloadStatus == .completed || downloadStatus == .failedPage
+        let isFailed = downloadStatus == .failedAudio
+        let isActive = downloadStatus == .queued
+            || downloadStatus == .downloadingAudio
+            || downloadStatus == .downloadingPage
+
         Button {
             handleDownloadTap()
         } label: {
-            Image(systemName: isDownloaded ? "checkmark.circle.fill" :
-                   downloadStatus == .failedAudio ? "exclamationmark.circle.fill" :
-                   downloadStatus == .queued || downloadStatus == .downloadingAudio || downloadStatus == .downloadingPage ? "arrow.down.circle.fill" :
-                   "arrow.down.circle")
+            Image(systemName: isDone ? "checkmark.circle.fill"
+                       : isFailed ? "exclamationmark.circle.fill"
+                       : isActive ? "arrow.down.circle.fill"
+                       : "arrow.down.circle")
                 .font(.title3)
-                .foregroundStyle(isDownloaded ? .green : .white)
-                .shadow(color: .black.opacity(0.5), radius: 2)
+                .foregroundStyle(isDone ? .green : isFailed ? .orange : .white)
+                .frame(width: 36, height: 36)
+                .background(.ultraThinMaterial, in: Circle())
+                .shadow(color: .black.opacity(0.15), radius: 4)
         }
+        .buttonStyle(.plain)
         .onAppear {
             downloadTask = Task {
                 while !Task.isCancelled {
                     let status = await DownloadManager.shared.status(for: item.id)
-                    let progress = await DownloadManager.shared.progress(for: item.id)
-                    await MainActor.run {
-                        self.downloadStatus = status
-                        self.downloadProgress = progress
-                    }
-                    try? await Task.sleep(for: .milliseconds(500))
+                    await MainActor.run { self.downloadStatus = status }
+                    try? await Task.sleep(for: .milliseconds(800))
                 }
             }
         }
@@ -483,13 +487,11 @@ struct FeedItemCardView: View, Equatable {
     private func handleDownloadTap() {
         let isDone = downloadStatus == .completed || downloadStatus == .failedPage
         if isDone {
-            Task {
-                await DownloadManager.shared.delete(itemID: item.id)
-            }
-        } else if downloadStatus == .queued || downloadStatus == .downloadingAudio || downloadStatus == .downloadingPage {
-            Task {
-                await DownloadManager.shared.cancel(itemID: item.id)
-            }
+            Task { await DownloadManager.shared.delete(itemID: item.id) }
+        } else if downloadStatus == .queued
+                    || downloadStatus == .downloadingAudio
+                    || downloadStatus == .downloadingPage {
+            Task { await DownloadManager.shared.cancel(itemID: item.id) }
         } else {
             Task {
                 let type: DownloadContentType = item.isPodcast ? .podcast : .article
