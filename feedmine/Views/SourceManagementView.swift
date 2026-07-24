@@ -1,4 +1,5 @@
 import SwiftUI
+import GRDB
 
 struct SourceManagementView: View {
     @Environment(FeedLoader.self) private var loader
@@ -69,39 +70,41 @@ struct SourceManagementView: View {
                 ForEach(sourcesByCategory, id: \.0) { category, sources in
                     Section {
                         ForEach(sources, id: \.url) { source in
-                            HStack {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    HStack(spacing: 4) {
-                                        Text(source.title)
-                                            .font(.subheadline)
-                                        let health = loader.healthFor(source)
-                                        if health.isStale {
-                                            Image(systemName: "exclamationmark.triangle.fill")
-                                                .font(.caption2)
-                                                .foregroundStyle(.orange)
+                            NavigationLink(destination: SourceDetailView(source: source, loader: loader)) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        HStack(spacing: 4) {
+                                            Text(source.title)
+                                                .font(.subheadline)
+                                            let health = loader.healthFor(source)
+                                            if health.isStale {
+                                                Image(systemName: "exclamationmark.triangle.fill")
+                                                    .font(.caption2)
+                                                    .foregroundStyle(.orange)
+                                            }
+                                            if health.consecutiveFailures > 0 {
+                                                Text("\(health.consecutiveFailures) fails")
+                                                    .font(.caption2)
+                                                    .foregroundStyle(.red)
+                                            }
                                         }
-                                        if health.consecutiveFailures > 0 {
-                                            Text("\(health.consecutiveFailures) fails")
-                                                .font(.caption2)
-                                                .foregroundStyle(.red)
-                                        }
+                                        Text(source.url)
+                                            .font(.caption2)
+                                            .foregroundStyle(.secondary)
+                                            .lineLimit(1)
                                     }
-                                    Text(source.url)
-                                        .font(.caption2)
-                                        .foregroundStyle(.secondary)
-                                        .lineLimit(1)
+
+                                    Spacer()
+
+                                    Toggle("", isOn: Binding(
+                                        get: { loader.isSourceEnabled(source.url) },
+                                        set: { _ in
+                                            loader.toggleSource(source.url)
+                                        }
+                                    ))
+                                    .labelsHidden()
+                                    .tint(.green)
                                 }
-
-                                Spacer()
-
-                                Toggle("", isOn: Binding(
-                                    get: { loader.isSourceEnabled(source.url) },
-                                    set: { _ in
-                                        loader.toggleSource(source.url)
-                                    }
-                                ))
-                                .labelsHidden()
-                                .tint(.green)
                             }
                         }
                     } header: {
@@ -284,6 +287,100 @@ struct SourceManagementView: View {
         case "design": return "paintpalette.fill"
         case "culture": return "theatermasks.fill"
         default: return "dot.radiowaves.left.and.right"
+        }
+    }
+}
+
+// MARK: - Source Detail View
+
+struct SourceDetailView: View {
+    let source: FeedSource
+    let loader: FeedLoader
+
+    @State private var autoDownloadEnabled = false
+    @State private var maxEpisodes = 3
+    @State private var downloadMode: DownloadMode = .wifi
+
+    var body: some View {
+        Form {
+            Section {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(source.title)
+                        .font(.headline)
+                    Text(source.url)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            Section {
+                Toggle(isOn: $autoDownloadEnabled) {
+                    Label("Auto-download", systemImage: "arrow.down.circle")
+                    Text("New episodes automatically")
+                }
+
+                if autoDownloadEnabled {
+                    Picker("Keep latest", selection: $maxEpisodes) {
+                        Text("1 episode").tag(1)
+                        Text("3 episodes").tag(3)
+                        Text("5 episodes").tag(5)
+                        Text("10 episodes").tag(10)
+                        Text("All").tag(0)
+                    }
+
+                    Picker("On", selection: $downloadMode) {
+                        Text("WiFi only").tag(DownloadMode.wifi)
+                        Text("WiFi + Cellular").tag(DownloadMode.cellular)
+                    }
+                }
+            } header: {
+                Text("Downloads")
+            }
+        }
+        .navigationTitle(source.title)
+        .navigationBarTitleDisplayMode(.inline)
+        .task { await loadRule() }
+        .onChange(of: autoDownloadEnabled) { _, _ in Task { await saveRule() } }
+        .onChange(of: maxEpisodes) { _, _ in Task { await saveRule() } }
+        .onChange(of: downloadMode) { _, _ in Task { await saveRule() } }
+    }
+
+    private func loadRule() async {
+        let db = await FeedStore.sharedDB()
+        do {
+            let rule = try await db.read { db in
+                try DownloadRuleRecord
+                    .filter(Column("target_type") == "source" && Column("target_id") == source.url)
+                    .fetchOne(db)
+            }
+            if let rule {
+                autoDownloadEnabled = rule.enabled
+                maxEpisodes = rule.maxItems
+                downloadMode = DownloadMode(rawValue: rule.mode) ?? .wifi
+            }
+        } catch {
+            // Defaults already set via @State initialisers
+        }
+    }
+
+    private func saveRule() async {
+        let db = await FeedStore.sharedDB()
+        do {
+            if autoDownloadEnabled {
+                try await db.write { db in
+                    try db.execute(sql: """
+                        INSERT OR REPLACE INTO download_rule (target_type, target_id, max_items, mode, enabled)
+                        VALUES (?, ?, ?, ?, ?)
+                        """, arguments: ["source", source.url, maxEpisodes, downloadMode.rawValue, true])
+                }
+            } else {
+                try await db.write { db in
+                    try db.execute(sql: "DELETE FROM download_rule WHERE target_type = 'source' AND target_id = ?",
+                                  arguments: [source.url])
+                }
+            }
+        } catch {
+            // Silently ignore write errors
         }
     }
 }
