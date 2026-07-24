@@ -222,7 +222,121 @@ actor DownloadManager {
     // MARK: - Queue processing
 
     private func processNext() async {
-        // Stub — full implementation in Phase 2
+        guard activeDownloads.count + activePageTasks.count < 3 else { return }
+
+        do {
+            let db = await FeedStore.sharedDB()
+            let next = try await db.read { db in
+                try DownloadRecord
+                    .filter(DownloadRecord.Columns.status == DownloadStatus.queued.rawValue)
+                    .order(DownloadRecord.Columns.createdAt.asc)
+                    .limit(1)
+                    .fetchOne(db)
+            }
+            guard var record = next else { return }
+
+            // Phase A: Audio (podcast only)
+            if record.contentType == DownloadContentType.podcast.rawValue,
+               let audioStr = record.audioURL,
+               let audioURL = URL(string: audioStr) {
+
+                record.status = DownloadStatus.downloadingAudio.rawValue
+                let r1 = record
+                try await db.write { db in try r1.update(db) }
+
+                let bundle = cachesDirectory.appendingPathComponent(record.itemID)
+                try? FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
+
+                let (tempURL, _) = try await session.download(from: audioURL)
+                let destURL = bundle.appendingPathComponent("audio.mp3")
+                try? FileManager.default.removeItem(at: destURL)
+                try FileManager.default.moveItem(at: tempURL, to: destURL)
+
+                let fileSize = (try? destURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+                record.audioBytes = fileSize
+                record.audioDownloaded = fileSize
+                record.audioPath = "audio.mp3"
+                record.bundlePath = bundle.path
+                record.status = DownloadStatus.downloadingPage.rawValue
+                let r2 = record
+                try await db.write { db in try r2.update(db) }
+            }
+
+            // Phase B: Page (both podcast and article)
+            if record.contentType == DownloadContentType.article.rawValue {
+                record.status = DownloadStatus.downloadingPage.rawValue
+                let r3 = record
+                try await db.write { db in try r3.update(db) }
+            }
+
+            guard let pageURL = URL(string: record.pageURL) else {
+                record.status = DownloadStatus.failedPage.rawValue
+                let r4 = record
+                try await db.write { db in try r4.update(db) }
+                return
+            }
+
+            let bundle = cachesDirectory.appendingPathComponent(record.itemID)
+            try? FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
+
+            do {
+                let sanitized = try await ContentSanitizer.fetchAndSanitize(url: pageURL)
+                // Download images
+                for imageURL in sanitized.imageURLs {
+                    if let _ = await ImageCache.shared.diskImage(for: imageURL) {
+                        // Already cached — rewrite will use ImageCache
+                        continue
+                    }
+                    // Download and cache the image
+                    if let (data, _) = try? await URLSession.shared.data(from: imageURL) {
+                        await ImageCache.shared.setImage(data: data, for: imageURL)
+                    }
+                }
+                // Write sanitized HTML with rewritten image paths
+                let rewrittenHTML = await rewriteImagePaths(
+                    sanitized.html,
+                    imageURLs: sanitized.imageURLs
+                )
+                let pageFile = bundle.appendingPathComponent("page.html")
+                try rewrittenHTML.write(to: pageFile, atomically: true, encoding: .utf8)
+                record.pagePath = "page.html"
+                record.pageBytes = (try? pageFile.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+                record.pageDownloaded = record.pageBytes
+                record.bundlePath = bundle.path
+                record.status = DownloadStatus.completed.rawValue
+                record.completedAt = Int(Date().timeIntervalSince1970)
+            } catch {
+                // Page failed — if podcast, audio still works
+                if record.audioPath != nil {
+                    record.status = DownloadStatus.failedPage.rawValue
+                    record.completedAt = Int(Date().timeIntervalSince1970)
+                } else {
+                    record.status = DownloadStatus.failedPage.rawValue
+                }
+            }
+            let r5 = record
+            try await db.write { db in try r5.update(db) }
+
+            // Notify
+            notify(.init(event: record.status == DownloadStatus.completed.rawValue ? .completed : .failed,
+                         itemID: record.itemID, sourceTitle: nil, itemTitle: nil, count: nil))
+
+            await enforceStorageLimit()
+            await processNext()  // Continue processing queue
+        } catch {
+            Log.feed.error("DownloadManager.processNext: \(error.localizedDescription)")
+        }
+    }
+
+    private func rewriteImagePaths(_ html: String, imageURLs: [URL]) async -> String {
+        var result = html
+        for url in imageURLs {
+            let cache = await ImageCache.shared
+            let key = cache.cacheKey(for: url)
+            let localPath = "images/\(key).jpg"
+            result = result.replacingOccurrences(of: url.absoluteString, with: localPath)
+        }
+        return result
     }
 
     private func notify(_ notification: DownloadNotification) {
