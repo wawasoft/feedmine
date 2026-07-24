@@ -1160,6 +1160,9 @@ final class FeedStore {
             Settings.hasInitializedLanguageDefault = true
         }
 
+        // Emergency storage eviction if critically low on disk space
+        await DownloadManager.shared.emergencyEvictIfNeeded()
+
         let endReadStateMetric = FeedMetrics.beginInterval("ReadState.load")
         await loadReadState()
         endReadStateMetric()
