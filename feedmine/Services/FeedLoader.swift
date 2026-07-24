@@ -461,6 +461,23 @@ final class FeedLoader {
     var networkMonitor: NetworkMonitor { store.networkMonitor }
     var currentVisibleIndex: Int = 0
 
+    // MARK: - Downloaded Filter
+
+    /// Whether the Downloaded filter is currently active (manual toggle).
+    /// Use `effectiveDownloadedFilter` to check if the filter should be active
+    /// considering both manual toggle and automatic Airplane Mode activation.
+    var isDownloadedFilterActive: Bool { store.isDownloadedFilterActive }
+
+    /// Whether the Downloaded filter should be considered active based on
+    /// current state. Combines manual toggle with automatic Airplane Mode
+    /// activation.
+    var effectiveDownloadedFilter: Bool {
+        if store.networkMonitor.isAirplaneMode {
+            return true  // Auto-activate on Airplane Mode
+        }
+        return store.isDownloadedFilterActive  // Manual toggle
+    }
+
     /// Direct index setter — caller already knows the position from ForEach
     /// enumeration, so we skip the O(n) firstIndex(where:) scan.
     func noteVisibleIndex(_ index: Int) {
