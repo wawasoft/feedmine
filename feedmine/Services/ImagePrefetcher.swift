@@ -1,10 +1,10 @@
 import UIKit
 
 /// Pre-downloads images into ImageCache so CachedAsyncImage renders instantly.
-/// Deduplicates in-flight requests and caps concurrent downloads at 8.
+/// Deduplicates in-flight requests via the shared ``ImageDownloadTracker`` and
+/// caps concurrent downloads at 16.
 actor ImagePrefetcher {
     private let session: URLSession
-    private var inFlightURLs: Set<URL> = []
 
     init() {
         let config = URLSessionConfiguration.default
@@ -21,18 +21,19 @@ actor ImagePrefetcher {
         let all = (priorityURLs + urls).compactMap { URL(string: $0) }
         guard !all.isEmpty else { return }
 
-        // Filter out cached or in-flight — uses nonisolated static check
-        // to avoid MainActor hops per URL
+        // Filter out cached or already-in-flight (shared tracker so cards
+        // can also wait).  Uses nonisolated static checks to avoid MainActor
+        // hops per URL.
         var toFetch: [URL] = []
         for url in all {
             if ImageCache.hasCachedImageData(for: url) { continue }
-            if inFlightURLs.contains(url) { continue }
+            if await ImageCache.isDownloadInFlight(for: url) { continue }
             if toFetch.contains(url) { continue }
             toFetch.append(url)
         }
         guard !toFetch.isEmpty else { return }
 
-        for url in toFetch { inFlightURLs.insert(url) }
+        for url in toFetch { await ImageCache.registerDownload(for: url) }
 
         // Sliding-window concurrency: keep up to `maxConcurrent` downloads in
         // flight and refill each freed slot immediately. The previous fixed
@@ -57,7 +58,7 @@ actor ImagePrefetcher {
     }
 
     private func download(_ url: URL) async {
-        defer { inFlightURLs.remove(url) }
+        defer { Task { await ImageCache.unregisterDownload(for: url) } }
         for candidate in ImageURLCandidates.candidates(for: url) {
             do {
                 let (data, response) = try await session.data(from: candidate)

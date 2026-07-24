@@ -147,6 +147,12 @@ final class WhatsNewManager {
         } catch {}
     }
 
+    /// Replace visible carousel items in-place — used by the immediate filter
+    /// cull so a stale-language card doesn't flash at the top after switching.
+    func replaceItems(_ items: [FeedItem]) {
+        whatsNewItems = items
+    }
+
     /// Advance the baseline to now and persist it — so items already shown
     /// in the carousel aren't treated as "new" again next session.
     func advanceWhatsNewBaseline() {

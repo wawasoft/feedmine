@@ -16,23 +16,6 @@ enum DeferredToggleState: Equatable {
     case disabled
 }
 
-/// Minimal placeholder for migration compatibility.
-/// Replaced by SQLite persistence — kept for stub API compliance.
-struct FeedState: Codable {
-    var schemaVersion: Int = 3
-    var readItemIDs: [String] = []
-    var bookmarkedIDs: [String] = []
-    var disabledSourceIDs: [String] = []
-    var disabledRegions: [String] = []
-    var sources: [FeedSource] = []
-    var lastRefreshDate: Date?
-    var streakCount: Int = 0
-    var lastOpenDate: TimeInterval = Date().timeIntervalSinceReferenceDate
-    var readTimestamps: [String: Date] = [:]
-    var cachedItems: [FeedItem] = []
-    var clickedSourceURLs: [String] = []
-}
-
 // MARK: - ViewModel
 
 @MainActor
@@ -483,11 +466,6 @@ final class FeedLoader {
             consecutiveFailures: store.consecutiveFailures(for: source.url)
         )
     }
-
-    // MARK: - Persistence stubs (migrated to SQLite / Task 11)
-
-    func buildState() -> FeedState { FeedState() }
-    func buildStateWithItems() -> FeedState { FeedState() }
 
     // MARK: - Init
 

@@ -256,16 +256,18 @@ struct FeedItemCardView: View, Equatable {
             .scaledToFill()
     }
 
-    /// Decorative placeholder asset keyed to the item's content type.
+    /// Decorative placeholder asset keyed to the item's content type and the
+    /// active circadian palette, e.g. "Placeholder-Video-amber".
     private var contentTypePlaceholderImage: Image {
+        let suffix = CircadianEngine.shared.paletteFamily.placeholderSuffix
         if item.isYouTube {
-            Image("Placeholder-Video")
+            return Image("Placeholder-Video-\(suffix)")
         } else if item.isPodcast {
-            Image("Placeholder-Podcast")
+            return Image("Placeholder-Podcast-\(suffix)")
         } else if item.isForum {
-            Image("Placeholder-Forum")
+            return Image("Placeholder-Forum-\(suffix)")
         } else {
-            Image("Placeholder-Article")
+            return Image("Placeholder-Article-\(suffix)")
         }
     }
 

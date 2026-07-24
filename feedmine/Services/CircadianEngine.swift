@@ -116,6 +116,18 @@ enum PaletteFamily: String, CaseIterable {
         }
     }
 
+    /// Color suffix used in palette-aware placeholder asset names
+    /// ("Placeholder-Article-amber", etc.).
+    var placeholderSuffix: String {
+        switch self {
+        case .warmEarth:    "amber"
+        case .coolSky:      "blue"
+        case .botanical:    "green"
+        case .lavenderHour: "purple"
+        case .monochrome:   "gray"
+        }
+    }
+
     var subtitle: String {
         switch self {
         case .warmEarth:    String(localized: "Amber → Deep Coral · Brand", comment: "Palette family subtitle")

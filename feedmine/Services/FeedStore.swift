@@ -229,16 +229,15 @@ final class FeedStore {
         }
     }
 
-    /// Aggressive prefetch: visible items first (user sees now), then deep
-    /// reservoir batch (user scrolls to soon). Called after seed/moveToVisible
-    /// so images are cached before they hit the screen.
-    private func prefetchVisibleAndNext() {
+    /// Prefetch the next batch of upcoming items so images are cached before
+    /// the user scrolls to them.  Visible items are intentionally *not*
+    /// included — by the time they are visible the cells have already started
+    /// their own loads; the shared ``ImageDownloadTracker`` deduplicates them.
+    private func prefetchUpcoming() {
         guard Settings.prefetchImages else { return }
-        let visible = reservoir.visibleItems.compactMap { $0.bestImageURL ?? $0.imageURL }
         let upcoming = reservoir.upcomingItems(100).compactMap { $0.bestImageURL ?? $0.imageURL }
-        let all = Array(Set(visible + upcoming))
-        guard !all.isEmpty else { return }
-        Task { await prefetcher.prefetch(urls: all, priorityURLs: visible) }
+        guard !upcoming.isEmpty else { return }
+        Task { await prefetcher.prefetch(urls: upcoming, priorityURLs: []) }
     }
 
     /// Normalize a set of language codes to ISO 639-1 base codes.
@@ -351,7 +350,7 @@ final class FeedStore {
         let recognizer = NLLanguageRecognizer()
         let minimumTextForDetection = 12
         let minimumTextForSourceOverride = 48
-        let minimumOverrideConfidence = 0.65
+        let minimumOverrideConfidence = 0.80
         let minimumOverrideMargin = 0.15
         return inputs.map { input in
             let text = (input.title + " " + input.excerpt)
@@ -537,6 +536,7 @@ final class FeedStore {
     private var firstLaunchBootstrapTask: Task<Void, Never>?
     private var progressiveFetchTask: Task<Void, Never>?
     private var coverageMiningTask: Task<Void, Never>?
+    private var isCoverageMiningActive = false
     private var backgroundRefreshTask: Task<Void, Never>?
     private var regionToggleTask: Task<Void, Never>?
     private var filterDebounceTask: Task<Void, Never>?
@@ -1150,7 +1150,8 @@ final class FeedStore {
         // the same reservoir and apply the same user filters.
         let endReservoirLoadMetric = FeedMetrics.beginInterval("Reservoir.load")
         if let collectionID = activePreset.collectionID,
-           presetSourceFilter != nil {
+           presetSourceFilter != nil,
+           visibleItems.isEmpty {  // skip if early-collection path already painted
             do {
                 try await hydrateCollectionPresetFromCache(collectionID: collectionID)
             } catch {
@@ -1172,7 +1173,7 @@ final class FeedStore {
             FeedMetrics.memory("afterFirstVisible")
             loadingState = .idle
             resolveArticleImagesInBackground(visibleItems)
-            prefetchVisibleAndNext()
+            prefetchUpcoming()
         }
 
         // Snapshot baseline for "What's New" — persisted so items don't vanish
@@ -1401,10 +1402,10 @@ final class FeedStore {
                 await prev?.value
                 guard !Task.isCancelled, let self else { return }
                 self.reservoir.moveToVisible(count: Reservoir.pageSize)
+                self.prefetchUpcoming()  // items 21-120 are genuinely upcoming now
                 self.markSurfaced(self.reservoir.visibleItems)
                 self.setVisibleItems(self.applyFilters(self.reservoir.visibleItems))
                 self.reservoirCount = self.reservoir.reservoirCount
-                self.prefetchVisibleAndNext()
             }
 
         case .refresh(let generation):
@@ -1665,7 +1666,6 @@ final class FeedStore {
     }
 
     private func immediatelyCullVisibleItemsForActiveFilter() {
-        guard !visibleItems.isEmpty else { return }
         let region = activeRegion
         let languages = activeLanguages
         let contentType = filterContentType
@@ -1673,7 +1673,7 @@ final class FeedStore {
         let deviceLanguage = Self.normalizedLanguageCode(
             Locale.current.language.languageCode?.identifier
         )
-        setVisibleItems(visibleItems.filter { item in
+        let filterPredicate: (FeedItem) -> Bool = { item in
             (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
             && Self.languageFilterMatchesNormalized(
                 itemLanguage: item.language,
@@ -1682,7 +1682,18 @@ final class FeedStore {
             )
             && contentType(item)
             && (mood == .all || mood.matches(item.title))
-        })
+        }
+        if !visibleItems.isEmpty {
+            setVisibleItems(visibleItems.filter(filterPredicate))
+        }
+        // The What's New carousel renders above the main feed. Its items were
+        // collected under the previous filter and must be culled immediately
+        // so an English card doesn't flash at the top after switching to Swedish.
+        if !whatsNewManager.whatsNewItems.isEmpty {
+            whatsNewManager.replaceItems(
+                whatsNewManager.whatsNewItems.filter(filterPredicate)
+            )
+        }
     }
 
     func beginFilterEditing() {
@@ -1693,7 +1704,19 @@ final class FeedStore {
         isEditingFilters = false
         if let generation = pendingFilterReloadGeneration {
             pendingFilterReloadGeneration = nil
-            scheduleFilterReload(generation: generation, delay: .milliseconds(80))
+            // Flush any items that accumulated during editing BEFORE the
+            // reload so the reservoir starts clean. Without this, items
+            // fetched under a now-stale language filter can enter the
+            // reservoir after the reload and leak through to the feed.
+            if !pendingReservoirItems.isEmpty {
+                Task { [weak self] in
+                    await self?.flushPendingReservoir()
+                    guard let self else { return }
+                    self.scheduleFilterReload(generation: generation, delay: .zero)
+                }
+                return
+            }
+            scheduleFilterReload(generation: generation, delay: .zero)
         } else if !pendingReservoirItems.isEmpty {
             Task { [weak self] in
                 await self?.flushPendingReservoir()
@@ -2733,7 +2756,9 @@ final class FeedStore {
         coverageMiningTask?.cancel()
         let preferredType = activeContentType
         let languages = activeLanguages
+        isCoverageMiningActive = true
         coverageMiningTask = Task(priority: .utility) { [weak self] in
+            defer { self?.isCoverageMiningActive = false }
             guard let self else { return }
             try? await Task.sleep(for: .milliseconds(600))
             guard !Task.isCancelled, generation == self.filterGeneration else { return }
@@ -3161,7 +3186,7 @@ final class FeedStore {
                 let coverageStep = self.backgroundCoverageCursor
                 self.backgroundCoverageCursor &+= 1
                 let didMineCoverage: Bool
-                if coverageStep.isMultiple(of: 2) {
+                if coverageStep.isMultiple(of: 2), !self.isCoverageMiningActive {
                     let types: [FeedLoader.ContentType] = [.video, .audio, .forum, .text]
                     let type = types[(coverageStep / 2) % types.count]
                     let sources = await self.coverageSources(
@@ -3176,10 +3201,12 @@ final class FeedStore {
                         deadline: .seconds(10),
                         publish: type == self.activeContentType
                     )
-                } else {
+                } else if !self.isCoverageMiningActive {
                     didMineCoverage = await self.mineNextTaxonomyCoverage(
                         languages: self.activeLanguages
                     )
+                } else {
+                    didMineCoverage = false
                 }
                 if didMineCoverage { continue }
 
@@ -3906,12 +3933,6 @@ final class FeedStore {
         } catch {
             Log.db.warning("Expurgo error: \(error.localizedDescription)")
         }
-    }
-
-    /// Per-source cap: keep max 50 items per source within 30-day window.
-    /// Cap a single source at 50 items. Prefer `capSourceItemsBatch` for multiple sources.
-    func capSourceItems(sourceURL: String) async {
-        await capSourceItemsBatch([sourceURL])
     }
 
     /// Batch cap: enforce 50-item-per-source limit for multiple sources in a

@@ -24,15 +24,6 @@ struct ImportResult: Sendable {
     var duplicateCount: Int { items.filter { if case .duplicate = $0.status { return true }; return false }.count }
     var invalidCount: Int { items.filter { if case .invalid = $0.status { return true }; return false }.count }
     var unreachableCount: Int { items.filter { if case .unreachable = $0.status { return true }; return false }.count }
-
-    var summary: String {
-        var parts: [String] = []
-        if importedCount > 0 { parts.append("\(importedCount) imported") }
-        if duplicateCount > 0 { parts.append("\(duplicateCount) duplicates") }
-        if invalidCount > 0 { parts.append("\(invalidCount) invalid") }
-        if unreachableCount > 0 { parts.append("\(unreachableCount) unreachable") }
-        return parts.joined(separator: ", ")
-    }
 }
 
 // MARK: - Import Pipeline
@@ -312,13 +303,7 @@ actor ImportPipeline {
                 return .unreachable
             }
 
-            // Try parsing with FeedKit-style detection
-            // Check for XML feed markers
-            let prefix = String(data.prefix(500).compactMap { $0 < 128 ? Character(UnicodeScalar($0)) : nil })
-            let isXML = prefix.contains("<rss") || prefix.contains("<feed") || prefix.contains("<RDF")
-            let isJSON = prefix.trimmingCharacters(in: .whitespaces).hasPrefix("{")
-
-            guard isXML || isJSON else {
+            guard data.looksLikeFeedData else {
                 // Check content-type header
                 let contentType = http.value(forHTTPHeaderField: "Content-Type") ?? ""
                 if contentType.contains("html") {
@@ -328,6 +313,7 @@ actor ImportPipeline {
             }
 
             // Extract title from feed
+            let isJSON = data.first == 0x7B  // '{'
             let title = Self.extractTitle(from: data, isJSON: isJSON)
             return .success(title: title)
         } catch {
@@ -405,5 +391,18 @@ private final class OPMLImportDelegate: NSObject, XMLParserDelegate, @unchecked 
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
         categoryStack.removeAll()
         outlinePushStack.removeAll()
+    }
+}
+
+// MARK: - Shared Feed Detection
+
+extension Data {
+    /// True if the first 500 bytes look like an RSS, Atom, RDF, or JSON Feed.
+    /// Shared by ``ImportPipeline`` and ``URLResolver`` to avoid duplicate
+    /// feed-detection heuristics.
+    var looksLikeFeedData: Bool {
+        let prefix = String(prefix(500).compactMap { $0 < 128 ? Character(UnicodeScalar($0)) : nil })
+        return prefix.contains("<rss") || prefix.contains("<feed") || prefix.contains("<RDF")
+            || prefix.trimmingCharacters(in: .whitespaces).hasPrefix("{")
     }
 }

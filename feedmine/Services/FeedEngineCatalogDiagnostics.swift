@@ -71,20 +71,6 @@ struct FeedEngineCatalogDiagnosticsStatus: Equatable, Sendable {
         )
     }
 
-    var compactLabel: String {
-        switch phase {
-        case .idle:
-            return "catalog idle"
-        case .opening:
-            return "catalog opening"
-        case .compiling:
-            return "catalog compiling \(sourceCount)"
-        case .ready:
-            return "catalog \(sourceCount)s/\(nodeCount)n \(String(format: "%.2fs", elapsed))"
-        case .failed:
-            return "catalog failed"
-        }
-    }
 }
 
 actor FeedEngineCatalogDiagnostics {

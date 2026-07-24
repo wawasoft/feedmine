@@ -393,9 +393,26 @@ struct OPMLParser {
             .replacingOccurrences(of: "'", with: "&apos;")
     }
 
+    /// Thread-safe cache for repeated normalization of the same URL strings.
+    /// Called 30+ times across the codebase on a small working set of URLs.
+    /// NSCache is inherently thread-safe; the annotation silences the Swift 6
+    /// warning about the unannotated ObjC type.
+    private static nonisolated(unsafe) let normalizedURLCache: NSCache<NSString, NSString> = {
+        let c = NSCache<NSString, NSString>()
+        c.countLimit = 5000
+        return c
+    }()
+
     static func normalizeURL(_ raw: String) -> String {
+        // Fast path: cache hit
+        if let cached = normalizedURLCache.object(forKey: raw as NSString) {
+            return cached as String
+        }
         let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard var components = URLComponents(string: trimmed) else { return trimmed }
+        guard var components = URLComponents(string: trimmed) else {
+            normalizedURLCache.setObject(trimmed as NSString, forKey: raw as NSString)
+            return trimmed
+        }
 
         // This identity contract is mirrored by canonical_url() in the OPML
         // curation pipeline. Keep both sides aligned so one physical OPML row
@@ -416,7 +433,9 @@ struct OPMLParser {
         if components.path.hasSuffix("/") {
             components.path.removeLast()
         }
-        return components.string ?? trimmed
+        let result = components.string ?? trimmed
+        normalizedURLCache.setObject(result as NSString, forKey: raw as NSString)
+        return result
     }
 }
 

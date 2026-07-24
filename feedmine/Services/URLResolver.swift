@@ -344,8 +344,6 @@ actor URLResolver {
         guard let (data, response) = try? await session.data(from: url),
               let http = response as? HTTPURLResponse,
               (200...299).contains(http.statusCode) else { return false }
-        let prefix = String(data.prefix(200).compactMap { $0 < 128 ? Character(UnicodeScalar($0)) : nil })
-        return prefix.contains("<rss") || prefix.contains("<feed") || prefix.contains("<RDF")
-            || prefix.trimmingCharacters(in: .whitespaces).hasPrefix("{")
+        return data.looksLikeFeedData
     }
 }

@@ -828,11 +828,6 @@ struct CompactDebugInfo: View {
     }
 }
 
-struct ScrollOffKey: PreferenceKey {
-    static let defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
-}
-
 private struct HeaderHeightKey: PreferenceKey {
     static let defaultValue: CGFloat = 48
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
