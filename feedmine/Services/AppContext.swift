@@ -59,9 +59,6 @@ enum WeatherCondition: String, CaseIterable {
 }
 
 enum TemperatureFeel { case cold, cool, mild, warm, hot, scorching
-    static func from(f: Double) -> TemperatureFeel {
-        switch f { case ..<32: .cold; case 32..<50: .cool; case 50..<65: .mild; case 65..<80: .warm; case 80..<95: .hot; default: .scorching }
-    }
     var label: String {
         switch self {
         case .cold: String(localized: "Cold", comment: "Temperature feel")

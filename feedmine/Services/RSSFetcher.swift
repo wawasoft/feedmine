@@ -378,7 +378,7 @@ actor RSSFetcher {
 
     private func trimPlayabilityCache() {
         guard audioPlayability.count > 500 else { return }
-        // Drop earliest entries to keep cache bounded
+        // Drop arbitrary entries to keep cache bounded
         let keysToRemove = audioPlayability.keys.prefix(audioPlayability.count - 300)
         for key in keysToRemove { audioPlayability.removeValue(forKey: key) }
         savePlayabilityCache()
@@ -702,7 +702,8 @@ actor RSSFetcher {
         if lower.hasSuffix("1x1.gif") || lower.hasSuffix("1x1.png") { return nil }
         if Self.isUnsupportedImageURL(raw) { return nil }
         if lower.hasPrefix("http://") || lower.hasPrefix("https://") {
-            let tail = lower.dropFirst(8)
+            let schemeLen = lower.hasPrefix("https://") ? 8 : 7
+            let tail = lower.dropFirst(schemeLen)
             let nestedSchemes = ["http://", "https://"].compactMap { tail.range(of: $0) }
             if let firstNested = nestedSchemes.min(by: { $0.lowerBound < $1.lowerBound }) {
                 let prefix = tail[..<firstNested.lowerBound]

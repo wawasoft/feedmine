@@ -2269,7 +2269,7 @@ final class FeedStoreTests: XCTestCase {
         XCTAssertEqual(persisted.count, 75)
 
         await store.recordExplicitSourceAccess(sourceURL)
-        await store.capSourceItems(sourceURL: sourceURL)
+        await store.capSourceItemsBatch([sourceURL])
 
         let retained = await store.sourceContentFromCache(source)
         XCTAssertEqual(retained.count, 75)

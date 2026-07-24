@@ -19,8 +19,6 @@ final class AudioPlayerManager {
 
     private(set) var currentItem: FeedItem?
     private(set) var isPlaying = false
-    private(set) var playbackState: PlaybackState = .idle
-    enum PlaybackState { case idle, loading, playing, paused, failed }
     private(set) var currentTime: TimeInterval = 0
     private(set) var duration: TimeInterval = 0
     var scrubTime: TimeInterval = 0   // drag target; committed on release (#32)
@@ -235,7 +233,6 @@ final class AudioPlayerManager {
         if currentItem?.id == item.id {
             activateSession()
             player?.play()
-            playbackState = .playing
             isPlaying = true
             updateNowPlaying()
             return true
@@ -245,7 +242,6 @@ final class AudioPlayerManager {
         activateSession()
         currentItem = item
         duration = item.duration ?? 0
-        playbackState = .loading  // not playing yet — wait for AVPlayer ready
 
         let playerItem = AVPlayerItem(url: url)
         let p = AVPlayer(playerItem: playerItem)
@@ -258,12 +254,10 @@ final class AudioPlayerManager {
                 switch player.timeControlStatus {
                 case .playing:
                     self.isPlaying = true
-                    self.playbackState = .playing
                 case .paused:
                     self.isPlaying = false
-                    self.playbackState = .paused
                 case .waitingToPlayAtSpecifiedRate:
-                    self.playbackState = .loading
+                    break
                 @unknown default:
                     break
                 }

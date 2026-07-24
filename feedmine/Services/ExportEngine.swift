@@ -36,32 +36,6 @@ enum ExportFormat: String, CaseIterable, Identifiable {
     case socialCard = "Social Card"
     var id: String { rawValue }
 
-    var fileExtension: String {
-        switch self {
-        case .opml: return "opml"
-        case .json: return "json"
-        case .csv: return "csv"
-        case .text: return "txt"
-        case .markdown: return "md"
-        case .html: return "html"
-        case .shareLink: return "txt"
-        case .socialCard: return "txt"
-        }
-    }
-
-    var mimeType: String {
-        switch self {
-        case .opml: return "text/x-opml"
-        case .json: return "application/json"
-        case .csv: return "text/csv"
-        case .text: return "text/plain"
-        case .markdown: return "text/markdown"
-        case .html: return "text/html"
-        case .shareLink: return "text/plain"
-        case .socialCard: return "text/plain"
-        }
-    }
-
     var icon: String {
         switch self {
         case .opml: return "doc.text"

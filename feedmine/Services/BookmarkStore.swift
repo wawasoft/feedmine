@@ -105,7 +105,7 @@ final class BookmarkStore {
         // Fetch item IDs from user.sqlite, then hydrate from content (feedmine.sqlite)
         let itemIDs: [String] = try await userDB.read { db in
             try String.fetchAll(db, sql: """
-                SELECT item_id FROM bookmark_item WHERE list_id = ? ORDER BY sort_order
+                SELECT item_id FROM bookmark_item WHERE list_id = ? ORDER BY added_at DESC
             """, arguments: [targetListID])
         }
         guard !itemIDs.isEmpty else { return [] }
@@ -157,11 +157,15 @@ final class BookmarkStore {
 
     func clearAllBookmarks() {
         Task {
-            try await userDB.write { db in
-                try db.execute(sql: "DELETE FROM bookmark_item")
-            }
-            try await contentDB.write { db in
-                try db.execute(sql: "DELETE FROM bookmark_item")
+            do {
+                try await userDB.write { db in
+                    try db.execute(sql: "DELETE FROM bookmark_item")
+                }
+                try await contentDB.write { db in
+                    try db.execute(sql: "DELETE FROM bookmark_item")
+                }
+            } catch {
+                Log.db.error("Failed to clear all bookmarks: \(error.localizedDescription)")
             }
         }
     }
@@ -315,11 +319,17 @@ final class BookmarkStore {
 
     /// Match newly fetched items against all active persistent searches and auto-bookmark matches.
     func matchPersistentSearches(_ items: [FeedItem], regionResolver: (String) -> String) async {
-        let searches: [BookmarkListRecord] = (try? await userDB.read { db in
-            try BookmarkListRecord
-                .filter(Column("search_active") == 1)
-                .fetchAll(db)
-        }) ?? []
+        let searches: [BookmarkListRecord]
+        do {
+            searches = try await userDB.read { db in
+                try BookmarkListRecord
+                    .filter(Column("search_active") == 1)
+                    .fetchAll(db)
+            }
+        } catch {
+            Log.db.error("Failed to load persistent searches: \(error.localizedDescription)")
+            return
+        }
         guard !searches.isEmpty else { return }
 
         for search in searches {
@@ -333,23 +343,33 @@ final class BookmarkStore {
             }.map(\.id)
             guard !candidateIDs.isEmpty else { continue }
 
-            let matchedIDs: [String] = (try? await contentDB.read { db in
-                try FeedItemRecord
-                    .filter(candidateIDs.contains(Column("id")))
-                    .matching(pattern)
-                    .fetchAll(db)
-                    .map(\.id)
-            }) ?? []
+            let matchedIDs: [String]
+            do {
+                matchedIDs = try await contentDB.read { db in
+                    try FeedItemRecord
+                        .filter(candidateIDs.contains(Column("id")))
+                        .matching(pattern)
+                        .fetchAll(db)
+                        .map(\.id)
+                }
+            } catch {
+                Log.db.error("Persistent search match failed for '\(search.name)': \(error.localizedDescription)")
+                continue
+            }
             guard !matchedIDs.isEmpty else { continue }
 
             let now = Int(Date().timeIntervalSince1970)
-            try? await userDB.write { db in
-                for id in matchedIDs {
-                    try db.execute(sql: """
-                        INSERT OR IGNORE INTO bookmark_item (list_id, item_id, added_at)
-                        VALUES (?, ?, ?)
-                    """, arguments: [search.id!, id, now])
+            do {
+                try await userDB.write { db in
+                    for id in matchedIDs {
+                        try db.execute(sql: """
+                            INSERT OR IGNORE INTO bookmark_item (list_id, item_id, added_at)
+                            VALUES (?, ?, ?)
+                        """, arguments: [search.id!, id, now])
+                    }
                 }
+            } catch {
+                Log.db.error("Persistent search bookmark insert failed for '\(search.name)': \(error.localizedDescription)")
             }
         }
     }

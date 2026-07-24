@@ -367,6 +367,37 @@ actor ArticleImageResolver {
     )
 }
 
+// MARK: - Download Deduplication
+
+/// Lightweight global actor that tracks which image URLs are currently being
+/// downloaded — used by both ``ImagePrefetcher`` and ``CachedAsyncImage`` to
+/// avoid racing on the same URL.  When a caller finds its URL already in-flight
+/// it waits (briefly) for the cache to be populated instead of starting a
+/// duplicate network request.
+private actor ImageDownloadTracker {
+    private var inFlight: Set<URL> = []
+
+    /// Returns `true` if this call registered the URL; `false` if another
+    /// download is already in progress.
+    func register(_ url: URL) -> Bool {
+        if inFlight.contains(url) { return false }
+        inFlight.insert(url)
+        return true
+    }
+
+    func unregister(_ url: URL) {
+        inFlight.remove(url)
+    }
+
+    func contains(_ url: URL) -> Bool {
+        inFlight.contains(url)
+    }
+}
+
+private let downloadTracker = ImageDownloadTracker()
+
+// MARK: - ImageCache
+
 /// Two-tier image cache: fast NSCache memory lookup, persistent disk fallback.
 /// Images are downsampled via ImageIO before caching — full-res originals never
 /// touch memory. Disk cache stores downsampled JPEGs; cold launches decode cheap.
@@ -387,7 +418,11 @@ final class ImageCache {
 
     private init() {
         memoryCache.countLimit = 200
-        memoryCache.totalCostLimit = 50 * 1024 * 1024  // 50 MB
+        /// 200 MB fits ~80-100 downsampled images (800 px max dimension,
+        /// ~2-3 MB each at 4 bytes/pixel), comfortably covering the
+        /// 100-item prefetch batch so images survive in memory until their
+        /// cards scroll into view.
+        memoryCache.totalCostLimit = 200 * 1024 * 1024  // 200 MB
 
         let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first!
         diskCacheURL = caches.appendingPathComponent("ImageCache", isDirectory: true)
@@ -438,16 +473,87 @@ final class ImageCache {
         return FileManager.default.fileExists(atPath: fileURL.path)
     }
 
+    // MARK: Download Deduplication Helpers
+
+    /// Returns `true` when another caller (prefetcher or another card) is
+    /// already downloading this URL.  Callers should wait briefly rather
+    /// than starting a duplicate network request.
+    nonisolated static func isDownloadInFlight(for url: URL) async -> Bool {
+        await downloadTracker.contains(url)
+    }
+
+    /// Register a URL as in-flight so other callers (cards) can wait for
+    /// it rather than starting a duplicate download.  Always follow with
+    /// ``unregisterDownload(for:)`` in a `defer` block.
+    /// Returns `false` if another download is already registered.
+    @discardableResult
+    nonisolated static func registerDownload(for url: URL) async -> Bool {
+        await downloadTracker.register(url)
+    }
+
+    /// Remove a URL previously registered with ``registerDownload(for:)``.
+    nonisolated static func unregisterDownload(for url: URL) async {
+        await downloadTracker.unregister(url)
+    }
+
+    /// Wait up to *deadline* for an in-flight download of `url` to finish
+    /// and populate the cache.  Returns the cached image on success, `nil`
+    /// if the download didn't finish in time.
+    func waitForInFlightDownload(of url: URL, until deadline: Date) async -> UIImage? {
+        repeat {
+            if await !downloadTracker.contains(url) {
+                // No longer tracked — poll cache one last time
+                return await diskImage(for: url)
+            }
+            if let cached = await diskImage(for: url) {
+                return cached
+            }
+            try? await Task.sleep(for: .milliseconds(120))
+        } while Date() < deadline
+        return nil
+    }
+
+    /// Synchronous memory-cache lookup — safe to call from `body` without
+    /// the `.task` round-trip. Returns `nil` for disk-only or uncached images;
+    /// callers fall back to ``diskImage(for:)`` for the full two-tier lookup.
+    func memoryImage(for url: URL) -> UIImage? {
+        let key = cacheKey(for: url)
+        return memoryCache.object(forKey: key as NSString)
+    }
+
+    /// Synchronous disk-cache read + promote to memory.  Called from
+    /// `CachedAsyncImage.body` when the image is on disk but not yet in
+    /// NSCache so the image renders in the same frame as the card — no
+    /// async `.task` round-trip, no visible placeholder flash.
+    /// Blocks the calling thread for ~2-5 ms (50 KB downsampled JPEG);
+    /// after promotion the image is in NSCache and subsequent renders
+    /// avoid this cost entirely.
+    func diskImageSync(for url: URL) -> UIImage? {
+        let key = cacheKey(for: url)
+        let fileURL = diskCacheURL.appendingPathComponent(key)
+        guard FileManager.default.fileExists(atPath: fileURL.path),
+              let data = try? Data(contentsOf: fileURL),
+              let img = UIImage(data: data) else { return nil }
+        let cost = Int(img.size.width * img.size.height * 4)
+        memoryCache.setObject(img, forKey: key as NSString, cost: cost)
+        return img
+    }
+
     func diskImage(for url: URL) async -> UIImage? {
         let key = cacheKey(for: url)
         if let img = memoryCache.object(forKey: key as NSString) { return img }
         let fileURL = diskCacheURL.appendingPathComponent(key)
-        return await Task.detached {
+        guard let img = await Task.detached(operation: {
             guard FileManager.default.fileExists(atPath: fileURL.path),
                   let data = try? Data(contentsOf: fileURL),
-                  let img = UIImage(data: data) else { return nil }
+                  let img = UIImage(data: data) else { return nil as UIImage? }
             return img
-        }.value
+        }).value else { return nil }
+        // Promote to memory so subsequent synchronous lookups hit NSCache
+        // instead of repeating the disk read.
+        let cost = Int(img.size.width * img.size.height * 4)
+        memoryCache.setObject(img, forKey: key as NSString, cost: cost)
+        return img
     }
 
     /// Legacy path — stores at whatever resolution the caller provides.
@@ -457,7 +563,7 @@ final class ImageCache {
         memoryCache.setObject(image, forKey: key as NSString, cost: cost)
 
         let fileURL = diskCacheURL.appendingPathComponent(key)
-        Task.detached(priority: .background) { [weak self] in
+        Task.detached(priority: .utility) { [weak self] in
             guard let self else { return }
             guard let data = image.jpegData(compressionQuality: 0.85) else { return }
             do {
@@ -482,16 +588,18 @@ final class ImageCache {
         let cost = Int(downsampled.size.width * downsampled.size.height * 4)
         memoryCache.setObject(downsampled, forKey: key as NSString, cost: cost)
 
-        // Write downsampled JPEG to disk — NOT original data
+        // Write downsampled JPEG to disk — NOT original data.
+        // Awaited so the file is guaranteed to exist on disk when this
+        // method returns; subsequent launches find it via diskImageSync.
         let fileURL = diskCacheURL.appendingPathComponent(key)
-        Task.detached(priority: .background) { [weak self] in
+        await Task.detached(priority: .utility) { [weak self] in
             guard let self,
                   let jpeg = downsampled.jpegData(compressionQuality: 0.85) else { return }
             do {
                 try jpeg.write(to: fileURL, options: .atomic)
                 await self.didWriteToDisk(bytes: jpeg.count)
             } catch { /* disk full */ }
-        }
+        }.value
         return downsampled
     }
 
@@ -614,6 +722,10 @@ struct CachedAsyncImage: View {
     @State private var didAttempt = false
     @State private var loadFailed = false
     @State private var retryCount = 0
+    /// Drives the crossfade from placeholder → loaded image. Always 0 initially;
+    /// sync memory-cache hits bypass it (forced to 1 in the body branch); async
+    /// loads animate from 0 → 1 so network/dsk images fade in gracefully.
+    @State private var imageOpacity: Double = 0
 
     private nonisolated static let minImageDimension: CGFloat = 4
 
@@ -628,9 +740,18 @@ struct CachedAsyncImage: View {
 
     var body: some View {
         Group {
-            if let image = loadedImage {
+            if let image = loadedImage
+                ?? url.flatMap({ ImageCache.shared.memoryImage(for: $0) })
+                ?? url.flatMap({ ImageCache.shared.diskImageSync(for: $0) }) {
                 Image(uiImage: image)
                     .resizable()
+                    .opacity(loadedImage == nil ? 1 : imageOpacity)
+                    .onAppear {
+                        if loadedImage == nil {
+                            // Sync cache hit (memory or disk) — no fade needed.
+                            onResult?(true)
+                        }
+                    }
             } else if !didAttempt {
                 Color.clear
                     .task(id: retryCount) { await load() }
@@ -640,12 +761,20 @@ struct CachedAsyncImage: View {
         }
         .onChange(of: (url ?? articleURL)?.absoluteString ?? "") { _, _ in
             loadedImage = nil; didAttempt = false; loadFailed = false; retryCount = 0
+            imageOpacity = 0
         }
         .onAppear {
             if loadFailed && retryCount < 3 {
                 loadFailed = false; didAttempt = false; retryCount += 1
             }
         }
+    }
+
+    private func didLoadImage(_ image: UIImage) {
+        // Set opacity FIRST so the body ternary evaluates to 1 when
+        // loadedImage fires — no invisible first frame before the animation.
+        withAnimation(.easeOut(duration: 0.5)) { imageOpacity = 1 }
+        loadedImage = image
     }
 
     private func load() async {
@@ -661,12 +790,31 @@ struct CachedAsyncImage: View {
                 didAttempt = true; loadFailed = true; onResult?(false)
                 return
             }
-            loadedImage = cached; onResult?(true)
+            didLoadImage(cached); onResult?(true)
             if let url {
                 await improveImageIfNeeded(cached, originalURL: url)
             }
             return
         }
+        // Before starting a network download, check whether the prefetcher
+        // (or another card) is already downloading this URL.  When it is,
+        // wait briefly for the cache to be populated instead of starting a
+        // duplicate request — the user sees a single seamless transition.
+        if await ImageCache.isDownloadInFlight(for: cacheURL) {
+            let deadline = Date().addingTimeInterval(3.0)
+            if let cached = await ImageCache.shared.waitForInFlightDownload(of: cacheURL, until: deadline) {
+                didLoadImage(cached); onResult?(true)
+                if let url {
+                    await improveImageIfNeeded(cached, originalURL: url)
+                }
+                return
+            }
+            // The in-flight download didn't complete in time — fall through
+            // and start our own.
+        }
+        // Register this download so other cards and the prefetcher skip it.
+        await ImageCache.registerDownload(for: cacheURL)
+        defer { Task { await ImageCache.unregisterDownload(for: cacheURL) } }
         // Tier 3: network. YouTube's sddefault thumbnail is absent for some
         // videos, so hqdefault is tried before the card is marked failed.
         if let url {
@@ -678,8 +826,7 @@ struct CachedAsyncImage: View {
                            !(200...299).contains(http.statusCode) { break }
                         guard Self.isValidImageData(data) else { break }
                         if let downsampled = await ImageCache.shared.setImage(data: data, for: cacheURL) {
-                            loadedImage = downsampled
-                            onResult?(true)
+                            didLoadImage(downsampled); onResult?(true)
                             await improveImageIfNeeded(downsampled, originalURL: url)
                             return
                         }
@@ -699,8 +846,7 @@ struct CachedAsyncImage: View {
         if let articleURL,
            let replacement = await loadArticleImage(articleURL: articleURL, replacing: url),
            let downsampled = await ImageCache.shared.setImage(data: replacement.data, for: cacheURL) {
-            loadedImage = downsampled
-            onResult?(true)
+            didLoadImage(downsampled); onResult?(true)
             return
         }
         didAttempt = true
@@ -734,7 +880,7 @@ struct CachedAsyncImage: View {
             data: improvement.data,
             for: originalURL
         ) else { return }
-        loadedImage = downsampled
+        didLoadImage(downsampled)
     }
 
     private func isValidImage(_ image: UIImage) -> Bool {

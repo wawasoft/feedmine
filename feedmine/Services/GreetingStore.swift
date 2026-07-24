@@ -16,11 +16,6 @@ enum GreetingStore {
         return variants.randomElement() ?? fallback(for: period)
     }
 
-    /// First (default) greeting for the period — used by simple header views.
-    static func primary(for period: TimeOfDay) -> String {
-        greetings(for: period).first ?? fallback(for: period)
-    }
-
     /// All variants for the period in the current language.
     static func variants(for period: TimeOfDay) -> [String] {
         greetings(for: period)
