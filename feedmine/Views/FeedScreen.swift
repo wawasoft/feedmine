@@ -68,6 +68,12 @@ struct FeedScreen: View {
         return .generic
     }
 
+    private var hasAnyDownloads: Bool {
+        let downloadsDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Downloads")
+        return (try? FileManager.default.contentsOfDirectory(atPath: downloadsDir.path).isEmpty) == false
+    }
+
     var body: some View {
         screenWithSheets
     }
@@ -79,6 +85,12 @@ struct FeedScreen: View {
 
             if isSearching && !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 unifiedSearchPanel
+            } else if loader.networkMonitor.isAirplaneMode && !hasAnyDownloads {
+                ContentUnavailableView(
+                    "No offline content",
+                    systemImage: "wifi.slash",
+                    description: Text("Download podcasts and articles on WiFi to read and listen offline.")
+                )
             } else if loader.items.isEmpty
                 && (loader.isPreparingInitialRunway
                     || loader.loadingState == .initial
@@ -94,6 +106,20 @@ struct FeedScreen: View {
             VStack(spacing: 0) {
                 compactHeader
                 if isSearching { searchBar.transition(.move(edge: .top).combined(with: .opacity)) }
+                if loader.networkMonitor.isAirplaneMode {
+                    HStack(spacing: 6) {
+                        Image(systemName: "airplane")
+                        Text("Modo Avião — conteúdo offline")
+                            .font(.caption2)
+                    }
+                    .foregroundStyle(.orange)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .background(.orange.opacity(0.1))
+                    .clipShape(Capsule())
+                    .padding(.top, 4)
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                }
                 Spacer()
             }
 
