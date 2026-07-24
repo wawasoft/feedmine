@@ -19,6 +19,7 @@ struct FeedItemCardView: View, Equatable {
     var onImageTap: (() -> Void)? = nil
     var isInBookmarkBox: Bool = false
     @State private var imageLoadFailed = false
+    @State private var imageAppeared = false
     @AppStorage("fontSize") private var fontSize = "medium"
     @State private var engine = CircadianEngine.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -57,6 +58,10 @@ struct FeedItemCardView: View, Equatable {
             }
         }
         .opacity(isRead ? 0.92 : 1)
+        .onChange(of: item.id) { _, _ in
+            imageAppeared = false
+            imageLoadFailed = false
+        }
     }
 
     /// Base hero view — the placeholder itself defines the 16:9 frame so it
@@ -69,6 +74,7 @@ struct FeedItemCardView: View, Equatable {
             contentTypePlaceholderImage
                 .resizable()
                 .aspectRatio(contentMode: .fill)
+                .opacity(0.5)
         }
     }
 
@@ -86,9 +92,14 @@ struct FeedItemCardView: View, Equatable {
                         // failure, letting the placeholder show through.
                         if hasImage, !imageLoadFailed {
                             CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
-                                if !success { imageLoadFailed = true }
+                                if success {
+                                    withAnimation(.easeIn(duration: 0.25)) { imageAppeared = true }
+                                } else {
+                                    imageLoadFailed = true
+                                }
                             })
                             .scaledToFill()
+                            .opacity(imageAppeared ? 1 : 0)
                             .overlay(isRead ? Color.black.opacity(0.15) : nil)
                         }
                     }
@@ -254,6 +265,7 @@ struct FeedItemCardView: View, Equatable {
         contentTypePlaceholderImage
             .resizable()
             .scaledToFill()
+            .opacity(0.5)
     }
 
     /// Decorative placeholder asset keyed to the item's content type and the
