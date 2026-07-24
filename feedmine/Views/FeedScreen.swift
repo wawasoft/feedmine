@@ -882,8 +882,8 @@ struct CompactGreeting: View {
                     "\(loader.startupFetchedSourceCount) de \(startupTotal) fontes verificadas"
                 )
             } else {
-                Text("·\(loader.sourceCount) sources")
-                    .font(.caption2)
+                Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")
+                    .font(.caption2.monospacedDigit())
                     .foregroundStyle(.secondary)
             }
         }

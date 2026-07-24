@@ -32,6 +32,44 @@ final class FeedLoader {
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
     var sourceCount: Int { store.registry.sourceCount }
+    /// Sources available under the current filter configuration
+    /// (preset, region, language, content type, taxonomy).
+    var activeSourceCount: Int {
+        if let filter = store.presetSourceFilter {
+            return filter.count
+        }
+        let base = store.registry.enabledSources
+        let hasRegion = store.activeRegion != nil
+        let hasLanguages = !store.activeLanguages.isEmpty
+        let hasContentType = store.activeContentType != .all
+        let hasTaxonomy = !store.activeNodeIDs.isEmpty
+        guard hasRegion || hasLanguages || hasContentType || hasTaxonomy else {
+            return base.count
+        }
+        return base.filter { source in
+            if hasRegion, let r = store.activeRegion {
+                guard source.region == r || source.region.hasPrefix(r + "/") else { return false }
+            }
+            if hasLanguages {
+                let lang = FeedStore.normalizedLanguageCode(source.language)
+                guard lang.map({ store.activeLanguages.contains($0) }) ?? false else { return false }
+            }
+            if hasContentType {
+                switch store.activeContentType {
+                case .audio: guard source.mediaKind == .audio else { return false }
+                case .video: guard source.mediaKind == .video else { return false }
+                case .forum: guard source.mediaKind == .forum else { return false }
+                case .text:  guard source.mediaKind == .text else { return false }
+                case .all: break
+                }
+            }
+            if hasTaxonomy {
+                let urls = store.cachedTaxonomyFeedURLs
+                guard urls.contains(OPMLParser.normalizeURL(source.url)) else { return false }
+            }
+            return true
+        }.count
+    }
     var podcastSourceCount: Int { store.podcastSourceCount }
     var podcastItemCount: Int { store.podcastItemCount }
     var totalDiscarded: Int { store.totalDiscarded }
