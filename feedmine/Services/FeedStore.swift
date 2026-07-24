@@ -1401,8 +1401,11 @@ final class FeedStore {
             pipelineTask = Task { [weak self] in
                 await prev?.value
                 guard !Task.isCancelled, let self else { return }
+                // Prefetch BEFORE moveToVisible — the items at the front of the
+                // reservoir are about to become visible. ImageDownloadTracker
+                // deduplicates so cell-level loads and prefetch don't double-fetch.
+                self.prefetchUpcoming()
                 self.reservoir.moveToVisible(count: Reservoir.pageSize)
-                self.prefetchUpcoming()  // items 21-120 are genuinely upcoming now
                 self.markSurfaced(self.reservoir.visibleItems)
                 self.setVisibleItems(self.applyFilters(self.reservoir.visibleItems))
                 self.reservoirCount = self.reservoir.reservoirCount
