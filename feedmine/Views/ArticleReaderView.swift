@@ -7,7 +7,7 @@ struct ArticleReaderView: View {
 
     var body: some View {
         NavigationStack {
-            ArticleWebView(url: URL(string: item.url))
+            ArticleWebView(item: item)
                 .ignoresSafeArea(edges: .bottom)
                 .navigationTitle(item.sourceTitle)
                 .navigationBarTitleDisplayMode(.inline)
@@ -41,7 +41,7 @@ struct ArticleReaderView: View {
 }
 
 struct ArticleWebView: UIViewRepresentable {
-    let url: URL?
+    let item: FeedItem
 
     func makeCoordinator() -> Coordinator {
         Coordinator()
@@ -80,22 +80,44 @@ struct ArticleWebView: UIViewRepresentable {
             context.coordinator.progressView?.isHidden = progress >= 1.0
         }
 
-        if let url {
-            webView.load(URLRequest(url: url))
-        }
+        loadContent(in: webView, context: context)
         return webView
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        // Reload if URL changed (e.g. reused for different article) (#46)
-        if let url, webView.url?.absoluteString != url.absoluteString {
-            webView.load(URLRequest(url: url))
+        // Reload if item changed (e.g. reused for different article) (#46)
+        guard item.id != context.coordinator.lastLoadedItemID else { return }
+        loadContent(in: webView, context: context)
+    }
+
+    private func loadContent(in webView: WKWebView, context: Context) {
+        context.coordinator.lastLoadedItemID = item.id
+
+        Task {
+            if let pageURL = await DownloadManager.shared.localPagePath(for: item.id) {
+                let html = try? String(contentsOfFile: pageURL.path, encoding: .utf8)
+                if let html {
+                    let baseURL = pageURL.deletingLastPathComponent()
+                    await MainActor.run {
+                        webView.loadHTMLString(html, baseURL: baseURL)
+                    }
+                    return
+                }
+            }
+
+            // Fallback: load live URL
+            if let url = URL(string: item.url) {
+                await MainActor.run {
+                    webView.load(URLRequest(url: url))
+                }
+            }
         }
     }
 
     class Coordinator: NSObject, WKNavigationDelegate {
         var progressView: UIProgressView?
         var progressObservation: NSKeyValueObservation?
+        var lastLoadedItemID: String?
 
         deinit {
             progressObservation?.invalidate()
