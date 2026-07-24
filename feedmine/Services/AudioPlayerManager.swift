@@ -225,17 +225,30 @@ final class AudioPlayerManager {
     func play(item: FeedItem) -> Bool {
         lastPlaybackError = nil
 
-        guard let url = item.audioPlaybackURL else {
-            lastPlaybackError = "Audio unavailable"
-            return false
+        // Async resolution: prefer local file, fall back to streaming
+        Task { [weak self] in
+            guard let self else { return }
+
+            if let localURL = await DownloadManager.shared.localAudioPath(for: item.id) {
+                self.playFromURL(localURL, item: item)
+            } else if let streamURL = item.audioPlaybackURL {
+                self.playFromURL(streamURL, item: item)
+            } else {
+                self.lastPlaybackError = "Audio unavailable"
+            }
         }
 
+        return true
+    }
+
+    private func playFromURL(_ url: URL, item: FeedItem) {
+        // Same-item resume
         if currentItem?.id == item.id {
             activateSession()
             player?.play()
             isPlaying = true
             updateNowPlaying()
-            return true
+            return
         }
 
         stop()
@@ -317,8 +330,6 @@ final class AudioPlayerManager {
                 }
             }
         }
-
-        return true
     }
 
     func togglePlayPause() {
