@@ -466,7 +466,10 @@ final class FeedLoader {
     /// Whether the Downloaded filter is currently active (manual toggle).
     /// Use `effectiveDownloadedFilter` to check if the filter should be active
     /// considering both manual toggle and automatic Airplane Mode activation.
-    var isDownloadedFilterActive: Bool { store.isDownloadedFilterActive }
+    var isDownloadedFilterActive: Bool {
+        get { store.isDownloadedFilterActive }
+        set { store.isDownloadedFilterActive = newValue }
+    }
 
     /// Whether the Downloaded filter should be considered active based on
     /// current state. Combines manual toggle with automatic Airplane Mode

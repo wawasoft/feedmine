@@ -285,6 +285,29 @@ struct FeedScreen: View {
         VStack(spacing: 0) {
             Color.clear.frame(height: 0)
             CompactErrorBanner()
+
+            // Downloaded chip — shown when the filter is active or airplane mode auto-enables it
+            if loader.isDownloadedFilterActive || loader.networkMonitor.isAirplaneMode {
+                HStack {
+                    Button {
+                        loader.isDownloadedFilterActive.toggle()
+                    } label: {
+                        HStack(spacing: 2) {
+                            Image(systemName: "arrow.down.circle.fill")
+                            Text("Downloaded")
+                        }
+                        .font(.caption2)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background(loader.isDownloadedFilterActive ? Color.blue.opacity(0.15) : Color.secondary.opacity(0.1))
+                        .clipShape(Capsule())
+                    }
+                    Spacer()
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 2)
+            }
+
             HStack(spacing: 8) {
                 if showDebugBar {
                     CompactDebugInfo()
