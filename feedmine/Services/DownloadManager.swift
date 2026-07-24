@@ -1,4 +1,5 @@
 import Foundation
+import GRDB
 
 actor DownloadManager {
     static let shared = DownloadManager()
@@ -103,7 +104,7 @@ actor DownloadManager {
             let db = await FeedStore.sharedDB()
             _ = try await db.write { db in
                 try DownloadRecord
-                    .filter(DownloadRecord.Columns.itemID == itemID)
+                    .filter(Column("item_id") == itemID)
                     .deleteAll(db)
             }
         } catch {}
@@ -165,8 +166,8 @@ actor DownloadManager {
             let db = await FeedStore.sharedDB()
             let oldest = try await db.read { db in
                 try DownloadRecord
-                    .filter(DownloadRecord.Columns.status == DownloadStatus.completed.rawValue)
-                    .order(DownloadRecord.Columns.completedAt.asc)
+                    .filter(Column("status") == DownloadStatus.completed.rawValue)
+                    .order(Column("completed_at").asc)
                     .fetchAll(db)
             }
             var freed: Int64 = 0
@@ -204,8 +205,8 @@ actor DownloadManager {
             let db = await FeedStore.sharedDB()
             let all = try await db.read { db in
                 try DownloadRecord
-                    .filter(DownloadRecord.Columns.status == DownloadStatus.completed.rawValue)
-                    .order(DownloadRecord.Columns.completedAt.asc)
+                    .filter(Column("status") == DownloadStatus.completed.rawValue)
+                    .order(Column("completed_at").asc)
                     .fetchAll(db)
             }
             for record in all {
