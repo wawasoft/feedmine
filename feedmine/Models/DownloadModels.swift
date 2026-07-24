@@ -4,7 +4,7 @@ import GRDB
 
 // MARK: - Enums
 
-enum DownloadStatus: String, Codable, DatabaseValueConvertible {
+enum DownloadStatus: String, Codable, DatabaseValueConvertible, Sendable {
     case queued
     case downloadingAudio = "downloading_audio"
     case downloadingPage = "downloading_page"
@@ -13,23 +13,23 @@ enum DownloadStatus: String, Codable, DatabaseValueConvertible {
     case failedPage = "failed_page"
 }
 
-enum DownloadMode: String, Codable {
+enum DownloadMode: String, Codable, Sendable {
     case wifi
     case cellular
 }
 
-enum AutoDeletePolicy: String, Codable {
+enum AutoDeletePolicy: String, Codable, Sendable {
     case afterRead = "after_read"
     case after7Days = "after_7_days"
     case manual
 }
 
-enum DownloadContentType: String, Codable {
+enum DownloadContentType: String, Codable, Sendable {
     case podcast
     case article
 }
 
-enum StorageGate: Equatable {
+enum StorageGate: Equatable, Sendable {
     case allowed
     case insufficientFree(needed: Int64, available: Int64)
     case wouldExceedUserLimit(used: Int64, limit: Int64)
@@ -38,14 +38,14 @@ enum StorageGate: Equatable {
 
 // MARK: - Notification Payload
 
-struct DownloadNotification {
+struct DownloadNotification: Sendable {
     let event: DownloadNotificationEvent
     let itemID: String?
     let sourceTitle: String?
     let itemTitle: String?
     let count: Int?
 
-    enum DownloadNotificationEvent {
+    enum DownloadNotificationEvent: String, Sendable {
         case queued
         case completed
         case failed
@@ -58,13 +58,13 @@ struct DownloadNotification {
 
 // MARK: - GRDB Records
 
-struct DownloadRuleRecord: Codable, PersistableRecord, FetchableRecord {
+struct DownloadRuleRecord: Codable, PersistableRecord, FetchableRecord, Sendable {
     var id: Int64?
     var targetType: String       // "source" or "collection"
     var targetID: String         // source URL or collection ID as string
-    var maxItems: Int
-    var mode: String             // "wifi" or "cellular"
-    var enabled: Bool
+    var maxItems: Int = 3
+    var mode: String = "wifi"    // "wifi" or "cellular"
+    var enabled: Bool = true
 
     static let databaseTableName = "download_rule"
 
@@ -74,21 +74,21 @@ struct DownloadRuleRecord: Codable, PersistableRecord, FetchableRecord {
     }
 }
 
-struct DownloadRecord: Codable, PersistableRecord, FetchableRecord {
+struct DownloadRecord: Codable, PersistableRecord, FetchableRecord, Sendable {
     var id: Int64?
     var itemID: String
     var sourceURL: String
-    var contentType: String      // "podcast" or "article"
+    var contentType: String = "podcast"  // "podcast" or "article"
     var audioURL: String?
     var pageURL: String
     var bundlePath: String?
     var audioPath: String?
     var pagePath: String?
-    var audioBytes: Int
-    var audioDownloaded: Int
-    var pageBytes: Int
-    var pageDownloaded: Int
-    var status: String           // maps to DownloadStatus rawValue
+    var audioBytes: Int = 0
+    var audioDownloaded: Int = 0
+    var pageBytes: Int = 0
+    var pageDownloaded: Int = 0
+    var status: String = "queued"        // maps to DownloadStatus rawValue
     var createdAt: Int
     var completedAt: Int?
 
