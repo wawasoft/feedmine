@@ -4438,6 +4438,37 @@ final class FeedStore {
             try db.create(index: "idx_source_history_access_date",
                           on: "source_history_access", columns: ["last_accessed_at"])
         }
+        migrator.registerMigration("v19_downloads") { db in
+            try db.create(table: "download_rule") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("target_type", .text).notNull()
+                t.column("target_id", .text).notNull()
+                t.column("max_items", .integer).notNull().defaults(to: 3)
+                t.column("mode", .text).notNull().defaults(to: "wifi")
+                t.column("enabled", .boolean).notNull().defaults(to: true)
+                t.uniqueKey(["target_type", "target_id"])
+            }
+            try db.create(table: "download") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("item_id", .text).notNull().unique()
+                t.column("source_url", .text).notNull()
+                t.column("content_type", .text).notNull().defaults(to: "podcast")
+                t.column("audio_url", .text)
+                t.column("page_url", .text).notNull()
+                t.column("bundle_path", .text)
+                t.column("audio_path", .text)
+                t.column("page_path", .text)
+                t.column("audio_bytes", .integer).notNull().defaults(to: 0)
+                t.column("audio_downloaded", .integer).notNull().defaults(to: 0)
+                t.column("page_bytes", .integer).notNull().defaults(to: 0)
+                t.column("page_downloaded", .integer).notNull().defaults(to: 0)
+                t.column("status", .text).notNull().defaults(to: "queued")
+                t.column("created_at", .integer).notNull()
+                t.column("completed_at", .integer)
+            }
+            try db.create(index: "idx_download_status", on: "download", columns: ["status"])
+            try db.create(index: "idx_download_source", on: "download", columns: ["source_url"])
+        }
         try migrator.migrate(db)
     }
 }
