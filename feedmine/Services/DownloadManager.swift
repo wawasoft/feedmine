@@ -37,17 +37,30 @@ actor DownloadManager {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("Downloads", isDirectory: true)
     }()
-    private let session: URLSession
-    private var activeDownloads: [String: URLSessionDownloadTask] = [:]
-    private var activePageTasks: [String: Task<Void, Error>] = [:]
-    private var progressHandlers: [String: (Double) -> Void] = [:]
 
-    // Notification publisher
+    /// Use default URLSession config — the async `download(from:)` API works
+    /// with it, and we wrap downloads in Tasks for cancellation. Background
+    /// config requires a delegate which is incompatible with the async API.
+    private let session: URLSession
+
+    /// Count of in-flight download phases (audio + page). Used to throttle
+    /// concurrency so we don't saturate the device's network.
+    private var activeCount = 0
+    private let maxConcurrent = 3
+
+    /// Task wrappers for cancellable downloads, keyed by itemID.
+    private var activeTasks: [String: Task<Void, Never>] = [:]
     private var notificationContinuation: AsyncStream<DownloadNotification>.Continuation?
     let notifications: AsyncStream<DownloadNotification>
 
+    private var isProcessing = false
+
+    /// Running total of bytes stored on disk, maintained incrementally.
+    /// Avoids O(n) file-system enumeration and hard-link overcounting.
+    private var _storageUsed: Int64 = 0
+
     init() {
-        let config = URLSessionConfiguration.background(withIdentifier: "com.feedmine.downloads")
+        let config = URLSessionConfiguration.default
         config.waitsForConnectivity = true
         config.timeoutIntervalForResource = 3600  // 1 hour max
         self.session = URLSession(configuration: config)
@@ -55,15 +68,45 @@ actor DownloadManager {
         self.notifications = AsyncStream { continuation = $0 }
         self.notificationContinuation = continuation
         try? FileManager.default.createDirectory(at: cachesDirectory, withIntermediateDirectories: true)
+
+        // Seed the running storage total from the DB on first access.
+        Task { await loadStorageTotalFromDB() }
     }
+
+    private func loadStorageTotalFromDB() async {
+        do {
+            let db = await FeedStore.sharedDB()
+            let total = try await db.read { db in
+                try Int64.fetchOne(db, sql: """
+                    SELECT COALESCE(SUM(audio_bytes + page_bytes), 0)
+                    FROM download
+                    WHERE status IN ('completed', 'failed_page')
+                """) ?? 0
+            }
+            _storageUsed = total
+        } catch {
+            Log.feed.error("DownloadManager.loadStorageTotal: \(error.localizedDescription)")
+        }
+    }
+
+    /// Last error from enqueue(), cleared on success. Read by UI for specific
+    /// failure messages instead of the generic "Download failed" fallback.
+    private(set) var lastEnqueueError: String?
 
     // MARK: - Public API
 
-    func enqueue(item: FeedItem, contentType: DownloadContentType) async {
-        guard checkStorageGate(for: 50_000_000) == .allowed else {
-            notify(.init(event: .failed, itemID: item.id, sourceTitle: item.sourceTitle, itemTitle: item.title, count: nil))
-            return
+    @discardableResult
+    func enqueue(item: FeedItem, contentType: DownloadContentType) async -> Bool {
+        lastEnqueueError = nil
+
+        let db: DatabaseQueue
+        do {
+            db = await FeedStore.sharedDB()
+        } catch {
+            lastEnqueueError = "Database not available: \(error.localizedDescription)"
+            return false
         }
+
         let audioURL = item.audioPlaybackURL?.absoluteString
         let now = Int(Date().timeIntervalSince1970)
         let record = DownloadRecord(
@@ -85,44 +128,88 @@ actor DownloadManager {
             completedAt: nil
         )
         do {
-            let db = await FeedStore.sharedDB()
-            try await db.write { db in try record.insert(db) }
+            // If a record already exists for this item, delete it first
+            // (re-download). item_id has a UNIQUE constraint.
+            try await db.write { db in
+                try db.execute(sql: "DELETE FROM download WHERE item_id = ?",
+                               arguments: [item.id])
+                try record.insert(db)
+            }
+        } catch let error as DatabaseError {
+            lastEnqueueError = "DB error: \(error.localizedDescription)"
+            Log.feed.error("DownloadManager.enqueue: \(error)")
+            return false
         } catch {
-            Log.feed.error("DownloadManager.enqueue: \(error.localizedDescription)")
-            return
+            lastEnqueueError = "Unexpected: \(error.localizedDescription)"
+            Log.feed.error("DownloadManager.enqueue: \(error)")
+            return false
         }
-        notify(.init(event: .queued, itemID: item.id, sourceTitle: item.sourceTitle, itemTitle: item.title, count: nil))
+        statusCache[item.id] = .queued
+        notify(.init(event: .queued, itemID: item.id,
+                     sourceTitle: item.sourceTitle, itemTitle: item.title, count: nil))
         await processNext()
+        return true
     }
 
     func cancel(itemID: String) async {
-        activeDownloads[itemID]?.cancel()
-        activeDownloads[itemID] = nil
-        activePageTasks[itemID]?.cancel()
-        activePageTasks[itemID] = nil
+        // Cancel any in-flight task
+        activeTasks[itemID]?.cancel()
+        activeTasks[itemID] = nil
+
         do {
             let db = await FeedStore.sharedDB()
+            // Read record before deleting so we can subtract from running total
+            let record = try await db.read { db in
+                try DownloadRecord
+                    .filter(DownloadRecord.Columns.itemID == itemID)
+                    .fetchOne(db)
+            }
+            if let record {
+                _storageUsed -= Int64(record.audioBytes + record.pageBytes)
+                if _storageUsed < 0 { _storageUsed = 0 }
+            }
             _ = try await db.write { db in
                 try DownloadRecord
-                    .filter(Column("item_id") == itemID)
+                    .filter(DownloadRecord.Columns.itemID == itemID)
                     .deleteAll(db)
             }
-        } catch {}
-        // Clean up partial bundle
+        } catch {
+            Log.feed.error("DownloadManager.cancel DB error: \(error.localizedDescription)")
+            // Still clean up bundle even if DB delete failed — don't leave orphans.
+        }
+        // Clean up partial/full bundle
         let bundle = cachesDirectory.appendingPathComponent(itemID)
         try? FileManager.default.removeItem(at: bundle)
+        statusCache[itemID] = nil
+        progressCache[itemID] = nil
     }
 
     func delete(itemID: String) async {
         await cancel(itemID: itemID)
     }
 
-    /// In-memory cache of download statuses, updated by processNext/enqueue/cancel.
+    /// In-memory cache of download statuses. Seeded from the DB on first access
+    /// and updated by processNext / enqueue / cancel.
     private var statusCache: [String: DownloadStatus] = [:]
     private var progressCache: [String: Double] = [:]
 
     func status(for itemID: String) -> DownloadStatus {
-        statusCache[itemID] ?? .queued
+        if let cached = statusCache[itemID] { return cached }
+        // Trigger async load; synchronously return best-effort default.
+        Task { await loadStatusFromDB(itemID: itemID) }
+        return .queued
+    }
+
+    private func loadStatusFromDB(itemID: String) async {
+        if statusCache[itemID] != nil { return }
+        do {
+            let db = await FeedStore.sharedDB()
+            if let raw = try await db.read({ db in
+                try String.fetchOne(db, sql: "SELECT status FROM download WHERE item_id = ?", arguments: [itemID])
+            }), let status = DownloadStatus(rawValue: raw) {
+                statusCache[itemID] = status
+            }
+        } catch {}
     }
 
     func progress(for itemID: String) -> Double {
@@ -130,8 +217,12 @@ actor DownloadManager {
     }
 
     func isDownloaded(itemID: String) -> Bool {
-        let bundle = cachesDirectory.appendingPathComponent(itemID)
-        return FileManager.default.fileExists(atPath: bundle.path)
+        // Check both the bundle directory AND a key file to avoid false
+        // positives when the directory was created but the download failed.
+        let pageFile = cachesDirectory.appendingPathComponent("\(itemID)/page.html")
+        let audioFile = cachesDirectory.appendingPathComponent("\(itemID)/audio.mp3")
+        return FileManager.default.fileExists(atPath: pageFile.path)
+            || FileManager.default.fileExists(atPath: audioFile.path)
     }
 
     func localPagePath(for itemID: String) -> URL? {
@@ -150,6 +241,14 @@ actor DownloadManager {
         return FileManager.default.fileExists(atPath: path.path) ? path : nil
     }
 
+    /// Expose the downloads directory path so FeedStore can use it without
+    /// duplicating path construction.
+    nonisolated static func bundlePath(for itemID: String) -> URL {
+        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Downloads", isDirectory: true)
+            .appendingPathComponent(itemID)
+    }
+
     func evaluateRules(for items: [FeedItem]) async {
         let db = await FeedStore.sharedDB()
         let rules: [DownloadRuleRecord]
@@ -162,10 +261,12 @@ actor DownloadManager {
         } catch { return }
         guard !rules.isEmpty else { return }
 
-        // Check connectivity via shared, already-started monitor
+        // Check connectivity — must distinguish WiFi from cellular for WiFi-only mode.
         let snap = NetworkMonitor.shared.snapshot()
-        if mode == .wifi && !snap.isConnected {
-            return  // WiFi only and we're not on WiFi
+        if mode == .wifi {
+            if !snap.isConnected { return }            // No connection at all
+            if !snap.isExpensive { /* WiFi — proceed */ }
+            else { return }                             // Cellular — skip
         }
 
         var toEnqueue: [FeedItem] = []
@@ -174,7 +275,6 @@ actor DownloadManager {
                 if rule.targetType == "source" {
                     return item.sourceURL == rule.targetID
                 }
-                // Collection matching would need collection membership lookup
                 return false
             }
             let sorted = matching.sorted { $0.publishedAt > $1.publishedAt }
@@ -182,11 +282,13 @@ actor DownloadManager {
             let candidates = Array(sorted.prefix(count))
             for item in candidates {
                 let alreadyDownloaded = isDownloaded(itemID: item.id)
+                // On DB error, assume NOT queued (false) so we don't silently
+                // block all auto-downloads on transient errors.
                 let alreadyQueued: Bool = (try? await db.read { db in
                     try DownloadRecord
                         .filter(DownloadRecord.Columns.itemID == item.id)
                         .fetchCount(db)
-                } > 0) ?? true
+                } > 0) ?? false
                 if !alreadyDownloaded && !alreadyQueued {
                     toEnqueue.append(item)
                 }
@@ -194,55 +296,79 @@ actor DownloadManager {
         }
 
         if !toEnqueue.isEmpty {
-            notify(.init(event: .autoDownloadStarted, itemID: nil, sourceTitle: nil, itemTitle: nil, count: toEnqueue.count))
+            notify(.init(event: .autoDownloadStarted, itemID: nil,
+                         sourceTitle: nil, itemTitle: nil, count: toEnqueue.count))
+            var enqueued = 0
             for item in toEnqueue {
                 let type: DownloadContentType = item.isPodcast ? .podcast : .article
-                await enqueue(item: item, contentType: type)
+                if await enqueue(item: item, contentType: type) {
+                    enqueued += 1
+                }
+            }
+            if enqueued > 0 {
+                notify(.init(event: .batchCompleted, itemID: nil,
+                             sourceTitle: nil, itemTitle: nil, count: enqueued))
             }
         }
     }
 
+    /// Running-total storage used, maintained incrementally. O(1), no hard-link
+    /// overcounting, always consistent with DB records.
     func storageUsed() -> Int64 {
-        guard let enumerator = FileManager.default.enumerator(
-            at: cachesDirectory,
-            includingPropertiesForKeys: [.fileSizeKey],
-            options: .skipsHiddenFiles
-        ) else { return 0 }
-        var total: Int64 = 0
-        for case let url as URL in enumerator {
-            let size = (try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
-            total += Int64(size)
-        }
-        return total
+        _storageUsed
     }
 
     func enforceStorageLimit() async {
-        let used = storageUsed()
+        let used = _storageUsed
         guard used > storageLimit else { return }
         do {
             let db = await FeedStore.sharedDB()
+            // Evict completed AND failed_page records (both occupy disk space).
             let oldest = try await db.read { db in
                 try DownloadRecord
-                    .filter(Column("status") == DownloadStatus.completed.rawValue)
+                    .filter(Column("status") == DownloadStatus.completed.rawValue
+                            || Column("status") == DownloadStatus.failedPage.rawValue)
                     .order(Column("completed_at").asc)
+                    .limit(50)
                     .fetchAll(db)
             }
             var freed: Int64 = 0
             for record in oldest {
-                guard used - freed > storageLimit * 8 / 10 else { break }  // evict to 80%
-                await delete(itemID: record.itemID)
-                freed += Int64(record.audioBytes + record.pageBytes)
+                guard _storageUsed - freed > storageLimit * 8 / 10 else { break }
+                let recordSize = Int64(record.audioBytes + record.pageBytes)
+                await cancel(itemID: record.itemID)
+                freed += recordSize
             }
             if freed > 0 {
-                notify(.init(event: .storageFull, itemID: nil, sourceTitle: nil, itemTitle: nil, count: nil))
+                notify(.init(event: .storageFull, itemID: nil,
+                             sourceTitle: nil, itemTitle: nil, count: nil))
             }
-        } catch {}
+        } catch {
+            Log.feed.error("DownloadManager.enforceStorageLimit: \(error.localizedDescription)")
+        }
     }
 
     func freeDiskSpace() -> Int64 {
-        let values = try? cachesDirectory.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
-        return Int64(values?.volumeAvailableCapacityForImportantUsage ?? 0)
+        guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            Log.feed.error("DownloadManager.freeDiskSpace: no Documents directory — returning Int64.max as fallback")
+            return Int64.max
+        }
+        if let values = try? docURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey]),
+           let free = values.volumeAvailableCapacityForImportantUsage, free > 0 {
+            return Int64(free)
+        }
+        if let values = try? docURL.resourceValues(forKeys: [.volumeAvailableCapacityKey]),
+           let free = values.volumeAvailableCapacity, free > 0 {
+            return Int64(free)
+        }
+        Log.feed.error("DownloadManager.freeDiskSpace: volume capacity unavailable — returning Int64.max as fallback")
+        return Int64.max
     }
+
+    /// Single threshold for critically-low storage. Avoids #if DEBUG divergence
+    /// so tests and production behave identically.  50 MB minimum for safe
+    /// download operations (temp files, decompression, sanitization overhead).
+    private static let criticallyLowThreshold: Int64 = 50_000_000
 
     /// Testable entry point — allows injecting free space and usage.
     func checkStorageGate(for byteCount: Int64,
@@ -250,183 +376,283 @@ actor DownloadManager {
                           used: Int64? = nil,
                           limit: Int64? = nil) -> StorageGate {
         let actualFree = freeSpace ?? freeDiskSpace()
-        let actualUsed = used ?? storageUsed()
+        if actualFree < Self.criticallyLowThreshold {
+            return .criticallyLow(available: actualFree)
+        }
+        let actualUsed = used ?? _storageUsed
         let actualLimit = limit ?? storageLimit
-        if actualFree < 200_000_000 { return .criticallyLow(available: actualFree) }
-        if actualUsed + byteCount > actualLimit { return .wouldExceedUserLimit(used: actualUsed, limit: actualLimit) }
-        let neededWithMargin = byteCount + 500_000_000
-        if neededWithMargin > actualFree { return .insufficientFree(needed: byteCount, available: actualFree) }
+        if actualUsed + byteCount > actualLimit {
+            return .wouldExceedUserLimit(used: actualUsed, limit: actualLimit)
+        }
+        // Verify we have enough free space with a 2x safety margin for
+        // temp files, image downloads, and content sanitization.
+        let neededWithMargin = byteCount * 2
+        if neededWithMargin > actualFree {
+            return .insufficientFree(needed: byteCount, available: actualFree)
+        }
         return .allowed
     }
 
     /// Emergency eviction on launch if critically low on space.
     func emergencyEvictIfNeeded() async {
-        guard freeDiskSpace() < 200_000_000 else { return }
+        let free = freeDiskSpace()
+        guard free < 200_000_000 && free != Int64.max else { return }
         do {
             let db = await FeedStore.sharedDB()
             let all = try await db.read { db in
                 try DownloadRecord
-                    .filter(Column("status") == DownloadStatus.completed.rawValue)
+                    .filter(Column("status") == DownloadStatus.completed.rawValue
+                            || Column("status") == DownloadStatus.failedPage.rawValue)
                     .order(Column("completed_at").asc)
                     .fetchAll(db)
             }
+            // Cache free space to avoid repeated syscalls inside the loop.
+            var cachedFree = free
             for record in all {
-                guard freeDiskSpace() < 500_000_000 else { break }
-                await delete(itemID: record.itemID)
+                guard cachedFree < 500_000_000 else { break }
+                await cancel(itemID: record.itemID)
+                cachedFree += Int64(record.audioBytes + record.pageBytes)
             }
             if !all.isEmpty {
-                notify(.init(event: .storageFull, itemID: nil, sourceTitle: nil, itemTitle: nil, count: nil))
+                notify(.init(event: .storageFull, itemID: nil,
+                             sourceTitle: nil, itemTitle: nil, count: nil))
             }
-        } catch {}
+        } catch {
+            Log.feed.error("DownloadManager.emergencyEvictIfNeeded: \(error.localizedDescription)")
+        }
     }
 
     // MARK: - Queue processing
 
+    /// Entry point for the download queue. Serialized by the actor, processes
+    /// items one at a time via a while loop (no unbounded recursion).
     private func processNext() async {
-        guard activeDownloads.count + activePageTasks.count < 3 else { return }
+        // Prevent re-entrant calls from spawning duplicate processing loops.
+        guard !isProcessing else { return }
+        isProcessing = true
+        defer { isProcessing = false }
+
+        while true {
+            // Respect concurrent download cap.
+            guard activeCount < maxConcurrent else { break }
+
+            let db = await FeedStore.sharedDB()
+            let next: DownloadRecord?
+            do {
+                next = try await db.read { db in
+                    try DownloadRecord
+                        .filter(DownloadRecord.Columns.status == DownloadStatus.queued.rawValue)
+                        .order(DownloadRecord.Columns.createdAt.asc)
+                        .limit(1)
+                        .fetchOne(db)
+                }
+            } catch {
+                Log.feed.error("DownloadManager.processNext DB read: \(error.localizedDescription)")
+                break
+            }
+            guard let nextRecord = next else { break }
+
+            // Fetch item metadata for notifications.
+            let itemMeta = try? await db.read { db in
+                try Row.fetchOne(db, sql: """
+                    SELECT source_title, title FROM feed_item WHERE id = ?
+                """, arguments: [nextRecord.itemID])
+            }
+            let sourceTitle = itemMeta?["source_title"] as? String
+            let itemTitle = itemMeta?["title"] as? String
+
+            activeCount += 1
+            let itemID = nextRecord.itemID
+
+            // Wrap the entire download in a cancellable Task.
+            let downloadTask = Task { [weak self] in
+                guard let self else { return }
+                await self.processOne(record: nextRecord,
+                                      sourceTitle: sourceTitle,
+                                      itemTitle: itemTitle)
+            }
+            activeTasks[itemID] = downloadTask
+            await downloadTask.value
+            activeTasks[itemID] = nil
+            activeCount -= 1
+        }
+    }
+
+    /// Process a single download record through audio + page phases.
+    /// Runs inside a cancellable Task so cancel(itemID:) can stop it.
+    /// Takes record by value (not inout) to avoid @Sendable capture issues
+    /// with GRDB's db.write closures.
+    private func processOne(record: DownloadRecord,
+                            sourceTitle: String?,
+                            itemTitle: String?) async {
+        let db = await FeedStore.sharedDB()
 
         do {
-            let db = await FeedStore.sharedDB()
-            let next = try await db.read { db in
-                try DownloadRecord
-                    .filter(DownloadRecord.Columns.status == DownloadStatus.queued.rawValue)
-                    .order(DownloadRecord.Columns.createdAt.asc)
-                    .limit(1)
-                    .fetchOne(db)
-            }
-            guard var record = next else { return }
+            var rec = record
 
             // Phase A: Audio (podcast only)
-            if record.contentType == DownloadContentType.podcast.rawValue,
-               let audioStr = record.audioURL,
+            if rec.contentType == DownloadContentType.podcast.rawValue,
+               let audioStr = rec.audioURL,
                let audioURL = URL(string: audioStr) {
 
-                statusCache[record.itemID] = .downloadingAudio
-                record.status = DownloadStatus.downloadingAudio.rawValue
-                let r1 = record
-                try await db.write { db in try r1.update(db) }
+                statusCache[rec.itemID] = .downloadingAudio
+                rec.status = DownloadStatus.downloadingAudio.rawValue
+                let r1 = rec
+                try? await db.write { db in try r1.update(db) }
 
-                let bundle = cachesDirectory.appendingPathComponent(record.itemID)
+                let bundle = cachesDirectory.appendingPathComponent(rec.itemID)
                 try? FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
 
                 do {
                     let (tempURL, _) = try await session.download(from: audioURL)
+                    try Task.checkCancellation()
                     let destURL = bundle.appendingPathComponent("audio.mp3")
                     try? FileManager.default.removeItem(at: destURL)
                     try FileManager.default.moveItem(at: tempURL, to: destURL)
 
                     let fileSize = (try? destURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
-                    record.audioBytes = fileSize
-                    record.audioDownloaded = fileSize
-                    record.audioPath = "audio.mp3"
-                    record.bundlePath = bundle.path
-                    record.status = DownloadStatus.downloadingPage.rawValue
-                    progressCache[record.itemID] = 0.85
+                    rec.audioBytes = fileSize
+                    rec.audioDownloaded = fileSize
+                    rec.audioPath = "audio.mp3"
+                    rec.bundlePath = bundle.path
+                    rec.status = DownloadStatus.downloadingPage.rawValue
+                    progressCache[rec.itemID] = 0.85
+                } catch is CancellationError {
+                    return
                 } catch {
-                    statusCache[record.itemID] = .failedAudio
-                    var failedRec = record
-                    failedRec.status = DownloadStatus.failedAudio.rawValue
-                    failedRec.completedAt = Int(Date().timeIntervalSince1970)
-                    let rFail = failedRec
-                    try await db.write { db in try rFail.update(db) }
-                    notify(.init(event: .failed, itemID: record.itemID, sourceTitle: nil, itemTitle: nil, count: nil))
-                    await processNext()
+                    statusCache[rec.itemID] = .failedAudio
+                    rec.status = DownloadStatus.failedAudio.rawValue
+                    rec.completedAt = Int(Date().timeIntervalSince1970)
+                    let rFail = rec
+                    try? await db.write { db in try rFail.update(db) }
+                    notify(.init(event: .failed, itemID: rec.itemID,
+                                 sourceTitle: sourceTitle, itemTitle: itemTitle, count: nil))
                     return
                 }
-                let r2 = record
-                try await db.write { db in try r2.update(db) }
+                let r2 = rec
+                try? await db.write { db in try r2.update(db) }
             }
 
-            // Phase B: Page (both podcast and article)
-            if record.contentType == DownloadContentType.article.rawValue {
-                record.status = DownloadStatus.downloadingPage.rawValue
-                let r3 = record
-                try await db.write { db in try r3.update(db) }
+            // Phase B: Set downloadingPage status for articles.
+            if rec.contentType == DownloadContentType.article.rawValue {
+                statusCache[rec.itemID] = .downloadingPage
+                rec.status = DownloadStatus.downloadingPage.rawValue
+                let r3 = rec
+                try? await db.write { db in try r3.update(db) }
             }
 
-            guard let pageURL = URL(string: record.pageURL) else {
-                record.status = DownloadStatus.failedPage.rawValue
-                let r4 = record
-                try await db.write { db in try r4.update(db) }
+            // Validate page URL.
+            guard let pageURL = URL(string: rec.pageURL) else {
+                statusCache[rec.itemID] = .failedPage
+                rec.status = DownloadStatus.failedPage.rawValue
+                rec.completedAt = Int(Date().timeIntervalSince1970)
+                let r4 = rec
+                try? await db.write { db in try r4.update(db) }
+                notify(.init(event: .failed, itemID: rec.itemID,
+                             sourceTitle: sourceTitle, itemTitle: itemTitle, count: nil))
                 return
             }
 
-            let bundle = cachesDirectory.appendingPathComponent(record.itemID)
+            let bundle = cachesDirectory.appendingPathComponent(rec.itemID)
             try? FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
 
             do {
                 let sanitized = try await ContentSanitizer.fetchAndSanitize(url: pageURL)
-                // Download images
-                for imageURL in sanitized.imageURLs {
-                    if let _ = await ImageCache.shared.diskImage(for: imageURL) {
-                        // Already cached — rewrite will use ImageCache
-                        continue
-                    }
-                    // Download and cache the image
-                    if let (data, _) = try? await URLSession.shared.data(from: imageURL) {
-                        await ImageCache.shared.setImage(data: data, for: imageURL)
+                try Task.checkCancellation()
+
+                // Download images concurrently using TaskGroup.
+                await withTaskGroup(of: Void.self) { group in
+                    for imageURL in sanitized.imageURLs {
+                        group.addTask {
+                            if await ImageCache.shared.diskImage(for: imageURL) != nil { return }
+                            if let (data, _) = try? await URLSession.shared.data(from: imageURL) {
+                                _ = await ImageCache.shared.setImage(data: data, for: imageURL)
+                            }
+                        }
                     }
                 }
-                // Write sanitized HTML with rewritten image paths
-                let rewrittenHTML = await rewriteImagePaths(
-                    sanitized.html,
-                    imageURLs: sanitized.imageURLs
-                )
+                try Task.checkCancellation()
+
+                // Pre-compute keys for all image URLs (avoid redundant hashing).
+                let imageKeys: [(URL, String)] = await withTaskGroup(of: (URL, String).self) { group in
+                    for url in sanitized.imageURLs {
+                        group.addTask { await (url, ImageCache.shared.cacheKey(for: url)) }
+                    }
+                    var results: [(URL, String)] = []
+                    for await pair in group { results.append(pair) }
+                    return results
+                }
+
+                // Rewrite image paths — sort by URL length descending to avoid
+                // prefix corruption (e.g. "photo" replacing inside "photo_wide").
+                let rewrittenHTML = rewriteImagePaths(sanitized.html, imageKeys: imageKeys)
                 let pageFile = bundle.appendingPathComponent("page.html")
                 try rewrittenHTML.write(to: pageFile, atomically: true, encoding: .utf8)
-                // Hardlink cached images into bundle so WKWebView resolves them
+
+                // Copy cached images into bundle so WKWebView resolves them.
+                // Use copy (not hard link) for accurate storageUsed accounting.
                 let imagesDir = bundle.appendingPathComponent("images", isDirectory: true)
                 try? FileManager.default.createDirectory(at: imagesDir, withIntermediateDirectories: true)
-                for imageURL in sanitized.imageURLs {
-                    let cacheFile = await ImageCache.shared.cacheFileURL(for: imageURL)
-                    let key = await ImageCache.shared.cacheKey(for: imageURL)
+                for (url, key) in imageKeys {
+                    let cacheFile = await ImageCache.shared.cacheFileURL(for: url)
                     let dest = imagesDir.appendingPathComponent(key)
                     if FileManager.default.fileExists(atPath: cacheFile.path),
                        !FileManager.default.fileExists(atPath: dest.path) {
-                        try? FileManager.default.linkItem(at: cacheFile, to: dest)
+                        try? FileManager.default.copyItem(at: cacheFile, to: dest)
                     }
                 }
 
-                record.pagePath = "page.html"
-                record.pageBytes = (try? pageFile.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
-                record.pageDownloaded = record.pageBytes
-                record.bundlePath = bundle.path
-                record.status = DownloadStatus.completed.rawValue
-                record.completedAt = Int(Date().timeIntervalSince1970)
-                statusCache[record.itemID] = .completed
-                progressCache[record.itemID] = 1.0
+                let pageSize = (try? pageFile.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+                rec.pagePath = "page.html"
+                rec.pageBytes = pageSize
+                rec.pageDownloaded = pageSize
+                rec.bundlePath = bundle.path
+                rec.status = DownloadStatus.completed.rawValue
+                rec.completedAt = Int(Date().timeIntervalSince1970)
+                statusCache[rec.itemID] = .completed
+                progressCache[rec.itemID] = 1.0
+
+                // Update running storage total.
+                _storageUsed += Int64(rec.audioBytes + rec.pageBytes)
+            } catch is CancellationError {
+                return
             } catch {
-                // Page failed — if podcast, audio still works
-                if record.audioPath != nil {
-                    record.status = DownloadStatus.failedPage.rawValue
-                    record.completedAt = Int(Date().timeIntervalSince1970)
-                    statusCache[record.itemID] = .failedPage
-                } else {
-                    record.status = DownloadStatus.failedPage.rawValue
-                    statusCache[record.itemID] = .failedPage
+                rec.status = DownloadStatus.failedPage.rawValue
+                rec.completedAt = Int(Date().timeIntervalSince1970)
+                statusCache[rec.itemID] = .failedPage
+                if rec.audioPath != nil {
+                    _storageUsed += Int64(rec.audioBytes)
                 }
             }
-            let r5 = record
-            try await db.write { db in try r5.update(db) }
 
-            // Notify
-            notify(.init(event: record.status == DownloadStatus.completed.rawValue ? .completed : .failed,
-                         itemID: record.itemID, sourceTitle: nil, itemTitle: nil, count: nil))
+            // Persist final state.
+            let r5 = rec
+            try? await db.write { db in try r5.update(db) }
+
+            // Notify with item titles so toasts actually appear.
+            let isCompleted = rec.status == DownloadStatus.completed.rawValue
+            notify(.init(event: isCompleted ? .completed : .failed,
+                         itemID: rec.itemID,
+                         sourceTitle: sourceTitle,
+                         itemTitle: itemTitle,
+                         count: nil))
 
             await enforceStorageLimit()
-            await processNext()  // Continue processing queue
+        } catch is CancellationError {
+            // Task was cancelled — silent cleanup (cancel() handles it).
         } catch {
-            Log.feed.error("DownloadManager.processNext: \(error.localizedDescription)")
+            Log.feed.error("DownloadManager.processOne: \(error.localizedDescription)")
         }
     }
 
-    /// Rewrite remote image URLs to relative paths matching the hardlinked
-    /// images/ directory. ImageCache stores files without extension, so we
-    /// use the raw key (no .jpg suffix).
-    private func rewriteImagePaths(_ html: String, imageURLs: [URL]) async -> String {
+    /// Rewrite remote image URLs to relative paths matching the images/
+    /// directory. Sorted by URL length descending to prevent shorter URLs
+    /// from corrupting longer ones during string replacement.
+    private func rewriteImagePaths(_ html: String, imageKeys: [(URL, String)]) -> String {
         var result = html
-        for url in imageURLs {
-            let key = await ImageCache.shared.cacheKey(for: url)
+        // Sort descending by absolute string length so longer URLs are
+        // replaced before shorter prefix URLs.
+        for (url, key) in imageKeys.sorted(by: { $0.0.absoluteString.count > $1.0.absoluteString.count }) {
             result = result.replacingOccurrences(of: url.absoluteString, with: "images/\(key)")
         }
         return result

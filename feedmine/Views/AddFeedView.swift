@@ -443,4 +443,5 @@ struct AddFeedView: View {
 
 extension Notification.Name {
     static let feedImportCompleted = Notification.Name("feedImportCompleted")
+    static let downloadFeedback = Notification.Name("downloadFeedback")
 }
