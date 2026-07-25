@@ -44,16 +44,17 @@ final class DownloadManagerTests: XCTestCase {
     }
 
     func testStorageGateInsufficientFree() async {
+        // 100 MB download needs 200 MB free (2x margin). 150 MB triggers insufficientFree.
         let gate = await DownloadManager.shared.checkStorageGate(
             for: 100_000_000,
-            freeSpace: 300_000_000,
+            freeSpace: 150_000_000,
             used: 0,
             limit: 2_000_000_000
         )
         switch gate {
         case .insufficientFree(let needed, let available):
             XCTAssertEqual(needed, 100_000_000)
-            XCTAssertEqual(available, 300_000_000)
+            XCTAssertEqual(available, 150_000_000)
         default:
             XCTFail("Expected insufficientFree, got \(gate)")
         }
@@ -76,15 +77,16 @@ final class DownloadManagerTests: XCTestCase {
     }
 
     func testStorageGateCriticallyLow() async {
+        // New threshold is 50 MB — use 30 MB to trigger criticallyLow.
         let gate = await DownloadManager.shared.checkStorageGate(
             for: 1_000_000,
-            freeSpace: 150_000_000,
+            freeSpace: 30_000_000,
             used: 0,
             limit: 5_000_000_000
         )
         switch gate {
         case .criticallyLow(let available):
-            XCTAssertEqual(available, 150_000_000)
+            XCTAssertEqual(available, 30_000_000)
         default:
             XCTFail("Expected criticallyLow")
         }

@@ -25,7 +25,9 @@ enum ContentSanitizer {
         request.setValue("text/html,application/xhtml+xml,*/*", forHTTPHeaderField: "Accept")
 
         let (data, response) = try await URLSession.shared.data(for: request)
-        let httpResponse = response as! HTTPURLResponse
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw Error.notHTML
+        }
 
         // Check status code
         if httpResponse.statusCode == 403 || httpResponse.statusCode == 401 {
@@ -102,7 +104,8 @@ enum ContentSanitizer {
             if src.hasPrefix("//") {
                 src = "https:" + src
             } else if src.hasPrefix("/") {
-                src = baseURL.scheme! + "://" + baseURL.host! + src
+                guard let scheme = baseURL.scheme, let host = baseURL.host else { return nil }
+                src = scheme + "://" + host + src
             } else if !src.hasPrefix("http") {
                 src = baseURL.deletingLastPathComponent().absoluteString + "/" + src
             }

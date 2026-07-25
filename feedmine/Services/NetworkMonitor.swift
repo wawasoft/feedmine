@@ -35,9 +35,19 @@ final class NetworkMonitor {
     }
 
     /// Thread-safe connectivity snapshot for non-MainActor callers.
-    nonisolated func snapshot() -> (isConnected: Bool, isAirplaneMode: Bool) {
-        let path = monitor.currentPath
-        return (path.status == .satisfied, path.availableInterfaces.isEmpty)
+    /// Dispatches synchronously to the monitor's queue to read `currentPath`
+    /// safely, avoiding undefined behavior from cross-queue access.
+    nonisolated func snapshot() -> (isConnected: Bool, isAirplaneMode: Bool, isExpensive: Bool) {
+        var result: (isConnected: Bool, isAirplaneMode: Bool, isExpensive: Bool) = (true, false, false)
+        queue.sync {
+            let path = monitor.currentPath
+            result = (
+                isConnected: path.status == .satisfied,
+                isAirplaneMode: path.availableInterfaces.isEmpty,
+                isExpensive: path.isExpensive
+            )
+        }
+        return result
     }
 
     /// The singleton init must be callable from any context.

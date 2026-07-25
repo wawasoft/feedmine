@@ -462,12 +462,17 @@ final class FeedStore {
             && (mood == .all || mood.matches(item.title))
             && !contentFilterExcludes(item, filters: contentFilters)
         }
-        // Downloaded filter — only show items with completed downloads
+        // Downloaded filter — only show items with completed downloads.
+        // Uses DownloadManager's canonical path builder so the filter stays
+        // consistent if the directory structure changes.
         if isDownloadedFilterActive {
             filtered = filtered.filter { item in
-                let bundle = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-                    .appendingPathComponent("Downloads/\(item.id)")
-                return FileManager.default.fileExists(atPath: bundle.path)
+                let pageFile = DownloadManager.bundlePath(for: item.id)
+                    .appendingPathComponent("page.html")
+                let audioFile = DownloadManager.bundlePath(for: item.id)
+                    .appendingPathComponent("audio.mp3")
+                return FileManager.default.fileExists(atPath: pageFile.path)
+                    || FileManager.default.fileExists(atPath: audioFile.path)
             }
         }
         return filtered

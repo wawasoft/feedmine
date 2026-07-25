@@ -223,10 +223,10 @@ struct FeedScreen: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .feedImportCompleted)) { notification in
-            if let msg = notification.userInfo?["message"] as? String {
-                toastMessage = msg; toastIcon = "plus.circle.fill"
-                withAnimation { showToast = true }
-            }
+            handleToast(notification.userInfo, fallbackIcon: "plus.circle.fill")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .downloadFeedback)) { notification in
+            handleToast(notification.userInfo, fallbackIcon: "arrow.down.circle")
         }
         .onChange(of: player.lastPlaybackError) { _, error in
             if let error {
@@ -840,6 +840,13 @@ struct FeedScreen: View {
                 }
             }
         }
+    }
+
+    private func handleToast(_ userInfo: [AnyHashable: Any]?, fallbackIcon: String) {
+        guard let userInfo, let msg = userInfo["message"] as? String else { return }
+        toastMessage = msg
+        toastIcon = (userInfo["icon"] as? String) ?? fallbackIcon
+        withAnimation { showToast = true }
     }
 
     private func updateBadge() {

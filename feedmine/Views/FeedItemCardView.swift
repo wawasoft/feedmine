@@ -20,9 +20,6 @@ struct FeedItemCardView: View, Equatable {
     var isInBookmarkBox: Bool = false
     @State private var imageLoadFailed = false
     @State private var imageAppeared = false
-    @State private var downloadStatus: DownloadStatus = .queued
-    @State private var downloadProgress: Double = 0
-    @State private var downloadTask: Task<Void, Never>?
     @AppStorage("fontSize") private var fontSize = "medium"
     @State private var engine = CircadianEngine.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
@@ -424,9 +421,6 @@ struct FeedItemCardView: View, Equatable {
                 .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isBookmarked)
             }
 
-            if item.isPodcast || item.canResolveArticleImage {
-                downloadButton
-            }
         }
         .padding(12)
     }
@@ -448,58 +442,6 @@ struct FeedItemCardView: View, Equatable {
         }
     }
 
-    // MARK: - Download
-
-    @ViewBuilder
-    private var downloadButton: some View {
-        let isDone = downloadStatus == .completed || downloadStatus == .failedPage
-        let isFailed = downloadStatus == .failedAudio
-        let isActive = downloadStatus == .queued
-            || downloadStatus == .downloadingAudio
-            || downloadStatus == .downloadingPage
-
-        Button {
-            handleDownloadTap()
-        } label: {
-            Image(systemName: isDone ? "checkmark.circle.fill"
-                       : isFailed ? "exclamationmark.circle.fill"
-                       : isActive ? "arrow.down.circle.fill"
-                       : "arrow.down.circle")
-                .font(.title3)
-                .foregroundStyle(isDone ? .green : isFailed ? .orange : .white)
-                .frame(width: 36, height: 36)
-                .background(.ultraThinMaterial, in: Circle())
-                .shadow(color: .black.opacity(0.15), radius: 4)
-        }
-        .buttonStyle(.plain)
-        .onAppear {
-            downloadTask = Task {
-                while !Task.isCancelled {
-                    let status = await DownloadManager.shared.status(for: item.id)
-                    await MainActor.run { self.downloadStatus = status }
-                    try? await Task.sleep(for: .milliseconds(800))
-                }
-            }
-        }
-        .onDisappear { downloadTask?.cancel() }
-    }
-
-    private func handleDownloadTap() {
-        let isDone = downloadStatus == .completed || downloadStatus == .failedPage
-        if isDone {
-            Task { await DownloadManager.shared.delete(itemID: item.id) }
-        } else if downloadStatus == .queued
-                    || downloadStatus == .downloadingAudio
-                    || downloadStatus == .downloadingPage {
-            Task { await DownloadManager.shared.cancel(itemID: item.id) }
-        } else {
-            Task {
-                let type: DownloadContentType = item.isPodcast ? .podcast : .article
-                await DownloadManager.shared.enqueue(item: item, contentType: type)
-            }
-        }
-    }
-
     private func mediaBadge(_ text: String, color: Color) -> some View {
         Text(text)
             .font(.caption2).fontWeight(.heavy)
@@ -512,6 +454,37 @@ struct FeedItemCardView: View, Equatable {
     @ViewBuilder
     private var cardContextMenu: some View {
         BookmarkBoxContextMenu(itemID: item.id)
+
+        if item.isPodcast || item.canResolveArticleImage {
+            Button {
+                let impact = UIImpactFeedbackGenerator(style: .medium)
+                impact.impactOccurred()
+                let type: DownloadContentType = item.isPodcast ? .podcast : .article
+                Task {
+                    let ok = await DownloadManager.shared.enqueue(item: item, contentType: type)
+                    let reason = ok ? "" : (await DownloadManager.shared.lastEnqueueError ?? "unknown error")
+                    await MainActor.run {
+                        let msg: String
+                        let icon: String
+                        if ok {
+                            msg = "Downloading \u{2014} \(item.sourceTitle.prefix(30))"
+                            icon = "arrow.down.circle"
+                        } else {
+                            msg = "Download failed \u{2014} \(reason.prefix(60))"
+                            icon = "exclamationmark.triangle"
+                        }
+                        NotificationCenter.default.post(
+                            name: .downloadFeedback,
+                            object: nil,
+                            userInfo: ["message": msg, "icon": icon]
+                        )
+                    }
+                }
+            } label: {
+                Label("Download for Offline", systemImage: "arrow.down.circle")
+            }
+        }
+
         if let onViewSource {
             Button(action: onViewSource) {
                 Label("View Source", systemImage: "rectangle.stack")

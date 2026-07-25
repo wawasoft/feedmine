@@ -72,6 +72,14 @@ struct DownloadRuleRecord: Codable, PersistableRecord, FetchableRecord, Sendable
         case id, targetType = "target_type", targetID = "target_id"
         case maxItems = "max_items", mode, enabled
     }
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case targetType = "target_type"
+        case targetID = "target_id"
+        case maxItems = "max_items"
+        case mode, enabled
+    }
 }
 
 struct DownloadRecord: Codable, PersistableRecord, FetchableRecord, Sendable {
@@ -102,5 +110,24 @@ struct DownloadRecord: Codable, PersistableRecord, FetchableRecord, Sendable {
         case audioBytes = "audio_bytes", audioDownloaded = "audio_downloaded"
         case pageBytes = "page_bytes", pageDownloaded = "page_downloaded"
         case status, createdAt = "created_at", completedAt = "completed_at"
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case itemID = "item_id"
+        case sourceURL = "source_url"
+        case contentType = "content_type"
+        case audioURL = "audio_url"
+        case pageURL = "page_url"
+        case bundlePath = "bundle_path"
+        case audioPath = "audio_path"
+        case pagePath = "page_path"
+        case audioBytes = "audio_bytes"
+        case audioDownloaded = "audio_downloaded"
+        case pageBytes = "page_bytes"
+        case pageDownloaded = "page_downloaded"
+        case status
+        case createdAt = "created_at"
+        case completedAt = "completed_at"
     }
 }
