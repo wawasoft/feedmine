@@ -63,17 +63,21 @@ struct SQLiteCatalogCompiler: CatalogCompiler {
         try? FileManager.default.removeItem(at: tmpURL)
 
         let dbQueue = try DatabaseQueue(path: tmpURL.path)
+        // Ensure deterministic cleanup even when the write throws:
+        // close SQLite handles so the temp file can be removed, then
+        // delete the temp file so a partial WAL never poisons a retry.
+        defer {
+            try? dbQueue.close()
+            try? FileManager.default.removeItem(at: tmpURL)
+        }
         try await dbQueue.write { db in
             try SQLiteCatalogSchema.create(in: db)
             try Self.writeCatalog(occurrences: occurrences, db: db)
         }
-        try dbQueue.close()
 
-        if FileManager.default.fileExists(atPath: databaseURL.path) {
-            _ = try FileManager.default.replaceItemAt(databaseURL, withItemAt: tmpURL)
-        } else {
-            try FileManager.default.moveItem(at: tmpURL, to: databaseURL)
-        }
+        // replaceItemAt handles both existing and non-existing destination
+        // atomically — no TOCTOU gap between fileExists and moveItem.
+        _ = try FileManager.default.replaceItemAt(databaseURL, withItemAt: tmpURL)
 
         let report = try await SQLiteCatalogRepository(databaseURL: databaseURL).compileReport(
             mode: mode,

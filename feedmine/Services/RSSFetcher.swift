@@ -400,6 +400,8 @@ actor RSSFetcher {
                 return await probeAudioRanged(url)
             }
             return classify(http)
+        } catch is CancellationError {
+            return .unknown
         } catch {
             return await probeAudioRanged(url)
         }

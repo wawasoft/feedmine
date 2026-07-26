@@ -1,12 +1,21 @@
 import Foundation
 
+enum OPMLParseError: Error {
+    case fileTooLarge(url: URL, size: Int64, limit: Int64)
+}
+
 struct OPMLParser {
     // MARK: - Parse cache
 
     /// Bump when the parse LOGIC or FeedSource shape changes (region derivation,
     /// mediaKind classification, dedup/normalize) so caches produced by the old
     /// logic are ignored even within the same app build.
-    private static let cacheFormatVersion = 8  // curated source metadata + default enablement
+    private static let cacheFormatVersion = 8
+    /// Safety cap: OPML files larger than 10 MB are rejected. A single OPML
+    /// file should never be that large — anything bigger is likely malformed
+    /// or malicious (XML bomb). Genuine large catalogues are split across
+    /// multiple files.
+    private static let maxFileSize: Int64 = 10_000_000
 
     /// Codable envelope persisted to Caches/.
     private struct CachedParse: Codable {
@@ -291,6 +300,10 @@ struct OPMLParser {
     }
 
     private static func parseFile(url: URL, fallbackCategory: String, region: String, mediaKind: MediaKind = .text) throws -> (sources: [FeedSource], invalidCount: Int) {
+        let fileSize = (try? url.resourceValues(forKeys: [.fileSizeKey]).fileSize).map(Int64.init) ?? 0
+        guard fileSize <= maxFileSize else {
+            throw OPMLParseError.fileTooLarge(url: url, size: fileSize, limit: maxFileSize)
+        }
         let data = try Data(contentsOf: url)
         let fileLanguage = extractLanguage(from: data)
         let parser = XMLParser(data: data)

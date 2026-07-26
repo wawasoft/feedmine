@@ -148,7 +148,7 @@ final class FeedLoader {
     var hasTaxonomySelection: Bool { !selectedNodeIDs.isEmpty }
     var hasRegionSelection: Bool { selectedRegion != nil }
     var hasActiveFilters: Bool {
-        hasRegionSelection || hasTaxonomySelection || selectedMood != .all || selectedContentType != .all || hasLanguageSelection
+        hasRegionSelection || hasTaxonomySelection || selectedMood != .all || selectedContentType != .all || hasLanguageSelection || store.isDownloadedFilterActive
     }
     var activeFilterCount: Int {
         var count = 0
@@ -157,6 +157,7 @@ final class FeedLoader {
         count += selectedLanguages.count
         if selectedContentType != .all { count += 1 }
         if selectedMood != .all { count += 1 }
+        if store.isDownloadedFilterActive { count += 1 }
         if !searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { count += 1 }
         return count
     }
@@ -817,6 +818,15 @@ final class FeedLoader {
     }
     func beginFilterEditing() { store.beginFilterEditing() }
     func endFilterEditing() { store.endFilterEditing() }
+    /// Refresh the downloaded-item cache and re-apply filters to visible items.
+    /// Called when a download completes so new items appear immediately.
+    func refreshDownloadedCacheAndReapply() async {
+        await store.refreshDownloadedItemIDs()
+        await MainActor.run {
+            store.reapplyFiltersToVisible()
+        }
+    }
+
     func applyFilterDraft(type: ContentType, mood: MoodFilter, languages: Set<String>) {
         store.hasUserClearedLanguageFilter = languages.isEmpty
         store.setFilter(

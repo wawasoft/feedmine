@@ -14,6 +14,7 @@ enum Keys {
     static let filterSetAt = "filterSetAt"
     static let filterAutoExpire = "filterAutoExpire"
     static let filterLanguages = "filterLanguages"
+    static let filterDownloaded = "filterDownloaded"
     static let hasInitializedLanguageDefault = "hasInitializedLanguageDefault"
 
     // Appearance
@@ -85,6 +86,10 @@ enum Settings {
     static var filterLanguages: [String] {
         get { d.stringArray(forKey: Keys.filterLanguages) ?? [] }
         set { d.set(newValue, forKey: Keys.filterLanguages) }
+    }
+    static var filterDownloaded: Bool {
+        get { d.bool(forKey: Keys.filterDownloaded) }
+        set { d.set(newValue, forKey: Keys.filterDownloaded) }
     }
     static var filterMood: String {
         get { d.string(forKey: Keys.filterMood) ?? FeedLoader.MoodFilter.all.rawValue }

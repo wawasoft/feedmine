@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 import GRDB
 
 struct SourceManagementView: View {
@@ -195,7 +196,7 @@ struct SourceManagementView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .presentationDetents([.medium, .large])
-        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.xml, .init(filenameExtension: "opml")!]) { result in
+        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.xml, UTType(filenameExtension: "opml") ?? .xml]) { result in
             switch result {
             case .success(let url):
                 do {
@@ -300,6 +301,7 @@ struct SourceDetailView: View {
     @State private var autoDownloadEnabled = false
     @State private var maxEpisodes = 3
     @State private var downloadMode: DownloadMode = .wifi
+    @State private var ruleError: String?
 
     var body: some View {
         Form {
@@ -345,6 +347,7 @@ struct SourceDetailView: View {
         .onChange(of: downloadMode) { _, _ in Task { await saveRule() } }
     }
 
+    @MainActor
     private func loadRule() async {
         let db = await FeedStore.sharedDB()
         do {
@@ -358,11 +361,14 @@ struct SourceDetailView: View {
                 maxEpisodes = rule.maxItems
                 downloadMode = DownloadMode(rawValue: rule.mode) ?? .wifi
             }
+            ruleError = nil
         } catch {
-            // Defaults already set via @State initialisers
+            Log.feed.error("Failed to load download rule for \(source.url): \(error.localizedDescription)")
+            ruleError = "Could not load download settings"
         }
     }
 
+    @MainActor
     private func saveRule() async {
         let db = await FeedStore.sharedDB()
         do {
@@ -379,8 +385,10 @@ struct SourceDetailView: View {
                                   arguments: [source.url])
                 }
             }
+            ruleError = nil
         } catch {
-            // Silently ignore write errors
+            Log.feed.error("Failed to save download rule for \(source.url): \(error.localizedDescription)")
+            ruleError = "Could not save download settings"
         }
     }
 }

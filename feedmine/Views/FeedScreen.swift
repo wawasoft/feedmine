@@ -3,10 +3,10 @@ import UIKit
 
 /// Non-reactive impression counter — mutated on every card `.onAppear`
 /// without triggering SwiftUI body re-evaluation.
+/// Uses a simple counter since only `count` is ever read (no dedup needed).
 private final class ImpressionTracker {
-    var seen = Set<String>()
-    var count: Int { seen.count }
-    func mark(_ id: String) { seen.insert(id) }
+    var count = 0
+    func mark(_: String) { count &+= 1 }
 }
 
 struct FeedScreen: View {
@@ -68,10 +68,16 @@ struct FeedScreen: View {
         return .generic
     }
 
-    private var hasAnyDownloads: Bool {
-        let downloadsDir = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("Downloads")
-        return (try? FileManager.default.contentsOfDirectory(atPath: downloadsDir.path).isEmpty) == false
+    /// Whether any downloads exist. Uses DownloadManager's O(1) running total
+    /// instead of synchronously enumerating the Downloads directory.
+    /// Populated on appear / download completion.
+    @State private var hasAnyDownloads = false
+
+    private func refreshDownloadIndicator() {
+        Task {
+            let used = await DownloadManager.shared.storageUsed()
+            hasAnyDownloads = used > 0
+        }
     }
 
     var body: some View {
@@ -154,7 +160,9 @@ struct FeedScreen: View {
             await startScreen()
         }
         .task {
+            refreshDownloadIndicator()
             for await notification in DownloadManager.shared.notifications {
+                refreshDownloadIndicator()
                 await MainActor.run {
                     switch notification.event {
                     case .queued:
@@ -167,6 +175,9 @@ struct FeedScreen: View {
                             toastMessage = "\u{2705} Downloaded \u{2014} \(title)"
                             toastIcon = "checkmark.circle.fill"
                         }
+                        // Refresh the downloaded-item cache and re-filter so
+                        // the new download appears immediately in the feed.
+                        Task { await loader.refreshDownloadedCacheAndReapply() }
                     case .failed:
                         toastMessage = "\u{26A0}\u{FE0F} Download failed \u{2014} tap to retry"
                         toastIcon = "exclamationmark.triangle"

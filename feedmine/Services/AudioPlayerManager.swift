@@ -103,7 +103,9 @@ final class AudioPlayerManager {
         ) { [weak self] notification in
             let typeRaw = notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt
             let optionRaw = notification.userInfo?[AVAudioSessionInterruptionOptionKey] as? UInt
-            MainActor.assumeIsolated { self?.handleInterruption(typeRaw: typeRaw, optionRaw: optionRaw) }
+            Task { @MainActor [weak self] in
+                self?.handleInterruption(typeRaw: typeRaw, optionRaw: optionRaw)
+            }
         }
 
         routeChangeObserver = NotificationCenter.default.addObserver(
@@ -112,7 +114,9 @@ final class AudioPlayerManager {
             queue: .main
         ) { [weak self] notification in
             let reasonRaw = notification.userInfo?[AVAudioSessionRouteChangeReasonKey] as? UInt
-            MainActor.assumeIsolated { self?.handleRouteChange(reasonRaw: reasonRaw) }
+            Task { @MainActor [weak self] in
+                self?.handleRouteChange(reasonRaw: reasonRaw)
+            }
         }
     }
 
@@ -186,7 +190,7 @@ final class AudioPlayerManager {
         if let urlString = item.bestImageURL ?? item.imageURL,
            let url = URL(string: urlString),
            let data = ImageCache.shared.cachedImageData(for: url) {
-            Task.detached { [info] in
+            Task { @MainActor [info] in
                 let artwork = MPMediaItemArtwork(boundsSize: CGSize(width: 600, height: 600)) { _ in
                     UIImage(data: data) ?? UIImage()
                 }

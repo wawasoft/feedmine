@@ -9,8 +9,10 @@ final class FeedStore {
     /// Exposes the GRDB DatabaseQueue for use by DownloadManager.
     /// Only valid after the first FeedStore instance is initialized.
     static func sharedDB() async -> DatabaseQueue {
-        await MainActor.run { /* Ensure called from main actor context */ }
-        return _sharedDB
+        guard let db = _sharedDB else {
+            fatalError("FeedStore.sharedDB() called before FeedStore initialization")
+        }
+        return db
     }
     private static var _sharedDB: DatabaseQueue!
 
@@ -60,7 +62,8 @@ final class FeedStore {
     private(set) var podcastSourceCount = 0
 
     private func refreshPodcastCounts() {
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
                 let (items, sources) = try await db.read { db -> (Int, Int) in
                     let items = try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM feed_item WHERE audio_url IS NOT NULL") ?? 0
@@ -86,7 +89,62 @@ final class FeedStore {
 
     /// Whether the Downloaded filter is currently active.
     /// Set automatically on Airplane Mode, or manually by the user.
-    var isDownloadedFilterActive = false
+    var isDownloadedFilterActive = false {
+        didSet {
+            guard oldValue != isDownloadedFilterActive else { return }
+            // Persist immediately so the filter state survives app kill.
+            Settings.filterDownloaded = isDownloadedFilterActive
+            if isDownloadedFilterActive {
+                // Refresh the cache AND reapply filters after the DB read
+                // completes.  On cold start the cache is empty, so a
+                // synchronous re-filter would show all items — the async
+                // refresh+reapply closes that window.
+                Task {
+                    await refreshDownloadedItemIDs()
+                    await MainActor.run { reapplyFiltersToVisible() }
+                }
+            } else {
+                // Toggling OFF: re-filter immediately (no cache needed).
+                reapplyFiltersToVisible()
+            }
+        }
+    }
+
+    /// Cached set of item IDs with completed or failed_page downloads.
+    /// Updated by refreshDownloadedItemIDs(). Used by applyFilters for O(1)
+    /// lookups instead of per-item filesystem syscalls.
+    private var cachedDownloadedItemIDs: Set<String> = []
+
+    /// Refresh the downloaded-item-ID cache from the download table.
+    /// Called on init and whenever isDownloadedFilterActive is toggled on.
+    func refreshDownloadedItemIDs() async {
+        do {
+            let ids = try await db.read { db in
+                try String.fetchAll(db, sql: """
+                    SELECT item_id FROM download
+                    WHERE status IN ('completed', 'failed_page')
+                """)
+            }
+            cachedDownloadedItemIDs = Set(ids)
+        } catch {
+            // On error, leave the existing cache intact.
+        }
+    }
+
+    /// Effective downloaded filter state: combines manual toggle with
+    /// automatic Airplane Mode activation.
+    var effectiveDownloadedFilter: Bool {
+        if networkMonitor.isAirplaneMode { return true }
+        return isDownloadedFilterActive
+    }
+
+    /// Re-apply filters to visible items — used when download state changes
+    /// (new download completed, cache refreshed) so the feed updates
+    /// immediately without a full SQLite reload.
+    func reapplyFiltersToVisible() {
+        guard !visibleItems.isEmpty else { return }
+        setVisibleItems(applyFilters(visibleItems))
+    }
 
     // MARK: - Preset state
 
@@ -191,7 +249,9 @@ final class FeedStore {
         guard Settings.prefetchImages else { return }
         let urls = items.compactMap { $0.bestImageURL ?? $0.imageURL }
         guard !urls.isEmpty else { return }
-        Task { await prefetcher.prefetch(urls: urls, priorityURLs: urls) }
+        Task { [weak self] in
+            await self?.prefetcher.prefetch(urls: urls, priorityURLs: urls)
+        }
     }
 
     /// Resolve article-page artwork in parallel background tasks so images
@@ -249,7 +309,9 @@ final class FeedStore {
         guard Settings.prefetchImages else { return }
         let upcoming = reservoir.upcomingItems(100).compactMap { $0.bestImageURL ?? $0.imageURL }
         guard !upcoming.isEmpty else { return }
-        Task { await prefetcher.prefetch(urls: upcoming, priorityURLs: []) }
+        Task { [weak self] in
+            await self?.prefetcher.prefetch(urls: upcoming, priorityURLs: [])
+        }
     }
 
     /// Normalize a set of language codes to ISO 639-1 base codes.
@@ -447,7 +509,35 @@ final class FeedStore {
             ? ContentFilterStore.shared.activeFilters : []
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
         let sourceFilter = presetSourceFilter  // nil for editorial, Set<String> for collection
-        var filtered = items.filter { item in
+        let downloadFilterActive = effectiveDownloadedFilter
+        let downloadedIDs = cachedDownloadedItemIDs
+
+        // Downloaded filter — apply FIRST to prune the candidate set before
+        // expensive string-matching filters run. Uses the in-memory cache
+        // (populated from the DB) for O(1) lookups instead of per-item filesystem
+        // syscalls. If the cache is stale, fall back to the bundle-path check.
+        var filtered: [FeedItem]
+        if downloadFilterActive {
+            if !downloadedIDs.isEmpty {
+                // Fast path: O(1) Set lookup.
+                filtered = items.filter { downloadedIDs.contains($0.id) }
+            } else {
+                // Cold cache: fall back to the canonical bundle-path check.
+                // bundlePath(for:"") returns .../Caches/Downloads/ — use it
+                // directly as the base so appending item.id resolves to the
+                // correct .../Caches/Downloads/{itemID} directory.
+                let bundleBase = DownloadManager.bundlePath(for: "")
+                filtered = items.filter { item in
+                    let bundle = bundleBase.appendingPathComponent(item.id)
+                    return FileManager.default.fileExists(atPath: bundle.path)
+                }
+            }
+        } else {
+            filtered = items
+        }
+
+        // All other filters applied AFTER the downloaded filter prunes the set.
+        filtered = filtered.filter { item in
             let normalizedSourceURL = OPMLParser.normalizeURL(item.sourceURL)
             // Opening a collection is an explicit source selection. Its durable
             // membership is therefore authoritative even when a personal source
@@ -461,19 +551,6 @@ final class FeedStore {
             && contentType(item)
             && (mood == .all || mood.matches(item.title))
             && !contentFilterExcludes(item, filters: contentFilters)
-        }
-        // Downloaded filter — only show items with completed downloads.
-        // Uses DownloadManager's canonical path builder so the filter stays
-        // consistent if the directory structure changes.
-        if isDownloadedFilterActive {
-            filtered = filtered.filter { item in
-                let pageFile = DownloadManager.bundlePath(for: item.id)
-                    .appendingPathComponent("page.html")
-                let audioFile = DownloadManager.bundlePath(for: item.id)
-                    .appendingPathComponent("audio.mp3")
-                return FileManager.default.fileExists(atPath: pageFile.path)
-                    || FileManager.default.fileExists(atPath: audioFile.path)
-            }
         }
         return filtered
     }
@@ -723,13 +800,18 @@ final class FeedStore {
         loadSourceHealth()
     }
 
-    /// Last-resort fallback: creates an in-memory store. Uses try! because if
-    /// even an in-memory SQLite database cannot be created, the device is in a
-    /// state where no app using SQLite can run (out of memory, broken OS
-    /// libraries). This is the one acceptable crash point — the app literally
-    /// cannot function without a database.
+    /// Last-resort fallback: creates an in-memory store. If even an in-memory
+    /// SQLite database cannot be created, the device is in a state where no app
+    /// using SQLite can run (out of memory, broken OS libraries). This is the
+    /// one acceptable crash point — the app literally cannot function without
+    /// a database. Using try! with a descriptive message instead of a bare
+    /// force-unwrap so crash logs identify the failure point.
     static func empty() -> FeedStore {
-        try! FeedStore(inMemory: true)
+        do {
+            return try FeedStore(inMemory: true)
+        } catch {
+            fatalError("FeedStore.empty(): unable to create in-memory SQLite database — \(error.localizedDescription)")
+        }
     }
 
     // MARK: - Source Health Persistence
@@ -1140,6 +1222,11 @@ final class FeedStore {
         // correctly filtered content, not a flash of unfiltered items.
         restoreFilters()
 
+        // Seed the downloaded-item cache so applyFilters uses O(1) lookups.
+        if isDownloadedFilterActive || networkMonitor.isAirplaneMode {
+            await refreshDownloadedItemIDs()
+        }
+
         // Restore the active preset and rebuild scoring multipliers.
         // Must happen after registry is populated but before first fetch.
         activePreset = Settings.activePreset
@@ -1251,7 +1338,8 @@ final class FeedStore {
         // booster would only compete with first paint for bandwidth.
         refreshWhatsNew(shouldBoost: false)
 
-        progressiveFetchTask = Task {
+        progressiveFetchTask = Task { [weak self] in
+            guard let self else { return }
             await self.firstLaunchBootstrapTask?.value
             self.firstLaunchBootstrapTask = nil
 
@@ -1275,7 +1363,7 @@ final class FeedStore {
             // Bulk-fill only when the local runway is genuinely shallow. A
             // warm reservoir should stay quiet while the user starts reading.
             if self.reservoir.reservoirCount < Reservoir.progressiveFillTarget {
-                await progressiveFetch()
+                await self.progressiveFetch()
             } else {
                 Log.feed.info("progressiveFetch skipped: runway=\(self.reservoir.reservoirCount)")
             }
@@ -1585,6 +1673,7 @@ final class FeedStore {
         Settings.filterContentType = activeContentType.rawValue
         Settings.filterLanguages = Array(activeLanguages)
         Settings.filterMood = activeMood.rawValue
+        Settings.filterDownloaded = isDownloadedFilterActive
         Settings.filterSetAt = Date().timeIntervalSince1970
     }
 
@@ -1618,6 +1707,7 @@ final class FeedStore {
                 Settings.filterContentType = "All"
                 Settings.filterMood = "all"
                 Settings.filterLanguages = []
+                Settings.filterDownloaded = false
                 Settings.filterSetAt = 0
                 return
             }
@@ -1655,6 +1745,7 @@ final class FeedStore {
         if let mood = FeedLoader.MoodFilter(rawValue: Settings.filterMood) {
             activeMood = mood
         }
+        isDownloadedFilterActive = Settings.filterDownloaded
     }
 
     func setFilter(region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType, mood: FeedLoader.MoodFilter = .all, languages: Set<String>? = nil) {
@@ -1703,11 +1794,14 @@ final class FeedStore {
         let languages = activeLanguages
         let contentType = filterContentType
         let mood = activeMood
+        let downloadFilterActive = effectiveDownloadedFilter
+        let downloadedIDs = cachedDownloadedItemIDs
         let deviceLanguage = Self.normalizedLanguageCode(
             Locale.current.language.languageCode?.identifier
         )
         let filterPredicate: (FeedItem) -> Bool = { item in
-            (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
+            (!downloadFilterActive || downloadedIDs.contains(item.id))
+            && (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
             && Self.languageFilterMatchesNormalized(
                 itemLanguage: item.language,
                 selectedLanguages: languages,
@@ -1845,6 +1939,7 @@ final class FeedStore {
         activeContentType = .all
         activeMood = .all
         activeLanguages = []
+        isDownloadedFilterActive = false
         hasUserClearedLanguageFilter = true
         cachedTaxonomyNodeIDs = []
         cachedTaxonomyFeedURLs = []
@@ -2288,11 +2383,26 @@ final class FeedStore {
         whatsNewManager.fetchWhatsNewBooster(
             enabledSources: registry.enabledSources,
             fetcher: fetcher,
-            persistFetchedItems: { [self] in await persistFetchedItems($0) },
-            throttledReservoirAppend: { [self] in throttledReservoirAppend($0) },
-            collectCandidates: { [self] in collectWhatsNewCandidates($0) },
-            prefetchImages: { [self] in prefetchImagesIfEnabled(for: $0) },
-            recordFetch: { [self] in scheduler.recordFetch(sourceURL: $0, success: $1) }
+            persistFetchedItems: { [weak self] in
+                guard let self else { return [] }
+                return await self.persistFetchedItems($0)
+            },
+            throttledReservoirAppend: { [weak self] in
+                guard let self else { return }
+                self.throttledReservoirAppend($0)
+            },
+            collectCandidates: { [weak self] in
+                guard let self else { return }
+                self.collectWhatsNewCandidates($0)
+            },
+            prefetchImages: { [weak self] in
+                guard let self else { return }
+                self.prefetchImagesIfEnabled(for: $0)
+            },
+            recordFetch: { [weak self] in
+                guard let self else { return }
+                self.scheduler.recordFetch(sourceURL: $0, success: $1)
+            }
         )
     }
 
@@ -3308,7 +3418,7 @@ final class FeedStore {
         // run off the main actor). When taxonomy is active we load matching
         // items via batched IN clause with per-chunk and global caps.
         let taxonomyURLs: Set<String>? = activeNodeIDs.isEmpty ? nil : cachedTaxonomyFeedURLs
-        let downloadFilterActive = isDownloadedFilterActive
+        let downloadFilterActive = effectiveDownloadedFilter
         // Always exclude read items — the feed should only show unseen content.
         // Read/opened items are tracked continuously and this information is
         // consumed by all feed-population paths (shake, filter, startup).
@@ -3763,7 +3873,10 @@ final class FeedStore {
     // MARK: - Persistent search
 
     private func matchPersistentSearches(_ items: [FeedItem]) async {
-        await bookmarkStore.matchPersistentSearches(items, regionResolver: { [self] in registry.regionFor(sourceURL: $0) })
+        await bookmarkStore.matchPersistentSearches(items, regionResolver: { [weak self] in
+            guard let self else { return "" }
+            return self.registry.regionFor(sourceURL: $0) ?? ""
+        })
     }
 
     // MARK: - Source view and personal source collections
@@ -4125,7 +4238,10 @@ final class FeedStore {
 
     /// Build composite feed from multiple active searches with tiered scoring.
     func compositeSearchFeed() async throws -> [FeedItem] {
-        try await bookmarkStore.compositeSearchFeed(regionResolver: { [self] in registry.regionFor(sourceURL: $0) })
+        try await bookmarkStore.compositeSearchFeed(regionResolver: { [weak self] in
+            guard let self else { return "" }
+            return self.registry.regionFor(sourceURL: $0) ?? ""
+        })
     }
 
     // MARK: - Private helpers

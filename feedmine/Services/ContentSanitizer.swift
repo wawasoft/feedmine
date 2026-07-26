@@ -116,16 +116,32 @@ enum ContentSanitizer {
     private static func sanitize(_ html: String, baseURL: URL) -> String {
         var clean = html
 
-        // Remove unwanted elements
-        let removals = [
+        // Remove unwanted elements — HTML cannot be reliably parsed with regex,
+        // so this is a defense-in-depth layer. A proper HTML parser (SwiftSoup)
+        // should replace this entire method for robust sanitization.
+        let removals: [(String, String)] = [
             ("<script[^>]*>[\\s\\S]*?</script>", ""),          // scripts
+            ("<script[^>]*>", ""),                               // unclosed script tags
             ("<style[^>]*>[\\s\\S]*?</style>", ""),            // styles
             ("<iframe[^>]*>[\\s\\S]*?</iframe>", ""),          // iframes
             ("<nav[^>]*>[\\s\\S]*?</nav>", ""),                // nav
             ("<footer[^>]*>[\\s\\S]*?</footer>", ""),          // footer
             ("<form[^>]*>[\\s\\S]*?</form>", ""),              // forms
+            ("<base[^>]*>", ""),                                 // base href injection
+            ("<meta[^>]*http-equiv[^>]*>", ""),                 // meta refresh redirect
+            ("<noscript[^>]*>[\\s\\S]*?</noscript>", ""),      // noscript payload
+            ("<embed[^>]*>", ""),                                // embed (flash/activex)
+            ("<object[^>]*>[\\s\\S]*?</object>", ""),          // object (activex)
+            ("<canvas[^>]*>[\\s\\S]*?</canvas>", ""),          // canvas (fingerprinting)
+            ("<svg[^>]*>", ""),                                  // inline SVG (can contain event handlers)
+            ("</svg>", ""),                                      // closing svg tag
             ("<!--[\\s\\S]*?-->", ""),                          // comments
-            (" on\\w+\\s*=\\s*[\"'][^\"']*[\"']", ""),          // JS event handlers
+            // Event handlers — quoted, unquoted, and backtick-delimited
+            (" on\\w+\\s*=\\s*[\"'][^\"']*[\"']", ""),          // quoted: onclick="..."
+            (" on\\w+\\s*=\\s*[^\\s>\"'=]+", ""),               // unquoted: onclick=alert(1)
+            (" on\\w+\\s*=\\s*`[^`]*`", ""),                     // backtick: onerror=`...`
+            // JavaScript protocol in links
+            ("href\\s*=\\s*[\"']?javascript:", "href=\"#"),      // javascript: URI in href
         ]
         for (pattern, replacement) in removals {
             clean = clean.replacingOccurrences(of: pattern, with: replacement, options: .regularExpression)
