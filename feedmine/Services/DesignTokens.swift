@@ -145,14 +145,14 @@ enum ComponentToken {
     }
 
     // Briefing card
-    static var briefingGradient: [Color] {
-        [Color(hex: "#FF7A45").opacity(0.3), Color(hex: "#8B7BA8").opacity(0.15)]
-    }
+    static let briefingGradient: [Color] = [
+        Color(hex: "#FF7A45").opacity(0.3), Color(hex: "#8B7BA8").opacity(0.15)
+    ]
 
     // Carousel
-    static var carouselAccentGradient: [Color] {
-        [Color(hex: "#5B7FA5").opacity(0.6), Color(hex: "#8B7BA8").opacity(0.4), Color.black.opacity(0.7)]
-    }
+    static let carouselAccentGradient: [Color] = [
+        Color(hex: "#5B7FA5").opacity(0.6), Color(hex: "#8B7BA8").opacity(0.4), Color.black.opacity(0.7)
+    ]
 
     // Share overlay
     static func shareOverlayGradient(for category: String) -> [Color] {

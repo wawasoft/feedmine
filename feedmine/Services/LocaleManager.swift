@@ -67,7 +67,8 @@ final class LocaleManager {
     ]
 
     /// English fallback (always first match for unsupported system languages).
-    private static let english: Language = supportedLanguages.first(where: { $0.code == "en" })!
+    private static let english: Language = supportedLanguages.first(where: { $0.code == "en" })
+        ?? Language(code: "en", displayName: "English")
 
     // MARK: - State
 
@@ -114,6 +115,5 @@ final class LocaleManager {
     func selectLanguage(_ language: Language) {
         selectedLanguage = language
         UserDefaults.standard.set([language.code], forKey: "AppleLanguages")
-        UserDefaults.standard.synchronize()
     }
 }
