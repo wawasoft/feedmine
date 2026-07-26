@@ -21,9 +21,9 @@ struct OPMLCatalogScanner: Sendable {
                 defaultMediaKind: mediaKind
             )
             parser.delegate = delegate
-            parser.parse()
-            if let error = parser.parserError {
-                throw error
+            let ok = parser.parse()
+            if !ok || parser.parserError != nil {
+                throw parser.parserError ?? FeedEngineError.invalidCatalog("XML parse failed for \(relativePath)")
             }
             return delegate.occurrences
         }

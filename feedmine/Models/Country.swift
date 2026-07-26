@@ -12,7 +12,8 @@ struct Country: Identifiable, Hashable {
     let regions: [Region]
 
     var slug: String {
-        region.replacingOccurrences(of: "countries/", with: "")
+        guard region.hasPrefix("countries/") else { return region }
+        return String(region.dropFirst("countries/".count))
     }
 
     var hasRegions: Bool { !regions.isEmpty }
