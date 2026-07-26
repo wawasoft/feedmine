@@ -46,10 +46,17 @@ final class AudioPlayerManager {
     }
 
     private func activateSession() {
+        let session = AVAudioSession.sharedInstance()
         do {
-            try AVAudioSession.sharedInstance().setActive(true)
+            // Re-assert category on every activation — the system may have
+            // deactivated and cleared it during an interruption. Without this,
+            // local file playback is especially vulnerable because AVPlayer
+            // doesn't implicitly restore the category for local URLs.
+            try session.setCategory(.playback, mode: .default, policy: .longFormAudio)
+            try session.setActive(true)
         } catch {
             Log.feed.error("AudioSession activate failed: \(error)")
+            lastPlaybackError = error.localizedDescription
         }
     }
 
