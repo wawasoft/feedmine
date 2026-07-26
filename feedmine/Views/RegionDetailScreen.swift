@@ -6,10 +6,14 @@ struct RegionDetailScreen: View {
     @Environment(FeedLoader.self) private var loader
     let region: Region
     let country: Country
+    @State private var cachedFeeds: [(String, [FeedSource])]?
 
     private var feedsByCategory: [(String, [FeedSource])] {
+        if let cached = cachedFeeds { return cached }
         let grouped = Dictionary(grouping: loader.regionFeeds(for: region.path), by: \.category)
-        return grouped.sorted { $0.key < $1.key }
+        let sorted = grouped.sorted { $0.key < $1.key }
+        cachedFeeds = sorted
+        return sorted
     }
 
     var body: some View {
