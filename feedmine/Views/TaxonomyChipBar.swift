@@ -6,6 +6,8 @@ import SwiftUI
 struct FilterLensBar: View {
     @Environment(FeedLoader.self) private var loader
     let onDismiss: () -> Void
+    @State private var cachedTopics: [FilterLensTopic]?
+    @State private var cachedNodeIDs: Set<String> = []
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -100,11 +102,15 @@ struct FilterLensBar: View {
     }
 
     private var selectedTopics: [FilterLensTopic] {
-        loader.selectedNodeIDs.compactMap { id in
+        if cachedNodeIDs == loader.selectedNodeIDs, let cached = cachedTopics { return cached }
+        let topics = loader.selectedNodeIDs.compactMap { id -> FilterLensTopic? in
             guard let node = TaxonomyStore.shared.node(id: id) else { return nil }
             return FilterLensTopic(id: id, title: node.name)
         }
         .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+        cachedNodeIDs = loader.selectedNodeIDs
+        cachedTopics = topics
+        return topics
     }
 
     private func languageDisplayName(_ code: String) -> String {
