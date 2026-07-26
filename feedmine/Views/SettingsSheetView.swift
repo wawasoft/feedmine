@@ -135,39 +135,41 @@ struct SettingsSheetView: View {
                         .tint(.blue)
                 }
 
-                // MARK: - Downloads
-                Section {
-                    Picker("Prefer", selection: $downloadMode) {
-                        Text("WiFi only").tag(DownloadMode.wifi)
-                        Text("WiFi + Cellular").tag(DownloadMode.cellular)
+                if DownloadManager.isEnabled {
+                    // MARK: - Downloads
+                    Section {
+                        Picker("Prefer", selection: $downloadMode) {
+                            Text("WiFi only").tag(DownloadMode.wifi)
+                            Text("WiFi + Cellular").tag(DownloadMode.cellular)
+                        }
+
+                        Picker("Storage limit", selection: $storageLimitOption) {
+                            Text("500 MB").tag(0)
+                            Text("1 GB").tag(1)
+                            Text("2 GB").tag(2)
+                            Text("5 GB").tag(3)
+                        }
+
+                        Picker("Auto-delete", selection: $autoDeleteOption) {
+                            Text("After read").tag(0)
+                            Text("After 7 days").tag(1)
+                            Text("Manual").tag(2)
+                        }
+                    } header: {
+                        Label("Downloads", systemImage: "arrow.down.circle")
+                    } footer: {
+                        Text("Free space: \(formattedFreeSpace) — Safe floor: 200 MB")
                     }
 
-                    Picker("Storage limit", selection: $storageLimitOption) {
-                        Text("500 MB").tag(0)
-                        Text("1 GB").tag(1)
-                        Text("2 GB").tag(2)
-                        Text("5 GB").tag(3)
-                    }
-
-                    Picker("Auto-delete", selection: $autoDeleteOption) {
-                        Text("After read").tag(0)
-                        Text("After 7 days").tag(1)
-                        Text("Manual").tag(2)
-                    }
-                } header: {
-                    Label("Downloads", systemImage: "arrow.down.circle")
-                } footer: {
-                    Text("Free space: \(formattedFreeSpace) — Safe floor: 200 MB")
-                }
-
-                if !activeRules.isEmpty {
-                    Section("Active rules") {
-                        ForEach(activeRules, id: \.id) { rule in
-                            HStack {
-                                Text(ruleLabel(for: rule))
-                                Spacer()
-                                Text("\(rule.maxItems) ep")
-                                    .foregroundStyle(.secondary)
+                    if !activeRules.isEmpty {
+                        Section("Active rules") {
+                            ForEach(activeRules, id: \.id) { rule in
+                                HStack {
+                                    Text(ruleLabel(for: rule))
+                                    Spacer()
+                                    Text("\(rule.maxItems) ep")
+                                        .foregroundStyle(.secondary)
+                                }
                             }
                         }
                     }

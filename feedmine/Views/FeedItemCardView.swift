@@ -458,7 +458,7 @@ struct FeedItemCardView: View, Equatable {
     private var cardContextMenu: some View {
         BookmarkBoxContextMenu(itemID: item.id)
 
-        if item.isPodcast || item.canResolveArticleImage {
+        if DownloadManager.isEnabled, item.isPodcast || item.canResolveArticleImage {
             Button {
                 let impact = UIImpactFeedbackGenerator(style: .medium)
                 impact.impactOccurred()

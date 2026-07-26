@@ -4,6 +4,12 @@ import GRDB
 actor DownloadManager {
     static let shared = DownloadManager()
 
+    /// Feature flag: set to `true` when the offline download system is
+    /// ready to ship.  All UI entry points and download processing are
+    /// gated behind this flag to keep the feature hidden without removing
+    /// the implementation code.
+    nonisolated static let isEnabled = false
+
     // MARK: - Configuration
     var mode: DownloadMode {
         get { _mode }
