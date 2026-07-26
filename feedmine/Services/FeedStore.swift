@@ -89,11 +89,19 @@ final class FeedStore {
 
     /// Whether the Downloaded filter is currently active.
     /// Set automatically on Airplane Mode, or manually by the user.
+    /// True while restoreFilters() is running — suppresses the didSet flush
+    /// so we don't race with start()'s explicit reloadFromSQLite().
+    private var isRestoringFilters = false
+
     var isDownloadedFilterActive = false {
         didSet {
             guard oldValue != isDownloadedFilterActive else { return }
             // Persist immediately so the filter state survives app kill.
             Settings.filterDownloaded = isDownloadedFilterActive
+            // Suppress during startup — start() already calls reloadFromSQLite()
+            // after restoreFilters(), so the didSet's .flush would only race
+            // with it and potentially clear items that were just painted.
+            guard !isRestoringFilters else { return }
             if isDownloadedFilterActive {
                 // Refresh the downloaded-ID cache, then reload from SQLite
                 // (skipping network fetches — they can't produce downloaded
@@ -1697,6 +1705,9 @@ final class FeedStore {
     }
 
     func restoreFilters() {
+        isRestoringFilters = true
+        defer { isRestoringFilters = false }
+
         let hasActiveFilters = Settings.filterRegion != nil
             || !Settings.filterTaxonomyNodes.isEmpty
             || (FeedLoader.ContentType(rawValue: Settings.filterContentType) ?? .all) != .all
