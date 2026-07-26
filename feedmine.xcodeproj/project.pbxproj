@@ -144,6 +144,7 @@
 		CF36595BD78C6471862CCDFA /* Feeds in Resources */ = {isa = PBXBuildFile; fileRef = C9D10487C40978550CFC89E0 /* Feeds */; };
 		CF94A6D42BA66022491AFBB1 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D745713BD34704CA15C6B7 /* ToastView.swift */; };
 		D26264DD9426898F965FE571 /* en-IN.json in Resources */ = {isa = PBXBuildFile; fileRef = D5AA62642FA1053E7D884BAB /* en-IN.json */; };
+		D334710E7786B6D0CD3AED3F /* TaxonomyNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01918778F67EB8117805737D /* TaxonomyNodeTests.swift */; };
 		D38D54D8947B48111A20C2F1 /* CountryDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6342E15342EF9B64DB2D8F96 /* CountryDetailScreen.swift */; };
 		D8AE540374FDBC91F0A3AD83 /* CatalogExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C327A244CC1E099C389F53 /* CatalogExploreView.swift */; };
 		D98F1BBAF46834AFA412E820 /* InputParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF8FAEE336D8023B768D9B /* InputParserTests.swift */; };
@@ -194,6 +195,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01918778F67EB8117805737D /* TaxonomyNodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonomyNodeTests.swift; sourceTree = "<group>"; };
 		01C4ABF16D3BCCA6595D02EA /* AudioPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerManager.swift; sourceTree = "<group>"; };
 		039DBB7DEDD7E8E101EBA9AC /* hr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = hr.json; sourceTree = "<group>"; };
 		041966E00C3974A5347DEE4A /* SourceScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceScheduler.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 				29F2BBD5E8D67FBB69DAE0DA /* ReservoirTests.swift */,
 				8A6F994DBEA68B4E07E4DF25 /* SourceSchedulerTests.swift */,
 				809994298F52F3B11361D6F3 /* SQLiteCatalogStoreTests.swift */,
+				01918778F67EB8117805737D /* TaxonomyNodeTests.swift */,
 				D4AE3F2D11A4FB68D2A48BEC /* TaxonomyStoreTests.swift */,
 			);
 			path = feedmineTests;
@@ -874,6 +877,7 @@
 				2EA55D1122EE30642380948D /* ReservoirTests.swift in Sources */,
 				4C16F108EB5C219D9F40BC2A /* SQLiteCatalogStoreTests.swift in Sources */,
 				B7CF129DF269C233F2DA193D /* SourceSchedulerTests.swift in Sources */,
+				D334710E7786B6D0CD3AED3F /* TaxonomyNodeTests.swift in Sources */,
 				1B62EC9E465AF813C864AB66 /* TaxonomyStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
