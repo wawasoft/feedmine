@@ -73,6 +73,7 @@ actor ImagePrefetcher {
                 continue
             }
         }
+        Log.feed.warning("ImagePrefetcher: all candidates failed for \(url.absoluteString)")
     }
 
     /// Resolve article-page artwork (Open Graph / Twitter / srcset) and cache
