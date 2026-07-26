@@ -679,6 +679,33 @@ final class ImageCache {
             totalSize += entry.byteCount
         }
         diskCacheSize = totalSize
+        // If the cache exceeds the limit on cold launch (e.g., previous
+        // sessions accumulated content without triggering eviction), trim now.
+        if diskCacheSize > Self.maxDiskCacheSize {
+            await evictOldestToTarget()
+        }
+    }
+
+    private func evictOldestToTarget() async {
+        let target = Self.maxDiskCacheSize * 8 / 10
+        guard let files = try? fileManager.contentsOfDirectory(
+            at: diskCacheURL, includingPropertiesForKeys: [.contentModificationDateKey, .fileSizeKey],
+            options: .skipsHiddenFiles
+        ) else { return }
+        var sorted = files.compactMap { url -> (URL, Date, Int)? in
+            guard let values = try? url.resourceValues(forKeys: [.contentModificationDateKey, .fileSizeKey]),
+                  let date = values.contentModificationDate,
+                  let size = values.fileSize else { return nil }
+            return (url, date, size)
+        }.sorted(by: { $0.1 < $1.1 })  // oldest first
+        var freed = 0
+        for (url, _, size) in sorted {
+            guard diskCacheSize - freed > target else { break }
+            try? fileManager.removeItem(at: url)
+            freed += size
+        }
+        diskCacheSize -= freed
+        if diskCacheSize < 0 { diskCacheSize = 0 }
     }
 
     private func didWriteToDisk(bytes: Int) {

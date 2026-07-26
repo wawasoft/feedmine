@@ -250,8 +250,9 @@ actor DownloadManager {
 
     func status(for itemID: String) -> DownloadStatus {
         if let cached = statusCache[itemID] { return cached }
-        // Trigger async load; synchronously return best-effort default.
-        Task { await loadStatusFromDB(itemID: itemID) }
+        // Return best-effort default without spawning a Task — the cache is
+        // seeded from the DB on first access (loadCachesFromDB), and callers
+        // that need the authoritative value should await status(for:) directly.
         return .queued
     }
 
