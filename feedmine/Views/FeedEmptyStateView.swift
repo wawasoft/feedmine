@@ -4,6 +4,7 @@ enum FeedEmptyMode {
     case noSourcesEnabled
     case fetching(topic: String, fetched: Int, total: Int)
     case noResults(topic: String)
+    case noOfflineContent
     case generic
 }
 
@@ -133,6 +134,7 @@ struct FeedEmptyStateView: View {
         case .noSourcesEnabled: return "globe.americas.fill"
         case .fetching: return "magnifyingglass"
         case .noResults: return "tray"
+        case .noOfflineContent: return "arrow.down.circle"
         case .generic:
             if loader.loadingState == .initial {
                 return "antenna.radiowaves.left.and.right"
@@ -153,6 +155,7 @@ struct FeedEmptyStateView: View {
         case .noSourcesEnabled: return String(localized: "No sources enabled", comment: "Empty state title")
         case .fetching(let topic, _, _): return String(localized: "Searching for \(topic)...", comment: "Empty state title — fetching")
         case .noResults(let topic): return String(localized: "No articles found for \(topic)", comment: "Empty state title — no results")
+        case .noOfflineContent: return String(localized: "No offline content", comment: "Empty state title — no offline content")
         case .generic:
             if loader.loadingState == .initial {
                 return String(localized: "Loading your feed...", comment: "Empty state title")
@@ -176,6 +179,8 @@ struct FeedEmptyStateView: View {
             return String(localized: "We're fetching the latest articles from \(total) sources in \(topic). They'll appear here as they arrive.", comment: "Empty state description — fetching")
         case .noResults:
             return String(localized: "These sources may not have published recently. Try a different topic or check back later.", comment: "Empty state description — no results")
+        case .noOfflineContent:
+            return String(localized: "Download articles or podcasts to read them offline. Tap and hold any card and choose \"Download for Offline.\"", comment: "Empty state description — no offline content")
         case .generic:
             if loader.loadingState == .initial {
                 return String(localized: "Fetching articles from \(loader.sourceCount) sources.", comment: "Empty state description")
