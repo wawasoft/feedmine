@@ -185,7 +185,7 @@ final class SourceScheduler {
                     let score = regionDeficit * catDeficit * timeFactor * contentTypeBoost * languageBoost
                         * (presetMultipliers[source.url] ?? 1.0)
                     let finalScore = max(score, 0.01) * Double.random(in: 0.98...1.02)
-                    if finalScore > 0 { scored.append((source, finalScore)) }
+                    if finalScore > 0, !finalScore.isNaN { scored.append((source, finalScore)) }
                 }
             }
 
