@@ -148,7 +148,12 @@ enum ExportEngine {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         encoder.dateEncodingStrategy = .iso8601
-        return (try? encoder.encode(backup)) ?? Data()
+        do {
+            return try encoder.encode(backup)
+        } catch {
+            Log.feed.error("ExportEngine: failed to encode backup JSON: \(error.localizedDescription)")
+            return Data()
+        }
     }
 
     // MARK: - CSV
@@ -487,11 +492,17 @@ enum ExportEngine {
             let link = "feedmine://import?url=\(encoded)"
             return .text("\(source.title)\n\(link)")
         }
-        // Batch: generate temp OPML file for attachment
+        // Batch: generate temp OPML file for attachment. Use UUID to avoid
+        // second-granularity naming collisions and ensure the file is unique.
         let data = opml(sources: sources, title: "Shared Feeds")
         let tempURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("feedmine-share-\(Int(Date().timeIntervalSince1970)).opml")
-        try? data.write(to: tempURL)
+            .appendingPathComponent("feedmine-share-\(UUID().uuidString).opml")
+        do {
+            try data.write(to: tempURL)
+        } catch {
+            Log.feed.error("ExportEngine: failed to write temp OPML: \(error.localizedDescription)")
+            return .text("Could not export feeds")
+        }
         return .file(tempURL, "Share \(sources.count) feeds")
     }
 
