@@ -76,6 +76,9 @@ enum PresetScorer {
         case .currentEvents:  return .currentEvents
         case .evergreen:      return .evergreen
         case .globalMix:      return .globalMix
+        @unknown default:
+            Log.feed.warning("PresetScorer: unknown preset, falling back to .everything")
+            return .everything
         }
     }
 }

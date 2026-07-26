@@ -144,7 +144,9 @@ final class WhatsNewManager {
             var seen = Set<String>()
             whatsNewPool = items.filter { seen.insert($0.sourceURL).inserted }
             promoteWhatsNewIfReady(markSurfaced: markSurfaced)
-        } catch {}
+        } catch {
+            Log.feed.error("WhatsNewManager: DB seed failed: \(error.localizedDescription)")
+        }
     }
 
     /// Replace visible carousel items in-place — used by the immediate filter
