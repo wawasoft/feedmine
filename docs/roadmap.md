@@ -64,7 +64,7 @@ Organizado em ondas sequenciais. Cada onda desbloqueia a próxima.
 | 4.1 | iCloud sync | Bookmarks e imports perdidos na troca de device |
 | 4.2 | Export enriquecido | Exportar mediaKind, região, estado enabled/disabled |
 | 4.3 | UserDefaults consolidação | AppSettings.swift existe mas chaves não foram migradas |
-| 4.4 | MomentGreeting simplificação | 28KB sem cobertura — simplificar ou testar completamente |
+| 4.4 | ~~MomentGreeting simplificação~~ | Removido do escopo de publicação |
 | 4.5 | Background actors completo | `interleave()` e `persistFetchedItems` ainda no MainActor |
 
 **Esforço estimado:** ~16-20h  
@@ -83,7 +83,7 @@ Organizado em ondas sequenciais. Cada onda desbloqueia a próxima.
 | 5.3 | Crash reporting | Sentry ou Crashlytics |
 | 5.4 | Analytics | Saber quais features são usadas |
 | 5.5 | App Store prep | Screenshots, description, ASO, metadata |
-| 5.6 | Testes restantes | FeedStore integration, MomentGreeting slots |
+| 5.6 | Testes restantes | FeedStore integration |
 
 **Esforço estimado:** ~20h  
 **Impacto:** App publicável e mantível a longo prazo.

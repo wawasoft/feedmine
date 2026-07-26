@@ -85,12 +85,10 @@ frequentemente. Custo de parse só acontece no primeiro launch após update.
 
 ---
 
-## 9. Reduzir complexidade do MomentGreeting
+## 9. ~~Reduzir complexidade do MomentGreeting~~
 
-28KB de lógica de saudação sem testes. Opções:
-
-- **Se manter:** adicionar testes para os slot fillers e o candidate selector
-- **Simplificar:** template-based com dados JSON em vez de 500+ linhas de Swift procedural
+**REMOVIDO** — A funcionalidade de greetings, o `MomentCard` e a infraestrutura
+exclusiva de contexto e sessão foram retirados do aplicativo antes da publicação.
 
 ---
 
