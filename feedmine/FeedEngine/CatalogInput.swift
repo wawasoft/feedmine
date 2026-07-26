@@ -135,6 +135,25 @@ struct CatalogSourceOccurrence: Equatable, Sendable {
             return nodes
         }
 
+        if region.hasPrefix("languages/") {
+            var nodes = [
+                CatalogInputNode(name: "Languages", kind: .topic, keyComponent: "languages"),
+            ]
+            let parts = region.components(separatedBy: "/").dropFirst()
+            for (index, part) in parts.enumerated() {
+                let displayName = Locale.current.localizedString(forLanguageCode: part)
+                    ?? displayName(fromSlug: part)
+                nodes.append(CatalogInputNode(
+                    name: displayName,
+                    kind: index == 0 ? .country : .region,
+                    keyComponent: part,
+                    language: language
+                ))
+            }
+            appendCategoryIfNeeded(category, language: language, to: &nodes)
+            return nodes
+        }
+
         return [
             CatalogInputNode(name: displayName(fromSlug: region), kind: .topic, keyComponent: region),
             CatalogInputNode(name: category, kind: .subcategory, language: language),
