@@ -55,6 +55,18 @@ struct FeedScreen: View {
         if loader.sources.isEmpty || (!loader.isGlobalFeedsEnabled && !loader.isAnyCountryEnabled) {
             return .noSourcesEnabled
         }
+        // Downloaded filter: don't show a spinner — network fetches are skipped
+        // in this mode. Show a dedicated offline-content empty state.
+        if loader.isDownloadedFilterActive && loader.items.isEmpty {
+            if loader.loadingState == .refreshing || loader.isUrgentFetching {
+                return .fetching(
+                    topic: "downloads",
+                    fetched: loader.emptyStateFetchedCount,
+                    total: 0
+                )
+            }
+            return .noOfflineContent
+        }
         if loader.hasActiveFilters && loader.items.isEmpty && (loader.loadingState == .refreshing || loader.isUrgentFetching) {
             return .fetching(
                 topic: loader.selectedNodeNames.joined(separator: ", "),

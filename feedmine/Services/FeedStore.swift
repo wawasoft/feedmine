@@ -95,13 +95,17 @@ final class FeedStore {
             // Persist immediately so the filter state survives app kill.
             Settings.filterDownloaded = isDownloadedFilterActive
             if isDownloadedFilterActive {
-                // Refresh the cache AND reapply filters after the DB read
-                // completes.  On cold start the cache is empty, so a
-                // synchronous re-filter would show all items — the async
-                // refresh+reapply closes that window.
+                // Refresh the downloaded-ID cache, then reload from SQLite
+                // (skipping network fetches — they can't produce downloaded
+                // items). A simple reapplyFiltersToVisible would only filter
+                // the current visible set; if that set is empty or contains
+                // no downloaded items, the user sees a blank feed even though
+                // the DB may have downloaded content.
                 Task {
                     await refreshDownloadedItemIDs()
-                    await MainActor.run { reapplyFiltersToVisible() }
+                    await MainActor.run {
+                        applyUpdate(.flush(skipNetworkFetch: true, generation: filterGeneration))
+                    }
                 }
             } else {
                 // Toggling OFF: re-filter immediately (no cache needed).
@@ -2585,6 +2589,9 @@ final class FeedStore {
 
     private func fetchNextBatch() async {
         guard !isSearching else { return }
+        // Downloaded filter shows only cached offline content — no network fetch
+        // can produce downloaded items, so skip the fetch entirely.
+        guard !effectiveDownloadedFilter else { return }
         let needsStarter = visibleItems.isEmpty && reservoir.reservoirCount == 0
         // The 100-source runway protects the first impression on a fresh app.
         // An empty result after a user changes filters is a different state: it
