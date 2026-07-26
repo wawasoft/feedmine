@@ -127,24 +127,33 @@ final class AudioPlayerManager {
         }
     }
 
+    /// Captured at interruption start so we don't auto-resume if the user
+    /// had explicitly paused before the interruption (e.g., phone call during
+    /// paused podcast).
+    private var wasPlayingBeforeInterruption = false
+
     private func handleInterruption(typeRaw: UInt?, optionRaw: UInt?) {
         guard let typeRaw,
               let type = AVAudioSession.InterruptionType(rawValue: typeRaw) else { return }
 
         switch type {
         case .began:
+            wasPlayingBeforeInterruption = isPlaying
             player?.pause()
             isPlaying = false
             updateNowPlaying(force: true)
         case .ended:
-            if let optionRaw,
+            if wasPlayingBeforeInterruption,
+               let optionRaw,
                AVAudioSession.InterruptionOptions(rawValue: optionRaw).contains(.shouldResume) {
                 activateSession()
                 player?.play()
                 isPlaying = true
                 updateNowPlaying(force: true)
             }
-        @unknown default: break
+            wasPlayingBeforeInterruption = false
+        @unknown default:
+            Log.feed.info("AudioPlayer: unknown interruption type \(typeRaw)")
         }
     }
 
@@ -356,7 +365,10 @@ final class AudioPlayerManager {
 
     func seek(to time: TimeInterval) {
         player?.seek(to: CMTime(seconds: time, preferredTimescale: 600))
-        currentTime = time
+        // Set scrubTime for UI feedback immediately, but let currentTime be
+        // updated by the periodic time observer once the seek actually lands.
+        // Updating currentTime synchronously would cause savePosition() to
+        // persist a position the player hasn't reached yet.
         scrubTime = time
         updateNowPlaying()
     }
