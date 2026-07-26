@@ -179,35 +179,33 @@ struct FeedScreen: View {
                     switch notification.event {
                     case .queued:
                         if let source = notification.sourceTitle {
-                            toastMessage = "\u{2B07}\u{FE0F} Download started \u{2014} \(source)"
+                            toastMessage = "⬇️ Download started — \(source)"
                             toastIcon = "arrow.down.circle"
                         }
                     case .completed:
                         if let title = notification.itemTitle {
-                            toastMessage = "\u{2705} Downloaded \u{2014} \(title)"
+                            toastMessage = "✅ Downloaded — \(title)"
                             toastIcon = "checkmark.circle.fill"
                         }
-                        // Refresh the downloaded-item cache and re-filter so
-                        // the new download appears immediately in the feed.
                         Task { await loader.refreshDownloadedCacheAndReapply() }
                     case .failed:
-                        toastMessage = "\u{26A0}\u{FE0F} Download failed \u{2014} tap to retry"
+                        toastMessage = "⚠️ Download failed — tap to retry"
                         toastIcon = "exclamationmark.triangle"
                     case .batchCompleted:
                         if let count = notification.count {
-                            toastMessage = "\u{2705} \(count) episodes downloaded"
+                            toastMessage = "✅ \(count) episodes downloaded"
                             toastIcon = "checkmark.circle.fill"
                         }
                     case .autoDownloadStarted:
                         if let count = notification.count {
-                            toastMessage = "\u{1F4E5} Auto-downloading \(count) new episodes\u{2026}"
+                            toastMessage = "📥 Auto-downloading \(count) new episodes…"
                             toastIcon = "arrow.down.circle"
                         }
                     case .storageFull:
-                        toastMessage = "\u{1F5D1}\u{FE0F} Storage full \u{2014} oldest downloads removed"
+                        toastMessage = "🗑️ Storage full — oldest downloads removed"
                         toastIcon = "trash"
                     case .airplaneModeNoDownloads:
-                        toastMessage = "\u{2708}\u{FE0F} No offline content \u{2014} download on WiFi first"
+                        toastMessage = "✈️ No offline content — download on WiFi first"
                         toastIcon = "wifi.slash"
                     }
                     withAnimation { showToast = true }
