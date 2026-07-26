@@ -5,7 +5,6 @@ struct FeedmineApp: App {
     @State private var loader = FeedLoader()
     @State private var localeManager = LocaleManager.shared
     @State private var circadianEngine = CircadianEngine.shared
-    @State private var sessionTracker = SessionTracker.shared
     @State private var audioPlayer = AudioPlayerManager.shared
     @State private var contentFilters = ContentFilterStore.shared
 
@@ -42,7 +41,6 @@ struct FeedmineApp: App {
                 .environment(loader)
                 .environment(localeManager)
                 .environment(circadianEngine)
-                .environment(sessionTracker)
                 .environment(audioPlayer)
                 .environment(contentFilters)
                 .onOpenURL { url in handleIncomingURL(url) }

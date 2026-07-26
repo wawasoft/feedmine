@@ -251,7 +251,7 @@ struct FeedScreen: View {
                 if showDebugBar {
                     CompactDebugInfo()
                 } else {
-                    CompactGreeting()
+                    CompactFeedStatus()
                 }
 
                 Spacer()
@@ -497,9 +497,6 @@ struct FeedScreen: View {
                 ScrollView {
                     LazyVStack(spacing: engine.cardGap) {
                         Color.clear.frame(height: 0).id("top")
-                        // MomentCard — contextual greeting
-                        MomentCard()
-                            .padding(.top, 12)
                         // Bookmark box header — replaces What's New in bookmark mode
                         if loader.selectedBookmarkListID != nil {
                             HStack {
@@ -776,14 +773,12 @@ struct FeedScreen: View {
 
     private func handleScenePhase(_ phase: ScenePhase) {
         if phase == .active {
-            SessionTracker.shared.onForeground()
             engine.refresh()
             // Do NOT restore scroll on foreground: SwiftUI already preserves
             // the position across background, so re-scrolling here only makes
             // the feed jump under the user. (Feed is sacred.)
         }
         if phase == .background {
-            SessionTracker.shared.onBackground()
             AudioPlayerManager.shared.savePosition()
             let allItems = loader.dateSections.flatMap(\.items)
             let idx = min(lastScrollIndex, allItems.count - 1)
@@ -844,7 +839,7 @@ private extension View {
     }
 }
 
-struct CompactGreeting: View {
+struct CompactFeedStatus: View {
     @Environment(FeedLoader.self) private var loader
     @State private var engine = CircadianEngine.shared
     @State private var showReadyPulse = false
@@ -887,7 +882,7 @@ struct CompactGreeting: View {
                     .foregroundStyle(.secondary)
             }
         }
-        // Secret gesture: triple-tap the greeting to toggle debug bar.
+        // Secret gesture: triple-tap the feed status to toggle debug bar.
         // Not exposed in Settings — intentional, for development use only.
         .onTapGesture(count: 3) {
             let impact = UIImpactFeedbackGenerator(style: .medium)

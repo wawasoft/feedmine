@@ -312,7 +312,7 @@ final class CircadianEngine {
             return .system(size: baseSize, weight: weight, design: .monospaced)
         case .georgia:
             // Georgia for headlines/articles, SF for body
-            if role == .cardTitle || role == .articleHeadline || role == .sectionHeader || role == .momentCard {
+            if role == .cardTitle || role == .articleHeadline || role == .sectionHeader {
                 return .custom("Georgia", size: baseSize).weight(weight)
             }
             return .system(size: baseSize, weight: weight)
@@ -336,11 +336,10 @@ final class CircadianEngine {
 }
 
 enum FontRole {
-    case momentCard, sectionHeader, cardTitle, articleHeadline, cardBody, cardMeta, uiLabel
+    case sectionHeader, cardTitle, articleHeadline, cardBody, cardMeta, uiLabel
 
     var defaultSize: CGFloat {
         switch self {
-        case .momentCard:      14
         case .sectionHeader:   13
         case .cardTitle:       17
         case .articleHeadline: 19
@@ -352,7 +351,6 @@ enum FontRole {
 
     var defaultWeight: Font.Weight {
         switch self {
-        case .momentCard:       .regular
         case .sectionHeader:    .semibold
         case .cardTitle:        .semibold
         case .articleHeadline:  .bold
