@@ -247,6 +247,11 @@ actor CatalogUpdateService {
     }
 
     func updateIfAvailable() async throws -> CatalogUpdateOutcome {
+        // Sweep orphaned staging directories — each failed/crashed update
+        // creates a unique staging-<UUID> dir that the defer cleanup never
+        // reached. Without this, they accumulate indefinitely.
+        cleanupOrphanedStaging()
+
         guard let active = paths.activeSnapshot(fileManager: fileManager) else {
             throw CatalogUpdateError.noLocalSnapshot
         }
@@ -410,5 +415,18 @@ actor CatalogUpdateService {
 
     private static func sha256(_ data: Data) -> String {
         SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+    }
+
+    /// Remove orphaned staging directories left behind by crashed or killed
+    /// update attempts. Each attempt creates a unique staging-UUID directory;
+    /// if the process dies before the defer cleanup runs, the directory lingers
+    /// indefinitely.
+    private func cleanupOrphanedStaging() {
+        guard let contents = try? fileManager.contentsOfDirectory(
+            at: paths.managedRootURL, includingPropertiesForKeys: nil
+        ) else { return }
+        for url in contents where url.lastPathComponent.hasPrefix("staging-") {
+            try? fileManager.removeItem(at: url)
+        }
     }
 }
