@@ -4180,11 +4180,11 @@ final class FeedStore {
                             AND sha.last_accessed_at >= ?
                       )
                 """, arguments: [
-                    Int(Date().addingTimeInterval(-2592000).timeIntervalSince1970),
-                    Int(Date().addingTimeInterval(-2592000).timeIntervalSince1970),
+                    Self.thirtyDayCutoffEpoch,
+                    Self.thirtyDayCutoffEpoch,
                 ])
                 try db.execute(sql: "DELETE FROM source_history_access WHERE last_accessed_at < ?",
-                               arguments: [Int(Date().addingTimeInterval(-2592000).timeIntervalSince1970)])
+                               arguments: [Self.thirtyDayCutoffEpoch])
             }
             try await db.vacuum()
             UserDefaults.standard.set(now, forKey: lastKey)
