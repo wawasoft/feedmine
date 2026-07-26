@@ -232,7 +232,7 @@ struct ExportView: View {
 
     private func generateExportData() -> (data: Data, filename: String)? {
         let sources = scopedSources
-        let name = "feedmine-export-\(Int(Date().timeIntervalSince1970))"
+        let name = "feedmine-export-\(UUID().uuidString)"
 
         // Bookmarks scope exports articles, not sources
         if selectedScope == .bookmarks {
