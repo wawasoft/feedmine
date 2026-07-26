@@ -102,6 +102,7 @@
 		7F4F2660160B698FAE7CEF9A /* RegionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14568059CE132E413B422BD /* RegionTests.swift */; };
 		84115152C88B3E1D8B264817 /* GreetingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD56A9505718333593122B6 /* GreetingStore.swift */; };
 		863F9CC00114089539CE5D5D /* MomentGreetingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A626A44D7E1556F17250BD2A /* MomentGreetingTests.swift */; };
+		875C0D3EF1082B0F5D486360 /* DesignTokensTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764BF2B9FC83FA706A3933A1 /* DesignTokensTests.swift */; };
 		88DB544EFA6E2CB5346FDD49 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C96B65DE9D905F00106BE67 /* ExportView.swift */; };
 		8EB72B7D23A981E8EC9BC581 /* ms.json in Resources */ = {isa = PBXBuildFile; fileRef = AD9DF5F575320271C20EC5E9 /* ms.json */; };
 		90CF2B3CCC5F80855F7A24F4 /* pt-BR.json in Resources */ = {isa = PBXBuildFile; fileRef = FAA7E9533053848D5E366042 /* pt-BR.json */; };
@@ -268,6 +269,7 @@
 		71DA23E45809E43FE1CEB964 /* CountryStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryStoreTests.swift; sourceTree = "<group>"; };
 		7211F172980C9D80444C575E /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		75A9AAAD41A543FF40BD3852 /* FeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStore.swift; sourceTree = "<group>"; };
+		764BF2B9FC83FA706A3933A1 /* DesignTokensTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokensTests.swift; sourceTree = "<group>"; };
 		767F6B4C46BB2B6082B24678 /* FilterPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPerformanceTests.swift; sourceTree = "<group>"; };
 		778A1D72491651DD118D5546 /* ja.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ja.json; sourceTree = "<group>"; };
 		785BC5DEFFC5CAFAD810F5F8 /* CatalogUpdateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogUpdateService.swift; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 				3DD7582E99C284BC5A1BF27A /* ContentVarietyDiagnostics.swift */,
 				71DA23E45809E43FE1CEB964 /* CountryStoreTests.swift */,
 				FDD68AC45197062E556EAB8F /* DatabasePerformanceTests.swift */,
+				764BF2B9FC83FA706A3933A1 /* DesignTokensTests.swift */,
 				80E5D7995547F5746D6F34E7 /* DownloadIntegrationTests.swift */,
 				D6801637DC796A38E0633500 /* DownloadManagerTests.swift */,
 				A4FBA37CC99C92AF21EEF856 /* ExportEngineTests.swift */,
@@ -852,6 +855,7 @@
 				597EA79C9BE9ECB64820FD88 /* ContentVarietyDiagnostics.swift in Sources */,
 				7740FC344AA0354EC4277109 /* CountryStoreTests.swift in Sources */,
 				D9BBF37BCBFF259C8E8A4D03 /* DatabasePerformanceTests.swift in Sources */,
+				875C0D3EF1082B0F5D486360 /* DesignTokensTests.swift in Sources */,
 				A17957384EB9661589BDF49C /* DownloadIntegrationTests.swift in Sources */,
 				1F1EADCF785B58119EBBD48B /* DownloadManagerTests.swift in Sources */,
 				FCA514B1393AE63E2B524CB9 /* ExportEngineTests.swift in Sources */,
