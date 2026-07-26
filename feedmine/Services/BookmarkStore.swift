@@ -187,6 +187,12 @@ final class BookmarkStore {
         let itemIDs = try await userDB.read { db in
             try String.fetchAll(db, sql: "SELECT DISTINCT item_id FROM bookmark_item")
         }
+        guard !itemIDs.isEmpty else {
+            try await contentDB.write { db in
+                try db.execute(sql: "DELETE FROM bookmark_item")
+            }
+            return
+        }
         try await contentDB.write { db in
             try db.execute(sql: "DELETE FROM bookmark_item")
             let listID = try Int64.fetchOne(
@@ -194,11 +200,21 @@ final class BookmarkStore {
                 sql: "SELECT id FROM bookmark_list WHERE is_default = 1 LIMIT 1"
             ) ?? 1
             let now = Int(Date().timeIntervalSince1970)
-            for itemID in itemIDs {
+            // Batch INSERT: process in chunks of 500 to stay under SQLite's
+            // bind-variable limit (default 999 for SQLITE_MAX_VARIABLE_NUMBER).
+            for chunk in stride(from: 0, to: itemIDs.count, by: 500) {
+                let batch = itemIDs[chunk..<min(chunk + 500, itemIDs.count)]
+                let placeholders = batch.map { _ in "(?, ?, ?)" }.joined(separator: ", ")
+                var args: [DatabaseValueConvertible] = []
+                for itemID in batch {
+                    args.append(listID)
+                    args.append(itemID)
+                    args.append(now)
+                }
                 try db.execute(sql: """
                     INSERT OR IGNORE INTO bookmark_item (list_id, item_id, added_at)
-                    SELECT ?, id, ? FROM feed_item WHERE id = ?
-                    """, arguments: [listID, now, itemID])
+                    VALUES \(placeholders)
+                    """, arguments: StatementArguments(args))
             }
         }
     }
@@ -211,16 +227,16 @@ final class BookmarkStore {
                 arguments: [itemID]
             ) ?? 0 > 0
         }
+        // Read listID from userDB (canonical owner), not contentDB which only
+        // has a mirror table that may be out of sync.
+        let listID = await defaultListID()
         try await contentDB.write { db in
             if isPinned {
-                let listID = try Int64.fetchOne(
-                    db,
-                    sql: "SELECT id FROM bookmark_list WHERE is_default = 1 LIMIT 1"
-                ) ?? 1
+                let now = Int(Date().timeIntervalSince1970)
                 try db.execute(sql: """
                     INSERT OR IGNORE INTO bookmark_item (list_id, item_id, added_at)
                     SELECT ?, id, ? FROM feed_item WHERE id = ?
-                    """, arguments: [listID, Int(Date().timeIntervalSince1970), itemID])
+                    """, arguments: [listID, now, itemID])
             } else {
                 try db.execute(sql: "DELETE FROM bookmark_item WHERE item_id = ?", arguments: [itemID])
             }
