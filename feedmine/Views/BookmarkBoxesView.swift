@@ -9,6 +9,7 @@ struct BookmarkBoxesView: View {
     @State private var renameTarget: BookmarkList?
     @State private var renameName = ""
     @State private var reorderEnabled = false
+    @State private var reorderTask: Task<Void, Never>?
 
     var body: some View {
         List {
@@ -79,10 +80,13 @@ struct BookmarkBoxesView: View {
                 }
                 .onMove { from, to in
                     boxes.move(fromOffsets: from, toOffset: to)
-                    Task {
+                    reorderTask?.cancel()
+                    reorderTask = Task {
                         for (idx, box) in boxes.enumerated() {
+                            guard !Task.isCancelled else { return }
                             try? await loader.reorderBookmarkList(box.id, sortOrder: idx)
                         }
+                        guard !Task.isCancelled else { return }
                         await loader.refreshBookmarkLists()
                     }
                 }
