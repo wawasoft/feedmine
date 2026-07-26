@@ -115,6 +115,7 @@ final class ContentFilterStore {
     func toggle(_ id: UUID) {
         guard let idx = filters.firstIndex(where: { $0.id == id }) else { return }
         filters[idx].isEnabled.toggle()
+        invalidateFilterCache()
         persist()
     }
 
@@ -125,11 +126,13 @@ final class ContentFilterStore {
                 .filter { !$0.isEmpty }
         )
         filters.append(filter)
+        invalidateFilterCache()
         persist()
     }
 
     func removeCustom(_ id: UUID) {
         filters.removeAll { $0.id == id && !$0.isTemplate }
+        invalidateFilterCache()
         persist()
     }
 
@@ -137,6 +140,7 @@ final class ContentFilterStore {
         guard let idx = filters.firstIndex(where: { $0.id == id }) else { return }
         filters[idx].keywords = keywords.map { $0.trimmingCharacters(in: .whitespaces).lowercased() }
             .filter { !$0.isEmpty }
+        invalidateFilterCache()
         persist()
     }
 
@@ -148,14 +152,30 @@ final class ContentFilterStore {
 
     func resetDailyCounts() {
         for i in filters.indices { filters[i].hiddenCount = 0 }
+        // Don't invalidate cache — keyword sets haven't changed
         persist()
     }
 
     // MARK: - Active filters (pre-computed for hot path)
 
     /// Returns only enabled filters with their lowercased keywords ready for matching.
+    /// Cached to avoid recomputing diacritic folding on every filter evaluation.
     var activeFilters: [(id: UUID, keywords: [String])] {
-        filters.filter(\.isEnabled).map { ($0.id, $0.keywords.map { $0.folding(options: .diacriticInsensitive, locale: nil) }) }
+        if let cached = _cachedActiveFilters, cached.generation == _filterGeneration {
+            return cached.filters
+        }
+        let result = filters.filter(\.isEnabled).map {
+            ($0.id, $0.keywords.map { $0.folding(options: .diacriticInsensitive, locale: nil) })
+        }
+        _cachedActiveFilters = (filters: result, generation: _filterGeneration)
+        return result
+    }
+    @ObservationIgnored private var _cachedActiveFilters: (filters: [(id: UUID, keywords: [String])], generation: Int)?
+    @ObservationIgnored private var _filterGeneration = 0
+
+    /// Invalidate the activeFilters cache. Call after any mutation to `filters`.
+    private func invalidateFilterCache() {
+        _filterGeneration &+= 1
     }
 
     // MARK: - Persistence
@@ -174,6 +194,7 @@ final class ContentFilterStore {
         isEnabled = UserDefaults.standard.object(forKey: "contentFiltersEnabled") as? Bool ?? true
         guard FileManager.default.fileExists(atPath: persistURL.path) else {
             loadTemplates()
+            invalidateFilterCache()
             return
         }
         do {
@@ -183,6 +204,7 @@ final class ContentFilterStore {
             Log.feed.error("restore error: \(error)")
             loadTemplates()
         }
+        invalidateFilterCache()
     }
 
     // MARK: - Bundle loading
