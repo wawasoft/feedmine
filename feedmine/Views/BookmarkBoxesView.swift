@@ -61,13 +61,17 @@ struct BookmarkBoxesView: View {
                         .tint(.blue)
                         Button(role: .destructive) {
                             Task {
-                                try? await loader.deleteBookmarkList(box.id)
-                                boxes.removeAll { $0.id == box.id }
-                                if loader.selectedBookmarkListID == box.id {
-                                    loader.selectedBookmarkListID = nil
-                                }
-                                if loader.preferredBookmarkListID == box.id {
-                                    loader.preferredBookmarkListID = nil
+                                do {
+                                    try await loader.deleteBookmarkList(box.id)
+                                    boxes.removeAll { $0.id == box.id }
+                                    if loader.selectedBookmarkListID == box.id {
+                                        loader.selectedBookmarkListID = nil
+                                    }
+                                    if loader.preferredBookmarkListID == box.id {
+                                        loader.preferredBookmarkListID = nil
+                                    }
+                                } catch {
+                                    // Keep box in list if deletion fails
                                 }
                             }
                         } label: { Label("Delete", systemImage: "trash") }
