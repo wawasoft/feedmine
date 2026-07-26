@@ -8,6 +8,8 @@ struct OnboardingTipsView: View {
     @State private var currentTip = 0
     @State private var selectedInterestIDs: Set<String> = []
     @State private var didSeedExistingSelection = false
+    /// Cached to avoid 14+ taxonomy searches on every body evaluation.
+    @State private var cachedInterestOptions: [InterestOption]?
 
     private struct InterestDefinition: Identifiable {
         let id: String
@@ -80,7 +82,8 @@ struct OnboardingTipsView: View {
     ]
 
     private var interestOptions: [InterestOption] {
-        interestDefinitions.compactMap { definition in
+        if let cached = cachedInterestOptions { return cached }
+        let options = interestDefinitions.compactMap { definition -> InterestOption? in
             guard let node = taxonomy.search(definition.name).first(where: {
                 $0.name.compare(
                     definition.name,
@@ -94,6 +97,8 @@ struct OnboardingTipsView: View {
                 feedCount: node.feedCount
             )
         }
+        cachedInterestOptions = options
+        return options
     }
 
     private var isInterestStep: Bool { currentTip == tips.count }
