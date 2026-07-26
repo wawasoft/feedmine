@@ -34,8 +34,10 @@ actor DownloadManager {
 
     // MARK: - Internal state
     private let cachesDirectory: URL = {
-        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("Downloads", isDirectory: true)
+        guard let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            fatalError("DownloadManager: cachesDirectory is unavailable — app sandbox may be misconfigured")
+        }
+        return caches.appendingPathComponent("Downloads", isDirectory: true)
     }()
 
     /// Use default URLSession config — the async `download(from:)` API works
@@ -69,23 +71,36 @@ actor DownloadManager {
         self.notificationContinuation = continuation
         try? FileManager.default.createDirectory(at: cachesDirectory, withIntermediateDirectories: true)
 
-        // Seed the running storage total from the DB on first access.
-        Task { await loadStorageTotalFromDB() }
+        // Seed the running storage total and caches from the DB on first access.
+        Task { await loadCachesFromDB() }
     }
 
-    private func loadStorageTotalFromDB() async {
+    private func loadCachesFromDB() async {
         do {
             let db = await FeedStore.sharedDB()
-            let total = try await db.read { db in
-                try Int64.fetchOne(db, sql: """
-                    SELECT COALESCE(SUM(audio_bytes + page_bytes), 0)
+            let rows = try await db.read { db in
+                try Row.fetchAll(db, sql: """
+                    SELECT item_id, status, audio_bytes, page_bytes
                     FROM download
-                    WHERE status IN ('completed', 'failed_page')
-                """) ?? 0
+                    WHERE status IN ('completed', 'failed_page', 'downloading_audio', 'downloading_page')
+                """)
+            }
+            var total: Int64 = 0
+            for row in rows {
+                let statusStr: String = row["status"]
+                let itemID: String = row["item_id"]
+                if statusStr == DownloadStatus.completed.rawValue || statusStr == DownloadStatus.failedPage.rawValue {
+                    total += Int64((row["audio_bytes"] as Int64?) ?? 0) + Int64((row["page_bytes"] as Int64?) ?? 0)
+                    if let status = DownloadStatus(rawValue: statusStr) {
+                        statusCache[itemID] = status
+                    }
+                } else if let status = DownloadStatus(rawValue: statusStr) {
+                    statusCache[itemID] = status
+                }
             }
             _storageUsed = total
         } catch {
-            Log.feed.error("DownloadManager.loadStorageTotal: \(error.localizedDescription)")
+            Log.feed.error("DownloadManager.loadCachesFromDB: \(error.localizedDescription)")
         }
     }
 
@@ -156,6 +171,7 @@ actor DownloadManager {
         activeTasks[itemID]?.cancel()
         activeTasks[itemID] = nil
 
+        var bytesToSubtract: Int64 = 0
         do {
             let db = await FeedStore.sharedDB()
             // Read record before deleting so we can subtract from running total
@@ -165,8 +181,7 @@ actor DownloadManager {
                     .fetchOne(db)
             }
             if let record {
-                _storageUsed -= Int64(record.audioBytes + record.pageBytes)
-                if _storageUsed < 0 { _storageUsed = 0 }
+                bytesToSubtract = Int64(record.audioBytes + record.pageBytes)
             }
             _ = try await db.write { db in
                 try DownloadRecord
@@ -177,6 +192,10 @@ actor DownloadManager {
             Log.feed.error("DownloadManager.cancel DB error: \(error.localizedDescription)")
             // Still clean up bundle even if DB delete failed — don't leave orphans.
         }
+        // Always subtract from running total, even on DB error, to prevent
+        // permanent overcounting from orphaned rows.
+        _storageUsed -= bytesToSubtract
+        if _storageUsed < 0 { _storageUsed = 0 }
         // Clean up partial/full bundle
         let bundle = cachesDirectory.appendingPathComponent(itemID)
         try? FileManager.default.removeItem(at: bundle)
@@ -244,7 +263,10 @@ actor DownloadManager {
     /// Expose the downloads directory path so FeedStore can use it without
     /// duplicating path construction.
     nonisolated static func bundlePath(for itemID: String) -> URL {
-        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        guard let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            fatalError("DownloadManager.bundlePath: cachesDirectory unavailable")
+        }
+        return caches
             .appendingPathComponent("Downloads", isDirectory: true)
             .appendingPathComponent(itemID)
     }
@@ -269,6 +291,25 @@ actor DownloadManager {
             else { return }                             // Cellular — skip
         }
 
+        // Batch-fetch all queued/completed item IDs to avoid N+1 queries.
+        let allCandidateIDs = items.map(\.id)
+        var queuedOrCompleted: Set<String> = []
+        if !allCandidateIDs.isEmpty {
+            do {
+                let ids = try await db.read { db in
+                    try String.fetchAll(db, sql: """
+                        SELECT item_id FROM download
+                        WHERE item_id IN (\(allCandidateIDs.map { _ in "?" }.joined(separator: ",")))
+                        AND status IN ('queued', 'downloading_audio', 'downloading_page', 'completed')
+                    """, arguments: StatementArguments(allCandidateIDs))
+                }
+                queuedOrCompleted = Set(ids)
+            } catch {
+                // On DB error, assume nothing is queued so we don't silently
+                // block all auto-downloads on transient errors.
+            }
+        }
+
         var toEnqueue: [FeedItem] = []
         for rule in rules {
             let matching = items.filter { item in
@@ -282,13 +323,7 @@ actor DownloadManager {
             let candidates = Array(sorted.prefix(count))
             for item in candidates {
                 let alreadyDownloaded = isDownloaded(itemID: item.id)
-                // On DB error, assume NOT queued (false) so we don't silently
-                // block all auto-downloads on transient errors.
-                let alreadyQueued: Bool = (try? await db.read { db in
-                    try DownloadRecord
-                        .filter(DownloadRecord.Columns.itemID == item.id)
-                        .fetchCount(db)
-                } > 0) ?? false
+                let alreadyQueued = queuedOrCompleted.contains(item.id)
                 if !alreadyDownloaded && !alreadyQueued {
                     toEnqueue.append(item)
                 }
@@ -527,6 +562,8 @@ actor DownloadManager {
                     try? await db.write { db in try rFail.update(db) }
                     notify(.init(event: .failed, itemID: rec.itemID,
                                  sourceTitle: sourceTitle, itemTitle: itemTitle, count: nil))
+                    // Clean up partial bundle so isDownloaded doesn't return a false positive.
+                    try? FileManager.default.removeItem(at: bundle)
                     return
                 }
                 let r2 = rec
@@ -592,15 +629,26 @@ actor DownloadManager {
                 // Copy cached images into bundle so WKWebView resolves them.
                 // Use copy (not hard link) for accurate storageUsed accounting.
                 let imagesDir = bundle.appendingPathComponent("images", isDirectory: true)
-                try? FileManager.default.createDirectory(at: imagesDir, withIntermediateDirectories: true)
+                do {
+                    try FileManager.default.createDirectory(at: imagesDir, withIntermediateDirectories: true)
+                } catch {
+                    Log.feed.error("DownloadManager: failed to create images dir: \(error.localizedDescription)")
+                }
                 for (url, key) in imageKeys {
                     let cacheFile = await ImageCache.shared.cacheFileURL(for: url)
                     let dest = imagesDir.appendingPathComponent(key)
                     if FileManager.default.fileExists(atPath: cacheFile.path),
                        !FileManager.default.fileExists(atPath: dest.path) {
-                        try? FileManager.default.copyItem(at: cacheFile, to: dest)
+                        do {
+                            try FileManager.default.copyItem(at: cacheFile, to: dest)
+                        } catch {
+                            Log.feed.error("DownloadManager: failed to copy image \(key): \(error.localizedDescription)")
+                        }
                     }
                 }
+                // Check cancellation after suspension point — prevent double-counting
+                // if cancel() ran while we were awaiting image copies.
+                try Task.checkCancellation()
 
                 let pageSize = (try? pageFile.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
                 rec.pagePath = "page.html"
@@ -615,6 +663,7 @@ actor DownloadManager {
                 // Update running storage total.
                 _storageUsed += Int64(rec.audioBytes + rec.pageBytes)
             } catch is CancellationError {
+                try? FileManager.default.removeItem(at: bundle)
                 return
             } catch {
                 rec.status = DownloadStatus.failedPage.rawValue
@@ -622,6 +671,11 @@ actor DownloadManager {
                 statusCache[rec.itemID] = .failedPage
                 if rec.audioPath != nil {
                     _storageUsed += Int64(rec.audioBytes)
+                }
+                // Clean up partial bundle so isDownloaded doesn't return a false positive
+                // for articles (no audio, so the directory would be empty).
+                if rec.audioPath == nil {
+                    try? FileManager.default.removeItem(at: bundle)
                 }
             }
 

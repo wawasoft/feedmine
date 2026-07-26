@@ -2,13 +2,16 @@ import SwiftUI
 import UIKit
 
 struct FeedItemCardView: View, Equatable {
-    /// Skips action closures (not Equatable) and @State/@AppStorage/
-    /// @Environment properties (tracked independently by SwiftUI).
+    /// Skips action closures (not Equatable). @State properties are included
+    /// because .equatable() gates body recomputation on == result — SwiftUI
+    /// does NOT independently track @State when .equatable() is active.
     nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.item == rhs.item
         && lhs.isRead == rhs.isRead
         && lhs.isBookmarked == rhs.isBookmarked
         && lhs.isInBookmarkBox == rhs.isInBookmarkBox
+        && lhs.imageLoadFailed == rhs.imageLoadFailed
+        && lhs.imageAppeared == rhs.imageAppeared
     }
     let item: FeedItem
     let isRead: Bool

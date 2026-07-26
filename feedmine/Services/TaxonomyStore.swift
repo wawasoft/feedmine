@@ -183,7 +183,7 @@ final class TaxonomyStore {
         )
 
         // Build flat index
-        flatIndex = Dictionary(uniqueKeysWithValues: tree.map { ($0.key, $0.value.node) })
+        flatIndex = Dictionary(tree.map { ($0.key, $0.value.node) }, uniquingKeysWith: { first, _ in first })
         // A rebuild can finish while a topic is being chosen. Keep only
         // selections whose stable node IDs remain in the refreshed catalogue.
         selectedNodeIDs = selectedBeforeRebuild.filter { flatIndex[$0] != nil }
@@ -306,6 +306,37 @@ final class TaxonomyStore {
                 slug: "imported", name: "Imported",
                 language: source.language, kind: .topic
             ))
+            let subSlug = source.category
+                .lowercased()
+                .replacingOccurrences(of: "&", with: "and")
+                .replacingOccurrences(of: " ", with: "_")
+            segments.append(PathSegment(
+                slug: subSlug, name: source.category,
+                language: source.language, kind: .subcategory
+            ))
+        } else if region.hasPrefix("languages/") {
+            // Languages path mirrors countries/: languages → language → subcategory.
+            // sources with per-language region grouping (e.g. "languages/spanish"
+            // or "languages/pt") need the same tree structure as countries.
+            if segments.isEmpty || segments.last?.slug != "languages" {
+                segments.append(PathSegment(
+                    slug: "languages", name: "Languages",
+                    language: nil, kind: .topic
+                ))
+            }
+
+            let parts = region.components(separatedBy: "/")
+            // parts[0] = "languages", parts[1] = language code, parts[2+] = sub-group
+            for (idx, part) in parts.enumerated() where idx >= 1 {
+                let kind: NodeKind = idx == 1 ? .country : .region
+                let displayName = Locale.current.localizedString(forLanguageCode: part)
+                    ?? part.replacingOccurrences(of: "-", with: " ").capitalized
+                segments.append(PathSegment(
+                    slug: part, name: displayName,
+                    language: source.language, kind: kind
+                ))
+            }
+
             let subSlug = source.category
                 .lowercased()
                 .replacingOccurrences(of: "&", with: "and")

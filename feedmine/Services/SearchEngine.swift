@@ -56,6 +56,9 @@ final class SearchEngine {
             var configuration = Configuration()
             configuration.readonly = true
             self.catalogDB = try? DatabaseQueue(path: catalogURL.path, configuration: configuration)
+            if self.catalogDB == nil {
+                Log.feed.error("Failed to open catalog database at \(catalogURL.path)")
+            }
         } else {
             self.catalogDB = nil
         }
@@ -123,7 +126,6 @@ final class SearchEngine {
                     JOIN feed_item_fts ON feed_item_fts.rowid = fi.rowid
                     WHERE feed_item_fts MATCH ? AND fi.id IN (\(placeholders))
                     ORDER BY fi.published_at DESC
-                    LIMIT 40
                     """, arguments: StatementArguments([match] + chunk)))
             }
             return Array(matches.sorted { $0.publishedAt > $1.publishedAt }.prefix(40))
@@ -145,7 +147,7 @@ final class SearchEngine {
                 FROM feed_item fi
                 JOIN feed_item_fts ON feed_item_fts.rowid = fi.rowid
                 WHERE feed_item_fts MATCH ?
-                ORDER BY fi.published_at DESC
+                ORDER BY fi.is_read ASC, fi.published_at DESC
                 LIMIT 180
                 """, arguments: [match])
         }) ?? []
@@ -202,9 +204,13 @@ final class SearchEngine {
     private static func ftsQuery(for text: String) -> String {
         let terms = text
             .split(whereSeparator: \.isWhitespace)
-            .map { term in
-                "\"\(String(term).replacingOccurrences(of: "\"", with: "\"\""))\""
+            .map { term -> String in
+                let escaped = String(term).replacingOccurrences(of: "\"", with: "\"\"")
+                // Empty term after escaping produces invalid FTS — skip it.
+                guard !escaped.trimmingCharacters(in: .whitespaces).isEmpty else { return "\"\"" }
+                return "\"\(escaped)\""
             }
+            .filter { $0 != "\"\"" }
         return terms.isEmpty ? "\"\"" : terms.joined(separator: " ")
     }
 

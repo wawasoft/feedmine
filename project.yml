@@ -109,15 +109,28 @@ targets:
       TARGETED_DEVICE_FAMILY: "1"
     dependencies:
       - target: feedmine
+  feedmineUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: feedmineUITests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.feedmine.app.uitests
+      TARGETED_DEVICE_FAMILY: "1"
+    dependencies:
+      - target: feedmine
 schemes:
   feedmine:
     build:
       targets:
         feedmine: all
         feedmineTests: [test]
+        feedmineUITests: [test]
     run:
       config: Debug
     test:
       config: Debug
       targets:
         - feedmineTests
+        - feedmineUITests

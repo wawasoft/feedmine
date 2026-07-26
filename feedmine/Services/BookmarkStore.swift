@@ -1,6 +1,10 @@
 import Foundation
 import GRDB
 
+enum BookmarkError: Error {
+    case cannotDeleteDefaultList
+}
+
 @MainActor
 final class BookmarkStore {
     /// Bookmark identity database (user.sqlite). Owns `bookmark_list` and
@@ -32,10 +36,11 @@ final class BookmarkStore {
     func allBookmarkLists() async throws -> [BookmarkList] {
         try await userDB.read { db in
             let records = try BookmarkListRecord.order(Column("sort_order")).fetchAll(db)
-            return try records.map { r in
-                let count = try BookmarkItemRecord.filter(Column("list_id") == r.id!).fetchCount(db)
+            return try records.compactMap { r in
+                guard let id = r.id else { return nil }
+                let count = try BookmarkItemRecord.filter(Column("list_id") == id).fetchCount(db)
                 return BookmarkList(
-                    id: r.id!, name: r.name, sortOrder: r.sortOrder,
+                    id: id, name: r.name, sortOrder: r.sortOrder,
                     createdAt: Date(timeIntervalSince1970: TimeInterval(r.createdAt)),
                     isDefault: r.isDefault,
                     searchQuery: r.searchQuery, searchRegion: r.searchRegion,
@@ -134,20 +139,23 @@ final class BookmarkStore {
     func deleteBookmarkList(_ id: Int64) async throws {
         try await userDB.write { db in
             let isDefault = try Bool.fetchOne(db, sql: "SELECT is_default FROM bookmark_list WHERE id = ?", arguments: [id]) ?? false
-            guard !isDefault else { return }
+            if isDefault {
+                Log.db.error("Cannot delete default bookmark list (id=\(id))")
+                throw BookmarkError.cannotDeleteDefaultList
+            }
             try db.execute(sql: "DELETE FROM bookmark_list WHERE id = ?", arguments: [id])
         }
+        _defaultListID = nil
         try await synchronizeRetentionPins()
     }
 
     func toggleSearchActive(listID: Int64) async throws {
-        let wasActive: Bool = try await userDB.read { db in
-            try Bool.fetchOne(db, sql: "SELECT search_active FROM bookmark_list WHERE id = ?", arguments: [listID]) ?? false
-        }
-        let newState = !wasActive
-        try await userDB.write { db in
+        let newState = try await userDB.write { db -> Bool in
+            let wasActive = try Bool.fetchOne(db, sql: "SELECT search_active FROM bookmark_list WHERE id = ?", arguments: [listID]) ?? false
+            let toggled = !wasActive
             try db.execute(sql: "UPDATE bookmark_list SET search_active = ? WHERE id = ?",
-                          arguments: [newState, listID])
+                          arguments: [toggled, listID])
+            return toggled
         }
         // If activating, retroactively match existing items in SQLite
         if newState {
@@ -308,9 +316,10 @@ final class BookmarkStore {
                 .filter(Column("search_active") == 1)
                 .fetchAll(db)
         }
-        return records.map { r in
-            ActiveSearch(
-                id: r.id!, name: r.name,
+        return records.compactMap { r in
+            guard let id = r.id else { return nil }
+            return ActiveSearch(
+                id: id, name: r.name,
                 searchQuery: r.searchQuery ?? "",
                 region: r.searchRegion, category: r.searchCategory
             )
@@ -362,10 +371,11 @@ final class BookmarkStore {
             do {
                 try await userDB.write { db in
                     for id in matchedIDs {
+                        guard let searchID = search.id else { continue }
                         try db.execute(sql: """
                             INSERT OR IGNORE INTO bookmark_item (list_id, item_id, added_at)
                             VALUES (?, ?, ?)
-                        """, arguments: [search.id!, id, now])
+                        """, arguments: [searchID, id, now])
                     }
                 }
             } catch {

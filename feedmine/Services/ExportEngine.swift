@@ -73,6 +73,28 @@ struct FeedmineBackup: Codable {
 
 enum ExportEngine {
 
+    // MARK: - Formatters (cached — DateFormatter allocation is expensive)
+    // Immutable after initialization; safe for concurrent use despite not
+    // being formally Sendable.
+    private nonisolated(unsafe) static let isoFormatter: ISO8601DateFormatter = {
+        let f = ISO8601DateFormatter()
+        f.formatOptions = [.withInternetDateTime]
+        return f
+    }()
+    private nonisolated(unsafe) static let rfc822Formatter: DateFormatter = {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
+        f.timeZone = TimeZone(secondsFromGMT: 0)
+        return f
+    }()
+    private nonisolated(unsafe) static let mediumDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .medium
+        f.timeStyle = .none
+        return f
+    }()
+
     // MARK: - OPML
 
     static func opml(sources: [FeedSource], title: String = "Feedmine Export") -> Data {
@@ -82,7 +104,7 @@ enum ExportEngine {
         <opml version="2.0">
           <head>
             <title>\(xmlEscape(title))</title>
-            <dateCreated>\(ISO8601DateFormatter().string(from: Date()))</dateCreated>
+            <dateCreated>\(rfc822Formatter.string(from: Date()))</dateCreated>
             <ownerName>Feedmine</ownerName>
           </head>
           <body>\n
@@ -128,8 +150,6 @@ enum ExportEngine {
         encoder.dateEncodingStrategy = .iso8601
         return (try? encoder.encode(backup)) ?? Data()
     }
-
-    // MARK: - CSV
 
     // MARK: - CSV
 
@@ -356,7 +376,7 @@ enum ExportEngine {
     static func csvArticles(items: [FeedItem]) -> Data {
         var lines: [String] = []
         lines.append("title,url,source,date,category")
-        let formatter = ISO8601DateFormatter()
+        let formatter = isoFormatter
         for item in items.sorted(by: { $0.publishedAt > $1.publishedAt }) {
             lines.append("\(csvEscape(item.title)),\(csvEscape(item.url)),\(csvEscape(item.sourceTitle)),\(formatter.string(from: item.publishedAt)),\(csvEscape(item.category))")
         }
@@ -364,7 +384,7 @@ enum ExportEngine {
     }
 
     static func plainTextArticles(items: [FeedItem], title: String = "My Bookmarks") -> String {
-        let formatter = DateFormatter()
+        let formatter = mediumDateFormatter
         formatter.dateStyle = .medium
         var lines: [String] = [title, String(repeating: "=", count: title.count), ""]
         lines.append("\(items.count) saved articles")
@@ -381,7 +401,7 @@ enum ExportEngine {
     }
 
     static func markdownArticles(items: [FeedItem], title: String = "My Bookmarks") -> String {
-        let formatter = DateFormatter()
+        let formatter = mediumDateFormatter
         formatter.dateStyle = .medium
         var lines: [String] = ["# \(title)", ""]
         lines.append("> \(items.count) saved articles")
@@ -401,7 +421,7 @@ enum ExportEngine {
     }
 
     static func htmlArticles(items: [FeedItem], title: String = "My Bookmarks") -> Data {
-        let formatter = DateFormatter()
+        let formatter = mediumDateFormatter
         formatter.dateStyle = .medium
         var html = """
         <!DOCTYPE html>
@@ -497,7 +517,7 @@ enum ExportEngine {
     // MARK: - Helpers
 
     private static func formattedDate() -> String {
-        let formatter = DateFormatter()
+        let formatter = mediumDateFormatter
         formatter.dateStyle = .medium
         return formatter.string(from: Date())
     }

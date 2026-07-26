@@ -516,7 +516,7 @@ struct MomentGreeting {
         result = result.replacingOccurrences(of: " ,", with: ",")
         result = result.replacingOccurrences(of: "  ", with: " ")
         // Trim trailing separators
-        while result.hasSuffix(" ·") || result.hasSuffix(" ·") { result = String(result.dropLast(2)) }
+        while result.hasSuffix(" ·") || result.hasSuffix("· ") { result = String(result.dropLast(2)) }
         while result.hasSuffix(",") { result = String(result.dropLast()) }
         return result.trimmingCharacters(in: .whitespaces)
     }

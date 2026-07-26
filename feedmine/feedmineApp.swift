@@ -31,9 +31,9 @@ struct FeedmineApp: App {
         Settings.filterLanguages = []
         Settings.filterMood = FeedLoader.MoodFilter.all.rawValue
         Settings.filterSetAt = 0
+        Settings.filterDownloaded = false
         Settings.hasInitializedLanguageDefault = true
         TaxonomyStore.shared.clearSelection()
-        UserDefaults.standard.synchronize()
     }
 
     var body: some Scene {
@@ -79,7 +79,13 @@ struct FeedmineApp: App {
                         return
                     }
                     defer { url.stopAccessingSecurityScopedResource() }
-                    guard let data = try? Data(contentsOf: url) else {
+                    // Read file off the main actor — security-scoped URLs may
+                    // require kernel round-trips and large OPML files can block
+                    // the UI for hundreds of milliseconds.
+                    let data = await Task.detached(priority: .userInitiated) {
+                        try? Data(contentsOf: url)
+                    }.value
+                    guard let data else {
                         NotificationCenter.default.post(name: .feedImportCompleted, object: nil,
                             userInfo: ["message": "Could not read file"])
                         return

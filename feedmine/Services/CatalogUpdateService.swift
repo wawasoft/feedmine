@@ -378,18 +378,25 @@ actor CatalogUpdateService {
     private func activate(stagingURL: URL) throws {
         let currentURL = paths.currentURL
         let backupURL = paths.managedRootURL.appendingPathComponent("backup", isDirectory: true)
-        try? fileManager.removeItem(at: backupURL)
 
+        // Phase 1: Move current → backup FIRST (overwrite if needed).
+        // Never delete the backup before the new one is confirmed —
+        // otherwise a crash between delete and move loses both copies.
         if fileManager.fileExists(atPath: currentURL.path) {
-            try fileManager.moveItem(at: currentURL, to: backupURL)
+            _ = try? fileManager.replaceItemAt(backupURL, withItemAt: currentURL)
         }
+
+        // Phase 2: Move staging → current atomically.
+        // replaceItemAt is atomic on APFS for same-volume moves.
         do {
-            try fileManager.moveItem(at: stagingURL, to: currentURL)
+            _ = try fileManager.replaceItemAt(currentURL, withItemAt: stagingURL)
             try? fileManager.removeItem(at: backupURL)
         } catch {
+            // Phase 3: Recovery — if staging→current failed but backup exists,
+            // restore backup→current so the app keeps a working catalog.
             if fileManager.fileExists(atPath: backupURL.path),
                !fileManager.fileExists(atPath: currentURL.path) {
-                try? fileManager.moveItem(at: backupURL, to: currentURL)
+                _ = try? fileManager.replaceItemAt(currentURL, withItemAt: backupURL)
             }
             throw CatalogUpdateError.activationFailed(error.localizedDescription)
         }

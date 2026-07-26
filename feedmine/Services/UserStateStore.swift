@@ -299,6 +299,7 @@ final class SourceCollectionStore {
                 SELECT COALESCE(MAX(sort_order), -1) + 1
                 FROM source_collection_member WHERE collection_id = ?
                 """, arguments: [collectionID])) ?? 0
+            let now = Int(Date().timeIntervalSince1970)
             for source in sources {
                 try db.execute(sql: """
                     INSERT INTO source_collection_member
@@ -309,7 +310,7 @@ final class SourceCollectionStore {
                         media_kind = excluded.media_kind
                     """, arguments: [
                         collectionID, OPMLParser.normalizeURL(source.feedURL), source.title,
-                        source.mediaKind.rawValue, Int(Date().timeIntervalSince1970), order,
+                        source.mediaKind.rawValue, now, order,
                     ])
                 if db.changesCount > 0 { order += 1 }
             }
@@ -360,6 +361,7 @@ final class SourceCollectionStore {
                     SELECT COALESCE(MAX(sort_order), -1) + 1
                     FROM source_collection_member WHERE collection_id = ?
                     """, arguments: [collectionID])) ?? 0
+                let now = Int(Date().timeIntervalSince1970)
                 for source in grouped[name] ?? [] {
                     try db.execute(sql: """
                         INSERT OR IGNORE INTO source_collection_member
@@ -367,7 +369,7 @@ final class SourceCollectionStore {
                         VALUES (?, ?, ?, ?, ?, ?)
                         """, arguments: [
                             collectionID, OPMLParser.normalizeURL(source.url), source.title,
-                            source.mediaKind.rawValue, Int(Date().timeIntervalSince1970), memberOrder,
+                            source.mediaKind.rawValue, now, memberOrder,
                         ])
                     if db.changesCount > 0 {
                         migratedCount += 1

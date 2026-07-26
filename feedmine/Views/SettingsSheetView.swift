@@ -246,8 +246,18 @@ struct SettingsSheetView: View {
                         isPresented: $showResetConfirmation
                     ) {
                         Button("Reset Everything", role: .destructive) {
-                            // Reset handled by SQLite — Task 11 wires clear methods on FeedStore.
-                            // PersistenceManager.shared.save(loader.buildState()) // REMOVED: migrated to SQLite
+                            loader.clearReadHistory()
+                            loader.clearAllBookmarks()
+                            Settings.filterRegion = nil
+                            Settings.filterTaxonomyNodes = []
+                            Settings.filterContentType = FeedLoader.ContentType.all.rawValue
+                            Settings.filterLanguages = []
+                            Settings.filterMood = FeedLoader.MoodFilter.all.rawValue
+                            Settings.filterDownloaded = false
+                            Settings.filterSetAt = 0
+                            Settings.hasInitializedLanguageDefault = false
+                            Settings.hasInitializedSourceDefaults = false
+                            Settings.activePreset = .everything
                         }
                     }
 
@@ -300,10 +310,10 @@ struct SettingsSheetView: View {
                 }
 
                 Section {
-                    Link(destination: URL(string: "mailto:wmontes@gmail.com?subject=Feedmine%20Feedback")!) {
+                    Link(destination: URL(string: "mailto:wmontes@gmail.com?subject=Feedmine%20Feedback") ?? URL(string: "mailto:feedback@example.com")!) {
                         Label("Send Feedback", systemImage: "envelope.fill")
                     }
-                    Link(destination: URL(string: "https://github.com/nmdias/FeedKit")!) {
+                    Link(destination: URL(string: "https://github.com/nmdias/FeedKit") ?? URL(string: "https://github.com")!) {
                         Label("FeedKit on GitHub", systemImage: "link")
                     }
                 } header: { Text("Feedback") } footer: {
