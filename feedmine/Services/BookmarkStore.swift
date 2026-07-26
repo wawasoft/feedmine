@@ -35,17 +35,27 @@ final class BookmarkStore {
 
     func allBookmarkLists() async throws -> [BookmarkList] {
         try await userDB.read { db in
-            let records = try BookmarkListRecord.order(Column("sort_order")).fetchAll(db)
-            return try records.compactMap { r in
-                guard let id = r.id else { return nil }
-                let count = try BookmarkItemRecord.filter(Column("list_id") == id).fetchCount(db)
+            // Single query with LEFT JOIN avoids N+1 per-list COUNT queries.
+            let rows = try Row.fetchAll(db, sql: """
+                SELECT bl.*, COUNT(bi.item_id) AS item_count
+                FROM bookmark_list bl
+                LEFT JOIN bookmark_item bi ON bi.list_id = bl.id
+                GROUP BY bl.id
+                ORDER BY bl.sort_order
+                """)
+            return rows.compactMap { row in
+                guard let id = row["id"] as Int64? else { return nil }
                 return BookmarkList(
-                    id: id, name: r.name, sortOrder: r.sortOrder,
-                    createdAt: Date(timeIntervalSince1970: TimeInterval(r.createdAt)),
-                    isDefault: r.isDefault,
-                    searchQuery: r.searchQuery, searchRegion: r.searchRegion,
-                    searchCategory: r.searchCategory, searchActive: r.searchActive,
-                    itemCount: count
+                    id: id,
+                    name: row["name"],
+                    sortOrder: row["sort_order"],
+                    createdAt: Date(timeIntervalSince1970: TimeInterval((row["created_at"] as Int?) ?? 0)),
+                    isDefault: (row["is_default"] as Bool?) ?? false,
+                    searchQuery: row["search_query"] as? String,
+                    searchRegion: row["search_region"] as? String,
+                    searchCategory: row["search_category"] as? String,
+                    searchActive: (row["search_active"] as Bool?) ?? false,
+                    itemCount: (row["item_count"] as Int?) ?? 0
                 )
             }
         }
