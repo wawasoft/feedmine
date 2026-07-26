@@ -404,14 +404,13 @@ actor DownloadManager {
                     .limit(50)
                     .fetchAll(db)
             }
-            var freed: Int64 = 0
             for record in oldest {
-                guard _storageUsed - freed > storageLimit * 8 / 10 else { break }
-                let recordSize = Int64(record.audioBytes + record.pageBytes)
+                // cancel() decrements _storageUsed directly, so check the
+                // running total after each eviction.
+                guard _storageUsed > storageLimit * 8 / 10 else { break }
                 await cancel(itemID: record.itemID)
-                freed += recordSize
             }
-            if freed > 0 {
+            if !oldest.isEmpty {
                 notify(.init(event: .storageFull, itemID: nil,
                              sourceTitle: nil, itemTitle: nil, count: nil))
             }
