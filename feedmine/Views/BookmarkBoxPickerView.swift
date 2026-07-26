@@ -22,6 +22,11 @@ struct BookmarkBoxContextMenu: View {
                     Label(box.name, systemImage: box.id == (loader.preferredBookmarkListID ?? boxes.first(where: { $0.isDefault })?.id) ? "folder.fill" : "folder")
                 }
             }
+            if boxes.count > 5 {
+                Text("+ \(boxes.count - 5) more boxes — open Save to… for full list")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 }
