@@ -5,10 +5,14 @@ struct CountryDetailScreen: View {
     let country: Country
     @State private var pendingRegionIDs = Set<String>()
     @State private var enabledPendingRegionIDs = Set<String>()
+    @State private var cachedFeeds: [(String, [FeedSource])]?
 
     private var feedsByCategory: [(String, [FeedSource])] {
+        if let cached = cachedFeeds { return cached }
         let grouped = Dictionary(grouping: loader.countryFeeds(for: country.region), by: \.category)
-        return grouped.sorted { $0.key < $1.key }
+        let sorted = grouped.sorted { $0.key < $1.key }
+        cachedFeeds = sorted
+        return sorted
     }
 
     var body: some View {
