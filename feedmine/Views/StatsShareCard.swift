@@ -120,6 +120,6 @@ func renderStatsCard(
     )
     .environment(\.colorScheme, .light)
     let renderer = ImageRenderer(content: view)
-    renderer.scale = UIScreen.main.scale
+    renderer.scale = UITraitCollection.current.displayScale
     return renderer.uiImage
 }

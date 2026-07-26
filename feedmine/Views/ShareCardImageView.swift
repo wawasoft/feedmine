@@ -101,6 +101,6 @@ func renderCardAsImage(item: FeedItem) -> UIImage? {
     let view = ShareCardImageView(item: item)
         .environment(\.colorScheme, .light)
     let renderer = ImageRenderer(content: view)
-    renderer.scale = UIScreen.main.scale
+    renderer.scale = UITraitCollection.current.displayScale
     return renderer.uiImage
 }
