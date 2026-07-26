@@ -217,8 +217,11 @@ struct SettingsSheetView: View {
                         Label("Clear Read History", systemImage: "eye.slash")
                     }
                     .disabled(loader.readItemIDs.isEmpty)
-                    .confirmationDialog("Clear all read history?", isPresented: $showClearReadConfirmation) {
-                        Button("Clear All", role: .destructive) {
+                    .confirmationDialog(
+                        String(localized: "Clear all read history?", comment: "Read history clear confirmation"),
+                        isPresented: $showClearReadConfirmation
+                    ) {
+                        Button(String(localized: "Clear All", comment: "Destructive clear button"), role: .destructive) {
                             loader.clearReadHistory()
                         }
                     }
@@ -229,8 +232,11 @@ struct SettingsSheetView: View {
                         Label("Clear All Bookmarks", systemImage: "bookmark.slash")
                     }
                     .disabled(loader.bookmarkedIDs.isEmpty)
-                    .confirmationDialog("Remove all bookmarks?", isPresented: $showClearBookmarksConfirmation) {
-                        Button("Clear All", role: .destructive) {
+                    .confirmationDialog(
+                        String(localized: "Remove all bookmarks?", comment: "Bookmark clear confirmation"),
+                        isPresented: $showClearBookmarksConfirmation
+                    ) {
+                        Button(String(localized: "Clear All", comment: "Destructive clear button"), role: .destructive) {
                             loader.clearAllBookmarks()
                         }
                     }
@@ -244,10 +250,10 @@ struct SettingsSheetView: View {
                         Label("Reset All Data", systemImage: "trash")
                     }
                     .confirmationDialog(
-                        "This will delete all bookmarks, read history, and source configuration. This cannot be undone.",
+                        String(localized: "This will delete all bookmarks, read history, and source configuration. This cannot be undone.", comment: "Reset confirmation message"),
                         isPresented: $showResetConfirmation
                     ) {
-                        Button("Reset Everything", role: .destructive) {
+                        Button(String(localized: "Reset Everything", comment: "Destructive reset button"), role: .destructive) {
                             loader.clearReadHistory()
                             loader.clearAllBookmarks()
                             Settings.filterRegion = nil
