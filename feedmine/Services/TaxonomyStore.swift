@@ -353,12 +353,18 @@ final class TaxonomyStore {
     // MARK: - Queries
 
     /// Direct children of a node, sorted by name.
+    private static let maxCachedChildren = 2000
+
     func children(of nodeID: String) -> [TaxonomyNode] {
         if let cached = sortedChildrenCache[nodeID] { return cached }
         guard let childIDs = childrenIndex[nodeID] else { return [] }
         let children = childIDs
             .compactMap { flatIndex[$0] }
             .sorted(by: Self.editorialNodeOrder)
+        // Cap cache to prevent unbounded growth between builds
+        if sortedChildrenCache.count >= Self.maxCachedChildren {
+            sortedChildrenCache.removeAll()
+        }
         sortedChildrenCache[nodeID] = children
         return children
     }
