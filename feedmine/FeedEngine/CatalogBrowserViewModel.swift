@@ -246,6 +246,7 @@ final class CatalogBrowserViewModel {
             searchNextCursor = page.nextCursor
         } catch {
             errorMessage = error.localizedDescription
+            isSearching = false
         }
     }
 

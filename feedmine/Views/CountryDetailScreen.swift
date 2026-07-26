@@ -98,7 +98,7 @@ struct CountryDetailScreen: View {
         if lower.contains("photo") { return "camera.fill" }
         if lower.contains("podcast") || lower.contains("audio") { return "headphones" }
         if lower.contains("youtube") || lower.contains("video") { return "play.rectangle.fill" }
-        if lower.contains("blog") { return "pencil.and.outline" }
+        if lower.contains("blog") { return "pencil.line" }
         if lower.contains("apple") { return "apple.logo" }
         if lower.contains("diy") || lower.contains("craft") { return "hammer.fill" }
         if lower.contains("game") || lower.contains("gaming") { return "gamecontroller.fill" }
