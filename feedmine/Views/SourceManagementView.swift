@@ -315,29 +315,31 @@ struct SourceDetailView: View {
                 }
             }
 
-            Section {
-                Toggle(isOn: $autoDownloadEnabled) {
-                    Label("Auto-download", systemImage: "arrow.down.circle")
-                    Text("New episodes automatically")
-                }
-
-                if autoDownloadEnabled {
-                    Picker("Keep latest", selection: $maxEpisodes) {
-                        Text("1 episode").tag(1)
-                        Text("3 episodes").tag(3)
-                        Text("5 episodes").tag(5)
-                        Text("10 episodes").tag(10)
-                        Text("All").tag(0)
+            if DownloadManager.isEnabled {
+                Section {
+                    Toggle(isOn: $autoDownloadEnabled) {
+                        Label("Auto-download", systemImage: "arrow.down.circle")
+                        Text("New episodes automatically")
                     }
 
-                    Picker("On", selection: $downloadMode) {
-                        Text("WiFi only").tag(DownloadMode.wifi)
-                        Text("WiFi + Cellular").tag(DownloadMode.cellular)
+                    if autoDownloadEnabled {
+                        Picker("Keep latest", selection: $maxEpisodes) {
+                            Text("1 episode").tag(1)
+                            Text("3 episodes").tag(3)
+                            Text("5 episodes").tag(5)
+                            Text("10 episodes").tag(10)
+                            Text("All").tag(0)
+                        }
+
+                        Picker("On", selection: $downloadMode) {
+                            Text("WiFi only").tag(DownloadMode.wifi)
+                            Text("WiFi + Cellular").tag(DownloadMode.cellular)
+                        }
                     }
-                }
-            } header: {
-                Text("Downloads")
+                } header: {
+                    Text("Downloads")
             }
+            }  // if DownloadManager.isEnabled
         }
         .navigationTitle(source.title)
         .navigationBarTitleDisplayMode(.inline)
