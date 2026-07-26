@@ -87,8 +87,9 @@ struct ContentFilterView: View {
                         .components(separatedBy: ",")
                         .map { $0.trimmingCharacters(in: .whitespaces).lowercased() }
                         .filter { !$0.isEmpty }
-                    guard !keywords.isEmpty else { return }
-                    let name = customName.isEmpty ? keywords.first!.capitalized : customName
+                    guard !keywords.isEmpty else { return }  // button stays disabled via empty check above
+                    let name = customName.trimmingCharacters(in: .whitespaces).isEmpty
+                        ? keywords.first!.capitalized : customName
                     store.addCustom(name: name, keywords: keywords)
                 }
                 Button("Cancel", role: .cancel) {}
