@@ -25,6 +25,8 @@ struct SettingsSheetView: View {
     @State private var downloadMode: DownloadMode = .wifi
     @State private var storageLimitOption = 2  // 2 GB default (index 2)
     @State private var autoDeleteOption = 0    // After read default (index 0)
+    /// Prevents onChange handlers from writing back during async load.
+    @State private var isSettingsLoading = true
     @State private var activeRules: [DownloadRuleRecord] = []
     @State private var freeSpaceBytes: Int64 = 0
 
@@ -338,14 +340,17 @@ struct SettingsSheetView: View {
                 await loadSettings()
             }
             .onChange(of: storageLimitOption) { _, opt in
+                guard !isSettingsLoading else { return }
                 let limits: [Int64] = [500_000_000, 1_000_000_000, 2_000_000_000, 5_000_000_000]
                 Task { await DownloadManager.shared.storageLimit = limits[opt] }
             }
             .onChange(of: autoDeleteOption) { _, opt in
+                guard !isSettingsLoading else { return }
                 let policies: [AutoDeletePolicy] = [.afterRead, .after7Days, .manual]
                 Task { await DownloadManager.shared.autoDelete = policies[opt] }
             }
             .onChange(of: downloadMode) { _, mode in
+                guard !isSettingsLoading else { return }
                 Task { await DownloadManager.shared.mode = mode }
             }
         }
@@ -457,10 +462,19 @@ struct SettingsSheetView: View {
     }
 
     private func loadSettings() async {
+        isSettingsLoading = true
+        defer { isSettingsLoading = false }
+
         let manager = DownloadManager.shared
         downloadMode = await manager.mode
+        let currentStorageLimit = await manager.storageLimit
         let limits: [Int64] = [500_000_000, 1_000_000_000, 2_000_000_000, 5_000_000_000]
-        storageLimitOption = limits.firstIndex(of: await manager.storageLimit) ?? 2
+        // Clamp to nearest limit instead of silently defaulting to 2 GB
+        // when the user has a custom value (e.g. from a previous version).
+        storageLimitOption = limits.firstIndex(of: currentStorageLimit)
+            ?? limits.map { abs($0 - currentStorageLimit) }
+                .enumerated().min(by: { $0.element < $1.element })?.offset
+            ?? 2
         let policies: [AutoDeletePolicy] = [.afterRead, .after7Days, .manual]
         autoDeleteOption = policies.firstIndex(of: await manager.autoDelete) ?? 0
         freeSpaceBytes = await manager.freeDiskSpace()

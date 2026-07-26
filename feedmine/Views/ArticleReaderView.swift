@@ -91,10 +91,18 @@ struct ArticleWebView: UIViewRepresentable {
     }
 
     private func loadContent(in webView: WKWebView, context: Context) {
-        context.coordinator.lastLoadedItemID = item.id
+        let capturedID = item.id
+        context.coordinator.lastLoadedItemID = capturedID
 
-        Task {
-            if let pageURL = await DownloadManager.shared.localPagePath(for: item.id) {
+        // Cancel any in-flight load to prevent races when the user navigates
+        // quickly between articles — the old task's completion could write
+        // stale content into the webView.
+        context.coordinator.loadTask?.cancel()
+        context.coordinator.loadTask = Task { [weak webView] in
+            guard let webView, !Task.isCancelled else { return }
+
+            if let pageURL = await DownloadManager.shared.localPagePath(for: capturedID) {
+                guard !Task.isCancelled else { return }
                 let html = try? String(contentsOfFile: pageURL.path, encoding: .utf8)
                 if let html {
                     let baseURL = pageURL.deletingLastPathComponent()
@@ -105,6 +113,7 @@ struct ArticleWebView: UIViewRepresentable {
                 }
             }
 
+            guard !Task.isCancelled else { return }
             // Fallback: load live URL
             if let url = URL(string: item.url) {
                 await MainActor.run {
@@ -118,8 +127,10 @@ struct ArticleWebView: UIViewRepresentable {
         var progressView: UIProgressView?
         var progressObservation: NSKeyValueObservation?
         var lastLoadedItemID: String?
+        var loadTask: Task<Void, Never>?
 
         deinit {
+            loadTask?.cancel()
             progressObservation?.invalidate()
         }
     }
