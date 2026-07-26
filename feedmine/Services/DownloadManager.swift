@@ -33,11 +33,20 @@ actor DownloadManager {
     }()
 
     // MARK: - Internal state
-    private let cachesDirectory: URL = {
-        guard let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            fatalError("DownloadManager: cachesDirectory is unavailable — app sandbox may be misconfigured")
+    /// Download storage directory. Uses Application Support (not Caches)
+    /// because iOS may purge Caches at any time, deleting user-downloaded
+    /// content. Files are excluded from iCloud backup to avoid wasting quota.
+    private let downloadsDirectory: URL = {
+        guard let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            fatalError("DownloadManager: applicationSupportDirectory is unavailable")
         }
-        return caches.appendingPathComponent("Downloads", isDirectory: true)
+        var dir = appSupport.appendingPathComponent("Downloads", isDirectory: true)
+        // Exclude from iCloud backup — downloaded content is re-downloadable
+        // and shouldn't consume the user's iCloud storage.
+        var resourceValues = URLResourceValues()
+        resourceValues.isExcludedFromBackup = true
+        try? dir.setResourceValues(resourceValues)
+        return dir
     }()
 
     /// Use default URLSession config — the async `download(from:)` API works
@@ -69,10 +78,37 @@ actor DownloadManager {
         var continuation: AsyncStream<DownloadNotification>.Continuation!
         self.notifications = AsyncStream { continuation = $0 }
         self.notificationContinuation = continuation
-        try? FileManager.default.createDirectory(at: cachesDirectory, withIntermediateDirectories: true)
+        try? FileManager.default.createDirectory(at: downloadsDirectory, withIntermediateDirectories: true)
 
-        // Seed the running storage total and caches from the DB on first access.
-        Task { await loadCachesFromDB() }
+        // Seed downloads from DB and migrate from old Caches location
+        // so iOS cache purges don't delete user content.
+        Task {
+            await loadCachesFromDB()
+            await migrateFromCachesIfNeeded()
+        }
+    }
+
+    /// One-time migration: move existing downloads from the old Caches
+    /// directory to the new Application Support location.
+    private func migrateFromCachesIfNeeded() {
+        guard let oldCaches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else { return }
+        let oldDir = oldCaches.appendingPathComponent("Downloads", isDirectory: true)
+        guard FileManager.default.fileExists(atPath: oldDir.path) else { return }
+        // Only migrate if the new directory is empty (fresh install or first
+        // launch after the storage location change).
+        guard (try? FileManager.default.contentsOfDirectory(atPath: downloadsDirectory.path).isEmpty) ?? true else { return }
+
+        if let contents = try? FileManager.default.contentsOfDirectory(atPath: oldDir.path) {
+            for item in contents {
+                let src = oldDir.appendingPathComponent(item)
+                let dst = downloadsDirectory.appendingPathComponent(item)
+                try? FileManager.default.moveItem(at: src, to: dst)
+            }
+            // Remove old directory if empty after migration
+            if (try? FileManager.default.contentsOfDirectory(atPath: oldDir.path).isEmpty) ?? false {
+                try? FileManager.default.removeItem(at: oldDir)
+            }
+        }
     }
 
     private func loadCachesFromDB() async {
@@ -197,7 +233,7 @@ actor DownloadManager {
         _storageUsed -= bytesToSubtract
         if _storageUsed < 0 { _storageUsed = 0 }
         // Clean up partial/full bundle
-        let bundle = cachesDirectory.appendingPathComponent(itemID)
+        let bundle = downloadsDirectory.appendingPathComponent(itemID)
         try? FileManager.default.removeItem(at: bundle)
         statusCache[itemID] = nil
         progressCache[itemID] = nil
@@ -238,35 +274,35 @@ actor DownloadManager {
     func isDownloaded(itemID: String) -> Bool {
         // Check both the bundle directory AND a key file to avoid false
         // positives when the directory was created but the download failed.
-        let pageFile = cachesDirectory.appendingPathComponent("\(itemID)/page.html")
-        let audioFile = cachesDirectory.appendingPathComponent("\(itemID)/audio.mp3")
+        let pageFile = downloadsDirectory.appendingPathComponent("\(itemID)/page.html")
+        let audioFile = downloadsDirectory.appendingPathComponent("\(itemID)/audio.mp3")
         return FileManager.default.fileExists(atPath: pageFile.path)
             || FileManager.default.fileExists(atPath: audioFile.path)
     }
 
     func localPagePath(for itemID: String) -> URL? {
-        let path = cachesDirectory.appendingPathComponent("\(itemID)/page.html")
+        let path = downloadsDirectory.appendingPathComponent("\(itemID)/page.html")
         return FileManager.default.fileExists(atPath: path.path) ? path : nil
     }
 
     func localAudioPath(for itemID: String) -> URL? {
-        let path = cachesDirectory.appendingPathComponent("\(itemID)/audio.mp3")
+        let path = downloadsDirectory.appendingPathComponent("\(itemID)/audio.mp3")
         return FileManager.default.fileExists(atPath: path.path) ? path : nil
     }
 
     /// Non-async variant for @MainActor callers (e.g. AudioPlayerManager.play).
     nonisolated func localAudioPathSync(for itemID: String) -> URL? {
-        let path = cachesDirectory.appendingPathComponent("\(itemID)/audio.mp3")
+        let path = downloadsDirectory.appendingPathComponent("\(itemID)/audio.mp3")
         return FileManager.default.fileExists(atPath: path.path) ? path : nil
     }
 
     /// Expose the downloads directory path so FeedStore can use it without
     /// duplicating path construction.
     nonisolated static func bundlePath(for itemID: String) -> URL {
-        guard let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            fatalError("DownloadManager.bundlePath: cachesDirectory unavailable")
+        guard let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            fatalError("DownloadManager.bundlePath: applicationSupportDirectory unavailable")
         }
-        return caches
+        return appSupport
             .appendingPathComponent("Downloads", isDirectory: true)
             .appendingPathComponent(itemID)
     }
@@ -535,7 +571,7 @@ actor DownloadManager {
                 let r1 = rec
                 try? await db.write { db in try r1.update(db) }
 
-                let bundle = cachesDirectory.appendingPathComponent(rec.itemID)
+                let bundle = downloadsDirectory.appendingPathComponent(rec.itemID)
                 try? FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
 
                 do {
@@ -590,7 +626,7 @@ actor DownloadManager {
                 return
             }
 
-            let bundle = cachesDirectory.appendingPathComponent(rec.itemID)
+            let bundle = downloadsDirectory.appendingPathComponent(rec.itemID)
             try? FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
 
             do {
