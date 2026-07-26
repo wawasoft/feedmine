@@ -84,9 +84,14 @@ struct FeedItemCardView: View, Equatable {
         VStack(alignment: .leading, spacing: 0) {
             // Hero image — native media or a bounded article-page candidate.
             if hasImage || item.isPodcast {
-                heroBase
-                    .aspectRatio(16/9, contentMode: .fill)
-                    .overlay {
+                // Use a transparent 16:9 mold as the layout container. Applying
+                // `.aspectRatio(..., .fill)` directly to `heroBase` lets the
+                // square placeholder's intrinsic ratio drive the proposed size.
+                GeometryReader { geometry in
+                    ZStack {
+                        heroBase
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+
                         // Real image layered on top so it covers the placeholder
                         // on success. CachedAsyncImage returns Color.clear on
                         // failure, letting the placeholder show through.
@@ -99,25 +104,28 @@ struct FeedItemCardView: View, Equatable {
                                 }
                             })
                             .scaledToFill()
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                             .opacity(imageAppeared ? 1 : 0)
                             .overlay(isRead ? Color.black.opacity(0.15) : nil)
                         }
                     }
-                    .clipped()
-                    .overlay(alignment: .topTrailing) {
-                        cardOverlays
+                }
+                .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                .clipped()
+                .overlay(alignment: .topTrailing) {
+                    cardOverlays
+                }
+                .overlay {
+                    mediaOverlay
+                }
+                .overlay {
+                    if onImageTap != nil {
+                        Color.clear
+                            .contentShape(Rectangle())
+                            .highPriorityGesture(TapGesture().onEnded { onImageTap?() })
                     }
-                    .overlay {
-                        mediaOverlay
-                    }
-                    .overlay {
-                        if onImageTap != nil {
-                            Color.clear
-                                .contentShape(Rectangle())
-                                .highPriorityGesture(TapGesture().onEnded { onImageTap?() })
-                        }
-                    }
-                    .transition(.opacity.combined(with: .scale(scale: 0.97)))
+                }
+                .transition(.opacity.combined(with: .scale(scale: 0.97)))
                 // Source row after image
                 sourceRow
                     .padding(.horizontal, 12)

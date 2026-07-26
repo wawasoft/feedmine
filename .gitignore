@@ -38,6 +38,7 @@ AuthKey_*.p8
 .superpowers/
 .superpowers/
 .build-device/
+.build-dd-device/
 # Build artifacts
 build/
 .build-device/
