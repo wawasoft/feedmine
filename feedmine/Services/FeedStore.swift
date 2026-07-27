@@ -1069,7 +1069,9 @@ final class FeedStore {
         var fetchedSourceCount = 0
         var failedSourceCount = 0
         var emptySourceCount = 0
-        var statuses: [String: FeedFetchStatus] = [:]
+        var statuses: [String: FeedFetchOutcome] = [:]
+        var notModifiedCount = 0
+        var throttledCount = 0
 
         for start in stride(from: 0, to: sorted.count, by: Self.coldStartFetchChunkSize) {
             let end = min(start + Self.coldStartFetchChunkSize, sorted.count)
@@ -1091,6 +1093,8 @@ final class FeedStore {
             fetchedSourceCount += result.fetchedSourceCount
             failedSourceCount += result.failedSourceCount
             emptySourceCount += result.emptySourceCount
+            notModifiedCount += result.notModifiedCount
+            throttledCount += result.throttledCount
             statuses.merge(result.sourceOutcomes) { _, newest in newest }
 
             if Self.coldStartRunwayIsUseful(items, targetSourceCount: targetSourceCount) {
@@ -1103,6 +1107,8 @@ final class FeedStore {
             fetchedSourceCount: fetchedSourceCount,
             failedSourceCount: failedSourceCount,
             emptySourceCount: emptySourceCount,
+            notModifiedCount: notModifiedCount,
+            throttledCount: throttledCount,
             sourceOutcomes: statuses
         )
     }
@@ -1152,7 +1158,7 @@ final class FeedStore {
             }
 
             for (url, status) in result.sourceOutcomes {
-                self.scheduler.recordFetch(sourceURL: url, success: status != .failed)
+                self.scheduler.recordFetch(sourceURL: url, success: !status.isFailed)
             }
             let actualNew = await self.persistFetchedItems(result.items)
             guard !Task.isCancelled, !actualNew.isEmpty else { return }
@@ -2192,10 +2198,10 @@ final class FeedStore {
             ).mapValues(\.count)
             var healthEntries: [(url: String, itemCount: Int?)] = []
             for source in chunk {
-                let status = result.sourceOutcomes[source.url] ?? .failed
+                let status = result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown))
                 scheduler.recordFetch(
                     sourceURL: source.url,
-                    success: status != .failed
+                    success: !status.isFailed
                 )
                 healthEntries.append((
                     source.url,
@@ -3190,7 +3196,7 @@ final class FeedStore {
         var healthEntries: [(url: String, itemCount: Int?)] = []
         for source in batch {
             guard let status = result.sourceOutcomes[source.url] else { continue }
-            let failed = status == .failed
+            let failed = status.isFailed
             scheduler.recordFetch(sourceURL: source.url, success: !failed)
             let count = sourceItemCounts[source.url]
             healthEntries.append((source.url, count))
@@ -3608,7 +3614,7 @@ final class FeedStore {
         var healthEntries: [(url: String, itemCount: Int?)] = []
         for source in orderedCandidates {
             guard let status = result.sourceOutcomes[source.url] else { continue }
-            scheduler.recordFetch(sourceURL: source.url, success: status != .failed)
+            scheduler.recordFetch(sourceURL: source.url, success: !status.isFailed)
             healthEntries.append((source.url, sourceItemCounts[source.url]))
         }
         saveSourceHealthBatch(healthEntries)
@@ -3750,7 +3756,7 @@ final class FeedStore {
                 .mapValues(\.count)
             var healthEntries: [(url: String, itemCount: Int?)] = []
             for source in chunk {
-                let failed = result.sourceOutcomes[source.url] == .failed
+                let failed = result.sourceOutcomes[source.url]?.isFailed ?? true
                 scheduler.recordFetch(sourceURL: source.url, success: !failed)
                 let count = sourceItemCounts[source.url]
                 healthEntries.append((source.url, count))
@@ -4035,7 +4041,7 @@ final class FeedStore {
                 }
                 // Record fetch health for each source
                 for source in batch {
-                    let success = result.sourceOutcomes[source.url] != .failed
+                    let success = result.sourceOutcomes[source.url]?.isFailed != true
                     self.scheduler.recordFetch(sourceURL: source.url, success: success)
                 }
                 self.lastRefreshDate = .now
@@ -4514,7 +4520,7 @@ final class FeedStore {
         // Record fetch health first — reachability is independent of whether the
         // items turn out to be new.
         for source in batch {
-            let failed = result.sourceOutcomes[source.url] == .failed
+            let failed = result.sourceOutcomes[source.url]?.isFailed ?? true
             scheduler.recordFetch(sourceURL: source.url, success: !failed)
             saveSourceHealth(for: source.url)
         }
@@ -4665,7 +4671,7 @@ final class FeedStore {
                 let status = result.sourceOutcomes[source.url]
                 scheduler.recordFetch(
                     sourceURL: source.url,
-                    success: status != nil && status != .failed
+                    success: status?.isFailed != true
                 )
             }
             let actualNew = await persistFetchedItems(result.items)
@@ -5207,7 +5213,7 @@ final class FeedStore {
                 guard !Task.isCancelled else { return false }
                 refreshSucceeded = result.failedSourceCount < batch.count
                 for source in batch {
-                    let failed = result.sourceOutcomes[source.url] == .failed
+                    let failed = result.sourceOutcomes[source.url]?.isFailed ?? true
                     scheduler.recordFetch(sourceURL: source.url, success: !failed)
                 }
                 let actualNew = await persistFetchedItems(result.items)
