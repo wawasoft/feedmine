@@ -3087,11 +3087,50 @@ final class FeedStore {
             return (item.id, imageURL)
         }
         var seen = Set<String>()
-        let actualNew = items.filter { item in
-            guard !loadedIDs.contains(item.id) else { return false }
-            return seen.insert(item.id).inserted
+        var actualNew: [FeedItem] = []
+        var updateCandidates: [FeedItem] = []
+
+        for item in items {
+            guard seen.insert(item.id).inserted else { continue }
+            if loadedIDs.contains(item.id) {
+                updateCandidates.append(item)
+            } else {
+                actualNew.append(item)
+            }
         }
-        guard !actualNew.isEmpty else {
+
+        // For items already in the DB, use mergeItems to determine if the
+        // incoming version is newer (Atom entry update-by-ID). Only persist
+        // updates when the incoming item has a newer updatedAt/publishedAt.
+        var itemsToUpdate: [FeedItem] = []
+        if !updateCandidates.isEmpty {
+            let candidates = updateCandidates  // let copy for Sendable closure
+            do {
+                let existingRecords: [FeedItemRecord] = try await db.read { db in
+                    try FeedItemRecord.fetchAll(db, keys: candidates.map(\.id))
+                }
+                let existingItems = existingRecords.map { $0.toFeedItem() }
+                let existingByID = Dictionary(uniqueKeysWithValues: existingItems.map { ($0.id, $0) })
+                let merged = mergeItems(candidates, into: existingItems)
+                for mergedItem in merged {
+                    if let existing = existingByID[mergedItem.id] {
+                        let mergedDate = mergedItem.updatedAt ?? mergedItem.publishedAt
+                        let existingDate = existing.updatedAt ?? existing.publishedAt
+                        if (mergedDate ?? .distantPast) > (existingDate ?? .distantPast) {
+                            itemsToUpdate.append(mergedItem)
+                        }
+                    } else {
+                        // Not actually in DB despite being in loadedIDs — treat as new
+                        actualNew.append(mergedItem)
+                    }
+                }
+            } catch {
+                Log.db.warning("persistFetchedItems: merge error: \(error.localizedDescription)")
+                actualNew.append(contentsOf: updateCandidates)
+            }
+        }
+
+        guard !actualNew.isEmpty || !itemsToUpdate.isEmpty else {
             guard !imageRepairs.isEmpty else { return [] }
             do {
                 try await db.write { db in
@@ -3108,11 +3147,15 @@ final class FeedStore {
             return []
         }
 
+        // Combine new items and updates for enrichment
+        let allItems = actualNew + itemsToUpdate
+        let newCount = actualNew.count
+
         // Collect regions + explicit source languages on the main actor
         // (dictionary lookups are O(1) and cheap). Language detection via
         // NLLanguageRecognizer runs in a detached task to avoid blocking UI.
-        let regions: [String] = actualNew.map { regionOverride ?? registry.regionFor(sourceURL: $0.sourceURL) }
-        let detectionInputs: [LanguageDetectionInput] = actualNew.map { item in
+        let regions: [String] = allItems.map { regionOverride ?? registry.regionFor(sourceURL: $0.sourceURL) }
+        let detectionInputs: [LanguageDetectionInput] = allItems.map { item in
             let itemLang = Self.normalizedLanguageCode(item.language)
             let sourceLang = Self.normalizedLanguageCode(registry.languageFor(sourceURL: item.sourceURL))
             // Item-level language is authoritative; source-level (OPML) can
@@ -3128,9 +3171,9 @@ final class FeedStore {
         }.value
 
         // Safety: all three arrays must have identical counts before we merge.
-        guard actualNew.count == regions.count,
-              actualNew.count == resolvedLanguages.count else {
-            Log.db.error("persistFetchedItems: count mismatch — items=\(actualNew.count) regions=\(regions.count) languages=\(resolvedLanguages.count)")
+        guard allItems.count == regions.count,
+              allItems.count == resolvedLanguages.count else {
+            Log.db.error("persistFetchedItems: count mismatch — items=\(allItems.count) regions=\(regions.count) languages=\(resolvedLanguages.count)")
             return []
         }
 
@@ -3138,7 +3181,7 @@ final class FeedStore {
         // expensive Calendar operations on every scroll-driven cache miss.
         let now = Date()
         let todayStart = Calendar.current.startOfDay(for: now)
-        let sectionOffsets: [Int] = actualNew.map { item in
+        let sectionOffsets: [Int] = allItems.map { item in
             let itemStart = Calendar.current.startOfDay(for: item.publishedAt)
             let diff = todayStart.timeIntervalSince(itemStart)
             return Int(diff / 86400)  // days
@@ -3147,18 +3190,19 @@ final class FeedStore {
         // Enrich each item with the resolved region, language, normalized
         // sourceURL, and pre-computed section offset so the in-memory
         // representation matches exactly what is written to SQLite.
-        let enriched: [FeedItem] = (0..<actualNew.count).map { i in
-            actualNew[i]
+        let enriched: [FeedItem] = (0..<allItems.count).map { i in
+            allItems[i]
                 .replacingMetadata(region: regions[i], language: resolvedLanguages[i])
                 .withNormalizedSourceURL
                 .withSectionDayOffset(sectionOffsets[i])
         }
+        let newEnriched = Array(enriched.prefix(newCount))
+        let updateEnriched = Array(enriched.suffix(itemsToUpdate.count))
+
         do {
-            // Single batch write. Items are deduplicated in memory before this
-            // point (loadedIDs check + batch-internal dedup), so the only
-            // possible conflict is a PRIMARY KEY collision from a concurrent
-            // write — do/catch handles that without the 3x per-item SQL
-            // overhead of SAVEPOINT/RELEASE/ROLLBACK.
+            // Single batch write. New items are inserted; items that were
+            // already in the DB but have a newer updatedAt/publishedAt
+            // (Atom entry update-by-ID) are updated via mergeItems.
             let succeeded: [FeedItem] = try await db.write { db -> [FeedItem] in
                 for repair in imageRepairs {
                     try db.execute(
@@ -3167,17 +3211,28 @@ final class FeedStore {
                     )
                 }
                 var ok: [FeedItem] = []
-                for item in enriched {
+                // Phase 1: INSERT truly new items
+                for item in newEnriched {
                     do {
                         let record = FeedItemRecord(from: item, region: item.region, language: item.language)
                         try record.insert(db)
                         ok.append(item)
                     } catch {
                         // Skip individual row failures. Items are deduplicated in
-                        // memory (loadedIDs + batch-internal), so the only expected
-                        // failure is a PRIMARY KEY collision from a concurrent write.
-                        // One bad row does not roll back the batch.
+                        // memory (loadedIDs + batch-internal dedup + mergeItems), so
+                        // the only expected failure is a PRIMARY KEY collision from
+                        // a concurrent write. One bad row does not roll back the batch.
                         Log.db.warning("persistFetchedItems: skip \(item.id): \(error)")
+                    }
+                }
+                // Phase 2: UPDATE items whose Atom entries were refreshed
+                for item in updateEnriched {
+                    do {
+                        let record = FeedItemRecord(from: item, region: item.region, language: item.language)
+                        try record.update(db)
+                        ok.append(item)
+                    } catch {
+                        Log.db.warning("persistFetchedItems: update failed for \(item.id): \(error)")
                     }
                 }
                 return ok
