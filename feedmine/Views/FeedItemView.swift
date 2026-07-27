@@ -47,10 +47,10 @@ struct FeedItemView: View {
             } else if item.isPodcast {
                 // Podcast with article page — image tap plays audio,
                 // text area tap opens the link.
-                loader.markAsRead(item.id)
+                loader.markAsClicked(item.id)
                 onOpen?()
             } else {
-                loader.markAsRead(item.id)
+                loader.markAsClicked(item.id)
                 onOpen?()
             }
         }
@@ -129,7 +129,7 @@ struct FeedItemView: View {
 
     private func playPodcastAudio() {
         if AudioPlayerManager.shared.play(item: item) {
-            loader.markAsRead(item.id)
+            loader.markAsClicked(item.id)
         } else {
             onPlaybackFailed?()
         }

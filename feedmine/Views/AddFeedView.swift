@@ -3,6 +3,8 @@ import SwiftUI
 struct AddFeedView: View {
     @Environment(FeedLoader.self) private var loader
     @Environment(\.dismiss) private var dismiss
+    let targetCollectionID: Int64?
+    let targetCollectionName: String?
     @State private var engine = CircadianEngine.shared
     @State private var input = ""
     @State private var parsedURLs: [ClassifiedURL] = []
@@ -20,6 +22,12 @@ struct AddFeedView: View {
     @State private var importTask: Task<Void, Never>?
     @State private var parseDebounceTask: Task<Void, Never>?
     @FocusState private var inputFocused: Bool
+
+    init(targetCollectionID: Int64? = nil, targetCollectionName: String? = nil) {
+        self.targetCollectionID = targetCollectionID
+        self.targetCollectionName = targetCollectionName
+        _selectedCollectionID = State(initialValue: targetCollectionID)
+    }
 
     private var selectedCollectionName: String? {
         guard let selectedCollectionID else { return nil }
@@ -163,7 +171,7 @@ struct AddFeedView: View {
                     }
                 }
             }
-            .navigationTitle("Add Feeds")
+            .navigationTitle(targetCollectionName.map { "Add to \($0)" } ?? "Add Feeds")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {

@@ -1,6 +1,115 @@
 import Foundation
 import GRDB
 
+struct SearchTerm: Identifiable, Equatable, Hashable, Sendable {
+    let text: String
+    let isExcluded: Bool
+
+    init?(input: String) {
+        let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+
+        // Only a LEADING hyphen means exclusion. Internal hyphens in terms such
+        // as "post-punk", "e-mail", and "Jean-Michel" remain ordinary text.
+        if trimmed.hasPrefix("-") {
+            let excludedText = String(trimmed.dropFirst())
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !excludedText.isEmpty else { return nil }
+            self.text = excludedText
+            self.isExcluded = true
+        } else {
+            self.text = trimmed
+            self.isExcluded = false
+        }
+    }
+
+    init?(text: String, isExcluded: Bool) {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        self.text = trimmed
+        self.isExcluded = isExcluded
+    }
+
+    var id: String {
+        "\(isExcluded ? "-" : "+")\(SearchExpression.normalized(text))"
+    }
+
+    var displayText: String {
+        isExcluded ? "-\(text)" : text
+    }
+}
+
+struct SearchExpression: Equatable, Hashable, Sendable {
+    let requiredTerms: [String]
+    let excludedTerms: [String]
+
+    static let empty = SearchExpression(requiredTerms: [], excludedTerms: [])
+
+    init(terms: [SearchTerm]) {
+        self.init(
+            requiredTerms: terms.filter { !$0.isExcluded }.map(\.text),
+            excludedTerms: terms.filter(\.isExcluded).map(\.text)
+        )
+    }
+
+    init(requiredTerms: [String], excludedTerms: [String]) {
+        self.requiredTerms = Self.uniqueTerms(requiredTerms)
+        self.excludedTerms = Self.uniqueTerms(excludedTerms)
+    }
+
+    /// Compatibility parser for existing one-line searches and previously
+    /// saved Smart Feeds. Each whitespace-delimited word keeps the old AND
+    /// semantics; only a hyphen at the beginning of a word makes it negative.
+    init(legacyQuery: String) {
+        let terms = legacyQuery
+            .split(whereSeparator: \.isWhitespace)
+            .compactMap { SearchTerm(input: String($0)) }
+        self.init(terms: terms)
+    }
+
+    var terms: [SearchTerm] {
+        requiredTerms.compactMap { SearchTerm(text: $0, isExcluded: false) }
+            + excludedTerms.compactMap { SearchTerm(text: $0, isExcluded: true) }
+    }
+
+    var isEmpty: Bool {
+        requiredTerms.isEmpty && excludedTerms.isEmpty
+    }
+
+    /// A negative-only query would mean "download everything except…", which
+    /// is not a bounded search. At least one positive tag starts the search.
+    var canSearch: Bool {
+        !requiredTerms.isEmpty
+    }
+
+    var displayQuery: String {
+        terms.map(\.displayText).joined(separator: " ")
+    }
+
+    func matches(_ text: String) -> Bool {
+        let searchable = Self.normalized(text)
+        return requiredTerms.allSatisfy {
+            searchable.contains(Self.normalized($0))
+        } && excludedTerms.allSatisfy {
+            !searchable.contains(Self.normalized($0))
+        }
+    }
+
+    nonisolated static func normalized(_ text: String) -> String {
+        text.lowercased()
+            .folding(options: .diacriticInsensitive, locale: nil)
+    }
+
+    private static func uniqueTerms(_ terms: [String]) -> [String] {
+        var seen = Set<String>()
+        return terms.compactMap { raw in
+            let term = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !term.isEmpty else { return nil }
+            return seen.insert(normalized(term)).inserted ? term : nil
+        }
+    }
+}
+
 struct SourceSearchResult: Equatable, Identifiable, Sendable {
     let id: Int64
     let title: String
@@ -79,16 +188,33 @@ final class SearchEngine {
     /// 2. items explicitly saved by the user;
     /// 3. everything still present in the local content database, including
     ///    previously opened items, without the old 30-day search cutoff.
-    func unifiedSearch(_ query: String) async -> UnifiedSearchResults {
-        let text = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty else {
+    func unifiedSearch(
+        _ query: String,
+        includeSources: Bool = true,
+        includeContents: Bool = true
+    ) async -> UnifiedSearchResults {
+        await unifiedSearch(
+            SearchExpression(legacyQuery: query),
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+    }
+
+    func unifiedSearch(
+        _ expression: SearchExpression,
+        includeSources: Bool = true,
+        includeContents: Bool = true
+    ) async -> UnifiedSearchResults {
+        guard expression.canSearch, includeSources || includeContents else {
             return .empty
         }
 
-        let sourceResults = await searchSources(text)
-        let savedIDs = await loadBookmarkedIDs()
-        let savedRecords = await searchSavedRecords(text, itemIDs: savedIDs)
-        let contentRecords = await searchLocalRecords(text)
+        let sourceResults = includeSources ? await searchSources(expression) : []
+        let savedIDs = includeContents ? await loadBookmarkedIDs() : []
+        let savedRecords = includeContents
+            ? await searchSavedRecords(expression, itemIDs: savedIDs)
+            : []
+        let contentRecords = includeContents ? await searchLocalRecords(expression) : []
         let localRecords = contentRecords.filter { !savedIDs.contains($0.id) }
         return UnifiedSearchResults(
             sources: sourceResults,
@@ -107,11 +233,14 @@ final class SearchEngine {
         )
     }
 
-    private func searchSavedRecords(_ query: String, itemIDs: Set<String>) async -> [FeedItemRecord] {
+    private func searchSavedRecords(
+        _ expression: SearchExpression,
+        itemIDs: Set<String>
+    ) async -> [FeedItemRecord] {
         guard !itemIDs.isEmpty else { return [] }
-        let match = Self.ftsQuery(for: query)
+        let match = Self.contentFTSQuery(for: expression)
         let allIDs = Array(itemIDs)
-        return (try? await db.read { db in
+        let records: [FeedItemRecord] = (try? await db.read { db in
             var matches: [FeedItemRecord] = []
             // Stay below SQLite's bound-variable limit even for large bookmark libraries.
             for start in stride(from: 0, to: allIDs.count, by: 400) {
@@ -128,6 +257,9 @@ final class SearchEngine {
             }
             return Array(matches.sorted { $0.publishedAt > $1.publishedAt }.prefix(40))
         }) ?? []
+        return records.filter {
+            expression.matches([$0.title, $0.excerpt].joined(separator: " "))
+        }
     }
 
     private func loadBookmarkedIDs() async -> Set<String> {
@@ -137,8 +269,8 @@ final class SearchEngine {
         }) ?? []
     }
 
-    private func searchLocalRecords(_ query: String) async -> [FeedItemRecord] {
-        let match = Self.ftsQuery(for: query)
+    private func searchLocalRecords(_ expression: SearchExpression) async -> [FeedItemRecord] {
+        let match = Self.contentFTSQuery(for: expression)
         let records: [FeedItemRecord] = (try? await db.read { db in
             try FeedItemRecord.fetchAll(db, sql: """
                 SELECT fi.*
@@ -149,7 +281,9 @@ final class SearchEngine {
                 LIMIT 180
                 """, arguments: [match])
         }) ?? []
-        return records.sorted { lhs, rhs in
+        return records.filter {
+            expression.matches([$0.title, $0.excerpt].joined(separator: " "))
+        }.sorted { lhs, rhs in
             let lhsHistory = lhs.openedAt != nil || lhs.isRead
             let rhsHistory = rhs.openedAt != nil || rhs.isRead
             if lhsHistory != rhsHistory { return lhsHistory }
@@ -157,10 +291,13 @@ final class SearchEngine {
         }
     }
 
-    private func searchSources(_ query: String) async -> [SourceSearchResult] {
+    private func searchSources(_ expression: SearchExpression) async -> [SourceSearchResult] {
         guard let catalogDB else { return [] }
-        let match = Self.ftsQuery(for: query)
-        return (try? await catalogDB.read { db in
+        let match = Self.ftsQuery(
+            requiredTerms: expression.requiredTerms,
+            excludedTerms: expression.excludedTerms
+        )
+        let results: [SourceSearchResult] = (try? await catalogDB.read { db in
             let rows = try Row.fetchAll(db, sql: """
                 SELECT
                     s.id, s.title, s.request_url, s.site_url, s.display_host,
@@ -174,7 +311,7 @@ final class SearchEngine {
                     s.default_enabled DESC,
                     s.quality_score DESC,
                     s.title COLLATE NOCASE
-                LIMIT 40
+                LIMIT 200
                 """, arguments: [match])
             return rows.map { row in
                 let rawTags: String? = row["tags"]
@@ -197,15 +334,45 @@ final class SearchEngine {
                 )
             }
         }) ?? []
+        return results.filter { result in
+            expression.matches([
+                result.title,
+                result.feedURL,
+                result.siteURL ?? "",
+                result.displayHost ?? "",
+                result.sourceDescription ?? "",
+                result.tags.joined(separator: " "),
+                result.nature ?? "",
+                result.activity ?? "",
+            ].joined(separator: " "))
+        }
     }
 
-    private static func ftsQuery(for text: String) -> String {
-        let terms = text
-            .split(whereSeparator: \.isWhitespace)
+    private static func ftsQuery(
+        requiredTerms: [String],
+        excludedTerms: [String]
+    ) -> String {
+        let escapedTerms = requiredTerms
             .map { term in
-                "\"\(String(term).replacingOccurrences(of: "\"", with: "\"\""))\""
+                "\"\(term.replacingOccurrences(of: "\"", with: "\"\""))\""
             }
-        return terms.isEmpty ? "\"\"" : terms.joined(separator: " ")
+        let exclusions = excludedTerms.map { term in
+            "NOT \"\(term.replacingOccurrences(of: "\"", with: "\"\""))\""
+        }
+        return escapedTerms.isEmpty
+            ? "\"\""
+            : (escapedTerms + exclusions).joined(separator: " ")
+    }
+
+    /// The content scope is deliberately limited to article title + excerpt.
+    /// Source title/category live in the same physical FTS table for legacy
+    /// reasons, but belong exclusively to the Sources search scope.
+    private static func contentFTSQuery(for expression: SearchExpression) -> String {
+        let query = ftsQuery(
+            requiredTerms: expression.requiredTerms,
+            excludedTerms: expression.excludedTerms
+        )
+        return "{title excerpt} : (\(query))"
     }
 
     // Legacy entry points remain for persistent-search callers and tests.

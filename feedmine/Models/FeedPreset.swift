@@ -56,22 +56,28 @@ enum FeedPreset: String, Codable, Sendable, CaseIterable, Identifiable {
 /// Supports editorial presets, user-created collections, and the "everything" default.
 enum PresetSelector: Codable, Sendable, Hashable {
     case everything
+    case lastClicked
     case editorial(FeedPreset)
     case collection(collectionID: Int64, collectionName: String)
+    case smartFeed(smartFeedID: Int64, smartFeedName: String)
 
     var displayName: String {
         switch self {
         case .everything:               return "Everything"
+        case .lastClicked:              return "Last clicked"
         case .editorial(let preset):    return preset.rawValue
         case .collection(_, let name):  return name
+        case .smartFeed(_, let name):   return name
         }
     }
 
     var icon: String {
         switch self {
         case .everything:          return "circle.grid.3x3.fill"
+        case .lastClicked:         return "clock.arrow.circlepath"
         case .editorial(let p):    return p.icon
         case .collection:          return "folder.fill"
+        case .smartFeed:           return "sparkles.rectangle.stack.fill"
         }
     }
 
@@ -83,6 +89,262 @@ enum PresetSelector: Codable, Sendable, Hashable {
     var collectionID: Int64? {
         if case .collection(let id, _) = self { return id }
         return nil
+    }
+
+    var isLastClicked: Bool {
+        self == .lastClicked
+    }
+
+    var isSmartFeed: Bool {
+        if case .smartFeed = self { return true }
+        return false
+    }
+
+    var smartFeedID: Int64? {
+        if case .smartFeed(let id, _) = self { return id }
+        return nil
+    }
+}
+
+// MARK: - Smart Feeds
+
+/// A saved search plus the complete filter context in which it was created.
+/// The definition is immutable: new matching content is appended to its
+/// long-lived cache without changing the user's current global filters.
+struct SmartFeedDefinition: Codable, Sendable, Hashable {
+    let query: String
+    let requiredSearchTerms: [String]
+    let excludedSearchTerms: [String]
+    let includeSources: Bool
+    let includeContents: Bool
+    let region: String?
+    let taxonomyNodeIDs: [String]
+    let languages: [String]
+    let contentType: String
+    let mood: String
+    let sourceCollectionID: Int64?
+    let excludedKeywords: [String]
+
+    init(
+        query: String,
+        requiredSearchTerms: [String]? = nil,
+        excludedSearchTerms: [String]? = nil,
+        includeSources: Bool,
+        includeContents: Bool,
+        region: String? = nil,
+        taxonomyNodeIDs: [String] = [],
+        languages: [String] = [],
+        contentType: String = "All",
+        mood: String = "All",
+        sourceCollectionID: Int64? = nil,
+        excludedKeywords: [String] = []
+    ) {
+        let legacyExpression = SearchExpression(legacyQuery: query)
+        let expression = SearchExpression(
+            requiredTerms: requiredSearchTerms ?? legacyExpression.requiredTerms,
+            excludedTerms: excludedSearchTerms ?? legacyExpression.excludedTerms
+        )
+        self.query = expression.displayQuery
+        self.requiredSearchTerms = expression.requiredTerms
+        self.excludedSearchTerms = expression.excludedTerms
+        self.includeSources = includeSources
+        self.includeContents = includeContents
+        self.region = region
+        self.taxonomyNodeIDs = taxonomyNodeIDs.sorted()
+        self.languages = languages.sorted()
+        self.contentType = contentType
+        self.mood = mood
+        self.sourceCollectionID = sourceCollectionID
+        self.excludedKeywords = excludedKeywords.sorted()
+    }
+
+    var searchExpression: SearchExpression {
+        SearchExpression(
+            requiredTerms: requiredSearchTerms,
+            excludedTerms: excludedSearchTerms
+        )
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case query
+        case requiredSearchTerms
+        case excludedSearchTerms
+        case includeSources
+        case includeContents
+        case region
+        case taxonomyNodeIDs
+        case languages
+        case contentType
+        case mood
+        case sourceCollectionID
+        case excludedKeywords
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let legacyQuery = try container.decode(String.self, forKey: .query)
+        let legacyExpression = SearchExpression(legacyQuery: legacyQuery)
+        let requiredTerms = try container.decodeIfPresent(
+            [String].self,
+            forKey: .requiredSearchTerms
+        ) ?? legacyExpression.requiredTerms
+        let excludedTerms = try container.decodeIfPresent(
+            [String].self,
+            forKey: .excludedSearchTerms
+        ) ?? legacyExpression.excludedTerms
+        let expression = SearchExpression(
+            requiredTerms: requiredTerms,
+            excludedTerms: excludedTerms
+        )
+
+        query = expression.displayQuery
+        requiredSearchTerms = expression.requiredTerms
+        excludedSearchTerms = expression.excludedTerms
+        includeSources = try container.decode(Bool.self, forKey: .includeSources)
+        includeContents = try container.decode(Bool.self, forKey: .includeContents)
+        region = try container.decodeIfPresent(String.self, forKey: .region)
+        taxonomyNodeIDs = try container.decodeIfPresent(
+            [String].self,
+            forKey: .taxonomyNodeIDs
+        ) ?? []
+        languages = try container.decodeIfPresent([String].self, forKey: .languages) ?? []
+        contentType = try container.decodeIfPresent(
+            String.self,
+            forKey: .contentType
+        ) ?? "All"
+        mood = try container.decodeIfPresent(String.self, forKey: .mood) ?? "All"
+        sourceCollectionID = try container.decodeIfPresent(
+            Int64.self,
+            forKey: .sourceCollectionID
+        )
+        excludedKeywords = try container.decodeIfPresent(
+            [String].self,
+            forKey: .excludedKeywords
+        ) ?? []
+    }
+}
+
+struct SmartFeed: Identifiable, Sendable, Hashable {
+    let id: Int64
+    let name: String
+    let definition: SmartFeedDefinition
+    let createdAt: Date
+    let cachedItemCount: Int
+}
+
+enum FeedActivityState: Sendable {
+    case active
+    case inactive
+    case background
+}
+
+enum SmartFeedRefreshMode: Sendable {
+    case foreground
+    case background
+}
+
+struct SmartFeedRefreshState: Sendable, Equatable {
+    let id: Int64
+    let lastAttemptAt: Date?
+    let lastSuccessAt: Date?
+    let consecutiveFailures: Int
+}
+
+struct SmartFeedRefreshBudget: Sendable, Equatable {
+    let sourceLimit: Int
+    let maxConcurrent: Int
+}
+
+/// Resource policy for persistent Smart Feed subscriptions.
+///
+/// Foreground work is deliberately opportunistic. The currently open Smart
+/// Feed gets a shorter interval and a larger source budget; saved feeds rotate
+/// through smaller batches. Background execution is shorter and entirely
+/// subject to the iOS scheduler.
+enum SmartFeedRefreshPolicy {
+    static let activeForegroundInterval: TimeInterval = 5 * 60
+    static let savedForegroundInterval: TimeInterval = 15 * 60
+    static let activeBackgroundInterval: TimeInterval = 15 * 60
+    static let savedBackgroundInterval: TimeInterval = 45 * 60
+
+    static func foregroundWakeInterval(activeSmartFeedID: Int64?) -> TimeInterval {
+        activeSmartFeedID == nil ? 180 : 90
+    }
+
+    static func orderedDueStates(
+        _ states: [SmartFeedRefreshState],
+        activeSmartFeedID: Int64?,
+        mode: SmartFeedRefreshMode,
+        now: Date = .now
+    ) -> [SmartFeedRefreshState] {
+        states
+            .filter {
+                isDue(
+                    $0,
+                    isActivePreset: $0.id == activeSmartFeedID,
+                    mode: mode,
+                    now: now
+                )
+            }
+            .sorted { lhs, rhs in
+                let lhsActive = lhs.id == activeSmartFeedID
+                let rhsActive = rhs.id == activeSmartFeedID
+                if lhsActive != rhsActive { return lhsActive }
+                let lhsDate = lhs.lastAttemptAt ?? .distantPast
+                let rhsDate = rhs.lastAttemptAt ?? .distantPast
+                if lhsDate != rhsDate { return lhsDate < rhsDate }
+                return lhs.id < rhs.id
+            }
+    }
+
+    static func budget(
+        isActivePreset: Bool,
+        mode: SmartFeedRefreshMode,
+        lowPower: Bool
+    ) -> SmartFeedRefreshBudget {
+        switch (mode, isActivePreset, lowPower) {
+        case (.foreground, true, false):
+            return SmartFeedRefreshBudget(sourceLimit: 48, maxConcurrent: 6)
+        case (.foreground, true, true):
+            return SmartFeedRefreshBudget(sourceLimit: 24, maxConcurrent: 3)
+        case (.foreground, false, false):
+            return SmartFeedRefreshBudget(sourceLimit: 16, maxConcurrent: 2)
+        case (.foreground, false, true):
+            return SmartFeedRefreshBudget(sourceLimit: 8, maxConcurrent: 1)
+        case (.background, true, false):
+            return SmartFeedRefreshBudget(sourceLimit: 16, maxConcurrent: 2)
+        case (.background, true, true):
+            return SmartFeedRefreshBudget(sourceLimit: 8, maxConcurrent: 1)
+        case (.background, false, false):
+            return SmartFeedRefreshBudget(sourceLimit: 8, maxConcurrent: 2)
+        case (.background, false, true):
+            return SmartFeedRefreshBudget(sourceLimit: 4, maxConcurrent: 1)
+        }
+    }
+
+    private static func isDue(
+        _ state: SmartFeedRefreshState,
+        isActivePreset: Bool,
+        mode: SmartFeedRefreshMode,
+        now: Date
+    ) -> Bool {
+        guard let lastAttempt = state.lastAttemptAt else { return true }
+        let baseInterval: TimeInterval
+        switch (mode, isActivePreset) {
+        case (.foreground, true):
+            baseInterval = activeForegroundInterval
+        case (.foreground, false):
+            baseInterval = savedForegroundInterval
+        case (.background, true):
+            baseInterval = activeBackgroundInterval
+        case (.background, false):
+            baseInterval = savedBackgroundInterval
+        }
+        let backoffMultiplier = pow(
+            2.0,
+            Double(min(max(0, state.consecutiveFailures), 3))
+        )
+        return now.timeIntervalSince(lastAttempt) >= baseInterval * backoffMultiplier
     }
 }
 

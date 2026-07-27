@@ -10,11 +10,13 @@ struct FilterSheetView: View {
     @State private var presetIsDirty = false
     @State private var overlayFiltersAreDirty = false
     @State private var availableCollections: [SourceCollection] = []
+    @State private var availableSmartFeeds: [SmartFeed] = []
 
     private var hasDraftFilters: Bool {
         draftContentType != .all
             || !draftLanguages.isEmpty
             || draftMood != .all
+            || draftPreset != .everything
             || loader.hasRegionSelection
             || loader.hasTaxonomySelection
     }
@@ -31,7 +33,9 @@ struct FilterSheetView: View {
                         draftMood = .all
                         presetIsDirty = false
                         overlayFiltersAreDirty = false
-                        loader.clearAllFilters()
+                        // While composing a search, "Clear All Filters" clears
+                        // its context but keeps the committed term tags alive.
+                        loader.clearAllFilters(preservingSearch: loader.isSearching)
                         dismiss()
                     } label: {
                         Label("Clear All Filters", systemImage: "xmark.circle")
@@ -43,6 +47,8 @@ struct FilterSheetView: View {
                     Picker(selection: $draftPreset) {
                         Label("Everything", systemImage: "circle.grid.3x3.fill")
                             .tag(PresetSelector.everything)
+                        Label("Last clicked", systemImage: "clock.arrow.circlepath")
+                            .tag(PresetSelector.lastClicked)
 
                         Section("Editorial") {
                             ForEach(FeedPreset.allCases.filter { $0 != .everything }) { preset in
@@ -59,6 +65,21 @@ struct FilterSheetView: View {
                                             collectionID: collection.id,
                                             collectionName: collection.name
                                         ))
+                                }
+                            }
+                        }
+
+                        if !availableSmartFeeds.isEmpty {
+                            Section("Smart Bookmarks") {
+                                ForEach(availableSmartFeeds) { smartFeed in
+                                    Label(
+                                        smartFeed.name,
+                                        systemImage: "sparkles.rectangle.stack.fill"
+                                    )
+                                    .tag(PresetSelector.smartFeed(
+                                        smartFeedID: smartFeed.id,
+                                        smartFeedName: smartFeed.name
+                                    ))
                                 }
                             }
                         }
@@ -207,9 +228,10 @@ struct FilterSheetView: View {
             overlayFiltersAreDirty = false
             loader.beginFilterEditing()
             Task {
-                if let collections = try? await loader.loadSourceCollections() {
-                    availableCollections = collections
-                }
+                async let collections = loader.loadSourceCollections()
+                async let smartFeeds = loader.loadSmartFeeds()
+                availableCollections = (try? await collections) ?? []
+                availableSmartFeeds = (try? await smartFeeds) ?? []
             }
         }
         .onDisappear {

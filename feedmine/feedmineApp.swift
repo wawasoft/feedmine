@@ -1,4 +1,71 @@
 import SwiftUI
+import BackgroundTasks
+
+@MainActor
+final class SmartFeedBackgroundScheduler {
+    static let shared = SmartFeedBackgroundScheduler()
+    static let taskIdentifier = "com.feedmine.app.smart-feed-refresh"
+
+    private weak var loader: FeedLoader?
+    private var isRegistered = false
+
+    private init() {}
+
+    func register() {
+        guard !isRegistered else { return }
+        isRegistered = BGTaskScheduler.shared.register(
+            forTaskWithIdentifier: Self.taskIdentifier,
+            using: nil
+        ) { task in
+            guard let refreshTask = task as? BGAppRefreshTask else {
+                task.setTaskCompleted(success: false)
+                return
+            }
+            Task { @MainActor in
+                SmartFeedBackgroundScheduler.shared.handle(refreshTask)
+            }
+        }
+        if !isRegistered {
+            Log.feed.error("Could not register Smart Feed background refresh")
+        }
+    }
+
+    func configure(loader: FeedLoader) {
+        self.loader = loader
+    }
+
+    func schedule() {
+        guard isRegistered else { return }
+        let request = BGAppRefreshTaskRequest(identifier: Self.taskIdentifier)
+        // This is an earliest date, not a promise. iOS chooses the actual
+        // execution time from usage, battery, connectivity, and system load.
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 15 * 60)
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            Log.feed.warning(
+                "Smart Feed background refresh was not scheduled: \(error.localizedDescription)"
+            )
+        }
+    }
+
+    private func handle(_ systemTask: BGAppRefreshTask) {
+        // Re-enqueue first so a process termination during this slice does not
+        // break the persistent refresh chain.
+        schedule()
+        let activeLoader = loader ?? FeedLoader()
+        let work = Task { @MainActor in
+            await activeLoader.performSmartFeedBackgroundRefresh()
+        }
+        systemTask.expirationHandler = {
+            work.cancel()
+        }
+        Task { @MainActor in
+            let succeeded = await work.value
+            systemTask.setTaskCompleted(success: succeeded)
+        }
+    }
+}
 
 @main
 struct FeedmineApp: App {
@@ -17,6 +84,7 @@ struct FeedmineApp: App {
         } else if ProcessInfo.processInfo.arguments.contains("-UITestSkipOnboarding") {
             UserDefaults.standard.set(true, forKey: Keys.hasSeenOnboarding)
         }
+        SmartFeedBackgroundScheduler.shared.register()
         FeedMetrics.event("Process.started")
         FeedMetrics.memory("processStarted")
     }
@@ -44,6 +112,9 @@ struct FeedmineApp: App {
                 .environment(audioPlayer)
                 .environment(contentFilters)
                 .onOpenURL { url in handleIncomingURL(url) }
+                .task {
+                    SmartFeedBackgroundScheduler.shared.configure(loader: loader)
+                }
         }
     }
 

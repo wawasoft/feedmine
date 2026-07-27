@@ -19,7 +19,7 @@ enum PresetScorer {
         collectionMemberURLs: Set<String> = []
     ) -> [String: Double] {
         switch preset {
-        case .everything:
+        case .everything, .lastClicked, .smartFeed:
             // Empty dict — all lookups fall through to 1.0 default.
             // This makes "Everything" zero-cost in hot paths.
             return [:]

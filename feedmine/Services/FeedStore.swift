@@ -16,6 +16,7 @@ final class FeedStore {
     let networkMonitor = NetworkMonitor()
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
+    let smartFeedStore: SmartFeedStore
     let sourceCollectionStore: SourceCollectionStore
     let searchEngine: SearchEngine
     let whatsNewManager: WhatsNewManager
@@ -100,6 +101,11 @@ final class FeedStore {
     /// Raw source URLs of collection members. Used by `rebuildPresetMultipliers`
     /// to build `presetSourceFilter`. Kept separately for cache invalidation.
     private var activeCollectionMemberURLs: Set<String> = []
+    /// Cached identities for the active Smart Feed. Smart Feeds deliberately
+    /// keep consumed items, so this set replaces the normal consumed-item
+    /// exclusion while the preset is open.
+    private var activeSmartFeedItemIDs: Set<String> = []
+    private var activeSmartFeedSourceURLs: Set<String> = []
 
     /// Handle for the in-flight rebuildPresetMultipliers task. Cancelled before
     /// starting a new rebuild to prevent stale writes from the previous preset.
@@ -425,7 +431,7 @@ final class FeedStore {
     /// Hit recording is NOT performed here; it happens once at ingestion time
     /// in persistFetchedItems so each item is counted exactly once regardless
     /// of how many times applyFilters runs on the same items.
-    func applyFilters(_ items: [FeedItem]) -> [FeedItem] {
+    func applyFilters(_ items: [FeedItem], includeConsumed: Bool = true) -> [FeedItem] {
         refreshCachedTaxonomyFeedURLsIfNeeded()
         let region = activeRegion
         let contentType = filterContentType
@@ -435,14 +441,22 @@ final class FeedStore {
             ? ContentFilterStore.shared.activeFilters : []
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
         let sourceFilter = presetSourceFilter  // nil for editorial, Set<String> for collection
+        let isClickHistory = activePreset.isLastClicked
+        let isSmartFeed = activePreset.isSmartFeed
+        let clickIDs = clickedItemIDs
+        let smartFeedIDs = activeSmartFeedItemIDs
+        let consumedIDs = consumedItemIDs
         return items.filter { item in
             let normalizedSourceURL = OPMLParser.normalizeURL(item.sourceURL)
             // Opening a collection is an explicit source selection. Its durable
             // membership is therefore authoritative even when a personal source
             // has not yet been restored into SourceRegistry during startup.
-            let isEligibleSource = sourceFilter?.contains(normalizedSourceURL)
-                ?? isItemEnabled(item)
+            let isEligibleSource = isClickHistory || isSmartFeed
+                || (sourceFilter?.contains(normalizedSourceURL) ?? isItemEnabled(item))
             return isEligibleSource
+            && (!isClickHistory || clickIDs.contains(item.id))
+            && (!isSmartFeed || smartFeedIDs.contains(item.id))
+            && (includeConsumed || isClickHistory || isSmartFeed || !consumedIDs.contains(item.id))
             && (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
             && (cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(normalizedSourceURL))
             && Self.languageFilterMatchesNormalized(itemLanguage: item.language, selectedLanguages: languages, deviceLanguage: deviceLanguage)
@@ -505,11 +519,25 @@ final class FeedStore {
     }
     var isSearching = false
     private(set) var isSearchLoading = false
+    private(set) var isSearchScanning = false
+    private(set) var searchScannedSourceCount = 0
+    private(set) var searchTotalSourceCount = 0
+    private(set) var searchDiscoveredItemCount = 0
+    private(set) var searchFailedSourceCount = 0
+    private(set) var searchScanCompleted = false
     private(set) var unifiedSearchResults = UnifiedSearchResults.empty
     private var searchGeneration: UInt64 = 0
+    private var searchTask: Task<Void, Never>?
+    private var activeSearchExpression = SearchExpression.empty
+    private var activeSearchIncludesSources = true
+    private var activeSearchIncludesContents = false
+    private var searchNeedsRestartAfterFilterEditing = false
 
     // MARK: - Read & Seen state
     private(set) var readItemIDs: Set<String> = []
+    private(set) var consumedItemIDs: Set<String> = []
+    private(set) var clickedItemIDs: Set<String> = []
+    private(set) var clickedSourceURLs: Set<String> = []
     /// Items that the user has bookmarked — loaded at startup and kept in sync
     /// with every toggle so `setVisibleItems` can stamp `isBookmarked` correctly.
     private(set) var bookmarkedItemIDs: Set<String> = []
@@ -538,6 +566,10 @@ final class FeedStore {
     private var coverageMiningTask: Task<Void, Never>?
     private var isCoverageMiningActive = false
     private var backgroundRefreshTask: Task<Void, Never>?
+    private var smartFeedMaintenanceTask: Task<Void, Never>?
+    private var smartFeedRefreshesInFlight: Set<Int64> = []
+    private var activityState: FeedActivityState = .active
+    private var isRegularBackgroundFetchActive = false
     private var regionToggleTask: Task<Void, Never>?
     private var filterDebounceTask: Task<Void, Never>?
     private var filterPersistenceTask: Task<Void, Never>?
@@ -661,6 +693,7 @@ final class FeedStore {
         // user.sqlite — owns bookmark identity, survives catalog rebuilds
         self.userRepo = try UserStateStore(inMemory: inMemory)
         self.bookmarkStore = BookmarkStore(userDB: userRepo.db, contentDB: db)
+        self.smartFeedStore = SmartFeedStore(userDB: userRepo.db, contentDB: db)
         self.sourceCollectionStore = SourceCollectionStore(db: userRepo.db)
         self.searchEngine = SearchEngine(
             db: db,
@@ -1069,7 +1102,7 @@ final class FeedStore {
         // need to be reconstructed. Start a small, language-matched network
         // race from the bundled compiled catalog while that CPU work runs so
         // first content is not serialized behind thousands of OPML files.
-        if activePreset.collectionID == nil {
+        if activePreset.collectionID == nil && !activePreset.isSmartFeed {
             firstLaunchBootstrapTask = startFirstLaunchBootstrapIfNeeded()
         }
 
@@ -1141,15 +1174,20 @@ final class FeedStore {
         let endReadStateMetric = FeedMetrics.beginInterval("ReadState.load")
         await loadReadState()
         endReadStateMetric()
-        reservoir.readItemIDs = readItemIDs
+        reservoir.readItemIDs = consumedItemIDs
         bookmarkedItemIDs = bookmarkStore.allBookmarkedItemIDs()
+        startSmartFeedMaintenance(initialDelay: 30)
 
         // Warm start: collection presets can address sources that are absent
         // from the bundled registry, so hydrate their exact member URLs instead
         // of sampling the global SQLite candidate window first. Both paths feed
         // the same reservoir and apply the same user filters.
         let endReservoirLoadMetric = FeedMetrics.beginInterval("Reservoir.load")
-        if let collectionID = activePreset.collectionID,
+        if let smartFeedID = activePreset.smartFeedID, visibleItems.isEmpty {
+            await loadSmartFeedFeed(id: smartFeedID)
+        } else if activePreset.isLastClicked, visibleItems.isEmpty {
+            await loadLastClickedFeed()
+        } else if let collectionID = activePreset.collectionID,
            presetSourceFilter != nil,
            visibleItems.isEmpty {  // skip if early-collection path already painted
             do {
@@ -1202,6 +1240,16 @@ final class FeedStore {
                     expectedGeneration: capturedGen
                 )
             }
+            return
+        }
+        if activePreset.isLastClicked {
+            isPreparingInitialRunway = false
+            loadingState = .idle
+            return
+        }
+        if activePreset.isSmartFeed {
+            isPreparingInitialRunway = false
+            loadingState = .idle
             return
         }
 
@@ -1355,6 +1403,9 @@ final class FeedStore {
     private func applyUpdate(_ update: FeedUIUpdate) {
         // Bookmark mode is a fixed snapshot — no screen mutations allowed
         guard !isBookmarkFeed else { return }
+        // Smart Feeds are also fixed cached queues. They are refreshed only by
+        // the Smart Feed pipeline, never by the global reservoir.
+        guard !activePreset.isSmartFeed else { return }
         switch update {
         case .flush(let forceFetch, let skipRead, let skipNetworkFetch, let generation):
             pipelineTask?.cancel()
@@ -1461,6 +1512,14 @@ final class FeedStore {
     /// baseline reset. Falls back to full startup if the store never started.
     func refreshNow() async {
         guard hasStarted else { await start(); return }
+        if let smartFeedID = activePreset.smartFeedID {
+            await refreshSmartFeed(id: smartFeedID)
+            return
+        }
+        guard !activePreset.isLastClicked else {
+            await loadLastClickedFeed()
+            return
+        }
         // Collection presets may reference personal sources that are absent
         // from the bundled registry. Route through the collection-aware path
         // which queries exact member URLs instead of requiring enabledSources.
@@ -1486,6 +1545,8 @@ final class FeedStore {
     func loadMoreIfNeeded(currentItem: FeedItem) async {
         guard !isSearching else { return }
         guard !isBookmarkFeed else { return }  // fixed feed, no pagination
+        guard !activePreset.isSmartFeed else { return } // cached dynamic queue
+        guard !activePreset.isLastClicked else { return } // fixed click history
         guard let itemIndex = visibleItems.firstIndex(where: { $0.id == currentItem.id }) else { return }
         guard itemIndex >= visibleItems.count - Reservoir.loadMoreThreshold else { return }
         guard itemIndex != lastLoadedIndex else { return }
@@ -1509,6 +1570,16 @@ final class FeedStore {
 
     // MARK: - Stale refresh
     func refreshIfStale() async {
+        if let smartFeedID = activePreset.smartFeedID {
+            let shouldFetch = lastRefreshDate.map {
+                Date().timeIntervalSince($0) > 900
+            } ?? true
+            if shouldFetch {
+                await refreshSmartFeed(id: smartFeedID)
+            }
+            return
+        }
+        guard !activePreset.isLastClicked else { return }
         // Collection presets may reference personal sources outside the
         // bundled registry. Use the collection-aware path which queries
         // exact member URLs instead of depending on enabledSources.
@@ -1666,6 +1737,7 @@ final class FeedStore {
         } else {
             scheduleFilterReload(generation: generation, delay: .milliseconds(300))
         }
+        restartActiveSearchIfNeeded()
     }
 
     private func immediatelyCullVisibleItemsForActiveFilter() {
@@ -1725,6 +1797,10 @@ final class FeedStore {
                 await self?.flushPendingReservoir()
             }
         }
+        if searchNeedsRestartAfterFilterEditing {
+            searchNeedsRestartAfterFilterEditing = false
+            restartActiveSearchIfNeeded()
+        }
     }
 
     private func scheduleFilterReload(generation: Int64, delay: Duration) {
@@ -1778,6 +1854,18 @@ final class FeedStore {
                 }
                 return
             }
+            if capturedPreset.isLastClicked,
+               capturedPreset == self.activePreset,
+               capturedPresetGen == self.presetGeneration {
+                await self.loadLastClickedFeed()
+                return
+            }
+            if let smartFeedID = capturedPreset.smartFeedID,
+               capturedPreset == self.activePreset,
+               capturedPresetGen == self.presetGeneration {
+                await self.loadSmartFeedFeed(id: smartFeedID)
+                return
+            }
 
             // Render the matching local cache before dispatching network work.
             // Besides making a saved feed react immediately, this prevents a
@@ -1828,36 +1916,345 @@ final class FeedStore {
         if isEditingFilters {
             filterDebounceTask?.cancel()
             pendingFilterReloadGeneration = generation
+            if isSearching {
+                searchNeedsRestartAfterFilterEditing = true
+            }
         } else {
             scheduleFilterReload(generation: generation, delay: .milliseconds(100))
+            restartActiveSearchIfNeeded()
         }
     }
 
     // MARK: - Search
-    func search(_ query: String) {
+    func search(_ query: String, includeSources: Bool = true, includeContents: Bool = true) {
+        search(
+            SearchExpression(legacyQuery: query),
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+    }
+
+    func search(
+        _ expression: SearchExpression,
+        includeSources: Bool = true,
+        includeContents: Bool = true
+    ) {
+        searchTask?.cancel()
         isSearching = true
         isSearchLoading = true
+        isSearchScanning = false
+        searchScannedSourceCount = 0
+        searchTotalSourceCount = 0
+        searchDiscoveredItemCount = 0
+        searchFailedSourceCount = 0
+        searchScanCompleted = false
         searchGeneration &+= 1
         let generation = searchGeneration
-        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !q.isEmpty else {
+        activeSearchExpression = expression
+        activeSearchIncludesSources = includeSources
+        activeSearchIncludesContents = includeContents
+        guard expression.canSearch else {
             unifiedSearchResults = .empty
             isSearchLoading = false
             return
         }
-        Task {
-            let results = await searchEngine.unifiedSearch(q)
-            guard isSearching, generation == searchGeneration else { return }
-            unifiedSearchResults = results
-            isSearchLoading = false
+        // A submitted search is direct user intent. Keep its local query and
+        // live source sweep at the highest practical structured-task priority
+        // until the search is changed or closed.
+        searchTask = Task(priority: .userInitiated) { [weak self] in
+            guard let self else { return }
+            await self.refreshUnifiedSearchResults(
+                expression: expression,
+                includeSources: includeSources,
+                includeContents: includeContents,
+                generation: generation
+            )
+            guard !Task.isCancelled,
+                  self.isSearching,
+                  generation == self.searchGeneration else { return }
+            // Source-only search is satisfied by the complete catalog index.
+            // Contents search additionally walks every eligible live endpoint.
+            guard includeContents, self.usesPersistentStorage else { return }
+            await self.runRemoteSearchSweep(
+                expression: expression,
+                includeSources: includeSources,
+                includeContents: includeContents,
+                generation: generation
+            )
         }
     }
 
+    private func refreshUnifiedSearchResults(
+        expression: SearchExpression,
+        includeSources: Bool,
+        includeContents: Bool,
+        generation: UInt64
+    ) async {
+        let rawResults = await searchEngine.unifiedSearch(
+            expression,
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+        guard !Task.isCancelled,
+              isSearching,
+              generation == searchGeneration else { return }
+        unifiedSearchResults = UnifiedSearchResults(
+            sources: rawResults.sources.filter(sourceMatchesActiveSearchFilters),
+            savedItems: applyFilters(rawResults.savedItems, includeConsumed: true),
+            localItems: applyFilters(rawResults.localItems, includeConsumed: true)
+        )
+        isSearchLoading = false
+    }
+
+    private func runRemoteSearchSweep(
+        expression: SearchExpression,
+        includeSources: Bool,
+        includeContents: Bool,
+        generation: UInt64
+    ) async {
+        isSearchScanning = true
+        defer {
+            if generation == searchGeneration {
+                isSearchScanning = false
+                searchScanCompleted = searchTotalSourceCount > 0
+                    && searchScannedSourceCount >= searchTotalSourceCount
+            }
+        }
+
+        var sources = await sourcesEligibleForActiveSearch()
+        guard !Task.isCancelled,
+              isSearching,
+              generation == searchGeneration else { return }
+
+        let immediatePriorityURLs = Set(
+            unifiedSearchResults.sources.map {
+                OPMLParser.normalizeURL($0.feedURL)
+            }
+            + (unifiedSearchResults.savedItems + unifiedSearchResults.localItems).map {
+                OPMLParser.normalizeURL($0.sourceURL)
+            }
+        )
+        sources.sort { lhs, rhs in
+            let lhsPriority = immediatePriorityURLs.contains(
+                OPMLParser.normalizeURL(lhs.url)
+            )
+            let rhsPriority = immediatePriorityURLs.contains(
+                OPMLParser.normalizeURL(rhs.url)
+            )
+            if lhsPriority != rhsPriority { return lhsPriority }
+            return (scheduler.lastFetchedAt[lhs.url] ?? .distantPast)
+                < (scheduler.lastFetchedAt[rhs.url] ?? .distantPast)
+        }
+        searchTotalSourceCount = sources.count
+        guard !sources.isEmpty else {
+            searchScanCompleted = true
+            return
+        }
+
+        let batchSize = 32
+        for start in stride(from: 0, to: sources.count, by: batchSize) {
+            guard !Task.isCancelled,
+                  isSearching,
+                  generation == searchGeneration else { return }
+            let chunk = Array(sources[start..<min(start + batchSize, sources.count)])
+            let result = await fetcher.fetchAll(
+                chunk,
+                maxConcurrent: min(16, chunk.count)
+            )
+            guard !Task.isCancelled,
+                  isSearching,
+                  generation == searchGeneration else { return }
+
+            let itemCounts = Dictionary(
+                grouping: result.items,
+                by: { OPMLParser.normalizeURL($0.sourceURL) }
+            ).mapValues(\.count)
+            var healthEntries: [(url: String, itemCount: Int?)] = []
+            for source in chunk {
+                let status = result.sourceStatuses[source.url] ?? .failed
+                scheduler.recordFetch(
+                    sourceURL: source.url,
+                    success: status != .failed
+                )
+                healthEntries.append((
+                    source.url,
+                    itemCounts[OPMLParser.normalizeURL(source.url)]
+                ))
+            }
+            saveSourceHealthBatch(healthEntries)
+
+            totalFetched += result.items.count
+            fetchErrorCount += result.failedSourceCount
+            emptyFeedCount += result.emptySourceCount
+            searchFailedSourceCount += result.failedSourceCount
+
+            let actualNew = await persistFetchedItems(result.items)
+            guard !Task.isCancelled,
+                  isSearching,
+                  generation == searchGeneration else { return }
+            if !actualNew.isEmpty {
+                searchDiscoveredItemCount += actualNew.count
+                collectWhatsNewCandidates(actualNew)
+                await matchPersistentSearches(actualNew)
+                await capSourceItemsBatch(Array(Set(actualNew.map(\.sourceURL))))
+            }
+            searchScannedSourceCount = min(
+                searchTotalSourceCount,
+                searchScannedSourceCount + chunk.count
+            )
+
+            await refreshUnifiedSearchResults(
+                expression: expression,
+                includeSources: includeSources,
+                includeContents: includeContents,
+                generation: generation
+            )
+        }
+    }
+
+    /// Complete endpoint set for a live content search. This is intentionally
+    /// independent from `feed_item`: a source remains eligible even when none
+    /// of its content has reached the local database yet.
+    func sourcesEligibleForActiveSearch() async -> [FeedSource] {
+        refreshCachedTaxonomyFeedURLsIfNeeded()
+        let lookup = registry.lookupSnapshot()
+        let sourcePool: [FeedSource]
+
+        if let collectionID = activePreset.collectionID {
+            let members = (try? await sourceCollectionStore.members(
+                collectionID: collectionID
+            )) ?? []
+            sourcePool = members.map { member in
+                registry.source(forURL: member.sourceURL)
+                    ?? sourceReference(for: member).feedSource
+            }
+        } else if !activeNodeIDs.isEmpty {
+            sourcePool = cachedTaxonomyFeedURLs.compactMap { url in
+                guard !lookup.explicitlyDisabledURLs.contains(url) else {
+                    return nil
+                }
+                return lookup.sourcesByNormalizedURL[url]
+            }
+        } else if activeContentType != .all {
+            sourcePool = lookup.sourcesByNormalizedURL.compactMap { url, source in
+                lookup.explicitlyDisabledURLs.contains(url) ? nil : source
+            }
+        } else {
+            sourcePool = registry.enabledSources
+        }
+
+        var seenURLs = Set<String>()
+        return sourcePool.filter { source in
+            let normalizedURL = OPMLParser.normalizeURL(source.url)
+            guard seenURLs.insert(normalizedURL).inserted else { return false }
+            if activePreset.isLastClicked,
+               !clickedSourceURLs.contains(normalizedURL) {
+                return false
+            }
+            if activePreset.isSmartFeed,
+               !activeSmartFeedSourceURLs.contains(normalizedURL) {
+                return false
+            }
+            if let sourceFilter = presetSourceFilter,
+               !sourceFilter.contains(normalizedURL) {
+                return false
+            }
+            if let region = activeRegion,
+               source.region != region,
+               !source.region.hasPrefix(region + "/") {
+                return false
+            }
+            if !activeLanguages.isEmpty,
+               let language = Self.normalizedLanguageCode(source.language),
+               !activeLanguages.contains(language) {
+                return false
+            }
+            if !activeNodeIDs.isEmpty,
+               !cachedTaxonomyFeedURLs.contains(normalizedURL) {
+                return false
+            }
+            return sourceMatches(source, contentType: activeContentType)
+        }
+    }
+
+    private func sourceMatchesActiveSearchFilters(_ result: SourceSearchResult) -> Bool {
+        let normalizedURL = OPMLParser.normalizeURL(result.feedURL)
+        if activePreset.isSmartFeed, !activeSmartFeedSourceURLs.contains(normalizedURL) {
+            return false
+        }
+        if activePreset.isLastClicked, !clickedSourceURLs.contains(normalizedURL) {
+            return false
+        }
+        if let sourceFilter = presetSourceFilter, !sourceFilter.contains(normalizedURL) {
+            return false
+        }
+
+        let registered = registry.source(forURL: normalizedURL)
+        if let region = activeRegion {
+            guard let sourceRegion = registered?.region,
+                  sourceRegion == region || sourceRegion.hasPrefix(region + "/")
+            else { return false }
+        }
+        if !activeNodeIDs.isEmpty {
+            refreshCachedTaxonomyFeedURLsIfNeeded()
+            guard cachedTaxonomyFeedURLs.contains(normalizedURL) else { return false }
+        }
+        if !activeLanguages.isEmpty {
+            let language = Self.normalizedLanguageCode(result.language ?? registered?.language)
+            guard language.map({ activeLanguages.contains($0) }) == true else { return false }
+        }
+        let mediaKind = registered?.mediaKind ?? result.mediaKind
+        switch activeContentType {
+        case .all: break
+        case .text: guard mediaKind == .text else { return false }
+        case .video: guard mediaKind == .video else { return false }
+        case .audio: guard mediaKind == .audio else { return false }
+        case .forum: guard mediaKind == .forum else { return false }
+        }
+        return true
+    }
+
     func clearSearch() {
+        searchTask?.cancel()
+        searchTask = nil
         isSearching = false
         isSearchLoading = false
+        isSearchScanning = false
+        searchScannedSourceCount = 0
+        searchTotalSourceCount = 0
+        searchDiscoveredItemCount = 0
+        searchFailedSourceCount = 0
+        searchScanCompleted = false
+        activeSearchExpression = .empty
         searchGeneration &+= 1
         unifiedSearchResults = .empty
+    }
+
+    func cancelSearchScan() {
+        guard isSearchScanning else { return }
+        searchTask?.cancel()
+        searchTask = nil
+        searchGeneration &+= 1
+        isSearchLoading = false
+        isSearchScanning = false
+        searchScanCompleted = false
+    }
+
+    private func restartActiveSearchIfNeeded() {
+        guard isSearching, activeSearchExpression.canSearch else { return }
+        if isEditingFilters {
+            searchTask?.cancel()
+            searchTask = nil
+            isSearchLoading = false
+            isSearchScanning = false
+            searchNeedsRestartAfterFilterEditing = true
+            return
+        }
+        search(
+            activeSearchExpression,
+            includeSources: activeSearchIncludesSources,
+            includeContents: activeSearchIncludesContents
+        )
     }
 
     // MARK: - Read & Seen
@@ -1868,9 +2265,24 @@ final class FeedStore {
         for item in items { surfacedItemIDs.insert(item.id) }
     }
 
+    func markAsSeen(_ itemID: String) {
+        guard consumedItemIDs.insert(itemID).inserted else { return }
+        reservoir.readItemIDs = consumedItemIDs
+        let now = Int(Date().timeIntervalSince1970)
+        Task {
+            try await db.write { db in
+                try db.execute(
+                    sql: "UPDATE feed_item SET consumed_at = COALESCE(consumed_at, ?) WHERE id = ?",
+                    arguments: [now, itemID]
+                )
+            }
+        }
+    }
+
     func markAsRead(_ itemID: String) {
         readItemIDs.insert(itemID)
-        reservoir.readItemIDs = readItemIDs
+        consumedItemIDs.insert(itemID)
+        reservoir.readItemIDs = consumedItemIDs
         // Update stamped item in-place so only this card re-renders
         if let idx = visibleItems.firstIndex(where: { $0.id == itemID }) {
             visibleItems[idx].isRead = true
@@ -1879,9 +2291,44 @@ final class FeedStore {
         Task {
             try await db.write { db in
                 try db.execute(sql: """
-                    UPDATE feed_item SET is_read = 1, opened_at = \(Int(Date().timeIntervalSince1970))
+                    UPDATE feed_item
+                    SET is_read = 1, consumed_at = COALESCE(consumed_at, ?)
                     WHERE id = ?
-                """, arguments: [itemID])
+                """, arguments: [Int(Date().timeIntervalSince1970), itemID])
+            }
+        }
+    }
+
+    func markAsClicked(_ itemID: String) {
+        readItemIDs.insert(itemID)
+        consumedItemIDs.insert(itemID)
+        clickedItemIDs.insert(itemID)
+        reservoir.readItemIDs = consumedItemIDs
+        if let idx = visibleItems.firstIndex(where: { $0.id == itemID }) {
+            visibleItems[idx].isRead = true
+            visibleItemsGeneration &+= 1
+        }
+        let now = Int(Date().timeIntervalSince1970)
+        Task {
+            try await db.write { db in
+                try db.execute(sql: """
+                    UPDATE feed_item
+                    SET is_read = 1, opened_at = ?, clicked_at = ?,
+                        consumed_at = COALESCE(consumed_at, ?)
+                    WHERE id = ?
+                """, arguments: [now, now, now, itemID])
+            }
+            if let sourceURL: String = try? await db.read({ db in
+                try String.fetchOne(
+                    db,
+                    sql: "SELECT source_url FROM feed_item WHERE id = ?",
+                    arguments: [itemID]
+                )
+            }) {
+                clickedSourceURLs.insert(OPMLParser.normalizeURL(sourceURL))
+            }
+            if activePreset.isLastClicked {
+                await loadLastClickedFeed()
             }
         }
     }
@@ -1890,8 +2337,11 @@ final class FeedStore {
     /// N individual writes. Same pattern as shakeToRefresh.
     func markAllAsRead(_ ids: [String]) {
         guard !ids.isEmpty else { return }
-        for id in ids { readItemIDs.insert(id) }
-        reservoir.readItemIDs = readItemIDs
+        for id in ids {
+            readItemIDs.insert(id)
+            consumedItemIDs.insert(id)
+        }
+        reservoir.readItemIDs = consumedItemIDs
         // Update stamped items in-place
         let idSet = Set(ids)
         for idx in visibleItems.indices where idSet.contains(visibleItems[idx].id) {
@@ -1903,7 +2353,8 @@ final class FeedStore {
         Task {
             try await db.write { db in
                 try db.execute(sql: """
-                    UPDATE feed_item SET is_read = 1, opened_at = \(now)
+                    UPDATE feed_item SET is_read = 1,
+                        consumed_at = COALESCE(consumed_at, \(now))
                     WHERE id IN (\(placeholders))
                 """, arguments: StatementArguments(ids))
             }
@@ -1912,7 +2363,7 @@ final class FeedStore {
 
     func markAsUnread(_ itemID: String) {
         readItemIDs.remove(itemID)
-        reservoir.readItemIDs = readItemIDs
+        reservoir.readItemIDs = consumedItemIDs
         // Update stamped item in-place
         if let idx = visibleItems.firstIndex(where: { $0.id == itemID }) {
             visibleItems[idx].isRead = false
@@ -1920,17 +2371,25 @@ final class FeedStore {
         }
         Task {
             try await db.write { db in
-                try db.execute(sql: "UPDATE feed_item SET is_read = 0, opened_at = NULL WHERE id = ?", arguments: [itemID])
+                // `consumed_at` intentionally remains: unread changes the
+                // visual read state but never requeues an already seen card.
+                try db.execute(sql: "UPDATE feed_item SET is_read = 0 WHERE id = ?", arguments: [itemID])
             }
         }
     }
 
     func clearReadHistory() {
         readItemIDs.removeAll()
-        reservoir.readItemIDs = []
+        clickedItemIDs.removeAll()
+        clickedSourceURLs.removeAll()
+        reservoir.readItemIDs = consumedItemIDs
+        if activePreset.isLastClicked {
+            reservoir.clear()
+            setVisibleItems([])
+        }
         Task {
             try await db.write { db in
-                try db.execute(sql: "UPDATE feed_item SET is_read = 0, opened_at = NULL")
+                try db.execute(sql: "UPDATE feed_item SET is_read = 0, opened_at = NULL, clicked_at = NULL")
             }
         }
     }
@@ -1998,6 +2457,10 @@ final class FeedStore {
         guard preset != activePreset else { return }
         activePreset = preset
         Settings.activePreset = preset
+        if !preset.isSmartFeed {
+            activeSmartFeedItemIDs = []
+            activeSmartFeedSourceURLs = []
+        }
         presetGeneration &+= 1
         let capturedGeneration = presetGeneration
         resetWhatsNewBaseline()
@@ -2012,14 +2475,20 @@ final class FeedStore {
         coverageMiningTask?.cancel()
         backgroundRefreshTask?.cancel()
         filterDebounceTask?.cancel()
+        startSmartFeedMaintenance(initialDelay: preset.isSmartFeed ? 5 : 30)
 
         presetRebuildTask = Task { [weak self] in
             guard let self else { return }
             await self.rebuildPresetMultipliers(for: preset)
             guard !Task.isCancelled, self.activePreset == preset,
                   self.presetGeneration == capturedGeneration else { return }
+            self.restartActiveSearchIfNeeded()
 
-            if case .collection(let collectionID, _) = preset {
+            if let smartFeedID = preset.smartFeedID {
+                await self.loadSmartFeedFeed(id: smartFeedID)
+            } else if preset.isLastClicked {
+                await self.loadLastClickedFeed()
+            } else if case .collection(let collectionID, _) = preset {
                 await self.loadCollectionPresetFeed(
                     collectionID: collectionID,
                     expectedPreset: preset,
@@ -2105,13 +2574,31 @@ final class FeedStore {
     private func publishCollectionPresetItems(_ items: [FeedItem], collectionID: Int64) async {
         guard case .collection(let currentID, _) = activePreset,
               currentID == collectionID else { return }
-        let filteredItems = applyFilters(items)
+        let filteredItems = applyFilters(items, includeConsumed: false)
         await reservoir.seed(items: filteredItems, presetMultipliers: presetMultipliers)
         guard !Task.isCancelled,
               case .collection(let latestID, _) = activePreset,
               latestID == collectionID else { return }
         applyUpdate(.replace(reservoir.visibleItems))
         reservoirCount = reservoir.reservoirCount
+    }
+
+    /// Fixed history feed ordered by actual content taps, newest first.
+    /// Visibility-only impressions never write `clicked_at`.
+    private func loadLastClickedFeed() async {
+        let records: [FeedItemRecord] = (try? await db.read { db in
+            try FeedItemRecord.fetchAll(db, sql: """
+                SELECT * FROM feed_item
+                WHERE clicked_at IS NOT NULL
+                ORDER BY clicked_at DESC, id
+                LIMIT 1000
+                """)
+        }) ?? []
+        guard activePreset.isLastClicked else { return }
+        reservoir.clear()
+        reservoirCount = 0
+        setVisibleItems(applyFilters(records.map { $0.toFeedItem() }))
+        loadingState = .idle
     }
 
     /// Rebuild the `presetMultipliers` dictionary from the current preset
@@ -2182,6 +2669,10 @@ final class FeedStore {
             // discard — the flush would clear correctly-hydrated content.
             if generation != 0,
                activePreset != expectedPreset || presetGeneration != generation {
+                return
+            }
+            if let smartFeedID = activePreset.smartFeedID {
+                await loadSmartFeedFeed(id: smartFeedID)
                 return
             }
             // If a collection preset is active, route through the collection-aware
@@ -2431,6 +2922,9 @@ final class FeedStore {
                 }
             }
 
+            // Smart Feeds subscribe at the ingestion boundary so every fetch
+            // path participates, including imports and explicit source loads.
+            await matchSmartFeeds(succeeded)
             return succeeded
         } catch {
             Log.db.error("persist error: \(error.localizedDescription)")
@@ -3171,12 +3665,152 @@ final class FeedStore {
         }
     }
 
+    // MARK: - Persistent Smart Feed maintenance
+
+    func setActivityState(_ state: FeedActivityState) {
+        activityState = state
+        switch state {
+        case .active:
+            startBackgroundRefresh()
+            startSmartFeedMaintenance(initialDelay: 5)
+        case .inactive:
+            stopBackgroundRefresh()
+            smartFeedMaintenanceTask?.cancel()
+            smartFeedMaintenanceTask = nil
+        case .background:
+            stopBackgroundRefresh()
+            smartFeedMaintenanceTask?.cancel()
+            smartFeedMaintenanceTask = nil
+        }
+    }
+
+    private func startSmartFeedMaintenance(initialDelay: TimeInterval) {
+        guard usesPersistentStorage, hasStarted, activityState == .active else { return }
+        smartFeedMaintenanceTask?.cancel()
+        smartFeedMaintenanceTask = Task(priority: .background) { [weak self] in
+            guard let self else { return }
+            do {
+                try await Task.sleep(for: .seconds(initialDelay))
+            } catch {
+                return
+            }
+            while !Task.isCancelled, self.activityState == .active {
+                if self.canRunOpportunisticSmartFeedRefresh {
+                    _ = await self.performNextSmartFeedRefresh(mode: .foreground)
+                }
+                let interval = SmartFeedRefreshPolicy.foregroundWakeInterval(
+                    activeSmartFeedID: self.activePreset.smartFeedID
+                )
+                do {
+                    try await Task.sleep(for: .seconds(interval))
+                } catch {
+                    return
+                }
+            }
+        }
+    }
+
+    private var canRunOpportunisticSmartFeedRefresh: Bool {
+        activityState == .active
+            && networkMonitor.isConnected
+            && loadingState == .idle
+            && !isSearching
+            && !isPreparingInitialRunway
+            && !isUrgentFetching
+            && !isEditingFilters
+            && !isCoverageMiningActive
+            && !isRegularBackgroundFetchActive
+    }
+
+    private func performNextSmartFeedRefresh(
+        mode: SmartFeedRefreshMode,
+        presentWhenActive: Bool = true
+    ) async -> Bool? {
+        let states: [SmartFeedRefreshState]
+        do {
+            states = try await smartFeedStore.refreshStates()
+        } catch {
+            Log.db.error("Smart Feed refresh queue failed: \(error.localizedDescription)")
+            return false
+        }
+        let due = SmartFeedRefreshPolicy.orderedDueStates(
+            states,
+            activeSmartFeedID: activePreset.smartFeedID,
+            mode: mode
+        )
+        guard let candidate = due.first(where: {
+            !smartFeedRefreshesInFlight.contains($0.id)
+        }) else { return nil }
+        let isActive = candidate.id == activePreset.smartFeedID
+        let budget = SmartFeedRefreshPolicy.budget(
+            isActivePreset: isActive,
+            mode: mode,
+            lowPower: ProcessInfo.processInfo.isLowPowerModeEnabled
+        )
+        Log.feed.info(
+            "Smart Feed maintenance id=\(candidate.id) active=\(isActive) mode=\(String(describing: mode)) sources=\(budget.sourceLimit)"
+        )
+        return await refreshSmartFeed(
+            id: candidate.id,
+            sourceLimit: budget.sourceLimit,
+            maxConcurrent: budget.maxConcurrent,
+            presentWhenActive: presentWhenActive && isActive
+        )
+    }
+
+    /// Prepares only the catalog structures required to evaluate saved Smart
+    /// Feed definitions. Unlike normal startup, this does not start the main
+    /// feed runway, image prefetching, catalog updates, or regular refresh.
+    func prepareForBackgroundSmartFeedRefresh() async {
+        guard usesPersistentStorage else { return }
+        if registry.sources.isEmpty {
+            await registry.loadFromOPML()
+            reservoir.sourceRegionMap = registry.regionMap
+        }
+        let taxonomyReady = TaxonomyStore.shared.loadFromCache(
+            sources: registry.sources,
+            sharedCountrySourceURLs: registry.sharedCountrySourceURLs
+        )
+        if !taxonomyReady, TaxonomyStore.shared.flatIndex.isEmpty {
+            await TaxonomyStore.shared.build(
+                from: registry.sources,
+                sharedCountrySourceURLs: registry.sharedCountrySourceURLs
+            )
+        }
+        activePreset = Settings.activePreset
+    }
+
+    /// Runs a short, persisted slice of the Smart Feed queue for a
+    /// `BGAppRefreshTask`. The system owns the execution window; cancellation
+    /// is checked between feeds and propagated into the network task group.
+    func performSmartFeedBackgroundRefresh() async -> Bool {
+        guard usesPersistentStorage else { return true }
+        await prepareForBackgroundSmartFeedRefresh()
+        guard !Task.isCancelled, !registry.sources.isEmpty else { return false }
+
+        let maximumFeeds = ProcessInfo.processInfo.isLowPowerModeEnabled ? 1 : 2
+        var attempted = false
+        var allSucceeded = true
+        for _ in 0..<maximumFeeds {
+            guard !Task.isCancelled else { return false }
+            guard let succeeded = await performNextSmartFeedRefresh(
+                mode: .background,
+                presentWhenActive: false
+            ) else { break }
+            attempted = true
+            allSucceeded = allSucceeded && succeeded
+        }
+        return !attempted || allSucceeded
+    }
+
     /// Slow-drip background refresh — fetches a small batch of sources every
     /// few minutes to keep the database and What's New fed with fresh content.
     /// Complements progressiveFetch (bulk initial fill) with continuous renewal.
     private func startBackgroundRefresh() {
         // Collection presets use eager loading — skip the slow-drip refresh
-        guard presetSourceFilter == nil else { return }
+        guard activityState == .active,
+              presetSourceFilter == nil,
+              !activePreset.isSmartFeed else { return }
         backgroundRefreshTask?.cancel()
         backgroundRefreshTask = Task(priority: .background) { [weak self] in
             guard let self else { return }
@@ -3219,7 +3853,10 @@ final class FeedStore {
                     Array(sourceSnapshot.shuffled().prefix(batchSize))
                 }.value
                 guard !batch.isEmpty else { continue }
+                self.isRegularBackgroundFetchActive = true
                 let result = await self.fetcher.fetchAll(batch, maxConcurrent: 2)
+                self.isRegularBackgroundFetchActive = false
+                guard !Task.isCancelled else { break }
                 let actualNew = await self.persistFetchedItems(result.items)
                 let visibleNew = await self.presentationItems(from: actualNew)
                 if !visibleNew.isEmpty {
@@ -3242,6 +3879,7 @@ final class FeedStore {
     func stopBackgroundRefresh() {
         backgroundRefreshTask?.cancel()
         backgroundRefreshTask = nil
+        isRegularBackgroundFetchActive = false
     }
 
     /// Cap ALL sources in the database at 50 items each. Runs once after
@@ -3280,6 +3918,7 @@ final class FeedStore {
             var request = FeedItemRecord
                 .filter(Column("fetched_at") > Self.thirtyDayCutoffEpoch)
                 .filter(Column("is_read") == 0)
+                .filter(Column("consumed_at") == nil)
             if let r = region {
                 // Exact match or descendant prefix (e.g. "countries/brazil/sao-paulo")
                 // matches both the region itself and its sub-regions, matching the
@@ -3585,29 +4224,31 @@ final class FeedStore {
         return selected
     }
 
-    private static let maxReadIDs = 5000
-
     private func loadReadState() async {
         do {
-            let limit = Self.maxReadIDs
-            let ids: [String] = try await db.read { db in
-                try String.fetchAll(db, sql: """
+            let state: (read: [String], consumed: [String], clicked: [String], sources: [String]) = try await db.read { db in
+                let read = try String.fetchAll(db, sql: """
                     SELECT id FROM feed_item WHERE is_read = 1
-                    ORDER BY opened_at DESC LIMIT \(limit)
+                    ORDER BY COALESCE(clicked_at, opened_at, fetched_at) DESC
                 """)
+                let consumed = try String.fetchAll(
+                    db,
+                    sql: "SELECT id FROM feed_item WHERE consumed_at IS NOT NULL"
+                )
+                let clicked = try String.fetchAll(
+                    db,
+                    sql: "SELECT id FROM feed_item WHERE clicked_at IS NOT NULL"
+                )
+                let sources = try String.fetchAll(
+                    db,
+                    sql: "SELECT DISTINCT source_url FROM feed_item WHERE clicked_at IS NOT NULL"
+                )
+                return (read, consumed, clicked, sources)
             }
-            readItemIDs = Set(ids)
-
-            // Purge old read rows beyond the cap
-            try await db.write { db in
-                try db.execute(sql: """
-                    UPDATE feed_item SET is_read = 0, opened_at = NULL
-                    WHERE is_read = 1 AND id NOT IN (
-                        SELECT id FROM feed_item WHERE is_read = 1
-                        ORDER BY opened_at DESC LIMIT \(limit)
-                    )
-                """)
-            }
+            readItemIDs = Set(state.read)
+            consumedItemIDs = Set(state.consumed)
+            clickedItemIDs = Set(state.clicked)
+            clickedSourceURLs = Set(state.sources.map(OPMLParser.normalizeURL))
         } catch {
             Log.db.error("loadReadState error: \(error.localizedDescription)")
         }
@@ -3721,6 +4362,557 @@ final class FeedStore {
 
     private func matchPersistentSearches(_ items: [FeedItem]) async {
         await bookmarkStore.matchPersistentSearches(items, regionResolver: { [self] in registry.regionFor(sourceURL: $0) })
+    }
+
+    // MARK: - Smart feeds
+
+    func allSmartFeeds() async throws -> [SmartFeed] {
+        try await smartFeedStore.allSmartFeeds()
+    }
+
+    func makeSmartFeedDefinition(
+        query: String,
+        includeSources: Bool,
+        includeContents: Bool
+    ) -> SmartFeedDefinition {
+        makeSmartFeedDefinition(
+            expression: SearchExpression(legacyQuery: query),
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+    }
+
+    func makeSmartFeedDefinition(
+        expression: SearchExpression,
+        includeSources: Bool,
+        includeContents: Bool
+    ) -> SmartFeedDefinition {
+        SmartFeedDefinition(
+            query: expression.displayQuery,
+            requiredSearchTerms: expression.requiredTerms,
+            excludedSearchTerms: expression.excludedTerms,
+            includeSources: includeSources,
+            includeContents: includeContents,
+            region: activeRegion,
+            taxonomyNodeIDs: Array(activeNodeIDs),
+            languages: Array(activeLanguages),
+            contentType: activeContentType.rawValue,
+            mood: activeMood.rawValue,
+            sourceCollectionID: activePreset.collectionID,
+            excludedKeywords: ContentFilterStore.shared.activeFilters
+                .flatMap { $0.keywords }
+                .filter {
+                    !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                }
+        )
+    }
+
+    @discardableResult
+    func createSmartFeed(
+        name: String,
+        query: String,
+        includeSources: Bool,
+        includeContents: Bool
+    ) async throws -> SmartFeed {
+        try await createSmartFeed(
+            name: name,
+            expression: SearchExpression(legacyQuery: query),
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+    }
+
+    @discardableResult
+    func createSmartFeed(
+        name: String,
+        expression: SearchExpression,
+        includeSources: Bool,
+        includeContents: Bool
+    ) async throws -> SmartFeed {
+        let definition = makeSmartFeedDefinition(
+            expression: expression,
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+        let id = try await smartFeedStore.createSmartFeed(
+            name: name,
+            definition: definition
+        )
+        do {
+            try await rebuildSmartFeedCache(id: id)
+            guard let smartFeed = try await smartFeedStore.smartFeed(id: id) else {
+                throw SmartFeedError.invalidDefinition
+            }
+            startSmartFeedMaintenance(initialDelay: 5)
+            return smartFeed
+        } catch {
+            try? await smartFeedStore.deleteSmartFeed(id: id)
+            throw error
+        }
+    }
+
+    func deleteSmartFeed(id: Int64) async throws {
+        try await smartFeedStore.deleteSmartFeed(id: id)
+        if activePreset.smartFeedID == id {
+            setPreset(.everything)
+        }
+        startSmartFeedMaintenance(initialDelay: 30)
+    }
+
+    private func rebuildSmartFeedCache(id: Int64) async throws {
+        guard let smartFeed = try await smartFeedStore.smartFeed(id: id) else { return }
+        let allowedURLs = try await smartFeedAllowedSourceURLs(smartFeed.definition)
+        let records = try await smartFeedCandidateRecords(
+            definition: smartFeed.definition,
+            allowedSourceURLs: allowedURLs
+        )
+        let matches = records.compactMap { record -> String? in
+            let item = record.toFeedItem()
+            return smartFeedMatches(
+                item,
+                definition: smartFeed.definition,
+                allowedSourceURLs: allowedURLs
+            ) ? item.id : nil
+        }
+        try await smartFeedStore.cache(itemIDs: matches, for: id)
+    }
+
+    private func matchSmartFeeds(_ items: [FeedItem]) async {
+        guard !items.isEmpty else { return }
+        let smartFeeds: [SmartFeed]
+        do {
+            smartFeeds = try await smartFeedStore.allSmartFeeds()
+        } catch {
+            Log.db.error("Could not load Smart Feeds: \(error.localizedDescription)")
+            return
+        }
+        guard !smartFeeds.isEmpty else { return }
+
+        for smartFeed in smartFeeds {
+            do {
+                let allowedURLs = try await smartFeedAllowedSourceURLs(smartFeed.definition)
+                let matchedIDs = items.compactMap { item in
+                    smartFeedMatches(
+                        item,
+                        definition: smartFeed.definition,
+                        allowedSourceURLs: allowedURLs
+                    ) ? item.id : nil
+                }
+                try await smartFeedStore.cache(itemIDs: matchedIDs, for: smartFeed.id)
+            } catch {
+                Log.db.error(
+                    "Smart Feed '\(smartFeed.name)' match failed: \(error.localizedDescription)"
+                )
+            }
+        }
+    }
+
+    private func smartFeedAllowedSourceURLs(
+        _ definition: SmartFeedDefinition
+    ) async throws -> Set<String>? {
+        var allowed: Set<String>?
+        if !definition.taxonomyNodeIDs.isEmpty {
+            allowed = TaxonomyStore.shared.feedURLs(
+                inSubtreesOf: Set(definition.taxonomyNodeIDs)
+            )
+        }
+        if let collectionID = definition.sourceCollectionID {
+            let members = try await sourceCollectionStore.members(collectionID: collectionID)
+            let collectionURLs = Set(members.map {
+                OPMLParser.normalizeURL($0.sourceURL)
+            })
+            if let existing = allowed {
+                allowed = existing.intersection(collectionURLs)
+            } else {
+                allowed = collectionURLs
+            }
+        }
+        return allowed
+    }
+
+    private func smartFeedMatches(
+        _ item: FeedItem,
+        definition: SmartFeedDefinition,
+        allowedSourceURLs: Set<String>?
+    ) -> Bool {
+        let sourceURL = OPMLParser.normalizeURL(item.sourceURL)
+        if let allowedSourceURLs, !allowedSourceURLs.contains(sourceURL) {
+            return false
+        }
+        let expandsCatalog = !definition.taxonomyNodeIDs.isEmpty
+            || (FeedLoader.ContentType(rawValue: definition.contentType) ?? .all) != .all
+        if definition.sourceCollectionID == nil,
+           !expandsCatalog,
+           !registry.isSourceEnabled(item.sourceURL) {
+            return false
+        }
+        if let region = definition.region,
+           item.region != region,
+           !item.region.hasPrefix(region + "/") {
+            return false
+        }
+        if !definition.languages.isEmpty {
+            let language = Self.normalizedLanguageCode(item.language)
+            guard language.map({ definition.languages.contains($0) }) == true else {
+                return false
+            }
+        }
+        let contentType = FeedLoader.ContentType(rawValue: definition.contentType) ?? .all
+        guard contentType.matches(item) else { return false }
+        let mood = FeedLoader.MoodFilter(rawValue: definition.mood) ?? .all
+        guard mood == .all || mood.matches(item.title) else { return false }
+        if definition.excludedKeywords.contains(where: {
+            item.searchableText.contains(Self.normalizedSmartFeedText($0))
+        }) {
+            return false
+        }
+
+        let expression = definition.searchExpression
+        guard expression.canSearch else { return false }
+        let positiveExpression = SearchExpression(
+            requiredTerms: expression.requiredTerms,
+            excludedTerms: []
+        )
+        let contentText = Self.normalizedSmartFeedText(
+            [item.title, item.excerpt]
+                .joined(separator: " ")
+        )
+        let contentMatch = definition.includeContents
+            && positiveExpression.matches(contentText)
+
+        let sourceText: String
+        if let source = registry.source(forURL: item.sourceURL) {
+            sourceText = Self.normalizedSmartFeedText([
+                source.title,
+                source.url,
+                source.category,
+                source.sourceDescription ?? "",
+                source.tags.joined(separator: " "),
+                source.nature ?? "",
+                source.activity ?? "",
+            ].joined(separator: " "))
+        } else {
+            sourceText = Self.normalizedSmartFeedText(
+                [item.sourceTitle, item.sourceURL, item.category].joined(separator: " ")
+            )
+        }
+        let sourceMatch = definition.includeSources
+            && positiveExpression.matches(sourceText)
+        let searchedText = [
+            definition.includeContents ? contentText : "",
+            definition.includeSources ? sourceText : "",
+        ].joined(separator: " ")
+        if expression.excludedTerms.contains(where: {
+            searchedText.contains(Self.normalizedSmartFeedText($0))
+        }) {
+            return false
+        }
+        return contentMatch || sourceMatch
+    }
+
+    private func smartFeedCandidateRecords(
+        definition: SmartFeedDefinition,
+        allowedSourceURLs: Set<String>?
+    ) async throws -> [FeedItemRecord] {
+        let cutoff = Int(
+            Date().addingTimeInterval(-SmartFeedStore.retentionInterval)
+                .timeIntervalSince1970
+        )
+        var recordsByID: [String: FeedItemRecord] = [:]
+
+        if definition.includeContents {
+            let match = Self.smartFeedFTSQuery(definition.searchExpression)
+            let records = try await db.read { db in
+                try FeedItemRecord.fetchAll(db, sql: """
+                    SELECT fi.*
+                    FROM feed_item fi
+                    JOIN feed_item_fts ON feed_item_fts.rowid = fi.rowid
+                    WHERE fi.fetched_at >= ?
+                      AND feed_item_fts MATCH ?
+                    """, arguments: [cutoff, match])
+            }
+            for record in records { recordsByID[record.id] = record }
+        }
+
+        if definition.includeSources {
+            let matchingSourceURLs = smartFeedMatchingSourceURLs(
+                definition: definition,
+                allowedSourceURLs: allowedSourceURLs
+            )
+            if !matchingSourceURLs.isEmpty {
+                let sourceRecords = try await db.read { db in
+                    var result: [FeedItemRecord] = []
+                    let urls = Array(matchingSourceURLs)
+                    for start in stride(from: 0, to: urls.count, by: 400) {
+                        let chunk = Array(urls[start..<min(start + 400, urls.count)])
+                        let placeholders = Array(
+                            repeating: "?",
+                            count: chunk.count
+                        ).joined(separator: ",")
+                        result.append(contentsOf: try FeedItemRecord.fetchAll(db, sql: """
+                            SELECT * FROM feed_item
+                            WHERE fetched_at >= ?
+                              AND source_url IN (\(placeholders))
+                            """, arguments: StatementArguments([cutoff] + chunk)))
+                    }
+                    return result
+                }
+                for record in sourceRecords { recordsByID[record.id] = record }
+            }
+        }
+        return Array(recordsByID.values)
+    }
+
+    private func smartFeedMatchingSourceURLs(
+        definition: SmartFeedDefinition,
+        allowedSourceURLs: Set<String>?
+    ) -> Set<String> {
+        let expression = definition.searchExpression
+        guard expression.canSearch else { return [] }
+        let selectedLanguages = Set(definition.languages)
+        return Set(registry.sources.compactMap { source -> String? in
+            let normalizedURL = OPMLParser.normalizeURL(source.url)
+            if let allowedSourceURLs, !allowedSourceURLs.contains(normalizedURL) {
+                return nil
+            }
+            let expandsCatalog = !definition.taxonomyNodeIDs.isEmpty
+                || (FeedLoader.ContentType(rawValue: definition.contentType) ?? .all) != .all
+            if definition.sourceCollectionID == nil,
+               !expandsCatalog,
+               !registry.isSourceEnabled(source.url) {
+                return nil
+            }
+            if let region = definition.region,
+               source.region != region,
+               !source.region.hasPrefix(region + "/") {
+                return nil
+            }
+            if !selectedLanguages.isEmpty {
+                let language = Self.normalizedLanguageCode(source.language)
+                guard language.map({ selectedLanguages.contains($0) }) == true else {
+                    return nil
+                }
+            }
+            let selectedType = FeedLoader.ContentType(rawValue: definition.contentType) ?? .all
+            switch selectedType {
+            case .all: break
+            case .text: guard source.mediaKind == .text else { return nil }
+            case .video: guard source.mediaKind == .video || source.isYouTube else { return nil }
+            case .audio: guard source.mediaKind == .audio else { return nil }
+            case .forum: guard source.mediaKind == .forum else { return nil }
+            }
+            let text = Self.normalizedSmartFeedText([
+                source.title,
+                source.url,
+                source.category,
+                source.sourceDescription ?? "",
+                source.tags.joined(separator: " "),
+                source.nature ?? "",
+                source.activity ?? "",
+            ].joined(separator: " "))
+            return expression.matches(text) ? normalizedURL : nil
+        })
+    }
+
+    nonisolated private static func smartFeedFTSQuery(
+        _ expression: SearchExpression
+    ) -> String {
+        let terms = expression.requiredTerms
+            .map { term in
+                "\"\(term.replacingOccurrences(of: "\"", with: "\"\""))\""
+            }
+        let excludedTerms = expression.excludedTerms.map { term in
+            "NOT \"\(term.replacingOccurrences(of: "\"", with: "\"\""))\""
+        }
+        let query = terms.isEmpty
+            ? "\"\""
+            : (terms + excludedTerms).joined(separator: " ")
+        return "{title excerpt} : (\(query))"
+    }
+
+    nonisolated private static func normalizedSmartFeedText(_ text: String) -> String {
+        text.lowercased()
+            .folding(options: .diacriticInsensitive, locale: nil)
+    }
+
+    private func loadSmartFeedFeed(id: Int64) async {
+        do {
+            guard let smartFeed = try await smartFeedStore.smartFeed(id: id) else {
+                activePreset = .everything
+                Settings.activePreset = .everything
+                activeSmartFeedItemIDs = []
+                activeSmartFeedSourceURLs = []
+                scheduleSourceEnablementRefresh()
+                return
+            }
+            let items = try await smartFeedStore.cachedItems(smartFeedID: id)
+            guard case .smartFeed(let activeID, _) = activePreset,
+                  activeID == id else { return }
+            activeSmartFeedItemIDs = Set(items.map(\.id))
+            activeSmartFeedSourceURLs = Set(items.map {
+                OPMLParser.normalizeURL($0.sourceURL)
+            })
+            pendingReservoirItems = []
+            reservoirFlushTask?.cancel()
+            reservoir.clear()
+            reservoirCount = 0
+            setVisibleItems(items)
+            isPreparingInitialRunway = false
+            loadingState = .idle
+            Log.feed.info(
+                "Smart Feed '\(smartFeed.name)' loaded \(items.count) cached items"
+            )
+        } catch {
+            loadingState = .idle
+            Log.db.error("Smart Feed load failed: \(error.localizedDescription)")
+        }
+    }
+
+    @discardableResult
+    private func refreshSmartFeed(
+        id: Int64,
+        sourceLimit: Int = 80,
+        maxConcurrent: Int = 12,
+        presentWhenActive: Bool = true
+    ) async -> Bool {
+        guard smartFeedRefreshesInFlight.insert(id).inserted else { return true }
+        defer { smartFeedRefreshesInFlight.remove(id) }
+
+        guard let smartFeed = try? await smartFeedStore.smartFeed(id: id) else {
+            if activePreset.smartFeedID == id {
+                await loadSmartFeedFeed(id: id)
+            }
+            return false
+        }
+        let shouldPresent = presentWhenActive && activePreset.smartFeedID == id
+        if shouldPresent { loadingState = .refreshing }
+        defer {
+            if shouldPresent { loadingState = .idle }
+        }
+        try? await smartFeedStore.markRefreshStarted(smartFeedID: id)
+
+        do {
+            let allowedURLs = try await smartFeedAllowedSourceURLs(smartFeed.definition)
+            let definition = smartFeed.definition
+            let contentType = FeedLoader.ContentType(rawValue: definition.contentType) ?? .all
+            let sourcePool: [FeedSource]
+            if let collectionID = definition.sourceCollectionID {
+                let members = try await sourceCollectionStore.members(
+                    collectionID: collectionID
+                )
+                sourcePool = members.map { member in
+                    registry.source(forURL: member.sourceURL)
+                        ?? sourceReference(for: member).feedSource
+                }
+            } else if !definition.taxonomyNodeIDs.isEmpty || contentType != .all {
+                let lookup = registry.lookupSnapshot()
+                sourcePool = lookup.sourcesByNormalizedURL.compactMap { url, source in
+                    lookup.explicitlyDisabledURLs.contains(url) ? nil : source
+                }
+            } else {
+                sourcePool = registry.enabledSources
+            }
+            var candidates = sourcePool.filter { source in
+                let normalizedURL = OPMLParser.normalizeURL(source.url)
+                if let allowedURLs, !allowedURLs.contains(normalizedURL) { return false }
+                if let region = definition.region,
+                   source.region != region,
+                   !source.region.hasPrefix(region + "/") { return false }
+                if !definition.languages.isEmpty {
+                    let language = Self.normalizedLanguageCode(source.language)
+                    if language.map({ definition.languages.contains($0) }) != true {
+                        return false
+                    }
+                }
+                switch contentType {
+                case .all: return true
+                case .text: return source.mediaKind == .text
+                case .video: return source.mediaKind == .video || source.isYouTube
+                case .audio: return source.mediaKind == .audio
+                case .forum: return source.mediaKind == .forum
+                }
+            }
+            if definition.includeSources && !definition.includeContents {
+                let matchingURLs = smartFeedMatchingSourceURLs(
+                    definition: definition,
+                    allowedSourceURLs: allowedURLs
+                )
+                candidates = candidates.filter {
+                    matchingURLs.contains(OPMLParser.normalizeURL($0.url))
+                }
+            }
+            let affinityURLs = try await smartFeedStore.prioritizedSourceURLs(
+                smartFeedID: id
+            )
+            let affinityRank = Dictionary(
+                uniqueKeysWithValues: affinityURLs.enumerated().map {
+                    (OPMLParser.normalizeURL($0.element), $0.offset)
+                }
+            )
+            let learned = candidates
+                .filter { affinityRank[OPMLParser.normalizeURL($0.url)] != nil }
+                .sorted {
+                    affinityRank[OPMLParser.normalizeURL($0.url), default: .max]
+                        < affinityRank[OPMLParser.normalizeURL($1.url), default: .max]
+                }
+            let unexplored = candidates
+                .filter { affinityRank[OPMLParser.normalizeURL($0.url)] == nil }
+                .sorted {
+                    (scheduler.lastFetchedAt[$0.url] ?? .distantPast)
+                        < (scheduler.lastFetchedAt[$1.url] ?? .distantPast)
+                }
+            // Learned sources lead each refresh, while reserving capacity for
+            // discovery so a Smart Feed can adapt when the topic moves.
+            let limit = max(1, sourceLimit)
+            let learnedBudget = max(1, limit * 3 / 4)
+            var batch = Array(learned.prefix(learnedBudget))
+            batch.append(contentsOf: unexplored.prefix(max(0, limit - batch.count)))
+            if batch.count < limit {
+                let learnedAlreadyIncluded = min(learnedBudget, learned.count)
+                batch.append(contentsOf: learned.dropFirst(learnedAlreadyIncluded)
+                    .prefix(limit - batch.count))
+            }
+            var refreshSucceeded = true
+            if !batch.isEmpty {
+                let result = await fetcher.fetchAll(
+                    batch,
+                    maxConcurrent: min(max(1, maxConcurrent), batch.count)
+                )
+                guard !Task.isCancelled else { return false }
+                refreshSucceeded = result.failedSourceCount < batch.count
+                for source in batch {
+                    let failed = result.sourceStatuses[source.url] == .failed
+                    scheduler.recordFetch(sourceURL: source.url, success: !failed)
+                }
+                let actualNew = await persistFetchedItems(result.items)
+                if !actualNew.isEmpty {
+                    await matchPersistentSearches(actualNew)
+                    await capSourceItemsBatch(Array(Set(actualNew.map(\.sourceURL))))
+                }
+            }
+            try await rebuildSmartFeedCache(id: id)
+            try? await smartFeedStore.markRefreshFinished(
+                smartFeedID: id,
+                succeeded: refreshSucceeded
+            )
+            if activePreset.smartFeedID == id {
+                lastRefreshDate = .now
+                if shouldPresent {
+                    await loadSmartFeedFeed(id: id)
+                }
+            }
+            return refreshSucceeded
+        } catch {
+            try? await smartFeedStore.markRefreshFinished(
+                smartFeedID: id,
+                succeeded: false
+            )
+            Log.feed.error("Smart Feed refresh failed: \(error.localizedDescription)")
+            if shouldPresent {
+                await loadSmartFeedFeed(id: id)
+            }
+            return false
+        }
     }
 
     // MARK: - Source view and personal source collections
@@ -3915,15 +5107,23 @@ final class FeedStore {
     /// Lightweight cleanup on every launch — deletes up to 500 expired items.
     func performLightExpurgo() async {
         let cutoff = Int(Date().addingTimeInterval(-2592000).timeIntervalSince1970) // 30 days
+        let smartFeedCutoff = Int(
+            Date().addingTimeInterval(-SmartFeedStore.retentionInterval)
+                .timeIntervalSince1970
+        )
         do {
             try await db.write { db in
+                try db.execute(
+                    sql: "DELETE FROM smart_feed_item WHERE matched_at < ?",
+                    arguments: [smartFeedCutoff]
+                )
                 // Use subquery instead of DELETE LIMIT for SQLite compatibility (#22)
                 try db.execute(sql: """
                     DELETE FROM feed_item WHERE id IN (
                         SELECT id FROM feed_item
                         WHERE fetched_at < ?
-                          AND is_read = 0
                           AND id NOT IN (SELECT item_id FROM bookmark_item)
+                          AND id NOT IN (SELECT item_id FROM smart_feed_item)
                           AND NOT EXISTS (
                               SELECT 1 FROM source_history_access sha
                               WHERE sha.source_url = feed_item.source_url
@@ -3949,18 +5149,28 @@ final class FeedStore {
                 // Find all sources that exceed the cap and collect IDs to delete
                 let placeholders = normalizedURLs.map { _ in "?" }.joined(separator: ",")
                 let retentionCutoff = Int(Date().addingTimeInterval(-2_592_000).timeIntervalSince1970)
+                let smartFeedCutoff = Int(
+                    Date().addingTimeInterval(-SmartFeedStore.retentionInterval)
+                        .timeIntervalSince1970
+                )
                 let args = StatementArguments(normalizedURLs)
 
                 // Identify items to delete: for each overflowing source, keep
                 // the 50 newest by published_at, delete the rest (excluding
-                // bookmarks and read items).
+                // bookmarks). Consumed/clicked rows remain eligible for normal
+                // retention, which is why Last clicked promises items that are
+                // still present in the database rather than an unbounded archive.
                 let idsToDelete = try String.fetchAll(db, sql: """
                     DELETE FROM feed_item WHERE id IN (
                         SELECT fi.id FROM feed_item fi
                         LEFT JOIN bookmark_item bi ON bi.item_id = fi.id
                         WHERE fi.source_url IN (\(placeholders))
                           AND bi.item_id IS NULL
-                          AND fi.is_read = 0
+                          AND NOT EXISTS (
+                              SELECT 1 FROM smart_feed_item sfi
+                              WHERE sfi.item_id = fi.id
+                                AND sfi.matched_at >= \(smartFeedCutoff)
+                          )
                           AND NOT EXISTS (
                               SELECT 1 FROM source_history_access sha
                               WHERE sha.source_url = fi.source_url
@@ -3994,12 +5204,20 @@ final class FeedStore {
         guard now - last > 604800 else { return } // 7 days
 
         do {
+            let smartFeedCutoff = Int(
+                Date().addingTimeInterval(-SmartFeedStore.retentionInterval)
+                    .timeIntervalSince1970
+            )
             try await db.write { db in
+                try db.execute(
+                    sql: "DELETE FROM smart_feed_item WHERE matched_at < ?",
+                    arguments: [smartFeedCutoff]
+                )
                 try db.execute(sql: """
                     DELETE FROM feed_item
                     WHERE fetched_at < ?
-                      AND is_read = 0
                       AND id NOT IN (SELECT item_id FROM bookmark_item)
+                      AND id NOT IN (SELECT item_id FROM smart_feed_item)
                       AND NOT EXISTS (
                           SELECT 1 FROM source_history_access sha
                           WHERE sha.source_url = feed_item.source_url
@@ -4094,34 +5312,47 @@ final class FeedStore {
     // MARK: - Emergency
 
     func emergencyTrim() {
+        guard !activePreset.isSmartFeed else { return }
         reservoir.emergencyTrim()
         setVisibleItems(applyFilters(reservoir.visibleItems))
         reservoirCount = reservoir.reservoirCount
     }
 
-    /// Shake-to-refresh: mark visible as read, re-interleave reservoir,
-    /// reload from SQLite, force fetch fresh content.
+    /// User refresh: persist threshold-visible cards, then reload/fetch a page
+    /// that excludes every durably consumed item.
     func shakeToRefresh() {
-        // Persist visible items as read so they don't reappear after reload.
-        let ids = reservoir.visibleItems.map(\.id)
-        for id in ids { readItemIDs.insert(id) }
-        reservoir.readItemIDs = readItemIDs
-        let now = Int(Date().timeIntervalSince1970)
-        let placeholders = Array(repeating: "?", count: ids.count).joined(separator: ",")
-        Task {
-            try await db.write { db in
-                try db.execute(sql: """
-                    UPDATE feed_item SET is_read = 1, opened_at = \(now)
-                    WHERE id IN (\(placeholders))
-                """, arguments: StatementArguments(ids))
-            }
+        if let smartFeedID = activePreset.smartFeedID {
+            Task { await refreshSmartFeed(id: smartFeedID) }
+            return
         }
-        // Clear everything, then force-fetch NEW content. The SQLite reload
-        // will skip read items so only unseen content appears.
-        resetWhatsNewBaseline()
-        lastRefreshDate = nil
-        refreshWhatsNew(shouldBoost: false)
-        applyUpdate(.flush(forceFetch: true, skipRead: true))
+        if activePreset.isLastClicked {
+            Task { await loadLastClickedFeed() }
+            return
+        }
+        // Re-persist only cards that actually crossed the visibility threshold.
+        // Prefetched cards below the fold have not been seen and remain eligible.
+        let ids = reservoir.visibleItems
+            .map(\.id)
+            .filter { consumedItemIDs.contains($0) }
+        reservoir.readItemIDs = consumedItemIDs
+        Task {
+            if !ids.isEmpty {
+                let placeholders = Array(repeating: "?", count: ids.count).joined(separator: ",")
+                try await db.write { db in
+                    try db.execute(sql: """
+                        UPDATE feed_item
+                        SET consumed_at = COALESCE(consumed_at, ?)
+                        WHERE id IN (\(placeholders))
+                    """, arguments: StatementArguments([Int(Date().timeIntervalSince1970)] + ids))
+                }
+            }
+            // Clear everything, then force-fetch NEW content. The SQLite reload
+            // skips consumed items so only unseen content appears.
+            resetWhatsNewBaseline()
+            lastRefreshDate = nil
+            refreshWhatsNew(shouldBoost: false)
+            applyUpdate(.flush(forceFetch: true, skipRead: true))
+        }
     }
 
     // MARK: - Migration
@@ -4438,6 +5669,65 @@ final class FeedStore {
             try db.create(index: "idx_source_history_access_date",
                           on: "source_history_access", columns: ["last_accessed_at"])
         }
+        migrator.registerMigration("v19_clicked_history") { db in
+            try db.alter(table: "feed_item") { table in
+                table.add(column: "clicked_at", .integer)
+                table.add(column: "consumed_at", .integer)
+            }
+            // Every row previously marked read had already been consumed under
+            // the old model. Preserve that invariant while starting the new,
+            // precise click history empty.
+            try db.execute(sql: """
+                UPDATE feed_item
+                SET consumed_at = COALESCE(opened_at, fetched_at)
+                WHERE is_read = 1
+                """)
+            try db.create(
+                index: "idx_feed_item_clicked_at",
+                on: "feed_item",
+                columns: ["clicked_at"],
+                condition: "clicked_at IS NOT NULL"
+            )
+            try db.create(
+                index: "idx_feed_item_consumed_at",
+                on: "feed_item",
+                columns: ["consumed_at"],
+                condition: "consumed_at IS NOT NULL"
+            )
+        }
+        migrator.registerMigration("v20_smart_feed_cache") { db in
+            try db.create(table: "smart_feed_item") { t in
+                t.column("smart_feed_id", .integer).notNull()
+                t.column("item_id", .text).notNull()
+                    .references("feed_item", onDelete: .cascade)
+                t.column("matched_at", .integer).notNull()
+                t.primaryKey(["smart_feed_id", "item_id"])
+            }
+            try db.create(
+                index: "idx_smart_feed_item_feed_date",
+                on: "smart_feed_item",
+                columns: ["smart_feed_id", "matched_at"]
+            )
+            try db.create(
+                index: "idx_smart_feed_item_item",
+                on: "smart_feed_item",
+                columns: ["item_id"]
+            )
+        }
+        migrator.registerMigration("v21_smart_feed_source_affinity") { db in
+            try db.create(table: "smart_feed_source") { t in
+                t.column("smart_feed_id", .integer).notNull()
+                t.column("source_url", .text).notNull()
+                t.column("hit_count", .integer).notNull().defaults(to: 0)
+                t.column("last_matched_at", .integer).notNull()
+                t.primaryKey(["smart_feed_id", "source_url"])
+            }
+            try db.create(
+                index: "idx_smart_feed_source_priority",
+                on: "smart_feed_source",
+                columns: ["smart_feed_id", "hit_count", "last_matched_at"]
+            )
+        }
         try migrator.migrate(db)
     }
 }
@@ -4499,6 +5789,8 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
     var fetchedAt: Int     // epoch seconds
     var isRead: Bool
     var openedAt: Int?     // epoch seconds
+    var clickedAt: Int?    // epoch seconds; actual content tap only
+    var consumedAt: Int?   // epoch seconds; at least 50% visible or explicitly read
     var language: String?
 
     static var databaseTableName: String { "feed_item" }
@@ -4522,6 +5814,8 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         case fetchedAt = "fetched_at"
         case isRead = "is_read"
         case openedAt = "opened_at"
+        case clickedAt = "clicked_at"
+        case consumedAt = "consumed_at"
         case language
     }
 
@@ -4543,6 +5837,8 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         self.fetchedAt = Int(Date().timeIntervalSince1970)
         self.isRead = false
         self.openedAt = nil
+        self.clickedAt = nil
+        self.consumedAt = nil
         self.language = language
     }
 

@@ -1,4 +1,5 @@
 import XCTest
+import GRDB
 @testable import feedmine
 
 @MainActor
@@ -2590,5 +2591,785 @@ final class FeedStoreTests: XCTestCase {
         // state settles quickly.
 
         store.setPreset(.everything)
+    }
+
+    func testSeenContentIsConsumedWithoutEnteringClickHistory() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let item = FeedItem(
+            id: "seen-not-clicked",
+            sourceTitle: "Example",
+            sourceURL: "https://example.com/feed.xml",
+            category: "Test",
+            title: "Visible article",
+            excerpt: "Crossed the visibility threshold.",
+            url: "https://example.com/article",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "global",
+            language: "en"
+        )
+        _ = await store.persistFetchedItems([item])
+
+        store.markAsSeen(item.id)
+        try await Task.sleep(for: .milliseconds(50))
+
+        let state = try await store.db.read { db -> (Int?, Int?, Int?) in
+            let row = try Row.fetchOne(
+                db,
+                sql: "SELECT is_read, consumed_at, clicked_at FROM feed_item WHERE id = ?",
+                arguments: [item.id]
+            )
+            return (row?["is_read"], row?["consumed_at"], row?["clicked_at"])
+        }
+        XCTAssertEqual(state.0, 0)
+        XCTAssertNotNil(state.1)
+        XCTAssertNil(state.2)
+
+        store.setPreset(.lastClicked)
+        try await Task.sleep(for: .milliseconds(50))
+        XCTAssertTrue(store.visibleItems.isEmpty)
+    }
+
+    func testLastClickedOrdersOnlyActualClicksNewestFirst() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let items = ["older-click", "newer-click"].enumerated().map { index, id in
+            FeedItem(
+                id: id,
+                sourceTitle: "Example \(index)",
+                sourceURL: "https://example.com/\(index).xml",
+                category: "Test",
+                title: id,
+                excerpt: "Clicked content.",
+                url: "https://example.com/\(id)",
+                imageURL: nil,
+                publishedAt: .now,
+                region: "global",
+                language: "en"
+            )
+        }
+        _ = await store.persistFetchedItems(items)
+
+        store.markAsClicked("older-click")
+        try await Task.sleep(for: .seconds(1))
+        store.markAsClicked("newer-click")
+        try await Task.sleep(for: .milliseconds(50))
+        store.setPreset(.lastClicked)
+
+        let deadline = Date().addingTimeInterval(1)
+        while store.visibleItems.count < 2 && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(store.visibleItems.map(\.id), ["newer-click", "older-click"])
+    }
+
+    func testSmartFeedCachesContentMatchesAndMovesSeenItemsToTailOnReload() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let source = FeedSource(
+            title: "Culture Desk",
+            url: "https://example.com/culture.xml",
+            category: "Culture",
+            region: "global",
+            language: "en"
+        )
+        store.registry.sources = [source]
+        store.activeLanguages = ["en"]
+
+        let newer = FeedItem(
+            id: "smart-madonna-newer",
+            sourceTitle: source.title,
+            sourceURL: source.url,
+            category: source.category,
+            title: "Madonna announces a new project",
+            excerpt: "A detailed interview.",
+            url: "https://example.com/newer",
+            imageURL: nil,
+            publishedAt: Date(),
+            region: "global",
+            language: "en"
+        )
+        let older = FeedItem(
+            id: "smart-madonna-older",
+            sourceTitle: source.title,
+            sourceURL: source.url,
+            category: source.category,
+            title: "The influence of Madonna",
+            excerpt: "A retrospective.",
+            url: "https://example.com/older",
+            imageURL: nil,
+            publishedAt: Date().addingTimeInterval(-60),
+            region: "global",
+            language: "en"
+        )
+        let wrongLanguage = FeedItem(
+            id: "smart-madonna-portuguese",
+            sourceTitle: source.title,
+            sourceURL: source.url,
+            category: source.category,
+            title: "Madonna anuncia novo projeto",
+            excerpt: "Entrevista em português.",
+            url: "https://example.com/pt",
+            imageURL: nil,
+            publishedAt: Date().addingTimeInterval(-120),
+            region: "global",
+            language: "pt"
+        )
+        _ = await store.persistFetchedItems([newer, older, wrongLanguage])
+
+        let smartFeed = try await store.createSmartFeed(
+            name: "Madonna",
+            query: "madonna",
+            includeSources: false,
+            includeContents: true
+        )
+        XCTAssertEqual(smartFeed.cachedItemCount, 2)
+
+        store.setPreset(.smartFeed(
+            smartFeedID: smartFeed.id,
+            smartFeedName: smartFeed.name
+        ))
+        let loadDeadline = Date().addingTimeInterval(1)
+        while store.visibleItems.count < 2 && Date() < loadDeadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        XCTAssertEqual(
+            store.visibleItems.map(\.id),
+            [newer.id, older.id],
+            "Fresh Smart Feed items should start in publication order"
+        )
+
+        store.markAsSeen(newer.id)
+        try await Task.sleep(for: .milliseconds(50))
+        XCTAssertEqual(
+            store.visibleItems.map(\.id),
+            [newer.id, older.id],
+            "Visibility tracking must not move the card under the user's scroll position"
+        )
+
+        let reloadedQueue = try await store.smartFeedStore.cachedItems(
+            smartFeedID: smartFeed.id
+        )
+        XCTAssertEqual(
+            reloadedQueue.map(\.id),
+            [older.id, newer.id],
+            "Seen Smart Feed content should move behind every unseen item on reload"
+        )
+    }
+
+    func testSourceScopedSmartFeedCachesContentFromMatchingSourceMetadataOnly() async throws {
+        let store = try FeedStore(inMemory: true)
+        let matchingSource = FeedSource(
+            title: "Madonna Fan Club",
+            url: "https://example.com/madonna.xml",
+            category: "Music",
+            region: "global",
+            language: "en",
+            sourceDescription: "News about the artist"
+        )
+        let otherSource = FeedSource(
+            title: "General Culture",
+            url: "https://example.com/general.xml",
+            category: "Culture",
+            region: "global",
+            language: "en"
+        )
+        store.registry.sources = [matchingSource, otherSource]
+
+        let sourceMatch = FeedItem(
+            id: "source-scope-match",
+            sourceTitle: matchingSource.title,
+            sourceURL: matchingSource.url,
+            category: matchingSource.category,
+            title: "A completely unrelated headline",
+            excerpt: "The query is absent from this article.",
+            url: "https://example.com/source-match",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "global",
+            language: "en"
+        )
+        let contentOnlyMatch = FeedItem(
+            id: "source-scope-content-only",
+            sourceTitle: otherSource.title,
+            sourceURL: otherSource.url,
+            category: otherSource.category,
+            title: "Madonna retrospective",
+            excerpt: "The query appears only in content.",
+            url: "https://example.com/content-only",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "global",
+            language: "en"
+        )
+        _ = await store.persistFetchedItems([sourceMatch, contentOnlyMatch])
+
+        let smartFeed = try await store.createSmartFeed(
+            name: "Madonna sources",
+            query: "madonna",
+            includeSources: true,
+            includeContents: false
+        )
+        let cached = try await store.smartFeedStore.cachedItems(
+            smartFeedID: smartFeed.id
+        )
+        XCTAssertEqual(cached.map(\.id), [sourceMatch.id])
+    }
+
+    func testContentsSearchDoesNotMatchSourceMetadata() async throws {
+        let store = try FeedStore(inMemory: true)
+        let items = [
+            FeedItem(
+                id: "source-metadata-only",
+                sourceTitle: "Madonna Daily",
+                sourceURL: "https://example.com/madonna-daily.xml",
+                category: "Madonna",
+                title: "An unrelated culture headline",
+                excerpt: "No artist name appears in the article.",
+                url: "https://example.com/unrelated",
+                imageURL: nil,
+                publishedAt: .now,
+                region: "global",
+                language: "en"
+            ),
+            FeedItem(
+                id: "contents-match",
+                sourceTitle: "Culture Daily",
+                sourceURL: "https://example.com/culture.xml",
+                category: "Culture",
+                title: "Madonna announces a new project",
+                excerpt: "The term appears in the content.",
+                url: "https://example.com/contents",
+                imageURL: nil,
+                publishedAt: .now,
+                region: "global",
+                language: "en"
+            ),
+        ]
+        _ = await store.persistFetchedItems(items)
+
+        let results = await store.searchEngine.unifiedSearch(
+            "madonna",
+            includeSources: false,
+            includeContents: true
+        )
+        XCTAssertEqual(results.localItems.map(\.id), ["contents-match"])
+    }
+
+    func testLiveSearchEligibilityIncludesSourcesWithoutCachedContentAndRespectsFilters() async throws {
+        let store = try FeedStore(inMemory: true)
+        let cachedEnglish = FeedSource(
+            title: "Cached English",
+            url: "https://example.com/cached-en.xml",
+            category: "News",
+            region: "global",
+            language: "en"
+        )
+        let uncachedEnglish = FeedSource(
+            title: "Uncached English",
+            url: "https://example.com/uncached-en.xml",
+            category: "News",
+            region: "global",
+            language: "en"
+        )
+        let uncachedPortuguese = FeedSource(
+            title: "Uncached Portuguese",
+            url: "https://example.com/uncached-pt.xml",
+            category: "News",
+            region: "global",
+            language: "pt"
+        )
+        store.registry.sources = [
+            cachedEnglish,
+            uncachedEnglish,
+            uncachedPortuguese,
+        ]
+        _ = await store.persistFetchedItems([
+            FeedItem(
+                id: "cached-search-item",
+                sourceTitle: cachedEnglish.title,
+                sourceURL: cachedEnglish.url,
+                category: cachedEnglish.category,
+                title: "Already cached",
+                excerpt: "Only this source has local content.",
+                url: "https://example.com/cached-item",
+                imageURL: nil,
+                publishedAt: .now,
+                region: "global",
+                language: "en"
+            ),
+        ])
+
+        store.activeLanguages = ["en"]
+        let eligibleURLs = Set(
+            await store.sourcesEligibleForActiveSearch().map {
+                OPMLParser.normalizeURL($0.url)
+            }
+        )
+        XCTAssertEqual(
+            eligibleURLs,
+            Set([cachedEnglish.url, uncachedEnglish.url])
+        )
+        XCTAssertFalse(
+            eligibleURLs.contains(uncachedPortuguese.url),
+            "The active language filter must constrain the remote sweep"
+        )
+
+        store.registry.toggleSource(uncachedEnglish.url)
+        let afterOptOut = Set(
+            await store.sourcesEligibleForActiveSearch().map {
+                OPMLParser.normalizeURL($0.url)
+            }
+        )
+        XCTAssertEqual(afterOptOut, Set([cachedEnglish.url]))
+    }
+
+    func testSmartFeedAutomaticallyAccumulatesNewMatchingContentAtIngestion() async throws {
+        let store = try FeedStore(inMemory: true)
+        let source = FeedSource(
+            title: "Music Wire",
+            url: "https://example.com/music.xml",
+            category: "Music",
+            region: "global",
+            language: "en"
+        )
+        store.registry.sources = [source]
+
+        let smartFeed = try await store.createSmartFeed(
+            name: "Madonna",
+            query: "madonna",
+            includeSources: false,
+            includeContents: true
+        )
+        XCTAssertEqual(smartFeed.cachedItemCount, 0)
+
+        let newMatch = FeedItem(
+            id: "future-smart-match",
+            sourceTitle: source.title,
+            sourceURL: source.url,
+            category: source.category,
+            title: "Madonna returns with a surprise single",
+            excerpt: "This arrived after the Smart Feed was created.",
+            url: "https://example.com/future",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "global",
+            language: "en"
+        )
+        _ = await store.persistFetchedItems([newMatch])
+
+        let cached = try await store.smartFeedStore.cachedItems(
+            smartFeedID: smartFeed.id
+        )
+        XCTAssertEqual(cached.map(\.id), [newMatch.id])
+    }
+
+    func testSmartFeedLearnsAndPrioritizesSourcesWithoutDoubleCountingMatches() async throws {
+        let store = try FeedStore(inMemory: true)
+        let frequentURL = "https://example.com/frequent.xml"
+        let occasionalURL = "https://example.com/occasional.xml"
+        store.registry.sources = [
+            FeedSource(
+                title: "Frequent Culture",
+                url: frequentURL,
+                category: "Culture",
+                region: "global",
+                language: "en"
+            ),
+            FeedSource(
+                title: "Occasional Culture",
+                url: occasionalURL,
+                category: "Culture",
+                region: "global",
+                language: "en"
+            ),
+        ]
+        let matches = [
+            FeedItem(
+                id: "affinity-frequent-1",
+                sourceTitle: "Frequent Culture",
+                sourceURL: frequentURL,
+                category: "Culture",
+                title: "Madonna announces a tour",
+                excerpt: "First matching item.",
+                url: "https://example.com/frequent/1",
+                imageURL: nil,
+                publishedAt: .now,
+                region: "global",
+                language: "en"
+            ),
+            FeedItem(
+                id: "affinity-frequent-2",
+                sourceTitle: "Frequent Culture",
+                sourceURL: frequentURL,
+                category: "Culture",
+                title: "A Madonna retrospective",
+                excerpt: "Second matching item.",
+                url: "https://example.com/frequent/2",
+                imageURL: nil,
+                publishedAt: .now.addingTimeInterval(-60),
+                region: "global",
+                language: "en"
+            ),
+            FeedItem(
+                id: "affinity-occasional-1",
+                sourceTitle: "Occasional Culture",
+                sourceURL: occasionalURL,
+                category: "Culture",
+                title: "Madonna appears at an event",
+                excerpt: "One matching item.",
+                url: "https://example.com/occasional/1",
+                imageURL: nil,
+                publishedAt: .now.addingTimeInterval(-120),
+                region: "global",
+                language: "en"
+            ),
+        ]
+        _ = await store.persistFetchedItems(matches)
+
+        let smartFeed = try await store.createSmartFeed(
+            name: "Madonna",
+            query: "madonna",
+            includeSources: false,
+            includeContents: true
+        )
+        let prioritizedURLs = try await store.smartFeedStore.prioritizedSourceURLs(
+            smartFeedID: smartFeed.id
+        )
+        XCTAssertEqual(prioritizedURLs, [frequentURL, occasionalURL])
+
+        try await store.smartFeedStore.cache(
+            itemIDs: matches.map(\.id),
+            for: smartFeed.id
+        )
+        let hitCounts = try await store.db.read { db in
+            try Row.fetchAll(db, sql: """
+                SELECT source_url, hit_count
+                FROM smart_feed_source
+                WHERE smart_feed_id = ?
+                """, arguments: [smartFeed.id]).reduce(into: [String: Int]()) {
+                    result, row in
+                    let sourceURL: String = row["source_url"]
+                    let hitCount: Int = row["hit_count"]
+                    result[sourceURL] = hitCount
+                }
+        }
+        XCTAssertEqual(hitCounts[frequentURL], 2)
+        XCTAssertEqual(hitCounts[occasionalURL], 1)
+
+        try await store.deleteSmartFeed(id: smartFeed.id)
+        let remainingAffinityCount = try await store.db.read { db in
+            try Int.fetchOne(
+                db,
+                sql: "SELECT COUNT(*) FROM smart_feed_source WHERE smart_feed_id = ?",
+                arguments: [smartFeed.id]
+            ) ?? 0
+        }
+        XCTAssertEqual(remainingAffinityCount, 0)
+    }
+
+    func testSmartFeedRefreshPolicyPrioritizesActivePresetAndBacksOffFailures() {
+        let now = Date(timeIntervalSince1970: 2_000_000_000)
+        let activeID: Int64 = 7
+        let savedID: Int64 = 8
+        let states = [
+            SmartFeedRefreshState(
+                id: savedID,
+                lastAttemptAt: nil,
+                lastSuccessAt: nil,
+                consecutiveFailures: 0
+            ),
+            SmartFeedRefreshState(
+                id: activeID,
+                lastAttemptAt: now.addingTimeInterval(-6 * 60),
+                lastSuccessAt: now.addingTimeInterval(-6 * 60),
+                consecutiveFailures: 0
+            ),
+        ]
+        XCTAssertEqual(
+            SmartFeedRefreshPolicy.orderedDueStates(
+                states,
+                activeSmartFeedID: activeID,
+                mode: .foreground,
+                now: now
+            ).map(\.id),
+            [activeID, savedID],
+            "The open Smart Feed must lead the opportunistic queue"
+        )
+
+        let failingActive = SmartFeedRefreshState(
+            id: activeID,
+            lastAttemptAt: now.addingTimeInterval(-6 * 60),
+            lastSuccessAt: nil,
+            consecutiveFailures: 1
+        )
+        XCTAssertEqual(
+            SmartFeedRefreshPolicy.orderedDueStates(
+                [failingActive],
+                activeSmartFeedID: activeID,
+                mode: .foreground,
+                now: now
+            ),
+            [],
+            "One failure doubles the active-preset interval from five to ten minutes"
+        )
+        XCTAssertEqual(
+            SmartFeedRefreshPolicy.budget(
+                isActivePreset: true,
+                mode: .foreground,
+                lowPower: false
+            ),
+            SmartFeedRefreshBudget(sourceLimit: 48, maxConcurrent: 6)
+        )
+        XCTAssertEqual(
+            SmartFeedRefreshPolicy.budget(
+                isActivePreset: false,
+                mode: .background,
+                lowPower: true
+            ),
+            SmartFeedRefreshBudget(sourceLimit: 4, maxConcurrent: 1)
+        )
+    }
+
+    func testSmartFeedRefreshStatePersistsAttemptsFailuresAndSuccess() async throws {
+        let store = try FeedStore(inMemory: true)
+        let id = try await store.smartFeedStore.createSmartFeed(
+            name: "Persistent Madonna",
+            definition: SmartFeedDefinition(
+                query: "madonna",
+                includeSources: false,
+                includeContents: true
+            )
+        )
+        let attemptDate = Date(timeIntervalSince1970: 2_000_000_000)
+        try await store.smartFeedStore.markRefreshStarted(
+            smartFeedID: id,
+            at: attemptDate
+        )
+        try await store.smartFeedStore.markRefreshFinished(
+            smartFeedID: id,
+            succeeded: false,
+            at: attemptDate
+        )
+        try await store.smartFeedStore.markRefreshFinished(
+            smartFeedID: id,
+            succeeded: false,
+            at: attemptDate
+        )
+
+        var states = try await store.smartFeedStore.refreshStates()
+        var state = try XCTUnwrap(states.first { $0.id == id })
+        XCTAssertEqual(state.lastAttemptAt, attemptDate)
+        XCTAssertNil(state.lastSuccessAt)
+        XCTAssertEqual(state.consecutiveFailures, 2)
+
+        let successDate = attemptDate.addingTimeInterval(60)
+        try await store.smartFeedStore.markRefreshFinished(
+            smartFeedID: id,
+            succeeded: true,
+            at: successDate
+        )
+        states = try await store.smartFeedStore.refreshStates()
+        state = try XCTUnwrap(states.first { $0.id == id })
+        XCTAssertEqual(state.lastSuccessAt, successDate)
+        XCTAssertEqual(state.consecutiveFailures, 0)
+    }
+
+    func testSmartFeedDefinitionCapturesTheCompleteSearchContext() async throws {
+        let previousPreset = Settings.activePreset
+        defer { Settings.activePreset = previousPreset }
+
+        let store = try FeedStore(inMemory: true)
+        let collectionID = try await store.createSourceCollection(name: "Artists")
+        store.activeRegion = "countries/canada"
+        store.activeNodeIDs = ["music/pop"]
+        store.activeLanguages = ["en"]
+        store.activeContentType = .audio
+        store.activeMood = .technical
+        store.setPreset(.collection(
+            collectionID: collectionID,
+            collectionName: "Artists"
+        ))
+
+        let definition = store.makeSmartFeedDefinition(
+            query: "madonna",
+            includeSources: false,
+            includeContents: true
+        )
+        XCTAssertEqual(definition.query, "madonna")
+        XCTAssertFalse(definition.includeSources)
+        XCTAssertTrue(definition.includeContents)
+        XCTAssertEqual(definition.region, "countries/canada")
+        XCTAssertEqual(definition.taxonomyNodeIDs, ["music/pop"])
+        XCTAssertEqual(definition.languages, ["en"])
+        XCTAssertEqual(definition.contentType, FeedLoader.ContentType.audio.rawValue)
+        XCTAssertEqual(definition.mood, FeedLoader.MoodFilter.technical.rawValue)
+        XCTAssertEqual(definition.sourceCollectionID, collectionID)
+
+        store.setPreset(.everything)
+    }
+
+    func testSearchExpressionOnlyTreatsALeadingHyphenAsExclusion() throws {
+        let terms = try [
+            XCTUnwrap(SearchTerm(input: "post-punk")),
+            XCTUnwrap(SearchTerm(input: "Jean-Michel")),
+            XCTUnwrap(SearchTerm(input: "-rumor")),
+        ]
+        let expression = SearchExpression(terms: terms)
+
+        XCTAssertEqual(expression.requiredTerms, ["post-punk", "Jean-Michel"])
+        XCTAssertEqual(expression.excludedTerms, ["rumor"])
+        XCTAssertTrue(
+            expression.matches("A Jean-Michel post-punk retrospective")
+        )
+        XCTAssertFalse(
+            expression.matches("A Jean-Michel post-punk rumor")
+        )
+        XCTAssertNil(SearchTerm(input: "-"))
+    }
+
+    func testComplexContentSearchCombinesTagsAndExclusions() async throws {
+        let store = try FeedStore(inMemory: true)
+        let matching = FeedItem(
+            id: "complex-search-match",
+            sourceTitle: "Culture",
+            sourceURL: "https://example.com/culture.xml",
+            category: "Culture",
+            title: "Madonna announces a world tour",
+            excerpt: "Confirmed dates arrive tomorrow.",
+            url: "https://example.com/match",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "global",
+            language: "en"
+        )
+        let excluded = FeedItem(
+            id: "complex-search-excluded",
+            sourceTitle: "Culture",
+            sourceURL: "https://example.com/culture.xml",
+            category: "Culture",
+            title: "Madonna tour rumor spreads online",
+            excerpt: "Nothing is confirmed.",
+            url: "https://example.com/excluded",
+            imageURL: nil,
+            publishedAt: .now.addingTimeInterval(-10),
+            region: "global",
+            language: "en"
+        )
+        let missingTag = FeedItem(
+            id: "complex-search-missing",
+            sourceTitle: "Culture",
+            sourceURL: "https://example.com/culture.xml",
+            category: "Culture",
+            title: "Madonna announces a movie",
+            excerpt: "A new project.",
+            url: "https://example.com/missing",
+            imageURL: nil,
+            publishedAt: .now.addingTimeInterval(-20),
+            region: "global",
+            language: "en"
+        )
+        _ = await store.persistFetchedItems([matching, excluded, missingTag])
+
+        let expression = SearchExpression(terms: [
+            try XCTUnwrap(SearchTerm(input: "Madonna")),
+            try XCTUnwrap(SearchTerm(input: "tour")),
+            try XCTUnwrap(SearchTerm(input: "-rumor")),
+        ])
+        let results = await store.searchEngine.unifiedSearch(
+            expression,
+            includeSources: false,
+            includeContents: true
+        )
+        XCTAssertEqual(results.localItems.map(\.id), [matching.id])
+    }
+
+    func testComplexSmartFeedPersistsTermsAndAppliesExclusions() async throws {
+        let store = try FeedStore(inMemory: true)
+        let source = FeedSource(
+            title: "Music Wire",
+            url: "https://example.com/music-wire.xml",
+            category: "Music",
+            region: "global",
+            language: "en"
+        )
+        store.registry.sources = [source]
+        let accepted = FeedItem(
+            id: "smart-complex-accepted",
+            sourceTitle: source.title,
+            sourceURL: source.url,
+            category: source.category,
+            title: "Madonna confirms a new tour",
+            excerpt: "Official dates were published.",
+            url: "https://example.com/accepted",
+            imageURL: nil,
+            publishedAt: .now,
+            region: "global",
+            language: "en"
+        )
+        let rejected = FeedItem(
+            id: "smart-complex-rejected",
+            sourceTitle: source.title,
+            sourceURL: source.url,
+            category: source.category,
+            title: "Madonna tour rumor",
+            excerpt: "An anonymous claim.",
+            url: "https://example.com/rejected",
+            imageURL: nil,
+            publishedAt: .now.addingTimeInterval(-10),
+            region: "global",
+            language: "en"
+        )
+        _ = await store.persistFetchedItems([accepted, rejected])
+
+        let expression = SearchExpression(terms: [
+            try XCTUnwrap(SearchTerm(input: "Madonna")),
+            try XCTUnwrap(SearchTerm(input: "tour")),
+            try XCTUnwrap(SearchTerm(input: "-rumor")),
+        ])
+        let smartFeed = try await store.createSmartFeed(
+            name: "Madonna tour",
+            expression: expression,
+            includeSources: false,
+            includeContents: true
+        )
+
+        XCTAssertEqual(
+            smartFeed.definition.requiredSearchTerms,
+            ["Madonna", "tour"]
+        )
+        XCTAssertEqual(smartFeed.definition.excludedSearchTerms, ["rumor"])
+        let cached = try await store.smartFeedStore.cachedItems(
+            smartFeedID: smartFeed.id
+        )
+        XCTAssertEqual(cached.map(\.id), [accepted.id])
+
+        let encoded = try JSONEncoder().encode(smartFeed.definition)
+        let decoded = try JSONDecoder().decode(
+            SmartFeedDefinition.self,
+            from: encoded
+        )
+        XCTAssertEqual(decoded, smartFeed.definition)
+
+        var legacyJSON = try XCTUnwrap(
+            JSONSerialization.jsonObject(with: encoded) as? [String: Any]
+        )
+        legacyJSON.removeValue(forKey: "requiredSearchTerms")
+        legacyJSON.removeValue(forKey: "excludedSearchTerms")
+        legacyJSON["query"] = "Madonna tour"
+        let legacyData = try JSONSerialization.data(withJSONObject: legacyJSON)
+        let migrated = try JSONDecoder().decode(
+            SmartFeedDefinition.self,
+            from: legacyData
+        )
+        XCTAssertEqual(migrated.requiredSearchTerms, ["Madonna", "tour"])
+        XCTAssertEqual(migrated.excludedSearchTerms, [])
     }
 }

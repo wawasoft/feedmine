@@ -16,7 +16,10 @@ struct FeedScreen: View {
     private let impressions = ImpressionTracker()
     @State private var showScrollButton = false
     @State private var lastScrollIndex: Int = 0
+    /// Uncommitted text in the field. It does not trigger a search until Return
+    /// or the add button turns it into a tag.
     @State private var searchText = ""
+    @State private var searchTerms: [SearchTerm] = []
     @State private var isSearching = false
     @State private var selectedSource: SourceReference?
     @State private var sourceToCollect: SourceReference?
@@ -26,13 +29,24 @@ struct FeedScreen: View {
     @State private var showFilters = false
     @State private var showBookmarks = false
     @State private var showAddFeed = false
+    @State private var addFeedCollectionID: Int64?
+    @State private var addFeedCollectionName: String?
     @State private var showCollections = false
     @State private var showExport = false
+    @State private var showCollectionExport = false
+    @State private var showCollectionImporter = false
+    @State private var showCreateCollectionPrompt = false
+    @State private var createCollectionName = ""
+    @State private var pendingCollectionSources: [SourceReference] = []
+    @State private var showCreateSmartFeedPrompt = false
+    @State private var createSmartFeedName = ""
+    @State private var showDeleteSmartFeedConfirmation = false
     @State private var showCatalogExplore = false
     @State private var showToast = false
     @State private var toastMessage = ""
     @State private var toastIcon = "checkmark"
     @State private var headerHeight: CGFloat = 48
+    @State private var searchControlsHeight: CGFloat = 92
     @State private var filterLensExpanded = true
     @State private var lastScrollOffset: CGFloat = 0
     @State private var filterLensCollapseTask: Task<Void, Never>?
@@ -41,6 +55,8 @@ struct FeedScreen: View {
     @AppStorage("nightMode") private var nightMode = false
     @AppStorage("lastScrollItemID") private var lastScrollItemID = ""
     @AppStorage("filterLensDismissedSignature") private var filterLensDismissedSignature = ""
+    @AppStorage("searchIncludesSources") private var searchIncludesSources = true
+    @AppStorage("searchIncludesContents") private var searchIncludesContents = false
     @State private var scrollTargetID: String? = nil
     /// True once the user has actually scrolled the feed. Gates the one-shot
     /// cold-start position restore so it can never yank a user who already
@@ -52,18 +68,21 @@ struct FeedScreen: View {
     @State private var player = AudioPlayerManager.shared
 
     private var emptyMode: FeedEmptyMode {
+        let activeTopic = loader.activePreset.isSmartFeed
+            ? loader.activePreset.displayName
+            : loader.selectedNodeNames.joined(separator: ", ")
         if loader.sources.isEmpty || (!loader.isGlobalFeedsEnabled && !loader.isAnyCountryEnabled) {
             return .noSourcesEnabled
         }
         if loader.hasActiveFilters && loader.items.isEmpty && (loader.loadingState == .refreshing || loader.isUrgentFetching) {
             return .fetching(
-                topic: loader.selectedNodeNames.joined(separator: ", "),
+                topic: activeTopic,
                 fetched: loader.emptyStateFetchedCount,
                 total: loader.selectedNodeIDs.reduce(0) { $0 + (TaxonomyStore.shared.node(id: $1)?.feedCount ?? 0) }
             )
         }
         if loader.hasActiveFilters && loader.items.isEmpty && loader.loadingState == .idle {
-            return .noResults(topic: loader.selectedNodeNames.joined(separator: ", "))
+            return .noResults(topic: activeTopic)
         }
         return .generic
     }
@@ -77,12 +96,14 @@ struct FeedScreen: View {
             // Full-bleed feed content with circadian page tint
             engine.pageBackground.ignoresSafeArea()
 
-            if isSearching && !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            if isSearching && hasCommittedSearch {
                 unifiedSearchPanel
             } else if loader.items.isEmpty
                 && (loader.isPreparingInitialRunway
                     || loader.loadingState == .initial
-                    || (loader.activePreset.collectionID != nil && loader.loadingState == .refreshing)) {
+                    || ((loader.activePreset.collectionID != nil
+                        || loader.activePreset.isSmartFeed)
+                        && loader.loadingState == .refreshing)) {
                 InitialFeedLoadingView()
             } else if loader.items.isEmpty && loader.loadingState != .initial {
                 FeedEmptyStateView(mode: emptyMode)
@@ -109,20 +130,13 @@ struct FeedScreen: View {
                     .background(.ultraThinMaterial)
             }
 
-            // Clipboard banner (below header)
-            VStack {
-                Spacer().frame(height: 90)
-                ClipboardBanner().autoCheck()
-                Spacer()
-            }
-
             // Toast + Onboarding overlays
             toastOverlay
             OnboardingTipsView()
         }
     }
 
-    private var observedScreen: some View {
+    private var lifecycleObservedScreen: some View {
         screenContent
         .task {
             await startScreen()
@@ -136,20 +150,39 @@ struct FeedScreen: View {
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didReceiveMemoryWarningNotification)) { _ in
             loader.emergencyTrim()
         }
-        .onChange(of: searchText) { _, query in
-            loader.searchQuery = query
-            loader.searchQueryChanged()
+    }
+
+    private var searchObservedScreen: some View {
+        lifecycleObservedScreen
+        .onChange(of: searchIncludesSources) { _, value in
+            loader.searchIncludesSources = value
+            if !searchTerms.isEmpty {
+                loader.submitSearchTerms(searchTerms)
+            }
         }
-        .onChange(of: loader.searchQuery) { _, query in
-            // Reverse sync: context menu or external change → update UI (#44)
-            if searchText != query { searchText = query }
+        .onChange(of: searchIncludesContents) { _, value in
+            loader.searchIncludesContents = value
+            if !searchTerms.isEmpty {
+                loader.submitSearchTerms(searchTerms)
+            }
+        }
+        .onChange(of: loader.submittedSearchTerms) { _, terms in
+            if searchTerms != terms {
+                searchTerms = terms
+            }
         }
         .onChange(of: filterLensSignature) { _, _ in
             handleFilterLensContentChange()
         }
         .onChange(of: searchFocused) { _, focused in
-            if !focused && searchText.isEmpty { isSearching = false }
+            if !focused && searchText.isEmpty && searchTerms.isEmpty {
+                isSearching = false
+            }
         }
+    }
+
+    private var observedScreen: some View {
+        searchObservedScreen
         .onChange(of: loader.readItemIDs.count) { _, _ in updateBadge() }
         .onChange(of: loader.lastToggleMessage) { _, msg in
             if let msg {
@@ -188,9 +221,22 @@ struct FeedScreen: View {
         .sheet(isPresented: $showSources) { SourceManagementView() }
         .sheet(isPresented: $showFilters) { FilterSheetView() }
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
-        .sheet(isPresented: $showAddFeed) { AddFeedView() }
+        .sheet(isPresented: $showAddFeed) {
+            AddFeedView(
+                targetCollectionID: addFeedCollectionID,
+                targetCollectionName: addFeedCollectionName
+            )
+        }
         .sheet(isPresented: $showCollections) { CollectionManagementView() }
         .sheet(isPresented: $showExport) { ExportView() }
+        .sheet(isPresented: $showCollectionExport) {
+            if let collectionID = loader.activePreset.collectionID {
+                CollectionOPMLExportView(
+                    collectionID: collectionID,
+                    collectionName: loader.activePreset.displayName
+                )
+            }
+        }
         .sheet(isPresented: $showCatalogExplore) {
             if let databaseURL = FeedEngineCatalogDiagnostics.activeDatabaseURL(),
                let repository = try? SQLiteCatalogRepository(databaseURL: databaseURL, readOnly: true) {
@@ -206,6 +252,36 @@ struct FeedScreen: View {
         .tint(engine.accent)
         .animation(.easeInOut(duration: 2.0), value: engine.period)
         .overlay { if nightMode { nightOverlay } }
+        .fileImporter(
+            isPresented: $showCollectionImporter,
+            allowedContentTypes: [.xml, .init(filenameExtension: "opml")!]
+        ) { result in
+            handleCollectionImport(result)
+        }
+        .alert("Create collection from filters", isPresented: $showCreateCollectionPrompt) {
+            TextField("Collection name", text: $createCollectionName)
+            Button("Create") { Task { await createCollectionFromContext() } }
+                .disabled(createCollectionName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("\(pendingCollectionSources.count) matching source\(pendingCollectionSources.count == 1 ? "" : "s") will be added.")
+        }
+        .alert("Save as Smart Bookmark", isPresented: $showCreateSmartFeedPrompt) {
+            TextField("Smart Bookmark name", text: $createSmartFeedName)
+            Button("Save") { Task { await createSmartFeedFromSearch() } }
+                .disabled(createSmartFeedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("New matching content will be added automatically. Seen items stay available at the end of the feed.")
+        }
+        .alert("Delete Smart Bookmark?", isPresented: $showDeleteSmartFeedConfirmation) {
+            Button("Delete", role: .destructive) {
+                Task { await deleteActiveSmartFeed() }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This removes the saved search and its cache. It does not delete sources or articles from Feedmine.")
+        }
         .onDisappear {
             filterLensCollapseTask?.cancel()
         }
@@ -226,12 +302,14 @@ struct FeedScreen: View {
     }
 
     private var feedTopPadding: CGFloat {
-        max(48, headerHeight) + (isFilterLensVisible ? 20 : 0)
+        max(48, headerHeight)
+            + (isSearching ? searchControlsHeight : (isFilterLensVisible ? 20 : 0))
     }
 
     private var filterLensSignature: String {
         guard hasFilterLensContent else { return "" }
         var parts: [String] = []
+        parts.append(loader.activePreset.displayName)
         parts.append(loader.selectedRegion ?? "")
         parts.append(loader.selectedContentType.rawValue)
         parts.append(loader.selectedMood.rawValue)
@@ -258,8 +336,14 @@ struct FeedScreen: View {
 
                 HStack(spacing: 4) {
                     Button {
-                        withAnimation(.easeInOut(duration: 0.3)) { isSearching.toggle() }
-                        if isSearching { searchText = "" }
+                        if isSearching {
+                            closeSearch()
+                        } else {
+                            loader.searchIncludesSources = searchIncludesSources
+                            loader.searchIncludesContents = searchIncludesContents
+                            withAnimation(.easeInOut(duration: 0.3)) { isSearching = true }
+                            searchFocused = true
+                        }
                     } label: {
                         Image(systemName: isSearching ? "magnifyingglass.circle.fill" : "magnifyingglass")
                             .headerButtonStyle(accent: engine.accent)
@@ -290,7 +374,48 @@ struct FeedScreen: View {
                         .accessibilityLabel("Explore Catalog")
                     }
                     Menu {
-                        Button { showAddFeed = true } label: {
+                        if shouldOfferCreateSmartFeed {
+                            Button { prepareSmartFeedFromSearch() } label: {
+                                Label(
+                                    "Save as Smart Bookmark",
+                                    systemImage: "sparkles.rectangle.stack"
+                                )
+                            }
+                        }
+                        if shouldOfferCreateCollection {
+                            Button { prepareCollectionFromContext() } label: {
+                                Label("Collect these sources", systemImage: "folder.badge.plus")
+                            }
+                        }
+                        if let collectionID = loader.activePreset.collectionID {
+                            Button { showCollectionExport = true } label: {
+                                Label("Export collection", systemImage: "square.and.arrow.up")
+                            }
+                            Button { showCollectionImporter = true } label: {
+                                Label("Import to collection", systemImage: "square.and.arrow.down")
+                            }
+                            Button {
+                                addFeedCollectionID = collectionID
+                                addFeedCollectionName = loader.activePreset.displayName
+                                showAddFeed = true
+                            } label: {
+                                Label("Add feed to collection", systemImage: "link.badge.plus")
+                            }
+                            Divider()
+                        }
+                        if loader.activePreset.isSmartFeed {
+                            Button(role: .destructive) {
+                                showDeleteSmartFeedConfirmation = true
+                            } label: {
+                                Label("Delete Smart Bookmark", systemImage: "trash")
+                            }
+                            Divider()
+                        }
+                        Button {
+                            addFeedCollectionID = nil
+                            addFeedCollectionName = nil
+                            showAddFeed = true
+                        } label: {
                             Label("Add Feed", systemImage: "plus.circle")
                         }
                         Button { showExport = true } label: {
@@ -330,33 +455,141 @@ struct FeedScreen: View {
     }
 
     private var searchBar: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
-            TextField("Search sources, topics, and saved content", text: $searchText)
-                .focused($searchFocused)
-                .accessibilityIdentifier("unified-search-field")
-                .textFieldStyle(.plain)
-                .onSubmit { searchFocused = false }
-            if !searchText.isEmpty {
-                Button {
-                    searchText = ""; isSearching = false; searchFocused = false
-                    loader.searchQuery = ""; loader.searchQueryChanged()
-                } label: {
-                    Image(systemName: "xmark.circle.fill").foregroundStyle(.secondary)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Image(systemName: "magnifyingglass").foregroundStyle(.secondary)
+                TextField("Add a term · use -term to exclude", text: $searchText)
+                    .focused($searchFocused)
+                    .accessibilityIdentifier("unified-search-field")
+                    .textFieldStyle(.plain)
+                    .submitLabel(.search)
+                    .onSubmit { commitSearchDraft() }
+                if !searchText.isEmpty {
+                    Button {
+                        commitSearchDraft()
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundStyle(engine.accent)
+                    }
+                    .accessibilityLabel("Add search term")
                 }
-            }
-            if searchFocused {
                 Button("Cancel") {
-                    searchText = ""; isSearching = false; searchFocused = false
-                    loader.searchQuery = ""; loader.searchQueryChanged()
+                    closeSearch()
                 }
                 .font(.caption).foregroundStyle(engine.accent)
+            }
+
+            if !searchTerms.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 6) {
+                        ForEach(searchTerms) { term in
+                            searchTermChip(term)
+                        }
+                    }
+                }
+                .accessibilityIdentifier("search-term-tags")
+            }
+
+            HStack(spacing: 18) {
+                searchScopeButton(
+                    title: "Sources",
+                    isOn: $searchIncludesSources,
+                    accessibilityID: "search-sources-toggle"
+                )
+                searchScopeButton(
+                    title: "Contents",
+                    isOn: $searchIncludesContents,
+                    accessibilityID: "search-contents-toggle"
+                )
+                Spacer()
+            }
+            .font(.caption.weight(.medium))
+
+            if !searchTerms.isEmpty {
+                searchActivityLine
+                    .font(.caption)
             }
         }
         .padding(.horizontal, 12).padding(.vertical, 8)
         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal, 8)
         .onAppear { searchFocused = true }
+        .readSearchControlsHeight($searchControlsHeight)
+    }
+
+    private func searchTermChip(_ term: SearchTerm) -> some View {
+        HStack(spacing: 5) {
+            Image(systemName: term.isExcluded ? "minus.circle.fill" : "tag.fill")
+                .font(.caption2)
+            Text(term.displayText)
+                .lineLimit(1)
+            Button {
+                removeSearchTerm(term)
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.caption2.weight(.bold))
+            }
+            .accessibilityLabel("Remove \(term.displayText)")
+        }
+        .font(.caption.weight(.medium))
+        .foregroundStyle(term.isExcluded ? Color.red : engine.accent)
+        .padding(.horizontal, 9)
+        .padding(.vertical, 5)
+        .background(
+            (term.isExcluded ? Color.red : engine.accent).opacity(0.1),
+            in: Capsule()
+        )
+    }
+
+    @ViewBuilder
+    private var searchActivityLine: some View {
+        let expression = SearchExpression(terms: searchTerms)
+        if !expression.canSearch {
+            Label("Add at least one positive term to search", systemImage: "info.circle")
+                .foregroundStyle(.secondary)
+        } else if searchIncludesContents && loader.isSearchScanning {
+            HStack(spacing: 7) {
+                Image(systemName: "network")
+                    .foregroundStyle(engine.accent)
+                Text("\(loader.searchScannedSourceCount) sources checked")
+                if loader.searchDiscoveredItemCount > 0 {
+                    Text("· \(loader.searchDiscoveredItemCount) new cached")
+                }
+            }
+            .foregroundStyle(.secondary)
+        } else if searchIncludesContents && loader.searchScanCompleted {
+            HStack(spacing: 7) {
+                Image(systemName: "checkmark.circle")
+                    .foregroundStyle(.green)
+                Text("\(loader.searchScannedSourceCount) sources checked")
+                if loader.searchDiscoveredItemCount > 0 {
+                    Text("· \(loader.searchDiscoveredItemCount) new cached")
+                }
+            }
+            .foregroundStyle(.secondary)
+        } else if loader.isSearchLoading {
+            Label("Searching…", systemImage: "magnifyingglass")
+                .foregroundStyle(.secondary)
+        }
+    }
+
+    private func searchScopeButton(
+        title: String,
+        isOn: Binding<Bool>,
+        accessibilityID: String
+    ) -> some View {
+        Button {
+            isOn.wrappedValue.toggle()
+        } label: {
+            Label(
+                title,
+                systemImage: isOn.wrappedValue ? "checkmark.square.fill" : "square"
+            )
+            .foregroundStyle(isOn.wrappedValue ? engine.accent : Color.secondary)
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier(accessibilityID)
+        .accessibilityValue(isOn.wrappedValue ? "selected" : "not selected")
     }
 
     private var unifiedSearchPanel: some View {
@@ -366,7 +599,7 @@ struct FeedScreen: View {
                 if loader.isSearchLoading {
                     HStack(spacing: 10) {
                         ProgressView()
-                        Text("Searching sources and your library…")
+                        Text("Searching the local library…")
                             .foregroundStyle(.secondary)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -376,13 +609,19 @@ struct FeedScreen: View {
                 if !results.sources.isEmpty {
                     searchSectionHeader("Sources", count: results.sources.count, icon: "antenna.radiowaves.left.and.right")
                     ForEach(results.sources) { source in
-                        Button { selectedSource = source.sourceReference } label: {
+                        Button {
+                            searchFocused = false
+                            selectedSource = source.sourceReference
+                        } label: {
                             SourceSearchRow(source: source)
                         }
                         .buttonStyle(.plain)
                         .accessibilityIdentifier("source-result-\(source.id)")
                         .contextMenu {
-                            Button { selectedSource = source.sourceReference } label: {
+                            Button {
+                                searchFocused = false
+                                selectedSource = source.sourceReference
+                            } label: {
                                 Label("View Source", systemImage: "rectangle.stack")
                             }
                             Button { sourceToCollect = source.sourceReference } label: {
@@ -410,7 +649,9 @@ struct FeedScreen: View {
                     ContentUnavailableView(
                         "No matches",
                         systemImage: "magnifyingglass",
-                        description: Text("Try a topic, source, tag, or words from an article you saw before.")
+                        description: Text(loader.isSearchScanning
+                            ? "Results will appear here while sources are checked online."
+                            : "Try another term or adjust the active filters.")
                     )
                     .frame(maxWidth: .infinity)
                     .padding(.top, 50)
@@ -420,7 +661,7 @@ struct FeedScreen: View {
             .padding(.bottom, 90)
         }
         .scrollDismissesKeyboard(.interactively)
-        .padding(.top, headerHeight + 52)
+        .padding(.top, headerHeight + searchControlsHeight)
         .accessibilityIdentifier("unified-search-results")
     }
 
@@ -439,7 +680,11 @@ struct FeedScreen: View {
     }
 
     private func searchContentRow(_ item: FeedItem, saved: Bool) -> some View {
-        Button { articleItem = item } label: {
+        Button {
+            searchFocused = false
+            loader.markAsClicked(item.id)
+            articleItem = item
+        } label: {
             HStack(alignment: .top, spacing: 11) {
                 Image(systemName: saved ? "bookmark.fill" : (item.isRead ? "clock.fill" : "doc.text"))
                     .foregroundStyle(saved ? engine.accent : Color.secondary)
@@ -533,6 +778,11 @@ struct FeedScreen: View {
                                     .id(item.id)
                                     .padding(.horizontal, 6)
                                     .contentShape(Rectangle())
+                                    .onScrollVisibilityChange(threshold: 0.5) { visible in
+                                        if visible {
+                                            loader.markAsSeen(item.id)
+                                        }
+                                    }
                                     .onAppear {
                                         impressions.mark(item.id)
                                         loader.noteVisibleIndex(for: item)
@@ -566,16 +816,14 @@ struct FeedScreen: View {
                         Color.clear.frame(height: 60).background(.ultraThinMaterial)
                     }
                 }
+                .refreshable {
+                    await loader.pullToRefresh()
+                }
                 .scrollDismissesKeyboard(.interactively)
                 .onScrollGeometryChange(for: CGFloat.self, of: { geo in
                     geo.contentOffset.y
                 }, action: { _, newOffset in
                     handleScrollOffset(newOffset)
-                    if newOffset < -110 && !isSearching {
-                        let impact = UIImpactFeedbackGenerator(style: .light)
-                        impact.impactOccurred()
-                        withAnimation(.easeInOut(duration: 0.25)) { isSearching = true }
-                    }
                 })
                 if showScrollButton { floatingButtons(proxy: proxy) }
             }
@@ -663,6 +911,9 @@ struct FeedScreen: View {
     // MARK: - Helpers
 
     private func startScreen() async {
+        loader.searchIncludesSources = searchIncludesSources
+        loader.searchIncludesContents = searchIncludesContents
+        searchTerms = loader.submittedSearchTerms
         await loader.start()
         await loader.refreshBookmarkState()
         updateBadge()
@@ -674,6 +925,198 @@ struct FeedScreen: View {
             scrollTargetID = lastScrollItemID
         }
         didRestoreScroll = true
+    }
+
+    private var shouldOfferCreateCollection: Bool {
+        hasCommittedSearch || loader.activeFilterCount >= 2
+    }
+
+    private var shouldOfferCreateSmartFeed: Bool {
+        isSearching
+            && hasCommittedSearch
+            && (searchIncludesSources || searchIncludesContents)
+    }
+
+    private var currentContextSources: [SourceReference] {
+        var candidates: [SourceReference] = []
+        if isSearching && hasCommittedSearch {
+            let results = loader.unifiedSearchResults
+            candidates.append(contentsOf: results.sources.map(\.sourceReference))
+            candidates.append(contentsOf: (results.savedItems + results.localItems).map {
+                loader.sourceReference(for: $0)
+            })
+        } else if loader.activePreset.collectionID == nil,
+                  loader.selectedMood == .all {
+            candidates.append(contentsOf: loader.activeSources.map {
+                SourceReference(source: $0)
+            })
+        } else {
+            candidates.append(contentsOf: loader.filteredItems.map {
+                loader.sourceReference(for: $0)
+            })
+        }
+
+        var seen = Set<String>()
+        return candidates.filter {
+            seen.insert(OPMLParser.normalizeURL($0.feedURL)).inserted
+        }
+    }
+
+    private func prepareCollectionFromContext() {
+        pendingCollectionSources = currentContextSources
+        guard !pendingCollectionSources.isEmpty else {
+            toastMessage = "No matching sources to collect"
+            toastIcon = "folder.badge.questionmark"
+            withAnimation { showToast = true }
+            return
+        }
+        let query = SearchExpression(terms: searchTerms).displayQuery
+        createCollectionName = query.isEmpty ? "Filtered feeds" : query
+        showCreateCollectionPrompt = true
+    }
+
+    private func createCollectionFromContext() async {
+        do {
+            let name = createCollectionName.trimmingCharacters(in: .whitespacesAndNewlines)
+            let id = try await loader.createSourceCollection(name: name)
+            for source in pendingCollectionSources {
+                try await loader.addSource(source, toCollectionID: id)
+            }
+            toastMessage = "\(pendingCollectionSources.count) sources added to \(name)"
+            toastIcon = "folder.badge.plus"
+            pendingCollectionSources = []
+            withAnimation { showToast = true }
+        } catch {
+            toastMessage = "Could not create collection"
+            toastIcon = "exclamationmark.triangle"
+            withAnimation { showToast = true }
+        }
+    }
+
+    private func prepareSmartFeedFromSearch() {
+        let expression = SearchExpression(terms: searchTerms)
+        guard expression.canSearch, searchIncludesSources || searchIncludesContents else {
+            return
+        }
+        createSmartFeedName = expression.displayQuery
+        showCreateSmartFeedPrompt = true
+    }
+
+    private func createSmartFeedFromSearch() async {
+        let name = createSmartFeedName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let expression = SearchExpression(terms: searchTerms)
+        guard !name.isEmpty, expression.canSearch else { return }
+        do {
+            let smartFeed = try await loader.createSmartFeed(
+                name: name,
+                terms: searchTerms,
+                includeSources: searchIncludesSources,
+                includeContents: searchIncludesContents
+            )
+            loader.setActivePreset(.smartFeed(
+                smartFeedID: smartFeed.id,
+                smartFeedName: smartFeed.name
+            ))
+            closeSearch()
+            toastMessage = "\(smartFeed.name) saved as a Smart Bookmark"
+            toastIcon = "sparkles.rectangle.stack.fill"
+            withAnimation { showToast = true }
+        } catch {
+            toastMessage = error.localizedDescription
+            toastIcon = "exclamationmark.triangle"
+            withAnimation { showToast = true }
+        }
+    }
+
+    private func deleteActiveSmartFeed() async {
+        guard let id = loader.activePreset.smartFeedID else { return }
+        do {
+            try await loader.deleteSmartFeed(id: id)
+            toastMessage = "Smart Bookmark deleted"
+            toastIcon = "trash"
+        } catch {
+            toastMessage = "Could not delete Smart Bookmark"
+            toastIcon = "exclamationmark.triangle"
+        }
+        withAnimation { showToast = true }
+    }
+
+    private func handleCollectionImport(_ result: Result<URL, Error>) {
+        guard let collectionID = loader.activePreset.collectionID else { return }
+        switch result {
+        case .failure:
+            toastMessage = "Could not open OPML"
+            toastIcon = "exclamationmark.triangle"
+            withAnimation { showToast = true }
+        case .success(let url):
+            Task {
+                let didAccess = url.startAccessingSecurityScopedResource()
+                defer {
+                    if didAccess { url.stopAccessingSecurityScopedResource() }
+                }
+                do {
+                    let data = try Data(contentsOf: url)
+                    let imported = await loader.importOPML(
+                        data: data,
+                        fileName: url.deletingPathExtension().lastPathComponent,
+                        validate: false
+                    )
+                    let sourceURLs = imported.items.compactMap { item -> String? in
+                        switch item.status {
+                        case .imported, .duplicate: return item.url
+                        case .invalid, .unreachable: return nil
+                        }
+                    }
+                    let count = try await loader.addSourceURLs(
+                        sourceURLs,
+                        toCollectionID: collectionID
+                    )
+                    toastMessage = "\(count) feed\(count == 1 ? "" : "s") added to \(loader.activePreset.displayName)"
+                    toastIcon = "square.and.arrow.down"
+                } catch {
+                    toastMessage = "Could not import OPML"
+                    toastIcon = "exclamationmark.triangle"
+                }
+                withAnimation { showToast = true }
+            }
+        }
+    }
+
+    private func closeSearch() {
+        searchText = ""
+        searchTerms = []
+        searchFocused = false
+        loader.clearSubmittedSearch()
+        withAnimation(.easeInOut(duration: 0.25)) { isSearching = false }
+    }
+
+    private var hasCommittedSearch: Bool {
+        SearchExpression(terms: searchTerms).canSearch
+    }
+
+    private func commitSearchDraft() {
+        guard let term = SearchTerm(input: searchText) else { return }
+        var updatedTerms = searchTerms
+        let normalized = SearchExpression.normalized(term.text)
+        // Re-entering a term replaces its previous polarity, which makes
+        // correcting "term" to "-term" (or back) a single action.
+        updatedTerms.removeAll {
+            SearchExpression.normalized($0.text) == normalized
+        }
+        updatedTerms.append(term)
+        searchTerms = updatedTerms
+        searchText = ""
+        loader.searchIncludesSources = searchIncludesSources
+        loader.searchIncludesContents = searchIncludesContents
+        loader.submitSearchTerms(updatedTerms)
+        searchFocused = true
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+
+    private func removeSearchTerm(_ term: SearchTerm) {
+        searchTerms.removeAll { $0.id == term.id }
+        loader.submitSearchTerms(searchTerms)
+        searchFocused = true
     }
 
     private func handleScrollOffset(_ newOffset: CGFloat) {
@@ -772,19 +1215,26 @@ struct FeedScreen: View {
     }
 
     private func handleScenePhase(_ phase: ScenePhase) {
-        if phase == .active {
+        switch phase {
+        case .active:
+            loader.setActivityState(.active)
             engine.refresh()
             // Do NOT restore scroll on foreground: SwiftUI already preserves
             // the position across background, so re-scrolling here only makes
             // the feed jump under the user. (Feed is sacred.)
-        }
-        if phase == .background {
+        case .inactive:
+            loader.setActivityState(.inactive)
+        case .background:
+            loader.setActivityState(.background)
+            SmartFeedBackgroundScheduler.shared.schedule()
             AudioPlayerManager.shared.savePosition()
             let allItems = loader.dateSections.flatMap(\.items)
             let idx = min(lastScrollIndex, allItems.count - 1)
             if idx >= 0, idx < allItems.count {
                 lastScrollItemID = allItems[idx].id
             }
+        @unknown default:
+            break
         }
     }
 
@@ -792,6 +1242,75 @@ struct FeedScreen: View {
         Task {
             engine.refresh()
             await loader.refreshIfStale()
+        }
+    }
+}
+
+private struct CollectionOPMLExportView: View {
+    @Environment(FeedLoader.self) private var loader
+    @Environment(\.dismiss) private var dismiss
+    let collectionID: Int64
+    let collectionName: String
+    @State private var fileURL: URL?
+    @State private var sourceCount = 0
+    @State private var errorMessage: String?
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    LabeledContent("Collection", value: collectionName)
+                    LabeledContent("Sources", value: "\(sourceCount)")
+                }
+
+                Section {
+                    if let fileURL {
+                        ShareLink(item: fileURL) {
+                            Label("Export OPML", systemImage: "square.and.arrow.up")
+                        }
+                    } else if let errorMessage {
+                        ContentUnavailableView(
+                            "Export unavailable",
+                            systemImage: "exclamationmark.triangle",
+                            description: Text(errorMessage)
+                        )
+                    } else {
+                        HStack {
+                            ProgressView()
+                            Text("Preparing OPML…")
+                        }
+                    }
+                } footer: {
+                    Text("The OPML contains exactly the sources in this collection.")
+                }
+            }
+            .navigationTitle("Export collection")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") { dismiss() }
+                }
+            }
+        }
+        .task { await prepareExport() }
+        .presentationDetents([.medium])
+    }
+
+    private func prepareExport() async {
+        do {
+            let members = try await loader.sourceCollectionMembers(collectionID: collectionID)
+            let sources = members.map { loader.sourceReference(for: $0).feedSource }
+            sourceCount = sources.count
+            let data = ExportEngine.opml(sources: sources, title: collectionName)
+            let safeName = collectionName
+                .replacingOccurrences(of: "/", with: "-")
+                .replacingOccurrences(of: ":", with: "-")
+            let url = FileManager.default.temporaryDirectory
+                .appendingPathComponent("\(safeName).opml")
+            try data.write(to: url, options: .atomic)
+            fileURL = url
+        } catch {
+            errorMessage = error.localizedDescription
         }
     }
 }
@@ -828,6 +1347,13 @@ private struct HeaderHeightKey: PreferenceKey {
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) { value = nextValue() }
 }
 
+private struct SearchControlsHeightKey: PreferenceKey {
+    static let defaultValue: CGFloat = 92
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
+    }
+}
+
 private extension View {
     func readHeaderHeight(_ height: Binding<CGFloat>) -> some View {
         background {
@@ -836,6 +1362,20 @@ private extension View {
             }
         }
         .onPreferenceChange(HeaderHeightKey.self) { height.wrappedValue = $0 }
+    }
+
+    func readSearchControlsHeight(_ height: Binding<CGFloat>) -> some View {
+        background {
+            GeometryReader { proxy in
+                Color.clear.preference(
+                    key: SearchControlsHeightKey.self,
+                    value: proxy.size.height
+                )
+            }
+        }
+        .onPreferenceChange(SearchControlsHeightKey.self) {
+            height.wrappedValue = $0
+        }
     }
 }
 

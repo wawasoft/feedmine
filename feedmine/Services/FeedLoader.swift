@@ -34,9 +34,11 @@ final class FeedLoader {
     var sourceCount: Int { store.registry.sourceCount }
     /// Sources available under the current filter configuration
     /// (preset, region, language, content type, taxonomy).
-    var activeSourceCount: Int {
+    var activeSources: [FeedSource] {
         if let filter = store.presetSourceFilter {
-            return filter.count
+            return store.registry.sources.filter {
+                filter.contains(OPMLParser.normalizeURL($0.url))
+            }
         }
         let base = store.registry.enabledSources
         let hasRegion = store.activeRegion != nil
@@ -44,7 +46,7 @@ final class FeedLoader {
         let hasContentType = store.activeContentType != .all
         let hasTaxonomy = !store.activeNodeIDs.isEmpty
         guard hasRegion || hasLanguages || hasContentType || hasTaxonomy else {
-            return base.count
+            return base
         }
         return base.filter { source in
             if hasRegion, let r = store.activeRegion {
@@ -68,7 +70,10 @@ final class FeedLoader {
                 guard urls.contains(OPMLParser.normalizeURL(source.url)) else { return false }
             }
             return true
-        }.count
+        }
+    }
+    var activeSourceCount: Int {
+        store.presetSourceFilter?.count ?? activeSources.count
     }
     var podcastSourceCount: Int { store.podcastSourceCount }
     var podcastItemCount: Int { store.podcastItemCount }
@@ -148,10 +153,17 @@ final class FeedLoader {
     var hasTaxonomySelection: Bool { !selectedNodeIDs.isEmpty }
     var hasRegionSelection: Bool { selectedRegion != nil }
     var hasActiveFilters: Bool {
-        hasRegionSelection || hasTaxonomySelection || selectedMood != .all || selectedContentType != .all || hasLanguageSelection
+        if activePreset.isSmartFeed { return true }
+        return activePreset != .everything
+            || hasRegionSelection || hasTaxonomySelection || selectedMood != .all
+            || selectedContentType != .all || hasLanguageSelection
     }
     var activeFilterCount: Int {
+        if activePreset.isSmartFeed {
+            return searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 1 : 2
+        }
         var count = 0
+        if activePreset != .everything { count += 1 }
         if hasRegionSelection { count += 1 }
         count += selectedNodeIDs.count
         count += selectedLanguages.count
@@ -229,8 +241,17 @@ final class FeedLoader {
     // MARK: - Search
 
     var searchQuery: String = ""
+    private(set) var submittedSearchTerms: [SearchTerm] = []
+    var searchIncludesSources = true
+    var searchIncludesContents = false
     var isSearching: Bool { store.isSearching }
     var isSearchLoading: Bool { store.isSearchLoading }
+    var isSearchScanning: Bool { store.isSearchScanning }
+    var searchScannedSourceCount: Int { store.searchScannedSourceCount }
+    var searchTotalSourceCount: Int { store.searchTotalSourceCount }
+    var searchDiscoveredItemCount: Int { store.searchDiscoveredItemCount }
+    var searchFailedSourceCount: Int { store.searchFailedSourceCount }
+    var searchScanCompleted: Bool { store.searchScanCompleted }
     var unifiedSearchResults: UnifiedSearchResults { store.unifiedSearchResults }
 
     // MARK: - Filtered Items (reads from FeedStore as single source)
@@ -736,9 +757,14 @@ final class FeedLoader {
         return store.registry.availableLanguageCodes.contains(deviceLang) ? [deviceLang] : []
     }
 
-    func clearAllFilters() {
-        searchQuery = ""
+    func clearAllFilters(preservingSearch: Bool = false) {
+        if !preservingSearch {
+            clearSubmittedSearch()
+        }
         TaxonomyStore.shared.clearSelection()
+        if activePreset != .everything {
+            store.setPreset(.everything)
+        }
         store.clearAllFilters()
     }
 
@@ -752,21 +778,42 @@ final class FeedLoader {
         Task { await refreshBookmarkState() }
     }
 
-    private var searchDebounceTask: Task<Void, Never>?
+    /// Commits the visible tag set. Typing in the draft field never calls this;
+    /// Return or the explicit add button is the only search trigger.
+    func submitSearchTerms(_ terms: [SearchTerm]) {
+        submittedSearchTerms = terms
+        searchQuery = SearchExpression(terms: terms).displayQuery
+        refreshSubmittedSearch()
+    }
 
-    func searchQueryChanged() {
-        searchDebounceTask?.cancel()
-        let query = searchQuery
-        if query.isEmpty {
-            store.clearSearch()
+    func refreshSubmittedSearch() {
+        let expression = SearchExpression(terms: submittedSearchTerms)
+        if expression.canSearch {
+            store.search(
+                expression,
+                includeSources: searchIncludesSources,
+                includeContents: searchIncludesContents
+            )
         } else {
-            // Debounce 250ms — cancel previous task on each keystroke (#45)
-            searchDebounceTask = Task {
-                try? await Task.sleep(for: .milliseconds(250))
-                guard !Task.isCancelled else { return }
-                store.search(query)
-            }
+            store.clearSearch()
         }
+    }
+
+    func clearSubmittedSearch() {
+        submittedSearchTerms = []
+        searchQuery = ""
+        store.clearSearch()
+    }
+
+    /// Compatibility entry point for older UI paths that assign a one-line
+    /// query. New search UI should use `submitSearchTerms(_:)`.
+    func searchQueryChanged() {
+        submittedSearchTerms = SearchExpression(legacyQuery: searchQuery).terms
+        refreshSubmittedSearch()
+    }
+
+    func cancelSearchScan() {
+        store.cancelSearchScan()
     }
 
     var lastToggleMessage: String? { store.lastToggleMessage }
@@ -825,6 +872,63 @@ final class FeedLoader {
         store.setPreset(preset)
     }
 
+    func loadSmartFeeds() async throws -> [SmartFeed] {
+        try await store.allSmartFeeds()
+    }
+
+    @discardableResult
+    func createSmartFeed(
+        name: String,
+        query: String,
+        includeSources: Bool,
+        includeContents: Bool
+    ) async throws -> SmartFeed {
+        let smartFeed = try await store.createSmartFeed(
+            name: name,
+            query: query,
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+        SmartFeedBackgroundScheduler.shared.schedule()
+        return smartFeed
+    }
+
+    @discardableResult
+    func createSmartFeed(
+        name: String,
+        terms: [SearchTerm],
+        includeSources: Bool,
+        includeContents: Bool
+    ) async throws -> SmartFeed {
+        let smartFeed = try await store.createSmartFeed(
+            name: name,
+            expression: SearchExpression(terms: terms),
+            includeSources: includeSources,
+            includeContents: includeContents
+        )
+        SmartFeedBackgroundScheduler.shared.schedule()
+        return smartFeed
+    }
+
+    func deleteSmartFeed(id: Int64) async throws {
+        try await store.deleteSmartFeed(id: id)
+    }
+
+    func setActivityState(_ state: FeedActivityState) {
+        store.setActivityState(state)
+    }
+
+    func performSmartFeedBackgroundRefresh() async -> Bool {
+        await store.prepareForBackgroundSmartFeedRefresh()
+        if restoreImportedSources() {
+            await TaxonomyStore.shared.build(
+                from: store.registry.sources,
+                sharedCountrySourceURLs: store.registry.sharedCountrySourceURLs
+            )
+        }
+        return await store.performSmartFeedBackgroundRefresh()
+    }
+
     // MARK: - Legacy Global Feeds (kept for backward compat)
 
     func toggleGlobalFeeds() {
@@ -876,7 +980,9 @@ final class FeedLoader {
             .count)
     }
 
+    func markAsSeen(_ itemID: String) { store.markAsSeen(itemID) }
     func markAsRead(_ itemID: String) { store.markAsRead(itemID) }
+    func markAsClicked(_ itemID: String) { store.markAsClicked(itemID) }
     func markAsUnread(_ itemID: String) { store.markAsUnread(itemID) }
     func isRead(_ itemID: String) -> Bool { store.readItemIDs.contains(itemID) }
 
@@ -968,8 +1074,17 @@ final class FeedLoader {
     }
 
     func shakeToRefresh() {
-        searchQuery = ""
+        clearSubmittedSearch()
         store.shakeToRefresh()
+    }
+
+    func pullToRefresh() async {
+        clearSubmittedSearch()
+        store.shakeToRefresh()
+        // `shakeToRefresh` owns a guarded async flush/fetch pipeline. Keep the
+        // system refresh indicator visible long enough for the first publish.
+        try? await Task.sleep(for: .milliseconds(450))
+        await loadWhatsNew()
     }
 
     func emergencyTrim() { store.emergencyTrim() }
