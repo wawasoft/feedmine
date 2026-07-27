@@ -64,12 +64,13 @@ actor RSSFetcher {
         _ source: FeedSource,
         using requestSession: URLSession
     ) async -> FeedFetchResult {
+        let emptyValidators = HTTPValidators()
         guard !Task.isCancelled else {
-            return FeedFetchResult(source: source, items: [], status: .failed)
+            return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.unknown)))
         }
         guard let url = URL(string: source.url) else {
             Log.network.error("Invalid URL for \(source.title): \(source.url)")
-            return FeedFetchResult(source: source, items: [], status: .failed)
+            return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.badURL)))
         }
 
         do {
@@ -78,7 +79,7 @@ actor RSSFetcher {
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
                 Log.network.warning("Bad status for \(source.title)")
-                return FeedFetchResult(source: source, items: [], status: .failed)
+                return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.badServerResponse)))
             }
 
             let parser = FeedParser(data: data)
@@ -89,21 +90,21 @@ actor RSSFetcher {
                 let items = extractItems(from: feed, source: source)
                 if items.isEmpty {
                     Log.network.info("Empty feed: \(source.title)")
-                    return FeedFetchResult(source: source, items: [], status: .empty)
+                    return FeedFetchResult(source: source, items: [], outcome: .modifiedWithoutNewItems(validators: emptyValidators))
                 }
                 let validated = await validateAudio(in: items)
-                return FeedFetchResult(source: source, items: validated, status: .success)
+                return FeedFetchResult(source: source, items: validated, outcome: .modifiedWithNewItems(validated, validators: emptyValidators))
             case .failure(let error):
                 Log.network.error("Parse failure for \(source.title): \(error)")
-                return FeedFetchResult(source: source, items: [], status: .failed)
+                return FeedFetchResult(source: source, items: [], outcome: .failed(error))
             }
         } catch is CancellationError {
-            return FeedFetchResult(source: source, items: [], status: .failed)
+            return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.cancelled)))
         } catch let error as URLError where error.code == .cancelled {
-            return FeedFetchResult(source: source, items: [], status: .failed)
+            return FeedFetchResult(source: source, items: [], outcome: .failed(error))
         } catch {
             Log.network.error("Network error for \(source.title): \(error)")
-            return FeedFetchResult(source: source, items: [], status: .failed)
+            return FeedFetchResult(source: source, items: [], outcome: .failed(error))
         }
     }
 
@@ -113,7 +114,9 @@ actor RSSFetcher {
         var fetchedSourceCount = 0
         var failedSourceCount = 0
         var emptySourceCount = 0
-        var sourceStatuses: [String: FeedFetchStatus] = [:]
+        var notModifiedCount = 0
+        var throttledCount = 0
+        var sourceOutcomes: [String: FeedFetchOutcome] = [:]
 
         // Sliding-window concurrency: keep up to `maxConcurrent` fetches in
         // flight at all times. As each one finishes we immediately start the
@@ -136,15 +139,19 @@ actor RSSFetcher {
 
             // Drain as results arrive, refilling each freed slot.
             while let result = await group.next() {
-                sourceStatuses[result.source.url] = result.status
-                switch result.status {
-                case .success:
+                sourceOutcomes[result.source.url] = result.outcome
+                switch result.outcome {
+                case .modifiedWithNewItems:
                     fetchedSourceCount += 1
                     allItems.append(contentsOf: result.items)
-                case .empty:
+                case .modifiedWithoutNewItems:
                     emptySourceCount += 1
+                case .notModified:
+                    notModifiedCount += 1
                 case .failed:
                     failedSourceCount += 1
+                case .throttled:
+                    throttledCount += 1
                 }
 
                 if Task.isCancelled {
@@ -162,7 +169,9 @@ actor RSSFetcher {
             fetchedSourceCount: fetchedSourceCount,
             failedSourceCount: failedSourceCount,
             emptySourceCount: emptySourceCount,
-            sourceStatuses: sourceStatuses
+            notModifiedCount: notModifiedCount,
+            throttledCount: throttledCount,
+            sourceOutcomes: sourceOutcomes
         )
     }
 
@@ -187,7 +196,9 @@ actor RSSFetcher {
         var fetchedSourceCount = 0
         var failedSourceCount = 0
         var emptySourceCount = 0
-        var sourceStatuses: [String: FeedFetchStatus] = [:]
+        var notModifiedCount = 0
+        var throttledCount = 0
+        var sourceOutcomes: [String: FeedFetchOutcome] = [:]
         let cap = max(1, maxConcurrent)
 
         await withTaskGroup(of: Event.self) { group in
@@ -216,15 +227,19 @@ actor RSSFetcher {
                     break eventLoop
                 case .result(let result):
                     activeFetches -= 1
-                    sourceStatuses[result.source.url] = result.status
-                    switch result.status {
-                    case .success:
+                    sourceOutcomes[result.source.url] = result.outcome
+                    switch result.outcome {
+                    case .modifiedWithNewItems:
                         fetchedSourceCount += 1
                         allItems.append(contentsOf: result.items)
-                    case .empty:
+                    case .modifiedWithoutNewItems:
                         emptySourceCount += 1
+                    case .notModified:
+                        notModifiedCount += 1
                     case .failed:
                         failedSourceCount += 1
+                    case .throttled:
+                        throttledCount += 1
                     }
                     await onProgress?(result)
 
@@ -251,7 +266,9 @@ actor RSSFetcher {
             fetchedSourceCount: fetchedSourceCount,
             failedSourceCount: failedSourceCount,
             emptySourceCount: emptySourceCount,
-            sourceStatuses: sourceStatuses
+            notModifiedCount: notModifiedCount,
+            throttledCount: throttledCount,
+            sourceOutcomes: sourceOutcomes
         )
     }
 

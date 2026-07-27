@@ -101,7 +101,12 @@ final class WhatsNewManager {
                 collectCandidates(actualNew)
                 prefetchImages(actualNew)
                 for source in sources {
-                    let ok = result.sourceStatuses[source.url] != .failed
+                    let ok: Bool
+                    if let outcome = result.sourceOutcomes[source.url] {
+                        ok = !outcome.isFailed
+                    } else {
+                        ok = false
+                    }
                     recordFetch(source.url, ok)
                 }
             }

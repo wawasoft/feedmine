@@ -26,6 +26,12 @@ enum FeedFetchOutcome: Sendable, Equatable {
     case failed(Error)
     case throttled(until: Date)
 
+    /// True if the outcome is a failure (network/parse error).
+    var isFailed: Bool {
+        if case .failed = self { return true }
+        return false
+    }
+
     // Equatable conformance for .failed (Error is not Equatable)
     static func == (lhs: FeedFetchOutcome, rhs: FeedFetchOutcome) -> Bool {
         switch (lhs, rhs) {
