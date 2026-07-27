@@ -22,7 +22,7 @@ final class FeedStoreTests: XCTestCase {
             region: "global"
         )
         store.recordStartupFetchProgress(
-            FeedFetchResult(source: failedSource, items: [], status: .failed)
+            FeedFetchResult(source: failedSource, items: [], outcome: .failed(NSError(domain: "test", code: 0)))
         )
 
         for index in 0..<3 {
@@ -33,11 +33,11 @@ final class FeedStoreTests: XCTestCase {
                 region: "global"
             )
             store.recordStartupFetchProgress(
-                FeedFetchResult(source: source, items: [], status: .success)
+                FeedFetchResult(source: source, items: [], outcome: .notModified)
             )
             if index == 0 {
                 store.recordStartupFetchProgress(
-                    FeedFetchResult(source: source, items: [], status: .success)
+                    FeedFetchResult(source: source, items: [], outcome: .notModified)
                 )
             }
         }
