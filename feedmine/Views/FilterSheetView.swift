@@ -11,6 +11,7 @@ struct FilterSheetView: View {
     @State private var overlayFiltersAreDirty = false
     @State private var availableCollections: [SourceCollection] = []
     @State private var availableSmartFeeds: [SmartFeed] = []
+    @State private var availableCuratedFeeds: [CuratedFeed] = []
 
     private var hasDraftFilters: Bool {
         draftContentType != .all
@@ -54,6 +55,21 @@ struct FilterSheetView: View {
                             ForEach(FeedPreset.allCases.filter { $0 != .everything }) { preset in
                                 Label(preset.rawValue, systemImage: preset.icon)
                                     .tag(PresetSelector.editorial(preset))
+                            }
+                        }
+
+                        if !availableCuratedFeeds.isEmpty {
+                            Section("Curated Feeds") {
+                                ForEach(availableCuratedFeeds) { curatedFeed in
+                                    Label(
+                                        curatedFeed.name,
+                                        systemImage: "slider.horizontal.3"
+                                    )
+                                    .tag(PresetSelector.curatedFeed(
+                                        curatedFeedID: curatedFeed.id,
+                                        curatedFeedName: curatedFeed.name
+                                    ))
+                                }
                             }
                         }
 
@@ -230,8 +246,10 @@ struct FilterSheetView: View {
             Task {
                 async let collections = loader.loadSourceCollections()
                 async let smartFeeds = loader.loadSmartFeeds()
+                async let curatedFeeds = loader.loadCuratedFeeds()
                 availableCollections = (try? await collections) ?? []
                 availableSmartFeeds = (try? await smartFeeds) ?? []
+                availableCuratedFeeds = (try? await curatedFeeds) ?? []
             }
         }
         .onDisappear {

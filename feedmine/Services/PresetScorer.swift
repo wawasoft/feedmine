@@ -16,7 +16,8 @@ enum PresetScorer {
     static func buildMultipliers(
         preset: PresetSelector,
         sources: [FeedSource],
-        collectionMemberURLs: Set<String> = []
+        collectionMemberURLs: Set<String> = [],
+        curatedProfile: CuratedProfileDefinition? = nil
     ) -> [String: Double] {
         switch preset {
         case .everything, .lastClicked, .smartFeed:
@@ -29,6 +30,13 @@ enum PresetScorer {
 
         case .collection(_, _):
             return buildCollectionMultipliers(memberURLs: collectionMemberURLs)
+
+        case .curatedFeed:
+            guard let curatedProfile else { return [:] }
+            return CuratedPreferenceEngine.sourceMultipliers(
+                sources: sources,
+                profile: curatedProfile
+            )
         }
     }
 

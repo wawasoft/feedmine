@@ -1444,10 +1444,19 @@ final class FeedStoreTests: XCTestCase {
 
     func testBundledStarterCatalogProvidesLanguageMatchedVariety() async {
         let sources = await FeedStore.bundledStarterSources(language: "en", limit: 30)
+        let repeated = await FeedStore.bundledStarterSources(language: "en", limit: 30)
 
         XCTAssertEqual(sources.count, 30)
         XCTAssertTrue(sources.allSatisfy { $0.language == "en" })
         XCTAssertGreaterThanOrEqual(Set(sources.map(\.category)).count, 8)
+        XCTAssertEqual(
+            sources.map(\.url),
+            repeated.map(\.url),
+            "The first-run editorial runway must never depend on randomness"
+        )
+        XCTAssertTrue(sources.allSatisfy {
+            CuratedPreferenceEngine.editorialAssessment(for: $0).isEligible
+        })
     }
 
     func testColdStartRunwayRequiresBreadthNotJustItemVolume() {

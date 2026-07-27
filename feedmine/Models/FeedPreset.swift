@@ -60,6 +60,7 @@ enum PresetSelector: Codable, Sendable, Hashable {
     case editorial(FeedPreset)
     case collection(collectionID: Int64, collectionName: String)
     case smartFeed(smartFeedID: Int64, smartFeedName: String)
+    case curatedFeed(curatedFeedID: Int64, curatedFeedName: String)
 
     var displayName: String {
         switch self {
@@ -68,6 +69,7 @@ enum PresetSelector: Codable, Sendable, Hashable {
         case .editorial(let preset):    return preset.rawValue
         case .collection(_, let name):  return name
         case .smartFeed(_, let name):   return name
+        case .curatedFeed(_, let name): return name
         }
     }
 
@@ -78,6 +80,7 @@ enum PresetSelector: Codable, Sendable, Hashable {
         case .editorial(let p):    return p.icon
         case .collection:          return "folder.fill"
         case .smartFeed:           return "sparkles.rectangle.stack.fill"
+        case .curatedFeed:         return "slider.horizontal.3"
         }
     }
 
@@ -102,6 +105,16 @@ enum PresetSelector: Codable, Sendable, Hashable {
 
     var smartFeedID: Int64? {
         if case .smartFeed(let id, _) = self { return id }
+        return nil
+    }
+
+    var isCuratedFeed: Bool {
+        if case .curatedFeed = self { return true }
+        return false
+    }
+
+    var curatedFeedID: Int64? {
+        if case .curatedFeed(let id, _) = self { return id }
         return nil
     }
 }

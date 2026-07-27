@@ -3,6 +3,22 @@ import GRDB
 import NaturalLanguage
 import Observation
 
+private actor CuratedStarterSourceCache {
+    static let shared = CuratedStarterSourceCache()
+    private var sourcesByLanguage: [String: [FeedSource]] = [:]
+
+    func sources(language: String, minimumCount: Int) -> [FeedSource]? {
+        guard let sources = sourcesByLanguage[language],
+              sources.count >= minimumCount else { return nil }
+        return Array(sources.prefix(minimumCount))
+    }
+
+    func store(_ sources: [FeedSource], language: String) {
+        guard sources.count > (sourcesByLanguage[language]?.count ?? 0) else { return }
+        sourcesByLanguage[language] = sources
+    }
+}
+
 @MainActor
 @Observable
 final class FeedStore {
@@ -17,6 +33,7 @@ final class FeedStore {
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
     let smartFeedStore: SmartFeedStore
+    let curatedFeedStore: CuratedFeedStore
     let sourceCollectionStore: SourceCollectionStore
     let searchEngine: SearchEngine
     let whatsNewManager: WhatsNewManager
@@ -562,6 +579,7 @@ final class FeedStore {
     private var coldStartPendingItems: [FeedItem] = []
     @ObservationIgnored private var startupSuccessfulSourceURLs: Set<String> = []
     private var firstLaunchBootstrapTask: Task<Void, Never>?
+    private var curatedOnboardingLastFetchAt: [String: Date] = [:]
     private var progressiveFetchTask: Task<Void, Never>?
     private var coverageMiningTask: Task<Void, Never>?
     private var isCoverageMiningActive = false
@@ -694,6 +712,7 @@ final class FeedStore {
         self.userRepo = try UserStateStore(inMemory: inMemory)
         self.bookmarkStore = BookmarkStore(userDB: userRepo.db, contentDB: db)
         self.smartFeedStore = SmartFeedStore(userDB: userRepo.db, contentDB: db)
+        self.curatedFeedStore = CuratedFeedStore(db: userRepo.db)
         self.sourceCollectionStore = SourceCollectionStore(db: userRepo.db)
         self.searchEngine = SearchEngine(
             db: db,
@@ -826,60 +845,158 @@ final class FeedStore {
               let catalogURL = CatalogRuntime.activeCatalogURL() else { return [] }
 
         let normalizedLanguage = normalizedLanguageCode(language) ?? "en"
-        return await Task.detached(priority: .userInitiated) {
+        if let cached = await CuratedStarterSourceCache.shared.sources(
+            language: normalizedLanguage,
+            minimumCount: limit
+        ) {
+            return cached
+        }
+        let selected = await Task.detached(priority: .userInitiated) {
             do {
                 var configuration = Configuration()
                 configuration.readonly = true
                 let catalog = try DatabaseQueue(path: catalogURL.path, configuration: configuration)
-                let candidateLimit = max(limit * 6, 180)
+                let candidatesPerTopic = 80
+                let candidateLimit = max(
+                    limit * 6,
+                    candidatesPerTopic * CuratedTopic.allCases.count
+                )
+                let sourceCandidateLimit = max(5_000, candidateLimit * 4)
                 let rows = try catalog.read { db in
                     try Row.fetchAll(db, sql: """
-                        SELECT
-                            s.title AS title,
-                            s.request_url AS url,
-                            s.media_kind AS media_kind,
-                            s.language AS language,
-                            MIN(n.name) AS category
-                        FROM catalog_source s
-                        JOIN catalog_placement p ON p.source_id = s.id
-                        JOIN catalog_node n ON n.id = p.node_id
-                        WHERE s.language = ?
-                          AND s.request_url LIKE 'https://%'
-                          AND s.default_enabled = 1
-                          AND n.kind = 3
-                          AND n.key NOT LIKE 'countries/%'
-                          AND n.key NOT LIKE '90_countries/%'
-                          AND n.key NOT LIKE 'languages/%'
-                        GROUP BY s.id, s.title, s.request_url, s.media_kind, s.language
-                        ORDER BY RANDOM()
+                        WITH source_candidates AS (
+                            SELECT *
+                            FROM catalog_source
+                            WHERE (
+                                    LOWER(REPLACE(language, '_', '-')) = ?
+                                    OR LOWER(REPLACE(language, '_', '-')) LIKE ?
+                                  )
+                              AND request_url LIKE 'https://%'
+                              AND default_enabled = 1
+                            ORDER BY
+                                COALESCE(quality_score, 0) DESC,
+                                title COLLATE NOCASE ASC,
+                                request_url ASC
+                            LIMIT ?
+                        ),
+                        grouped AS (
+                            SELECT
+                                s.id AS source_id,
+                                s.title AS title,
+                                s.request_url AS url,
+                                s.media_kind AS media_kind,
+                                s.language AS language,
+                                s.description AS description,
+                                s.tags AS tags,
+                                s.nature AS nature,
+                                s.activity AS activity,
+                                s.quality_score AS quality_score,
+                                s.default_enabled AS default_enabled,
+                                COALESCE(
+                                    MIN(CASE
+                                        WHEN n.key NOT LIKE '90_countries/%'
+                                        THEN parent.name
+                                        ELSE NULL
+                                    END),
+                                    MIN(CASE
+                                        WHEN n.key LIKE '90_countries/%'
+                                        THEN parent.name
+                                        ELSE NULL
+                                    END),
+                                    'General Interests'
+                                ) AS category,
+                                MIN(CASE
+                                    WHEN n.key LIKE '90_countries/%' THEN n.key
+                                    ELSE NULL
+                                END) AS country_key
+                            FROM source_candidates s
+                            JOIN catalog_placement p ON p.source_id = s.id
+                            JOIN catalog_node n ON n.id = p.node_id
+                            LEFT JOIN catalog_node parent ON parent.id = n.parent_id
+                            WHERE n.kind = 3
+                              AND n.key NOT LIKE 'languages/%'
+                            GROUP BY
+                                s.id, s.title, s.request_url,
+                                s.media_kind, s.language
+                        ),
+                        ranked AS (
+                            SELECT
+                                *,
+                                ROW_NUMBER() OVER (
+                                    PARTITION BY category
+                                    ORDER BY
+                                        COALESCE(quality_score, 0) DESC,
+                                        title COLLATE NOCASE ASC,
+                                        url ASC
+                                ) AS topic_rank
+                            FROM grouped
+                        )
+                        SELECT *
+                        FROM ranked
+                        WHERE topic_rank <= ?
+                        ORDER BY
+                            topic_rank ASC,
+                            category COLLATE NOCASE ASC,
+                            title COLLATE NOCASE ASC
                         LIMIT ?
-                        """, arguments: [normalizedLanguage, candidateLimit])
+                        """, arguments: [
+                            normalizedLanguage,
+                            "\(normalizedLanguage)-%",
+                            sourceCandidateLimit,
+                            candidatesPerTopic,
+                            candidateLimit,
+                        ])
                 }
                 let candidates: [FeedSource] = rows.compactMap { row in
                     guard let title: String = row["title"],
                           let url: String = row["url"],
                           let kindValue: String = row["media_kind"],
                           let kind = MediaKind(rawValue: kindValue) else { return nil }
-                    let category: String = row["category"] ?? "General"
-                    let rowLanguage: String? = row["language"]
+                    let countryKey: String? = row["country_key"]
+                    let countryComponents = countryKey?
+                        .split(separator: "/")
+                        .map(String.init) ?? []
+                    let category: String = row["category"] ?? "General Interests"
+                    let region: String = {
+                        guard countryComponents.first == "90_countries",
+                              countryComponents.count >= 2 else { return "global" }
+                        return "countries/\(countryComponents[1])"
+                    }()
+                    let tags: String? = row["tags"]
+                    let rawLanguage: String? = row["language"]
                     return FeedSource(
                         title: title,
                         url: url,
                         category: category,
-                        region: "global",
+                        region: region,
                         mediaKind: kind,
-                        language: rowLanguage
+                        language: normalizedLanguageCode(rawLanguage),
+                        sourceDescription: row["description"],
+                        tags: tags?
+                            .split(separator: ",")
+                            .map {
+                                $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                            } ?? [],
+                        nature: row["nature"],
+                        activity: row["activity"],
+                        qualityScore: row["quality_score"],
+                        defaultEnabled: row["default_enabled"] ?? true
                     )
                 }
-                let scored = candidates.map {
-                    (source: $0, score: Double.random(in: 0.9...1.1))
-                }
-                return SourceScheduler.diverseSources(from: scored, limit: limit)
+                return CuratedPreferenceEngine.showcaseSources(
+                    from: candidates,
+                    limit: limit
+                )
             } catch {
                 Log.feed.error("Active starter catalog failed: \(error.localizedDescription)")
                 return []
             }
         }.value
+        await CuratedStarterSourceCache.shared.store(
+            selected,
+            language: normalizedLanguage
+        )
+        return selected
     }
 
     /// Compatibility entry point retained for tests and older callers. The
@@ -908,6 +1025,9 @@ final class FeedStore {
             forResource: "catalog-manifest",
             withExtension: "json",
             subdirectory: "FeedEngine"
+        ) ?? Bundle.main.url(
+            forResource: "catalog-manifest",
+            withExtension: "json"
         ),
         let data = try? Data(contentsOf: url),
         let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
@@ -1149,9 +1269,10 @@ final class FeedStore {
         // Restore the active preset and rebuild scoring multipliers.
         // Must happen after registry is populated but before first fetch.
         activePreset = Settings.activePreset
-        if case .collection = activePreset {
-            // Collection presets: MUST await the rebuild to populate
-            // presetSourceFilter before reloadFromSQLite applies filters.
+        if activePreset.isCollection || activePreset.isCuratedFeed {
+            // Collection presets must populate their allowlist; Curated Feeds
+            // must restore their language lens and learned multipliers before
+            // the first SQLite paint.
             await rebuildPresetMultipliers()
         } else {
             Task { await rebuildPresetMultipliers() }
@@ -2300,6 +2421,8 @@ final class FeedStore {
     }
 
     func markAsClicked(_ itemID: String) {
+        let wasAlreadyClicked = clickedItemIDs.contains(itemID)
+        let clickedItem = visibleItems.first(where: { $0.id == itemID })
         readItemIDs.insert(itemID)
         consumedItemIDs.insert(itemID)
         clickedItemIDs.insert(itemID)
@@ -2330,7 +2453,30 @@ final class FeedStore {
             if activePreset.isLastClicked {
                 await loadLastClickedFeed()
             }
+            if !wasAlreadyClicked, let clickedItem {
+                await learnCuratedPreference(from: clickedItem)
+            }
         }
+    }
+
+    private func learnCuratedPreference(from item: FeedItem) async {
+        guard let curatedID = activePreset.curatedFeedID,
+              let source = registry.source(forURL: item.sourceURL),
+              let feed = try? await curatedFeedStore.curatedFeed(id: curatedID),
+              feed.definition.learningEnabled else {
+            return
+        }
+        let learned = CuratedPreferenceEngine.applyingExplicitOpen(
+            item: item,
+            source: source,
+            to: feed.definition
+        )
+        guard learned != feed.definition else { return }
+        _ = try? await updateCuratedFeed(
+            id: feed.id,
+            name: feed.name,
+            definition: learned
+        )
     }
 
     /// Bulk mark-as-read — single UPDATE with WHERE id IN (...) instead of
@@ -2639,6 +2785,27 @@ final class FeedStore {
             activeCollectionMemberURLs = []  // unused for collections; kept for compatibility
             // Collections use exclusive filtering, not scoring — no multipliers needed
             presetMultipliers = [:]
+        case .curatedFeed(let curatedFeedID, _):
+            guard let curated = try? await curatedFeedStore.curatedFeed(id: curatedFeedID) else {
+                if activePreset == targetPreset {
+                    activePreset = .everything
+                    Settings.activePreset = .everything
+                    presetMultipliers = [:]
+                    presetSourceFilter = nil
+                }
+                return
+            }
+            if Task.isCancelled || activePreset != targetPreset { return }
+            activeCollectionMemberURLs = []
+            presetSourceFilter = nil
+            activeLanguages = Set(curated.definition.languages)
+            hasUserClearedLanguageFilter = false
+            persistFilters()
+            presetMultipliers = PresetScorer.buildMultipliers(
+                preset: targetPreset,
+                sources: registry.enabledSources,
+                curatedProfile: curated.definition
+            )
         default:
             if Task.isCancelled { return }
             activeCollectionMemberURLs = []
@@ -4362,6 +4529,165 @@ final class FeedStore {
 
     private func matchPersistentSearches(_ items: [FeedItem]) async {
         await bookmarkStore.matchPersistentSearches(items, regionResolver: { [self] in registry.regionFor(sourceURL: $0) })
+    }
+
+    // MARK: - Curated feeds
+
+    func allCuratedFeeds() async throws -> [CuratedFeed] {
+        try await curatedFeedStore.allCuratedFeeds()
+    }
+
+    func curatedFeed(id: Int64) async throws -> CuratedFeed? {
+        try await curatedFeedStore.curatedFeed(id: id)
+    }
+
+    @discardableResult
+    func createCuratedFeed(
+        name: String,
+        definition: CuratedProfileDefinition
+    ) async throws -> CuratedFeed {
+        let id = try await curatedFeedStore.create(name: name, definition: definition)
+        guard let feed = try await curatedFeedStore.curatedFeed(id: id) else {
+            throw CuratedFeedError.invalidDefinition
+        }
+        return feed
+    }
+
+    func updateCuratedFeed(
+        id: Int64,
+        name: String,
+        definition: CuratedProfileDefinition
+    ) async throws -> CuratedFeed {
+        try await curatedFeedStore.update(
+            id: id,
+            name: name,
+            definition: definition
+        )
+        guard let feed = try await curatedFeedStore.curatedFeed(id: id) else {
+            throw CuratedFeedError.missingFeed
+        }
+        if activePreset.curatedFeedID == id {
+            let refreshedPreset = PresetSelector.curatedFeed(
+                curatedFeedID: id,
+                curatedFeedName: feed.name
+            )
+            activePreset = refreshedPreset
+            Settings.activePreset = refreshedPreset
+            await rebuildPresetMultipliers(for: refreshedPreset)
+            scheduleSourceEnablementRefresh()
+        }
+        return feed
+    }
+
+    func deleteCuratedFeed(id: Int64) async throws {
+        try await curatedFeedStore.delete(id: id)
+        if activePreset.curatedFeedID == id {
+            setPreset(.everything)
+        }
+    }
+
+    /// A broad, cache-backed set of real stories for onboarding comparisons.
+    /// The normal startup pipeline remains the only network writer; onboarding
+    /// simply consumes its retained results and can retry as that pool grows.
+    func curatedOnboardingItems(languages: Set<String>) async -> [FeedItem] {
+        let requested = Set(languages.compactMap {
+            CuratedPreferenceEngine.baseLanguage($0)
+        })
+        var cached: [FeedItem] = (try? await db.read { db in
+            try FeedItemRecord.fetchAll(db, sql: """
+                SELECT *
+                FROM feed_item
+                ORDER BY published_at DESC, fetched_at DESC
+                LIMIT 1200
+                """).map { $0.toFeedItem() }
+        }) ?? []
+
+        // The onboarding screen is the first editorial promise the app makes.
+        // If the ordinary cache does not yet contain a useful breadth for a
+        // selected language, fetch only its deterministic showcase runway.
+        // A short throttle prevents the UI's retry loop from re-fetching a
+        // temporarily empty source.
+        var showcaseToFetch: [FeedSource] = []
+        let represented = Set((visibleItems + cached).map {
+            OPMLParser.normalizeURL($0.sourceURL)
+        })
+        for language in requested.sorted() {
+            let lastFetch = curatedOnboardingLastFetchAt[language] ?? .distantPast
+            guard Date().timeIntervalSince(lastFetch) >= 30 else { continue }
+            let showcase = await Self.activeStarterSources(
+                language: language,
+                limit: 32
+            )
+            let existingCount = showcase.reduce(into: 0) { count, source in
+                if represented.contains(OPMLParser.normalizeURL(source.url)) {
+                    count += 1
+                }
+            }
+            guard existingCount < min(12, showcase.count) else { continue }
+            curatedOnboardingLastFetchAt[language] = .now
+            showcaseToFetch.append(contentsOf: showcase.filter {
+                !represented.contains(OPMLParser.normalizeURL($0.url))
+            }.prefix(24))
+        }
+
+        if !showcaseToFetch.isEmpty {
+            var seenSourceURLs = Set<String>()
+            let uniqueSources = showcaseToFetch.filter {
+                seenSourceURLs.insert(OPMLParser.normalizeURL($0.url)).inserted
+            }
+            let balancedSources = CuratedPreferenceEngine.showcaseSources(
+                from: uniqueSources,
+                limit: min(24, uniqueSources.count)
+            )
+
+            // Text, video, and forum feeds can become comparison cards as
+            // soon as their feed document arrives. Podcast feeds additionally
+            // validate enclosures, which is important for playback but should
+            // never hold the first onboarding choice hostage. The ordinary
+            // startup pipeline continues loading audio in parallel.
+            let quickSources = balancedSources.filter { $0.mediaKind != .audio }
+            let fallbackAudio = balancedSources.filter { $0.mediaKind == .audio }
+            var responsiveSources = Array(quickSources.prefix(18))
+            if responsiveSources.count < 8 {
+                responsiveSources.append(
+                    contentsOf: fallbackAudio.prefix(8 - responsiveSources.count)
+                )
+            }
+
+            let result = await fetcher.fetchStarter(
+                responsiveSources,
+                maxConcurrent: min(18, responsiveSources.count),
+                minimumSuccessfulSources: min(8, responsiveSources.count),
+                minimumItemCount: min(12, responsiveSources.count),
+                deadline: .seconds(7)
+            )
+            for source in responsiveSources {
+                let status = result.sourceStatuses[source.url]
+                scheduler.recordFetch(
+                    sourceURL: source.url,
+                    success: status != nil && status != .failed
+                )
+            }
+            let actualNew = await persistFetchedItems(result.items)
+            if !actualNew.isEmpty {
+                cached.insert(contentsOf: actualNew, at: 0)
+                let visibleNew = await presentationItems(from: actualNew)
+                if !visibleNew.isEmpty {
+                    throttledReservoirAppend(visibleNew)
+                    prefetchImagesIfEnabled(for: visibleNew)
+                }
+            }
+        }
+
+        var seen = Set<String>()
+        return (visibleItems + cached).filter { item in
+            guard seen.insert(item.id).inserted else { return false }
+            guard !requested.isEmpty else { return true }
+            guard let language = CuratedPreferenceEngine.baseLanguage(item.language) else {
+                return false
+            }
+            return requested.contains(language)
+        }
     }
 
     // MARK: - Smart feeds

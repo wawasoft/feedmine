@@ -3,6 +3,7 @@ import FeedKit
 
 actor RSSFetcher {
     private let session: URLSession
+    private let starterSession: URLSession
 
     /// Cache of audio-URL → playable? so repeat fetches never re-probe the same
     /// enclosure (podcast episode URLs are stable).
@@ -15,22 +16,54 @@ actor RSSFetcher {
         if let saved = UserDefaults.standard.dictionary(forKey: Self.playabilityCacheKey) as? [String: Bool] {
             audioPlayability = saved
         }
+        let cache = URLCache(
+            memoryCapacity: 4_194_304,
+            diskCapacity: 20_971_520
+        )
+        let headers = [
+            "User-Agent": "FeedminePrototype/1.0",
+            "Accept": "application/rss+xml, application/atom+xml, application/json, text/xml"
+        ]
+
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
         config.timeoutIntervalForResource = 30
         config.waitsForConnectivity = true       // wait for network instead of failing immediately
         config.allowsCellularAccess = true
         config.httpMaximumConnectionsPerHost = 2 // be a good citizen
-        config.urlCache = URLCache(memoryCapacity: 4_194_304, diskCapacity: 20_971_520) // 4MB mem, 20MB disk
-        config.httpAdditionalHeaders = [
-            "User-Agent": "FeedminePrototype/1.0",
-            "Accept": "application/rss+xml, application/atom+xml, application/json, text/xml"
-        ]
+        config.urlCache = cache
+        config.httpAdditionalHeaders = headers
         self.session = URLSession(configuration: config)
+
+        // First-run surfaces need a real wall-clock ceiling. A separate
+        // session prevents one unresponsive publisher from stretching a
+        // nominal starter deadline to the normal 30-second resource timeout.
+        // Both sessions share the same cache, so a fast-lane response is also
+        // available to the regular refresh pipeline.
+        let starterConfig = URLSessionConfiguration.default
+        starterConfig.timeoutIntervalForRequest = 5
+        starterConfig.timeoutIntervalForResource = 7
+        starterConfig.waitsForConnectivity = false
+        starterConfig.allowsCellularAccess = true
+        starterConfig.httpMaximumConnectionsPerHost = 2
+        starterConfig.urlCache = cache
+        starterConfig.httpAdditionalHeaders = headers
+        self.starterSession = URLSession(configuration: starterConfig)
     }
 
     /// Fetch and parse a single feed. Never throws — returns FeedFetchResult with status.
     func fetch(_ source: FeedSource) async -> FeedFetchResult {
+        await fetch(source, using: session)
+    }
+
+    private func fetchStarterSource(_ source: FeedSource) async -> FeedFetchResult {
+        await fetch(source, using: starterSession)
+    }
+
+    private func fetch(
+        _ source: FeedSource,
+        using requestSession: URLSession
+    ) async -> FeedFetchResult {
         guard !Task.isCancelled else {
             return FeedFetchResult(source: source, items: [], status: .failed)
         }
@@ -40,7 +73,7 @@ actor RSSFetcher {
         }
 
         do {
-            let (data, response) = try await session.data(from: url)
+            let (data, response) = try await requestSession.data(from: url)
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {
@@ -162,7 +195,7 @@ actor RSSFetcher {
             var activeFetches = 0
 
             while activeFetches < cap, let source = iterator.next() {
-                group.addTask { .result(await self.fetch(source)) }
+                group.addTask { .result(await self.fetchStarterSource(source)) }
                 activeFetches += 1
             }
             group.addTask {
@@ -203,7 +236,7 @@ actor RSSFetcher {
                     }
 
                     if let source = iterator.next() {
-                        group.addTask { .result(await self.fetch(source)) }
+                        group.addTask { .result(await self.fetchStarterSource(source)) }
                         activeFetches += 1
                     } else if activeFetches == 0 {
                         group.cancelAll()

@@ -34,10 +34,14 @@ targets:
       path: feedmine/Info.plist
       properties:
         UILaunchScreen: {}
+        CFBundleVersion: "2"
+        BGTaskSchedulerPermittedIdentifiers:
+          - com.feedmine.app.smart-feed-refresh
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsForMedia: true
         UIBackgroundModes:
           - audio
+          - fetch
         CFBundleURLTypes:
           - CFBundleURLName: com.feedmine.app
             CFBundleURLSchemes:
@@ -109,15 +113,31 @@ targets:
       TARGETED_DEVICE_FAMILY: "1"
     dependencies:
       - target: feedmine
+  feedmineUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "18.0"
+    sources:
+      - path: feedmineUITests
+    info:
+      path: feedmineUITests/Info.plist
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.feedmine.uitests
+      TARGETED_DEVICE_FAMILY: "1"
+      DEVELOPMENT_TEAM: "955573A4YH"
+    dependencies:
+      - target: feedmine
 schemes:
   feedmine:
     build:
       targets:
         feedmine: all
         feedmineTests: [test]
+        feedmineUITests: [test]
     run:
       config: Debug
     test:
       config: Debug
       targets:
         - feedmineTests
+        - feedmineUITests

@@ -872,6 +872,61 @@ final class FeedLoader {
         store.setPreset(preset)
     }
 
+    func loadCuratedFeeds() async throws -> [CuratedFeed] {
+        try await store.allCuratedFeeds()
+    }
+
+    func curatedFeed(id: Int64) async throws -> CuratedFeed? {
+        try await store.curatedFeed(id: id)
+    }
+
+    @discardableResult
+    func createCuratedFeed(
+        name: String,
+        definition: CuratedProfileDefinition
+    ) async throws -> CuratedFeed {
+        try await store.createCuratedFeed(name: name, definition: definition)
+    }
+
+    @discardableResult
+    func updateCuratedFeed(
+        id: Int64,
+        name: String,
+        definition: CuratedProfileDefinition
+    ) async throws -> CuratedFeed {
+        try await store.updateCuratedFeed(
+            id: id,
+            name: name,
+            definition: definition
+        )
+    }
+
+    func deleteCuratedFeed(id: Int64) async throws {
+        try await store.deleteCuratedFeed(id: id)
+    }
+
+    func applyCuratedLanguages(_ languages: Set<String>) {
+        store.hasUserClearedLanguageFilter = false
+        store.setFilter(
+            region: store.activeRegion,
+            nodeIDs: store.activeNodeIDs,
+            type: store.activeContentType,
+            mood: store.activeMood,
+            languages: languages
+        )
+    }
+
+    func curatedOnboardingCandidates(
+        languages: Set<String>
+    ) async -> [CuratedCandidate] {
+        let items = await store.curatedOnboardingItems(languages: languages)
+        return CuratedPreferenceEngine.makeCandidates(
+            items: items,
+            sources: store.registry.sources,
+            languages: languages
+        )
+    }
+
     func loadSmartFeeds() async throws -> [SmartFeed] {
         try await store.allSmartFeeds()
     }
