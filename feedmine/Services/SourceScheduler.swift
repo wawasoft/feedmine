@@ -3,6 +3,7 @@ import Foundation
 /// Selects which feed sources to fetch next based on reservoir entropy.
 /// Uses √n fairness between regions, LRU ordering within regions,
 /// and soft cooldown instead of hard timeouts.
+@available(*, deprecated, message: "Use AdaptiveScheduler instead")
 @MainActor
 final class SourceScheduler {
     private(set) var lastFetchedAt: [String: Date] = [:]
