@@ -768,6 +768,38 @@ final class FeedStore {
                     lastFetchAt: Date(timeIntervalSince1970: TimeInterval(r.lastFetchAt)),
                     consecutiveFailures: r.consecutiveFailures
                 )
+                // Load HTTP validators from expanded health record
+                let v = HTTPValidators(
+                    etag: r.etag,
+                    lastModified: r.lastModified,
+                    cacheControl: r.cacheControlMaxAge.map { _ in
+                        HTTPValidators.ParsedCacheControl(
+                            maxAge: r.cacheControlMaxAge,
+                            noCache: r.cacheControlNoCache,
+                            noStore: r.cacheControlNoStore,
+                            mustRevalidate: r.cacheControlMustRevalidate
+                        )
+                    },
+                    expires: r.expires.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+                    canonicalURL: r.canonicalURL,
+                    lastFetchAt: r.lastFetchAt > 0 ? Date(timeIntervalSince1970: TimeInterval(r.lastFetchAt)) : nil,
+                    lastOutcome: r.lastOutcome.flatMap(HTTPValidators.FetchOutcomeKind.init(rawValue:)),
+                    retryAfter: r.retryAfter.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+                    ttl: r.ttl,
+                    skipHours: r.skipHours.flatMap { try? Self.decodeJSON($0) },
+                    skipDays: r.skipDays.flatMap { try? Self.decodeJSON($0) },
+                    lastBuildDate: r.lastBuildDate.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+                    capabilities: r.capabilities.flatMap { try? Self.decodeJSON($0) },
+                    publicationInterval: r.publicationInterval,
+                    publicationIntervalConfidence: r.publicationIntervalConfidence
+                )
+                scheduler.loadValidators(url: r.url, v)
+                let estimator = CadenceEstimator(
+                    publicationInterval: r.publicationInterval ?? 3600,
+                    confidence: r.publicationIntervalConfidence ?? 0,
+                    lastPublication: r.lastFetchAt > 0 ? Date(timeIntervalSince1970: TimeInterval(r.lastFetchAt)) : .distantPast
+                )
+                scheduler.loadEstimator(url: r.url, estimator)
             }
         } catch {
             Log.db.error("loadSourceHealth failed: \(error.localizedDescription)")
@@ -788,26 +820,77 @@ final class FeedStore {
             try db.write { db in
                 for (sourceURL, itemCount) in entries {
                     let health = scheduler.healthSnapshot(for: sourceURL, itemCount: itemCount)
+                    let v = health.validators
+                    let e = health.estimator
                     try db.execute(sql: """
-                        INSERT INTO source_health (url, last_fetch_at, consecutive_failures, last_status, last_item_count)
-                        VALUES (?, ?, ?, ?, ?)
+                        INSERT INTO source_health (
+                            url, last_fetch_at, consecutive_failures, last_status, last_item_count,
+                            etag, last_modified, cache_control_max_age, cache_control_no_cache,
+                            cache_control_no_store, cache_control_must_revalidate, expires,
+                            canonical_url, last_outcome, retry_after, ttl, skip_hours, skip_days,
+                            capabilities, last_build_date, publication_interval, publication_interval_confidence
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON CONFLICT(url) DO UPDATE SET
                             last_fetch_at = excluded.last_fetch_at,
                             consecutive_failures = excluded.consecutive_failures,
                             last_status = excluded.last_status,
-                            last_item_count = excluded.last_item_count
+                            last_item_count = excluded.last_item_count,
+                            etag = excluded.etag,
+                            last_modified = excluded.last_modified,
+                            cache_control_max_age = excluded.cache_control_max_age,
+                            cache_control_no_cache = excluded.cache_control_no_cache,
+                            cache_control_no_store = excluded.cache_control_no_store,
+                            cache_control_must_revalidate = excluded.cache_control_must_revalidate,
+                            expires = excluded.expires,
+                            canonical_url = excluded.canonical_url,
+                            last_outcome = excluded.last_outcome,
+                            retry_after = excluded.retry_after,
+                            ttl = excluded.ttl,
+                            skip_hours = excluded.skip_hours,
+                            skip_days = excluded.skip_days,
+                            capabilities = excluded.capabilities,
+                            last_build_date = excluded.last_build_date,
+                            publication_interval = excluded.publication_interval,
+                            publication_interval_confidence = excluded.publication_interval_confidence
                         """, arguments: [
                             sourceURL,
                             Int(health.lastFetchAt.timeIntervalSince1970),
                             health.consecutiveFailures,
                             health.lastStatus,
-                            health.lastItemCount
+                            health.lastItemCount,
+                            v.etag,
+                            v.lastModified,
+                            v.cacheControl?.maxAge,
+                            v.cacheControl?.noCache ?? false,
+                            v.cacheControl?.noStore ?? false,
+                            v.cacheControl?.mustRevalidate ?? false,
+                            v.expires.map { Int($0.timeIntervalSince1970) },
+                            v.canonicalURL,
+                            v.lastOutcome?.rawValue,
+                            v.retryAfter.map { Int($0.timeIntervalSince1970) },
+                            v.ttl,
+                            v.skipHours.flatMap { try? Self.encodeJSON($0) },
+                            v.skipDays.flatMap { try? Self.encodeJSON($0) },
+                            v.capabilities.flatMap { try? Self.encodeJSON($0) },
+                            v.lastBuildDate.map { Int($0.timeIntervalSince1970) },
+                            e.publicationInterval,
+                            e.confidence
                         ])
                 }
             }
         } catch {
             Log.db.error("saveSourceHealthBatch error: \(error.localizedDescription)")
         }
+    }
+
+    nonisolated static func encodeJSON<T: Encodable>(_ value: T) throws -> String {
+        let data = try JSONEncoder().encode(value)
+        return String(data: data, encoding: .utf8) ?? "[]"
+    }
+
+    nonisolated static func decodeJSON<T: Decodable>(_ text: String) throws -> T {
+        let data = Data(text.utf8)
+        return try JSONDecoder().decode(T.self, from: data)
     }
 
     private static var dbPath: String {
@@ -6060,6 +6143,59 @@ final class FeedStore {
                 columns: ["smart_feed_id", "hit_count", "last_matched_at"]
             )
         }
+        // v22: Add HTTP validator columns to source_health for adaptive scheduling
+        migrator.registerMigration("v22_source_health_v2") { db in
+            let columns: [(String, String)] = [
+                ("etag", "TEXT"),
+                ("last_modified", "TEXT"),
+                ("cache_control_max_age", "REAL"),
+                ("cache_control_no_cache", "INTEGER DEFAULT 0"),
+                ("cache_control_no_store", "INTEGER DEFAULT 0"),
+                ("cache_control_must_revalidate", "INTEGER DEFAULT 0"),
+                ("expires", "INTEGER"),
+                ("canonical_url", "TEXT"),
+                ("last_outcome", "TEXT"),
+                ("retry_after", "INTEGER"),
+                ("ttl", "INTEGER"),
+                ("skip_hours", "TEXT"),
+                ("skip_days", "TEXT"),
+                ("capabilities", "TEXT"),
+                ("last_build_date", "INTEGER"),
+                ("publication_interval", "REAL DEFAULT 3600"),
+                ("publication_interval_confidence", "REAL DEFAULT 0.0"),
+            ]
+            for (name, type) in columns {
+                try db.execute(sql: "ALTER TABLE source_health ADD COLUMN \(name) \(type)")
+            }
+        }
+        // v23: Add metadata columns to feed_item and rebuild FTS index
+        migrator.registerMigration("v23_feed_item_metadata") { db in
+            let columns: [(String, String)] = [
+                ("updated_at", "INTEGER"),
+                ("authors", "TEXT"),
+                ("item_categories", "TEXT"),
+                ("rights", "TEXT"),
+                ("attribution_title", "TEXT"),
+                ("attribution_url", "TEXT"),
+                ("attribution_feed_url", "TEXT"),
+                ("enclosures", "TEXT"),
+                ("language_from_feed", "TEXT"),
+                ("alternate_links", "TEXT"),
+            ]
+            for (name, type) in columns {
+                try db.execute(sql: "ALTER TABLE feed_item ADD COLUMN \(name) \(type)")
+            }
+
+            // Rebuild FTS index to include new searchable columns
+            try db.execute(sql: "DROP TABLE IF EXISTS feed_item_fts")
+            try db.execute(sql: """
+                CREATE VIRTUAL TABLE feed_item_fts USING fts5(
+                    title, excerpt, source_title, category,
+                    authors, item_categories, rights,
+                    content='feed_item', content_rowid='rowid'
+                )
+            """)
+        }
         try migrator.migrate(db)
     }
 }
@@ -6085,6 +6221,23 @@ struct SourceHealthRecord: Codable, PersistableRecord, FetchableRecord {
     var consecutiveFailures: Int
     var lastStatus: String?
     var lastItemCount: Int?
+    var etag: String?
+    var lastModified: String?
+    var cacheControlMaxAge: Double?
+    var cacheControlNoCache: Bool
+    var cacheControlNoStore: Bool
+    var cacheControlMustRevalidate: Bool
+    var expires: Int?
+    var canonicalURL: String?
+    var lastOutcome: String?
+    var retryAfter: Int?
+    var ttl: Int?
+    var skipHours: String?
+    var skipDays: String?
+    var capabilities: String?
+    var lastBuildDate: Int?
+    var publicationInterval: Double?
+    var publicationIntervalConfidence: Double?
 
     enum CodingKeys: String, CodingKey {
         case url
@@ -6092,6 +6245,23 @@ struct SourceHealthRecord: Codable, PersistableRecord, FetchableRecord {
         case consecutiveFailures = "consecutive_failures"
         case lastStatus = "last_status"
         case lastItemCount = "last_item_count"
+        case etag
+        case lastModified = "last_modified"
+        case cacheControlMaxAge = "cache_control_max_age"
+        case cacheControlNoCache = "cache_control_no_cache"
+        case cacheControlNoStore = "cache_control_no_store"
+        case cacheControlMustRevalidate = "cache_control_must_revalidate"
+        case expires
+        case canonicalURL = "canonical_url"
+        case lastOutcome = "last_outcome"
+        case retryAfter = "retry_after"
+        case ttl
+        case skipHours = "skip_hours"
+        case skipDays = "skip_days"
+        case capabilities
+        case lastBuildDate = "last_build_date"
+        case publicationInterval = "publication_interval"
+        case publicationIntervalConfidence = "publication_interval_confidence"
     }
 
     static let databaseTableName = "source_health"
@@ -6124,6 +6294,16 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
     var clickedAt: Int?    // epoch seconds; actual content tap only
     var consumedAt: Int?   // epoch seconds; at least 50% visible or explicitly read
     var language: String?
+    var updatedAt: Int?    // epoch seconds
+    var authors: String?          // JSON array of FeedItemAuthor
+    var itemCategories: String?   // JSON array of FeedItemCategory
+    var rights: String?
+    var attributionTitle: String?
+    var attributionURL: String?
+    var attributionFeedURL: String?
+    var enclosures: String?       // JSON array of FeedEnclosure
+    var languageFromFeed: String?
+    var alternateLinks: String?   // JSON array of FeedAlternateLink
 
     static var databaseTableName: String { "feed_item" }
 
@@ -6149,6 +6329,16 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         case clickedAt = "clicked_at"
         case consumedAt = "consumed_at"
         case language
+        case updatedAt = "updated_at"
+        case authors
+        case itemCategories = "item_categories"
+        case rights
+        case attributionTitle = "attribution_title"
+        case attributionURL = "attribution_url"
+        case attributionFeedURL = "attribution_feed_url"
+        case enclosures
+        case languageFromFeed = "language_from_feed"
+        case alternateLinks = "alternate_links"
     }
 
     init(from item: FeedItem, region: String, language: String? = nil) {
@@ -6172,6 +6362,17 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         self.clickedAt = nil
         self.consumedAt = nil
         self.language = language
+        // New metadata fields
+        self.updatedAt = item.updatedAt.map { Int($0.timeIntervalSince1970) }
+        self.authors = item.authors.flatMap { try? FeedStore.encodeJSON($0) }
+        self.itemCategories = item.itemCategories.flatMap { try? FeedStore.encodeJSON($0) }
+        self.rights = item.rights
+        self.attributionTitle = item.attribution?.title
+        self.attributionURL = item.attribution?.url
+        self.attributionFeedURL = item.attribution?.feedURL
+        self.enclosures = item.enclosures.flatMap { try? FeedStore.encodeJSON($0) }
+        self.languageFromFeed = item.languageFromFeed
+        self.alternateLinks = item.alternateLinks.flatMap { try? FeedStore.encodeJSON($0) }
     }
 
     func toFeedItem() -> FeedItem {
@@ -6182,6 +6383,13 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         let cleanedExcerpt = FeedTextSanitizer.sanitizedHTMLText(excerpt)
             .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
             .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let parsedAttribution: FeedItemAttribution? = {
+            if attributionTitle != nil || attributionURL != nil || attributionFeedURL != nil {
+                return FeedItemAttribution(title: attributionTitle, url: attributionURL, feedURL: attributionFeedURL)
+            }
+            return nil
+        }()
 
         return FeedItem(
             id: id,
@@ -6196,7 +6404,15 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
             audioURL: audioURL,
             duration: duration,
             region: region,
-            language: language
+            language: language,
+            updatedAt: updatedAt.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+            authors: authors.flatMap { try? FeedStore.decodeJSON($0) },
+            itemCategories: itemCategories.flatMap { try? FeedStore.decodeJSON($0) },
+            rights: rights,
+            attribution: parsedAttribution,
+            enclosures: enclosures.flatMap { try? FeedStore.decodeJSON($0) },
+            languageFromFeed: languageFromFeed,
+            alternateLinks: alternateLinks.flatMap { try? FeedStore.decodeJSON($0) }
         )
     }
 }
