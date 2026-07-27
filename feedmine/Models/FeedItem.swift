@@ -16,6 +16,16 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
     let region: String   // "global" | "countries/brazil/sao-paulo"
     let language: String?  // ISO 639-1 code from OPML or NLLanguageRecognizer
 
+    // --- NEW metadata fields (all optional, NULL-able in DB) ---
+    let updatedAt: Date?
+    let authors: [FeedItemAuthor]?
+    let itemCategories: [FeedItemCategory]?
+    let rights: String?
+    let attribution: FeedItemAttribution?
+    let enclosures: [FeedEnclosure]?
+    let languageFromFeed: String?
+    let alternateLinks: [FeedAlternateLink]?
+
     /// Snapshot of read state at render time — avoids mass view invalidation
     /// when another item is read. Updated via FeedStore when visible items change.
     var isRead: Bool = false
@@ -31,6 +41,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
          title: String, excerpt: String, url: String, imageURL: String?,
          publishedAt: Date, audioURL: String? = nil, duration: TimeInterval? = nil,
          region: String = "global", language: String? = nil,
+         updatedAt: Date? = nil,
+         authors: [FeedItemAuthor]? = nil,
+         itemCategories: [FeedItemCategory]? = nil,
+         rights: String? = nil,
+         attribution: FeedItemAttribution? = nil,
+         enclosures: [FeedEnclosure]? = nil,
+         languageFromFeed: String? = nil,
+         alternateLinks: [FeedAlternateLink]? = nil,
          isRead: Bool = false, isBookmarked: Bool = false,
          sectionDayOffset: Int = 0) {
         self.id = id
@@ -46,6 +64,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
         self.duration = duration
         self.region = region
         self.language = language
+        self.updatedAt = updatedAt
+        self.authors = authors
+        self.itemCategories = itemCategories
+        self.rights = rights
+        self.attribution = attribution
+        self.enclosures = enclosures
+        self.languageFromFeed = languageFromFeed
+        self.alternateLinks = alternateLinks
         self.isRead = isRead
         self.isBookmarked = isBookmarked
         self.sectionDayOffset = sectionDayOffset
@@ -178,7 +204,15 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
             id: id, sourceTitle: sourceTitle, sourceURL: sourceURL, category: category,
             title: title, excerpt: excerpt, url: url, imageURL: imageURL,
             publishedAt: publishedAt, audioURL: nil, duration: nil, region: region,
-            language: language
+            language: language,
+            updatedAt: updatedAt,
+            authors: authors,
+            itemCategories: itemCategories,
+            rights: rights,
+            attribution: attribution,
+            enclosures: enclosures,
+            languageFromFeed: languageFromFeed,
+            alternateLinks: alternateLinks
         )
     }
 
@@ -193,6 +227,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
             publishedAt: publishedAt, audioURL: audioURL, duration: duration,
             region: region,
             language: language,
+            updatedAt: updatedAt,
+            authors: authors,
+            itemCategories: itemCategories,
+            rights: rights,
+            attribution: attribution,
+            enclosures: enclosures,
+            languageFromFeed: languageFromFeed,
+            alternateLinks: alternateLinks,
             isRead: isRead,
             isBookmarked: isBookmarked,
             sectionDayOffset: sectionDayOffset
@@ -211,6 +253,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
             publishedAt: publishedAt, audioURL: audioURL, duration: duration,
             region: region,
             language: language,
+            updatedAt: updatedAt,
+            authors: authors,
+            itemCategories: itemCategories,
+            rights: rights,
+            attribution: attribution,
+            enclosures: enclosures,
+            languageFromFeed: languageFromFeed,
+            alternateLinks: alternateLinks,
             isRead: isRead,
             isBookmarked: isBookmarked,
             sectionDayOffset: sectionDayOffset
@@ -225,6 +275,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
             title: title, excerpt: excerpt, url: url, imageURL: imageURL,
             publishedAt: publishedAt, audioURL: audioURL, duration: duration,
             region: region, language: language,
+            updatedAt: updatedAt,
+            authors: authors,
+            itemCategories: itemCategories,
+            rights: rights,
+            attribution: attribution,
+            enclosures: enclosures,
+            languageFromFeed: languageFromFeed,
+            alternateLinks: alternateLinks,
             isRead: isRead, isBookmarked: isBookmarked,
             sectionDayOffset: offset
         )
@@ -238,6 +296,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
             publishedAt: publishedAt, audioURL: audioURL, duration: duration,
             region: region,
             language: language,
+            updatedAt: updatedAt,
+            authors: authors,
+            itemCategories: itemCategories,
+            rights: rights,
+            attribution: attribution,
+            enclosures: enclosures,
+            languageFromFeed: languageFromFeed,
+            alternateLinks: alternateLinks,
             isRead: readItemIDs.contains(id),
             isBookmarked: bookmarkItemIDs.contains(id),
             sectionDayOffset: sectionDayOffset
@@ -281,5 +347,74 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
         let raw = "\(sourceURL)|\(token)"
         let data = Data(raw.utf8)
         return SHA256.hash(data: data).compactMap { String(format: "%02x", $0) }.joined()
+    }
+}
+
+// MARK: - New metadata types
+
+struct FeedItemAuthor: Codable, Sendable, Equatable {
+    let name: String?
+    let email: String?
+    let uri: String?
+}
+
+struct FeedItemCategory: Codable, Sendable, Equatable {
+    let term: String
+    let scheme: String?
+    let label: String?
+}
+
+struct FeedItemAttribution: Codable, Sendable, Equatable {
+    let title: String?
+    let url: String?
+    let feedURL: String?
+}
+
+struct FeedEnclosure: Codable, Sendable, Equatable {
+    let url: String
+    let mimeType: String?
+    let length: Int64?
+    let duration: TimeInterval?
+    let medium: String?
+}
+
+struct FeedAlternateLink: Codable, Sendable, Equatable {
+    let url: String
+    let mimeType: String?
+    let language: String?
+    let rel: String?
+}
+
+struct ParsedItemMetadata {
+    let authors: [FeedItemAuthor]?
+    let categories: [FeedItemCategory]?
+    let rights: String?
+    let attribution: FeedItemAttribution?
+    let enclosures: [FeedEnclosure]?
+    let language: String?
+    let alternateLinks: [FeedAlternateLink]?
+    let publishedAt: Date?
+    let updatedAt: Date?
+
+    init(
+        authors: [FeedItemAuthor]? = nil,
+        categories: [FeedItemCategory]? = nil,
+        rights: String? = nil,
+        attribution: FeedItemAttribution? = nil,
+        enclosures: [FeedEnclosure]? = nil,
+        language: String? = nil,
+        alternateLinks: [FeedAlternateLink]? = nil,
+        publishedAt: Date? = nil,
+        updatedAt: Date? = nil
+    ) {
+        self.authors = authors
+        self.categories = categories
+        self.rights = rights
+        self.attribution = attribution
+        self.enclosures = enclosures
+        self.language = language
+        self.alternateLinks = alternateLinks
+        self.publishedAt = publishedAt
+        self.updatedAt = updatedAt
     }
 }
