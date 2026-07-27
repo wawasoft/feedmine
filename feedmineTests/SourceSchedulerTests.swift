@@ -5,7 +5,7 @@ import XCTest
 final class SourceSchedulerTests: XCTestCase {
 
     func testNextBatchReturnsSourcesWhenBufferEmpty() {
-        let s = SourceScheduler()
+        let s = AdaptiveScheduler()
         let sources: [String: [FeedSource]] = [
             "global": [
                 FeedSource(title: "Blog A", url: "https://a.com/feed", category: "Tech", region: "global"),
@@ -17,7 +17,7 @@ final class SourceSchedulerTests: XCTestCase {
     }
 
     func testNextBatchReturnsEmptyWhenBufferFull() {
-        let s = SourceScheduler()
+        let s = AdaptiveScheduler()
         let sources: [String: [FeedSource]] = [
             "global": [FeedSource(title: "A", url: "https://a.com/feed", category: "Tech", region: "global")]
         ]
@@ -54,7 +54,7 @@ final class SourceSchedulerTests: XCTestCase {
     }
 
     func testNextBatchPicksYouTubeWhenVideoBufferEmpty() {
-        let s = SourceScheduler()
+        let s = AdaptiveScheduler()
         let sources: [String: [FeedSource]] = [
             "global": [
                 FeedSource(title: "YT Channel", url: "https://youtube.com/feeds/videos.xml?channel_id=UC123", category: "Tech", region: "global", mediaKind: .video),
@@ -78,7 +78,7 @@ final class SourceSchedulerTests: XCTestCase {
     }
 
     func testVideoFilterFetchesOnlyVideoSources() {
-        let scheduler = SourceScheduler()
+        let scheduler = AdaptiveScheduler()
         let sources: [String: [FeedSource]] = [
             "global": [
                 FeedSource(title: "YouTube", url: "https://youtube.com/feeds/videos.xml?channel_id=UC123", category: "Tech", region: "global", mediaKind: .video),
@@ -103,7 +103,7 @@ final class SourceSchedulerTests: XCTestCase {
     }
 
     func testVideoFilterKeepsFetchingWhenOneProviderFillsBuffer() {
-        let scheduler = SourceScheduler()
+        let scheduler = AdaptiveScheduler()
         let existingURL = "https://youtube.com/feeds/videos.xml?channel_id=existing"
         let newURL = "https://youtube.com/feeds/videos.xml?channel_id=new"
         let reservoir = (0..<80).map { index in
@@ -133,27 +133,28 @@ final class SourceSchedulerTests: XCTestCase {
     }
 
     func testCooldownApplies() {
-        let s = SourceScheduler()
+        let s = AdaptiveScheduler()
         let source = FeedSource(title: "A", url: "https://a.com/feed", category: "Tech", region: "global")
-        s.recordFetch(sourceURL: "https://a.com/feed", success: true)
-        // Immediately requesting again — cooldown should reduce priority but not exclude
+        // recordFetch sets lastFetchedAt to now — source enters minimum interval gate
+        s.recordFetch(sourceURL: "https://a.com/feed", outcome: .notModified)
+        // Immediately requesting again — minimum interval gate blocks it
         let sources: [String: [FeedSource]] = ["global": [source]]
         let batch = s.nextBatch(reservoir: [], sourcesByRegion: sources, activeRegion: nil, activeCategory: nil)
-        // With empty reservoir and only one source, it should still be picked
-        XCTAssertEqual(batch.count, 1)
+        // Source was just fetched (within 5 min default minimum interval), so gate excludes it
+        XCTAssertTrue(batch.isEmpty, "Source within minimum interval must be excluded")
     }
 
     func testRecordFetchTracksConsecutiveFailures() {
-        let s = SourceScheduler()
-        s.recordFetch(sourceURL: "https://a.com/feed", success: false)
-        s.recordFetch(sourceURL: "https://a.com/feed", success: false)
+        let s = AdaptiveScheduler()
+        s.recordFetch(sourceURL: "https://a.com/feed", outcome: .failed(NSError(domain: "test", code: 0)))
+        s.recordFetch(sourceURL: "https://a.com/feed", outcome: .failed(NSError(domain: "test", code: 0)))
         let health = s.healthSnapshot(for: "https://a.com/feed")
         XCTAssertEqual(health.consecutiveFailures, 2)
         XCTAssertEqual(health.lastStatus, "error")
     }
 
     func testPriorityURLsJumpToFront() {
-        let scheduler = SourceScheduler()
+        let scheduler = AdaptiveScheduler()
         let priorityURL = "https://priority.com/feed"
         let normalURL = "https://normal.com/feed"
 
@@ -185,13 +186,13 @@ final class SourceSchedulerTests: XCTestCase {
             FeedSource(title: "Science", url: "https://science.com/feed", category: "Science", region: "global"),
         ].map { (source: $0, score: 1.0) }
 
-        let selected = SourceScheduler.diverseSources(from: scored, limit: 3)
+        let selected = AdaptiveScheduler.diverseSources(from: scored, limit: 3)
 
         XCTAssertEqual(Set(selected.map(\.category)).count, 3)
     }
 
     func testLanguageFilterExcludesNonMatchingSources() {
-        let scheduler = SourceScheduler()
+        let scheduler = AdaptiveScheduler()
         let ptURL = "https://pt.com/feed"
         let enURL = "https://en.com/feed"
         let noLangURL = "https://nolang.com/feed"
