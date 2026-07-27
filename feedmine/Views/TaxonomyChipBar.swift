@@ -10,14 +10,26 @@ struct FilterLensBar: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 6) {
+                if loader.activePreset != .everything {
+                    FilterLensChip(
+                        title: loader.activePreset.displayName,
+                        systemImage: loader.activePreset.icon,
+                        tint: loader.activePreset.isLastClicked ? .orange : .indigo
+                    ) {
+                        loader.setActivePreset(.everything)
+                    }
+                }
+
+                if loader.activePreset.isSmartFeed {
+                    Spacer(minLength: 0)
+                } else {
                 if !searchQuery.isEmpty {
                     FilterLensChip(
                         title: "Search: \(searchQuery)",
                         systemImage: "magnifyingglass",
                         tint: .indigo
                     ) {
-                        loader.searchQuery = ""
-                        loader.searchQueryChanged()
+                        loader.clearSubmittedSearch()
                     }
                 }
 
@@ -69,6 +81,7 @@ struct FilterLensBar: View {
                     ) {
                         loader.selectMood(loader.selectedMood)
                     }
+                }
                 }
             }
             .padding(.horizontal, 12)

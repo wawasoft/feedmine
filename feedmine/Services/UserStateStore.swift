@@ -113,6 +113,37 @@ final class UserStateStore {
             }
         }
 
+        migrator.registerMigration("v4_smart_feeds") { db in
+            try db.create(table: "smart_feed") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("name", .text).notNull()
+                t.column("definition_json", .text).notNull()
+                t.column("sort_order", .integer).notNull().defaults(to: 0)
+                t.column("created_at", .integer).notNull()
+                t.column("updated_at", .integer).notNull()
+            }
+            try db.create(
+                index: "idx_smart_feed_order",
+                on: "smart_feed",
+                columns: ["sort_order", "created_at"]
+            )
+        }
+
+        migrator.registerMigration("v5_smart_feed_refresh_state") { db in
+            try db.alter(table: "smart_feed") { table in
+                table.add(column: "last_refresh_attempt_at", .integer)
+                table.add(column: "last_refresh_success_at", .integer)
+                table.add(column: "refresh_failure_count", .integer)
+                    .notNull()
+                    .defaults(to: 0)
+            }
+            try db.create(
+                index: "idx_smart_feed_refresh_due",
+                on: "smart_feed",
+                columns: ["last_refresh_attempt_at", "refresh_failure_count"]
+            )
+        }
+
         try migrator.migrate(db)
     }
 
@@ -174,6 +205,347 @@ final class UserStateStore {
         (try? db.read { db in
             try Set(String.fetchAll(db, sql: "SELECT DISTINCT item_id FROM bookmark_item"))
         }) ?? []
+    }
+}
+
+// MARK: - Smart feeds
+
+/// User-owned Smart Feed definitions live in `user.sqlite`; their cached item
+/// identities live beside `feed_item` in the content database so SQLite can
+/// retain and hydrate them efficiently.
+@MainActor
+final class SmartFeedStore {
+    nonisolated static let cacheLimit = 2_000
+    nonisolated static let retentionInterval: TimeInterval = 180 * 24 * 60 * 60
+
+    private let userDB: DatabaseQueue
+    private let contentDB: DatabaseQueue
+
+    init(userDB: DatabaseQueue, contentDB: DatabaseQueue) {
+        self.userDB = userDB
+        self.contentDB = contentDB
+    }
+
+    func allSmartFeeds() async throws -> [SmartFeed] {
+        let counts = try await contentDB.read { db in
+            let rows = try Row.fetchAll(db, sql: """
+                SELECT smart_feed_id, COUNT(*) AS item_count
+                FROM smart_feed_item
+                GROUP BY smart_feed_id
+                """)
+            return Dictionary(uniqueKeysWithValues: rows.map { row in
+                (row["smart_feed_id"] as Int64, row["item_count"] as Int)
+            })
+        }
+        return try await userDB.read { db in
+            try Row.fetchAll(db, sql: """
+                SELECT id, name, definition_json, created_at
+                FROM smart_feed
+                ORDER BY sort_order, created_at, id
+                """).compactMap { row in
+                    let id: Int64 = row["id"]
+                    let name: String = row["name"]
+                    let definitionJSON: String = row["definition_json"]
+                    let createdAt: Int = row["created_at"]
+                    guard let definition = Self.decodeDefinition(definitionJSON) else {
+                        return nil
+                    }
+                    return SmartFeed(
+                        id: id,
+                        name: name,
+                        definition: definition,
+                        createdAt: Date(timeIntervalSince1970: TimeInterval(createdAt)),
+                        cachedItemCount: counts[id] ?? 0
+                    )
+                }
+        }
+    }
+
+    func smartFeed(id: Int64) async throws -> SmartFeed? {
+        let count = try await contentDB.read { db in
+            try Int.fetchOne(
+                db,
+                sql: "SELECT COUNT(*) FROM smart_feed_item WHERE smart_feed_id = ?",
+                arguments: [id]
+            ) ?? 0
+        }
+        return try await userDB.read { db in
+            guard let row = try Row.fetchOne(db, sql: """
+                SELECT id, name, definition_json, created_at
+                FROM smart_feed WHERE id = ?
+                """, arguments: [id]) else {
+                return nil
+            }
+            let definitionJSON: String = row["definition_json"]
+            guard let definition = Self.decodeDefinition(definitionJSON) else {
+                return nil
+            }
+            let createdAt: Int = row["created_at"]
+            return SmartFeed(
+                id: row["id"],
+                name: row["name"],
+                definition: definition,
+                createdAt: Date(timeIntervalSince1970: TimeInterval(createdAt)),
+                cachedItemCount: count
+            )
+        }
+    }
+
+    @discardableResult
+    func createSmartFeed(name: String, definition: SmartFeedDefinition) async throws -> Int64 {
+        let cleanName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleanName.isEmpty else { throw SmartFeedError.emptyName }
+        guard definition.searchExpression.canSearch else { throw SmartFeedError.emptyQuery }
+        guard definition.includeSources || definition.includeContents else {
+            throw SmartFeedError.emptyScope
+        }
+        let data = try JSONEncoder().encode(definition)
+        guard let json = String(data: data, encoding: .utf8) else {
+            throw SmartFeedError.invalidDefinition
+        }
+        return try await userDB.write { db in
+            let order = try Int.fetchOne(
+                db,
+                sql: "SELECT COALESCE(MAX(sort_order), -1) + 1 FROM smart_feed"
+            ) ?? 0
+            let now = Int(Date().timeIntervalSince1970)
+            try db.execute(sql: """
+                INSERT INTO smart_feed
+                    (name, definition_json, sort_order, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?)
+                """, arguments: [cleanName, json, order, now, now])
+            return db.lastInsertedRowID
+        }
+    }
+
+    func renameSmartFeed(id: Int64, name: String) async throws {
+        let cleanName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleanName.isEmpty else { throw SmartFeedError.emptyName }
+        try await userDB.write { db in
+            try db.execute(
+                sql: "UPDATE smart_feed SET name = ?, updated_at = ? WHERE id = ?",
+                arguments: [cleanName, Int(Date().timeIntervalSince1970), id]
+            )
+        }
+    }
+
+    func deleteSmartFeed(id: Int64) async throws {
+        try await userDB.write { db in
+            try db.execute(sql: "DELETE FROM smart_feed WHERE id = ?", arguments: [id])
+        }
+        try await contentDB.write { db in
+            try db.execute(
+                sql: "DELETE FROM smart_feed_item WHERE smart_feed_id = ?",
+                arguments: [id]
+            )
+            try db.execute(
+                sql: "DELETE FROM smart_feed_source WHERE smart_feed_id = ?",
+                arguments: [id]
+            )
+        }
+    }
+
+    func cache(itemIDs: [String], for smartFeedID: Int64) async throws {
+        guard !itemIDs.isEmpty else { return }
+        let now = Int(Date().timeIntervalSince1970)
+        try await contentDB.write { db in
+            let uniqueIDs = Array(Set(itemIDs))
+            var sourceURLsByItemID: [String: String] = [:]
+            for start in stride(from: 0, to: uniqueIDs.count, by: 400) {
+                let chunk = Array(
+                    uniqueIDs[start..<min(start + 400, uniqueIDs.count)]
+                )
+                let placeholders = Array(
+                    repeating: "?",
+                    count: chunk.count
+                ).joined(separator: ",")
+                let rows = try Row.fetchAll(db, sql: """
+                    SELECT id, source_url
+                    FROM feed_item
+                    WHERE id IN (\(placeholders))
+                    """, arguments: StatementArguments(chunk))
+                for row in rows {
+                    sourceURLsByItemID[row["id"]] = OPMLParser.normalizeURL(
+                        row["source_url"]
+                    )
+                }
+            }
+
+            for itemID in uniqueIDs {
+                try db.execute(sql: """
+                    INSERT OR IGNORE INTO smart_feed_item
+                        (smart_feed_id, item_id, matched_at)
+                    SELECT ?, id, ? FROM feed_item WHERE id = ?
+                    """, arguments: [smartFeedID, now, itemID])
+                let isNewMatch = db.changesCount > 0
+                if !isNewMatch {
+                    try db.execute(sql: """
+                        UPDATE smart_feed_item
+                        SET matched_at = ?
+                        WHERE smart_feed_id = ? AND item_id = ?
+                        """, arguments: [now, smartFeedID, itemID])
+                }
+                guard let sourceURL = sourceURLsByItemID[itemID] else { continue }
+                if isNewMatch {
+                    try db.execute(sql: """
+                        INSERT INTO smart_feed_source
+                            (smart_feed_id, source_url, hit_count, last_matched_at)
+                        VALUES (?, ?, 1, ?)
+                        ON CONFLICT(smart_feed_id, source_url) DO UPDATE SET
+                            hit_count = smart_feed_source.hit_count + 1,
+                            last_matched_at = excluded.last_matched_at
+                        """, arguments: [smartFeedID, sourceURL, now])
+                } else {
+                    // Backfill affinity for caches created by an earlier schema,
+                    // but never count the same item twice.
+                    try db.execute(sql: """
+                        INSERT INTO smart_feed_source
+                            (smart_feed_id, source_url, hit_count, last_matched_at)
+                        VALUES (?, ?, 1, ?)
+                        ON CONFLICT(smart_feed_id, source_url) DO UPDATE SET
+                            last_matched_at = excluded.last_matched_at
+                        """, arguments: [smartFeedID, sourceURL, now])
+                }
+            }
+            try db.execute(sql: """
+                DELETE FROM smart_feed_item
+                WHERE smart_feed_id = ?
+                  AND item_id NOT IN (
+                    SELECT sfi.item_id
+                    FROM smart_feed_item sfi
+                    JOIN feed_item fi ON fi.id = sfi.item_id
+                    WHERE sfi.smart_feed_id = ?
+                    ORDER BY fi.published_at DESC, sfi.matched_at DESC
+                    LIMIT \(Self.cacheLimit)
+                  )
+                """, arguments: [smartFeedID, smartFeedID])
+        }
+    }
+
+    func prioritizedSourceURLs(smartFeedID: Int64) async throws -> [String] {
+        try await contentDB.read { db in
+            try String.fetchAll(db, sql: """
+                SELECT source_url
+                FROM smart_feed_source
+                WHERE smart_feed_id = ?
+                ORDER BY hit_count DESC, last_matched_at DESC, source_url
+                """, arguments: [smartFeedID])
+        }
+    }
+
+    func refreshStates() async throws -> [SmartFeedRefreshState] {
+        try await userDB.read { db in
+            try Row.fetchAll(db, sql: """
+                SELECT id, last_refresh_attempt_at, last_refresh_success_at,
+                       refresh_failure_count
+                FROM smart_feed
+                """).map { row in
+                    let attemptEpoch: Int? = row["last_refresh_attempt_at"]
+                    let successEpoch: Int? = row["last_refresh_success_at"]
+                    return SmartFeedRefreshState(
+                        id: row["id"],
+                        lastAttemptAt: attemptEpoch.map {
+                            Date(timeIntervalSince1970: TimeInterval($0))
+                        },
+                        lastSuccessAt: successEpoch.map {
+                            Date(timeIntervalSince1970: TimeInterval($0))
+                        },
+                        consecutiveFailures: row["refresh_failure_count"]
+                    )
+                }
+        }
+    }
+
+    func markRefreshStarted(smartFeedID: Int64, at date: Date = .now) async throws {
+        try await userDB.write { db in
+            try db.execute(sql: """
+                UPDATE smart_feed
+                SET last_refresh_attempt_at = ?
+                WHERE id = ?
+                """, arguments: [
+                    Int(date.timeIntervalSince1970),
+                    smartFeedID,
+                ])
+        }
+    }
+
+    func markRefreshFinished(
+        smartFeedID: Int64,
+        succeeded: Bool,
+        at date: Date = .now
+    ) async throws {
+        try await userDB.write { db in
+            if succeeded {
+                try db.execute(sql: """
+                    UPDATE smart_feed
+                    SET last_refresh_success_at = ?,
+                        refresh_failure_count = 0
+                    WHERE id = ?
+                    """, arguments: [
+                        Int(date.timeIntervalSince1970),
+                        smartFeedID,
+                    ])
+            } else {
+                try db.execute(sql: """
+                    UPDATE smart_feed
+                    SET refresh_failure_count = refresh_failure_count + 1
+                    WHERE id = ?
+                    """, arguments: [smartFeedID])
+            }
+        }
+    }
+
+    /// Items not yet seen lead the queue. Seen items stay cached and are moved
+    /// to the tail on the next Smart Feed load, preserving scroll stability.
+    func cachedItems(smartFeedID: Int64) async throws -> [FeedItem] {
+        try await contentDB.read { db in
+            try FeedItemRecord.fetchAll(db, sql: """
+                SELECT fi.*
+                FROM smart_feed_item sfi
+                JOIN feed_item fi ON fi.id = sfi.item_id
+                WHERE sfi.smart_feed_id = ?
+                ORDER BY
+                    CASE WHEN fi.consumed_at IS NULL THEN 0 ELSE 1 END,
+                    CASE WHEN fi.consumed_at IS NULL THEN fi.published_at END DESC,
+                    CASE WHEN fi.consumed_at IS NOT NULL THEN fi.consumed_at END DESC,
+                    sfi.matched_at DESC,
+                    fi.id
+                LIMIT \(Self.cacheLimit)
+                """, arguments: [smartFeedID]).map { $0.toFeedItem() }
+        }
+    }
+
+    func cachedItemIDs(smartFeedID: Int64) async throws -> Set<String> {
+        try await contentDB.read { db in
+            try Set(String.fetchAll(
+                db,
+                sql: "SELECT item_id FROM smart_feed_item WHERE smart_feed_id = ?",
+                arguments: [smartFeedID]
+            ))
+        }
+    }
+
+    nonisolated private static func decodeDefinition(
+        _ json: String
+    ) -> SmartFeedDefinition? {
+        guard let data = json.data(using: .utf8) else { return nil }
+        return try? JSONDecoder().decode(SmartFeedDefinition.self, from: data)
+    }
+}
+
+enum SmartFeedError: LocalizedError {
+    case emptyName
+    case emptyQuery
+    case emptyScope
+    case invalidDefinition
+
+    var errorDescription: String? {
+        switch self {
+        case .emptyName: return "Smart Bookmark name cannot be empty."
+        case .emptyQuery: return "Smart Bookmark search needs a positive term."
+        case .emptyScope: return "Select Sources, Contents, or both."
+        case .invalidDefinition: return "The Smart Bookmark filters could not be saved."
+        }
     }
 }
 

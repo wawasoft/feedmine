@@ -209,6 +209,7 @@ final class FeedmineUITests: XCTestCase {
         guard didOpenSearch else { return }
         field.tap()
         field.typeText("astronomy")
+        field.typeText("\n")
 
         XCTAssertTrue(app.staticTexts["Sources"].waitForExistence(timeout: 12),
                       "Content-analyzed source tier must be first")
@@ -234,6 +235,9 @@ final class FeedmineUITests: XCTestCase {
         app.buttons["Add source to collection"].tap()
         let collectionName = "Astronomy reading \(Int(Date().timeIntervalSince1970))"
         let collectionField = app.textFields["Collection name"]
+        for _ in 0..<8 where !collectionField.exists {
+            app.swipeUp()
+        }
         XCTAssertTrue(collectionField.waitForExistence(timeout: 5))
         collectionField.tap()
         collectionField.typeText(collectionName)
@@ -293,6 +297,7 @@ final class FeedmineUITests: XCTestCase {
         guard field.exists else { return }
         field.tap()
         field.typeText("Turk Astronomi")
+        field.typeText("\n")
 
         XCTAssertTrue(app.staticTexts["Sources"].waitForExistence(timeout: 12))
         let recoveredSource = app.staticTexts["Türk Astronomi Derneği (TAD)"].firstMatch
