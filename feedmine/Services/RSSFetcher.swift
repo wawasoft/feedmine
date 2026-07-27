@@ -4,6 +4,8 @@ import FeedKit
 actor RSSFetcher {
     private let session: URLSession
     private let starterSession: URLSession
+    private let httpSync: FeedHTTPSync
+    private let starterHTTPSync: FeedHTTPSync
 
     /// Cache of audio-URL → playable? so repeat fetches never re-probe the same
     /// enclosure (podcast episode URLs are stable).
@@ -49,63 +51,89 @@ actor RSSFetcher {
         starterConfig.urlCache = cache
         starterConfig.httpAdditionalHeaders = headers
         self.starterSession = URLSession(configuration: starterConfig)
+
+        self.httpSync = FeedHTTPSync()
+        self.starterHTTPSync = FeedHTTPSync()
     }
 
-    /// Fetch and parse a single feed. Never throws — returns FeedFetchResult with status.
-    func fetch(_ source: FeedSource) async -> FeedFetchResult {
-        await fetch(source, using: session)
-    }
-
-    private func fetchStarterSource(_ source: FeedSource) async -> FeedFetchResult {
-        await fetch(source, using: starterSession)
-    }
-
-    private func fetch(
-        _ source: FeedSource,
-        using requestSession: URLSession
-    ) async -> FeedFetchResult {
-        let emptyValidators = HTTPValidators()
+    /// Fetch and parse a single feed with conditional GET support.
+    /// - Parameters:
+    ///   - source: The feed source to fetch.
+    ///   - validators: Previously-stored HTTP validators for conditional GET.
+    func fetch(_ source: FeedSource, validators: HTTPValidators = HTTPValidators()) async -> FeedFetchResult {
         guard !Task.isCancelled else {
-            return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.unknown)))
-        }
-        guard let url = URL(string: source.url) else {
-            Log.network.error("Invalid URL for \(source.title): \(source.url)")
-            return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.badURL)))
+            return FeedFetchResult(source: source, items: [], outcome: .failed(CancellationError()))
         }
 
-        do {
-            let (data, response) = try await requestSession.data(from: url)
+        let httpResult = await httpSync.fetch(source, validators: validators)
 
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                Log.network.warning("Bad status for \(source.title)")
-                return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.badServerResponse)))
-            }
+        switch httpResult.outcome {
+        case .notModified:
+            return FeedFetchResult(
+                source: source, items: [],
+                outcome: .notModified
+            )
 
+        case .throttled(let until):
+            return FeedFetchResult(
+                source: source, items: [],
+                outcome: .throttled(until: until)
+            )
+
+        case .failed(let error):
+            return FeedFetchResult(
+                source: source, items: [],
+                outcome: .failed(error)
+            )
+
+        case .success(let data):
             let parser = FeedParser(data: data)
             let result = parser.parse()
 
             switch result {
             case .success(let feed):
+                let feedLevelMeta = extractFeedLevelMetadata(from: feed, source: source)
+                var updatedValidators = httpResult.updatedValidators
+                updatedValidators.ttl = feedLevelMeta.ttl
+                updatedValidators.skipHours = feedLevelMeta.skipHours
+                updatedValidators.skipDays = feedLevelMeta.skipDays
+                updatedValidators.lastBuildDate = feedLevelMeta.lastBuildDate
+                updatedValidators.capabilities = feedLevelMeta.capabilities
+                if let canonicalURL = httpResult.canonicalURL {
+                    updatedValidators.canonicalURL = canonicalURL
+                }
+
                 let items = extractItems(from: feed, source: source)
                 if items.isEmpty {
+                    updatedValidators.lastOutcome = .modifiedWithoutNewItems
                     Log.network.info("Empty feed: \(source.title)")
-                    return FeedFetchResult(source: source, items: [], outcome: .modifiedWithoutNewItems(validators: emptyValidators))
+                    return FeedFetchResult(
+                        source: source, items: [],
+                        outcome: .modifiedWithoutNewItems(validators: updatedValidators)
+                    )
                 }
                 let validated = await validateAudio(in: items)
-                return FeedFetchResult(source: source, items: validated, outcome: .modifiedWithNewItems(validated, validators: emptyValidators))
+                updatedValidators.lastOutcome = .modifiedWithNewItems
+                return FeedFetchResult(
+                    source: source, items: validated,
+                    outcome: .modifiedWithNewItems(validated, validators: updatedValidators)
+                )
+
             case .failure(let error):
+                var failedValidators = httpResult.updatedValidators
+                failedValidators.lastOutcome = .failed
                 Log.network.error("Parse failure for \(source.title): \(error)")
-                return FeedFetchResult(source: source, items: [], outcome: .failed(error))
+                return FeedFetchResult(
+                    source: source, items: [],
+                    outcome: .failed(error)
+                )
             }
-        } catch is CancellationError {
-            return FeedFetchResult(source: source, items: [], outcome: .failed(URLError(.cancelled)))
-        } catch let error as URLError where error.code == .cancelled {
-            return FeedFetchResult(source: source, items: [], outcome: .failed(error))
-        } catch {
-            Log.network.error("Network error for \(source.title): \(error)")
-            return FeedFetchResult(source: source, items: [], outcome: .failed(error))
         }
+    }
+
+    /// Cold-start fetch that uses the starter HTTP sync instance.
+    private func fetchStarterSource(_ source: FeedSource) async -> FeedFetchResult {
+        await fetch(source, validators: HTTPValidators())
     }
 
     /// Fetch multiple feeds concurrently with a real concurrency cap.
@@ -481,6 +509,70 @@ actor RSSFetcher {
         }
         if code == 404 || code == 410 { return .notAudio }
         return .unknown
+    }
+
+    // MARK: - Feed-Level Metadata Extraction
+
+    /// Extract feed-level metadata (TTL, skip hours/days, last build date, capabilities)
+    /// from a parsed feed for persistence in HTTPValidators.
+    private func extractFeedLevelMetadata(from feed: Feed, source: FeedSource) -> (
+        ttl: Int?,
+        skipHours: [Int]?,
+        skipDays: [String]?,
+        lastBuildDate: Date?,
+        capabilities: SourceCapabilities?
+    ) {
+        switch feed {
+        case .rss(let rss):
+            let caps = SourceCapabilities(
+                cloud: rss.cloud.map { cloud in
+                    SourceCapabilities.RSSCloudEndpoints(
+                        domain: cloud.attributes?.domain ?? "",
+                        port: cloud.attributes?.port ?? 0,
+                        path: cloud.attributes?.path ?? "",
+                        registerProcedure: cloud.attributes?.registerProcedure ?? "",
+                        protocolVersion: cloud.attributes?.protocolSpecification ?? ""
+                    )
+                },
+                hasPagination: false
+            )
+            return (
+                ttl: rss.ttl,
+                skipHours: rss.skipHours,
+                skipDays: rss.skipDays?.map(\.rawValue),
+                lastBuildDate: rss.lastBuildDate,
+                capabilities: caps
+            )
+        case .atom(let atom):
+            let websub = atom.links?.first(where: { link in
+                link.attributes?.rel?.lowercased() == "hub"
+            }).map { hub in
+                SourceCapabilities.WebSubEndpoints(
+                    hub: hub.attributes?.href ?? "",
+                    selfURL: atom.links?.first(where: {
+                        $0.attributes?.rel?.lowercased() == "self"
+                    })?.attributes?.href
+                )
+            }
+            return (
+                ttl: nil,
+                skipHours: nil,
+                skipDays: nil,
+                lastBuildDate: atom.updated,
+                capabilities: websub.map { SourceCapabilities(websub: $0, hasPagination: false) }
+            )
+        case .json(let json):
+            let websub = json.hubs?.first(where: { $0.type?.lowercased() == "websub" }).map { hub in
+                SourceCapabilities.WebSubEndpoints(hub: hub.url ?? "", selfURL: json.feedUrl)
+            }
+            return (
+                ttl: nil,
+                skipHours: nil,
+                skipDays: nil,
+                lastBuildDate: nil,
+                capabilities: websub.map { SourceCapabilities(websub: $0, hasPagination: false) }
+            )
+        }
     }
 
     // MARK: - Private
