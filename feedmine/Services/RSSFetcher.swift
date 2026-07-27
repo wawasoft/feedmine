@@ -4,6 +4,8 @@ import FeedKit
 actor RSSFetcher {
     private let session: URLSession
     private let starterSession: URLSession
+    private let httpSync: FeedHTTPSync
+    private let starterHTTPSync: FeedHTTPSync
 
     /// Cache of audio-URL → playable? so repeat fetches never re-probe the same
     /// enclosure (podcast episode URLs are stable).
@@ -49,62 +51,89 @@ actor RSSFetcher {
         starterConfig.urlCache = cache
         starterConfig.httpAdditionalHeaders = headers
         self.starterSession = URLSession(configuration: starterConfig)
+
+        self.httpSync = FeedHTTPSync()
+        self.starterHTTPSync = FeedHTTPSync()
     }
 
-    /// Fetch and parse a single feed. Never throws — returns FeedFetchResult with status.
-    func fetch(_ source: FeedSource) async -> FeedFetchResult {
-        await fetch(source, using: session)
-    }
-
-    private func fetchStarterSource(_ source: FeedSource) async -> FeedFetchResult {
-        await fetch(source, using: starterSession)
-    }
-
-    private func fetch(
-        _ source: FeedSource,
-        using requestSession: URLSession
-    ) async -> FeedFetchResult {
+    /// Fetch and parse a single feed with conditional GET support.
+    /// - Parameters:
+    ///   - source: The feed source to fetch.
+    ///   - validators: Previously-stored HTTP validators for conditional GET.
+    func fetch(_ source: FeedSource, validators: HTTPValidators = HTTPValidators()) async -> FeedFetchResult {
         guard !Task.isCancelled else {
-            return FeedFetchResult(source: source, items: [], status: .failed)
-        }
-        guard let url = URL(string: source.url) else {
-            Log.network.error("Invalid URL for \(source.title): \(source.url)")
-            return FeedFetchResult(source: source, items: [], status: .failed)
+            return FeedFetchResult(source: source, items: [], outcome: .failed(CancellationError()))
         }
 
-        do {
-            let (data, response) = try await requestSession.data(from: url)
+        let httpResult = await httpSync.fetch(source, validators: validators)
 
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                Log.network.warning("Bad status for \(source.title)")
-                return FeedFetchResult(source: source, items: [], status: .failed)
-            }
+        switch httpResult.outcome {
+        case .notModified:
+            return FeedFetchResult(
+                source: source, items: [],
+                outcome: .notModified
+            )
 
+        case .throttled(let until):
+            return FeedFetchResult(
+                source: source, items: [],
+                outcome: .throttled(until: until)
+            )
+
+        case .failed(let error):
+            return FeedFetchResult(
+                source: source, items: [],
+                outcome: .failed(error)
+            )
+
+        case .success(let data):
             let parser = FeedParser(data: data)
             let result = parser.parse()
 
             switch result {
             case .success(let feed):
+                let feedLevelMeta = extractFeedLevelMetadata(from: feed, source: source)
+                var updatedValidators = httpResult.updatedValidators
+                updatedValidators.ttl = feedLevelMeta.ttl
+                updatedValidators.skipHours = feedLevelMeta.skipHours
+                updatedValidators.skipDays = feedLevelMeta.skipDays
+                updatedValidators.lastBuildDate = feedLevelMeta.lastBuildDate
+                updatedValidators.capabilities = feedLevelMeta.capabilities
+                if let canonicalURL = httpResult.canonicalURL {
+                    updatedValidators.canonicalURL = canonicalURL
+                }
+
                 let items = extractItems(from: feed, source: source)
                 if items.isEmpty {
+                    updatedValidators.lastOutcome = .modifiedWithoutNewItems
                     Log.network.info("Empty feed: \(source.title)")
-                    return FeedFetchResult(source: source, items: [], status: .empty)
+                    return FeedFetchResult(
+                        source: source, items: [],
+                        outcome: .modifiedWithoutNewItems(validators: updatedValidators)
+                    )
                 }
                 let validated = await validateAudio(in: items)
-                return FeedFetchResult(source: source, items: validated, status: .success)
+                updatedValidators.lastOutcome = .modifiedWithNewItems
+                return FeedFetchResult(
+                    source: source, items: validated,
+                    outcome: .modifiedWithNewItems(validated, validators: updatedValidators)
+                )
+
             case .failure(let error):
+                var failedValidators = httpResult.updatedValidators
+                failedValidators.lastOutcome = .failed
                 Log.network.error("Parse failure for \(source.title): \(error)")
-                return FeedFetchResult(source: source, items: [], status: .failed)
+                return FeedFetchResult(
+                    source: source, items: [],
+                    outcome: .failed(error)
+                )
             }
-        } catch is CancellationError {
-            return FeedFetchResult(source: source, items: [], status: .failed)
-        } catch let error as URLError where error.code == .cancelled {
-            return FeedFetchResult(source: source, items: [], status: .failed)
-        } catch {
-            Log.network.error("Network error for \(source.title): \(error)")
-            return FeedFetchResult(source: source, items: [], status: .failed)
         }
+    }
+
+    /// Cold-start fetch that uses the starter HTTP sync instance.
+    private func fetchStarterSource(_ source: FeedSource) async -> FeedFetchResult {
+        await fetch(source, validators: HTTPValidators())
     }
 
     /// Fetch multiple feeds concurrently with a real concurrency cap.
@@ -113,7 +142,9 @@ actor RSSFetcher {
         var fetchedSourceCount = 0
         var failedSourceCount = 0
         var emptySourceCount = 0
-        var sourceStatuses: [String: FeedFetchStatus] = [:]
+        var notModifiedCount = 0
+        var throttledCount = 0
+        var sourceOutcomes: [String: FeedFetchOutcome] = [:]
 
         // Sliding-window concurrency: keep up to `maxConcurrent` fetches in
         // flight at all times. As each one finishes we immediately start the
@@ -136,15 +167,19 @@ actor RSSFetcher {
 
             // Drain as results arrive, refilling each freed slot.
             while let result = await group.next() {
-                sourceStatuses[result.source.url] = result.status
-                switch result.status {
-                case .success:
+                sourceOutcomes[result.source.url] = result.outcome
+                switch result.outcome {
+                case .modifiedWithNewItems:
                     fetchedSourceCount += 1
                     allItems.append(contentsOf: result.items)
-                case .empty:
+                case .modifiedWithoutNewItems:
                     emptySourceCount += 1
+                case .notModified:
+                    notModifiedCount += 1
                 case .failed:
                     failedSourceCount += 1
+                case .throttled:
+                    throttledCount += 1
                 }
 
                 if Task.isCancelled {
@@ -162,7 +197,9 @@ actor RSSFetcher {
             fetchedSourceCount: fetchedSourceCount,
             failedSourceCount: failedSourceCount,
             emptySourceCount: emptySourceCount,
-            sourceStatuses: sourceStatuses
+            notModifiedCount: notModifiedCount,
+            throttledCount: throttledCount,
+            sourceOutcomes: sourceOutcomes
         )
     }
 
@@ -187,7 +224,9 @@ actor RSSFetcher {
         var fetchedSourceCount = 0
         var failedSourceCount = 0
         var emptySourceCount = 0
-        var sourceStatuses: [String: FeedFetchStatus] = [:]
+        var notModifiedCount = 0
+        var throttledCount = 0
+        var sourceOutcomes: [String: FeedFetchOutcome] = [:]
         let cap = max(1, maxConcurrent)
 
         await withTaskGroup(of: Event.self) { group in
@@ -216,15 +255,19 @@ actor RSSFetcher {
                     break eventLoop
                 case .result(let result):
                     activeFetches -= 1
-                    sourceStatuses[result.source.url] = result.status
-                    switch result.status {
-                    case .success:
+                    sourceOutcomes[result.source.url] = result.outcome
+                    switch result.outcome {
+                    case .modifiedWithNewItems:
                         fetchedSourceCount += 1
                         allItems.append(contentsOf: result.items)
-                    case .empty:
+                    case .modifiedWithoutNewItems:
                         emptySourceCount += 1
+                    case .notModified:
+                        notModifiedCount += 1
                     case .failed:
                         failedSourceCount += 1
+                    case .throttled:
+                        throttledCount += 1
                     }
                     await onProgress?(result)
 
@@ -251,7 +294,9 @@ actor RSSFetcher {
             fetchedSourceCount: fetchedSourceCount,
             failedSourceCount: failedSourceCount,
             emptySourceCount: emptySourceCount,
-            sourceStatuses: sourceStatuses
+            notModifiedCount: notModifiedCount,
+            throttledCount: throttledCount,
+            sourceOutcomes: sourceOutcomes
         )
     }
 
@@ -466,6 +511,250 @@ actor RSSFetcher {
         return .unknown
     }
 
+    // MARK: - Feed-Level Metadata Extraction
+
+    /// Extract feed-level metadata (TTL, skip hours/days, last build date, capabilities)
+    /// from a parsed feed for persistence in HTTPValidators.
+    private func extractFeedLevelMetadata(from feed: Feed, source: FeedSource) -> (
+        ttl: Int?,
+        skipHours: [Int]?,
+        skipDays: [String]?,
+        lastBuildDate: Date?,
+        capabilities: SourceCapabilities?
+    ) {
+        switch feed {
+        case .rss(let rss):
+            let cloud = rss.cloud.map { cloud in
+                SourceCapabilities.RSSCloudEndpoints(
+                    domain: cloud.attributes?.domain ?? "",
+                    port: cloud.attributes?.port ?? 0,
+                    path: cloud.attributes?.path ?? "",
+                    registerProcedure: cloud.attributes?.registerProcedure ?? "",
+                    protocolVersion: cloud.attributes?.protocolSpecification ?? ""
+                )
+            }
+            let websubFromRSS = discoverWebSubFromRSS(source: source)
+            let caps = SourceCapabilities(
+                websub: websubFromRSS,
+                cloud: cloud,
+                hasPagination: false
+            )
+            return (
+                ttl: rss.ttl,
+                skipHours: rss.skipHours,
+                skipDays: rss.skipDays?.map(\.rawValue),
+                lastBuildDate: rss.lastBuildDate,
+                capabilities: caps
+            )
+        case .atom(let atom):
+            let websub = atom.links?.first(where: { link in
+                link.attributes?.rel?.lowercased() == "hub"
+            }).map { hub in
+                SourceCapabilities.WebSubEndpoints(
+                    hub: hub.attributes?.href ?? "",
+                    selfURL: atom.links?.first(where: {
+                        $0.attributes?.rel?.lowercased() == "self"
+                    })?.attributes?.href
+                )
+            }
+            let hasPagination = atom.links?.contains(where: {
+                let rel = $0.attributes?.rel?.lowercased() ?? ""
+                return rel == "next" || rel == "previous" || rel == "first" || rel == "last"
+            }) ?? false
+            return (
+                ttl: nil,
+                skipHours: nil,
+                skipDays: nil,
+                lastBuildDate: atom.updated,
+                capabilities: websub.map { SourceCapabilities(websub: $0, hasPagination: hasPagination) }
+            )
+        case .json(let json):
+            let websub = json.hubs?.first(where: { $0.type?.lowercased() == "websub" }).map { hub in
+                SourceCapabilities.WebSubEndpoints(hub: hub.url ?? "", selfURL: json.feedUrl)
+            }
+            return (
+                ttl: nil,
+                skipHours: nil,
+                skipDays: nil,
+                lastBuildDate: nil,
+                capabilities: websub.map { SourceCapabilities(websub: $0, hasPagination: false) }
+            )
+        }
+    }
+
+    /// Discover WebSub endpoints from RSS feed's atom:link elements.
+    /// FeedKit doesn't expose these natively, so we parse the raw XML.
+    private func discoverWebSubFromRSS(source: FeedSource) -> SourceCapabilities.WebSubEndpoints? {
+        // WebSub in RSS is declared via atom:link elements.
+        // FeedKit 9.x may expose these via rssFeed.namespaces or similar.
+        // For now, return nil — a follow-up can add regex-based extraction
+        // from raw XML if FeedKit doesn't expose these links.
+        // The Atom and JSON Feed paths are already covered.
+        return nil
+    }
+
+    // MARK: - Item Metadata Extraction
+
+    private func extractRSSAuthors(from item: RSSFeedItem) -> [FeedItemAuthor]? {
+        var authors: [FeedItemAuthor] = []
+        if let author = item.author, !author.isEmpty {
+            // RSS author is often just a string — parse name if it looks like "Name <email>"
+            if let emailStart = author.firstIndex(of: "<"),
+               let emailEnd = author.firstIndex(of: ">"),
+               emailStart < emailEnd {
+                let name = String(author[..<emailStart]).trimmingCharacters(in: .whitespaces)
+                let email = String(author[author.index(after: emailStart)..<emailEnd])
+                authors.append(FeedItemAuthor(name: name.isEmpty ? nil : name, email: email, uri: nil))
+            } else {
+                authors.append(FeedItemAuthor(name: author, email: nil, uri: nil))
+            }
+        }
+        if let itunesAuthor = item.iTunes?.iTunesAuthor, !itunesAuthor.isEmpty {
+            // Avoid duplicates
+            if !authors.contains(where: { $0.name == itunesAuthor }) {
+                authors.append(FeedItemAuthor(name: itunesAuthor, email: nil, uri: nil))
+            }
+        }
+        return authors.isEmpty ? nil : authors
+    }
+
+    private func extractRSSCategories(from item: RSSFeedItem) -> [FeedItemCategory]? {
+        guard let cats = item.categories, !cats.isEmpty else { return nil }
+        return cats.compactMap { cat in
+            guard let value = cat.value, !value.isEmpty else { return nil }
+            return FeedItemCategory(term: value, scheme: cat.attributes?.domain, label: nil)
+        }
+    }
+
+    private func extractRSSAttribution(from item: RSSFeedItem) -> FeedItemAttribution? {
+        guard let src = item.source?.value, !src.isEmpty else { return nil }
+        return FeedItemAttribution(
+            title: src,
+            url: item.source?.attributes?.url,
+            feedURL: nil
+        )
+    }
+
+    private func extractRSSEnclosures(from item: RSSFeedItem, source: FeedSource) -> [FeedEnclosure]? {
+        var enclosures: [FeedEnclosure] = []
+
+        // Standard enclosure
+        if let enc = item.enclosure?.attributes, let url = enc.url, !url.isEmpty {
+            enclosures.append(FeedEnclosure(
+                url: FeedItem.resolvedMediaURL(from: url, baseURL: source.url)?.absoluteString ?? url,
+                mimeType: enc.type,
+                length: enc.length.flatMap(Int64.init),
+                duration: nil,
+                medium: classifyMedium(mimeType: enc.type, url: url)
+            ))
+        }
+
+        // Media RSS contents
+        for media in (item.media?.mediaContents ?? []) {
+            guard let attr = media.attributes, let url = attr.url, !url.isEmpty else { continue }
+            enclosures.append(FeedEnclosure(
+                url: FeedItem.resolvedMediaURL(from: url, baseURL: source.url)?.absoluteString ?? url,
+                mimeType: attr.type,
+                length: attr.fileSize.flatMap(Int64.init),
+                duration: attr.duration.map(TimeInterval.init),
+                medium: attr.medium ?? classifyMedium(mimeType: attr.type, url: url)
+            ))
+        }
+
+        return enclosures.isEmpty ? nil : enclosures
+    }
+
+    private func extractAtomAuthors(from entry: AtomFeedEntry) -> [FeedItemAuthor]? {
+        guard let authors = entry.authors, !authors.isEmpty else { return nil }
+        return authors.map { author in
+            FeedItemAuthor(name: author.name, email: author.email, uri: author.uri)
+        }
+    }
+
+    private func extractAtomCategories(from entry: AtomFeedEntry) -> [FeedItemCategory]? {
+        guard let cats = entry.categories, !cats.isEmpty else { return nil }
+        return cats.compactMap { cat in
+            guard let term = cat.attributes?.term, !term.isEmpty else { return nil }
+            return FeedItemCategory(term: term, scheme: cat.attributes?.scheme, label: cat.attributes?.label)
+        }
+    }
+
+    private func extractAtomAttribution(from entry: AtomFeedEntry) -> FeedItemAttribution? {
+        guard let source = entry.source, let title = source.title, !title.isEmpty else { return nil }
+        return FeedItemAttribution(title: title, url: nil, feedURL: nil)
+    }
+
+    private func extractAtomEnclosures(from entry: AtomFeedEntry, source: FeedSource) -> [FeedEnclosure]? {
+        guard let links = entry.links, !links.isEmpty else { return nil }
+        let enclosures = links.compactMap { link -> FeedEnclosure? in
+            guard let href = link.attributes?.href, !href.isEmpty else { return nil }
+            return FeedEnclosure(
+                url: FeedItem.resolvedMediaURL(from: href, baseURL: source.url)?.absoluteString ?? href,
+                mimeType: link.attributes?.type,
+                length: link.attributes?.length.flatMap(Int64.init),
+                duration: nil,
+                medium: classifyMedium(mimeType: link.attributes?.type, url: href)
+            )
+        }
+        return enclosures.isEmpty ? nil : enclosures
+    }
+
+    private func extractAtomAlternateLinks(from entry: AtomFeedEntry, source: FeedSource) -> [FeedAlternateLink]? {
+        guard let links = entry.links, !links.isEmpty else { return nil }
+        let alternates = links.compactMap { link -> FeedAlternateLink? in
+            guard let href = link.attributes?.href, !href.isEmpty else { return nil }
+            let resolved = FeedItem.resolvedMediaURL(from: href, baseURL: source.url)?.absoluteString ?? href
+            return FeedAlternateLink(
+                url: resolved,
+                mimeType: link.attributes?.type,
+                language: link.attributes?.hreflang,
+                rel: link.attributes?.rel
+            )
+        }
+        return alternates.isEmpty ? nil : alternates
+    }
+
+    private func extractJSONAuthors(from jsonItem: JSONFeedItem) -> [FeedItemAuthor]? {
+        guard let author = jsonItem.author else { return nil }
+        return [FeedItemAuthor(name: author.name, email: nil, uri: author.url)]
+    }
+
+    private func extractJSONCategories(from jsonItem: JSONFeedItem) -> [FeedItemCategory]? {
+        guard let tags = jsonItem.tags, !tags.isEmpty else { return nil }
+        return tags.map { FeedItemCategory(term: $0, scheme: nil, label: nil) }
+    }
+
+    private func extractJSONEnclosures(from jsonItem: JSONFeedItem, source: FeedSource) -> [FeedEnclosure]? {
+        guard let attachments = jsonItem.attachments, !attachments.isEmpty else { return nil }
+        let enclosures = attachments.compactMap { att -> FeedEnclosure? in
+            guard let url = att.url, !url.isEmpty else { return nil }
+            return FeedEnclosure(
+                url: FeedItem.resolvedMediaURL(from: url, baseURL: source.url)?.absoluteString ?? url,
+                mimeType: att.mimeType,
+                length: att.sizeInBytes.flatMap(Int64.init),
+                duration: att.durationInSeconds,
+                medium: classifyMedium(mimeType: att.mimeType, url: url)
+            )
+        }
+        return enclosures.isEmpty ? nil : enclosures
+    }
+
+    /// Classify an enclosure as audio/video/image based on MIME type and URL extension.
+    private func classifyMedium(mimeType: String?, url: String) -> String? {
+        let type = mimeType?.lowercased() ?? ""
+        if type.hasPrefix("audio/") { return "audio" }
+        if type.hasPrefix("video/") { return "video" }
+        if type.hasPrefix("image/") { return "image" }
+        let path = (URL(string: url)?.path ?? url).lowercased()
+        let audioExts = ["mp3", "m4a", "m4b", "aac", "ogg", "oga", "opus", "wav", "flac"]
+        let videoExts = ["mp4", "mov", "webm", "avi", "mkv"]
+        let imageExts = ["jpg", "jpeg", "png", "gif", "webp", "avif", "heic"]
+        if audioExts.contains(where: path.hasSuffix) { return "audio" }
+        if videoExts.contains(where: path.hasSuffix) { return "video" }
+        if imageExts.contains(where: path.hasSuffix) { return "image" }
+        return nil
+    }
+
     // MARK: - Private
 
     func extractItems(fromFeedData data: Data, source: FeedSource) -> [FeedItem] {
@@ -500,7 +789,8 @@ actor RSSFetcher {
         let entries: [FeedItem] = {
             switch feed {
             case .atom(let atomFeed):
-                return (atomFeed.entries ?? []).compactMap { entry in
+                let atomEntries = (atomFeed.entries as? [AtomFeedEntry]) ?? []
+                return atomEntries.compactMap { entry in
                     let rawContent = entry.content?.value ?? entry.summary?.value ?? ""
                     let audio = extractAtomAudio(from: entry, source: source)
                     let entryLink = entry.links?.first(where: { link in
@@ -516,56 +806,91 @@ actor RSSFetcher {
                     let img = bestMediaImageURL(from: entry.media)
                         ?? extractFirstImageFromHTML(rawContent)
                         ?? feedImage
+                    let metadata = ParsedItemMetadata(
+                        authors: extractAtomAuthors(from: entry),
+                        categories: extractAtomCategories(from: entry),
+                        rights: entry.rights,
+                        attribution: extractAtomAttribution(from: entry),
+                        enclosures: extractAtomEnclosures(from: entry, source: source),
+                        language: nil,
+                        alternateLinks: extractAtomAlternateLinks(from: entry, source: source),
+                        publishedAt: entry.published,
+                        updatedAt: entry.updated
+                    )
                     return makeItem(
                         guid: entry.id,
                         link: entryLink ?? entry.id,
                         title: entry.title,
-                        publishedAt: entry.published ?? entry.updated,
                         source: source,
                         rawDescription: entry.summary?.value ?? entry.content?.value,
                         rawContent: entry.content?.value,
                         imageURL: img,
-                        audioURL: audio
+                        audioURL: audio,
+                        metadata: metadata
                     )
                 }
             case .rss(let rssFeed):
-                return (rssFeed.items ?? []).compactMap { item in
+                let rssItems = (rssFeed.items as? [RSSFeedItem]) ?? []
+                return rssItems.compactMap { item in
                     let audio = extractAudio(from: item, source: source)
                     let duration = extractDuration(from: item) ?? audio?.duration
                     let img = extractImageURL(from: item) ?? feedImage
+                    let metadata = ParsedItemMetadata(
+                        authors: extractRSSAuthors(from: item),
+                        categories: extractRSSCategories(from: item),
+                        rights: nil,
+                        attribution: extractRSSAttribution(from: item),
+                        enclosures: extractRSSEnclosures(from: item, source: source),
+                        language: rssFeed.language,
+                        alternateLinks: nil,
+                        publishedAt: item.pubDate,
+                        updatedAt: nil
+                    )
                     return makeItem(
                         guid: item.guid?.value,
                         link: item.link,
                         title: item.title,
-                        publishedAt: item.pubDate,
                         source: source,
                         itemSourceTitle: item.source?.value,
                         rawDescription: item.description,
                         rawContent: item.content?.contentEncoded,
                         imageURL: img,
                         audioURL: audio?.url,
-                        duration: duration
+                        duration: duration,
+                        metadata: metadata
                     )
                 }
             case .json(let jsonFeed):
-                return (jsonFeed.items ?? []).compactMap { jsonItem in
+                let jsonItems = (jsonFeed.items as? [JSONFeedItem]) ?? []
+                return jsonItems.compactMap { jsonItem in
                     let audio = extractJSONAudio(from: jsonItem, source: source)
                     // Check attachments for image types (e.g., "image/jpeg")
                     let attachmentImage = jsonItem.attachments?.first { attachment in
                         Self.isSupportedRasterMIMEType(attachment.mimeType)
                     }?.url
                     let img = jsonItem.image ?? jsonItem.bannerImage ?? attachmentImage ?? feedImage
+                    let metadata = ParsedItemMetadata(
+                        authors: extractJSONAuthors(from: jsonItem),
+                        categories: extractJSONCategories(from: jsonItem),
+                        rights: nil,
+                        attribution: nil,
+                        enclosures: extractJSONEnclosures(from: jsonItem, source: source),
+                        language: nil, // JSON Feed language not exposed by FeedKit 9.x
+                        alternateLinks: nil,
+                        publishedAt: jsonItem.datePublished,
+                        updatedAt: jsonItem.dateModified
+                    )
                     return makeItem(
                         guid: jsonItem.id,
                         link: jsonItem.url,
                         title: jsonItem.title,
-                        publishedAt: jsonItem.datePublished,
                         source: source,
                         rawDescription: jsonItem.summary ?? jsonItem.contentText,
                         rawContent: jsonItem.contentHtml,
                         imageURL: img,
                         audioURL: audio?.url,
-                        duration: audio?.duration
+                        duration: audio?.duration,
+                        metadata: metadata
                     )
                 }
             }
@@ -578,14 +903,14 @@ actor RSSFetcher {
         guid: String?,
         link: String?,
         title: String?,
-        publishedAt: Date?,
         source: FeedSource,
         itemSourceTitle: String? = nil,
         rawDescription: String?,
         rawContent: String?,
         imageURL: String?,
         audioURL: String? = nil,
-        duration: TimeInterval? = nil
+        duration: TimeInterval? = nil,
+        metadata: ParsedItemMetadata = ParsedItemMetadata()
     ) -> FeedItem? {
         let resolvedLink = [link, audioURL]
             .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -602,12 +927,14 @@ actor RSSFetcher {
         guard !sanitizedTitle.isEmpty else { return nil }
         let truncatedTitle = String(sanitizedTitle.prefix(200))
 
+        let itemPubDate = metadata.publishedAt ?? metadata.updatedAt
+
         let id = FeedItem.generateID(
             sourceURL: source.url,
             guid: guid,
             link: link,
             title: sanitizedTitle,
-            publishedAt: publishedAt
+            publishedAt: itemPubDate
         )
 
         let excerpt = extractExcerpt(
@@ -645,13 +972,19 @@ actor RSSFetcher {
             excerpt: excerpt,
             url: resolvedLink,
             imageURL: resolvedImageURL,
-            publishedAt: publishedAt ?? Date(),
+            publishedAt: itemPubDate ?? Date(),
             audioURL: audioURL,
             duration: duration,
             region: source.region,
-            // The source language is catalogue metadata, not an item-level
-            // declaration. FeedStore combines it with content detection.
-            language: nil
+            language: metadata.language,
+            updatedAt: metadata.updatedAt,
+            authors: metadata.authors,
+            itemCategories: metadata.categories,
+            rights: metadata.rights,
+            attribution: metadata.attribution,
+            enclosures: metadata.enclosures,
+            languageFromFeed: metadata.language,
+            alternateLinks: metadata.alternateLinks
         )
     }
 
