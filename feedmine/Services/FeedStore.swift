@@ -25,7 +25,7 @@ final class FeedStore {
     // MARK: - Subcomponents
     let db: DatabaseQueue
     let registry = SourceRegistry()
-    let scheduler = SourceScheduler()
+    let scheduler = AdaptiveScheduler()
     let reservoir = Reservoir()
     let fetcher = RSSFetcher()
     let prefetcher = ImagePrefetcher()
@@ -1241,7 +1241,7 @@ final class FeedStore {
             }
 
             for (url, status) in result.sourceOutcomes {
-                self.scheduler.recordFetch(sourceURL: url, success: !status.isFailed)
+                self.scheduler.recordFetch(sourceURL: url, outcome: status)
             }
             let actualNew = await self.persistFetchedItems(result.items)
             guard !Task.isCancelled, !actualNew.isEmpty else { return }
@@ -2284,7 +2284,7 @@ final class FeedStore {
                 let status = result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown))
                 scheduler.recordFetch(
                     sourceURL: source.url,
-                    success: !status.isFailed
+                    outcome: status
                 )
                 healthEntries.append((
                     source.url,
@@ -3009,7 +3009,7 @@ final class FeedStore {
             throttledReservoirAppend: { [self] in throttledReservoirAppend($0) },
             collectCandidates: { [self] in collectWhatsNewCandidates($0) },
             prefetchImages: { [self] in prefetchImagesIfEnabled(for: $0) },
-            recordFetch: { [self] in scheduler.recordFetch(sourceURL: $0, success: $1) }
+            recordFetch: { [self] in scheduler.recordFetch(sourceURL: $0, outcome: $1) }
         )
     }
 
@@ -3061,6 +3061,21 @@ final class FeedStore {
     ///   reflects what was actually stored (no desync on write failure).
     ///
     /// Returns the deduplicated new items for the reservoir / prefetch / search.
+
+    /// Merge incoming items with existing ones by ID.
+    /// When an Atom entry has the same id but newer updated date, replace the old.
+    func mergeItems(_ incoming: [FeedItem], into existing: [FeedItem]) -> [FeedItem] {
+        var merged = Dictionary(grouping: existing + incoming, by: \.id)
+            .compactMapValues { items in
+                items.max { a, b in
+                    let dateA = a.updatedAt ?? a.publishedAt
+                    let dateB = b.updatedAt ?? b.publishedAt
+                    return (dateA ?? .distantPast) < (dateB ?? .distantPast)
+                }
+            }
+        return Array(merged.values)
+    }
+
     @discardableResult
     func persistFetchedItems(_ items: [FeedItem], regionOverride: String? = nil) async -> [FeedItem] {
         // Existing IDs are normally skipped, but a newer parser may recover
@@ -3279,8 +3294,7 @@ final class FeedStore {
         var healthEntries: [(url: String, itemCount: Int?)] = []
         for source in batch {
             guard let status = result.sourceOutcomes[source.url] else { continue }
-            let failed = status.isFailed
-            scheduler.recordFetch(sourceURL: source.url, success: !failed)
+            scheduler.recordFetch(sourceURL: source.url, outcome: status)
             let count = sourceItemCounts[source.url]
             healthEntries.append((source.url, count))
         }
@@ -3697,7 +3711,7 @@ final class FeedStore {
         var healthEntries: [(url: String, itemCount: Int?)] = []
         for source in orderedCandidates {
             guard let status = result.sourceOutcomes[source.url] else { continue }
-            scheduler.recordFetch(sourceURL: source.url, success: !status.isFailed)
+            scheduler.recordFetch(sourceURL: source.url, outcome: status)
             healthEntries.append((source.url, sourceItemCounts[source.url]))
         }
         saveSourceHealthBatch(healthEntries)
@@ -3839,8 +3853,7 @@ final class FeedStore {
                 .mapValues(\.count)
             var healthEntries: [(url: String, itemCount: Int?)] = []
             for source in chunk {
-                let failed = result.sourceOutcomes[source.url]?.isFailed ?? true
-                scheduler.recordFetch(sourceURL: source.url, success: !failed)
+                scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 let count = sourceItemCounts[source.url]
                 healthEntries.append((source.url, count))
             }
@@ -3893,7 +3906,7 @@ final class FeedStore {
             let base = multipliers[source.url] ?? 1.0
             return (source: source, score: base * Double.random(in: 0.98...1.02))
         }
-        return SourceScheduler.diverseSources(from: scored, limit: budget)
+        return AdaptiveScheduler.diverseSources(from: scored, limit: budget)
     }
 
     private func sourceMatches(_ source: FeedSource, languages: Set<String>) -> Bool {
@@ -4124,8 +4137,7 @@ final class FeedStore {
                 }
                 // Record fetch health for each source
                 for source in batch {
-                    let success = result.sourceOutcomes[source.url]?.isFailed != true
-                    self.scheduler.recordFetch(sourceURL: source.url, success: success)
+                    self.scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 }
                 self.lastRefreshDate = .now
             }
@@ -4603,8 +4615,7 @@ final class FeedStore {
         // Record fetch health first — reachability is independent of whether the
         // items turn out to be new.
         for source in batch {
-            let failed = result.sourceOutcomes[source.url]?.isFailed ?? true
-            scheduler.recordFetch(sourceURL: source.url, success: !failed)
+            scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
             saveSourceHealth(for: source.url)
         }
         let actualNew = await persistFetchedItems(result.items, regionOverride: region)
@@ -4751,10 +4762,9 @@ final class FeedStore {
                 deadline: .seconds(7)
             )
             for source in responsiveSources {
-                let status = result.sourceOutcomes[source.url]
                 scheduler.recordFetch(
                     sourceURL: source.url,
-                    success: status?.isFailed != true
+                    outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown))
                 )
             }
             let actualNew = await persistFetchedItems(result.items)
@@ -5296,8 +5306,7 @@ final class FeedStore {
                 guard !Task.isCancelled else { return false }
                 refreshSucceeded = result.failedSourceCount < batch.count
                 for source in batch {
-                    let failed = result.sourceOutcomes[source.url]?.isFailed ?? true
-                    scheduler.recordFetch(sourceURL: source.url, success: !failed)
+                    scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 }
                 let actualNew = await persistFetchedItems(result.items)
                 if !actualNew.isEmpty {
