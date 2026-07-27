@@ -25,7 +25,7 @@ final class FeedStore {
     // MARK: - Subcomponents
     let db: DatabaseQueue
     let registry = SourceRegistry()
-    let scheduler = SourceScheduler()
+    let scheduler = AdaptiveScheduler()
     let reservoir = Reservoir()
     let fetcher = RSSFetcher()
     let prefetcher = ImagePrefetcher()
@@ -768,6 +768,38 @@ final class FeedStore {
                     lastFetchAt: Date(timeIntervalSince1970: TimeInterval(r.lastFetchAt)),
                     consecutiveFailures: r.consecutiveFailures
                 )
+                // Load HTTP validators from expanded health record
+                let v = HTTPValidators(
+                    etag: r.etag,
+                    lastModified: r.lastModified,
+                    cacheControl: r.cacheControlMaxAge.map { _ in
+                        HTTPValidators.ParsedCacheControl(
+                            maxAge: r.cacheControlMaxAge,
+                            noCache: r.cacheControlNoCache,
+                            noStore: r.cacheControlNoStore,
+                            mustRevalidate: r.cacheControlMustRevalidate
+                        )
+                    },
+                    expires: r.expires.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+                    canonicalURL: r.canonicalURL,
+                    lastFetchAt: r.lastFetchAt > 0 ? Date(timeIntervalSince1970: TimeInterval(r.lastFetchAt)) : nil,
+                    lastOutcome: r.lastOutcome.flatMap(HTTPValidators.FetchOutcomeKind.init(rawValue:)),
+                    retryAfter: r.retryAfter.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+                    ttl: r.ttl,
+                    skipHours: r.skipHours.flatMap { try? Self.decodeJSON($0) },
+                    skipDays: r.skipDays.flatMap { try? Self.decodeJSON($0) },
+                    lastBuildDate: r.lastBuildDate.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+                    capabilities: r.capabilities.flatMap { try? Self.decodeJSON($0) },
+                    publicationInterval: r.publicationInterval,
+                    publicationIntervalConfidence: r.publicationIntervalConfidence
+                )
+                scheduler.loadValidators(url: r.url, v)
+                let estimator = CadenceEstimator(
+                    publicationInterval: r.publicationInterval ?? 3600,
+                    confidence: r.publicationIntervalConfidence ?? 0,
+                    lastPublication: r.lastFetchAt > 0 ? Date(timeIntervalSince1970: TimeInterval(r.lastFetchAt)) : .distantPast
+                )
+                scheduler.loadEstimator(url: r.url, estimator)
             }
         } catch {
             Log.db.error("loadSourceHealth failed: \(error.localizedDescription)")
@@ -788,26 +820,77 @@ final class FeedStore {
             try db.write { db in
                 for (sourceURL, itemCount) in entries {
                     let health = scheduler.healthSnapshot(for: sourceURL, itemCount: itemCount)
+                    let v = health.validators
+                    let e = health.estimator
                     try db.execute(sql: """
-                        INSERT INTO source_health (url, last_fetch_at, consecutive_failures, last_status, last_item_count)
-                        VALUES (?, ?, ?, ?, ?)
+                        INSERT INTO source_health (
+                            url, last_fetch_at, consecutive_failures, last_status, last_item_count,
+                            etag, last_modified, cache_control_max_age, cache_control_no_cache,
+                            cache_control_no_store, cache_control_must_revalidate, expires,
+                            canonical_url, last_outcome, retry_after, ttl, skip_hours, skip_days,
+                            capabilities, last_build_date, publication_interval, publication_interval_confidence
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON CONFLICT(url) DO UPDATE SET
                             last_fetch_at = excluded.last_fetch_at,
                             consecutive_failures = excluded.consecutive_failures,
                             last_status = excluded.last_status,
-                            last_item_count = excluded.last_item_count
+                            last_item_count = excluded.last_item_count,
+                            etag = excluded.etag,
+                            last_modified = excluded.last_modified,
+                            cache_control_max_age = excluded.cache_control_max_age,
+                            cache_control_no_cache = excluded.cache_control_no_cache,
+                            cache_control_no_store = excluded.cache_control_no_store,
+                            cache_control_must_revalidate = excluded.cache_control_must_revalidate,
+                            expires = excluded.expires,
+                            canonical_url = excluded.canonical_url,
+                            last_outcome = excluded.last_outcome,
+                            retry_after = excluded.retry_after,
+                            ttl = excluded.ttl,
+                            skip_hours = excluded.skip_hours,
+                            skip_days = excluded.skip_days,
+                            capabilities = excluded.capabilities,
+                            last_build_date = excluded.last_build_date,
+                            publication_interval = excluded.publication_interval,
+                            publication_interval_confidence = excluded.publication_interval_confidence
                         """, arguments: [
                             sourceURL,
                             Int(health.lastFetchAt.timeIntervalSince1970),
                             health.consecutiveFailures,
                             health.lastStatus,
-                            health.lastItemCount
+                            health.lastItemCount,
+                            v.etag,
+                            v.lastModified,
+                            v.cacheControl?.maxAge,
+                            v.cacheControl?.noCache ?? false,
+                            v.cacheControl?.noStore ?? false,
+                            v.cacheControl?.mustRevalidate ?? false,
+                            v.expires.map { Int($0.timeIntervalSince1970) },
+                            v.canonicalURL,
+                            v.lastOutcome?.rawValue,
+                            v.retryAfter.map { Int($0.timeIntervalSince1970) },
+                            v.ttl,
+                            v.skipHours.flatMap { try? Self.encodeJSON($0) },
+                            v.skipDays.flatMap { try? Self.encodeJSON($0) },
+                            v.capabilities.flatMap { try? Self.encodeJSON($0) },
+                            v.lastBuildDate.map { Int($0.timeIntervalSince1970) },
+                            e.publicationInterval,
+                            e.confidence
                         ])
                 }
             }
         } catch {
             Log.db.error("saveSourceHealthBatch error: \(error.localizedDescription)")
         }
+    }
+
+    nonisolated static func encodeJSON<T: Encodable>(_ value: T) throws -> String {
+        let data = try JSONEncoder().encode(value)
+        return String(data: data, encoding: .utf8) ?? "[]"
+    }
+
+    nonisolated static func decodeJSON<T: Decodable>(_ text: String) throws -> T {
+        let data = Data(text.utf8)
+        return try JSONDecoder().decode(T.self, from: data)
     }
 
     private static var dbPath: String {
@@ -1069,7 +1152,9 @@ final class FeedStore {
         var fetchedSourceCount = 0
         var failedSourceCount = 0
         var emptySourceCount = 0
-        var statuses: [String: FeedFetchStatus] = [:]
+        var statuses: [String: FeedFetchOutcome] = [:]
+        var notModifiedCount = 0
+        var throttledCount = 0
 
         for start in stride(from: 0, to: sorted.count, by: Self.coldStartFetchChunkSize) {
             let end = min(start + Self.coldStartFetchChunkSize, sorted.count)
@@ -1091,7 +1176,9 @@ final class FeedStore {
             fetchedSourceCount += result.fetchedSourceCount
             failedSourceCount += result.failedSourceCount
             emptySourceCount += result.emptySourceCount
-            statuses.merge(result.sourceStatuses) { _, newest in newest }
+            notModifiedCount += result.notModifiedCount
+            throttledCount += result.throttledCount
+            statuses.merge(result.sourceOutcomes) { _, newest in newest }
 
             if Self.coldStartRunwayIsUseful(items, targetSourceCount: targetSourceCount) {
                 break
@@ -1103,7 +1190,9 @@ final class FeedStore {
             fetchedSourceCount: fetchedSourceCount,
             failedSourceCount: failedSourceCount,
             emptySourceCount: emptySourceCount,
-            sourceStatuses: statuses
+            notModifiedCount: notModifiedCount,
+            throttledCount: throttledCount,
+            sourceOutcomes: statuses
         )
     }
 
@@ -1151,8 +1240,8 @@ final class FeedStore {
                 return
             }
 
-            for (url, status) in result.sourceStatuses {
-                self.scheduler.recordFetch(sourceURL: url, success: status != .failed)
+            for (url, status) in result.sourceOutcomes {
+                self.scheduler.recordFetch(sourceURL: url, outcome: status)
             }
             let actualNew = await self.persistFetchedItems(result.items)
             guard !Task.isCancelled, !actualNew.isEmpty else { return }
@@ -2192,10 +2281,10 @@ final class FeedStore {
             ).mapValues(\.count)
             var healthEntries: [(url: String, itemCount: Int?)] = []
             for source in chunk {
-                let status = result.sourceStatuses[source.url] ?? .failed
+                let status = result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown))
                 scheduler.recordFetch(
                     sourceURL: source.url,
-                    success: status != .failed
+                    outcome: status
                 )
                 healthEntries.append((
                     source.url,
@@ -2920,7 +3009,7 @@ final class FeedStore {
             throttledReservoirAppend: { [self] in throttledReservoirAppend($0) },
             collectCandidates: { [self] in collectWhatsNewCandidates($0) },
             prefetchImages: { [self] in prefetchImagesIfEnabled(for: $0) },
-            recordFetch: { [self] in scheduler.recordFetch(sourceURL: $0, success: $1) }
+            recordFetch: { [self] in scheduler.recordFetch(sourceURL: $0, outcome: $1) }
         )
     }
 
@@ -2972,6 +3061,21 @@ final class FeedStore {
     ///   reflects what was actually stored (no desync on write failure).
     ///
     /// Returns the deduplicated new items for the reservoir / prefetch / search.
+
+    /// Merge incoming items with existing ones by ID.
+    /// When an Atom entry has the same id but newer updated date, replace the old.
+    func mergeItems(_ incoming: [FeedItem], into existing: [FeedItem]) -> [FeedItem] {
+        var merged = Dictionary(grouping: existing + incoming, by: \.id)
+            .compactMapValues { items in
+                items.max { a, b in
+                    let dateA = a.updatedAt ?? a.publishedAt
+                    let dateB = b.updatedAt ?? b.publishedAt
+                    return (dateA ?? .distantPast) < (dateB ?? .distantPast)
+                }
+            }
+        return Array(merged.values)
+    }
+
     @discardableResult
     func persistFetchedItems(_ items: [FeedItem], regionOverride: String? = nil) async -> [FeedItem] {
         // Existing IDs are normally skipped, but a newer parser may recover
@@ -2983,11 +3087,50 @@ final class FeedStore {
             return (item.id, imageURL)
         }
         var seen = Set<String>()
-        let actualNew = items.filter { item in
-            guard !loadedIDs.contains(item.id) else { return false }
-            return seen.insert(item.id).inserted
+        var actualNew: [FeedItem] = []
+        var updateCandidates: [FeedItem] = []
+
+        for item in items {
+            guard seen.insert(item.id).inserted else { continue }
+            if loadedIDs.contains(item.id) {
+                updateCandidates.append(item)
+            } else {
+                actualNew.append(item)
+            }
         }
-        guard !actualNew.isEmpty else {
+
+        // For items already in the DB, use mergeItems to determine if the
+        // incoming version is newer (Atom entry update-by-ID). Only persist
+        // updates when the incoming item has a newer updatedAt/publishedAt.
+        var itemsToUpdate: [FeedItem] = []
+        if !updateCandidates.isEmpty {
+            let candidates = updateCandidates  // let copy for Sendable closure
+            do {
+                let existingRecords: [FeedItemRecord] = try await db.read { db in
+                    try FeedItemRecord.fetchAll(db, keys: candidates.map(\.id))
+                }
+                let existingItems = existingRecords.map { $0.toFeedItem() }
+                let existingByID = Dictionary(uniqueKeysWithValues: existingItems.map { ($0.id, $0) })
+                let merged = mergeItems(candidates, into: existingItems)
+                for mergedItem in merged {
+                    if let existing = existingByID[mergedItem.id] {
+                        let mergedDate = mergedItem.updatedAt ?? mergedItem.publishedAt
+                        let existingDate = existing.updatedAt ?? existing.publishedAt
+                        if (mergedDate ?? .distantPast) > (existingDate ?? .distantPast) {
+                            itemsToUpdate.append(mergedItem)
+                        }
+                    } else {
+                        // Not actually in DB despite being in loadedIDs — treat as new
+                        actualNew.append(mergedItem)
+                    }
+                }
+            } catch {
+                Log.db.warning("persistFetchedItems: merge error: \(error.localizedDescription)")
+                actualNew.append(contentsOf: updateCandidates)
+            }
+        }
+
+        guard !actualNew.isEmpty || !itemsToUpdate.isEmpty else {
             guard !imageRepairs.isEmpty else { return [] }
             do {
                 try await db.write { db in
@@ -3004,11 +3147,15 @@ final class FeedStore {
             return []
         }
 
+        // Combine new items and updates for enrichment
+        let allItems = actualNew + itemsToUpdate
+        let newCount = actualNew.count
+
         // Collect regions + explicit source languages on the main actor
         // (dictionary lookups are O(1) and cheap). Language detection via
         // NLLanguageRecognizer runs in a detached task to avoid blocking UI.
-        let regions: [String] = actualNew.map { regionOverride ?? registry.regionFor(sourceURL: $0.sourceURL) }
-        let detectionInputs: [LanguageDetectionInput] = actualNew.map { item in
+        let regions: [String] = allItems.map { regionOverride ?? registry.regionFor(sourceURL: $0.sourceURL) }
+        let detectionInputs: [LanguageDetectionInput] = allItems.map { item in
             let itemLang = Self.normalizedLanguageCode(item.language)
             let sourceLang = Self.normalizedLanguageCode(registry.languageFor(sourceURL: item.sourceURL))
             // Item-level language is authoritative; source-level (OPML) can
@@ -3024,9 +3171,9 @@ final class FeedStore {
         }.value
 
         // Safety: all three arrays must have identical counts before we merge.
-        guard actualNew.count == regions.count,
-              actualNew.count == resolvedLanguages.count else {
-            Log.db.error("persistFetchedItems: count mismatch — items=\(actualNew.count) regions=\(regions.count) languages=\(resolvedLanguages.count)")
+        guard allItems.count == regions.count,
+              allItems.count == resolvedLanguages.count else {
+            Log.db.error("persistFetchedItems: count mismatch — items=\(allItems.count) regions=\(regions.count) languages=\(resolvedLanguages.count)")
             return []
         }
 
@@ -3034,7 +3181,7 @@ final class FeedStore {
         // expensive Calendar operations on every scroll-driven cache miss.
         let now = Date()
         let todayStart = Calendar.current.startOfDay(for: now)
-        let sectionOffsets: [Int] = actualNew.map { item in
+        let sectionOffsets: [Int] = allItems.map { item in
             let itemStart = Calendar.current.startOfDay(for: item.publishedAt)
             let diff = todayStart.timeIntervalSince(itemStart)
             return Int(diff / 86400)  // days
@@ -3043,18 +3190,19 @@ final class FeedStore {
         // Enrich each item with the resolved region, language, normalized
         // sourceURL, and pre-computed section offset so the in-memory
         // representation matches exactly what is written to SQLite.
-        let enriched: [FeedItem] = (0..<actualNew.count).map { i in
-            actualNew[i]
+        let enriched: [FeedItem] = (0..<allItems.count).map { i in
+            allItems[i]
                 .replacingMetadata(region: regions[i], language: resolvedLanguages[i])
                 .withNormalizedSourceURL
                 .withSectionDayOffset(sectionOffsets[i])
         }
+        let newEnriched = Array(enriched.prefix(newCount))
+        let updateEnriched = Array(enriched.suffix(itemsToUpdate.count))
+
         do {
-            // Single batch write. Items are deduplicated in memory before this
-            // point (loadedIDs check + batch-internal dedup), so the only
-            // possible conflict is a PRIMARY KEY collision from a concurrent
-            // write — do/catch handles that without the 3x per-item SQL
-            // overhead of SAVEPOINT/RELEASE/ROLLBACK.
+            // Single batch write. New items are inserted; items that were
+            // already in the DB but have a newer updatedAt/publishedAt
+            // (Atom entry update-by-ID) are updated via mergeItems.
             let succeeded: [FeedItem] = try await db.write { db -> [FeedItem] in
                 for repair in imageRepairs {
                     try db.execute(
@@ -3063,17 +3211,28 @@ final class FeedStore {
                     )
                 }
                 var ok: [FeedItem] = []
-                for item in enriched {
+                // Phase 1: INSERT truly new items
+                for item in newEnriched {
                     do {
                         let record = FeedItemRecord(from: item, region: item.region, language: item.language)
                         try record.insert(db)
                         ok.append(item)
                     } catch {
                         // Skip individual row failures. Items are deduplicated in
-                        // memory (loadedIDs + batch-internal), so the only expected
-                        // failure is a PRIMARY KEY collision from a concurrent write.
-                        // One bad row does not roll back the batch.
+                        // memory (loadedIDs + batch-internal dedup + mergeItems), so
+                        // the only expected failure is a PRIMARY KEY collision from
+                        // a concurrent write. One bad row does not roll back the batch.
                         Log.db.warning("persistFetchedItems: skip \(item.id): \(error)")
+                    }
+                }
+                // Phase 2: UPDATE items whose Atom entries were refreshed
+                for item in updateEnriched {
+                    do {
+                        let record = FeedItemRecord(from: item, region: item.region, language: item.language)
+                        try record.update(db)
+                        ok.append(item)
+                    } catch {
+                        Log.db.warning("persistFetchedItems: update failed for \(item.id): \(error)")
                     }
                 }
                 return ok
@@ -3162,7 +3321,7 @@ final class FeedStore {
         let result: FeedFetchBatch
         if needsInitialRunway {
             result = await fetchColdStartRunway(from: batch)
-            Log.feed.info("starterFetch completed: sources=\(result.fetchedSourceCount) items=\(result.items.count) attempted=\(result.sourceStatuses.count)")
+            Log.feed.info("starterFetch completed: sources=\(result.fetchedSourceCount) items=\(result.items.count) attempted=\(result.sourceOutcomes.count)")
         } else if needsFilteredRunway {
             let neededSources = max(1, Self.immediateFilteredSourceTarget - visibleSourceCount)
             result = await fetcher.fetchStarter(
@@ -3189,9 +3348,8 @@ final class FeedStore {
             .mapValues(\.count)
         var healthEntries: [(url: String, itemCount: Int?)] = []
         for source in batch {
-            guard let status = result.sourceStatuses[source.url] else { continue }
-            let failed = status == .failed
-            scheduler.recordFetch(sourceURL: source.url, success: !failed)
+            guard let status = result.sourceOutcomes[source.url] else { continue }
+            scheduler.recordFetch(sourceURL: source.url, outcome: status)
             let count = sourceItemCounts[source.url]
             healthEntries.append((source.url, count))
         }
@@ -3365,10 +3523,10 @@ final class FeedStore {
         }
 
         let result = await fetcher.fetchAll(eligible, maxConcurrent: 15)
-        emptyStateFetchedCount = result.sourceStatuses.count
+        emptyStateFetchedCount = result.sourceOutcomes.count
 
         // Log per-source fetch results
-        for (url, status) in result.sourceStatuses {
+        for (url, status) in result.sourceOutcomes {
             let itemCount = result.items.filter { OPMLParser.normalizeURL($0.sourceURL) == OPMLParser.normalizeURL(url) }.count
             Log.feed.info("[TaxonomyTrace] fetchResult url=\(url) status=\(String(describing: status)) items=\(itemCount)")
         }
@@ -3607,8 +3765,8 @@ final class FeedStore {
         }.value
         var healthEntries: [(url: String, itemCount: Int?)] = []
         for source in orderedCandidates {
-            guard let status = result.sourceStatuses[source.url] else { continue }
-            scheduler.recordFetch(sourceURL: source.url, success: status != .failed)
+            guard let status = result.sourceOutcomes[source.url] else { continue }
+            scheduler.recordFetch(sourceURL: source.url, outcome: status)
             healthEntries.append((source.url, sourceItemCounts[source.url]))
         }
         saveSourceHealthBatch(healthEntries)
@@ -3750,8 +3908,7 @@ final class FeedStore {
                 .mapValues(\.count)
             var healthEntries: [(url: String, itemCount: Int?)] = []
             for source in chunk {
-                let failed = result.sourceStatuses[source.url] == .failed
-                scheduler.recordFetch(sourceURL: source.url, success: !failed)
+                scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 let count = sourceItemCounts[source.url]
                 healthEntries.append((source.url, count))
             }
@@ -3804,7 +3961,7 @@ final class FeedStore {
             let base = multipliers[source.url] ?? 1.0
             return (source: source, score: base * Double.random(in: 0.98...1.02))
         }
-        return SourceScheduler.diverseSources(from: scored, limit: budget)
+        return AdaptiveScheduler.diverseSources(from: scored, limit: budget)
     }
 
     private func sourceMatches(_ source: FeedSource, languages: Set<String>) -> Bool {
@@ -4035,8 +4192,7 @@ final class FeedStore {
                 }
                 // Record fetch health for each source
                 for source in batch {
-                    let success = result.sourceStatuses[source.url] != .failed
-                    self.scheduler.recordFetch(sourceURL: source.url, success: success)
+                    self.scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 }
                 self.lastRefreshDate = .now
             }
@@ -4514,8 +4670,7 @@ final class FeedStore {
         // Record fetch health first — reachability is independent of whether the
         // items turn out to be new.
         for source in batch {
-            let failed = result.sourceStatuses[source.url] == .failed
-            scheduler.recordFetch(sourceURL: source.url, success: !failed)
+            scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
             saveSourceHealth(for: source.url)
         }
         let actualNew = await persistFetchedItems(result.items, regionOverride: region)
@@ -4662,10 +4817,9 @@ final class FeedStore {
                 deadline: .seconds(7)
             )
             for source in responsiveSources {
-                let status = result.sourceStatuses[source.url]
                 scheduler.recordFetch(
                     sourceURL: source.url,
-                    success: status != nil && status != .failed
+                    outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown))
                 )
             }
             let actualNew = await persistFetchedItems(result.items)
@@ -5207,8 +5361,7 @@ final class FeedStore {
                 guard !Task.isCancelled else { return false }
                 refreshSucceeded = result.failedSourceCount < batch.count
                 for source in batch {
-                    let failed = result.sourceStatuses[source.url] == .failed
-                    scheduler.recordFetch(sourceURL: source.url, success: !failed)
+                    scheduler.recordFetch(sourceURL: source.url, outcome: result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 }
                 let actualNew = await persistFetchedItems(result.items)
                 if !actualNew.isEmpty {
@@ -6054,6 +6207,59 @@ final class FeedStore {
                 columns: ["smart_feed_id", "hit_count", "last_matched_at"]
             )
         }
+        // v22: Add HTTP validator columns to source_health for adaptive scheduling
+        migrator.registerMigration("v22_source_health_v2") { db in
+            let columns: [(String, String)] = [
+                ("etag", "TEXT"),
+                ("last_modified", "TEXT"),
+                ("cache_control_max_age", "REAL"),
+                ("cache_control_no_cache", "INTEGER DEFAULT 0"),
+                ("cache_control_no_store", "INTEGER DEFAULT 0"),
+                ("cache_control_must_revalidate", "INTEGER DEFAULT 0"),
+                ("expires", "INTEGER"),
+                ("canonical_url", "TEXT"),
+                ("last_outcome", "TEXT"),
+                ("retry_after", "INTEGER"),
+                ("ttl", "INTEGER"),
+                ("skip_hours", "TEXT"),
+                ("skip_days", "TEXT"),
+                ("capabilities", "TEXT"),
+                ("last_build_date", "INTEGER"),
+                ("publication_interval", "REAL DEFAULT 3600"),
+                ("publication_interval_confidence", "REAL DEFAULT 0.0"),
+            ]
+            for (name, type) in columns {
+                try db.execute(sql: "ALTER TABLE source_health ADD COLUMN \(name) \(type)")
+            }
+        }
+        // v23: Add metadata columns to feed_item and rebuild FTS index
+        migrator.registerMigration("v23_feed_item_metadata") { db in
+            let columns: [(String, String)] = [
+                ("updated_at", "INTEGER"),
+                ("authors", "TEXT"),
+                ("item_categories", "TEXT"),
+                ("rights", "TEXT"),
+                ("attribution_title", "TEXT"),
+                ("attribution_url", "TEXT"),
+                ("attribution_feed_url", "TEXT"),
+                ("enclosures", "TEXT"),
+                ("language_from_feed", "TEXT"),
+                ("alternate_links", "TEXT"),
+            ]
+            for (name, type) in columns {
+                try db.execute(sql: "ALTER TABLE feed_item ADD COLUMN \(name) \(type)")
+            }
+
+            // Rebuild FTS index to include new searchable columns
+            try db.execute(sql: "DROP TABLE IF EXISTS feed_item_fts")
+            try db.execute(sql: """
+                CREATE VIRTUAL TABLE feed_item_fts USING fts5(
+                    title, excerpt, source_title, category,
+                    authors, item_categories, rights,
+                    content='feed_item', content_rowid='rowid'
+                )
+            """)
+        }
         try migrator.migrate(db)
     }
 }
@@ -6079,6 +6285,23 @@ struct SourceHealthRecord: Codable, PersistableRecord, FetchableRecord {
     var consecutiveFailures: Int
     var lastStatus: String?
     var lastItemCount: Int?
+    var etag: String?
+    var lastModified: String?
+    var cacheControlMaxAge: Double?
+    var cacheControlNoCache: Bool
+    var cacheControlNoStore: Bool
+    var cacheControlMustRevalidate: Bool
+    var expires: Int?
+    var canonicalURL: String?
+    var lastOutcome: String?
+    var retryAfter: Int?
+    var ttl: Int?
+    var skipHours: String?
+    var skipDays: String?
+    var capabilities: String?
+    var lastBuildDate: Int?
+    var publicationInterval: Double?
+    var publicationIntervalConfidence: Double?
 
     enum CodingKeys: String, CodingKey {
         case url
@@ -6086,6 +6309,23 @@ struct SourceHealthRecord: Codable, PersistableRecord, FetchableRecord {
         case consecutiveFailures = "consecutive_failures"
         case lastStatus = "last_status"
         case lastItemCount = "last_item_count"
+        case etag
+        case lastModified = "last_modified"
+        case cacheControlMaxAge = "cache_control_max_age"
+        case cacheControlNoCache = "cache_control_no_cache"
+        case cacheControlNoStore = "cache_control_no_store"
+        case cacheControlMustRevalidate = "cache_control_must_revalidate"
+        case expires
+        case canonicalURL = "canonical_url"
+        case lastOutcome = "last_outcome"
+        case retryAfter = "retry_after"
+        case ttl
+        case skipHours = "skip_hours"
+        case skipDays = "skip_days"
+        case capabilities
+        case lastBuildDate = "last_build_date"
+        case publicationInterval = "publication_interval"
+        case publicationIntervalConfidence = "publication_interval_confidence"
     }
 
     static let databaseTableName = "source_health"
@@ -6118,6 +6358,16 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
     var clickedAt: Int?    // epoch seconds; actual content tap only
     var consumedAt: Int?   // epoch seconds; at least 50% visible or explicitly read
     var language: String?
+    var updatedAt: Int?    // epoch seconds
+    var authors: String?          // JSON array of FeedItemAuthor
+    var itemCategories: String?   // JSON array of FeedItemCategory
+    var rights: String?
+    var attributionTitle: String?
+    var attributionURL: String?
+    var attributionFeedURL: String?
+    var enclosures: String?       // JSON array of FeedEnclosure
+    var languageFromFeed: String?
+    var alternateLinks: String?   // JSON array of FeedAlternateLink
 
     static var databaseTableName: String { "feed_item" }
 
@@ -6143,6 +6393,16 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         case clickedAt = "clicked_at"
         case consumedAt = "consumed_at"
         case language
+        case updatedAt = "updated_at"
+        case authors
+        case itemCategories = "item_categories"
+        case rights
+        case attributionTitle = "attribution_title"
+        case attributionURL = "attribution_url"
+        case attributionFeedURL = "attribution_feed_url"
+        case enclosures
+        case languageFromFeed = "language_from_feed"
+        case alternateLinks = "alternate_links"
     }
 
     init(from item: FeedItem, region: String, language: String? = nil) {
@@ -6166,6 +6426,17 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         self.clickedAt = nil
         self.consumedAt = nil
         self.language = language
+        // New metadata fields
+        self.updatedAt = item.updatedAt.map { Int($0.timeIntervalSince1970) }
+        self.authors = item.authors.flatMap { try? FeedStore.encodeJSON($0) }
+        self.itemCategories = item.itemCategories.flatMap { try? FeedStore.encodeJSON($0) }
+        self.rights = item.rights
+        self.attributionTitle = item.attribution?.title
+        self.attributionURL = item.attribution?.url
+        self.attributionFeedURL = item.attribution?.feedURL
+        self.enclosures = item.enclosures.flatMap { try? FeedStore.encodeJSON($0) }
+        self.languageFromFeed = item.languageFromFeed
+        self.alternateLinks = item.alternateLinks.flatMap { try? FeedStore.encodeJSON($0) }
     }
 
     func toFeedItem() -> FeedItem {
@@ -6176,6 +6447,13 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
         let cleanedExcerpt = FeedTextSanitizer.sanitizedHTMLText(excerpt)
             .replacingOccurrences(of: #"\s+"#, with: " ", options: .regularExpression)
             .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let parsedAttribution: FeedItemAttribution? = {
+            if attributionTitle != nil || attributionURL != nil || attributionFeedURL != nil {
+                return FeedItemAttribution(title: attributionTitle, url: attributionURL, feedURL: attributionFeedURL)
+            }
+            return nil
+        }()
 
         return FeedItem(
             id: id,
@@ -6190,7 +6468,15 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
             audioURL: audioURL,
             duration: duration,
             region: region,
-            language: language
+            language: language,
+            updatedAt: updatedAt.map { Date(timeIntervalSince1970: TimeInterval($0)) },
+            authors: authors.flatMap { try? FeedStore.decodeJSON($0) },
+            itemCategories: itemCategories.flatMap { try? FeedStore.decodeJSON($0) },
+            rights: rights,
+            attribution: parsedAttribution,
+            enclosures: enclosures.flatMap { try? FeedStore.decodeJSON($0) },
+            languageFromFeed: languageFromFeed,
+            alternateLinks: alternateLinks.flatMap { try? FeedStore.decodeJSON($0) }
         )
     }
 }

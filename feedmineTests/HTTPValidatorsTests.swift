@@ -34,6 +34,21 @@ final class HTTPValidatorsTests: XCTestCase {
         XCTAssertFalse(cc.noCache)
     }
 
+    func testParseMaxAgeWithSpaceAfterEquals() {
+        let cc = HTTPValidators.ParsedCacheControl.parse("max-age= 3600")
+        XCTAssertEqual(cc.maxAge, 3600)
+    }
+
+    func testParseMaxAgeWithSpaceAroundEquals() {
+        let cc = HTTPValidators.ParsedCacheControl.parse("max-age =3600")
+        XCTAssertEqual(cc.maxAge, 3600)
+    }
+
+    func testParseMaxAgeWithSpacesAroundEquals() {
+        let cc = HTTPValidators.ParsedCacheControl.parse("max-age = 3600")
+        XCTAssertEqual(cc.maxAge, 3600)
+    }
+
     // MARK: - CadenceEstimator
 
     func testDefaultValues() {
@@ -79,9 +94,16 @@ final class HTTPValidatorsTests: XCTestCase {
         var e = CadenceEstimator(publicationInterval: 3600, confidence: 0.5, lastPublication: Date())
         e.recordNoChange()
         XCTAssertEqual(e.confidence, 0.48)
-        // Can't drop below 0.1
+        // Can drop to 0.0 but not below
         for _ in 0..<30 { e.recordNoChange() }
-        XCTAssertEqual(e.confidence, 0.1)
+        XCTAssertEqual(e.confidence, 0.0)
+    }
+
+    func testRecordNoChangeDoesNotRaiseConfidenceFromZero() {
+        var e = CadenceEstimator()
+        XCTAssertEqual(e.confidence, 0.0)
+        e.recordNoChange()
+        XCTAssertEqual(e.confidence, 0.0, "recordNoChange should not raise confidence from 0")
     }
 
     // MARK: - Codable round-trip

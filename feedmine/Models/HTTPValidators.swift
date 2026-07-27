@@ -21,40 +21,6 @@ struct HTTPValidators: Codable, Sendable, Equatable {
     var publicationInterval: TimeInterval?
     var publicationIntervalConfidence: Double?
 
-    init(
-        etag: String? = nil,
-        lastModified: String? = nil,
-        cacheControl: ParsedCacheControl? = nil,
-        expires: Date? = nil,
-        canonicalURL: String? = nil,
-        lastFetchAt: Date? = nil,
-        lastOutcome: FetchOutcomeKind? = nil,
-        retryAfter: Date? = nil,
-        ttl: Int? = nil,
-        skipHours: [Int]? = nil,
-        skipDays: [String]? = nil,
-        lastBuildDate: Date? = nil,
-        capabilities: SourceCapabilities? = nil,
-        publicationInterval: TimeInterval? = nil,
-        publicationIntervalConfidence: Double? = nil
-    ) {
-        self.etag = etag
-        self.lastModified = lastModified
-        self.cacheControl = cacheControl
-        self.expires = expires
-        self.canonicalURL = canonicalURL
-        self.lastFetchAt = lastFetchAt
-        self.lastOutcome = lastOutcome
-        self.retryAfter = retryAfter
-        self.ttl = ttl
-        self.skipHours = skipHours
-        self.skipDays = skipDays
-        self.lastBuildDate = lastBuildDate
-        self.capabilities = capabilities
-        self.publicationInterval = publicationInterval
-        self.publicationIntervalConfidence = publicationIntervalConfidence
-    }
-
     struct ParsedCacheControl: Codable, Sendable, Equatable {
         var maxAge: TimeInterval?
         var noCache: Bool
@@ -70,16 +36,20 @@ struct HTTPValidators: Codable, Sendable, Equatable {
         }
 
         /// Parse a Cache-Control header value into its directives.
+        /// Handles non-canonical whitespace: "max-age= 3600", "max-age =3600", etc.
         static func parse(_ header: String) -> ParsedCacheControl {
             var result = ParsedCacheControl()
             let directives = header.lowercased().split(separator: ",")
                 .map { $0.trimmingCharacters(in: .whitespaces) }
             for directive in directives {
-                if directive == "no-cache" { result.noCache = true }
-                else if directive == "no-store" { result.noStore = true }
-                else if directive == "must-revalidate" { result.mustRevalidate = true }
-                else if directive.hasPrefix("max-age=") {
-                    result.maxAge = TimeInterval(directive.dropFirst(8))
+                // Normalize whitespace around '=' for key=value directives
+                let normalized = directive.replacingOccurrences(of: " ", with: "")
+                if normalized == "no-cache" { result.noCache = true }
+                else if normalized == "no-store" { result.noStore = true }
+                else if normalized == "must-revalidate" { result.mustRevalidate = true }
+                else if normalized.hasPrefix("max-age=") {
+                    let rawValue = normalized.dropFirst(8)
+                    result.maxAge = TimeInterval(rawValue.trimmingCharacters(in: .whitespaces))
                 }
             }
             return result
@@ -114,8 +84,11 @@ struct CadenceEstimator: Codable, Sendable {
     }
 
     /// Record that we checked and found nothing new — slight confidence decay.
+    /// Only decays if confidence was already positive (requires at least one publication record).
     mutating func recordNoChange() {
-        confidence = max(0.1, confidence - 0.02)
+        if confidence > 0 {
+            confidence = max(0.0, confidence - 0.02)
+        }
     }
 
     /// Recommended minimum interval before next fetch (80% of learned interval).

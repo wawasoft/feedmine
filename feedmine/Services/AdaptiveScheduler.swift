@@ -1,11 +1,9 @@
 import Foundation
 
-/// Selects which feed sources to fetch next based on reservoir entropy.
-/// Uses √n fairness between regions, LRU ordering within regions,
-/// and soft cooldown instead of hard timeouts.
-@available(*, deprecated, message: "Use AdaptiveScheduler instead")
+/// Scheduler that learns publication cadence and uses HTTP validators
+/// to decide when and how to fetch each source.
 @MainActor
-final class SourceScheduler {
+final class AdaptiveScheduler {
     private(set) var lastFetchedAt: [String: Date] = [:]
     private(set) var consecutiveFailures: [String: Int] = [:]
     private var validators: [String: HTTPValidators] = [:]
@@ -19,22 +17,18 @@ final class SourceScheduler {
         sourcesByRegion: [String: [FeedSource]],
         activeRegion: String?,
         activeCategory: String?,
-        activeContentType: String? = nil,  // "video", "audio", or nil for all
+        activeContentType: String? = nil,
         prioritySourceURLs: Set<String> = [],
         activeLanguages: Set<String> = [],
         minimumBatchSize: Int = 10,
-        presetMultipliers: [String: Double] = [:]  // URL → scoring multiplier
+        presetMultipliers: [String: Double] = [:]
     ) -> [FeedSource] {
         // 1. Determine scope
         let regions = activeRegion.map { [$0] } ?? Array(sourcesByRegion.keys)
         guard !regions.isEmpty else { return [] }
 
-        // 2. Measure consumption — how much buffer do we need?
+        // 2. Measure consumption (preserved from SourceScheduler)
         let bufferNeeded = estimatedBufferNeeded()
-        // Content-type-aware buffer gate. When no filter is active (default
-        // mixed feed), count each type independently — text items shouldn't
-        // starve video/audio sources. Gate opens if ANY type is below its
-        // per-type ceiling.
         let currentBuffer: Int
         if let ct = activeContentType {
             let matchingItems = reservoir.filter { item in
@@ -47,16 +41,9 @@ final class SourceScheduler {
             }
             currentBuffer = matchingItems.count
             let sourceBreadth = Set(matchingItems.map(\.sourceURL)).count
-            // A prolific provider can fill the numeric buffer alone. Keep the
-            // gate open until a filtered first page can represent enough distinct
-            // providers. The persistent 100-source goal is handled by FeedStore's
-            // coverage miner and must not delay this immediate response.
             guard currentBuffer < bufferNeeded
                 || sourceBreadth < FeedStore.immediateFilteredSourceTarget else { return [] }
         } else {
-            // Mixed feed: per-type ceilings. Text items are abundant; video
-            // and audio are scarce. If any type is below its ceiling, the
-            // scheduler can still pick sources of that type.
             let textCount = reservoir.filter { !$0.isYouTube && !$0.isPodcast }.count
             let videoCount = reservoir.filter { $0.isYouTube }.count
             let audioCount = reservoir.filter { $0.isPodcast }.count
@@ -71,40 +58,28 @@ final class SourceScheduler {
             currentBuffer = bufferNeeded - Int(ceil(Double(totalDeficit) / 3.0))
         }
 
-        // 3. Measure entropy — distribution of regions/categories in reservoir
-        let urlToRegion: [String: String] = sourcesByRegion.flatMap { region, sources in
-            sources.map { ($0.url, region) }
+        // 3. Measure entropy (preserved)
+        let urlToRegion: [String: String] = sourcesByRegion.flatMap { region, srcs in
+            srcs.map { ($0.url, region) }
         }.reduce(into: [:]) { $0[$1.0] = $1.1 }
 
-        let regionDistribution = distribution(of: reservoir, key: { item -> String in
-            urlToRegion[item.sourceURL] ?? "unknown"
-        })
+        let regionDistribution = distribution(of: reservoir, key: { urlToRegion[$0.sourceURL] ?? "unknown" })
         let categoryDistribution = distribution(of: reservoir, key: \.category)
-
-        // 4. Calculate ideal distribution (√n for regions, uniform for categories)
         let regionWeights = sqrtWeights(for: sourcesByRegion)
         let allCategories = Set(sourcesByRegion.values.flatMap { $0 }.map(\.category))
         let idealRegionDist = normalize(regionWeights)
         let idealCategoryDist = normalize(Dictionary(uniqueKeysWithValues: allCategories.map { ($0, 1.0) }))
-
-        // 5. Calculate deficits
         let regionDeficits = deficits(ideal: idealRegionDist, actual: regionDistribution)
         let categoryDeficits = deficits(ideal: idealCategoryDist, actual: categoryDistribution)
-
-        // Boost the active category's deficit if one is set
         var finalCategoryDeficits = categoryDeficits
         if let cat = activeCategory {
             finalCategoryDeficits[cat] = max(finalCategoryDeficits[cat] ?? 0, 1.0)
         }
 
-        // 6. Precompute scores for all eligible sources once, then greedily
-        // select the top N. Previously bestSource() was called in a loop,
-        // re-scanning all 800+ sources each time (O(N × S)). Now we score
-        // once, sort once, and pick from the front (O(S log S)).
         let deficitNeeded = Int(ceil(Double(bufferNeeded - currentBuffer) / 3.0))
         let maxSelect = max(deficitNeeded, minimumBatchSize)
 
-        // Phase 1: Priority sources jump the queue (Disney Fast Pass)
+        // Phase 1: Priority sources (preserved)
         var selected: [FeedSource] = []
         var selectedURLs = Set<String>()
         selectedURLs.reserveCapacity(maxSelect)
@@ -117,15 +92,12 @@ final class SourceScheduler {
                     guard prioritySourceURLs.contains(source.url) else { continue }
                     guard selectedURLs.insert(source.url).inserted else { continue }
                     guard Self.matches(source, contentType: activeContentType) else { continue }
-                    // Respect active language filter — priority sources with a
-                    // known non-matching language must not waste fetch budget.
                     if !activeLanguages.isEmpty {
                         let sourceLang = FeedStore.normalizedLanguageCode(
                             source.language.flatMap { $0.isEmpty ? nil : $0 }
                         )
                         if let sourceLang, !activeLanguages.contains(sourceLang) { continue }
                     }
-                    // Clear cooldown — treat as never-fetched
                     lastFetchedAt.removeValue(forKey: source.url)
                     consecutiveFailures.removeValue(forKey: source.url)
                     selected.append(source)
@@ -133,7 +105,7 @@ final class SourceScheduler {
             }
         }
 
-        // Phase 2: Fill remaining slots with normal scoring
+        // Phase 2: Fill remaining slots with adaptive scoring
         let remaining = maxSelect - selected.count
         if remaining > 0 {
             let now = Date()
@@ -146,13 +118,25 @@ final class SourceScheduler {
                 for source in sources {
                     guard !selectedURLs.contains(source.url) else { continue }
                     guard Self.matches(source, contentType: activeContentType) else { continue }
+
+                    let v = validators[source.url] ?? HTTPValidators()
+                    let e = estimators[source.url] ?? CadenceEstimator()
+
+                    // --- GATE: Skip if throttled, in skip window, or within min interval ---
+                    if shouldSkip(source: source, validators: v, estimator: e, now: now) { continue }
+
+                    // Existing failure backoff
                     let failures = consecutiveFailures[source.url] ?? 0
                     if failures >= 3 {
                         let backoff = pow(2.0, Double(failures - 2)) * 60
                         if let last = lastFetchedAt[source.url],
                            now.timeIntervalSince(last) < backoff { continue }
                     }
+
                     let catDeficit = max(0, finalCategoryDeficits[source.category] ?? 0)
+
+                    // --- STRATEGY: conditional GET possible? (informational, not a gate) ---
+                    let canUseConditional = shouldUseConditionalGet(validators: v)
 
                     let contentTypeBoost: Double = switch activeContentType {
                     case "video": source.isYouTube || source.mediaKind == .video ? 3.0 : 1.0
@@ -161,38 +145,26 @@ final class SourceScheduler {
                     default:      source.isYouTube ? 2.0 : (source.mediaKind == .audio ? 2.0 : 1.0)
                     }
 
-                    let timeFactor: Double
-                    if let last = lastFetchedAt[source.url] {
-                        timeFactor = min(1.0, now.timeIntervalSince(last) / 1800)
-                    } else {
-                        timeFactor = 1.0
-                    }
-
-                    // Normalize the source language tag to base code so that
-                    // pt-BR, en-US, zh-Hans etc. match pt, en, zh selections.
                     let sourceLang = FeedStore.normalizedLanguageCode(
                         source.language.flatMap { $0.isEmpty ? nil : $0 }
                     )
-                    // When the user has an explicit language filter, exclude sources
-                    // with a known non-matching language — don't just penalise them.
-                    // Sources without a language tag can still be included (we can't
-                    // determine their language, so we err on the side of inclusion).
                     if !activeLanguages.isEmpty,
                        let sourceLang,
-                       !activeLanguages.contains(sourceLang) {
-                        continue  // known language, doesn't match → exclude
-                    }
+                       !activeLanguages.contains(sourceLang) { continue }
                     let languageBoost: Double = activeLanguages.isEmpty ? 1.0
                         : (sourceLang != nil ? 3.0 : 0.8)
 
-                    let score = regionDeficit * catDeficit * timeFactor * contentTypeBoost * languageBoost
+                    // ADAPTIVE: urgency replaces hardcoded 30-min timeFactor
+                    let u = urgency(validators: v, estimator: e, now: now)
+
+                    let score = regionDeficit * catDeficit * u * contentTypeBoost * languageBoost
                         * (presetMultipliers[source.url] ?? 1.0)
                     let finalScore = max(score, 0.01) * Double.random(in: 0.98...1.02)
                     if finalScore > 0 { scored.append((source, finalScore)) }
                 }
             }
 
-            let diverse = Self.diverseSources(from: scored, limit: remaining)
+            let diverse = AdaptiveScheduler.diverseSources(from: scored, limit: remaining)
             for source in diverse {
                 guard selected.count < maxSelect else { break }
                 guard selectedURLs.insert(source.url).inserted else { continue }
@@ -203,40 +175,122 @@ final class SourceScheduler {
         return selected
     }
 
-    private static func matches(_ source: FeedSource, contentType: String?) -> Bool {
+    // MARK: - Gate & Strategy
+
+    /// Whether this source should be skipped right now.
+    private func shouldSkip(source: FeedSource, validators: HTTPValidators, estimator: CadenceEstimator, now: Date) -> Bool {
+        // Hard block: Retry-After still active
+        if let retryAfter = validators.retryAfter, now < retryAfter { return true }
+
+        // skipHours / skipDays
+        if isSkipped(validators: validators, now: now) { return true }
+
+        // Within minimum interval?
+        let minInterval = minimumInterval(validators: validators, estimator: estimator)
+        if let last = lastFetchedAt[source.url] ?? validators.lastFetchAt {
+            if now.timeIntervalSince(last) < minInterval { return true }
+        }
+
+        return false
+    }
+
+    /// Whether we have validators that enable a conditional GET.
+    func shouldUseConditionalGet(validators: HTTPValidators) -> Bool {
+        validators.etag != nil || validators.lastModified != nil
+    }
+
+    /// Minimum interval before next fetch based on all available signals.
+    func minimumInterval(validators: HTTPValidators, estimator: CadenceEstimator) -> TimeInterval {
+        // Cache-Control: no-store means we should always do a full GET (no min interval from cache)
+        if validators.cacheControl?.noStore == true { return 0 }
+
+        var candidates: [TimeInterval] = []
+        if let maxAge = validators.cacheControl?.maxAge { candidates.append(maxAge) }
+        if let ttl = validators.ttl { candidates.append(TimeInterval(ttl * 60)) }
+        if let expires = validators.expires {
+            let delta = expires.timeIntervalSinceNow
+            if delta > 0 { candidates.append(delta) }
+        }
+        if estimator.confidence > 0.3 { candidates.append(estimator.minInterval) }
+        return candidates.max() ?? 300  // default 5 min
+    }
+
+    /// Urgency ramps from 0 at minInterval to 1.0 at 2x minInterval,
+    /// or spikes faster when past expected publication time.
+    func urgency(validators: HTTPValidators, estimator: CadenceEstimator, now: Date) -> Double {
+        let minInterval = minimumInterval(validators: validators, estimator: estimator)
+        let elapsed = now.timeIntervalSince(validators.lastFetchAt ?? .distantPast)
+
+        if estimator.confidence > 0.5 && estimator.lastPublication > .distantPast {
+            let expectedNext = estimator.lastPublication.addingTimeInterval(estimator.publicationInterval)
+            if now > expectedNext {
+                return min(1.0, 0.5 + now.timeIntervalSince(expectedNext) / estimator.publicationInterval)
+            }
+        }
+
+        let excess = elapsed - minInterval
+        return min(1.0, max(0, excess / max(minInterval, 1)))
+    }
+
+    /// Check if the current time falls into a skipHours/skipDays window.
+    func isSkipped(validators: HTTPValidators, now: Date) -> Bool {
+        if let skipHours = validators.skipHours {
+            let hour = Calendar.current.component(.hour, from: now)
+            if skipHours.contains(hour) { return true }
+        }
+        if let skipDays = validators.skipDays {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "EEEE"
+            let dayName = formatter.string(from: now)
+            if skipDays.contains(dayName) { return true }
+        }
+        return false
+    }
+
+    // MARK: - State Management
+
+    static func matches(_ source: FeedSource, contentType: String?) -> Bool {
         switch contentType {
-        case "video":
-            return source.isYouTube || source.mediaKind == .video
-        case "audio":
-            return source.mediaKind == .audio
-        case "text":
-            return !source.isYouTube && source.mediaKind != .video
-                && source.mediaKind != .audio && source.mediaKind != .forum
-        case "forum":
-            return source.mediaKind == .forum
-        default:
-            return true
+        case "video": return source.isYouTube || source.mediaKind == .video
+        case "audio": return source.mediaKind == .audio
+        case "text":  return !source.isYouTube && source.mediaKind != .video
+            && source.mediaKind != .audio && source.mediaKind != .forum
+        case "forum": return source.mediaKind == .forum
+        default: return true
         }
     }
 
     func recordConsumption() {
         consumptionTimestamps.append(Date())
-        // Keep only last 5 minutes
         let cutoff = Date().addingTimeInterval(-300)
         consumptionTimestamps = consumptionTimestamps.filter { $0 > cutoff }
     }
 
-    func recordFetch(sourceURL: String, success: Bool) {
+    func recordFetch(sourceURL: String, outcome: FeedFetchOutcome) {
         lastFetchedAt[sourceURL] = Date()
-        if success {
+
+        switch outcome {
+        case .modifiedWithNewItems(let items, let newValidators):
             consecutiveFailures[sourceURL] = 0
-        } else {
+            validators[sourceURL] = newValidators
+            if let latestItem = items.map(\.publishedAt).max() {
+                estimators[sourceURL, default: CadenceEstimator()].recordPublication(latestItem)
+            }
+        case .modifiedWithoutNewItems(let newValidators):
+            consecutiveFailures[sourceURL] = 0
+            validators[sourceURL] = newValidators
+            estimators[sourceURL, default: CadenceEstimator()].recordNoChange()
+        case .notModified:
+            consecutiveFailures[sourceURL] = 0
+            estimators[sourceURL, default: CadenceEstimator()].recordNoChange()
+        case .failed:
             consecutiveFailures[sourceURL, default: 0] += 1
+        case .throttled(let until):
+            validators[sourceURL, default: HTTPValidators()].retryAfter = until
         }
     }
 
     func prioritize(sourceURLs: [String]) {
-        // Clear lastFetchedAt so these sources appear at the front of LRU
         for url in sourceURLs {
             lastFetchedAt.removeValue(forKey: url)
             consecutiveFailures.removeValue(forKey: url)
@@ -247,12 +301,13 @@ final class SourceScheduler {
         for url in sourceURLs {
             lastFetchedAt.removeValue(forKey: url)
             consecutiveFailures.removeValue(forKey: url)
+            validators.removeValue(forKey: url)
+            estimators.removeValue(forKey: url)
         }
     }
 
-    // MARK: - Persistence hooks (called by FeedStore)
+    // MARK: - Persistence hooks
 
-    /// Restore persisted health after app restart.
     func loadHealth(url: String, lastFetchAt: Date, consecutiveFailures: Int) {
         if self.lastFetchedAt[url] == nil {
             self.lastFetchedAt[url] = lastFetchAt
@@ -270,7 +325,6 @@ final class SourceScheduler {
         if estimators[url] == nil { estimators[url] = e }
     }
 
-    /// Snapshot for saving to DB.
     struct HealthSnapshot {
         let lastFetchAt: Date
         let consecutiveFailures: Int
@@ -291,18 +345,15 @@ final class SourceScheduler {
         )
     }
 
-    // MARK: - Private
+    // MARK: - Private (preserved from SourceScheduler)
 
     private func estimatedBufferNeeded() -> Int {
         let recent = consumptionTimestamps.filter { $0 > Date().addingTimeInterval(-120) }
-        let rate = Double(recent.count) / 120.0 // scrolls per second over last 2 min
-        let target = Int(rate * 180) // 3 min buffer
+        let rate = Double(recent.count) / 120.0
+        let target = Int(rate * 180)
         return max(50, min(500, target))
     }
 
-    /// Pick high-scoring sources without letting a single category/provider
-    /// cluster dominate the cold-start batch. Scores still lead; diversity
-    /// breaks ties and near-ties.
     nonisolated static func diverseSources(
         from scoredSources: [(source: FeedSource, score: Double)],
         limit: Int
@@ -353,12 +404,8 @@ final class SourceScheduler {
 
     private nonisolated static func diversityRegionKey(_ region: String) -> String {
         let parts = region.split(separator: "/")
-        if parts.count >= 2, parts[0] == "countries" {
-            return "countries/\(parts[1])"
-        }
-        if parts.count >= 2, parts[0] == "topic" {
-            return "topic/\(parts[1])"
-        }
+        if parts.count >= 2, parts[0] == "countries" { return "countries/\(parts[1])" }
+        if parts.count >= 2, parts[0] == "topic" { return "topic/\(parts[1])" }
         return region
     }
 

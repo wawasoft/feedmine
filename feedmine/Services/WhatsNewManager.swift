@@ -81,7 +81,7 @@ final class WhatsNewManager {
         throttledReservoirAppend: @escaping ([FeedItem]) -> Void,
         collectCandidates: @escaping ([FeedItem]) -> Void,
         prefetchImages: @escaping ([FeedItem]) -> Void,
-        recordFetch: @escaping (String, Bool) -> Void
+        recordFetch: @escaping (String, FeedFetchOutcome) -> Void
     ) {
         // A cancelled task may already be inside GRDB's transactional write.
         // Let that short write finish and reuse it for the current filters:
@@ -101,8 +101,7 @@ final class WhatsNewManager {
                 collectCandidates(actualNew)
                 prefetchImages(actualNew)
                 for source in sources {
-                    let ok = result.sourceStatuses[source.url] != .failed
-                    recordFetch(source.url, ok)
+                    recordFetch(source.url, result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 }
             }
         }
