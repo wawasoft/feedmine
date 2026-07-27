@@ -147,7 +147,14 @@ enum CatalogRuntime {
 
     static func activeCatalogURL() -> URL? {
         activeSnapshot()?.catalogURL
-            ?? Bundle.main.url(forResource: "catalog", withExtension: "sqlite", subdirectory: "FeedEngine")
+            ?? Bundle.main.url(
+                forResource: "catalog",
+                withExtension: "sqlite",
+                subdirectory: "FeedEngine"
+            )
+            // Xcode may flatten individually copied resources while preserving
+            // the Feeds folder reference. Support both bundle layouts.
+            ?? Bundle.main.url(forResource: "catalog", withExtension: "sqlite")
     }
 
     static func activeManifest() -> CatalogUpdateManifest? {

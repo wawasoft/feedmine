@@ -15,7 +15,7 @@ final class FeedmineUITests: XCTestCase {
         app.launch()
     }
 
-    func testOnboardingSeedsARealTaxonomyReadingLens() {
+    func testCuratedOnboardingCreatesAnInspectableFeedFromRealStories() {
         app.terminate()
         app.launchArguments = [
             "-AppleLanguages", "(en)",
@@ -23,33 +23,45 @@ final class FeedmineUITests: XCTestCase {
         ]
         app.launch()
 
-        let next = app.buttons["onboarding-next"]
-        XCTAssertTrue(next.waitForExistence(timeout: 40), "Onboarding must appear on a clean launch")
-        for _ in 0..<5 {
-            XCTAssertTrue(next.waitForExistence(timeout: 5))
-            next.tap()
+        let start = app.buttons["curated-onboarding-start"]
+        XCTAssertTrue(start.waitForExistence(timeout: 40), "Curated onboarding must appear")
+        start.tap()
+
+        let language = app.buttons["curated-language-en"]
+        XCTAssertTrue(language.waitForExistence(timeout: 30))
+        if (language.value as? String) != "selected" {
+            language.tap()
+        }
+        app.buttons["curated-languages-continue"].tap()
+
+        let firstStory = app.buttons["curated-choice-a"]
+        if firstStory.waitForExistence(timeout: 60) {
+            for _ in 0..<8 {
+                XCTAssertTrue(firstStory.waitForExistence(timeout: 15))
+                firstStory.tap()
+            }
+            let review = app.buttons["curated-review"]
+            XCTAssertTrue(review.waitForExistence(timeout: 10))
+            review.tap()
+        } else {
+            let balanced = app.buttons["Start with a balanced feed"]
+            XCTAssertTrue(
+                balanced.waitForExistence(timeout: 10),
+                "Onboarding must offer a cache-safe fallback when stories are unavailable"
+            )
+            balanced.tap()
         }
 
-        let astronomy = app.buttons[
-            "onboarding-interest-04_technology_&_science/space_and_astronomy"
-        ]
-        XCTAssertTrue(
-            astronomy.waitForExistence(timeout: 20),
-            "Interest choices must resolve from the live OPML taxonomy"
-        )
-        astronomy.tap()
-        XCTAssertEqual(astronomy.value as? String, "selected")
-
-        let start = app.buttons["onboarding-start-reading"]
-        XCTAssertTrue(start.waitForExistence(timeout: 5))
-        start.tap()
+        let save = app.buttons["curated-save"]
+        XCTAssertTrue(save.waitForExistence(timeout: 10))
+        save.tap()
 
         let filterButton = app.buttons["filter-button"]
         XCTAssertTrue(filterButton.waitForExistence(timeout: 15))
         XCTAssertGreaterThan(
             Int(filterButton.value as? String ?? "") ?? 0,
             0,
-            "Finishing onboarding must persist the chosen taxonomy lens"
+            "Finishing onboarding must persist and activate the Curated Feed"
         )
     }
 

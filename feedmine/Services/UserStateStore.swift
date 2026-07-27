@@ -144,6 +144,22 @@ final class UserStateStore {
             )
         }
 
+        migrator.registerMigration("v6_curated_feeds") { db in
+            try db.create(table: "curated_feed") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("name", .text).notNull()
+                t.column("definition_json", .text).notNull()
+                t.column("sort_order", .integer).notNull().defaults(to: 0)
+                t.column("created_at", .integer).notNull()
+                t.column("updated_at", .integer).notNull()
+            }
+            try db.create(
+                index: "idx_curated_feed_order",
+                on: "curated_feed",
+                columns: ["sort_order", "created_at"]
+            )
+        }
+
         try migrator.migrate(db)
     }
 
@@ -545,6 +561,127 @@ enum SmartFeedError: LocalizedError {
         case .emptyQuery: return "Smart Bookmark search needs a positive term."
         case .emptyScope: return "Select Sources, Contents, or both."
         case .invalidDefinition: return "The Smart Bookmark filters could not be saved."
+        }
+    }
+}
+
+// MARK: - Curated feeds
+
+@MainActor
+final class CuratedFeedStore {
+    private let db: DatabaseQueue
+
+    init(db: DatabaseQueue) {
+        self.db = db
+    }
+
+    func allCuratedFeeds() async throws -> [CuratedFeed] {
+        try await db.read { db in
+            try Row.fetchAll(db, sql: """
+                SELECT id, name, definition_json, created_at, updated_at
+                FROM curated_feed
+                ORDER BY sort_order, created_at, id
+                """).compactMap(Self.feed(from:))
+        }
+    }
+
+    func curatedFeed(id: Int64) async throws -> CuratedFeed? {
+        try await db.read { db in
+            try Row.fetchOne(db, sql: """
+                SELECT id, name, definition_json, created_at, updated_at
+                FROM curated_feed
+                WHERE id = ?
+                """, arguments: [id]).flatMap(Self.feed(from:))
+        }
+    }
+
+    @discardableResult
+    func create(name: String, definition: CuratedProfileDefinition) async throws -> Int64 {
+        let cleanName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleanName.isEmpty else { throw CuratedFeedError.emptyName }
+        guard !definition.languages.isEmpty else { throw CuratedFeedError.emptyLanguages }
+        let data = try JSONEncoder().encode(definition)
+        guard let json = String(data: data, encoding: .utf8) else {
+            throw CuratedFeedError.invalidDefinition
+        }
+        return try await db.write { db in
+            let order = try Int.fetchOne(
+                db,
+                sql: "SELECT COALESCE(MAX(sort_order), -1) + 1 FROM curated_feed"
+            ) ?? 0
+            let now = Int(Date().timeIntervalSince1970)
+            try db.execute(sql: """
+                INSERT INTO curated_feed
+                    (name, definition_json, sort_order, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?)
+                """, arguments: [cleanName, json, order, now, now])
+            return db.lastInsertedRowID
+        }
+    }
+
+    func update(
+        id: Int64,
+        name: String,
+        definition: CuratedProfileDefinition
+    ) async throws {
+        let cleanName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleanName.isEmpty else { throw CuratedFeedError.emptyName }
+        guard !definition.languages.isEmpty else { throw CuratedFeedError.emptyLanguages }
+        let data = try JSONEncoder().encode(definition)
+        guard let json = String(data: data, encoding: .utf8) else {
+            throw CuratedFeedError.invalidDefinition
+        }
+        try await db.write { db in
+            try db.execute(sql: """
+                UPDATE curated_feed
+                SET name = ?, definition_json = ?, updated_at = ?
+                WHERE id = ?
+                """, arguments: [
+                    cleanName,
+                    json,
+                    Int(Date().timeIntervalSince1970),
+                    id,
+                ])
+        }
+    }
+
+    func delete(id: Int64) async throws {
+        try await db.write { db in
+            try db.execute(sql: "DELETE FROM curated_feed WHERE id = ?", arguments: [id])
+        }
+    }
+
+    nonisolated private static func feed(from row: Row) -> CuratedFeed? {
+        let json: String = row["definition_json"]
+        guard let data = json.data(using: .utf8),
+              let definition = try? JSONDecoder().decode(
+                CuratedProfileDefinition.self,
+                from: data
+              ) else { return nil }
+        let createdAt: Int = row["created_at"]
+        let updatedAt: Int = row["updated_at"]
+        return CuratedFeed(
+            id: row["id"],
+            name: row["name"],
+            definition: definition,
+            createdAt: Date(timeIntervalSince1970: TimeInterval(createdAt)),
+            updatedAt: Date(timeIntervalSince1970: TimeInterval(updatedAt))
+        )
+    }
+}
+
+enum CuratedFeedError: LocalizedError {
+    case emptyName
+    case emptyLanguages
+    case invalidDefinition
+    case missingFeed
+
+    var errorDescription: String? {
+        switch self {
+        case .emptyName: return "Curated Feed name cannot be empty."
+        case .emptyLanguages: return "Choose at least one reading language."
+        case .invalidDefinition: return "The curation profile could not be saved."
+        case .missingFeed: return "This Curated Feed no longer exists."
         }
     }
 }

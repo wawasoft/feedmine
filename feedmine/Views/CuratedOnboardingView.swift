@@ -1,0 +1,1110 @@
+import SwiftUI
+import UIKit
+
+struct CuratedOnboardingView: View {
+    enum Stage: Int {
+        case welcome
+        case languages
+        case comparisons
+        case review
+    }
+
+    @Environment(FeedLoader.self) private var loader
+    @State private var engine = CircadianEngine.shared
+    @State private var stage: Stage = .welcome
+    @State private var selectedLanguages: Set<String> = []
+    @State private var languageSearch = ""
+    @State private var session: CuratedOnboardingSession?
+    @State private var feedName = "My Curated Feed"
+    @State private var candidateTask: Task<Void, Never>?
+    @State private var candidateAttempts = 0
+    @State private var isSaving = false
+    @State private var errorMessage: String?
+    @State private var answerPulse = 0
+
+    let isFirstRun: Bool
+    var onCancel: () -> Void = {}
+    var onSaved: (CuratedFeed) -> Void = { _ in }
+
+    var body: some View {
+        ZStack {
+            engine.pageBackground.ignoresSafeArea()
+            CuratedBackdrop(accent: engine.accent)
+                .ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                topBar
+                Group {
+                    switch stage {
+                    case .welcome:
+                        welcomePage
+                    case .languages:
+                        languagePage
+                    case .comparisons:
+                        comparisonPage
+                    case .review:
+                        reviewPage
+                    }
+                }
+                .transition(
+                    .asymmetric(
+                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                        removal: .move(edge: .leading).combined(with: .opacity)
+                    )
+                )
+            }
+        }
+        .tint(engine.accent)
+        .preferredColorScheme(nil)
+        .onAppear {
+            seedLanguageSelection()
+            prepareDefaultName()
+        }
+        .onDisappear {
+            candidateTask?.cancel()
+        }
+        .alert("Couldn’t save this feed", isPresented: Binding(
+            get: { errorMessage != nil },
+            set: { if !$0 { errorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text(errorMessage ?? "")
+        }
+        .sensoryFeedback(.selection, trigger: answerPulse)
+    }
+
+    private var topBar: some View {
+        HStack(spacing: 12) {
+            if stage != .welcome {
+                Button {
+                    goBack()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 15, weight: .semibold))
+                        .frame(width: 36, height: 36)
+                        .background(.thinMaterial, in: Circle())
+                }
+                .accessibilityLabel("Back")
+            } else {
+                Color.clear.frame(width: 36, height: 36)
+            }
+
+            VStack(spacing: 5) {
+                Text(stageTitle)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(.secondary)
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(engine.accent.opacity(0.12))
+                        Capsule()
+                            .fill(engine.accent)
+                            .frame(width: geometry.size.width * stageProgress)
+                    }
+                }
+                .frame(height: 3)
+            }
+
+            Button {
+                onCancel()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 13, weight: .semibold))
+                    .frame(width: 36, height: 36)
+                    .background(.thinMaterial, in: Circle())
+            }
+            .accessibilityLabel(isFirstRun ? "Use Everything for now" : "Close")
+        }
+        .padding(.horizontal, 18)
+        .padding(.top, 8)
+        .padding(.bottom, 6)
+    }
+
+    private var stageTitle: String {
+        switch stage {
+        case .welcome: return "WELCOME"
+        case .languages: return "YOUR LANGUAGES"
+        case .comparisons:
+            return session.map { "CHOICE \($0.answerCount + 1)" } ?? "CURATING"
+        case .review: return "OPEN HOOD"
+        }
+    }
+
+    private var stageProgress: Double {
+        switch stage {
+        case .welcome: return 0.08
+        case .languages: return 0.2
+        case .comparisons: return 0.2 + (session?.progress ?? 0) * 0.62
+        case .review: return 1
+        }
+    }
+
+    // MARK: - Welcome
+
+    private var welcomePage: some View {
+        ScrollView {
+            VStack(spacing: 24) {
+                Spacer(minLength: 24)
+
+                CuratedOpenHoodGraphic(accent: engine.accent)
+                    .frame(height: 250)
+                    .padding(.horizontal, 26)
+
+                VStack(spacing: 12) {
+                    Text("A feed that explains itself.")
+                        .font(engine.font(for: .articleHeadline, size: 32))
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+
+                    Text("Choose between real stories. Feedmine learns what you want without guessing who you are — and shows every preference it creates.")
+                        .font(.system(size: 17))
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(4)
+                        .padding(.horizontal, 24)
+                }
+
+                HStack(spacing: 8) {
+                    principleChip("Real stories", icon: "newspaper")
+                    principleChip("On device", icon: "iphone")
+                    principleChip("Editable", icon: "slider.horizontal.3")
+                }
+                .padding(.horizontal, 20)
+
+                Button {
+                    withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
+                        stage = .languages
+                    }
+                } label: {
+                    Text("Build my feed")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 15)
+                }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.roundedRectangle(radius: 16))
+                .padding(.horizontal, 24)
+                .accessibilityIdentifier("curated-onboarding-start")
+
+                Button(isFirstRun ? "Use Everything for now" : "Not now") {
+                    onCancel()
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.bottom, 24)
+            }
+        }
+        .scrollIndicators(.hidden)
+    }
+
+    private func principleChip(_ title: String, icon: String) -> some View {
+        Label(title, systemImage: icon)
+            .font(.caption)
+            .fontWeight(.medium)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
+            .background(.thinMaterial, in: Capsule())
+    }
+
+    // MARK: - Languages
+
+    private var languagePage: some View {
+        VStack(spacing: 16) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("What can you comfortably read?")
+                    .font(engine.font(for: .articleHeadline, size: 28))
+                    .fontWeight(.bold)
+                Text("Language is the only thing we ask directly. It says nothing about where you live or who you are.")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .lineSpacing(3)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 22)
+            .padding(.top, 12)
+
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(.secondary)
+                TextField("Find a language", text: $languageSearch)
+                    .textInputAutocapitalization(.never)
+            }
+            .padding(.horizontal, 14)
+            .frame(height: 46)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+            .padding(.horizontal, 22)
+
+            ScrollView {
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 145), spacing: 10)],
+                    spacing: 10
+                ) {
+                    ForEach(filteredLanguageOptions) { language in
+                        languageButton(language)
+                    }
+                }
+                .padding(.horizontal, 22)
+                .padding(.bottom, 12)
+            }
+
+            Button {
+                startComparisons()
+            } label: {
+                HStack {
+                    Text(selectedLanguages.count == 1
+                        ? "Continue with 1 language"
+                        : "Continue with \(selectedLanguages.count) languages")
+                    Image(systemName: "arrow.right")
+                }
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+            }
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.roundedRectangle(radius: 16))
+            .disabled(selectedLanguages.isEmpty)
+            .padding(.horizontal, 22)
+            .padding(.bottom, 14)
+            .accessibilityIdentifier("curated-languages-continue")
+        }
+    }
+
+    private func languageButton(_ language: FeedLoader.LanguageInfo) -> some View {
+        let selected = selectedLanguages.contains(language.code)
+        return Button {
+            if selected {
+                selectedLanguages.remove(language.code)
+            } else {
+                selectedLanguages.insert(language.code)
+            }
+            UISelectionFeedbackGenerator().selectionChanged()
+        } label: {
+            HStack(spacing: 10) {
+                Text(language.flag)
+                    .font(.title3)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(language.name)
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .lineLimit(1)
+                    Text("\(language.totalFeedCount) sources")
+                        .font(.caption2)
+                        .foregroundStyle(selected ? .white.opacity(0.75) : .secondary)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(selected ? .white : .secondary)
+            }
+            .padding(.horizontal, 12)
+            .frame(maxWidth: .infinity, minHeight: 58)
+            .foregroundStyle(selected ? .white : .primary)
+            .background(
+                selected ? AnyShapeStyle(engine.accent) : AnyShapeStyle(.thinMaterial),
+                in: RoundedRectangle(cornerRadius: 15)
+            )
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("curated-language-\(language.code)")
+        .accessibilityValue(selected ? "selected" : "not selected")
+    }
+
+    private var filteredLanguageOptions: [FeedLoader.LanguageInfo] {
+        let options = languageOptions
+        let query = languageSearch.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return options }
+        return options.filter {
+            $0.name.localizedCaseInsensitiveContains(query)
+                || $0.code.localizedCaseInsensitiveContains(query)
+        }
+    }
+
+    private var languageOptions: [FeedLoader.LanguageInfo] {
+        let live = loader.availableLanguages
+        if !live.isEmpty { return live }
+        let common = ["en", "pt", "es", "fr", "de", "it", "ar", "hi", "zh", "ja", "he", "ru"]
+        return common.map { code in
+            FeedLoader.LanguageInfo(
+                code: code,
+                name: Locale.current.localizedString(forLanguageCode: code) ?? code,
+                flag: fallbackFlag(for: code),
+                feedCount: 0,
+                totalFeedCount: 0
+            )
+        }
+    }
+
+    // MARK: - Comparisons
+
+    @ViewBuilder
+    private var comparisonPage: some View {
+        if let session {
+            VStack(spacing: 14) {
+                comparisonHeader(session)
+
+                if let pair = session.currentPair {
+                    VStack(spacing: 14) {
+                        HStack(alignment: .top, spacing: 12) {
+                            CuratedStoryChoiceCard(
+                                candidate: pair.left,
+                                marker: "A",
+                                accent: engine.accent
+                            ) {
+                                answer(.left)
+                            }
+                            CuratedStoryChoiceCard(
+                                candidate: pair.right,
+                                marker: "B",
+                                accent: engine.accent
+                            ) {
+                                answer(.right)
+                            }
+                        }
+                        .id(pair.id)
+                        .transition(.opacity.combined(with: .scale(scale: 0.97)))
+
+                        HStack(spacing: 10) {
+                            alternativeButton("Both", icon: "square.on.square") {
+                                answer(.both)
+                            }
+                            alternativeButton("Neither", icon: "minus.circle") {
+                                answer(.neither)
+                            }
+                        }
+
+                        HStack {
+                            Button {
+                                withAnimation { session.undo() }
+                            } label: {
+                                Label("Undo", systemImage: "arrow.uturn.backward")
+                            }
+                            .disabled(!session.canUndo)
+
+                            Spacer()
+
+                            if session.canFinish {
+                                Button(session.reachedTarget ? "Review my feed" : "Finish now") {
+                                    withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
+                                        stage = .review
+                                    }
+                                }
+                                .fontWeight(.semibold)
+                                .accessibilityIdentifier("curated-review")
+                            }
+                        }
+                        .font(.subheadline)
+                    }
+                    .padding(.horizontal, 18)
+                } else {
+                    candidateLoadingState(session)
+                }
+                Spacer(minLength: 8)
+            }
+        } else {
+            ProgressView()
+        }
+    }
+
+    private func comparisonHeader(_ session: CuratedOnboardingSession) -> some View {
+        VStack(spacing: 7) {
+            Text("Which would you open first?")
+                .font(engine.font(for: .articleHeadline, size: 25))
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
+            Text(comparisonSubtitle(session))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+            HStack(spacing: 5) {
+                ForEach(0..<CuratedOnboardingSession.targetAnswers, id: \.self) { index in
+                    Capsule()
+                        .fill(index < session.answerCount
+                            ? engine.accent
+                            : engine.accent.opacity(0.13))
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            .frame(height: 4)
+            .padding(.horizontal, 24)
+            .padding(.top, 3)
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 8)
+    }
+
+    private func comparisonSubtitle(_ session: CuratedOnboardingSession) -> String {
+        if session.answerCount < 3 {
+            return "Two editorially selected stories. No answer defines you."
+        }
+        if session.answerCount < CuratedOnboardingSession.minimumAnswers {
+            return "Topics, references, specialists, and distinctive voices."
+        }
+        if session.reachedTarget {
+            return "Your feed is ready. Keep going or inspect the result."
+        }
+        return "We have a first mix. A few more choices improve confidence."
+    }
+
+    private func alternativeButton(
+        _ title: String,
+        icon: String,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            Label(title, systemImage: icon)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 11)
+        }
+        .buttonStyle(.plain)
+        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 13))
+        .overlay(
+            RoundedRectangle(cornerRadius: 13)
+                .stroke(engine.accent.opacity(0.1), lineWidth: 0.5)
+        )
+        .accessibilityIdentifier("curated-choice-\(title.lowercased())")
+    }
+
+    private func candidateLoadingState(
+        _ session: CuratedOnboardingSession
+    ) -> some View {
+        VStack(spacing: 18) {
+            Spacer()
+            ZStack {
+                Circle()
+                    .stroke(engine.accent.opacity(0.12), lineWidth: 14)
+                    .frame(width: 118, height: 118)
+                Image(systemName: "point.3.connected.trianglepath.dotted")
+                    .font(.system(size: 42, weight: .light))
+                    .foregroundStyle(engine.accent)
+                    .symbolEffect(.pulse)
+            }
+            Text("Finding a fair comparison")
+                .font(.headline)
+            Text("Feedmine is using real stories arriving through the normal feed. Nothing is generated or sent away.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 36)
+
+            if candidateAttempts >= 5 {
+                Button("Start with a balanced feed") {
+                    withAnimation { stage = .review }
+                }
+                .buttonStyle(.bordered)
+            }
+            Spacer()
+        }
+    }
+
+    // MARK: - Review
+
+    @ViewBuilder
+    private var reviewPage: some View {
+        if let session {
+            ScrollView {
+                VStack(spacing: 20) {
+                    VStack(spacing: 8) {
+                        ZStack {
+                            Circle()
+                                .fill(engine.accent.opacity(0.12))
+                                .frame(width: 70, height: 70)
+                            Image(systemName: "slider.horizontal.3")
+                                .font(.system(size: 30, weight: .medium))
+                                .foregroundStyle(engine.accent)
+                        }
+                        Text("Your feed, in plain sight.")
+                            .font(engine.font(for: .articleHeadline, size: 29))
+                            .fontWeight(.bold)
+                        Text("These are preferences, not a personality verdict. Change anything before saving.")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 26)
+                    }
+                    .padding(.top, 12)
+
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("NAME")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.secondary)
+                        TextField("Curated Feed name", text: $feedName)
+                            .font(.headline)
+                            .padding(14)
+                            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                    }
+                    .padding(.horizontal, 22)
+
+                    CuratedProfileControls(
+                        profile: session.profile,
+                        accent: engine.accent,
+                        onTopicChange: { session.setTopicWeight($0, $1) },
+                        onEditorialChange: { session.setEditorialWeight($0, $1) },
+                        onDiscoveryChange: { session.setDiscoveryLevel($0) },
+                        onLearningChange: { session.setLearningEnabled($0) }
+                    )
+                    .padding(.horizontal, 22)
+
+                    Button {
+                        Task { await save(session) }
+                    } label: {
+                        Group {
+                            if isSaving {
+                                ProgressView().tint(.white)
+                            } else {
+                                Label("Save & open this feed", systemImage: "checkmark")
+                            }
+                        }
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 15)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle(radius: 16))
+                    .disabled(
+                        isSaving
+                            || feedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                    )
+                    .padding(.horizontal, 22)
+                    .accessibilityIdentifier("curated-save")
+
+                    Text("Stored only on this device. You can inspect, edit, duplicate, or delete it later.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 30)
+                        .padding(.bottom, 28)
+                }
+            }
+            .scrollIndicators(.hidden)
+        }
+    }
+
+    // MARK: - Actions
+
+    private func seedLanguageSelection() {
+        guard selectedLanguages.isEmpty else { return }
+        if !loader.selectedLanguages.isEmpty {
+            selectedLanguages = loader.selectedLanguages
+            return
+        }
+        if let deviceLanguage = CuratedPreferenceEngine.baseLanguage(
+            Locale.current.language.languageCode?.identifier
+        ) {
+            selectedLanguages = [deviceLanguage]
+        }
+    }
+
+    private func prepareDefaultName() {
+        Task {
+            let feeds = (try? await loader.loadCuratedFeeds()) ?? []
+            let count = feeds.count
+            if count > 0 {
+                feedName = "Curated Feed \(count + 1)"
+            }
+        }
+    }
+
+    private func startComparisons() {
+        loader.applyCuratedLanguages(selectedLanguages)
+        let newSession = CuratedOnboardingSession(languages: selectedLanguages)
+        session = newSession
+        candidateAttempts = 0
+        withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
+            stage = .comparisons
+        }
+        refreshCandidatePool()
+    }
+
+    private func refreshCandidatePool() {
+        candidateTask?.cancel()
+        candidateTask = Task { @MainActor in
+            for attempt in 0..<10 {
+                guard !Task.isCancelled, stage == .comparisons, let session else {
+                    return
+                }
+                candidateAttempts = attempt + 1
+                session.beginCandidateRefresh()
+                let candidates = await loader.curatedOnboardingCandidates(
+                    languages: selectedLanguages
+                )
+                guard !Task.isCancelled else { return }
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    session.updateCandidates(candidates)
+                }
+                if session.currentPair != nil { return }
+                try? await Task.sleep(for: .seconds(1.5))
+            }
+        }
+    }
+
+    private func answer(_ outcome: CuratedChoiceOutcome) {
+        guard let session else { return }
+        answerPulse += 1
+        withAnimation(.easeInOut(duration: 0.22)) {
+            session.answer(outcome)
+        }
+        if session.currentPair == nil && !session.isComplete {
+            refreshCandidatePool()
+        }
+        if session.isComplete {
+            withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
+                stage = .review
+            }
+        }
+    }
+
+    private func save(_ session: CuratedOnboardingSession) async {
+        isSaving = true
+        defer { isSaving = false }
+        do {
+            let saved = try await loader.createCuratedFeed(
+                name: feedName,
+                definition: session.profile
+            )
+            loader.setActivePreset(.curatedFeed(
+                curatedFeedID: saved.id,
+                curatedFeedName: saved.name
+            ))
+            onSaved(saved)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    private func goBack() {
+        withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
+            switch stage {
+            case .welcome: break
+            case .languages: stage = .welcome
+            case .comparisons:
+                candidateTask?.cancel()
+                stage = .languages
+            case .review:
+                stage = session?.answerCount ?? 0 > 0 ? .comparisons : .languages
+            }
+        }
+    }
+
+    private func fallbackFlag(for code: String) -> String {
+        let mapping = [
+            "en": "🌎", "pt": "🇧🇷", "es": "🇪🇸", "fr": "🇫🇷",
+            "de": "🇩🇪", "it": "🇮🇹", "ar": "🌍", "hi": "🇮🇳",
+            "zh": "🇨🇳", "ja": "🇯🇵", "he": "🇮🇱", "ru": "🌍",
+        ]
+        return mapping[code] ?? "🌐"
+    }
+}
+
+// MARK: - Reusable profile controls
+
+struct CuratedProfileControls: View {
+    let profile: CuratedProfileDefinition
+    let accent: Color
+    let onTopicChange: (CuratedTopic, Double) -> Void
+    let onEditorialChange: (CuratedEditorialStyle, Double) -> Void
+    let onDiscoveryChange: (Double) -> Void
+    let onLearningChange: (Bool) -> Void
+
+    @State private var showAllTopics = false
+
+    private var topics: [CuratedTopic] {
+        if showAllTopics { return CuratedTopic.allCases }
+        let learned = CuratedPreferenceEngine.topTopicWeights(
+            in: profile,
+            limit: 6
+        ).map(\.topic)
+        return learned.isEmpty
+            ? Array(CuratedTopic.allCases.prefix(6))
+            : learned
+    }
+
+    var body: some View {
+        VStack(spacing: 14) {
+            VStack(alignment: .leading, spacing: 14) {
+                HStack {
+                    Label("Interest mix", systemImage: "circle.hexagongrid.fill")
+                        .font(.headline)
+                    Spacer()
+                    Button(showAllTopics ? "Less" : "All topics") {
+                        withAnimation { showAllTopics.toggle() }
+                    }
+                    .font(.caption)
+                }
+
+                ForEach(topics) { topic in
+                    topicControl(topic)
+                }
+            }
+            .padding(16)
+            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 20))
+
+            VStack(alignment: .leading, spacing: 14) {
+                Label("Editorial range", systemImage: "text.book.closed.fill")
+                    .font(.headline)
+                Text("All sources clear the showcase quality floor. These controls describe the kind of editorial voice you want.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                ForEach(CuratedEditorialStyle.allCases) { style in
+                    editorialControl(style)
+                }
+            }
+            .padding(16)
+            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 20))
+
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Label("Discovery", systemImage: "safari.fill")
+                        .font(.headline)
+                    Spacer()
+                    Text("\(Int(profile.discoveryLevel * 100))%")
+                        .font(.subheadline)
+                        .monospacedDigit()
+                        .foregroundStyle(.secondary)
+                }
+                Slider(
+                    value: Binding(
+                        get: { profile.discoveryLevel },
+                        set: onDiscoveryChange
+                    ),
+                    in: 0...1
+                )
+                HStack {
+                    Text("Familiar")
+                    Spacer()
+                    Text("Exploratory")
+                }
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+
+                Divider()
+
+                Toggle(
+                    isOn: Binding(
+                        get: { profile.learningEnabled },
+                        set: onLearningChange
+                    )
+                ) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Keep learning")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                        Text("Only explicit opens and choices — never a passing scroll.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .tint(accent)
+            }
+            .padding(16)
+            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 20))
+        }
+    }
+
+    private func editorialControl(_ style: CuratedEditorialStyle) -> some View {
+        let weight = profile.weight(for: style.featureKey)
+        let confidence = profile.confidence(for: style.featureKey)
+        return VStack(spacing: 6) {
+            HStack(spacing: 9) {
+                Image(systemName: style.icon)
+                    .foregroundStyle(accent)
+                    .frame(width: 22)
+                Text(style.displayName)
+                    .font(.subheadline)
+                Spacer()
+                if confidence > 0 {
+                    Text(confidenceLabel(confidence))
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                Text(signedWeight(weight))
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .monospacedDigit()
+                    .frame(width: 38, alignment: .trailing)
+            }
+            Slider(
+                value: Binding(
+                    get: { weight },
+                    set: { onEditorialChange(style, $0) }
+                ),
+                in: -3...3,
+                step: 0.1
+            )
+            .tint(weight < 0 ? .secondary : accent)
+        }
+    }
+
+    private func topicControl(_ topic: CuratedTopic) -> some View {
+        let weight = profile.weight(for: topic.featureKey)
+        let confidence = profile.confidence(for: topic.featureKey)
+        return VStack(spacing: 6) {
+            HStack(spacing: 9) {
+                Image(systemName: topic.icon)
+                    .foregroundStyle(accent)
+                    .frame(width: 22)
+                Text(topic.displayName)
+                    .font(.subheadline)
+                    .lineLimit(1)
+                Spacer()
+                if confidence > 0 {
+                    Text(confidenceLabel(confidence))
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                Text(signedWeight(weight))
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .monospacedDigit()
+                    .frame(width: 38, alignment: .trailing)
+            }
+            Slider(
+                value: Binding(
+                    get: { weight },
+                    set: { onTopicChange(topic, $0) }
+                ),
+                in: -3...3,
+                step: 0.1
+            )
+            .tint(weight < 0 ? .secondary : accent)
+        }
+    }
+
+    private func signedWeight(_ value: Double) -> String {
+        let percentage = Int((value / 3) * 100)
+        return percentage > 0 ? "+\(percentage)" : "\(percentage)"
+    }
+
+    private func confidenceLabel(_ value: Double) -> String {
+        if value < 0.35 { return "learning" }
+        if value < 0.72 { return "medium" }
+        return "strong"
+    }
+}
+
+// MARK: - Story choice card
+
+private struct CuratedStoryChoiceCard: View {
+    let candidate: CuratedCandidate
+    let marker: String
+    let accent: Color
+    let action: () -> Void
+
+    @State private var imageFailed = false
+
+    var body: some View {
+        Button(action: action) {
+            VStack(alignment: .leading, spacing: 0) {
+                artwork
+                    .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                    .clipped()
+                    .overlay(alignment: .topLeading) {
+                        Text(marker)
+                            .font(.caption)
+                            .fontWeight(.black)
+                            .foregroundStyle(.white)
+                            .frame(width: 28, height: 28)
+                            .background(.black.opacity(0.62), in: Circle())
+                            .padding(8)
+                    }
+                    .overlay(alignment: .bottomLeading) {
+                        Label(candidate.topic.shortName, systemImage: candidate.topic.icon)
+                            .font(.caption2)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+                            .lineLimit(1)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 5)
+                            .background(.black.opacity(0.62), in: Capsule())
+                            .padding(8)
+                    }
+
+                VStack(alignment: .leading, spacing: 7) {
+                    HStack(spacing: 6) {
+                        Text(candidate.item.sourceTitle)
+                            .font(.caption2)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(accent)
+                            .lineLimit(1)
+                        Spacer(minLength: 4)
+                        Label(
+                            candidate.editorial.style.shortName,
+                            systemImage: candidate.editorial.style.icon
+                        )
+                        .font(.system(size: 9, weight: .bold))
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                    }
+                    Text(candidate.item.title)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(.primary)
+                        .lineLimit(4)
+                        .multilineTextAlignment(.leading)
+                    Spacer(minLength: 0)
+                    HStack(spacing: 4) {
+                        Image(systemName: "hand.tap")
+                        Text("I’d open this")
+                    }
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.secondary)
+                }
+                .padding(11)
+                .frame(
+                    maxWidth: .infinity,
+                    minHeight: 150,
+                    maxHeight: 150,
+                    alignment: .topLeading
+                )
+            }
+            .background(accent.opacity(0.035))
+            .clipShape(RoundedRectangle(cornerRadius: 18))
+            .overlay(
+                RoundedRectangle(cornerRadius: 18)
+                    .stroke(accent.opacity(0.12), lineWidth: 0.7)
+            )
+            .shadow(color: .black.opacity(0.055), radius: 12, y: 5)
+        }
+        .buttonStyle(CuratedPressStyle())
+        .accessibilityIdentifier("curated-choice-\(marker.lowercased())")
+    }
+
+    @ViewBuilder
+    private var artwork: some View {
+        GeometryReader { geometry in
+            ZStack {
+                LinearGradient(
+                    colors: [
+                        ComponentToken.categoryColor(for: candidate.item.category).opacity(0.48),
+                        accent.opacity(0.16),
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+                Image(systemName: candidate.topic.icon)
+                    .font(.system(size: 36, weight: .light))
+                    .foregroundStyle(.white.opacity(0.82))
+
+                if candidate.item.hasPotentialImage, !imageFailed {
+                    CachedAsyncImage(
+                        url: candidate.item.bestImageURL.flatMap(URL.init(string:)),
+                        articleURL: candidate.item.canResolveArticleImage
+                            ? URL(string: candidate.item.url) : nil,
+                        onResult: { success in imageFailed = !success }
+                    )
+                    .scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                }
+            }
+        }
+    }
+}
+
+private struct CuratedPressStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.975 : 1)
+            .brightness(configuration.isPressed ? -0.025 : 0)
+            .animation(.easeOut(duration: 0.14), value: configuration.isPressed)
+    }
+}
+
+// MARK: - Decorative artwork
+
+private struct CuratedBackdrop: View {
+    let accent: Color
+
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(accent.opacity(0.10))
+                .frame(width: 310, height: 310)
+                .blur(radius: 34)
+                .offset(x: 160, y: -260)
+            Circle()
+                .fill(Color.purple.opacity(0.055))
+                .frame(width: 260, height: 260)
+                .blur(radius: 42)
+                .offset(x: -170, y: 330)
+        }
+        .allowsHitTesting(false)
+    }
+}
+
+private struct CuratedOpenHoodGraphic: View {
+    let accent: Color
+
+    var body: some View {
+        GeometryReader { geometry in
+            let width = geometry.size.width
+            let height = geometry.size.height
+            ZStack {
+                RoundedRectangle(cornerRadius: 34)
+                    .fill(.ultraThinMaterial)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 34)
+                            .stroke(accent.opacity(0.14), lineWidth: 0.8)
+                    )
+
+                Path { path in
+                    let points = [
+                        CGPoint(x: width * 0.20, y: height * 0.30),
+                        CGPoint(x: width * 0.48, y: height * 0.18),
+                        CGPoint(x: width * 0.78, y: height * 0.34),
+                        CGPoint(x: width * 0.66, y: height * 0.72),
+                        CGPoint(x: width * 0.29, y: height * 0.76),
+                    ]
+                    path.move(to: points[0])
+                    for point in points.dropFirst() { path.addLine(to: point) }
+                    path.addLine(to: points[0])
+                    path.move(to: points[0])
+                    path.addLine(to: points[3])
+                    path.move(to: points[1])
+                    path.addLine(to: points[4])
+                    path.move(to: points[2])
+                    path.addLine(to: points[4])
+                }
+                .stroke(
+                    accent.opacity(0.22),
+                    style: StrokeStyle(lineWidth: 1.2, dash: [4, 6])
+                )
+
+                node("newspaper.fill", x: 0.20, y: 0.30, width: width, height: height)
+                node("globe.americas.fill", x: 0.48, y: 0.18, width: width, height: height)
+                node("atom", x: 0.78, y: 0.34, width: width, height: height)
+                node("music.note", x: 0.66, y: 0.72, width: width, height: height)
+                node("theatermasks.fill", x: 0.29, y: 0.76, width: width, height: height)
+
+                ZStack {
+                    Circle()
+                        .fill(accent)
+                        .frame(width: 76, height: 76)
+                        .shadow(color: accent.opacity(0.28), radius: 18, y: 7)
+                    Image(systemName: "slider.horizontal.3")
+                        .font(.system(size: 30, weight: .semibold))
+                        .foregroundStyle(.white)
+                }
+                .position(x: width * 0.5, y: height * 0.49)
+            }
+        }
+    }
+
+    private func node(
+        _ symbol: String,
+        x: Double,
+        y: Double,
+        width: Double,
+        height: Double
+    ) -> some View {
+        Image(systemName: symbol)
+            .font(.system(size: 18, weight: .medium))
+            .foregroundStyle(accent)
+            .frame(width: 45, height: 45)
+            .background(.regularMaterial, in: Circle())
+            .overlay(Circle().stroke(accent.opacity(0.15), lineWidth: 0.6))
+            .position(x: width * x, y: height * y)
+    }
+}

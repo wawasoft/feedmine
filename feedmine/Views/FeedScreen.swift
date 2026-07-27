@@ -41,6 +41,9 @@ struct FeedScreen: View {
     @State private var showCreateSmartFeedPrompt = false
     @State private var createSmartFeedName = ""
     @State private var showDeleteSmartFeedConfirmation = false
+    @State private var showCuratedOnboarding = false
+    @State private var showCuratedInspector = false
+    @State private var showDeleteCuratedFeedConfirmation = false
     @State private var showCatalogExplore = false
     @State private var showToast = false
     @State private var toastMessage = ""
@@ -68,7 +71,7 @@ struct FeedScreen: View {
     @State private var player = AudioPlayerManager.shared
 
     private var emptyMode: FeedEmptyMode {
-        let activeTopic = loader.activePreset.isSmartFeed
+        let activeTopic = (loader.activePreset.isSmartFeed || loader.activePreset.isCuratedFeed)
             ? loader.activePreset.displayName
             : loader.selectedNodeNames.joined(separator: ", ")
         if loader.sources.isEmpty || (!loader.isGlobalFeedsEnabled && !loader.isAnyCountryEnabled) {
@@ -102,7 +105,8 @@ struct FeedScreen: View {
                 && (loader.isPreparingInitialRunway
                     || loader.loadingState == .initial
                     || ((loader.activePreset.collectionID != nil
-                        || loader.activePreset.isSmartFeed)
+                        || loader.activePreset.isSmartFeed
+                        || loader.activePreset.isCuratedFeed)
                         && loader.loadingState == .refreshing)) {
                 InitialFeedLoadingView()
             } else if loader.items.isEmpty && loader.loadingState != .initial {
@@ -229,6 +233,23 @@ struct FeedScreen: View {
         }
         .sheet(isPresented: $showCollections) { CollectionManagementView() }
         .sheet(isPresented: $showExport) { ExportView() }
+        .fullScreenCover(isPresented: $showCuratedOnboarding) {
+            CuratedOnboardingView(
+                isFirstRun: false,
+                onCancel: { showCuratedOnboarding = false },
+                onSaved: { feed in
+                    showCuratedOnboarding = false
+                    toastMessage = "\(feed.name) is ready"
+                    toastIcon = "slider.horizontal.3"
+                    withAnimation { showToast = true }
+                }
+            )
+        }
+        .sheet(isPresented: $showCuratedInspector) {
+            if let curatedFeedID = loader.activePreset.curatedFeedID {
+                CuratedFeedInspectorView(curatedFeedID: curatedFeedID)
+            }
+        }
         .sheet(isPresented: $showCollectionExport) {
             if let collectionID = loader.activePreset.collectionID {
                 CollectionOPMLExportView(
@@ -281,6 +302,14 @@ struct FeedScreen: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This removes the saved search and its cache. It does not delete sources or articles from Feedmine.")
+        }
+        .alert("Delete Curated Feed?", isPresented: $showDeleteCuratedFeedConfirmation) {
+            Button("Delete", role: .destructive) {
+                Task { await deleteActiveCuratedFeed() }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This removes its preference profile. Sources and articles stay in Feedmine.")
         }
         .onDisappear {
             filterLensCollapseTask?.cancel()
@@ -374,6 +403,24 @@ struct FeedScreen: View {
                         .accessibilityLabel("Explore Catalog")
                     }
                     Menu {
+                        Button {
+                            showCuratedOnboarding = true
+                        } label: {
+                            Label("Create Curated Feed", systemImage: "wand.and.stars")
+                        }
+                        if loader.activePreset.isCuratedFeed {
+                            Button {
+                                showCuratedInspector = true
+                            } label: {
+                                Label("Open Curated Feed hood", systemImage: "slider.horizontal.3")
+                            }
+                            Button(role: .destructive) {
+                                showDeleteCuratedFeedConfirmation = true
+                            } label: {
+                                Label("Delete Curated Feed", systemImage: "trash")
+                            }
+                        }
+                        Divider()
                         if shouldOfferCreateSmartFeed {
                             Button { prepareSmartFeedFromSearch() } label: {
                                 Label(
@@ -1036,6 +1083,19 @@ struct FeedScreen: View {
             toastIcon = "trash"
         } catch {
             toastMessage = "Could not delete Smart Bookmark"
+            toastIcon = "exclamationmark.triangle"
+        }
+        withAnimation { showToast = true }
+    }
+
+    private func deleteActiveCuratedFeed() async {
+        guard let id = loader.activePreset.curatedFeedID else { return }
+        do {
+            try await loader.deleteCuratedFeed(id: id)
+            toastMessage = "Curated Feed deleted"
+            toastIcon = "trash"
+        } catch {
+            toastMessage = "Could not delete Curated Feed"
             toastIcon = "exclamationmark.triangle"
         }
         withAnimation { showToast = true }
