@@ -7,6 +7,8 @@ import Foundation
 final class SourceScheduler {
     private(set) var lastFetchedAt: [String: Date] = [:]
     private(set) var consecutiveFailures: [String: Int] = [:]
+    private var validators: [String: HTTPValidators] = [:]
+    private var estimators: [String: CadenceEstimator] = [:]
     private var consumptionTimestamps: [Date] = []
 
     // MARK: - Public API
@@ -259,12 +261,22 @@ final class SourceScheduler {
         }
     }
 
+    func loadValidators(url: String, _ v: HTTPValidators) {
+        if validators[url] == nil { validators[url] = v }
+    }
+
+    func loadEstimator(url: String, _ e: CadenceEstimator) {
+        if estimators[url] == nil { estimators[url] = e }
+    }
+
     /// Snapshot for saving to DB.
     struct HealthSnapshot {
         let lastFetchAt: Date
         let consecutiveFailures: Int
         let lastStatus: String?
         let lastItemCount: Int?
+        let validators: HTTPValidators
+        let estimator: CadenceEstimator
     }
 
     func healthSnapshot(for url: String, itemCount: Int? = nil) -> HealthSnapshot {
@@ -272,7 +284,9 @@ final class SourceScheduler {
             lastFetchAt: lastFetchedAt[url] ?? Date(timeIntervalSince1970: 0),
             consecutiveFailures: consecutiveFailures[url] ?? 0,
             lastStatus: consecutiveFailures[url, default: 0] > 0 ? "error" : "ok",
-            lastItemCount: itemCount
+            lastItemCount: itemCount,
+            validators: validators[url] ?? HTTPValidators(),
+            estimator: estimators[url] ?? CadenceEstimator()
         )
     }
 
