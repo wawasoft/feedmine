@@ -166,5 +166,6 @@ struct LanguageScene: View {
             .background { RoundedRectangle(cornerRadius: 14).fill(.thinMaterial) }
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier("language-\(language.code)")
     }
 }
