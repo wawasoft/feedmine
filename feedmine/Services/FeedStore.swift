@@ -1246,9 +1246,11 @@ final class FeedStore {
             let actualNew = await self.persistFetchedItems(result.items)
             guard !Task.isCancelled, !actualNew.isEmpty else { return }
 
+            // Prefetch BEFORE enqueuing — downloads start while reservoir
+            // processes interleaving/filtering, so images are cached by render time.
+            self.prefetchImagesIfEnabled(for: actualNew)
             self.collectWhatsNewCandidates(actualNew)
             self.throttledReservoirAppend(actualNew)
-            self.prefetchImagesIfEnabled(for: actualNew)
             await self.flushPendingReservoir()
             if !self.visibleItems.isEmpty {
                 self.isPreparingInitialRunway = false
@@ -3544,8 +3546,8 @@ final class FeedStore {
         // Bypass throttling: the user is waiting for taxonomy-filtered items.
         // Flush synchronously so items are committed to the reservoir BEFORE
         // the .refresh pipeline runs — the refresh must see the new items.
-        pendingReservoirItems.append(contentsOf: actualNew)
         prefetchImagesIfEnabled(for: actualNew)
+        pendingReservoirItems.append(contentsOf: actualNew)
         reservoirFlushTask?.cancel()
         await flushPendingReservoir()
 
@@ -3914,8 +3916,8 @@ final class FeedStore {
             }
             saveSourceHealthBatch(healthEntries)
             let actualNew = await persistFetchedItems(result.items)
-            throttledReservoirAppend(actualNew)
             prefetchImagesIfEnabled(for: actualNew)
+            throttledReservoirAppend(actualNew)
             if reservoir.reservoirCount < Reservoir.progressiveFillTarget {
                 await flushPendingReservoir()
             }

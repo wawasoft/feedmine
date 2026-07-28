@@ -97,9 +97,9 @@ final class WhatsNewManager {
             let actualNew = await persistFetchedItems(result.items)
             guard !Task.isCancelled else { return }
             if !actualNew.isEmpty {
+                prefetchImages(actualNew)
                 throttledReservoirAppend(actualNew)
                 collectCandidates(actualNew)
-                prefetchImages(actualNew)
                 for source in sources {
                     recordFetch(source.url, result.sourceOutcomes[source.url] ?? .failed(URLError(.unknown)))
                 }
