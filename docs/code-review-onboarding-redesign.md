@@ -10,7 +10,7 @@ O redesign ficou **muito melhor arquiteturalmente**: view monolítica dividida e
 
 ## Status dos Bloqueadores
 
-### Corrigidos (13 de 18)
+### Corrigidos (14 de 18)
 
 | # | Issue | Fix |
 |---|-------|-----|
@@ -29,14 +29,28 @@ O redesign ficou **muito melhor arquiteturalmente**: view monolítica dividida e
 | 15 | Regras com path nunca correspondem | `isOnboardingShowcase` faz split host+path |
 | 18 | answerDelayTask não cancelada | Cancelada no `onDisappear` + `DispatchWorkItem` cancelável |
 
+**Correções adicionais (pós segunda revisão):**
+- **weightChanges decoding**: `init(from:)` customizado com `decodeIfPresent` + fallback `[:]`. Curated Feeds antigos não quebram mais.
+- **Preview fora do body**: `previewItems` em `@State`, calculado ao entrar em `.review`. Não recalcula durante digitação no TextField.
+- **Snapshot de filtro**: `preOnboardingLanguages` só é salvo na primeira entrada (`if nil`).
+- **Undo + nome**: Botão Undo inferior agora chama `updateAutoName()`.
+
 ### Pendentes (5 itens)
 
 | # | Issue | Complexidade | Nota |
 |---|-------|-------------|------|
-| 8 | Prefetch do pool inteiro | Médio | `warmPairImages` já limita a 2 imagens/par. `curatedOnboardingCandidates()` carrega 1.200 itens do DB — otimização futura |
+| 8 | Prefetch do pool inteiro | Médio | `warmPairImages` limita a 2 imagens/par. `curatedOnboardingCandidates()` carrega 1.200 itens — otimização futura |
 | 9 | Processamento no MainActor | Alto | `makeCandidates()` faz NLP + 3.160 combinações na main thread — refactor grande |
+| 10 | Aquecimento não controla publicação | Médio | Par é publicado antes do aquecimento terminar — reordenar fluxo |
 | 16 | Multilíngues priorizados por um idioma | Médio | Usa `languages.first` — pré-existente |
 | 17 | Merge desfaz round-robin editorial | Médio | `updateCandidates()` reordena — pré-existente |
+
+### Fora do escopo (não introduzidos por esta branch)
+
+- Localização (textos em inglês)
+- Makefile (`pipefail`)
+- Migração de favoritos (`legacyCount > 1`)
+- Testes de unidade para as novas regras
 
 ---
 
