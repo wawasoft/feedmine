@@ -22,6 +22,14 @@ struct CuratedOnboardingView: View {
     @State private var errorMessage: String?
     @State private var answerPulse = 0
 
+    // Animation state
+    @State private var welcomeAppeared = false
+    @State private var headlineVisible = false
+    @State private var ctaVisible = false
+    @State private var choiceFeedback: (id: String, position: CGPoint)? = nil
+    @State private var constellationNodes: [CGPoint] = []
+    @Namespace private var cardNamespace
+
     let isFirstRun: Bool
     var onCancel: () -> Void = {}
     var onSaved: (CuratedFeed) -> Void = { _ in }
@@ -143,65 +151,147 @@ struct CuratedOnboardingView: View {
     // MARK: - Welcome
 
     private var welcomePage: some View {
-        VStack(spacing: 0) {
-            Spacer()
+        ZStack {
+            // Background: ghostly feed cards drifting behind heavy glass
+            feedCardsBehindGlass
 
-            // Single iconic symbol — the curation ring, animated subtly
-            ZStack {
-                Circle()
-                    .fill(engine.accent.opacity(0.08))
-                    .frame(width: 140, height: 140)
-                Circle()
-                    .stroke(engine.accent.opacity(0.18), lineWidth: 1.2)
-                    .frame(width: 118, height: 118)
-                Image(systemName: "slider.horizontal.3")
-                    .font(.system(size: 42, weight: .light))
-                    .foregroundStyle(engine.accent)
-                    .symbolEffect(.pulse, options: .repeating.speed(0.3))
-            }
-            .padding(.bottom, 40)
+            // Foreground content
+            VStack(spacing: 0) {
+                Spacer()
 
-            VStack(spacing: 16) {
-                Text("A feed that\nexplains itself.")
-                    .font(engine.font(for: .articleHeadline, size: 36))
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(4)
+                // Icon with orbiting ring
+                ZStack {
+                    Circle()
+                        .stroke(engine.accent.opacity(0.2), lineWidth: 1.5)
+                        .frame(width: 100, height: 100)
+                        .scaleEffect(welcomeAppeared ? 1 : 0.3)
+                        .opacity(welcomeAppeared ? 1 : 0)
 
+                    ForEach(0..<3, id: \.self) { i in
+                        Circle()
+                            .fill(engine.accent)
+                            .frame(width: 6, height: 6)
+                            .offset(y: -50)
+                            .rotationEffect(.degrees(Double(i) * 120 + (welcomeAppeared ? 360 : 0)))
+                            .animation(
+                                .linear(duration: 8).repeatForever(autoreverses: false),
+                                value: welcomeAppeared
+                            )
+                    }
+
+                    Image(systemName: "slider.horizontal.3")
+                        .font(.system(size: 34, weight: .light))
+                        .foregroundStyle(engine.accent)
+                        .scaleEffect(welcomeAppeared ? 1 : 0.5)
+                        .opacity(welcomeAppeared ? 1 : 0)
+                }
+                .padding(.bottom, 48)
+
+                // Headline — staggered word reveal
+                staggeredHeadline
+                    .padding(.bottom, 20)
+
+                // Body
                 Text("Choose between real stories. Feedmine learns what you want\nwithout guessing who you are — and shows every preference it creates.")
                     .font(.system(size: 16))
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .lineSpacing(5)
                     .padding(.horizontal, 32)
-            }
+                    .opacity(headlineVisible ? 1 : 0)
+                    .offset(y: headlineVisible ? 0 : 20)
 
-            Spacer()
+                Spacer()
 
-            VStack(spacing: 14) {
-                Button {
-                    withAnimation(.spring(response: 0.48, dampingFraction: 0.82)) {
-                        stage = .languages
+                // CTA
+                VStack(spacing: 14) {
+                    Button {
+                        withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                            stage = .languages
+                        }
+                    } label: {
+                        Text("Build my feed")
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
                     }
-                } label: {
-                    Text("Build my feed")
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.roundedRectangle(radius: 16))
-                .padding(.horizontal, 24)
-                .accessibilityIdentifier("curated-onboarding-start")
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.roundedRectangle(radius: 16))
+                    .padding(.horizontal, 24)
+                    .opacity(ctaVisible ? 1 : 0)
+                    .offset(y: ctaVisible ? 0 : 16)
+                    .accessibilityIdentifier("curated-onboarding-start")
 
-                Button(isFirstRun ? "Use Everything for now" : "Not now") {
-                    onCancel()
+                    Button(isFirstRun ? "Use Everything for now" : "Not now") {
+                        onCancel()
+                    }
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .opacity(ctaVisible ? 1 : 0)
                 }
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .padding(.bottom, 40)
             }
-            .padding(.bottom, 40)
         }
+        .onAppear {
+            animateWelcomeEntrance()
+        }
+    }
+
+    // Ghostly feed cards drifting behind heavy glass
+    private var feedCardsBehindGlass: some View {
+        ZStack {
+            // Simulated cards floating
+            ForEach(0..<6, id: \.self) { i in
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(.ultraThinMaterial)
+                    .frame(
+                        width: CGFloat.random(in: 140...200),
+                        height: CGFloat.random(in: 90...130)
+                    )
+                    .rotationEffect(.degrees(Double(i) * 23 + (welcomeAppeared ? 5 : -5)))
+                    .offset(
+                        x: CGFloat.random(in: -160...160),
+                        y: CGFloat.random(in: -260...260)
+                    )
+                    .opacity(welcomeAppeared ? Double.random(in: 0.25...0.5) : 0)
+                    .animation(
+                        .easeInOut(duration: 1.2)
+                            .delay(Double(i) * 0.12),
+                        value: welcomeAppeared
+                    )
+            }
+        }
+        .overlay(.ultraThinMaterial.opacity(0.92))
+        .allowsHitTesting(false)
+    }
+
+    // Word-by-word headline reveal
+    private var staggeredHeadline: some View {
+        let words = ["A feed that", "explains itself."]
+        return VStack(spacing: 4) {
+            ForEach(Array(words.enumerated()), id: \.offset) { i, line in
+                Text(line)
+                    .font(engine.font(for: .articleHeadline, size: 38))
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .opacity(headlineVisible ? 1 : 0)
+                    .offset(y: headlineVisible ? 0 : 24)
+                    .blur(radius: headlineVisible ? 0 : 8)
+                    .animation(
+                        .spring(response: 0.6, dampingFraction: 0.7)
+                            .delay(0.25 + Double(i) * 0.18),
+                        value: headlineVisible
+                    )
+            }
+        }
+    }
+
+    private func animateWelcomeEntrance() {
+        withAnimation(.easeOut(duration: 0.6)) { welcomeAppeared = true }
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.35)) {
+            headlineVisible = true
+        }
+        withAnimation(.easeOut(duration: 0.5).delay(0.9)) { ctaVisible = true }
     }
 
     // MARK: - Languages
@@ -336,11 +426,11 @@ struct CuratedOnboardingView: View {
     @ViewBuilder
     private var comparisonPage: some View {
         if let session {
-            VStack(spacing: 14) {
+            VStack(spacing: 10) {
                 comparisonHeader(session)
 
                 if let pair = session.currentPair {
-                    VStack(spacing: 14) {
+                    VStack(spacing: 10) {
                         HStack(alignment: .top, spacing: 12) {
                             CuratedStoryChoiceCard(
                                 candidate: pair.left,
@@ -349,6 +439,8 @@ struct CuratedOnboardingView: View {
                             ) {
                                 answer(.left)
                             }
+                            .matchedGeometryEffect(id: "card-left", in: cardNamespace)
+
                             CuratedStoryChoiceCard(
                                 candidate: pair.right,
                                 marker: "B",
@@ -356,9 +448,15 @@ struct CuratedOnboardingView: View {
                             ) {
                                 answer(.right)
                             }
+                            .matchedGeometryEffect(id: "card-right", in: cardNamespace)
                         }
                         .id(pair.id)
-                        .transition(.opacity.combined(with: .scale(scale: 0.97)))
+                        .transition(
+                            .asymmetric(
+                                insertion: .move(edge: .bottom).combined(with: .opacity),
+                                removal: .move(edge: .top).combined(with: .opacity)
+                            )
+                        )
 
                         HStack(spacing: 10) {
                             alternativeButton("Both", icon: "square.on.square") {
@@ -371,17 +469,20 @@ struct CuratedOnboardingView: View {
 
                         HStack {
                             Button {
-                                withAnimation { session.undo() }
+                                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                    session.undo()
+                                }
                             } label: {
                                 Label("Undo", systemImage: "arrow.uturn.backward")
                             }
                             .disabled(!session.canUndo)
+                            .opacity(session.canUndo ? 1 : 0.3)
 
                             Spacer()
 
                             if session.canFinish {
                                 Button(session.reachedTarget ? "Review my feed" : "Finish now") {
-                                    withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
+                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
                                         stage = .review
                                     }
                                 }
@@ -403,7 +504,7 @@ struct CuratedOnboardingView: View {
     }
 
     private func comparisonHeader(_ session: CuratedOnboardingSession) -> some View {
-        VStack(spacing: 7) {
+        VStack(spacing: 8) {
             Text("Which would you open first?")
                 .font(engine.font(for: .articleHeadline, size: 25))
                 .fontWeight(.bold)
@@ -412,24 +513,30 @@ struct CuratedOnboardingView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-            HStack(spacing: 6) {
-                ZStack {
+
+            // Constellation progress: dots connect as answers accumulate
+            HStack(spacing: 5) {
+                ForEach(0..<CuratedOnboardingSession.targetAnswers, id: \.self) { i in
                     Circle()
-                        .stroke(engine.accent.opacity(0.13), lineWidth: 3)
-                        .frame(width: 28, height: 28)
-                    Circle()
-                        .trim(from: 0, to: session.progress)
-                        .stroke(engine.accent, style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                        .frame(width: 28, height: 28)
-                        .rotationEffect(.degrees(-90))
-                        .animation(.easeInOut(duration: 0.5), value: session.progress)
+                        .fill(i < session.answerCount ? engine.accent : engine.accent.opacity(0.15))
+                        .frame(
+                            width: i < session.answerCount ? 8 : 5,
+                            height: i < session.answerCount ? 8 : 5
+                        )
+                        .scaleEffect(i == session.answerCount ? 1.4 : 1)
+                        .animation(.spring(response: 0.35, dampingFraction: 0.55), value: session.answerCount)
                 }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 4)
+
+            if session.answerCount > 0 {
                 Text("\(session.answerCount) of \(CuratedOnboardingSession.targetAnswers)")
-                    .font(.caption)
+                    .font(.caption2)
                     .fontWeight(.medium)
                     .foregroundStyle(.secondary)
+                    .transition(.opacity.combined(with: .scale))
             }
-            .padding(.top, 3)
         }
         .padding(.horizontal, 20)
         .padding(.top, 8)
@@ -472,20 +579,33 @@ struct CuratedOnboardingView: View {
     private func candidateLoadingState(
         _ session: CuratedOnboardingSession
     ) -> some View {
-        VStack(spacing: 18) {
+        VStack(spacing: 20) {
             Spacer()
+            // Animated orbiting dots
             ZStack {
-                Circle()
-                    .stroke(engine.accent.opacity(0.12), lineWidth: 14)
-                    .frame(width: 118, height: 118)
+                ForEach(0..<5, id: \.self) { i in
+                    Circle()
+                        .fill(engine.accent.opacity(0.5))
+                        .frame(width: 8, height: 8)
+                        .offset(y: -54)
+                        .rotationEffect(.degrees(Double(i) * 72))
+                        .opacity(0.3 + 0.7 * abs(sin(Double(i) * 0.8)))
+                }
                 Image(systemName: "point.3.connected.trianglepath.dotted")
-                    .font(.system(size: 42, weight: .light))
+                    .font(.system(size: 38, weight: .light))
                     .foregroundStyle(engine.accent)
-                    .symbolEffect(.pulse)
+                    .symbolEffect(.pulse, options: .repeating.speed(0.8))
             }
+            .frame(width: 120, height: 120)
+            .rotationEffect(.degrees(candidateAttempts > 0 ? 360 : 0))
+            .animation(
+                .linear(duration: 4).repeatForever(autoreverses: false),
+                value: candidateAttempts
+            )
+
             Text("Finding a fair comparison")
                 .font(.headline)
-            Text("Feedmine is using real stories arriving through the normal feed. Nothing is generated or sent away.")
+            Text("Feedmine is using real stories arriving through the normal feed.\nNothing is generated or sent away.")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -493,9 +613,12 @@ struct CuratedOnboardingView: View {
 
             if candidateAttempts >= 5 {
                 Button("Start with a balanced feed") {
-                    withAnimation { stage = .review }
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                        stage = .review
+                    }
                 }
                 .buttonStyle(.bordered)
+                .transition(.opacity.combined(with: .scale))
             }
             Spacer()
         }
@@ -645,16 +768,38 @@ struct CuratedOnboardingView: View {
 
     private func answer(_ outcome: CuratedChoiceOutcome) {
         guard let session else { return }
-        answerPulse += 1
-        withAnimation(.easeInOut(duration: 0.22)) {
+
+        // Celebration feedback sequence
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
+            answerPulse += 1
             session.answer(outcome)
         }
-        if session.currentPair == nil && !session.isComplete {
-            refreshCandidatePool()
+
+        // Haptic
+        let impact = UIImpactFeedbackGenerator(style: .medium)
+        impact.impactOccurred()
+
+        // If reached target, a stronger celebration
+        if session.reachedTarget && !session.isComplete {
+            let heavyImpact = UIImpactFeedbackGenerator(style: .heavy)
+            heavyImpact.impactOccurred()
         }
+
+        if session.currentPair == nil && !session.isComplete {
+            // Brief pause for the user to see the constellation update, then load next pair
+            Task {
+                try? await Task.sleep(for: .milliseconds(350))
+                refreshCandidatePool()
+            }
+        }
+
         if session.isComplete {
-            withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
-                stage = .review
+            // Dramatic pause before review reveal
+            Task {
+                try? await Task.sleep(for: .milliseconds(500))
+                withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                    stage = .review
+                }
             }
         }
     }
