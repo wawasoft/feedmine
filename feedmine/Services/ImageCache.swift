@@ -122,7 +122,10 @@ enum ImageLog {
         logger.debug("Download OK: \(url.lastPathComponent, privacy: .public) — \(size) bytes")
     }
     static func httpError(_ url: URL, status: Int) {
-        logger.warning("HTTP \(status): \(url.absoluteString, privacy: .public)")
+        // Log host + hash only — absoluteString may carry tokens, signed
+        // parameters, or campaign identifiers that should never appear in
+        // plaintext logs (even local ones).
+        logger.warning("HTTP \(status): host=\(url.host ?? "?", privacy: .public) path=\(url.path, privacy: .private(mask: .hash))")
     }
     static func invalidImage(_ url: URL, reason: String) {
         logger.warning("Invalid image: \(url.lastPathComponent, privacy: .public) — \(reason, privacy: .public)")
@@ -710,13 +713,30 @@ final class ImageCache {
     }
 
     /// Two-phase warm: disk I/O + downsample off MainActor, NSCache insert on MainActor.
+    /// Phase 1: enumerate all files to compute true disk usage (not just the 50 newest).
+    /// Phase 2: warm the 50 most-recent images into the memory cache.
     private func warmMemoryCache() async {
-        let preloaded: [(key: String, image: UIImage, byteCount: Int)] = await Task.detached {
+        let (preloaded, totalDiskSize): (
+            [(key: String, image: UIImage, byteCount: Int)],
+            Int
+        ) = await Task.detached {
             guard let files = try? FileManager.default.contentsOfDirectory(
-                at: self.diskCacheURL, includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey],
+                at: self.diskCacheURL, includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey,
+                                                                     .totalFileAllocatedSizeKey],
                 options: .skipsHiddenFiles
-            ) else { return [] }
+            ) else { return ([], 0) }
 
+            // Phase 1: sum the true disk usage of ALL files.
+            // Using totalFileAllocatedSize when available (iOS 14+) because it
+            // accounts for block-rounding overhead; fall back to fileSize.
+            var totalBytes = 0
+            for fileURL in files {
+                if let values = try? fileURL.resourceValues(forKeys: [.totalFileAllocatedSizeKey, .fileSizeKey]) {
+                    totalBytes += values.totalFileAllocatedSize ?? values.fileSize ?? 0
+                }
+            }
+
+            // Phase 2: warm only the 50 most-recent images into memory.
             let sorted = files.sorted { url1, url2 in
                 let d1 = (try? url1.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? .distantPast
                 let d2 = (try? url2.resourceValues(forKeys: [.contentModificationDateKey]))?.contentModificationDate ?? .distantPast
@@ -731,22 +751,27 @@ final class ImageCache {
                       let img = Self.downsample(data: data) else { continue }
                 result.append((fileURL.lastPathComponent, img, data.count))
             }
-            return result
+            return (result, totalBytes)
         }.value
 
-        var totalSize = 0
+        // Insert into NSCache on MainActor
         for entry in preloaded {
             let cost = Int(entry.image.size.width * entry.image.size.height * 4)
             memoryCache.setObject(entry.image, forKey: entry.key as NSString, cost: cost)
-            totalSize += entry.byteCount
         }
-        diskCacheSize = totalSize
+
+        // Use the real total, not just the warmed subset
+        diskCacheSize = totalDiskSize
+
+        // If the true size already exceeds the limit at startup (e.g. after an
+        // upgrade that fixed this very bug), evict immediately.
+        if diskCacheSize > Self.maxDiskCacheSize {
+            await evictToTarget()
+        }
     }
 
-    private func didWriteToDisk(bytes: Int) {
-        diskCacheSize += bytes
-        guard diskCacheSize > Self.maxDiskCacheSize else { return }
-
+    /// Evict oldest files until disk usage falls below 80% of the cap.
+    private func evictToTarget() async {
         let target = Self.maxDiskCacheSize * 8 / 10
         guard let files = try? fileManager.contentsOfDirectory(
             at: diskCacheURL, includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey],
@@ -766,8 +791,18 @@ final class ImageCache {
                 freed += size
             }
             try? fileManager.removeItem(at: fileURL)
+            // Also evict from memory cache
+            memoryCache.removeObject(forKey: fileURL.lastPathComponent as NSString)
         }
-        diskCacheSize -= freed
+        diskCacheSize = max(0, diskCacheSize - freed)
+    }
+
+    /// Called after every successful disk write. Increments the running total
+    /// and triggers eviction if the cap is exceeded.
+    private func didWriteToDisk(bytes: Int) {
+        diskCacheSize += bytes
+        guard diskCacheSize > Self.maxDiskCacheSize else { return }
+        Task { await evictToTarget() }
     }
 }
 

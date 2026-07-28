@@ -174,6 +174,7 @@ final class AudioPlayerManager {
             MPNowPlayingInfoPropertyPlaybackRate: isPlaying ? 1.0 : 0.0,
             MPNowPlayingInfoPropertyMediaType: MPNowPlayingInfoMediaType.audio.rawValue,
             MPNowPlayingInfoPropertyAssetURL: item.audioPlaybackURL?.absoluteString ?? "",
+            "feedmineItemID": item.id,  // guards against stale artwork from rapid skips
         ]
         // Add excerpt as description for richer lock screen info
         if !item.excerpt.isEmpty {
@@ -186,13 +187,20 @@ final class AudioPlayerManager {
         if let urlString = item.bestImageURL ?? item.imageURL,
            let url = URL(string: urlString),
            let data = ImageCache.shared.cachedImageData(for: url) {
+            let capturedID = item.id  // guard against rapid episode switches
             Task.detached { [info] in
                 let artwork = MPMediaItemArtwork(boundsSize: CGSize(width: 600, height: 600)) { _ in
                     UIImage(data: data) ?? UIImage()
                 }
                 var updated = info
                 updated[MPMediaItemPropertyArtwork] = artwork
-                MPNowPlayingInfoCenter.default().nowPlayingInfo = updated
+                // Only publish if the now-playing item hasn't changed since
+                // we captured the ID. Otherwise a fast skip leaves stale
+                // artwork on the lock screen for the new episode.
+                if let nowPlayingID = MPNowPlayingInfoCenter.default().nowPlayingInfo?["feedmineItemID"] as? String,
+                   nowPlayingID == capturedID {
+                    MPNowPlayingInfoCenter.default().nowPlayingInfo = updated
+                }
             }
         } else {
             MPNowPlayingInfoCenter.default().nowPlayingInfo = info
@@ -291,11 +299,18 @@ final class AudioPlayerManager {
             queue: .main
         ) { [weak self] _ in
             Task { @MainActor [weak self] in
-                self?.isPlaying = false
-                self?.updateNowPlaying()
-                // Clear saved position — episode finished
+                guard let self else { return }
+                isPlaying = false
+                updateNowPlaying()
+                // Clear saved position — episode finished.
+                // Must remove the per-episode key used by savePosition(),
+                // not the bare savedPositionKey constant.
+                if let id = currentItem?.id {
+                    UserDefaults.standard.removeObject(
+                        forKey: "\(Self.savedPositionKey).\(id)"
+                    )
+                }
                 UserDefaults.standard.removeObject(forKey: Self.savedItemIDKey)
-                UserDefaults.standard.removeObject(forKey: Self.savedPositionKey)
             }
         }
 

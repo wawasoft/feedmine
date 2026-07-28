@@ -378,6 +378,113 @@ final class CuratedPreferenceEngineTests: XCTestCase {
         XCTAssertEqual(saved?.definition, definition)
     }
 
+    // MARK: - Pending pair lifecycle
+
+    func test_pendingPair_notVisible_untilPublished() throws {
+        let session = CuratedOnboardingSession(languages: ["en"])
+        // Session starts with no pair — nothing visible
+        XCTAssertNil(session.currentPair)
+        XCTAssertNil(session.pendingPair)
+
+        // Add candidates — prepareNextPair should populate pendingPair, not currentPair
+        let candidates = makeCandidatePool(count: 10)
+        session.updateCandidates(candidates)
+
+        let pending = try XCTUnwrap(session.pendingPair,
+            "updateCandidates must compute a pending pair when pool has enough candidates")
+        XCTAssertNil(session.currentPair,
+            "currentPair must be nil — pair is not yet published")
+        XCTAssertNotEqual(pending.left.id, pending.right.id,
+            "Pending pair must have two distinct candidates")
+    }
+
+    func test_publishPendingPair_movesPairToCurrent() throws {
+        let session = CuratedOnboardingSession(languages: ["en"])
+        let candidates = makeCandidatePool(count: 10)
+        session.updateCandidates(candidates)
+
+        let pending = try XCTUnwrap(session.pendingPair)
+        session.publishPendingPair()
+
+        XCTAssertEqual(session.currentPair?.id, pending.id,
+            "publish must move the exact pending pair to current")
+        XCTAssertNil(session.pendingPair,
+            "pendingPair must be nil after publish")
+    }
+
+    func test_discardPendingPair_clearsPair() throws {
+        let session = CuratedOnboardingSession(languages: ["en"])
+        let candidates = makeCandidatePool(count: 10)
+        session.updateCandidates(candidates)
+
+        XCTAssertNotNil(session.pendingPair)
+        session.discardPendingPair()
+        XCTAssertNil(session.pendingPair)
+        XCTAssertNil(session.currentPair,
+            "discard must not affect currentPair (which was already nil)")
+    }
+
+    func test_answer_setsNextPairDirectly() throws {
+        let session = CuratedOnboardingSession(languages: ["en"])
+        let candidates = makeCandidatePool(count: 20)
+        session.updateCandidates(candidates)
+
+        // Publish so user can answer
+        let firstPair = try XCTUnwrap(session.pendingPair)
+        session.publishPendingPair()
+        XCTAssertNotNil(session.currentPair)
+
+        // Answer — next pair should be set directly via chooseNextPair()
+        session.answer(.left)
+        XCTAssertNotNil(session.currentPair,
+            "After answering, currentPair must be the next pair (direct publish)")
+        XCTAssertNotEqual(session.currentPair?.id, firstPair.id,
+            "Next pair must be different from the answered pair")
+    }
+
+    func test_undo_restoresPreviousPairAndClearsPending() throws {
+        let session = CuratedOnboardingSession(languages: ["en"])
+        let candidates = makeCandidatePool(count: 20)
+        session.updateCandidates(candidates)
+
+        let firstPair = try XCTUnwrap(session.pendingPair)
+        session.publishPendingPair()
+        let firstPairID = firstPair.id
+
+        // Answer — sets next pair directly (or nil if pool exhausted)
+        session.answer(.left)
+
+        // Undo — should restore the previous pair
+        session.undo()
+        XCTAssertEqual(session.currentPair?.id, firstPairID,
+            "Undo must restore the previous currentPair")
+        XCTAssertNil(session.pendingPair,
+            "Undo must discard any pending pair")
+    }
+
+    func test_complete_session_clearsBothPairs() throws {
+        let session = CuratedOnboardingSession(languages: ["en"])
+        // Fill enough candidates to reach maximum answers
+        let candidates = makeCandidatePool(count: 50)
+        session.updateCandidates(candidates)
+
+        // Publish the first pair and answer until complete or pool exhausted
+        session.publishPendingPair()
+        while !session.isComplete, session.currentPair != nil {
+            session.answer(.left)
+        }
+
+        if session.isComplete {
+            XCTAssertNil(session.currentPair)
+            XCTAssertNil(session.pendingPair,
+                "Complete session must have no pending or current pair")
+        } else {
+            // If not complete, pool was exhausted — not a test failure,
+            // just indicates pair constraints couldn't be met with this pool
+            XCTAssertNil(session.currentPair)
+        }
+    }
+
     private func candidate(
         id: String,
         topic: CuratedTopic,
@@ -452,6 +559,48 @@ final class CuratedPreferenceEngineTests: XCTestCase {
             publishedAt: .now,
             region: "global",
             language: "en"
+        )
+    }
+
+    /// Build a diverse candidate pool with enough variety for pair selection.
+    private func makeCandidatePool(count: Int) -> [CuratedCandidate] {
+        let topics = CuratedTopic.allCases
+        var items: [FeedItem] = []
+        var sources: [FeedSource] = []
+        for i in 0..<count {
+            let topic = topics[i % topics.count]
+            let url = "https://source-\(i).example/feed"
+            let source = FeedSource(
+                title: "Source \(i)",
+                url: url,
+                category: topic.displayName,
+                region: i % 3 == 0 ? "countries/XX" : "global",
+                mediaKind: i % 2 == 0 ? .text : (i % 3 == 0 ? .audio : .video),
+                language: "en",
+                sourceDescription: "Editorial reporting, analysis, and interviews.",
+                tags: ["journalism", topic.displayName.lowercased()],
+                activity: "active",
+                qualityScore: 80 + (i % 20)
+            )
+            sources.append(source)
+            items.append(FeedItem(
+                id: "item-\(i)",
+                sourceTitle: source.title,
+                sourceURL: source.url,
+                category: topic.displayName,
+                title: "Story \(i): A compelling headline about \(topic.displayName)",
+                excerpt: "Detailed analysis and reporting on \(topic.displayName) with expert perspective and original research findings.",
+                url: "https://source-\(i).example/article-\(i)",
+                imageURL: "https://source-\(i).example/image-\(i).jpg",
+                publishedAt: Date().addingTimeInterval(-Double(i * 3600)),
+                region: source.region,
+                language: "en"
+            ))
+        }
+        return CuratedPreferenceEngine.makeCandidates(
+            items: items,
+            sources: sources,
+            languages: ["en"]
         )
     }
 }

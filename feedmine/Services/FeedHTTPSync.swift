@@ -13,17 +13,21 @@ actor FeedHTTPSync {
         "Accept": "application/rss+xml, application/atom+xml, application/feed+json, application/json, application/xml, text/xml;q=0.9"
     ]
 
-    init() {
-        let cache = URLCache(memoryCapacity: 4_194_304, diskCapacity: 20_971_520)
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 15
-        config.timeoutIntervalForResource = 30
-        config.waitsForConnectivity = true
-        config.allowsCellularAccess = true
-        config.httpMaximumConnectionsPerHost = 2
-        config.urlCache = cache
-        config.httpAdditionalHeaders = Self.requestHeaders
-        self.session = URLSession(configuration: config)
+    init(session: URLSession? = nil) {
+        if let session {
+            self.session = session
+        } else {
+            let cache = URLCache(memoryCapacity: 4_194_304, diskCapacity: 20_971_520)
+            let config = URLSessionConfiguration.default
+            config.timeoutIntervalForRequest = 15
+            config.timeoutIntervalForResource = 30
+            config.waitsForConnectivity = true
+            config.allowsCellularAccess = true
+            config.httpMaximumConnectionsPerHost = 2
+            config.urlCache = cache
+            config.httpAdditionalHeaders = Self.requestHeaders
+            self.session = URLSession(configuration: config)
+        }
     }
 
     /// Fetch a feed with conditional GET semantics.
@@ -41,7 +45,7 @@ actor FeedHTTPSync {
             )
         }
 
-        guard let url = URL(string: source.url) else {
+        guard let originalURL = URL(string: source.url) else {
             return FetchHTTPResult(
                 data: nil,
                 outcome: .failed(URLError(.badURL)),
@@ -49,6 +53,19 @@ actor FeedHTTPSync {
                 canonicalURL: nil
             )
         }
+
+        // Upgrade http:// → https:// automatically.
+        // ATS blocks URLSession HTTP connections (NSAllowsArbitraryLoadsForMedia
+        // only exempts AVFoundation). Most HTTP feeds in the catalog (Blogspot,
+        // Feedburner, etc.) serve the same content over HTTPS — the catalog just
+        // wasn't compiled with canonical HTTPS URLs. This upgrade makes those
+        // feeds work without per-domain ATS exceptions.
+        let url: URL = {
+            guard originalURL.scheme == "http" else { return originalURL }
+            var components = URLComponents(url: originalURL, resolvingAgainstBaseURL: false)
+            components?.scheme = "https"
+            return components?.url ?? originalURL
+        }()
 
         var request = URLRequest(url: url)
         request.timeoutInterval = 15
@@ -62,7 +79,7 @@ actor FeedHTTPSync {
         }
 
         do {
-            let (data, response) = try await session.data(for: request)
+            let (asyncBytes, response) = try await session.bytes(for: request)
             guard let httpResponse = response as? HTTPURLResponse else {
                 return FetchHTTPResult(
                     data: nil,
@@ -76,16 +93,6 @@ actor FeedHTTPSync {
             updated.lastFetchAt = Date()
 
             switch httpResponse.statusCode {
-            case 200:
-                updated = extractValidators(from: httpResponse, into: updated)
-                let canonicalURL = httpResponse.url?.absoluteString
-                return FetchHTTPResult(
-                    data: data,
-                    outcome: .success(data),
-                    updatedValidators: updated,
-                    canonicalURL: canonicalURL
-                )
-
             case 304:
                 updated = extractValidators(from: httpResponse, into: updated)
                 updated.lastOutcome = .notModified
@@ -107,16 +114,39 @@ actor FeedHTTPSync {
                     canonicalURL: nil
                 )
 
-            case 301, 302, 307, 308:
-                // Followed automatically by URLSession. Record canonical URL.
-                let canonicalURL = httpResponse.url?.absoluteString
-                // Re-fetch is handled by URLSession's redirect — data is the final response.
-                // If we got here, the final response was 200 and data is available.
+            case 200, 301, 302, 307, 308:
+                // Stream body with a hard ceiling to prevent a malicious or
+                // misconfigured endpoint from exhausting memory. 20 MB covers
+                // even the chattiest daily RSS feeds while rejecting accidental
+                // non-feed responses (HTML dumps, binaries).
+                let maxFeedBytes = 20_971_520 // 20 MB
+                var accumulator = Data()
+                accumulator.reserveCapacity(1_048_576) // 1 MB initial
+                for try await byte in asyncBytes {
+                    guard accumulator.count < maxFeedBytes else {
+                        throw URLError(.dataLengthExceedsMaximum)
+                    }
+                    accumulator.append(byte)
+                }
+
                 updated = extractValidators(from: httpResponse, into: updated)
-                updated.canonicalURL = canonicalURL
+
+                if httpResponse.statusCode == 301 || httpResponse.statusCode == 302
+                    || httpResponse.statusCode == 307 || httpResponse.statusCode == 308 {
+                    let canonicalURL = httpResponse.url?.absoluteString
+                    updated.canonicalURL = canonicalURL
+                    return FetchHTTPResult(
+                        data: accumulator,
+                        outcome: .success(accumulator),
+                        updatedValidators: updated,
+                        canonicalURL: canonicalURL
+                    )
+                }
+
+                let canonicalURL = httpResponse.url?.absoluteString
                 return FetchHTTPResult(
-                    data: data,
-                    outcome: .success(data),
+                    data: accumulator,
+                    outcome: .success(accumulator),
                     updatedValidators: updated,
                     canonicalURL: canonicalURL
                 )

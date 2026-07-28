@@ -143,7 +143,9 @@ final class WhatsNewManager {
             var seen = Set<String>()
             whatsNewPool = items.filter { seen.insert($0.sourceURL).inserted }
             promoteWhatsNewIfReady(markSurfaced: markSurfaced)
-        } catch {}
+        } catch {
+            Log.db.error("Failed to refresh What's New pool: \(error)")
+        }
     }
 
     /// Replace visible carousel items in-place — used by the immediate filter

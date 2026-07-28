@@ -482,6 +482,7 @@ struct CuratedOnboardingView: View {
 
                         HStack {
                             Button {
+                                answerDelayTask?.cancel()
                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                                     session.undo()
                                 }
@@ -775,13 +776,16 @@ struct CuratedOnboardingView: View {
                     session.updateCandidates(candidates)
                 }
 
-                // Warm images for the current pair before showing cards.
-                // The "Finding a fair comparison" state now does real work.
-                if let pair = session.currentPair {
+                // Warm images for the pending pair BEFORE publishing it.
+                // Cards must never render with placeholder gradients.
+                if let pair = session.pendingPair {
                     await warmPairImages(pair)
+                    guard !Task.isCancelled else { return }
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        session.publishPendingPair()
+                    }
                     return
                 }
-
                 // No pair yet — wait and retry.
                 try? await Task.sleep(for: .seconds(1.5))
             }
@@ -789,8 +793,9 @@ struct CuratedOnboardingView: View {
     }
 
     /// Pre-load images for both cards in a pair so they render with photos,
-    /// not placeholder gradients. Actually initiates the download (unlike the
-    /// previous version which only polled). Times out at 4 seconds.
+    /// not placeholder gradients. Waits for BOTH images — cards must never
+    /// appear with one loaded and one still downloading. Times out at 4
+    /// seconds so onboarding never stalls.
     private func warmPairImages(_ pair: CuratedComparisonPair) async {
         let urlStrings = [pair.left, pair.right].compactMap {
             $0.item.bestImageURL ?? $0.item.imageURL
@@ -803,17 +808,20 @@ struct CuratedOnboardingView: View {
         // Initiate prefetch through the loader's prefetcher
         await loader.prefetcher.prefetch(urls: urls.map(\.absoluteString), priorityURLs: urls.map(\.absoluteString))
 
-        // Wait up to 4 seconds for at least one to land in cache
+        // Wait up to 4 seconds for ALL available images to land in cache.
         let deadline = Date().addingTimeInterval(4)
         while Date() < deadline {
             if Task.isCancelled { break }
-            if urls.contains(where: { ImageCache.hasCachedImageData(for: $0) }) { break }
+            if urls.allSatisfy({ ImageCache.hasCachedImageData(for: $0) }) { return }
             try? await Task.sleep(for: .milliseconds(150))
         }
     }
 
     private func answer(_ outcome: CuratedChoiceOutcome) {
         guard let session else { return }
+
+        // Cancel any in-flight warming from the previous answer
+        answerDelayTask?.cancel()
 
         // Celebration feedback sequence
         withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
@@ -831,6 +839,14 @@ struct CuratedOnboardingView: View {
             let heavyImpact = UIImpactFeedbackGenerator(style: .heavy)
             heavyImpact.prepare()
             heavyImpact.impactOccurred()
+        }
+
+        // session.answer(outcome) sets the next pair directly via chooseNextPair().
+        // Warm images for the newly visible pair in the background.
+        if let nextPair = session.currentPair {
+            answerDelayTask = Task { @MainActor in
+                await warmPairImages(nextPair)
+            }
         }
 
         if session.currentPair == nil && !session.isComplete {

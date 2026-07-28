@@ -152,12 +152,24 @@ actor ImportPipeline {
         let parsedSources = delegate.sources
 
         if !validate {
-            // Skip validation — trust the OPML file (faster bulk import)
+            // Fast path: skip network probes, but still enforce basic syntax
+            // validation (URL format, scheme, host, non-empty). Without these
+            // checks a malformed OPML can inject garbage URLs into the registry.
             var results: [ImportItemResult] = []
             var newSources: [FeedSource] = []
-            var seen = existingURLs  // track to catch duplicates within this OPML
+            var seen = existingURLs
             for source in parsedSources {
                 let normalized = OPMLParser.normalizeURL(source.url)
+                // Basic syntax checks (always enforced)
+                guard !normalized.isEmpty,
+                      let parsed = URL(string: normalized),
+                      let scheme = parsed.scheme?.lowercased(),
+                      ["http", "https"].contains(scheme),
+                      parsed.host != nil else {
+                    results.append(ImportItemResult(url: source.url, title: source.title,
+                                                    status: .invalid("Invalid or unsupported URL")))
+                    continue
+                }
                 if seen.contains(normalized) {
                     Log.import_.info("Dropped duplicate URL in OPML: \(normalized)")
                     results.append(ImportItemResult(url: source.url, title: source.title, status: .duplicate))

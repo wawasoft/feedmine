@@ -74,10 +74,18 @@ actor URLResolver {
     func resolve(_ classified: ClassifiedURL) async -> ResolveResult {
         switch classified.kind {
         case .feed:
-            return .success(classified, feeds: [
-                ResolvedFeed(feedURL: classified.url.absoluteString, title: nil,
-                            sourceURL: classified.raw, mediaKind: .text)
-            ])
+            // Path-based classification (.xml, /feed, /rss, .json) is a guess.
+            // Probe the URL to confirm it actually serves a feed before accepting
+            // it — a regular JSON API or misclassified page could otherwise be
+            // added as a source and fail silently on every fetch.
+            if await probeFeed(classified.url) {
+                return .success(classified, feeds: [
+                    ResolvedFeed(feedURL: classified.url.absoluteString, title: nil,
+                                sourceURL: classified.raw, mediaKind: .text)
+                ])
+            }
+            // Fall through to website discovery — the URL may have feed links
+            return await discoverFeeds(classified)
         case .website:
             return await discoverFeeds(classified)
         case .youtube:
@@ -95,6 +103,95 @@ actor URLResolver {
         }
     }
 
+    /// Probe candidate feed URLs in parallel. Returns the first URL that
+    /// responds with a valid feed, cancelling all remaining probes.
+    private func firstMatchingFeed(_ candidates: [String], maxConcurrent: Int, deadlineSeconds: Int) async -> String? {
+        await withTaskGroup(of: String?.self) { group in
+            var iterator = candidates.makeIterator()
+            var started = 0
+            let cap = max(1, maxConcurrent)
+
+            // Add deadline task
+            group.addTask {
+                try? await Task.sleep(for: .seconds(deadlineSeconds))
+                return nil
+            }
+
+            // Prime the window
+            while started < cap, let candidate = iterator.next() {
+                group.addTask {
+                    await self.probeFeedURL(candidate) ? candidate : nil
+                }
+                started += 1
+            }
+
+            while let result = await group.next() {
+                if let match = result {
+                    group.cancelAll()
+                    return match
+                }
+                if let candidate = iterator.next() {
+                    group.addTask {
+                        await self.probeFeedURL(candidate) ? candidate : nil
+                    }
+                }
+            }
+            return nil
+        }
+    }
+
+    // MARK: - Feed Probe
+
+    /// Quick validation: is this URL actually serving a feed? A HEAD request
+    /// with a fast timeout confirms HTTP 200 + a feed-like Content-Type before
+    /// we accept the path-based guess. Falls back to a small ranged GET if the
+    /// server rejects HEAD.
+    private func probeFeed(_ url: URL) async -> Bool {
+        var head = URLRequest(url: url)
+        head.httpMethod = "HEAD"
+        head.timeoutInterval = 5
+        do {
+            let (_, response) = try await URLSession.shared.data(for: head)
+            guard let http = response as? HTTPURLResponse else { return false }
+            if http.statusCode == 405 || http.statusCode == 501 {
+                return await probeFeedRanged(url)
+            }
+            return http.statusCode == 200 && isFeedContentType(http)
+        } catch {
+            return await probeFeedRanged(url)
+        }
+    }
+
+    private func probeFeedRanged(_ url: URL) async -> Bool {
+        var req = URLRequest(url: url)
+        req.timeoutInterval = 5
+        req.setValue("bytes=0-511", forHTTPHeaderField: "Range")
+        do {
+            let (data, response) = try await URLSession.shared.data(for: req)
+            guard let http = response as? HTTPURLResponse else { return false }
+            guard (200...299).contains(http.statusCode) || http.statusCode == 206 else {
+                return false
+            }
+            // Quick structural check: does the first 512 bytes look like XML
+            // or JSON Feed? A full parse is too expensive for a probe.
+            let prefix = String(data: data.prefix(256), encoding: .utf8) ?? ""
+            let trimmed = prefix.trimmingCharacters(in: .whitespacesAndNewlines)
+            return trimmed.hasPrefix("<?xml") || trimmed.hasPrefix("<rss")
+                || trimmed.hasPrefix("<feed") || trimmed.hasPrefix("<atom")
+                || trimmed.hasPrefix("{")
+        } catch {
+            return false
+        }
+    }
+
+    private nonisolated func isFeedContentType(_ response: HTTPURLResponse) -> Bool {
+        let contentType = response.value(forHTTPHeaderField: "Content-Type")?.lowercased() ?? ""
+        let feedTypes = ["application/rss+xml", "application/atom+xml",
+                         "application/feed+json", "application/json",
+                         "application/xml", "text/xml"]
+        return feedTypes.contains(where: { contentType.hasPrefix($0) })
+    }
+
     // MARK: - Feed Discovery (Website → Feed URL)
 
     private func discoverFeeds(_ classified: ClassifiedURL) async -> ResolveResult {
@@ -105,17 +202,17 @@ actor URLResolver {
             return .success(classified, feeds: htmlFeeds)
         }
 
-        // Strategy 2: Try common feed paths
+        // Strategy 2: Try common feed paths in parallel (max 3 concurrent).
+        // Cancel remaining probes as soon as the first valid feed is found.
         let root = "\(url.scheme ?? "https")://\(url.host ?? "")"
         let commonPaths = ["/feed", "/rss", "/atom.xml", "/feed.xml", "/rss.xml",
                           "/index.xml", "/feed/", "/feeds/posts/default", "/?feed=rss2"]
-        for path in commonPaths {
-            let candidate = root + path
-            if await probeFeedURL(candidate) {
-                return .success(classified, feeds: [
-                    ResolvedFeed(feedURL: candidate, title: nil, sourceURL: classified.raw, mediaKind: .text)
-                ])
-            }
+        let candidates = commonPaths.map { root + $0 }
+
+        if let firstMatch = await firstMatchingFeed(candidates, maxConcurrent: 3, deadlineSeconds: 8) {
+            return .success(classified, feeds: [
+                ResolvedFeed(feedURL: firstMatch, title: nil, sourceURL: classified.raw, mediaKind: .text)
+            ])
         }
 
         return .failure(classified, .noFeedFound)
@@ -149,11 +246,11 @@ actor URLResolver {
                   let hrefRange = Range(hrefMatch.range(at: 1), in: tag) else { continue }
             var href = String(tag[hrefRange])
 
-            // Resolve relative URLs
-            if href.hasPrefix("/") {
-                href = "\(url.scheme ?? "https")://\(url.host ?? "")\(href)"
-            } else if !href.hasPrefix("http") {
-                href = url.deletingLastPathComponent().absoluteString + href
+            // Resolve relative URLs using the standard URL API.
+            // Handles ../feed.xml, ./rss, ?output=rss, //cdn.example.com/feed,
+            // and other edge cases that string concatenation gets wrong.
+            if !href.hasPrefix("http") {
+                href = URL(string: href, relativeTo: url)?.absoluteString ?? href
             }
 
             // Extract title
@@ -279,11 +376,19 @@ actor URLResolver {
 
     // MARK: - Podcast Resolver
 
+    /// True when `host` is exactly `domain` or a subdomain of it.
+    /// Avoids `host.contains(domain)` which matches lookalike hosts like
+    /// `fake-podcasts.apple.com.evil.org`.
+    private nonisolated func hostBelongsTo(_ host: String, _ domain: String) -> Bool {
+        host == domain || host.hasSuffix(".\(domain)")
+    }
+
     private func resolvePodcast(_ classified: ClassifiedURL) async -> ResolveResult {
         let host = classified.url.host?.lowercased() ?? ""
 
         // Apple Podcasts: use iTunes Lookup API
-        if host.contains("podcasts.apple.com") || host.contains("itunes.apple.com") {
+        if hostBelongsTo(host, "podcasts.apple.com")
+            || hostBelongsTo(host, "itunes.apple.com") {
             if let feedURL = await resolveApplePodcast(classified.url) {
                 return .success(classified, feeds: [
                     ResolvedFeed(feedURL: feedURL, title: nil, sourceURL: classified.raw, mediaKind: .audio)
@@ -292,7 +397,7 @@ actor URLResolver {
         }
 
         // Anchor.fm → RSS pattern
-        if host.contains("anchor.fm") {
+        if hostBelongsTo(host, "anchor.fm") {
             let path = classified.url.path
             let feedURL = "https://anchor.fm\(path)/rss"
             return .success(classified, feeds: [
@@ -304,7 +409,7 @@ actor URLResolver {
         let directFeedHosts = ["feeds.buzzsprout.com", "feeds.simplecast.com", "feeds.megaphone.fm",
                               "rss.art19.com", "feeds.transistor.fm", "feeds.acast.com",
                               "feeds.libsyn.com", "pinecast.com", "omny.fm"]
-        if directFeedHosts.contains(where: { host.contains($0) }) {
+        if directFeedHosts.contains(where: { hostBelongsTo(host, $0) }) {
             return .success(classified, feeds: [
                 ResolvedFeed(feedURL: classified.url.absoluteString, title: nil,
                             sourceURL: classified.raw, mediaKind: .audio)

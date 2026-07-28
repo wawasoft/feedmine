@@ -29,6 +29,7 @@ final class FeedStore {
     let reservoir = Reservoir()
     let fetcher = RSSFetcher()
     let prefetcher = ImagePrefetcher()
+    let readyCardQueue = ReadyCardQueue()
     let networkMonitor = NetworkMonitor()
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
@@ -40,6 +41,10 @@ final class FeedStore {
 
     // MARK: - Public state
     private(set) var visibleItems: [FeedItem] = []
+    /// Resolved presentations for currently-visible items. Populated by the
+    /// ReadyCardQueue after media preparation completes. Initially empty —
+    /// the old visibleItems path works until presentations are ready.
+    private(set) var presentations: [FeedCardPresentation] = []
     /// Monotonic generation counter — incremented on every visibleItems change.
     /// FeedLoader uses this for cache invalidation instead of item count.
     private(set) var visibleItemsGeneration: UInt64 = 0
@@ -79,7 +84,9 @@ final class FeedStore {
                 }
                 podcastItemCount = items
                 podcastSourceCount = sources
-            } catch {}
+            } catch {
+                Log.db.error("Failed to refresh podcast counts: \(error)")
+            }
         }
     }
 
@@ -208,54 +215,13 @@ final class FeedStore {
     /// Resolve article-page artwork in parallel background tasks so images
     /// are cached before cards render. Does NOT block the feed pipeline —
     /// items enter the reservoir immediately. Sentinel writes on failure
-    /// prevent redundant resolution on future launches.
-    private func resolveArticleImagesInBackground(_ items: [FeedItem]) {
-        let needsResolution = items.filter {
-            $0.bestImageURL == nil && $0.canResolveArticleImage
-        }
-        guard !needsResolution.isEmpty else { return }
-
-        Task { [weak self] in
-            guard let self else { return }
-            await withTaskGroup(of: Void.self) { group in
-                var iterator = needsResolution.makeIterator()
-                let maxConcurrent = 4  // match ArticleImageResolver's limit
-                var running = 0
-
-                while running < maxConcurrent, let item = iterator.next() {
-                    group.addTask { await self.resolveOneArticleImage(item) }
-                    running += 1
-                }
-                while await group.next() != nil {
-                    if let item = iterator.next() {
-                        group.addTask { await self.resolveOneArticleImage(item) }
-                    }
-                }
-            }
-        }
-    }
-
-    private func resolveOneArticleImage(_ item: FeedItem) async {
-        guard let articleURL = URL(string: item.url) else { return }
-        // Skip if the article image is already cached from a previous session.
-        guard !ImageCache.hasCachedImageData(for: articleURL) else { return }
-        let found = await prefetcher.prefetchArticleImage(for: articleURL)
-        if !found {
-            do {
-                try await db.write { db in
-                    try db.execute(sql: "UPDATE feed_item SET image_url = '' WHERE id = ?",
-                                   arguments: [item.id])
-                }
-            } catch {
-                Log.feed.error("Failed to write image sentinel for \(item.id): \(error)")
-            }
-        }
-    }
-
     /// Prefetch the next batch of upcoming items so images are cached before
     /// the user scrolls to them.  Visible items are intentionally *not*
     /// included — by the time they are visible the cells have already started
     /// their own loads; the shared ``ImageDownloadTracker`` deduplicates them.
+    ///
+    /// Replaced by CardPreparationPipeline for resolved presentations;
+    /// kept for backward-compatible image cache warming.
     private func prefetchUpcoming() {
         guard Settings.prefetchImages else { return }
         let upcoming = reservoir.upcomingItems(100).compactMap { $0.bestImageURL ?? $0.imageURL }
@@ -739,6 +705,7 @@ final class FeedStore {
         if inMemory {
             self.db = try DatabaseQueue(configuration: Self.dbConfig)
         } else {
+            Self.migrateDatabaseFromDocumentsIfNeeded()
             self.db = try DatabaseQueue(path: Self.dbPath, configuration: Self.dbConfig)
         }
         try Self.migrate(db)
@@ -756,17 +723,26 @@ final class FeedStore {
         self.whatsNewManager = WhatsNewManager(db: db)
         // Migrate legacy bookmark data from feedmine.sqlite → user.sqlite
         // if this is the first launch after the split.
+        // Runs synchronously during init so the UI never sees an empty
+        // favorites state while migration is still in flight.
         if !inMemory {
-            Task { [weak self] in
-                guard let self else { return }
-                do {
-                    if try self.userRepo.needsLegacyMigration(legacyDB: self.db) {
-                        try await self.userRepo.migrateFromLegacy(legacyDB: self.db)
-                    }
-                    try await self.bookmarkStore.synchronizeRetentionPins()
-                } catch {
-                    Log.db.error("Bookmark migration to user.sqlite failed: \(error)")
+            do {
+                if try self.userRepo.needsLegacyMigration(legacyDB: self.db) {
+                    try self.userRepo.migrateFromLegacy(legacyDB: self.db)
                 }
+                // synchronizeRetentionPins must run after migration (or after
+                // confirming no migration is needed) so retention pins reflect
+                // the current bookmark set.
+                Task { [weak self] in
+                    guard let self else { return }
+                    do {
+                        try await self.bookmarkStore.synchronizeRetentionPins()
+                    } catch {
+                        Log.db.error("Retention pin sync failed: \(error)")
+                    }
+                }
+            } catch {
+                Log.db.error("Bookmark migration to user.sqlite failed: \(error)")
             }
         }
         // Create default "Favorites" list if not exists
@@ -928,8 +904,51 @@ final class FeedStore {
     }
 
     private static var dbPath: String {
-        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        return docs.appendingPathComponent("feedmine.sqlite").path
+        // Regenerable content (downloaded articles, indexes, derived state)
+        // belongs in Caches so it doesn't inflate iCloud backups and can be
+        // purged by the system under storage pressure.
+        let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        let dir = caches.appendingPathComponent("Feedmine", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir.appendingPathComponent("feedmine.sqlite").path
+    }
+
+    /// One-time migration: move feedmine.sqlite from Documents (pre-1.0 layout)
+    /// to Caches/Feedmine/. Called before the database is opened.
+    private static func migrateDatabaseFromDocumentsIfNeeded() {
+        let fm = FileManager.default
+        let docs = fm.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let oldPath = docs.appendingPathComponent("feedmine.sqlite").path
+
+        guard fm.fileExists(atPath: oldPath) else { return }
+
+        let caches = fm.urls(for: .cachesDirectory, in: .userDomainMask).first!
+        let newDir = caches.appendingPathComponent("Feedmine", isDirectory: true)
+        try? fm.createDirectory(at: newDir, withIntermediateDirectories: true)
+
+        let newPath = newDir.appendingPathComponent("feedmine.sqlite").path
+
+        // Move the three SQLite files as a set. If any move fails, leave
+        // everything at the old location — the app still works, and we'll
+        // retry on the next launch.
+        let suffixes = ["", "-wal", "-shm"]
+        var tempPaths: [(src: String, dst: String)] = []
+        do {
+            for suffix in suffixes {
+                let src = oldPath + suffix
+                let dst = newPath + suffix
+                guard fm.fileExists(atPath: src) else { continue }
+                try fm.moveItem(atPath: src, toPath: dst)
+                tempPaths.append((src, dst))
+            }
+            Log.db.info("Migrated feedmine.sqlite from Documents to Caches/Feedmine/")
+        } catch {
+            // Rollback any files we already moved
+            for (src, dst) in tempPaths {
+                try? fm.moveItem(atPath: dst, toPath: src)
+            }
+            Log.db.error("Database migration to Caches failed, keeping old location: \(error)")
+        }
     }
 
     private static var dbConfig: Configuration {
@@ -1456,7 +1475,8 @@ final class FeedStore {
             FeedMetrics.event("FirstVisibleItems", "count=\(visibleItems.count)")
             FeedMetrics.memory("afterFirstVisible")
             loadingState = .idle
-            resolveArticleImagesInBackground(visibleItems)
+            // Card media is now resolved by CardPreparationPipeline before
+            // publication — no post-insertion article-image resolution needed.
             prefetchUpcoming()
         }
 
@@ -1637,6 +1657,18 @@ final class FeedStore {
         markPreviouslyLoadedContentIfNeeded(stamped)
     }
 
+    /// Sync `presentations` from the ReadyCardQueue to the public array.
+    /// Filters to only items currently in `visibleItems` so discarded cards
+    /// (filter changes, trim) don't leak.
+    private func publishPresentations() {
+        let visibleIDs = Set(visibleItems.map(\.id))
+        let ready = readyCardQueue.presentations.filter { visibleIDs.contains($0.id) }
+        guard ready != presentations else { return }
+        presentations = ready
+        // Invalidate FeedLoader caches so views pick up new presentations
+        visibleItemsGeneration &+= 1
+    }
+
     private func markPreviouslyLoadedContentIfNeeded(_ items: [FeedItem]) {
         guard !items.isEmpty, !hasPreviouslyLoadedContent else { return }
         hasPreviouslyLoadedContent = true
@@ -1694,6 +1726,15 @@ final class FeedStore {
                 }
                 self.loadingState = .idle
                 Log.feed.info("[TaxonomyTrace] flush gen=\(generation) complete visibleItems=\(self.visibleItems.count)")
+                // Kick off card media preparation for the new visible page.
+                // Non-blocking — the old visibleItems path renders immediately
+                // while presentations resolve in the background.
+                self.readyCardQueue.reset()
+                self.readyCardQueue.enqueue(self.visibleItems)
+                let upcoming = self.reservoir.upcomingItems(Reservoir.pageSize * 2)
+                self.readyCardQueue.enqueue(upcoming)
+                await self.readyCardQueue.waitForReady(count: min(Reservoir.pageSize, self.visibleItems.count))
+                self.publishPresentations()
             }
 
         case .append:
@@ -1709,6 +1750,12 @@ final class FeedStore {
                 self.markSurfaced(self.reservoir.visibleItems)
                 self.setVisibleItems(self.applyFilters(self.reservoir.visibleItems))
                 self.reservoirCount = self.reservoir.reservoirCount
+                // Prepare the newly-visible cards' media
+                self.readyCardQueue.enqueue(self.visibleItems)
+                let upcoming = self.reservoir.upcomingItems(Reservoir.pageSize)
+                self.readyCardQueue.enqueue(upcoming)
+                await self.readyCardQueue.waitForReady(count: self.visibleItems.count)
+                self.publishPresentations()
             }
 
         case .refresh(let generation):
@@ -3474,10 +3521,8 @@ final class FeedStore {
             logNonEnglishItems(actualNew)
         }
 
-        // Resolve article images in parallel background tasks — NOT blocking the
-        // pipeline. Items enter the reservoir immediately; resolution populates
-        // the image cache and writes sentinels asynchronously.
-        resolveArticleImagesInBackground(actualNew)
+        // Card media is resolved by CardPreparationPipeline when items are
+        // enqueued for publication — no post-ingestion resolution needed.
 
         // Prefetch feed-supplied images so downloads race ahead of card rendering.
         prefetchImagesIfEnabled(for: actualNew)
@@ -4922,16 +4967,6 @@ final class FeedStore {
                 return false
             }
             return requested.contains(language)
-        }
-
-        // Prefetch images for the entire pool so comparison cards don't
-        // render with placeholder gradients. This runs async — the pool
-        // is returned immediately while downloads race ahead.
-        if !pool.isEmpty {
-            let urls = pool.compactMap { $0.bestImageURL ?? $0.imageURL }
-            if !urls.isEmpty {
-                Task { await prefetcher.prefetch(urls: urls, priorityURLs: urls) }
-            }
         }
 
         return pool
