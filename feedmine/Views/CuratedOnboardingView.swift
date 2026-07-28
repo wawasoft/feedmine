@@ -704,10 +704,7 @@ struct CuratedOnboardingView: View {
                     }
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.roundedRectangle(radius: 16))
-                    .disabled(
-                        isSaving
-                            || feedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-                    )
+                    .disabled(isSaving)
                     .padding(.horizontal, 22)
                     .accessibilityIdentifier("curated-save")
 
@@ -739,12 +736,34 @@ struct CuratedOnboardingView: View {
     }
 
     private func prepareDefaultName() {
-        Task {
-            let feeds = (try? await loader.loadCuratedFeeds()) ?? []
-            let count = feeds.count
-            if count > 0 {
-                feedName = "Curated Feed \(count + 1)"
+        updateAutoName()
+    }
+
+    /// Generates a feed name from the top preference signals, falling back
+    /// to a warm default when no signals exist yet. The name updates
+    /// dynamically as the session accumulates answers.
+    private func updateAutoName() {
+        guard let session else {
+            if feedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                feedName = "My Feed"
             }
+            return
+        }
+        let topTopics = CuratedPreferenceEngine.topTopicWeights(
+            in: session.profile, limit: 2
+        ).map(\.topic.shortName)
+        let generated: String
+        if topTopics.count >= 2 {
+            generated = "\(topTopics[0]) & \(topTopics[1])"
+        } else if let first = topTopics.first {
+            generated = "\(first) Mix"
+        } else {
+            generated = "My First Feed"
+        }
+        // Only overwrite if the user hasn't manually edited the name
+        let trimmed = feedName.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty || trimmed == "My Curated Feed" || trimmed == "My Feed" {
+            feedName = generated
         }
     }
 
@@ -821,6 +840,7 @@ struct CuratedOnboardingView: View {
         withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
             answerPulse += 1
             session.answer(outcome)
+            updateAutoName()
         }
 
         // Haptic — prepare for next call, fire now
@@ -857,9 +877,11 @@ struct CuratedOnboardingView: View {
     private func save(_ session: CuratedOnboardingSession) async {
         isSaving = true
         defer { isSaving = false }
+        let name = feedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            ? "My Feed" : feedName
         do {
             let saved = try await loader.createCuratedFeed(
-                name: feedName,
+                name: name,
                 definition: session.profile
             )
             loader.setActivePreset(.curatedFeed(
