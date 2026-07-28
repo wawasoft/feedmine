@@ -9,29 +9,32 @@ struct FeedItemCardView: View, Equatable {
         && lhs.isRead == rhs.isRead
         && lhs.isBookmarked == rhs.isBookmarked
         && lhs.isInBookmarkBox == rhs.isInBookmarkBox
+        && lhs.presentation?.media == rhs.presentation?.media
     }
     let item: FeedItem
     let isRead: Bool
     let isBookmarked: Bool
+    /// Pre-resolved presentation from the CardPreparationPipeline. When
+    /// available, the card renders its image synchronously — no downloads,
+    /// no opacity animations, no placeholder→image swaps.
+    var presentation: FeedCardPresentation? = nil
     var onBookmark: (() -> Void)? = nil
     var onViewSource: (() -> Void)? = nil
     var onAddSourceToCollection: (() -> Void)? = nil
     var onImageTap: (() -> Void)? = nil
     var isInBookmarkBox: Bool = false
-    @State private var imageLoadFailed = false
-    @State private var imageAppeared = false
     @AppStorage("fontSize") private var fontSize = "medium"
     @State private var engine = CircadianEngine.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var isLandscape: Bool { horizontalSizeClass == .regular }
-    /// Structural: does this item have an image URL at all? Drives whether the
-    /// card reserves a hero/thumb slot. Deliberately does NOT depend on
-    /// `imageLoadFailed` — a failed load must NOT remove the slot and collapse
-    /// the card, or content below jumps. On failure the slot stays; the image
-    /// area just shows the placeholder. (Feed is sacred: layout never shifts
-    /// from async image state.)
-    private var hasImage: Bool { item.hasPotentialImage }
+    /// Structural: does this card have a resolved image? ONLY true when the
+    /// CardPreparationPipeline has produced a `.image` media. Never speculative
+    /// — no presentation means no image slot, period.
+    private var hasImage: Bool {
+        if let pres = presentation, case .image = pres.media { return true }
+        return false
+    }
 
     private var titleFont: Font {
         switch fontSize {
@@ -58,10 +61,6 @@ struct FeedItemCardView: View, Equatable {
             }
         }
         .opacity(isRead ? 0.92 : 1)
-        .onChange(of: item.id) { _, _ in
-            imageAppeared = false
-            imageLoadFailed = false
-        }
     }
 
     /// Base hero view — the placeholder itself defines the 16:9 frame so it
@@ -92,21 +91,19 @@ struct FeedItemCardView: View, Equatable {
                         heroBase
                             .frame(width: geometry.size.width, height: geometry.size.height)
 
-                        // Real image layered on top so it covers the placeholder
-                        // on success. CachedAsyncImage returns Color.clear on
-                        // failure, letting the placeholder show through.
-                        if hasImage, !imageLoadFailed {
-                            CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
-                                if success {
-                                    withAnimation(.easeIn(duration: 0.25)) { imageAppeared = true }
-                                } else {
-                                    imageLoadFailed = true
-                                }
-                            })
-                            .scaledToFill()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .opacity(imageAppeared ? 1 : 0)
-                            .overlay(isRead ? Color.black.opacity(0.15) : nil)
+                        // Pre-resolved image layered on top. On .placeholder/.none
+                        // the heroBase placeholder shows through — no download,
+                        // no animation, no mutation.
+                        if hasImage, case .image = presentation?.media {
+                            // Pre-resolved: synchronous render, no download, no animation.
+                            // The heroBase placeholder sits underneath in the ZStack and is
+                            // fully covered by this image on success. On .placeholder/.none
+                            // (no presentation or failed resolution), the placeholder shows
+                            // through and the card never triggers a network request.
+                            PreparedCardImage(media: presentation!.media)
+                                .scaledToFill()
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                                .overlay(isRead ? Color.black.opacity(0.15) : nil)
                         }
                     }
                 }
@@ -201,11 +198,9 @@ struct FeedItemCardView: View, Equatable {
                 .frame(width: 90, height: 90)
                 .clipped()
                 .overlay {
-                    if hasImage, !imageLoadFailed {
-                            CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
-                                if !success { imageLoadFailed = true }
-                            })
-                            .scaledToFill()
+                    if hasImage, case .image = presentation?.media {
+                            PreparedCardImage(media: presentation!.media)
+                                .scaledToFill()
                         }
                     }
                     .clipShape(RoundedRectangle(cornerRadius: 8))

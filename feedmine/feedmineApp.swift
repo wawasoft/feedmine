@@ -53,6 +53,7 @@ final class SmartFeedBackgroundScheduler {
         // Re-enqueue first so a process termination during this slice does not
         // break the persistent refresh chain.
         schedule()
+
         let activeLoader = loader ?? FeedLoader()
         let work = Task { @MainActor in
             await activeLoader.performSmartFeedBackgroundRefresh()
@@ -60,7 +61,7 @@ final class SmartFeedBackgroundScheduler {
         systemTask.expirationHandler = {
             work.cancel()
         }
-        Task { @MainActor in
+        Task {
             let succeeded = await work.value
             systemTask.setTaskCompleted(success: succeeded)
         }

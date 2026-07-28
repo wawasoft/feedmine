@@ -102,20 +102,25 @@ final class BookmarkStore {
 
     func bookmarkedItems(listID: Int64? = nil) async throws -> [FeedItem] {
         let targetListID = listID ?? defaultListID()
-        // Fetch item IDs from user.sqlite, then hydrate from content (feedmine.sqlite)
+        // Fetch item IDs from user.sqlite in save order (newest bookmark first).
         let itemIDs: [String] = try await userDB.read { db in
             try String.fetchAll(db, sql: """
                 SELECT item_id FROM bookmark_item WHERE list_id = ? ORDER BY added_at DESC
             """, arguments: [targetListID])
         }
         guard !itemIDs.isEmpty else { return [] }
-        return try await contentDB.read { db in
+
+        // Hydrate from content DB, then restore the save order. The content DB
+        // query returns items in arbitrary order; we re-sort to match the
+        // bookmark_item.added_at ordering from the user DB.
+        let hydrated = try await contentDB.read { db in
             try FeedItemRecord
                 .filter(itemIDs.contains(Column("id")))
-                .order(Column("published_at").desc)
                 .fetchAll(db)
                 .map { $0.toFeedItem() }
         }
+        let itemByID = Dictionary(uniqueKeysWithValues: hydrated.map { ($0.id, $0) })
+        return itemIDs.compactMap { itemByID[$0] }
     }
 
     func renameBookmarkList(_ id: Int64, name: String) async throws {

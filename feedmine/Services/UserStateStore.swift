@@ -14,8 +14,46 @@ final class UserStateStore {
     let db: DatabaseQueue
 
     private static var dbURL: URL {
-        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        return docs.appendingPathComponent("user.sqlite")
+        // User-owned data (bookmarks, smart feeds, collections) belongs in
+        // Application Support — it should survive and not be exposed in the
+        // Files app or inflated into iCloud backups unnecessarily.
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        let dir = appSupport.appendingPathComponent("Feedmine", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir.appendingPathComponent("user.sqlite")
+    }
+
+    /// One-time migration: move user.sqlite from Documents (pre-1.0 layout)
+    /// to Application Support/Feedmine/. Called before the database is opened.
+    private static func migrateUserDBFromDocumentsIfNeeded() {
+        let fm = FileManager.default
+        let docs = fm.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let oldPath = docs.appendingPathComponent("user.sqlite").path
+
+        guard fm.fileExists(atPath: oldPath) else { return }
+
+        let appSupport = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        let newDir = appSupport.appendingPathComponent("Feedmine", isDirectory: true)
+        try? fm.createDirectory(at: newDir, withIntermediateDirectories: true)
+
+        let newPath = newDir.appendingPathComponent("user.sqlite").path
+        let suffixes = ["", "-wal", "-shm"]
+        var moved: [(String, String)] = []
+        do {
+            for suffix in suffixes {
+                let src = oldPath + suffix
+                let dst = newPath + suffix
+                guard fm.fileExists(atPath: src) else { continue }
+                try fm.moveItem(atPath: src, toPath: dst)
+                moved.append((src, dst))
+            }
+            Log.db.info("Migrated user.sqlite from Documents to Application Support/Feedmine/")
+        } catch {
+            for (src, dst) in moved {
+                try? fm.moveItem(atPath: dst, toPath: src)
+            }
+            Log.db.error("User DB migration to Application Support failed, keeping old location: \(error)")
+        }
     }
 
     // MARK: - Init
@@ -24,6 +62,7 @@ final class UserStateStore {
         if inMemory {
             db = try DatabaseQueue(configuration: UserStateStore.dbConfig)
         } else {
+            Self.migrateUserDBFromDocumentsIfNeeded()
             db = try DatabaseQueue(path: Self.dbURL.path, configuration: UserStateStore.dbConfig)
         }
         try UserStateStore.migrate(db)
@@ -165,52 +204,105 @@ final class UserStateStore {
 
     // MARK: - Legacy Migration
 
-    /// Copy bookmark data from `feedmine.sqlite` into `user.sqlite`.
-    /// Idempotent — skips rows whose primary key already exists.
-    func migrateFromLegacy(legacyDB: DatabaseQueue) async throws {
-        try await legacyDB.read { legacy in
-            let lists = try BookmarkListRecord.fetchAll(legacy)
-            let items = try BookmarkItemRecord.fetchAll(legacy)
+    private static let legacyMigrationMarker = "legacy_bookmark_migration_v1_completed"
 
-            try self.db.write { user in
-                for list in lists {
-                    try user.execute(sql: """
-                        INSERT OR IGNORE INTO bookmark_list
-                            (id, name, sort_order, created_at, is_default,
-                             search_query, search_region, search_category, search_active)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """, arguments: [
-                        list.id, list.name, list.sortOrder, list.createdAt,
-                        list.isDefault, list.searchQuery, list.searchRegion,
-                        list.searchCategory, list.searchActive,
-                    ])
-                }
-                for item in items {
-                    // Skip items where list_id doesn't exist (orphaned reference)
-                    let listExists = try Int.fetchOne(user,
-                        sql: "SELECT 1 FROM bookmark_list WHERE id = ? LIMIT 1",
-                        arguments: [item.listId]) != nil
-                    guard listExists else { continue }
-                    try user.execute(sql: """
-                        INSERT OR IGNORE INTO bookmark_item
-                            (list_id, item_id, added_at, sort_order)
-                        VALUES (?, ?, ?, ?)
-                    """, arguments: [item.listId, item.itemId, item.addedAt, item.sortOrder])
-                }
+    /// Copy bookmark data from `feedmine.sqlite` into `user.sqlite`.
+    /// Idempotent — checks marker first, validates counts after.
+    /// Synchronous because all operations are local SQL (fast — typically
+    /// hundreds of rows at most). Called during init so migration completes
+    /// before the UI loads favorites.
+    func migrateFromLegacy(legacyDB: DatabaseQueue) throws {
+        // Guard: already completed
+        let alreadyDone = try db.read { db in
+            try String.fetchOne(db, sql: """
+                SELECT value FROM user_metadata WHERE key = ?
+                """, arguments: [Self.legacyMigrationMarker])
+        } == "1"
+        guard !alreadyDone else { return }
+
+        let (lists, items) = try legacyDB.read { legacy in
+            (try BookmarkListRecord.fetchAll(legacy),
+             try BookmarkItemRecord.fetchAll(legacy))
+        }
+
+        guard !lists.isEmpty || !items.isEmpty else {
+            // Nothing to migrate — still record marker so we don't re-check
+            try db.write { user in
+                try user.execute(sql: """
+                    INSERT INTO user_metadata (key, value) VALUES (?, '1')
+                    ON CONFLICT(key) DO UPDATE SET value = excluded.value
+                    """, arguments: [Self.legacyMigrationMarker])
             }
+            return
+        }
+
+        try db.write { user in
+            for list in lists {
+                try user.execute(sql: """
+                    INSERT OR IGNORE INTO bookmark_list
+                        (id, name, sort_order, created_at, is_default,
+                         search_query, search_region, search_category, search_active)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, arguments: [
+                    list.id, list.name, list.sortOrder, list.createdAt,
+                    list.isDefault, list.searchQuery, list.searchRegion,
+                    list.searchCategory, list.searchActive,
+                ])
+            }
+            for item in items {
+                // Skip items where list_id doesn't exist (orphaned reference)
+                let listExists = try Int.fetchOne(user,
+                    sql: "SELECT 1 FROM bookmark_list WHERE id = ? LIMIT 1",
+                    arguments: [item.listId]) != nil
+                guard listExists else { continue }
+                try user.execute(sql: """
+                    INSERT OR IGNORE INTO bookmark_item
+                        (list_id, item_id, added_at, sort_order)
+                    VALUES (?, ?, ?, ?)
+                """, arguments: [item.listId, item.itemId, item.addedAt, item.sortOrder])
+            }
+
+            // Validate: migrated item count should be reasonable
+            let migratedLists = try Int.fetchOne(user,
+                sql: "SELECT COUNT(*) FROM bookmark_list") ?? 0
+            let migratedItems = try Int.fetchOne(user,
+                sql: "SELECT COUNT(*) FROM bookmark_item") ?? 0
+            Log.db.info("""
+                Legacy migration complete: \(lists.count) lists → \(migratedLists), \
+                \(items.count) items → \(migratedItems)
+                """)
+
+            // Record marker so future launches skip the check
+            try user.execute(sql: """
+                INSERT INTO user_metadata (key, value) VALUES (?, '1')
+                ON CONFLICT(key) DO UPDATE SET value = excluded.value
+                """, arguments: [Self.legacyMigrationMarker])
         }
     }
 
-    /// True if the legacy migration has already been performed.
+    /// True if the legacy DB has data that hasn't been migrated yet.
+    /// Checks the explicit marker first (idempotent), then falls back to
+    /// inspecting actual bookmark content — not just list count.
     func needsLegacyMigration(legacyDB: DatabaseQueue) throws -> Bool {
-        let userCount = try db.read { db in
+        // Check marker first — one-and-done
+        let alreadyCompleted = try db.read { db in
+            try String.fetchOne(db, sql: """
+                SELECT value FROM user_metadata WHERE key = ?
+                """, arguments: [Self.legacyMigrationMarker])
+        } == "1"
+        if alreadyCompleted { return false }
+
+        // Check for actual bookmark data in the legacy DB.
+        // We inspect bookmark_item rows, not just bookmark_list count,
+        // because the single-default-list case is the most common one.
+        let hasLists = try legacyDB.read { db in
             try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM bookmark_list")
-        } ?? 0
-        // > 1 because the default "Favorites" list is always created at init
-        let legacyCount = try legacyDB.read { db in
-            try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM bookmark_list")
-        } ?? 0
-        return userCount <= 1 && legacyCount > 1
+        } ?? 0 > 0
+        let hasItems = try legacyDB.read { db in
+            try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM bookmark_item")
+        } ?? 0 > 0
+
+        return hasLists || hasItems
     }
 
     // MARK: - Convenience

@@ -28,6 +28,10 @@ final class FeedLoader {
     // MARK: - UI State (from store)
 
     var items: [FeedItem] { store.visibleItems }
+    /// Prepared card presentations (media fully resolved). Empty until the
+    /// ReadyCardQueue finishes the first batch. Use `presentation(for:)` to
+    /// look up a specific item's presentation.
+    var presentations: [FeedCardPresentation] { store.presentations }
     var loadingState: FeedLoadingState { store.loadingState }
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
@@ -285,6 +289,13 @@ final class FeedLoader {
         }
         _cachedFiltered = result
         return result
+    }
+
+    /// Look up a prepared presentation for a given item ID. Returns nil if
+    /// the presentation hasn't been resolved yet (the old visibleItems path
+    /// should be used as a fallback).
+    func presentation(for itemID: String) -> FeedCardPresentation? {
+        presentations.first { $0.id == itemID }
     }
 
     private var _cachedSections: [DateSection] = []
@@ -1105,7 +1116,7 @@ final class FeedLoader {
 
     func refreshBookmarkLists() async {
         do { bookmarkLists = try await store.allBookmarkLists() }
-        catch {}
+        catch { Log.db.error("Failed to refresh bookmark lists: \(error)") }
     }
 
     @discardableResult
@@ -1339,7 +1350,7 @@ final class FeedLoader {
     }
 
     /// Import from OPML file data (file picker, AirDrop).
-    func importOPML(data: Data, fileName: String, validate: Bool = false) async -> ImportResult {
+    func importOPML(data: Data, fileName: String, validate: Bool = true) async -> ImportResult {
         let existingURLs = Set(store.registry.sources.map { OPMLParser.normalizeURL($0.url) })
         let (result, sources) = await importPipeline.ingest(
             opmlData: data, fileName: fileName, existingURLs: existingURLs, validate: validate
@@ -1359,7 +1370,7 @@ final class FeedLoader {
     }
 
     /// Import from a remote OPML URL.
-    func importOPML(url: URL, validate: Bool = false) async -> ImportResult? {
+    func importOPML(url: URL, validate: Bool = true) async -> ImportResult? {
         let existingURLs = Set(store.registry.sources.map { OPMLParser.normalizeURL($0.url) })
         guard let (result, sources) = await importPipeline.ingest(
             opmlURL: url, existingURLs: existingURLs, validate: validate
@@ -1399,10 +1410,13 @@ final class FeedLoader {
 
     private func persistImportedSources() {
         let imported = store.registry.sources.filter { $0.region == "imported" }
-        guard !imported.isEmpty else { return }
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("imported_sources.json")
         do {
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                .appendingPathComponent("imported_sources.json")
+            if imported.isEmpty {
+                try? FileManager.default.removeItem(at: url)
+                return
+            }
             let data = try JSONEncoder().encode(imported)
             try data.write(to: url)
         } catch {

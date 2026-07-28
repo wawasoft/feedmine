@@ -1,3 +1,10 @@
+# WARNING: This file is a REFERENCE ONLY — do NOT regenerate the .xcodeproj
+# from it with xcodegen. The .xcodeproj is the single source of truth and
+# contains manual additions (GRDB linkage, build phases, signing config) that
+# xcodegen does not reproduce.
+#
+# If you restore xcodegen support, verify that a diff between the generated
+# and committed .xcodeproj is empty before committing.
 name: feedmine
 options:
   bundleIdPrefix: com.feedmine

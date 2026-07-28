@@ -94,7 +94,8 @@ enum InputParser {
         }
 
         // YouTube
-        if host.contains("youtube.com") || host.contains("youtu.be") {
+        if host == "youtube.com" || host.hasSuffix(".youtube.com")
+            || host == "youtu.be" || host.hasSuffix(".youtu.be") {
             return .youtube
         }
 
@@ -103,7 +104,8 @@ enum InputParser {
             return .github
         }
 
-        // Podcast platforms
+        // Podcast platforms — exact host or subdomain match only,
+        // not lookalike domains.
         let podcastHosts = ["podcasts.apple.com", "itunes.apple.com",
                            "open.spotify.com", "anchor.fm",
                            "feeds.buzzsprout.com", "feeds.simplecast.com",
@@ -111,7 +113,7 @@ enum InputParser {
                            "feeds.transistor.fm", "feeds.acast.com",
                            "feeds.libsyn.com", "pinecast.com", "omny.fm",
                            "podbean.com", "spreaker.com", "castbox.fm"]
-        if podcastHosts.contains(where: { host.contains($0) }) {
+        if podcastHosts.contains(where: { host == $0 || host.hasSuffix(".\($0)") }) {
             return .podcast
         }
 
