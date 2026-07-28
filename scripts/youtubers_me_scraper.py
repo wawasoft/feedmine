@@ -147,8 +147,10 @@ def load_checkpoint(name: str) -> dict | None:
 
 
 def load_existing_channel_cache() -> dict[str, dict]:
-    """Build {channel_name_normalized -> {channel_id, ...}} from all existing JSON files."""
+    """Build {channel_name_normalized -> {channel_id, ...}} from all existing JSON files + Kaggle cache."""
     cache: dict[str, dict] = {}
+
+    # Load existing Feedmine channel JSONs
     for fname in ["youtube_channels_wikipedia.json", "youtube_channels_socialblade.json",
                   "youtube_channels_diamond.json", "youtube_channels_awards.json"]:
         path = DATA_DIR / fname
@@ -157,14 +159,34 @@ def load_existing_channel_cache() -> dict[str, dict]:
         data = json.loads(path.read_text(encoding="utf-8"))
         for ch in data.get("channels", []):
             cid = ch.get("channel_id", "")
-            name = ch.get("channel_name", "").lower().strip()
-            if cid and name:
-                cache[name] = {"channel_id": cid, "channel_name": ch.get("channel_name", ""),
-                               "feed_url": ch.get("feed_url", "")}
+            name = ch.get("channel_name", "")
+            name_key = _normalize_name(name)
+            if cid and name_key:
+                cache[name_key] = {"channel_id": cid, "channel_name": ch.get("channel_name", ""),
+                                   "feed_url": ch.get("feed_url", "")}
             if cid:
                 cache[cid] = {"channel_id": cid, "channel_name": ch.get("channel_name", ""),
                               "feed_url": ch.get("feed_url", "")}
+
+    # Load Kaggle name→ID cache (built from youtube.com channel page titles)
+    kaggle_path = DATA_DIR / "youtube_channels_kaggle_cache.json"
+    if kaggle_path.exists():
+        kaggle = json.loads(kaggle_path.read_text(encoding="utf-8"))
+        for name_key, cid in kaggle.items():
+            if name_key not in cache:
+                cache[name_key] = {
+                    "channel_id": cid,
+                    "channel_name": name_key,  # normalized, but functional
+                    "feed_url": f"https://www.youtube.com/feeds/videos.xml?channel_id={cid}",
+                }
+        print(f"  Kaggle cache loaded: {len(kaggle)} name→ID mappings", file=sys.stderr)
+
     return cache
+
+
+def _normalize_name(name: str) -> str:
+    """Normalize a channel name for cache matching. Must match build_kaggle_cache.py."""
+    return re.sub(r'\s+', '', name.lower().strip())
 
 
 def resolve_channel_id(slug: str, channel_name: str, cache: dict[str, dict]) -> str | None:
@@ -175,8 +197,8 @@ def resolve_channel_id(slug: str, channel_name: str, cache: dict[str, dict]) -> 
       2. Scrape youtube.com/@<slug> -> extract UC ID from meta/script tags
       3. Fallback: scrape youtube.com/results?search_query=<name> -> first channel result
     """
-    # Strategy 1: local cache by name
-    name_key = channel_name.lower().strip()
+    # Strategy 1: local cache by normalized name
+    name_key = _normalize_name(channel_name)
     if name_key in cache and cache[name_key].get("channel_id"):
         return cache[name_key]["channel_id"]
 
@@ -230,7 +252,7 @@ def resolve_all_channel_ids(
         if slug in resolved:
             continue
         name = merged[slug]["channel_name"]
-        name_key = name.lower().strip()
+        name_key = _normalize_name(name)
         if name_key in cache and cache[name_key].get("channel_id"):
             resolved[slug] = cache[name_key]["channel_id"]
 
