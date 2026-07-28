@@ -710,6 +710,10 @@ enum CuratedPreferenceEngine {
             affected = leftOnly.union(rightOnly)
         case .both, .neither:
             affected = allPresented
+        case .skip:
+            // Skip records no signal — it's the absence of evidence.
+            // The pair is consumed (won't be re-shown) but nothing is learned.
+            affected = []
         case .opened:
             affected = []
         }
@@ -738,6 +742,8 @@ enum CuratedPreferenceEngine {
             adjust(allPresented, by: -0.15)
             profile.discoveryLevel = max(0, profile.discoveryLevel - 0.02)
         case .opened:
+            break
+        case .skip:
             break
         }
 
@@ -885,8 +891,8 @@ enum CuratedPreferenceEngine {
 @MainActor
 @Observable
 final class CuratedOnboardingSession {
-    static let minimumAnswers = 8
-    static let targetAnswers = 14
+    static let minimumAnswers = 5
+    // targetAnswers removed — completion is now adaptive via isReady
     static let maximumAnswers = 20
 
     private struct Snapshot {
@@ -913,15 +919,34 @@ final class CuratedOnboardingSession {
     var answerCount: Int { profile.responseCount }
     var canUndo: Bool { !undoStack.isEmpty }
     var canFinish: Bool {
-        // Require minimum answers before "Finish now" appears. If the
-        // fresh candidate pool runs dry before then, the UI must show
-        // the loading state, not an early-exit button.
         answerCount >= Self.minimumAnswers
     }
-    var reachedTarget: Bool { answerCount >= Self.targetAnswers }
+
+    /// True when the system has enough signal diversity to produce a
+    /// meaningful feed. Requires ≥3 distinct topics with evidence AND
+    /// ≥2 editorial styles with evidence — not just a raw answer count.
+    var isReady: Bool {
+        guard answerCount >= Self.minimumAnswers else { return false }
+        let answeredKeys = Set(profile.evidence
+            .filter { $0.outcome != .skip && $0.outcome != .opened }
+            .flatMap(\.affectedKeys))
+        let topicKeys = answeredKeys.filter { $0.hasPrefix("topic:") }
+        let editorialKeys = answeredKeys.filter { $0.hasPrefix("editorial:") }
+        return topicKeys.count >= 3 && editorialKeys.count >= 2
+    }
+
+    /// Backward-compatible alias — existing code that checks targetAnswers
+    /// now maps to the adaptive isReady check.
+    var reachedTarget: Bool { isReady }
     var isComplete: Bool { answerCount >= Self.maximumAnswers }
     var progress: Double {
-        min(1, Double(answerCount) / Double(Self.targetAnswers))
+        if answerCount < Self.minimumAnswers {
+            return Double(answerCount) / Double(Self.minimumAnswers) * 0.5
+        }
+        if isReady { return 1.0 }
+        let remaining = Self.maximumAnswers - Self.minimumAnswers
+        let past = answerCount - Self.minimumAnswers
+        return 0.5 + 0.5 * Double(past) / Double(remaining)
     }
 
     func setLanguages(_ languages: Set<String>) {

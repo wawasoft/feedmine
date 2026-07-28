@@ -50,8 +50,10 @@ struct CuratedProfileDefinition: Codable, Sendable, Hashable {
         self.modelVersion = modelVersion
     }
 
+    /// Number of meaningful answers — excludes opened (passive) and skip
+    /// (explicit absence of signal). Both and Neither carry signal; Skip does not.
     var responseCount: Int {
-        evidence.lazy.filter { $0.outcome != .opened }.count
+        evidence.lazy.filter { $0.outcome != .opened && $0.outcome != .skip }.count
     }
 
     func weight(for key: String) -> Double {
@@ -73,6 +75,7 @@ enum CuratedChoiceOutcome: String, Codable, Sendable, Hashable, CaseIterable {
     case right
     case both
     case neither
+    case skip
     case opened
 
     var displayName: String {
@@ -81,6 +84,7 @@ enum CuratedChoiceOutcome: String, Codable, Sendable, Hashable, CaseIterable {
         case .right: return "Second story"
         case .both: return "Both"
         case .neither: return "Neither"
+        case .skip: return "Skipped"
         case .opened: return "Opened"
         }
     }

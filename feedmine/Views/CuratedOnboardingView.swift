@@ -529,7 +529,7 @@ struct CuratedOnboardingView: View {
 
             // Constellation progress: dots connect as answers accumulate
             HStack(spacing: 5) {
-                ForEach(0..<CuratedOnboardingSession.targetAnswers, id: \.self) { i in
+                ForEach(0..<CuratedOnboardingSession.maximumAnswers, id: \.self) { i in
                     Circle()
                         .fill(i < session.answerCount ? engine.accent : engine.accent.opacity(0.15))
                         .frame(
@@ -543,8 +543,10 @@ struct CuratedOnboardingView: View {
             .padding(.horizontal, 16)
             .padding(.top, 4)
 
-            if session.answerCount > 0 {
-                Text("\(session.answerCount) of \(CuratedOnboardingSession.targetAnswers)")
+            if session.answerCount >= CuratedOnboardingSession.minimumAnswers {
+                Text(session.isReady
+                    ? "Your first mix is ready"
+                    : "A pattern is forming")
                     .font(.caption2)
                     .fontWeight(.medium)
                     .foregroundStyle(.secondary)
