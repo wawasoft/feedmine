@@ -30,6 +30,7 @@ struct StoryDuelScene: View {
                 accent: accent,
                 action: { onChoose(.left) }
             )
+            .padding(.horizontal, 20)
             .accessibilityIdentifier("duel-top-card")
 
             // Action bar: Both / Neither / Skip
@@ -47,6 +48,7 @@ struct StoryDuelScene: View {
                 accent: accent,
                 action: { onChoose(.right) }
             )
+            .padding(.horizontal, 20)
             .accessibilityIdentifier("duel-bottom-card")
 
             // Bottom controls
