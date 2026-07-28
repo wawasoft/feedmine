@@ -3,9 +3,9 @@
   "failed_file_count": 0,
   "file_count": 118,
   "invalid_source_count": 0,
-  "node_count": 5713,
+  "node_count": 5715,
   "output": "feedmine/Resources/FeedEngine/catalog.sqlite",
-  "placement_count": 37404,
-  "size_bytes": 56029184,
-  "source_count": 37398
+  "placement_count": 37711,
+  "size_bytes": 56201216,
+  "source_count": 37705
 }
