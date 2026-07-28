@@ -233,10 +233,8 @@ def resolve_all_channel_ids(
 ) -> dict[str, str]:
     """Resolve channel IDs for all unique channels. Returns {slug: channel_id}.
 
-    Uses concurrent requests via ThreadPoolExecutor (~8 workers) for speed.
+    Uses the youtubers.me/{slug}/youtube redirect endpoint for fast resolution.
     """
-    from concurrent.futures import ThreadPoolExecutor, as_completed
-
     resolved: dict[str, str] = {}
     if resume:
         cp = load_checkpoint("phase3_resolved")
@@ -258,52 +256,30 @@ def resolve_all_channel_ids(
     print(f"\n{'='*60}", file=sys.stderr)
     print(f"Phase 3: Resolving {len(pending_slugs)} Channel IDs (via youtubers.me/youtube redirect)", file=sys.stderr, flush=True)
     print(f"  Pre-resolved from cache: {len(resolved)}/{len(slugs)}", file=sys.stderr, flush=True)
-    print(f"  Workers: 8 concurrent, ~0.9/s", file=sys.stderr, flush=True)
 
-    # Build work list: (slug, channel_name)
-    work = [(s, merged[s]["channel_name"]) for s in pending_slugs]
-
-    # Shared session for connection reuse
-    session = requests.Session()
-    session.headers.update(HEADERS)
-
-    def _resolve_one(slug: str, name: str) -> tuple[str, str | None]:
-        """Resolve a single channel, returning (slug, channel_id_or_None)."""
-        cid = resolve_channel_id(slug, name, cache)
-        return (slug, cid)
-
-    completed = 0
-    failed = 0
+    consecutive_failures = 0
     start = time.time()
-    checkpoint_interval = 100
+    for i, slug in enumerate(pending_slugs):
+        if consecutive_failures >= 10:
+            delay = min(30, consecutive_failures)
+            print(f"  ⚠ {consecutive_failures} consecutive failures — pausing {delay}s", file=sys.stderr, flush=True)
+            time.sleep(delay)
 
-    with ThreadPoolExecutor(max_workers=8) as executor:
-        futures = {executor.submit(_resolve_one, s, n): s for s, n in work}
+        name = merged[slug]["channel_name"]
+        cid = resolve_channel_id(slug, name, cache)
+        if cid:
+            resolved[slug] = cid
+            consecutive_failures = 0
+        else:
+            consecutive_failures += 1
 
-        for future in as_completed(futures):
-            slug, cid = future.result()
-            if cid:
-                resolved[slug] = cid
-                failed = 0
-            else:
-                failed += 1
-
-            completed += 1
-
-            # Backoff on consecutive failures
-            if failed >= 20:
-                delay = min(30, failed - 20)
-                print(f"  ⚠ {failed} consecutive failures — pausing {delay}s", file=sys.stderr)
-                time.sleep(delay)
-
-            # Checkpoint periodically
-            if completed % checkpoint_interval == 0 or completed == len(work):
-                elapsed = time.time() - start
-                rate = completed / elapsed if elapsed > 0 else 0
-                pct = completed / len(work) * 100
-                print(f"  [{completed}/{len(work)}] {pct:.0f}% — "
-                      f"{len(resolved)} resolved ({rate:.1f}/s)", file=sys.stderr, flush=True)
-                save_checkpoint("phase3_resolved", resolved)
+        if (i + 1) % 100 == 0 or i == len(pending_slugs) - 1:
+            elapsed = time.time() - start if start else 0
+            rate = (i + 1) / elapsed if elapsed > 0 else 0
+            pct = (i + 1) / max(len(pending_slugs), 1) * 100
+            print(f"  [{i+1}/{len(pending_slugs)}] {pct:.0f}% — "
+                  f"{len(resolved)} resolved ({rate:.1f}/s)", file=sys.stderr, flush=True)
+            save_checkpoint("phase3_resolved", resolved)
 
     unresolved = [s for s in slugs if s not in resolved]
     elapsed = time.time() - start
