@@ -23,7 +23,6 @@ struct CuratedOnboardingView: View {
     @State private var answerDelayTask: Task<Void, Never>?
     @State private var feedbackOutcome: CuratedChoiceOutcome?
     @State private var feedbackChanges: [String: Double] = [:]
-    @State private var warmNextTask: Task<Void, Never>?
     @State private var showInspector = false
 
     /// Snapshot of the global language filter before onboarding mutates it,
@@ -148,7 +147,6 @@ struct CuratedOnboardingView: View {
         .onDisappear {
             candidateTask?.cancel()
             answerDelayTask?.cancel()
-            warmNextTask?.cancel()
         }
         .alert("Couldn’t save this feed", isPresented: Binding(
             get: { errorMessage != nil },
@@ -438,15 +436,6 @@ struct CuratedOnboardingView: View {
             feedbackChanges = lastEvidence.weightChanges
         }
         feedbackOutcome = outcome
-
-        // Warm the next pair while feedback overlay is displayed,
-        // so cards render with images when the overlay dismisses.
-        if let nextPair = session.currentPair {
-            warmNextTask?.cancel()
-            warmNextTask = Task { @MainActor in
-                await warmPairImages(nextPair)
-            }
-        }
 
         // Haptic — prepare for next call, fire now
         let impact = UIImpactFeedbackGenerator(style: .medium)
