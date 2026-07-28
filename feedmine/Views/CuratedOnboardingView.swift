@@ -48,8 +48,8 @@ struct CuratedOnboardingView: View {
                 }
                 .transition(
                     .asymmetric(
-                        insertion: .move(edge: .trailing).combined(with: .opacity),
-                        removal: .move(edge: .leading).combined(with: .opacity)
+                        insertion: .opacity.animation(.easeInOut(duration: 0.35)),
+                        removal: .opacity.animation(.easeInOut(duration: 0.2))
                     )
                 )
             }
@@ -143,44 +143,51 @@ struct CuratedOnboardingView: View {
     // MARK: - Welcome
 
     private var welcomePage: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                Spacer(minLength: 24)
+        VStack(spacing: 0) {
+            Spacer()
 
-                CuratedOpenHoodGraphic(accent: engine.accent)
-                    .frame(height: 250)
-                    .padding(.horizontal, 26)
+            // Single iconic symbol — the curation ring, animated subtly
+            ZStack {
+                Circle()
+                    .fill(engine.accent.opacity(0.08))
+                    .frame(width: 140, height: 140)
+                Circle()
+                    .stroke(engine.accent.opacity(0.18), lineWidth: 1.2)
+                    .frame(width: 118, height: 118)
+                Image(systemName: "slider.horizontal.3")
+                    .font(.system(size: 42, weight: .light))
+                    .foregroundStyle(engine.accent)
+                    .symbolEffect(.pulse, options: .repeating.speed(0.3))
+            }
+            .padding(.bottom, 40)
 
-                VStack(spacing: 12) {
-                    Text("A feed that explains itself.")
-                        .font(engine.font(for: .articleHeadline, size: 32))
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
+            VStack(spacing: 16) {
+                Text("A feed that\nexplains itself.")
+                    .font(engine.font(for: .articleHeadline, size: 36))
+                    .fontWeight(.bold)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(4)
 
-                    Text("Choose between real stories. Feedmine learns what you want without guessing who you are — and shows every preference it creates.")
-                        .font(.system(size: 17))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .lineSpacing(4)
-                        .padding(.horizontal, 24)
-                }
+                Text("Choose between real stories. Feedmine learns what you want\nwithout guessing who you are — and shows every preference it creates.")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(5)
+                    .padding(.horizontal, 32)
+            }
 
-                HStack(spacing: 8) {
-                    principleChip("Real stories", icon: "newspaper")
-                    principleChip("On device", icon: "iphone")
-                    principleChip("Editable", icon: "slider.horizontal.3")
-                }
-                .padding(.horizontal, 20)
+            Spacer()
 
+            VStack(spacing: 14) {
                 Button {
-                    withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
+                    withAnimation(.spring(response: 0.48, dampingFraction: 0.82)) {
                         stage = .languages
                     }
                 } label: {
                     Text("Build my feed")
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
+                        .padding(.vertical, 16)
                 }
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.roundedRectangle(radius: 16))
@@ -192,19 +199,9 @@ struct CuratedOnboardingView: View {
                 }
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-                .padding(.bottom, 24)
             }
+            .padding(.bottom, 40)
         }
-        .scrollIndicators(.hidden)
-    }
-
-    private func principleChip(_ title: String, icon: String) -> some View {
-        Label(title, systemImage: icon)
-            .font(.caption)
-            .fontWeight(.medium)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 8)
-            .background(.thinMaterial, in: Capsule())
     }
 
     // MARK: - Languages
@@ -415,17 +412,23 @@ struct CuratedOnboardingView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-            HStack(spacing: 5) {
-                ForEach(0..<CuratedOnboardingSession.targetAnswers, id: \.self) { index in
-                    Capsule()
-                        .fill(index < session.answerCount
-                            ? engine.accent
-                            : engine.accent.opacity(0.13))
-                        .frame(maxWidth: .infinity)
+            HStack(spacing: 6) {
+                ZStack {
+                    Circle()
+                        .stroke(engine.accent.opacity(0.13), lineWidth: 3)
+                        .frame(width: 28, height: 28)
+                    Circle()
+                        .trim(from: 0, to: session.progress)
+                        .stroke(engine.accent, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                        .frame(width: 28, height: 28)
+                        .rotationEffect(.degrees(-90))
+                        .animation(.easeInOut(duration: 0.5), value: session.progress)
                 }
+                Text("\(session.answerCount) of \(CuratedOnboardingSession.targetAnswers)")
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.secondary)
             }
-            .frame(height: 4)
-            .padding(.horizontal, 24)
             .padding(.top, 3)
         }
         .padding(.horizontal, 20)
@@ -899,31 +902,16 @@ private struct CuratedStoryChoiceCard: View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 0) {
                 artwork
-                    .aspectRatio(16.0 / 9.0, contentMode: .fit)
+                    .aspectRatio(4.0 / 3.0, contentMode: .fit)
                     .clipped()
-                    .overlay(alignment: .topLeading) {
-                        Text(marker)
-                            .font(.caption)
-                            .fontWeight(.black)
-                            .foregroundStyle(.white)
-                            .frame(width: 28, height: 28)
-                            .background(.black.opacity(0.62), in: Circle())
-                            .padding(8)
-                    }
-                    .overlay(alignment: .bottomLeading) {
-                        Label(candidate.topic.shortName, systemImage: candidate.topic.icon)
-                            .font(.caption2)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.white)
-                            .lineLimit(1)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 5)
-                            .background(.black.opacity(0.62), in: Capsule())
-                            .padding(8)
-                    }
 
-                VStack(alignment: .leading, spacing: 7) {
+                VStack(alignment: .leading, spacing: 6) {
                     HStack(spacing: 6) {
+                        Text(marker)
+                            .font(.system(size: 11, weight: .black))
+                            .foregroundStyle(accent)
+                            .frame(width: 20, height: 20)
+                            .background(accent.opacity(0.12), in: Circle())
                         Text(candidate.item.sourceTitle)
                             .font(.caption2)
                             .fontWeight(.semibold)
@@ -939,11 +927,10 @@ private struct CuratedStoryChoiceCard: View {
                         .lineLimit(1)
                     }
                     Text(candidate.item.title)
-                        .font(.system(size: 15, weight: .semibold))
+                        .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(.primary)
-                        .lineLimit(4)
+                        .lineLimit(3)
                         .multilineTextAlignment(.leading)
-                    Spacer(minLength: 0)
                     HStack(spacing: 4) {
                         Image(systemName: "hand.tap")
                         Text("I’d open this")
@@ -952,21 +939,21 @@ private struct CuratedStoryChoiceCard: View {
                     .fontWeight(.medium)
                     .foregroundStyle(.secondary)
                 }
-                .padding(11)
+                .padding(12)
                 .frame(
                     maxWidth: .infinity,
-                    minHeight: 150,
-                    maxHeight: 150,
+                    minHeight: 120,
+                    maxHeight: 120,
                     alignment: .topLeading
                 )
             }
-            .background(accent.opacity(0.035))
-            .clipShape(RoundedRectangle(cornerRadius: 18))
+            .background(.regularMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 16))
             .overlay(
-                RoundedRectangle(cornerRadius: 18)
-                    .stroke(accent.opacity(0.12), lineWidth: 0.7)
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(.white.opacity(0.06), lineWidth: 0.6)
             )
-            .shadow(color: .black.opacity(0.055), radius: 12, y: 5)
+            .shadow(color: .black.opacity(0.06), radius: 14, y: 6)
         }
         .buttonStyle(CuratedPressStyle())
         .accessibilityIdentifier("curated-choice-\(marker.lowercased())")
@@ -1018,19 +1005,12 @@ private struct CuratedBackdrop: View {
     let accent: Color
 
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(accent.opacity(0.10))
-                .frame(width: 310, height: 310)
-                .blur(radius: 34)
-                .offset(x: 160, y: -260)
-            Circle()
-                .fill(Color.purple.opacity(0.055))
-                .frame(width: 260, height: 260)
-                .blur(radius: 42)
-                .offset(x: -170, y: 330)
-        }
-        .allowsHitTesting(false)
+        Circle()
+            .fill(accent.opacity(0.07))
+            .frame(width: 340, height: 340)
+            .blur(radius: 48)
+            .offset(y: -120)
+            .allowsHitTesting(false)
     }
 }
 
