@@ -299,6 +299,10 @@ enum CuratedPreferenceEngine {
             }
             return (source, assessment, topic)
         }.sorted { lhs, rhs in
+            // Hand-picked onboarding showcase domains first
+            let lhsShowcase = Self.isOnboardingShowcase(url: lhs.0.url, language: lhs.0.language ?? "en")
+            let rhsShowcase = Self.isOnboardingShowcase(url: rhs.0.url, language: rhs.0.language ?? "en")
+            if lhsShowcase != rhsShowcase { return lhsShowcase }
             if lhs.1.score != rhs.1.score { return lhs.1.score > rhs.1.score }
             if lhs.0.qualityScore != rhs.0.qualityScore {
                 return (lhs.0.qualityScore ?? 0) > (rhs.0.qualityScore ?? 0)
@@ -408,6 +412,48 @@ enum CuratedPreferenceEngine {
         return keys
     }
 
+    // MARK: - Hardcoded Onboarding Curation
+
+    /// Hand-picked source domains that produce excellent comparison cards:
+    /// great images, compelling headlines, diverse topics, editorial quality.
+    /// Onboarding uses these first before falling back to the algorithmic pool.
+    static let onboardingShowcaseDomains: [String: [String]] = [
+        "en": [
+            // Reference / News — recognizable mastheads
+            "reuters.com", "apnews.com", "npr.org", "bbc.com", "bbc.co.uk",
+            "theguardian.com", "economist.com", "csmonitor.com",
+            // Tech / Science — great images, strong headlines
+            "theverge.com", "arstechnica.com", "wired.com", "technologyreview.com",
+            "scientificamerican.com", "quantamagazine.org", "nautil.us",
+            // Culture / Analysis — longform, distinctive voice
+            "theatlantic.com", "newyorker.com", "newyorktimes.com", "nytimes.com",
+            "propublica.org", "texasmonthly.com", "theconversation.com",
+            // Design / Business — visual content
+            "fastcompany.com", "hbr.org", "bloomberg.com",
+            // Science / Nature
+            "nationalgeographic.com", "smithsonianmag.com", "science.org",
+        ],
+        "pt": [
+            "folha.uol.com.br", "www1.folha.uol.com.br",
+            "oglobo.globo.com", "uol.com.br", "nexojornal.com.br",
+            "piaui.folha.uol.com.br", "revistapesquisa.fapesp.br",
+            "bbc.com/portuguese", "elpais.com/brasil",
+            "cartacapital.com.br", "tab.uol.com.br",
+        ],
+        "es": [
+            "elpais.com", "elmundo.es", "elconfidencial.com",
+            "bbc.com/mundo", "lanacion.com.ar", "clarin.com",
+            "eluniversal.com.mx", "elespanol.com",
+        ],
+    ]
+
+    /// Check whether a source URL matches any hand-picked onboarding domain.
+    static func isOnboardingShowcase(url: String, language: String) -> Bool {
+        guard let domains = onboardingShowcaseDomains[language] else { return false }
+        let lower = url.lowercased()
+        return domains.contains { lower.contains($0) }
+    }
+
     static func makeCandidates(
         items: [FeedItem],
         sources: [FeedSource],
@@ -495,7 +541,12 @@ enum CuratedPreferenceEngine {
             .specialist: 1,
             .distinctive: 2,
         ]
+        // Sort: hand-picked showcase domains first, then quality, then recency
+        let languageForShowcase = languages.first ?? "en"
         let sorted = candidates.sorted {
+            let aShowcase = Self.isOnboardingShowcase(url: $0.source.feedURL, language: languageForShowcase)
+            let bShowcase = Self.isOnboardingShowcase(url: $1.source.feedURL, language: languageForShowcase)
+            if aShowcase != bShowcase { return aShowcase }
             if $0.quality != $1.quality { return $0.quality > $1.quality }
             if $0.item.publishedAt != $1.item.publishedAt {
                 return $0.item.publishedAt > $1.item.publishedAt
