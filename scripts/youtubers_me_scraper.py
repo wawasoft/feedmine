@@ -180,9 +180,12 @@ def resolve_channel_id(slug: str, channel_name: str, cache: dict[str, dict]) -> 
     if name_key in cache and cache[name_key].get("channel_id"):
         return cache[name_key]["channel_id"]
 
-    # Strategy 2: try youtube.com/@<slug>
-    handle_url = f"https://www.youtube.com/@{slug}"
-    soup = fetch_page(handle_url, timeout=15)
+    # Strategy 2: try youtube.com/@<slug> (skip for UUID-like slugs)
+    _UUID_PATTERN = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', re.I)
+    soup = None
+    if not _UUID_PATTERN.search(slug):
+        handle_url = f"https://www.youtube.com/@{slug}"
+        soup = fetch_page(handle_url, timeout=15)
     if soup:
         html = str(soup)
         # Patterns YouTube uses in page source
