@@ -96,15 +96,20 @@ CATEGORIES: dict[str, str] = {
 YT_BASE = "https://us.youtubers.me"
 
 
-def fetch_page(url: str, timeout: int = 30) -> BeautifulSoup | None:
-    """Fetch a URL and return parsed HTML, or None on failure."""
-    try:
-        resp = requests.get(url, timeout=timeout, headers=HEADERS)
-        resp.raise_for_status()
-        return BeautifulSoup(resp.text, "html.parser")
-    except Exception as e:
-        print(f"  ⚠ {url}: {e}", file=sys.stderr)
-        return None
+def fetch_page(url: str, timeout: int = 30, retries: int = 2) -> BeautifulSoup | None:
+    """Fetch a URL and return parsed HTML, or None on failure. Retries on transient errors."""
+    last_error = None
+    for attempt in range(retries + 1):
+        try:
+            resp = requests.get(url, timeout=timeout, headers=HEADERS)
+            resp.raise_for_status()
+            return BeautifulSoup(resp.text, "html.parser")
+        except Exception as e:
+            last_error = e
+            if attempt < retries:
+                time.sleep(1)
+    print(f"  ⚠ {url}: {last_error} (after {retries} retries)", file=sys.stderr)
+    return None
 
 
 def parse_number(text: str) -> int:
@@ -235,8 +240,10 @@ def resolve_all_channel_ids(
     consecutive_failures = 0
     for i, slug in enumerate(pending):
         if consecutive_failures >= 5:
-            time.sleep(5)  # Longer pause if we hit a block
-            consecutive_failures = 0
+            delay = min(120, 5 * (2 ** (consecutive_failures - 5)))  # 5s, 10s, 20s, 40s... capped at 120s
+            print(f"  ⚠ {consecutive_failures} consecutive failures — backing off {delay}s", file=sys.stderr)
+            time.sleep(delay)
+            # Do NOT reset consecutive_failures — let success reset it
 
         name = merged[slug]["channel_name"]
         if i > 0:
