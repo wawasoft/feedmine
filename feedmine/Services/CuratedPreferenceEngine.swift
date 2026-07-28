@@ -594,9 +594,11 @@ enum CuratedPreferenceEngine {
         usedPairIDs: Set<String>
     ) -> CuratedComparisonPair? {
         guard candidates.count >= 2 else { return nil }
+        // Never show the same card twice. If we're running low on fresh
+        // candidates, the caller must fetch more — we don't fall back to used items.
         let fresh = candidates.filter { !usedItemIDs.contains($0.id) }
-        let pool = fresh.count >= 4 ? fresh : candidates
-        let limited = Array(pool.prefix(80))
+        guard fresh.count >= 2 else { return nil }
+        let limited = Array(fresh.prefix(80))
         var best: (pair: CuratedComparisonPair, score: Double)?
 
         for leftIndex in limited.indices {
