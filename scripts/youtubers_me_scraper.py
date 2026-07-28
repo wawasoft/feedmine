@@ -667,14 +667,85 @@ def scrape_all_profiles(
     return profiles
 
 
+def assemble_output(
+    merged: dict[str, dict],
+    resolved_ids: dict[str, str],
+    profiles: dict[str, dict],
+) -> dict:
+    """Assemble final JSON output matching existing schema conventions."""
+    channels = []
+    with_cid = 0
+    with_feed = 0
+    with_profile = 0
+
+    for slug, data in merged.items():
+        cid = resolved_ids.get(slug, "")
+        profile = profiles.get(slug, {})
+
+        channel = {
+            "channel_id": cid,
+            "channel_name": data["channel_name"],
+            "feed_url": f"https://www.youtube.com/feeds/videos.xml?channel_id={cid}" if cid else "",
+            "youtubersme_slug": slug,
+            "youtubersme_url": f"https://us.youtubers.me/{slug}/youtuber-stats",
+            "countries": data.get("countries", []),
+            "categories": data.get("categories", []),
+            "listing_stats": {
+                "subscribers_total": data.get("subscribers_total", 0),
+                "video_views_total": data.get("video_views_total", 0),
+                "video_count": data.get("video_count", 0),
+                "started_year": data.get("started_year", 0),
+                "thumbnail_url": data.get("thumbnail_url", ""),
+                "subscribers_per_year": data.get("subscribers_per_year", 0),
+                "views_per_year": data.get("views_per_year", 0),
+                "videos_per_year": data.get("videos_per_year", 0),
+            },
+            "profile": profile if profile else None,
+            "source": "youtubers.me",
+        }
+
+        if cid:
+            with_cid += 1
+            if channel["feed_url"]:
+                with_feed += 1
+        if profile:
+            with_profile += 1
+
+        channels.append(channel)
+
+    # Sort by subscribers descending
+    channels.sort(key=lambda c: c["listing_stats"]["subscribers_total"], reverse=True)
+
+    return {
+        "metadata": {
+            "source": "youtubers.me — 30 countries + 16 categories, Top 1000 each",
+            "total_unique_channels": len(channels),
+            "with_channel_id": with_cid,
+            "with_feed_url": with_feed,
+            "with_profile": with_profile,
+            "countries_scraped": len(COUNTRIES),
+            "categories_scraped": len(CATEGORIES),
+        },
+        "channels": channels,
+    }
+
+
 def main():
     write_mode = "--write" in sys.argv
     resume_mode = "--resume" in sys.argv
+    quick_test = "--quick" in sys.argv
     phase_filter = None
 
     for i, arg in enumerate(sys.argv):
         if arg == "--phase" and i + 1 < len(sys.argv):
             phase_filter = int(sys.argv[i + 1])
+
+    # Quick test mode: limit to 1 country + 1 category
+    if quick_test:
+        global COUNTRIES, CATEGORIES  # type: ignore[name-defined]
+        COUNTRIES = {"united-states": "united-states"}
+        CATEGORIES = {"gaming": "Gaming"}
+        print("QUICK TEST MODE: 1 country + 1 category\n", file=sys.stderr)
 
     if not write_mode:
         print("DRY RUN — use --write to save\n", file=sys.stderr)
@@ -751,6 +822,50 @@ def main():
                 resolved_ids = {}
 
         profiles = scrape_all_profiles(merged, resolved_ids, resume=resume_mode)
+
+    # Phase 5: Assemble & save
+    if phase_filter in (None, 5):
+        # Rebuild merged + resolved_ids + profiles from checkpoints if earlier phases skipped
+        try:
+            _ = merged  # type: ignore[name-defined]
+        except NameError:
+            cp_countries = load_checkpoint("phase1_countries") or {}
+            cp_categories = load_checkpoint("phase1_categories") or {}
+            merged = merge_and_dedup(cp_countries, cp_categories)
+        try:
+            _ = resolved_ids  # type: ignore[name-defined]
+        except NameError:
+            resolved_ids = load_checkpoint("phase3_resolved") or {}
+        try:
+            _ = profiles  # type: ignore[name-defined]
+        except NameError:
+            profiles = load_checkpoint("phase4_profiles") or {}
+
+        print(f"\n{'='*60}", file=sys.stderr)
+        print("Phase 5: Assembling final output", file=sys.stderr)
+
+        output = assemble_output(merged, resolved_ids, profiles)
+        meta = output["metadata"]
+        print(f"Total unique channels: {meta['total_unique_channels']}", file=sys.stderr)
+        print(f"With channel ID: {meta['with_channel_id']}", file=sys.stderr)
+        print(f"With feed URL: {meta['with_feed_url']}", file=sys.stderr)
+        print(f"With profile data: {meta['with_profile']}", file=sys.stderr)
+
+        if write_mode:
+            OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+            OUTPUT_PATH.write_text(
+                json.dumps(output, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
+            print(f"\nWritten {meta['total_unique_channels']} channels to {OUTPUT_PATH}", file=sys.stderr)
+        else:
+            # Dry-run: show sample
+            print(f"\nDRY RUN — top 5 channels:", file=sys.stderr)
+            for ch in output["channels"][:5]:
+                print(f"  {ch['channel_name'][:40]:40s} "
+                      f"{ch['listing_stats']['subscribers_total']:>15,} subs  "
+                      f"cid={ch['channel_id'] or 'UNRESOLVED'}", file=sys.stderr)
+            print(f"\nDRY RUN complete. Use --write to save.", file=sys.stderr)
 
 
 if __name__ == "__main__":
