@@ -1000,8 +1000,8 @@ final class CuratedOnboardingSession {
             if $0.quality != $1.quality { return $0.quality > $1.quality }
             return $0.item.publishedAt > $1.item.publishedAt
         }
-        if currentPair == nil && pendingPair == nil && !isComplete {
-            prepareNextPair()
+        if currentPair == nil && !isComplete {
+            chooseNextPair()
         }
     }
 
