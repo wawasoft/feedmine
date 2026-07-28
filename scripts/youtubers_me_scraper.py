@@ -194,39 +194,31 @@ def resolve_channel_id(slug: str, channel_name: str, cache: dict[str, dict]) -> 
 
     Strategy:
       1. Check cache (existing JSON files) by normalized name
-      2. Scrape youtube.com/@<slug> -> extract UC ID from meta/script tags
-      3. Fallback: scrape youtube.com/results?search_query=<name> -> first channel result
+      2. Follow youtubers.me/{slug}/youtube redirect → extract UC ID from Location header
+      3. Fallback: scrape youtube.com/results?search_query=<name> → first channel result
     """
     # Strategy 1: local cache by normalized name
     name_key = _normalize_name(channel_name)
     if name_key in cache and cache[name_key].get("channel_id"):
         return cache[name_key]["channel_id"]
 
-    # Strategy 2: try youtube.com/@<slug> (skip for UUID-like slugs)
-    _UUID_PATTERN = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', re.I)
-    soup = None
-    if not _UUID_PATTERN.search(slug):
-        handle_url = f"https://www.youtube.com/@{slug}"
-        soup = fetch_page(handle_url, timeout=15)
-    if soup:
-        html = str(soup)
-        # Patterns YouTube uses in page source
-        for pattern in [
-            r'"externalId"\s*:\s*"(UC[\w-]{22})"',
-            r'"channelId"\s*:\s*"(UC[\w-]{22})"',
-            r'browse_id\s*=\s*(UC[\w-]{22})',
-            r'canonicalBaseUrl"\s*:\s*"/channel/(UC[\w-]{22})"',
-        ]:
-            match = re.search(pattern, html)
-            if match:
-                return match.group(1)
+    # Strategy 2: follow youtubers.me/{slug}/youtube redirect (fast, no page download)
+    redirect_url = f"https://us.youtubers.me/{slug}/youtube"
+    try:
+        resp = requests.get(redirect_url, timeout=15, headers=HEADERS, allow_redirects=False)
+        location = resp.headers.get("Location", "")
+        if "youtube.com/channel/" in location:
+            cid_match = re.search(r'UC[\w-]{22}', location)
+            if cid_match:
+                return cid_match.group(0)
+    except Exception:
+        pass
 
-    # Strategy 3: search fallback
+    # Strategy 3: search fallback (for channels where slug doesn't match)
     search_url = f"https://www.youtube.com/results?search_query={requests.utils.quote(channel_name)}"
     soup = fetch_page(search_url, timeout=15)
     if soup:
         html = str(soup)
-        # First channel result
         match = re.search(r'UC[\w-]{22}', html)
         if match:
             return match.group(0)
@@ -259,20 +251,19 @@ def resolve_all_channel_ids(
     pending = [s for s in slugs if s not in resolved]
 
     print(f"\n{'='*60}", file=sys.stderr)
-    print(f"Phase 3: Resolving {len(pending)} Channel IDs (via youtube.com scraping)", file=sys.stderr)
+    print(f"Phase 3: Resolving {len(pending)} Channel IDs (via youtubers.me/youtube redirect)", file=sys.stderr)
     print(f"  Pre-resolved from cache: {len(resolved)}/{len(slugs)}", file=sys.stderr)
 
     consecutive_failures = 0
     for i, slug in enumerate(pending):
-        if consecutive_failures >= 5:
-            delay = min(120, 5 * (2 ** (consecutive_failures - 5)))  # 5s, 10s, 20s, 40s... capped at 120s
+        if consecutive_failures >= 10:
+            delay = min(60, 2 * (2 ** (consecutive_failures - 10)))  # exponential, capped at 60s
             print(f"  ⚠ {consecutive_failures} consecutive failures — backing off {delay}s", file=sys.stderr)
             time.sleep(delay)
-            # Do NOT reset consecutive_failures — let success reset it
 
         name = merged[slug]["channel_name"]
         if i > 0:
-            time.sleep(2)  # Rate limit: be polite to YouTube
+            time.sleep(0.3)  # Rate limit: be polite to youtubers.me
 
         cid = resolve_channel_id(slug, name, cache)
         if cid:
