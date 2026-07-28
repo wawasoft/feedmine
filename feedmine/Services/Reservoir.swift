@@ -149,22 +149,23 @@ final class Reservoir {
     /// reservoir before the switch could redraw.
     func removeRegions(_ regions: Set<String>) {
         guard !regions.isEmpty else { return }
+        // Pre-compute all ancestor paths for disabled regions so the per-item
+        // check is a single Set.contains — no String slicing in the hot loop.
+        var disabledWithAncestors = regions
+        for region in regions {
+            var candidate = region
+            while let sep = candidate.lastIndex(of: "/") {
+                candidate = String(candidate[..<sep])
+                disabledWithAncestors.insert(candidate)
+            }
+        }
         let isDisabled: (FeedItem) -> Bool = { [self] item in
             let itemRegion = sourceRegionMap[item.sourceURL] ?? "global"
-            var candidate = itemRegion
-            while true {
-                if regions.contains(candidate) { return true }
-                guard let separator = candidate.lastIndex(of: "/") else { return false }
-                candidate = String(candidate[..<separator])
-            }
+            return disabledWithAncestors.contains(itemRegion)
         }
         visibleItems.removeAll(where: isDisabled)
         reservoir.removeAll(where: isDisabled)
-        // Top up visible if depleted
         if visibleItems.count < Self.pageSize && !reservoir.isEmpty {
-            // Clamp to reservoir.count: removeFirst(k) crashes when k exceeds
-            // the count, and the reservoir may hold fewer than `needed` items
-            // after a region is removed.
             let needed = min(Self.pageSize - visibleItems.count, reservoir.count)
             let batch = Array(reservoir.prefix(needed))
             visibleItems.append(contentsOf: batch)
