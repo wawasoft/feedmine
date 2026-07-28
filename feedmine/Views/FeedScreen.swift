@@ -12,7 +12,6 @@ private final class ImpressionTracker {
 struct FeedScreen: View {
     @Environment(\.scenePhase) private var scenePhase
     @Environment(FeedLoader.self) private var loader
-    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @State private var articleItem: FeedItem?
     private let impressions = ImpressionTracker()
     @State private var showScrollButton = false
@@ -149,12 +148,11 @@ struct FeedScreen: View {
         .onAppear { recordFirstScreenMetric() }
         .onChange(of: loader.items.count) { _, count in recordFirstUsefulContentMetric(count: count) }
         .onChange(of: scenePhase) { _, phase in handleScenePhase(phase) }
-        .onChange(of: hasSeenOnboarding) { _, newValue in
-            if newValue {
-                toastMessage = "Your mix is ready. Open the hood anytime."
-                toastIcon = "slider.horizontal.3"
-                withAnimation { showToast = true }
-            }
+        .onReceive(NotificationCenter.default.publisher(for: .onboardingDidSaveCuratedFeed)) { notification in
+            let name = notification.userInfo?["feedName"] as? String ?? "Your mix"
+            toastMessage = "\(name) is ready. Open the hood anytime."
+            toastIcon = "slider.horizontal.3"
+            withAnimation { showToast = true }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
             handleWillEnterForeground()

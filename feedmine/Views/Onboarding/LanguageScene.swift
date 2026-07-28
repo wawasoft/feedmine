@@ -87,9 +87,26 @@ struct LanguageScene: View {
 
     // MARK: - Selected languages
 
+    /// If the catalog hasn't loaded yet, synthesize entries for selected
+    /// language codes so the UI never shows "No language selected" falsely.
+    private var resolvedAvailableLanguages: [FeedLoader.LanguageInfo] {
+        if availableLanguages.isEmpty {
+            return selectedLanguages.map { code in
+                FeedLoader.LanguageInfo(
+                    code: code,
+                    name: Locale.current.localizedString(forLanguageCode: code) ?? code,
+                    flag: "",
+                    feedCount: 0,
+                    totalFeedCount: 0
+                )
+            }
+        }
+        return availableLanguages
+    }
+
     @ViewBuilder
     private var selectedLanguagesList: some View {
-        let selected = availableLanguages.filter { selectedLanguages.contains($0.code) }
+        let selected = resolvedAvailableLanguages.filter { selectedLanguages.contains($0.code) }
         if selected.isEmpty {
             AnyView(
                 HStack {

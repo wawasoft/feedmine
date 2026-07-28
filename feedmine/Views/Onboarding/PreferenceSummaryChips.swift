@@ -50,31 +50,18 @@ private struct ChipView: View {
 
     var body: some View {
         VStack(spacing: 4) {
-            Button {
-                if onAdjust != nil {
+            if onAdjust != nil {
+                Button {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
                         expanded.toggle()
                     }
+                } label: {
+                    chipContent
                 }
-            } label: {
-                HStack(spacing: 6) {
-                    Text(name)
-                        .font(.subheadline)
-                        .fontWeight(.medium)
-                    if weight > 0.1 {
-                        Image(systemName: "arrow.up")
-                            .font(.caption2)
-                    } else if weight < -0.1 {
-                        Image(systemName: "arrow.down")
-                            .font(.caption2)
-                    }
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(accent.opacity(0.1), in: Capsule())
-                .overlay(Capsule().stroke(accent.opacity(0.2), lineWidth: 0.5))
+                .buttonStyle(.plain)
+            } else {
+                chipContent
             }
-            .buttonStyle(.plain)
 
             if expanded, let onAdjust {
                 HStack(spacing: 4) {
@@ -91,6 +78,25 @@ private struct ChipView: View {
                 .transition(.opacity.combined(with: .scale(scale: 0.9)))
             }
         }
+    }
+
+    private var chipContent: some View {
+        HStack(spacing: 6) {
+            Text(name)
+                .font(.subheadline)
+                .fontWeight(.medium)
+            if weight > 0.1 {
+                Image(systemName: "arrow.up")
+                    .font(.caption2)
+            } else if weight < -0.1 {
+                Image(systemName: "arrow.down")
+                    .font(.caption2)
+            }
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(accent.opacity(0.1), in: Capsule())
+        .overlay(Capsule().stroke(accent.opacity(0.2), lineWidth: 0.5))
     }
 }
 

@@ -114,7 +114,6 @@
 		9675E0E61F9701365BEA3EA8 /* AddFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4508D18CCBCD92F55640B16 /* AddFeedView.swift */; };
 		98D526BAF52E5044A71623C8 /* ar.json in Resources */ = {isa = PBXBuildFile; fileRef = 5FF5E0580F613503C179A94F /* ar.json */; };
 		998C7F92DD060F9E1469B2DC /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABCAE92C1E148558D414CB0 /* ImageCache.swift */; };
-		9CF72C8E022B775C1BD7894D /* OnboardingPairQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29099E6CC0C33573D2309040 /* OnboardingPairQueue.swift */; };
 		9E7327FFC4AFCF854F99227B /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2FAA97A3521853E316A902 /* SearchEngine.swift */; };
 		A237A4BD1D29BF9B5E0B48EA /* pl.json in Resources */ = {isa = PBXBuildFile; fileRef = CABE7DEA6EA4216F6C977ACD /* pl.json */; };
 		A6CC23D83A3B257531C5DDCA /* ImportPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69B4ACE5F64965C7F9779 /* ImportPipeline.swift */; };
@@ -216,7 +215,6 @@
 		1E0707897639AD205286DC49 /* zh-Hant.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "zh-Hant.json"; sourceTree = "<group>"; };
 		20C0390FC7E6B67E2A2AF044 /* ShareCardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardImageView.swift; sourceTree = "<group>"; };
 		2164E6D372693F6DB774E998 /* ContentDistributionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDistributionTests.swift; sourceTree = "<group>"; };
-		29099E6CC0C33573D2309040 /* OnboardingPairQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPairQueue.swift; sourceTree = "<group>"; };
 		29F2BBD5E8D67FBB69DAE0DA /* ReservoirTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservoirTests.swift; sourceTree = "<group>"; };
 		2A323EC02099631F60573F6F /* it.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = it.json; sourceTree = "<group>"; };
 		2B1257D955820CA147477E6D /* FeedLoaderCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheTests.swift; sourceTree = "<group>"; };
@@ -495,7 +493,6 @@
 				A830B06661CF5F11645F54BA /* LocaleManager.swift */,
 				4A044ECB4C6151F458F8C5D5 /* Log.swift */,
 				B126A0070B10B3C716D2C0C7 /* NetworkMonitor.swift */,
-				29099E6CC0C33573D2309040 /* OnboardingPairQueue.swift */,
 				D43637F484CFF16738302685 /* OPMLParser.swift */,
 				356B59411D0FD6F25F98A56C /* PresetScorer.swift */,
 				89B4F915DC53D21F364DF239 /* Reservoir.swift */,
@@ -947,7 +944,6 @@
 				94691C3C8AE9287997315267 /* OPMLCatalogScanner.swift in Sources */,
 				383519A7AFEFE67C6FB585A9 /* OPMLParseResult.swift in Sources */,
 				3AEC9DE43D74BC03972B2C0B /* OPMLParser.swift in Sources */,
-				9CF72C8E022B775C1BD7894D /* OnboardingPairQueue.swift in Sources */,
 				240602E100F6F50B835E9420 /* OnboardingTipsView.swift in Sources */,
 				657EAFAE020B4A365183AE4E /* Pagination.swift in Sources */,
 				16D956FD490A1E5467B33E0D /* PreferenceSummaryChips.swift in Sources */,
