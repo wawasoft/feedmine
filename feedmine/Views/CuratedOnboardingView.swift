@@ -13,22 +13,18 @@ struct CuratedOnboardingView: View {
     @State private var engine = CircadianEngine.shared
     @State private var stage: Stage = .welcome
     @State private var selectedLanguages: Set<String> = []
-    @State private var languageSearch = ""
     @State private var session: CuratedOnboardingSession?
-    @State private var feedName = "My Curated Feed"
+    @State private var feedName = "My Feed"
     @State private var candidateTask: Task<Void, Never>?
-    @State private var answerDelayTask: Task<Void, Never>?
     @State private var candidateAttempts = 0
     @State private var isSaving = false
     @State private var errorMessage: String?
     @State private var answerPulse = 0
-
-    // Animation state
-    @State private var welcomeAppeared = false
-    @State private var headlineVisible = false
-    @State private var ctaVisible = false
-    @State private var choiceFeedback: (id: String, position: CGPoint)? = nil
-    @State private var constellationNodes: [CGPoint] = []
+    @State private var answerDelayTask: Task<Void, Never>?
+    @State private var feedbackOutcome: CuratedChoiceOutcome?
+    @State private var feedbackKeys: [String] = []
+    @State private var pairQueue: OnboardingPairQueue?
+    @State private var showInspector = false
 
     let isFirstRun: Bool
     var onCancel: () -> Void = {}
@@ -55,25 +51,83 @@ struct CuratedOnboardingView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                topBar
+                simplifiedTopBar
                 Group {
                     switch stage {
                     case .welcome:
-                        welcomePage
+                        WelcomeScene(
+                            accent: engine.accent,
+                            onStart: {
+                                startPairQueue()
+                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                    stage = .languages
+                                }
+                            },
+                            onSkip: onCancel
+                        )
                     case .languages:
-                        languagePage
+                        LanguageScene(
+                            selectedLanguages: $selectedLanguages,
+                            availableLanguages: loader.availableLanguages,
+                            accent: engine.accent,
+                            onContinue: startComparisons
+                        )
                     case .comparisons:
-                        comparisonPage
+                        if let session, let pair = session.currentPair {
+                            ZStack {
+                                StoryDuelScene(
+                                    pair: pair,
+                                    accent: engine.accent,
+                                    canUndo: session.canUndo,
+                                    canFinish: session.canFinish,
+                                    isReady: session.isReady,
+                                    onChoose: answer,
+                                    onUndo: {
+                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                            session.undo()
+                                        }
+                                    },
+                                    onNewPair: refreshCandidatePool,
+                                    onFinish: {
+                                        withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                                            stage = .review
+                                        }
+                                    }
+                                )
+                                .id(pair.id)
+                                .transition(.asymmetric(
+                                    insertion: .move(edge: .bottom).combined(with: .opacity),
+                                    removal: .move(edge: .top).combined(with: .opacity)
+                                ))
+                                if let outcome = feedbackOutcome {
+                                    ChoiceFeedbackOverlay(
+                                        outcome: outcome,
+                                        affectedKeys: feedbackKeys,
+                                        accent: engine.accent,
+                                        onDismiss: { dismissFeedback() }
+                                    )
+                                    .zIndex(10)
+                                }
+                            }
+                        } else {
+                            candidateLoadingState(session)
+                        }
                     case .review:
-                        reviewPage
+                        FeedRevealScene(
+                            profile: session?.profile ?? CuratedProfileDefinition(),
+                            feedName: $feedName,
+                            accent: engine.accent,
+                            previewItems: Array(loader.items.prefix(3)),
+                            isSaving: isSaving,
+                            onSave: { Task { await save(session!) } },
+                            onOpenHood: { showInspector = true }
+                        )
                     }
                 }
-                .transition(
-                    .asymmetric(
-                        insertion: .opacity.animation(.easeInOut(duration: 0.35)),
-                        removal: .opacity.animation(.easeInOut(duration: 0.2))
-                    )
-                )
+                .transition(.asymmetric(
+                    insertion: .opacity.animation(.easeInOut(duration: 0.35)),
+                    removal: .opacity.animation(.easeInOut(duration: 0.2))
+                ))
             }
         }
         .tint(engine.accent)
@@ -84,7 +138,7 @@ struct CuratedOnboardingView: View {
         }
         .onDisappear {
             candidateTask?.cancel()
-            answerDelayTask?.cancel()
+            pairQueue?.stop()
         }
         .alert("Couldn’t save this feed", isPresented: Binding(
             get: { errorMessage != nil },
@@ -95,14 +149,38 @@ struct CuratedOnboardingView: View {
             Text(errorMessage ?? "")
         }
         .sensoryFeedback(.selection, trigger: answerPulse)
+        .sheet(isPresented: $showInspector) {
+            if let session {
+                NavigationStack {
+                    ScrollView {
+                        CuratedProfileControls(
+                            profile: session.profile,
+                            accent: engine.accent,
+                            onTopicChange: { session.setTopicWeight($0, $1) },
+                            onEditorialChange: { session.setEditorialWeight($0, $1) },
+                            onDiscoveryChange: { session.setDiscoveryLevel($0) },
+                            onLearningChange: { session.setLearningEnabled($0) }
+                        )
+                        .padding(.horizontal, 22)
+                        .padding(.vertical, 16)
+                    }
+                    .background(engine.pageBackground)
+                    .navigationTitle("Everything learned")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Done") { showInspector = false }
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    private var topBar: some View {
-        HStack(spacing: 12) {
+    private var simplifiedTopBar: some View {
+        HStack {
             if stage != .welcome {
-                Button {
-                    goBack()
-                } label: {
+                Button { goBack() } label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 15, weight: .semibold))
                         .frame(width: 36, height: 36)
@@ -113,614 +191,56 @@ struct CuratedOnboardingView: View {
                 Color.clear.frame(width: 36, height: 36)
             }
 
-            VStack(spacing: 5) {
-                Text(stageTitle)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(.secondary)
-                GeometryReader { geometry in
-                    ZStack(alignment: .leading) {
-                        Capsule().fill(engine.accent.opacity(0.12))
-                        Capsule()
-                            .fill(engine.accent)
-                            .frame(width: geometry.size.width * stageProgress)
-                    }
-                }
-                .frame(height: 3)
+            Spacer()
+
+            if stage == .comparisons, let session {
+                ConfidenceProgressView(
+                    answerCount: session.answerCount,
+                    isReady: session.isReady,
+                    accent: engine.accent
+                )
             }
 
-            Button {
-                onCancel()
-            } label: {
+            Spacer()
+
+            Button { onCancel() } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 13, weight: .semibold))
                     .frame(width: 36, height: 36)
                     .background(.thinMaterial, in: Circle())
             }
-            .accessibilityLabel(isFirstRun ? "Use Everything for now" : "Close")
+            .accessibilityLabel(isFirstRun ? "Start with everything" : "Close")
         }
         .padding(.horizontal, 18)
         .padding(.top, 8)
         .padding(.bottom, 6)
     }
 
-    private var stageTitle: String {
-        switch stage {
-        case .welcome: return "WELCOME"
-        case .languages: return "YOUR LANGUAGES"
-        case .comparisons:
-            return session.map { "CHOICE \($0.answerCount + 1)" } ?? "CURATING"
-        case .review: return "OPEN HOOD"
-        }
+    // MARK: - Helpers
+
+    private func startPairQueue() {
+        guard pairQueue == nil else { return }
+        let queue = OnboardingPairQueue(loader: loader)
+        pairQueue = queue
+        queue.start(languages: selectedLanguages)
     }
 
-    private var stageProgress: Double {
-        switch stage {
-        case .welcome: return 0.08
-        case .languages: return 0.2
-        case .comparisons: return 0.2 + (session?.progress ?? 0) * 0.62
-        case .review: return 1
+    private func dismissFeedback() {
+        withAnimation(.easeInOut(duration: 0.25)) {
+            feedbackOutcome = nil
         }
-    }
-
-    // MARK: - Welcome
-
-    private var welcomePage: some View {
-        ZStack {
-            // Background: ghostly feed cards drifting behind heavy glass
-            feedCardsBehindGlass
-
-            // Foreground content
-            VStack(spacing: 0) {
-                Spacer()
-
-                // Icon with orbiting ring
-                ZStack {
-                    Circle()
-                        .stroke(engine.accent.opacity(0.2), lineWidth: 1.5)
-                        .frame(width: 100, height: 100)
-                        .scaleEffect(welcomeAppeared ? 1 : 0.3)
-                        .opacity(welcomeAppeared ? 1 : 0)
-
-                    ForEach(0..<3, id: \.self) { i in
-                        Circle()
-                            .fill(engine.accent)
-                            .frame(width: 6, height: 6)
-                            .offset(y: -50)
-                            .rotationEffect(.degrees(Double(i) * 120 + (welcomeAppeared ? 360 : 0)))
-                            .animation(
-                                .linear(duration: 8).repeatForever(autoreverses: false),
-                                value: welcomeAppeared
-                            )
-                    }
-
-                    Image(systemName: "slider.horizontal.3")
-                        .font(.system(size: 34, weight: .light))
-                        .foregroundStyle(engine.accent)
-                        .scaleEffect(welcomeAppeared ? 1 : 0.5)
-                        .opacity(welcomeAppeared ? 1 : 0)
-                }
-                .padding(.bottom, 48)
-
-                // Headline — staggered word reveal
-                staggeredHeadline
-                    .padding(.bottom, 20)
-
-                // Body
-                Text("Choose between real stories. Feedmine learns what you want\nwithout guessing who you are — and shows every preference it creates.")
-                    .font(.system(size: 16))
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(5)
-                    .padding(.horizontal, 32)
-                    .opacity(headlineVisible ? 1 : 0)
-                    .offset(y: headlineVisible ? 0 : 20)
-
-                Spacer()
-
-                // CTA
-                VStack(spacing: 14) {
-                    Button {
-                        withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                            stage = .languages
-                        }
-                    } label: {
-                        Text("Build my feed")
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 16)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.roundedRectangle(radius: 16))
-                    .padding(.horizontal, 24)
-                    .opacity(ctaVisible ? 1 : 0)
-                    .offset(y: ctaVisible ? 0 : 16)
-                    .accessibilityIdentifier("curated-onboarding-start")
-
-                    Button(isFirstRun ? "Use Everything for now" : "Not now") {
-                        onCancel()
-                    }
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .opacity(ctaVisible ? 1 : 0)
-                }
-                .padding(.bottom, 40)
-            }
+        guard let session, session.currentPair == nil, !session.isComplete else {
+            return
         }
-        .onAppear {
-            animateWelcomeEntrance()
-        }
-    }
-
-    // Ghostly feed cards drifting behind heavy glass.
-    // Uses hashed values (not random) to keep positions stable across body recomputations.
-    private var feedCardsBehindGlass: some View {
-        let cardSpecs: [(w: CGFloat, h: CGFloat, x: CGFloat, y: CGFloat, opacity: Double)] = [
-            (160, 110, -120, -200, 0.35), (185, 125, 100, -140, 0.42),
-            (150, 100, -140, 160, 0.30),  (175, 115, 130, 180, 0.38),
-            (195, 130, -80, -250, 0.45), (165, 105, 90, 210, 0.33),
-        ]
-        return ZStack {
-            ForEach(0..<6, id: \.self) { i in
-                let spec = cardSpecs[i]
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(.ultraThinMaterial)
-                    .frame(width: spec.w, height: spec.h)
-                    .rotationEffect(.degrees(Double(i) * 23 + (welcomeAppeared ? 5 : -5)))
-                    .offset(x: spec.x, y: spec.y)
-                    .opacity(welcomeAppeared ? spec.opacity : 0)
-                    .animation(
-                        .easeInOut(duration: 1.2)
-                            .delay(Double(i) * 0.12),
-                        value: welcomeAppeared
-                    )
-            }
-        }
-        .overlay(.ultraThinMaterial.opacity(0.92))
-        .allowsHitTesting(false)
-    }
-
-    // Word-by-word headline reveal
-    private var staggeredHeadline: some View {
-        let words = ["A feed that", "explains itself."]
-        return VStack(spacing: 4) {
-            ForEach(Array(words.enumerated()), id: \.offset) { i, line in
-                Text(line)
-                    .font(engine.font(for: .articleHeadline, size: 38))
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .opacity(headlineVisible ? 1 : 0)
-                    .offset(y: headlineVisible ? 0 : 24)
-                    .blur(radius: headlineVisible ? 0 : 8)
-                    .animation(
-                        .spring(response: 0.6, dampingFraction: 0.7)
-                            .delay(0.25 + Double(i) * 0.18),
-                        value: headlineVisible
-                    )
-            }
-        }
-    }
-
-    private func animateWelcomeEntrance() {
-        withAnimation(.easeOut(duration: 0.6)) { welcomeAppeared = true }
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.7).delay(0.35)) {
-            headlineVisible = true
-        }
-        withAnimation(.easeOut(duration: 0.5).delay(0.9)) { ctaVisible = true }
-    }
-
-    // MARK: - Languages
-
-    private var languagePage: some View {
-        VStack(spacing: 16) {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("What can you comfortably read?")
-                    .font(engine.font(for: .articleHeadline, size: 28))
-                    .fontWeight(.bold)
-                Text("Language is the only thing we ask directly. It says nothing about where you live or who you are.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .lineSpacing(3)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 22)
-            .padding(.top, 12)
-
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.secondary)
-                TextField("Find a language", text: $languageSearch)
-                    .textInputAutocapitalization(.never)
-            }
-            .padding(.horizontal, 14)
-            .frame(height: 46)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
-            .padding(.horizontal, 22)
-
-            ScrollView {
-                LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 145), spacing: 10)],
-                    spacing: 10
-                ) {
-                    ForEach(filteredLanguageOptions) { language in
-                        languageButton(language)
-                    }
-                }
-                .padding(.horizontal, 22)
-                .padding(.bottom, 12)
-            }
-
-            Button {
-                startComparisons()
-            } label: {
-                HStack {
-                    Text(selectedLanguages.count == 1
-                        ? "Continue with 1 language"
-                        : "Continue with \(selectedLanguages.count) languages")
-                    Image(systemName: "arrow.right")
-                }
-                .fontWeight(.semibold)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 14)
-            }
-            .buttonStyle(.borderedProminent)
-            .buttonBorderShape(.roundedRectangle(radius: 16))
-            .disabled(selectedLanguages.isEmpty)
-            .padding(.horizontal, 22)
-            .padding(.bottom, 14)
-            .accessibilityIdentifier("curated-languages-continue")
-        }
-    }
-
-    private func languageButton(_ language: FeedLoader.LanguageInfo) -> some View {
-        let selected = selectedLanguages.contains(language.code)
-        return Button {
-            if selected {
-                selectedLanguages.remove(language.code)
-            } else {
-                selectedLanguages.insert(language.code)
-            }
-            UISelectionFeedbackGenerator().selectionChanged()
-        } label: {
-            HStack(spacing: 10) {
-                Text(language.flag)
-                    .font(.title3)
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(language.name)
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .lineLimit(1)
-                    Text("\(language.totalFeedCount) sources")
-                        .font(.caption2)
-                        .foregroundStyle(selected ? .white.opacity(0.75) : .secondary)
-                }
-                Spacer(minLength: 0)
-                Image(systemName: selected ? "checkmark.circle.fill" : "circle")
-                    .foregroundStyle(selected ? .white : .secondary)
-            }
-            .padding(.horizontal, 12)
-            .frame(maxWidth: .infinity, minHeight: 58)
-            .foregroundStyle(selected ? .white : .primary)
-            .background(
-                selected ? AnyShapeStyle(engine.accent) : AnyShapeStyle(.thinMaterial),
-                in: RoundedRectangle(cornerRadius: 15)
-            )
-        }
-        .buttonStyle(.plain)
-        .accessibilityIdentifier("curated-language-\(language.code)")
-        .accessibilityValue(selected ? "selected" : "not selected")
-    }
-
-    private var filteredLanguageOptions: [FeedLoader.LanguageInfo] {
-        let options = languageOptions
-        let query = languageSearch.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !query.isEmpty else { return options }
-        return options.filter {
-            $0.name.localizedCaseInsensitiveContains(query)
-                || $0.code.localizedCaseInsensitiveContains(query)
-        }
-    }
-
-    private var languageOptions: [FeedLoader.LanguageInfo] {
-        let live = loader.availableLanguages
-        if !live.isEmpty { return live }
-        let common = ["en", "pt", "es", "fr", "de", "it", "ar", "hi", "zh", "ja", "he", "ru"]
-        return common.map { code in
-            FeedLoader.LanguageInfo(
-                code: code,
-                name: Locale.current.localizedString(forLanguageCode: code) ?? code,
-                flag: fallbackFlag(for: code),
-                feedCount: 0,
-                totalFeedCount: 0
-            )
-        }
-    }
-
-    // MARK: - Comparisons
-
-    @ViewBuilder
-    private var comparisonPage: some View {
-        if let session {
-            VStack(spacing: 10) {
-                comparisonHeader(session)
-
-                if let pair = session.currentPair {
-                    VStack(spacing: 10) {
-                        HStack(alignment: .top, spacing: 12) {
-                            CuratedStoryChoiceCard(
-                                candidate: pair.left,
-                                marker: "A",
-                                accent: engine.accent
-                            ) {
-                                answer(.left)
-                            }
-
-                            CuratedStoryChoiceCard(
-                                candidate: pair.right,
-                                marker: "B",
-                                accent: engine.accent
-                            ) {
-                                answer(.right)
-                            }
-                        }
-                        .id(pair.id)
-                        .transition(
-                            .asymmetric(
-                                insertion: .move(edge: .bottom).combined(with: .opacity),
-                                removal: .move(edge: .top).combined(with: .opacity)
-                            )
-                        )
-
-                        HStack(spacing: 10) {
-                            alternativeButton("Both", icon: "square.on.square") {
-                                answer(.both)
-                            }
-                            alternativeButton("Neither", icon: "minus.circle") {
-                                answer(.neither)
-                            }
-                        }
-
-                        HStack {
-                            Button {
-                                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                    session.undo()
-                                }
-                            } label: {
-                                Label("Undo", systemImage: "arrow.uturn.backward")
-                            }
-                            .disabled(!session.canUndo)
-                            .opacity(session.canUndo ? 1 : 0.3)
-
-                            Spacer()
-
-                            if session.canFinish {
-                                Button(session.reachedTarget ? "Review my feed" : "Finish now") {
-                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                                        stage = .review
-                                    }
-                                }
-                                .fontWeight(.semibold)
-                                .accessibilityIdentifier("curated-review")
-                            }
-                        }
-                        .font(.subheadline)
-                    }
-                    .padding(.horizontal, 18)
-                } else {
-                    candidateLoadingState(session)
-                }
-                Spacer(minLength: 8)
-            }
-        } else {
-            ProgressView()
-        }
-    }
-
-    private func comparisonHeader(_ session: CuratedOnboardingSession) -> some View {
-        VStack(spacing: 8) {
-            Text("Which would you open first?")
-                .font(engine.font(for: .articleHeadline, size: 25))
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
-            Text(comparisonSubtitle(session))
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-
-            // Constellation progress: dots connect as answers accumulate
-            HStack(spacing: 5) {
-                ForEach(0..<CuratedOnboardingSession.maximumAnswers, id: \.self) { i in
-                    Circle()
-                        .fill(i < session.answerCount ? engine.accent : engine.accent.opacity(0.15))
-                        .frame(
-                            width: i < session.answerCount ? 8 : 5,
-                            height: i < session.answerCount ? 8 : 5
-                        )
-                        .scaleEffect(i == session.answerCount ? 1.4 : 1)
-                        .animation(.spring(response: 0.35, dampingFraction: 0.55), value: session.answerCount)
-                }
-            }
-            .padding(.horizontal, 16)
-            .padding(.top, 4)
-
-            if session.answerCount >= CuratedOnboardingSession.minimumAnswers {
-                Text(session.isReady
-                    ? "Your first mix is ready"
-                    : "A pattern is forming")
-                    .font(.caption2)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.secondary)
-                    .transition(.opacity.combined(with: .scale))
-            }
-        }
-        .padding(.horizontal, 20)
-        .padding(.top, 8)
-    }
-
-    private func comparisonSubtitle(_ session: CuratedOnboardingSession) -> String {
-        if session.answerCount < 3 {
-            return "Two editorially selected stories. No answer defines you."
-        }
-        if session.answerCount < CuratedOnboardingSession.minimumAnswers {
-            return "Topics, references, specialists, and distinctive voices."
-        }
-        if session.reachedTarget {
-            return "Your feed is ready. Keep going or inspect the result."
-        }
-        return "We have a first mix. A few more choices improve confidence."
-    }
-
-    private func alternativeButton(
-        _ title: String,
-        icon: String,
-        action: @escaping () -> Void
-    ) -> some View {
-        Button(action: action) {
-            Label(title, systemImage: icon)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 11)
-        }
-        .buttonStyle(.plain)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 13))
-        .overlay(
-            RoundedRectangle(cornerRadius: 13)
-                .stroke(engine.accent.opacity(0.1), lineWidth: 0.5)
-        )
-        .accessibilityIdentifier("curated-choice-\(title.lowercased())")
-    }
-
-    private func candidateLoadingState(
-        _ session: CuratedOnboardingSession
-    ) -> some View {
-        VStack(spacing: 20) {
-            Spacer()
-            // Animated orbiting dots
-            ZStack {
-                ForEach(0..<5, id: \.self) { i in
-                    Circle()
-                        .fill(engine.accent.opacity(0.5))
-                        .frame(width: 8, height: 8)
-                        .offset(y: -54)
-                        .rotationEffect(.degrees(Double(i) * 72))
-                        .opacity(0.3 + 0.7 * abs(sin(Double(i) * 0.8)))
-                }
-                Image(systemName: "point.3.connected.trianglepath.dotted")
-                    .font(.system(size: 38, weight: .light))
-                    .foregroundStyle(engine.accent)
-                    .symbolEffect(.pulse, options: .repeating.speed(0.8))
-            }
-            .frame(width: 120, height: 120)
-            .rotationEffect(.degrees(candidateAttempts > 0 ? 360 : 0))
-            .animation(
-                .linear(duration: 4).repeatForever(autoreverses: false),
-                value: candidateAttempts
-            )
-
-            Text("Finding a fair comparison")
-                .font(.headline)
-            Text("Feedmine is using real stories arriving through the normal feed.\nNothing is generated or sent away.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 36)
-
-            if candidateAttempts >= 5 {
-                Button("Start with a balanced feed") {
-                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                        stage = .review
-                    }
-                }
-                .buttonStyle(.bordered)
-                .transition(.opacity.combined(with: .scale))
-            }
-            Spacer()
-        }
-    }
-
-    // MARK: - Review
-
-    @ViewBuilder
-    private var reviewPage: some View {
-        if let session {
-            ScrollView {
-                VStack(spacing: 20) {
-                    VStack(spacing: 8) {
-                        ZStack {
-                            Circle()
-                                .fill(engine.accent.opacity(0.12))
-                                .frame(width: 70, height: 70)
-                            Image(systemName: "slider.horizontal.3")
-                                .font(.system(size: 30, weight: .medium))
-                                .foregroundStyle(engine.accent)
-                        }
-                        Text("Your feed, in plain sight.")
-                            .font(engine.font(for: .articleHeadline, size: 29))
-                            .fontWeight(.bold)
-                        Text("These are preferences, not a personality verdict. Change anything before saving.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 26)
-                    }
-                    .padding(.top, 12)
-
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("NAME")
-                            .font(.caption2)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.secondary)
-                        TextField("Curated Feed name", text: $feedName)
-                            .font(.headline)
-                            .padding(14)
-                            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
-                    }
-                    .padding(.horizontal, 22)
-
-                    CuratedProfileControls(
-                        profile: session.profile,
-                        accent: engine.accent,
-                        onTopicChange: { session.setTopicWeight($0, $1) },
-                        onEditorialChange: { session.setEditorialWeight($0, $1) },
-                        onDiscoveryChange: { session.setDiscoveryLevel($0) },
-                        onLearningChange: { session.setLearningEnabled($0) }
-                    )
-                    .padding(.horizontal, 22)
-
-                    Button {
-                        Task { await save(session) }
-                    } label: {
-                        Group {
-                            if isSaving {
-                                ProgressView().tint(.white)
-                            } else {
-                                Label("Save & open this feed", systemImage: "checkmark")
-                            }
-                        }
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 15)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.roundedRectangle(radius: 16))
-                    .disabled(isSaving)
-                    .padding(.horizontal, 22)
-                    .accessibilityIdentifier("curated-save")
-
-                    Text("Stored only on this device. You can inspect, edit, duplicate, or delete it later.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 30)
-                        .padding(.bottom, 28)
-                }
-            }
-            .scrollIndicators(.hidden)
-        }
+        refreshCandidatePool()
     }
 
     // MARK: - Actions
+
+    // Old welcomePage content moved to WelcomeScene.swift — kept here for diff clarity:
+
+    
+// MARK: - Actions
 
     private func seedLanguageSelection() {
         guard selectedLanguages.isEmpty else { return }
@@ -833,6 +353,54 @@ struct CuratedOnboardingView: View {
         }
     }
 
+    @ViewBuilder
+    private func candidateLoadingState(
+        _ session: CuratedOnboardingSession?
+    ) -> some View {
+        VStack(spacing: 20) {
+            Spacer()
+            ZStack {
+                ForEach(0..<5, id: \.self) { i in
+                    Circle()
+                        .fill(engine.accent.opacity(0.5))
+                        .frame(width: 8, height: 8)
+                        .offset(y: -54)
+                        .rotationEffect(.degrees(Double(i) * 72))
+                        .opacity(0.3 + 0.7 * abs(sin(Double(i) * 0.8)))
+                }
+                Image(systemName: "point.3.connected.trianglepath.dotted")
+                    .font(.system(size: 38, weight: .light))
+                    .foregroundStyle(engine.accent)
+                    .symbolEffect(.pulse, options: .repeating.speed(0.8))
+            }
+            .frame(width: 120, height: 120)
+            .rotationEffect(.degrees(candidateAttempts > 0 ? 360 : 0))
+            .animation(
+                .linear(duration: 4).repeatForever(autoreverses: false),
+                value: candidateAttempts
+            )
+
+            Text("Finding a fair comparison")
+                .font(.headline)
+            Text("Feedmine is using real stories arriving through the normal feed.\nNothing is generated or sent away.")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 36)
+
+            if candidateAttempts >= 5 {
+                Button("Start with a balanced feed") {
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                        stage = .review
+                    }
+                }
+                .buttonStyle(.bordered)
+                .transition(.opacity.combined(with: .scale))
+            }
+            Spacer()
+        }
+    }
+
     private func answer(_ outcome: CuratedChoiceOutcome) {
         guard let session else { return }
 
@@ -842,6 +410,12 @@ struct CuratedOnboardingView: View {
             session.answer(outcome)
             updateAutoName()
         }
+
+        // Capture feedback for overlay
+        if let lastEvidence = session.profile.evidence.last {
+            feedbackKeys = lastEvidence.affectedKeys
+        }
+        feedbackOutcome = outcome
 
         // Haptic — prepare for next call, fire now
         let impact = UIImpactFeedbackGenerator(style: .medium)
@@ -1207,7 +781,7 @@ private struct CuratedStoryChoiceCard: View {
     }
 }
 
-private struct CuratedPressStyle: ButtonStyle {
+struct CuratedPressStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .scaleEffect(configuration.isPressed ? 0.975 : 1)

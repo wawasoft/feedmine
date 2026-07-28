@@ -43,7 +43,7 @@ struct FeedRevealScene: View {
                     TextField("Feed name", text: $feedName)
                         .font(.headline)
                         .padding(12)
-                        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 12))
+                        .background { RoundedRectangle(cornerRadius: 12).fill(.thinMaterial) }
                 }
                 .padding(.horizontal, 22)
 
@@ -57,7 +57,7 @@ struct FeedRevealScene: View {
                             .padding(.horizontal, 22)
 
                         ForEach(previewItems.prefix(3)) { item in
-                            FeedItemCardView(item: item)
+                            FeedItemCardView(item: item, isRead: false, isBookmarked: false)
                                 .padding(.horizontal, 16)
                         }
                     }
