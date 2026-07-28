@@ -4,7 +4,7 @@ import SwiftUI
 /// Human-readable signals only — never shows numeric weights.
 struct ChoiceFeedbackOverlay: View {
     let outcome: CuratedChoiceOutcome
-    let affectedKeys: [String]
+    let weightChanges: [String: Double]
     let accent: Color
     let onDismiss: () -> Void
     let onUndo: (() -> Void)?
@@ -65,11 +65,15 @@ struct ChoiceFeedbackOverlay: View {
 
     private var signalChips: [String] {
         guard outcome != .skip else { return [] }
-        let names = affectedKeys.prefix(3).compactMap { key -> String? in
-            let name = key.curatedFeatureDisplayName
-            guard !name.contains(":") else { return nil }
-            return name
-        }
-        return Array(Set(names)).sorted().prefix(2).map { "\($0) ↑" }
+        let entries = weightChanges
+            .sorted { abs($0.value) > abs($1.value) }
+            .prefix(3)
+            .compactMap { (key, delta) -> String? in
+                let name = key.curatedFeatureDisplayName
+                guard !name.contains(":") else { return nil }
+                let arrow = delta > 0 ? "↑" : "↓"
+                return "\(name) \(arrow)"
+            }
+        return Array(entries.prefix(2))
     }
 }

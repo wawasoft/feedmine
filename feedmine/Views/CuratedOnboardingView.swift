@@ -22,7 +22,7 @@ struct CuratedOnboardingView: View {
     @State private var answerPulse = 0
     @State private var answerDelayTask: Task<Void, Never>?
     @State private var feedbackOutcome: CuratedChoiceOutcome?
-    @State private var feedbackKeys: [String] = []
+    @State private var feedbackChanges: [String: Double] = [:]
     @State private var showInspector = false
 
     /// Snapshot of the global language filter before onboarding mutates it,
@@ -103,7 +103,7 @@ struct CuratedOnboardingView: View {
                                 if let outcome = feedbackOutcome {
                                     ChoiceFeedbackOverlay(
                                         outcome: outcome,
-                                        affectedKeys: feedbackKeys,
+                                        weightChanges: feedbackChanges,
                                         accent: engine.accent,
                                         onDismiss: { dismissFeedback() },
                                         onUndo: outcome != .skip ? { dismissFeedback(undo: true) } : nil
@@ -424,7 +424,7 @@ struct CuratedOnboardingView: View {
 
         // Capture feedback for overlay
         if let lastEvidence = session.profile.evidence.last {
-            feedbackKeys = lastEvidence.affectedKeys
+            feedbackChanges = lastEvidence.weightChanges
         }
         feedbackOutcome = outcome
 
