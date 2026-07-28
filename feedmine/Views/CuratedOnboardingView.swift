@@ -789,8 +789,8 @@ struct CuratedOnboardingView: View {
     }
 
     /// Pre-load images for both cards in a pair so they render with photos,
-    /// not placeholder gradients. Times out at 4 seconds so onboarding
-    /// never stalls — cards show whatever is cached by then.
+    /// not placeholder gradients. Actually initiates the download (unlike the
+    /// previous version which only polled). Times out at 4 seconds.
     private func warmPairImages(_ pair: CuratedComparisonPair) async {
         let urlStrings = [pair.left, pair.right].compactMap {
             $0.item.bestImageURL ?? $0.item.imageURL
@@ -798,15 +798,17 @@ struct CuratedOnboardingView: View {
         guard !urlStrings.isEmpty else { return }
 
         let urls = urlStrings.compactMap(URL.init(string:))
+        guard !urls.isEmpty else { return }
 
-        // Wait up to 4 seconds for at least one image to land in disk cache.
-        // ImageCache.hasCachedImageData checks disk synchronously.
+        // Initiate prefetch through the loader's prefetcher
+        await loader.prefetcher.prefetch(urls: urls.map(\.absoluteString), priorityURLs: urls.map(\.absoluteString))
+
+        // Wait up to 4 seconds for at least one to land in cache
         let deadline = Date().addingTimeInterval(4)
         while Date() < deadline {
             if Task.isCancelled { break }
-            let anyCached = urls.contains { ImageCache.hasCachedImageData(for: $0) }
-            if anyCached { break }
-            try? await Task.sleep(for: .milliseconds(200))
+            if urls.contains(where: { ImageCache.hasCachedImageData(for: $0) }) { break }
+            try? await Task.sleep(for: .milliseconds(150))
         }
     }
 
