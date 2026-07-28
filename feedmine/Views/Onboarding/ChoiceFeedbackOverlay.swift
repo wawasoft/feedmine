@@ -1,0 +1,70 @@
+import SwiftUI
+
+/// Appears for ~600ms after each choice showing what was learned.
+/// Human-readable signals only — never shows numeric weights.
+struct ChoiceFeedbackOverlay: View {
+    let outcome: CuratedChoiceOutcome
+    let affectedKeys: [String]
+    let accent: Color
+    let onDismiss: () -> Void
+
+    @State private var visible = false
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text(summaryText)
+                .font(.title3)
+                .fontWeight(.bold)
+
+            if !signalChips.isEmpty {
+                HStack(spacing: 8) {
+                    ForEach(signalChips, id: \.self) { chip in
+                        Text(chip)
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(accent.opacity(0.12), in: Capsule())
+                    }
+                }
+            }
+
+            if outcome != .skip {
+                Button("Undo") { onDismiss() }
+                    .font(.subheadline)
+            }
+        }
+        .padding(24)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 24))
+        .opacity(visible ? 1 : 0)
+        .scaleEffect(visible ? 1 : 0.9)
+        .onAppear {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+                visible = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                onDismiss()
+            }
+        }
+    }
+
+    private var summaryText: String {
+        switch outcome {
+        case .left, .right: return "You chose this"
+        case .both: return "Keeping both directions"
+        case .neither: return "Showing less of this mix"
+        case .skip: return "Skipped"
+        case .opened: return "Opened"
+        }
+    }
+
+    private var signalChips: [String] {
+        guard outcome != .skip else { return [] }
+        let names = affectedKeys.prefix(3).compactMap { key -> String? in
+            let name = key.curatedFeatureDisplayName
+            guard !name.contains(":") else { return nil }
+            return name
+        }
+        return Array(Set(names)).sorted().prefix(2).map { "\($0) ↑" }
+    }
+}
