@@ -30,6 +30,10 @@ struct CuratedOnboardingView: View {
     /// restored on cancel so the main feed isn't left filtered.
     @State private var preOnboardingLanguages: Set<String>?
 
+    /// Preview items computed once when entering the reveal stage, avoiding
+    /// repeated MainActor work during body recomputation.
+    @State private var previewItems: [FeedItem] = []
+
     let isFirstRun: Bool
     var onCancel: () -> Void = {}
     var onSaved: (CuratedFeed) -> Void = { _ in }
@@ -88,9 +92,11 @@ struct CuratedOnboardingView: View {
                                     onUndo: {
                                         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                                             session.undo()
+                                            updateAutoName()
                                         }
                                     },
                                     onFinish: {
+                                        previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
                                         withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
                                             stage = .review
                                         }
@@ -120,7 +126,7 @@ struct CuratedOnboardingView: View {
                             profile: session?.profile ?? CuratedProfileDefinition(),
                             feedName: $feedName,
                             accent: engine.accent,
-                            previewItems: session.map { loader.previewCuratedFeed(profile: $0.profile, limit: 3) } ?? [],
+                            previewItems: previewItems,
                             isSaving: isSaving,
                             onSave: { Task { await save(session!) } },
                             onOpenHood: { showInspector = true }
@@ -300,7 +306,9 @@ struct CuratedOnboardingView: View {
 
     private func startComparisons() {
         // Snapshot global filter before mutating — restored on cancel
-        preOnboardingLanguages = loader.selectedLanguages
+        if preOnboardingLanguages == nil {
+            preOnboardingLanguages = loader.selectedLanguages
+        }
         loader.applyCuratedLanguages(selectedLanguages)
         let newSession = CuratedOnboardingSession(languages: selectedLanguages)
         session = newSession
@@ -403,6 +411,7 @@ struct CuratedOnboardingView: View {
 
             if candidateAttempts >= 5 {
                 Button("Start with a balanced feed") {
+                    previewItems = loader.previewCuratedFeed(profile: session?.profile ?? CuratedProfileDefinition(), limit: 3)
                     withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
                         stage = .review
                     }
