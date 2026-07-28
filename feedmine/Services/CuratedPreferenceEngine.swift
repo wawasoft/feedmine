@@ -448,13 +448,23 @@ enum CuratedPreferenceEngine {
     ]
 
     /// Check whether a source URL matches any hand-picked onboarding domain.
-    /// Uses host extraction + suffix matching to avoid false positives
-    /// (e.g. "fakereuters.com" must not match "reuters.com").
+    /// Supports both plain hosts ("reuters.com") and host+path entries
+    /// ("bbc.com/portuguese") for regional sections.
     static func isOnboardingShowcase(url: String, language: String) -> Bool {
         guard let domains = onboardingShowcaseDomains[language] else { return false }
-        guard let host = URL(string: url)?.host?.lowercased() else { return false }
+        guard let parsed = URL(string: url) else { return false }
+        let host = parsed.host?.lowercased() ?? ""
+        let path = parsed.path.lowercased().trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         return domains.contains { domain in
-            host == domain || host.hasSuffix("." + domain)
+            if domain.contains("/") {
+                // Domain entry includes a path prefix (e.g. "bbc.com/portuguese")
+                let parts = domain.split(separator: "/", maxSplits: 1)
+                let domainHost = String(parts[0])
+                let domainPath = parts.count > 1 ? String(parts[1]) : ""
+                return (host == domainHost || host.hasSuffix("." + domainHost))
+                    && path.hasPrefix(domainPath)
+            }
+            return host == domain || host.hasSuffix("." + domain)
         }
     }
 

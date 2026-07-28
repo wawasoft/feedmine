@@ -887,6 +887,31 @@ final class FeedLoader {
         try await store.allCuratedFeeds()
     }
 
+    /// Returns items ordered by how well they match a profile, without
+    /// persisting or changing global state. Used for the onboarding preview.
+    func previewCuratedFeed(
+        profile: CuratedProfileDefinition,
+        limit: Int = 5
+    ) -> [FeedItem] {
+        let sources = store.registry.sources
+        let multipliers = CuratedPreferenceEngine.sourceMultipliers(
+            sources: sources,
+            profile: profile
+        )
+        guard !multipliers.isEmpty else {
+            return Array(items.prefix(limit))
+        }
+        return items
+            .map { item -> (FeedItem, Double) in
+                let score = multipliers[item.sourceURL] ?? 1.0
+                return (item, score)
+            }
+            .filter { $0.1 > 1.0 }
+            .sorted { $0.1 > $1.1 }
+            .prefix(limit)
+            .map { $0.0 }
+    }
+
     func curatedFeed(id: Int64) async throws -> CuratedFeed? {
         try await store.curatedFeed(id: id)
     }
