@@ -1716,6 +1716,7 @@ final class FeedStore {
 
     // MARK: - Scroll
     private var lastLoadedIndex = -1
+    private var lastLoadMoreAttempt: Date?
     private var trimDebounceTask: Task<Void, Never>?
 
     /// User-initiated refresh (pull-to-refresh, retry, empty-state button).
@@ -1756,9 +1757,16 @@ final class FeedStore {
 
     func loadMoreIfNeeded(currentItem: FeedItem) async {
         guard !isSearching else { return }
-        guard !isBookmarkFeed else { return }  // fixed feed, no pagination
-        guard !activePreset.isSmartFeed else { return } // cached dynamic queue
-        guard !activePreset.isLastClicked else { return } // fixed click history
+        guard !isBookmarkFeed else { return }
+        guard !activePreset.isSmartFeed else { return }
+        guard !activePreset.isLastClicked else { return }
+
+        // Fast reject: if the last load-more was within 300ms, skip the O(n) scan.
+        // Cards appear in rapid succession during scroll; only the last one matters.
+        let now = Date()
+        if let last = lastLoadMoreAttempt, now.timeIntervalSince(last) < 0.3 { return }
+        lastLoadMoreAttempt = now
+
         guard let itemIndex = visibleItems.firstIndex(where: { $0.id == currentItem.id }) else { return }
         guard itemIndex >= visibleItems.count - Reservoir.loadMoreThreshold else { return }
         guard itemIndex != lastLoadedIndex else { return }

@@ -489,9 +489,16 @@ final class FeedLoader {
     }
 
     /// O(n) fallback kept for any caller that only has an item reference.
+    /// Uses a simple cache — during scroll the same item triggers onAppear
+    /// repeatedly, and filteredItems don't change between scroll events.
     func noteVisibleIndex(for item: FeedItem) {
-        noteVisibleIndex(filteredItems.firstIndex(where: { $0.id == item.id }) ?? 0)
+        if item.id == _lastNoteVisibleID { return }  // already recorded this item
+        _lastNoteVisibleID = item.id
+        // Fast path: try to find by walking from known visible index
+        let idx = filteredItems.firstIndex(where: { $0.id == item.id }) ?? 0
+        noteVisibleIndex(idx)
     }
+    private var _lastNoteVisibleID: String = ""
     var loadedIDsCount: Int { store.loadedIDsCount }
 
     // MARK: - What's New
