@@ -2495,10 +2495,10 @@ final class FeedStore {
         readItemIDs.insert(itemID)
         consumedItemIDs.insert(itemID)
         reservoir.readItemIDs = consumedItemIDs
-        // Update stamped item in-place so only this card re-renders
+        // Update stamped item in-place so only this card re-renders.
+        // Do NOT bump visibleItemsGeneration — read-state must not invalidate caches.
         if let idx = visibleItems.firstIndex(where: { $0.id == itemID }) {
             visibleItems[idx].isRead = true
-            visibleItemsGeneration &+= 1
         }
         Task {
             try await db.write { db in
@@ -2520,7 +2520,6 @@ final class FeedStore {
         reservoir.readItemIDs = consumedItemIDs
         if let idx = visibleItems.firstIndex(where: { $0.id == itemID }) {
             visibleItems[idx].isRead = true
-            visibleItemsGeneration &+= 1
         }
         let now = Int(Date().timeIntervalSince1970)
         Task {
@@ -2563,7 +2562,11 @@ final class FeedStore {
             to: feed.definition
         )
         guard learned != feed.definition else { return }
-        _ = try? await updateCuratedFeed(
+        // Persist the updated definition WITHOUT triggering a feed refresh.
+        // updateCuratedFeed calls scheduleSourceEnablementRefresh which would
+        // reload the feed while the user is reading — violating the rule that
+        // opening content must never interfere with the feed.
+        try? await curatedFeedStore.update(
             id: feed.id,
             name: feed.name,
             definition: learned
@@ -2579,12 +2582,11 @@ final class FeedStore {
             consumedItemIDs.insert(id)
         }
         reservoir.readItemIDs = consumedItemIDs
-        // Update stamped items in-place
+        // Update stamped items in-place — do NOT bump visibleItemsGeneration.
         let idSet = Set(ids)
         for idx in visibleItems.indices where idSet.contains(visibleItems[idx].id) {
             visibleItems[idx].isRead = true
         }
-        visibleItemsGeneration &+= 1
         let now = Int(Date().timeIntervalSince1970)
         let placeholders = Array(repeating: "?", count: ids.count).joined(separator: ",")
         Task {
