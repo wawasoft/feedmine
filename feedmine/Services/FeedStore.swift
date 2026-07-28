@@ -448,6 +448,12 @@ final class FeedStore {
     /// Hit recording is NOT performed here; it happens once at ingestion time
     /// in persistFetchedItems so each item is counted exactly once regardless
     /// of how many times applyFilters runs on the same items.
+    // Cache mood/content filter results per item ID to avoid O(k) string
+    // scanning on every applyFilters call (called on each reservoir operation).
+    private var moodMatchCache: [String: Bool] = [:]
+    private var moodMatchCacheKey: String = ""
+    private var contentFilterExcludeCache: [String: Bool] = [:]
+
     func applyFilters(_ items: [FeedItem], includeConsumed: Bool = true) -> [FeedItem] {
         refreshCachedTaxonomyFeedURLsIfNeeded()
         let region = activeRegion
@@ -457,29 +463,57 @@ final class FeedStore {
         let contentFilters = ContentFilterStore.shared.isEnabled
             ? ContentFilterStore.shared.activeFilters : []
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
-        let sourceFilter = presetSourceFilter  // nil for editorial, Set<String> for collection
+        let sourceFilter = presetSourceFilter
         let isClickHistory = activePreset.isLastClicked
         let isSmartFeed = activePreset.isSmartFeed
         let clickIDs = clickedItemIDs
         let smartFeedIDs = activeSmartFeedItemIDs
         let consumedIDs = consumedItemIDs
+
+        // Invalidate mood cache when mood changes (use rawValue as stable key)
+        let moodKey = mood.rawValue
+        if moodKey != moodMatchCacheKey {
+            moodMatchCache.removeAll()
+            moodMatchCacheKey = moodKey
+        }
+        if contentFilters.isEmpty {
+            contentFilterExcludeCache.removeAll()
+        }
+
         return items.filter { item in
             let normalizedSourceURL = OPMLParser.normalizeURL(item.sourceURL)
-            // Opening a collection is an explicit source selection. Its durable
-            // membership is therefore authoritative even when a personal source
-            // has not yet been restored into SourceRegistry during startup.
             let isEligibleSource = isClickHistory || isSmartFeed
                 || (sourceFilter?.contains(normalizedSourceURL) ?? isItemEnabled(item))
-            return isEligibleSource
-            && (!isClickHistory || clickIDs.contains(item.id))
-            && (!isSmartFeed || smartFeedIDs.contains(item.id))
-            && (includeConsumed || isClickHistory || isSmartFeed || !consumedIDs.contains(item.id))
-            && (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
-            && (cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(normalizedSourceURL))
-            && Self.languageFilterMatchesNormalized(itemLanguage: item.language, selectedLanguages: languages, deviceLanguage: deviceLanguage)
-            && contentType(item)
-            && (mood == .all || mood.matches(item.title))
-            && !contentFilterExcludes(item, filters: contentFilters)
+            guard isEligibleSource else { return false }
+            guard !isClickHistory || clickIDs.contains(item.id) else { return false }
+            guard !isSmartFeed || smartFeedIDs.contains(item.id) else { return false }
+            guard includeConsumed || isClickHistory || isSmartFeed || !consumedIDs.contains(item.id) else { return false }
+            guard region == nil || item.region == region || item.region.hasPrefix(region! + "/") else { return false }
+            guard cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(normalizedSourceURL) else { return false }
+            guard Self.languageFilterMatchesNormalized(itemLanguage: item.language, selectedLanguages: languages, deviceLanguage: deviceLanguage) else { return false }
+            guard contentType(item) else { return false }
+
+            // Mood check — cached per item ID (deterministic for a given mood)
+            if mood != .all {
+                if let cached = moodMatchCache[item.id] { guard cached else { return false } }
+                else {
+                    let match = mood.matches(item.title)
+                    moodMatchCache[item.id] = match
+                    guard match else { return false }
+                }
+            }
+
+            // Content filter check — cached per item ID
+            if !contentFilters.isEmpty {
+                if let cached = contentFilterExcludeCache[item.id] { guard !cached else { return false } }
+                else {
+                    let excluded = contentFilterExcludes(item, filters: contentFilters)
+                    contentFilterExcludeCache[item.id] = excluded
+                    guard !excluded else { return false }
+                }
+            }
+
+            return true
         }
     }
 
