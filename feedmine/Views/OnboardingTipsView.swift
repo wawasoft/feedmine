@@ -20,7 +20,7 @@ struct OnboardingTipsView: View {
     }
 
     private func complete() {
-        withAnimation(.easeInOut(duration: 0.25)) {
+        withAnimation(.easeInOut(duration: 0.4)) {
             hasSeenOnboarding = true
         }
     }
