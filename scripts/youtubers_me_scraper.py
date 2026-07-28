@@ -231,7 +231,12 @@ def resolve_all_channel_ids(
     cache: dict[str, dict],
     resume: bool = False,
 ) -> dict[str, str]:
-    """Resolve channel IDs for all unique channels. Returns {slug: channel_id}."""
+    """Resolve channel IDs for all unique channels. Returns {slug: channel_id}.
+
+    Uses concurrent requests via ThreadPoolExecutor (~8 workers) for speed.
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     resolved: dict[str, str] = {}
     if resume:
         cp = load_checkpoint("phase3_resolved")
@@ -248,40 +253,62 @@ def resolve_all_channel_ids(
         if name_key in cache and cache[name_key].get("channel_id"):
             resolved[slug] = cache[name_key]["channel_id"]
 
-    pending = [s for s in slugs if s not in resolved]
+    pending_slugs = [s for s in slugs if s not in resolved]
 
     print(f"\n{'='*60}", file=sys.stderr)
-    print(f"Phase 3: Resolving {len(pending)} Channel IDs (via youtubers.me/youtube redirect)", file=sys.stderr)
+    print(f"Phase 3: Resolving {len(pending_slugs)} Channel IDs (via youtubers.me/youtube redirect)", file=sys.stderr)
     print(f"  Pre-resolved from cache: {len(resolved)}/{len(slugs)}", file=sys.stderr)
+    print(f"  Workers: 8 concurrent", file=sys.stderr)
 
-    consecutive_failures = 0
-    for i, slug in enumerate(pending):
-        if consecutive_failures >= 10:
-            delay = min(60, 2 * (2 ** (consecutive_failures - 10)))  # exponential, capped at 60s
-            print(f"  ⚠ {consecutive_failures} consecutive failures — backing off {delay}s", file=sys.stderr)
-            time.sleep(delay)
+    # Build work list: (slug, channel_name)
+    work = [(s, merged[s]["channel_name"]) for s in pending_slugs]
 
-        name = merged[slug]["channel_name"]
-        if i > 0:
-            time.sleep(0.3)  # Rate limit: be polite to youtubers.me
+    # Shared session for connection reuse
+    session = requests.Session()
+    session.headers.update(HEADERS)
 
+    def _resolve_one(slug: str, name: str) -> tuple[str, str | None]:
+        """Resolve a single channel, returning (slug, channel_id_or_None)."""
         cid = resolve_channel_id(slug, name, cache)
-        if cid:
-            resolved[slug] = cid
-            consecutive_failures = 0
-        else:
-            consecutive_failures += 1
+        return (slug, cid)
 
-        if (i + 1) % 50 == 0 or i == len(pending) - 1:
-            pct = (i + 1) / max(len(pending), 1) * 100
-            resolved_count = sum(1 for s in pending[:i+1] if s in resolved)
-            print(f"  [{i+1}/{len(pending)}] {pct:.0f}% — {resolved_count} resolved, "
-                  f"cache total: {len(resolved)}", file=sys.stderr)
-            save_checkpoint("phase3_resolved", resolved)
-            time.sleep(1)  # Extra pause every 50
+    completed = 0
+    failed = 0
+    start = time.time()
+    checkpoint_interval = 100
+
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        futures = {executor.submit(_resolve_one, s, n): s for s, n in work}
+
+        for future in as_completed(futures):
+            slug, cid = future.result()
+            if cid:
+                resolved[slug] = cid
+                failed = 0
+            else:
+                failed += 1
+
+            completed += 1
+
+            # Backoff on consecutive failures
+            if failed >= 20:
+                delay = min(30, failed - 20)
+                print(f"  ⚠ {failed} consecutive failures — pausing {delay}s", file=sys.stderr)
+                time.sleep(delay)
+
+            # Checkpoint periodically
+            if completed % checkpoint_interval == 0 or completed == len(work):
+                elapsed = time.time() - start
+                rate = completed / elapsed if elapsed > 0 else 0
+                pct = completed / len(work) * 100
+                print(f"  [{completed}/{len(work)}] {pct:.0f}% — "
+                      f"{len(resolved)} resolved ({rate:.1f}/s)", file=sys.stderr)
+                save_checkpoint("phase3_resolved", resolved)
 
     unresolved = [s for s in slugs if s not in resolved]
-    print(f"Resolved: {len(resolved)}/{len(slugs)} ({len(unresolved)} unresolved)", file=sys.stderr)
+    elapsed = time.time() - start
+    print(f"Phase 3 complete in {elapsed/60:.1f}m — "
+          f"{len(resolved)}/{len(slugs)} resolved ({len(unresolved)} unresolved)", file=sys.stderr)
     if unresolved:
         print(f"Sample unresolved: {unresolved[:10]}", file=sys.stderr)
 
@@ -661,32 +688,54 @@ def scrape_all_profiles(
     resolved_ids: dict[str, str],
     resume: bool = False,
 ) -> dict[str, dict]:
-    """Scrape profile pages for all channels with resolved IDs. Returns {slug: profile_dict}."""
+    """Scrape profile pages for all channels with resolved IDs. Returns {slug: profile_dict}.
+
+    Uses concurrent requests for speed.
+    """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     profiles: dict[str, dict] = {}
     if resume:
         cp = load_checkpoint("phase4_profiles")
         if cp:
             profiles = cp
 
-    # Only scrape profiles for channels we have IDs for
     to_scrape = [s for s in resolved_ids if s not in profiles and s in merged]
 
     print(f"\n{'='*60}", file=sys.stderr)
     print(f"Phase 4: Scraping {len(to_scrape)} individual channel profiles", file=sys.stderr)
+    print(f"  Workers: 6 concurrent", file=sys.stderr)
 
-    for i, slug in enumerate(to_scrape):
-        if i > 0:
-            time.sleep(0.5)  # Rate limit
+    if not to_scrape:
+        print(f"Profiles scraped: {len(profiles)}", file=sys.stderr)
+        return profiles
 
+    completed = 0
+    start = time.time()
+
+    def _scrape_one(slug: str) -> tuple[str, dict | None]:
         profile = scrape_channel_profile(slug)
-        if profile:
-            profiles[slug] = profile
+        return (slug, profile)
 
-        if (i + 1) % 100 == 0 or i == len(to_scrape) - 1:
-            print(f"  [{i+1}/{len(to_scrape)}] {len(profiles)} profiles scraped", file=sys.stderr)
-            save_checkpoint("phase4_profiles", profiles)
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        futures = {executor.submit(_scrape_one, s): s for s in to_scrape}
 
-    print(f"Profiles scraped: {len(profiles)}", file=sys.stderr)
+        for future in as_completed(futures):
+            slug, profile = future.result()
+            if profile:
+                profiles[slug] = profile
+
+            completed += 1
+            if completed % 100 == 0 or completed == len(to_scrape):
+                elapsed = time.time() - start
+                rate = completed / elapsed if elapsed > 0 else 0
+                pct = completed / len(to_scrape) * 100
+                print(f"  [{completed}/{len(to_scrape)}] {pct:.0f}% — "
+                      f"{len(profiles)} profiles ({rate:.1f}/s)", file=sys.stderr)
+                save_checkpoint("phase4_profiles", profiles)
+
+    elapsed = time.time() - start
+    print(f"Phase 4 complete in {elapsed/60:.1f}m — Profiles scraped: {len(profiles)}", file=sys.stderr)
     return profiles
 
 
