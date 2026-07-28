@@ -77,8 +77,8 @@ struct CuratedOnboardingView: View {
                             onContinue: startComparisons
                         )
                     case .comparisons:
-                        if let session, let pair = session.currentPair {
-                            ZStack {
+                        VStack(spacing: 0) {
+                            if let session, let pair = session.currentPair {
                                 StoryDuelScene(
                                     pair: pair,
                                     accent: engine.accent,
@@ -104,9 +104,21 @@ struct CuratedOnboardingView: View {
                                     insertion: .move(edge: .bottom).combined(with: .opacity),
                                     removal: .move(edge: .top).combined(with: .opacity)
                                 ))
+                            } else {
+                                candidateLoadingState(session)
                             }
-                        } else {
-                            candidateLoadingState(session)
+
+                            Button("Skip") {
+                                if let session {
+                                    previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
+                                }
+                                withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                                    stage = .review
+                                }
+                            }
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .padding(.bottom, 12)
                         }
                     case .review:
                         FeedRevealScene(
@@ -379,16 +391,6 @@ struct CuratedOnboardingView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 36)
 
-            if candidateAttempts >= 5 {
-                Button("Start with a balanced feed") {
-                    previewItems = loader.previewCuratedFeed(profile: session?.profile ?? CuratedProfileDefinition(), limit: 3)
-                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                        stage = .review
-                    }
-                }
-                .buttonStyle(.bordered)
-                .transition(.opacity.combined(with: .scale))
-            }
             Spacer()
         }
     }
