@@ -12,7 +12,14 @@ struct OnboardingTipsView: View {
             CuratedOnboardingView(
                 isFirstRun: true,
                 onCancel: complete,
-                onSaved: { _ in complete() }
+                onSaved: { feed in
+                    NotificationCenter.default.post(
+                        name: .onboardingDidSaveCuratedFeed,
+                        object: nil,
+                        userInfo: ["feedName": feed.name]
+                    )
+                    complete()
+                }
             )
             .transition(.opacity)
             .zIndex(100)
@@ -24,4 +31,8 @@ struct OnboardingTipsView: View {
             hasSeenOnboarding = true
         }
     }
+}
+
+extension Notification.Name {
+    static let onboardingDidSaveCuratedFeed = Notification.Name("onboardingDidSaveCuratedFeed")
 }

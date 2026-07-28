@@ -23,8 +23,11 @@ struct CuratedOnboardingView: View {
     @State private var answerDelayTask: Task<Void, Never>?
     @State private var feedbackOutcome: CuratedChoiceOutcome?
     @State private var feedbackKeys: [String] = []
-    @State private var pairQueue: OnboardingPairQueue?
     @State private var showInspector = false
+
+    /// Snapshot of the global language filter before onboarding mutates it,
+    /// restored on cancel so the main feed isn't left filtered.
+    @State private var preOnboardingLanguages: Set<String>?
 
     let isFirstRun: Bool
     var onCancel: () -> Void = {}
@@ -58,12 +61,11 @@ struct CuratedOnboardingView: View {
                         WelcomeScene(
                             accent: engine.accent,
                             onStart: {
-                                startPairQueue()
                                 withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
                                     stage = .languages
                                 }
                             },
-                            onSkip: onCancel
+                            onSkip: cancelOnboarding
                         )
                     case .languages:
                         LanguageScene(
@@ -87,7 +89,6 @@ struct CuratedOnboardingView: View {
                                             session.undo()
                                         }
                                     },
-                                    onNewPair: refreshCandidatePool,
                                     onFinish: {
                                         withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
                                             stage = .review
@@ -104,7 +105,8 @@ struct CuratedOnboardingView: View {
                                         outcome: outcome,
                                         affectedKeys: feedbackKeys,
                                         accent: engine.accent,
-                                        onDismiss: { dismissFeedback() }
+                                        onDismiss: { dismissFeedback() },
+                                        onUndo: outcome != .skip ? { dismissFeedback(undo: true) } : nil
                                     )
                                     .zIndex(10)
                                 }
@@ -138,7 +140,7 @@ struct CuratedOnboardingView: View {
         }
         .onDisappear {
             candidateTask?.cancel()
-            pairQueue?.stop()
+            answerDelayTask?.cancel()
         }
         .alert("Couldn’t save this feed", isPresented: Binding(
             get: { errorMessage != nil },
@@ -203,7 +205,7 @@ struct CuratedOnboardingView: View {
 
             Spacer()
 
-            Button { onCancel() } label: {
+            Button { cancelOnboarding() } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 13, weight: .semibold))
                     .frame(width: 36, height: 36)
@@ -218,14 +220,21 @@ struct CuratedOnboardingView: View {
 
     // MARK: - Helpers
 
-    private func startPairQueue() {
-        guard pairQueue == nil else { return }
-        let queue = OnboardingPairQueue(loader: loader)
-        pairQueue = queue
-        queue.start(languages: selectedLanguages)
+    /// Cancel onboarding, restoring the global language filter if it was mutated.
+    private func cancelOnboarding() {
+        if let saved = preOnboardingLanguages {
+            loader.applyCuratedLanguages(saved)
+        }
+        onCancel()
     }
 
-    private func dismissFeedback() {
+    private func dismissFeedback(undo: Bool = false) {
+        if undo, let session {
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                session.undo()
+                updateAutoName()
+            }
+        }
         withAnimation(.easeInOut(duration: 0.25)) {
             feedbackOutcome = nil
         }
@@ -271,7 +280,7 @@ struct CuratedOnboardingView: View {
         }
         let topTopics = CuratedPreferenceEngine.topTopicWeights(
             in: session.profile, limit: 2
-        ).map(\.topic.shortName)
+        ).filter { $0.weight > 0.1 }.map(\.topic.shortName)
         let generated: String
         if topTopics.count >= 2 {
             generated = "\(topTopics[0]) & \(topTopics[1])"
@@ -288,6 +297,8 @@ struct CuratedOnboardingView: View {
     }
 
     private func startComparisons() {
+        // Snapshot global filter before mutating — restored on cancel
+        preOnboardingLanguages = loader.selectedLanguages
         loader.applyCuratedLanguages(selectedLanguages)
         let newSession = CuratedOnboardingSession(languages: selectedLanguages)
         session = newSession

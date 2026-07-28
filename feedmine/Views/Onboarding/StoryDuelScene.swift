@@ -10,11 +10,11 @@ struct StoryDuelScene: View {
     let isReady: Bool
     let onChoose: (CuratedChoiceOutcome) -> Void
     let onUndo: () -> Void
-    let onNewPair: () -> Void
     let onFinish: () -> Void
 
     var body: some View {
-        VStack(spacing: 10) {
+        ScrollView {
+            VStack(spacing: 10) {
             // Question
             Text("Which would you open first?")
                 .font(.system(size: 22, weight: .bold))
@@ -58,11 +58,6 @@ struct StoryDuelScene: View {
 
                 Spacer()
 
-                Button { onNewPair() } label: {
-                    Label("New pair", systemImage: "arrow.triangle.2.circlepath")
-                }
-                .accessibilityIdentifier("duel-new-pair")
-
                 if canFinish {
                     Button(isReady ? "Review my feed" : "Finish now") {
                         onFinish()
@@ -73,6 +68,7 @@ struct StoryDuelScene: View {
             }
             .font(.subheadline)
             .padding(.horizontal, 20)
+            }
         }
     }
 

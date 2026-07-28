@@ -7,8 +7,10 @@ struct ChoiceFeedbackOverlay: View {
     let affectedKeys: [String]
     let accent: Color
     let onDismiss: () -> Void
+    let onUndo: (() -> Void)?
 
     @State private var visible = false
+    @State private var dismissWorkItem: DispatchWorkItem?
 
     var body: some View {
         VStack(spacing: 16) {
@@ -29,8 +31,8 @@ struct ChoiceFeedbackOverlay: View {
                 }
             }
 
-            if outcome != .skip {
-                Button("Undo") { onDismiss() }
+            if outcome != .skip, let onUndo {
+                Button("Undo") { onUndo() }
                     .font(.subheadline)
             }
         }
@@ -42,9 +44,12 @@ struct ChoiceFeedbackOverlay: View {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
                 visible = true
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-                onDismiss()
-            }
+            let workItem = DispatchWorkItem { onDismiss() }
+            dismissWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6, execute: workItem)
+        }
+        .onDisappear {
+            dismissWorkItem?.cancel()
         }
     }
 
