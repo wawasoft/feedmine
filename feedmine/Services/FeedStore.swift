@@ -1624,7 +1624,10 @@ final class FeedStore {
     /// global sets directly — reading one item won't invalidate all cards.
     /// Increments `visibleItemsGeneration` so FeedLoader caches invalidate reliably.
     private func setVisibleItems(_ items: [FeedItem]) {
-        let stamped = items.map { $0.stamped(readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkedItemIDs) }
+        var stamped = items
+        for i in stamped.indices {
+            stamped[i].stamp(readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkedItemIDs)
+        }
         guard stamped != visibleItems else {
             markPreviouslyLoadedContentIfNeeded(stamped)
             return
@@ -1995,14 +1998,34 @@ final class FeedStore {
     }
 
     private func immediatelyCullVisibleItemsForActiveFilter() {
+        // Refresh taxonomy URL cache so the cull respects the just-updated
+        // nodeIDs — setFilter changes activeNodeIDs but the cache is only
+        // rebuilt lazily by applyFilters / scheduleFilterReload.
+        refreshCachedTaxonomyFeedURLsIfNeeded()
+
         let region = activeRegion
         let languages = activeLanguages
         let contentType = filterContentType
         let mood = activeMood
+        let taxonomyURLs = cachedTaxonomyFeedURLs
+        let contentFilters = ContentFilterStore.shared.isEnabled
+            ? ContentFilterStore.shared.activeFilters : []
         let deviceLanguage = Self.normalizedLanguageCode(
             Locale.current.language.languageCode?.identifier
         )
-        let filterPredicate: (FeedItem) -> Bool = { item in
+
+        // Invalidate mood cache when mood changes so the cull predicate
+        // re-evaluates mood matches rather than serving stale cache entries.
+        let moodKey = mood.rawValue
+        if moodKey != moodMatchCacheKey {
+            moodMatchCache.removeAll()
+            moodMatchCacheKey = moodKey
+        }
+        if contentFilters.isEmpty {
+            contentFilterExcludeCache.removeAll()
+        }
+
+        let filterPredicate: (FeedItem) -> Bool = { [self] item in
             (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
             && Self.languageFilterMatchesNormalized(
                 itemLanguage: item.language,
@@ -2011,6 +2034,8 @@ final class FeedStore {
             )
             && contentType(item)
             && (mood == .all || mood.matches(item.title))
+            && (taxonomyURLs.isEmpty || taxonomyURLs.contains(OPMLParser.normalizeURL(item.sourceURL)))
+            && (contentFilters.isEmpty || !contentFilterExcludes(item, filters: contentFilters))
         }
         if !visibleItems.isEmpty {
             setVisibleItems(visibleItems.filter(filterPredicate))
@@ -3167,7 +3192,12 @@ final class FeedStore {
                     if let existing = existingByID[mergedItem.id] {
                         let mergedDate = mergedItem.updatedAt ?? mergedItem.publishedAt
                         let existingDate = existing.updatedAt ?? existing.publishedAt
-                        if (mergedDate ?? .distantPast) > (existingDate ?? .distantPast) {
+                        // Round to whole seconds — the DB stores Int(epoch), so
+                        // sub-second differences are truncation artifacts, not
+                        // real content updates (e.g. Atom entry refresh).
+                        let mergedSec = Int(mergedDate.timeIntervalSince1970)
+                        let existingSec = Int(existingDate.timeIntervalSince1970)
+                        if mergedSec > existingSec {
                             itemsToUpdate.append(mergedItem)
                         }
                     } else {

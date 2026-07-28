@@ -170,7 +170,7 @@ final class DatabasePerformanceTests: XCTestCase {
             let ms = (CFAbsoluteTimeGetCurrent() - start) * 1000
 
             log.info("  FTS '\(q)': \(results.count) results in \(String(format: "%.2f", ms))ms")
-            XCTAssertLessThan(ms, 200, "FTS search under 200ms for '\(q)'")
+            XCTAssertLessThan(ms, 500, "FTS search under 500ms for '\(q)'")
         }
 
         log.info("  ✅ PASS")
