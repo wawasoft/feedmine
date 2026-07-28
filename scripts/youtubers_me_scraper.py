@@ -273,12 +273,14 @@ def resolve_all_channel_ids(
         else:
             consecutive_failures += 1
 
-        if (i + 1) % 100 == 0 or i == len(pending_slugs) - 1:
+        if (i + 1) % 10 == 0 or i == len(pending_slugs) - 1:
             elapsed = time.time() - start if start else 0
             rate = (i + 1) / elapsed if elapsed > 0 else 0
             pct = (i + 1) / max(len(pending_slugs), 1) * 100
+            eta_min = (len(pending_slugs) - i - 1) / rate / 60 if rate > 0 else 0
             print(f"  [{i+1}/{len(pending_slugs)}] {pct:.0f}% — "
-                  f"{len(resolved)} resolved ({rate:.1f}/s)", file=sys.stderr, flush=True)
+                  f"{len(resolved)} resolved ({rate:.1f}/s, ETA {eta_min:.0f}m)", file=sys.stderr, flush=True)
+        if (i + 1) % 100 == 0:
             save_checkpoint("phase3_resolved", resolved)
 
     unresolved = [s for s in slugs if s not in resolved]
