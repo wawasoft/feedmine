@@ -317,6 +317,62 @@ def scrape_all_categories(resume: bool = False) -> dict[str, list[dict]]:
     return result
 
 
+def merge_and_dedup(
+    countries_data: dict[str, list[dict]],
+    categories_data: dict[str, list[dict]],
+) -> dict[str, dict]:
+    """Merge country + category listings into unique channels keyed by youtubersme_slug.
+
+    For channels appearing in multiple countries/categories, accumulates arrays
+    and keeps the highest-rank listing stats.
+    """
+    merged: dict[str, dict] = {}
+
+    def ingest(listings: dict[str, list[dict]], source_type: str):
+        for source_key, channels in listings.items():
+            for ch in channels:
+                slug = ch.get("youtubersme_slug", "")
+                if not slug:
+                    continue
+
+                if slug not in merged:
+                    merged[slug] = {
+                        "channel_name": ch["channel_name"],
+                        "youtubersme_slug": slug,
+                        "subscribers_total": ch["subscribers_total"],
+                        "video_views_total": ch["video_views_total"],
+                        "video_count": ch["video_count"],
+                        "started_year": ch.get("started_year", 0),
+                        "subscribers_per_year": ch.get("subscribers_per_year", 0),
+                        "views_per_year": ch.get("views_per_year", 0),
+                        "videos_per_year": ch.get("videos_per_year", 0),
+                        "thumbnail_url": ch.get("thumbnail_url", ""),
+                        "categories": [],
+                        "countries": [],
+                    }
+
+                entry = merged[slug]
+                if source_type == "country" and source_key not in entry["countries"]:
+                    entry["countries"].append(source_key)
+                if source_type == "category" and source_key not in entry["categories"]:
+                    entry["categories"].append(source_key)
+                if ch.get("category") and ch["category"] not in entry["categories"]:
+                    entry["categories"].append(ch["category"])
+
+                # Keep the highest subscriber count version
+                if ch["subscribers_total"] > entry["subscribers_total"]:
+                    for field in ["subscribers_total", "video_views_total", "video_count",
+                                  "subscribers_per_year", "views_per_year", "videos_per_year",
+                                  "thumbnail_url", "started_year"]:
+                        if ch.get(field):
+                            entry[field] = ch[field]
+
+    ingest(countries_data, "country")
+    ingest(categories_data, "category")
+
+    return merged
+
+
 def main():
     write_mode = "--write" in sys.argv
     resume_mode = "--resume" in sys.argv
@@ -330,6 +386,9 @@ def main():
         print("DRY RUN — use --write to save\n", file=sys.stderr)
 
     # Phase 1: Listings
+    countries_data: dict[str, list[dict]] = {}
+    categories_data: dict[str, list[dict]] = {}
+
     if phase_filter in (None, 1):
         countries_data = scrape_all_countries(resume=resume_mode)
         categories_data = scrape_all_categories(resume=resume_mode)
@@ -339,6 +398,32 @@ def main():
                     sum(len(v) for v in categories_data.values())
             print(f"\nPhase 1 dry-run complete. {total} total entries across "
                   f"{len(countries_data)} countries + {len(categories_data)} categories.", file=sys.stderr)
+
+    # Phase 2: Dedup & merge
+    if phase_filter in (None, 2):
+        print(f"\n{'='*60}", file=sys.stderr)
+        print("Phase 2: Dedup & merge", file=sys.stderr)
+
+        merged = merge_and_dedup(countries_data, categories_data)
+
+        # Dedup categories (normalize casing, remove duplicates)
+        for slug, entry in merged.items():
+            seen = set()
+            unique_cats = []
+            for cat in entry["categories"]:
+                cat_lower = cat.lower().strip()
+                if cat_lower and cat_lower not in seen:
+                    seen.add(cat_lower)
+                    unique_cats.append(cat)
+            entry["categories"] = unique_cats
+
+        unique_channels = list(merged.values())
+        with_countries = sum(1 for c in unique_channels if c["countries"])
+        with_categories = sum(1 for c in unique_channels if c["categories"])
+        print(f"Unique channels: {len(unique_channels)}", file=sys.stderr)
+        print(f"  With countries: {with_countries}", file=sys.stderr)
+        print(f"  With categories: {with_categories}", file=sys.stderr)
+        print(f"  Avg countries/channel: {sum(len(c['countries']) for c in unique_channels) / max(len(unique_channels), 1):.1f}", file=sys.stderr)
 
 
 if __name__ == "__main__":
