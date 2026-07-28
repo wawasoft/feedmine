@@ -17,6 +17,7 @@ struct CuratedOnboardingView: View {
     @State private var session: CuratedOnboardingSession?
     @State private var feedName = "My Curated Feed"
     @State private var candidateTask: Task<Void, Never>?
+    @State private var answerDelayTask: Task<Void, Never>?
     @State private var candidateAttempts = 0
     @State private var isSaving = false
     @State private var errorMessage: String?
@@ -28,7 +29,6 @@ struct CuratedOnboardingView: View {
     @State private var ctaVisible = false
     @State private var choiceFeedback: (id: String, position: CGPoint)? = nil
     @State private var constellationNodes: [CGPoint] = []
-    @Namespace private var cardNamespace
 
     let isFirstRun: Bool
     var onCancel: () -> Void = {}
@@ -84,6 +84,7 @@ struct CuratedOnboardingView: View {
         }
         .onDisappear {
             candidateTask?.cancel()
+            answerDelayTask?.cancel()
         }
         .alert("Couldn’t save this feed", isPresented: Binding(
             get: { errorMessage != nil },
@@ -251,23 +252,23 @@ struct CuratedOnboardingView: View {
         }
     }
 
-    // Ghostly feed cards drifting behind heavy glass
+    // Ghostly feed cards drifting behind heavy glass.
+    // Uses hashed values (not random) to keep positions stable across body recomputations.
     private var feedCardsBehindGlass: some View {
-        ZStack {
-            // Simulated cards floating
+        let cardSpecs: [(w: CGFloat, h: CGFloat, x: CGFloat, y: CGFloat, opacity: Double)] = [
+            (160, 110, -120, -200, 0.35), (185, 125, 100, -140, 0.42),
+            (150, 100, -140, 160, 0.30),  (175, 115, 130, 180, 0.38),
+            (195, 130, -80, -250, 0.45), (165, 105, 90, 210, 0.33),
+        ]
+        return ZStack {
             ForEach(0..<6, id: \.self) { i in
+                let spec = cardSpecs[i]
                 RoundedRectangle(cornerRadius: 14)
                     .fill(.ultraThinMaterial)
-                    .frame(
-                        width: CGFloat.random(in: 140...200),
-                        height: CGFloat.random(in: 90...130)
-                    )
+                    .frame(width: spec.w, height: spec.h)
                     .rotationEffect(.degrees(Double(i) * 23 + (welcomeAppeared ? 5 : -5)))
-                    .offset(
-                        x: CGFloat.random(in: -160...160),
-                        y: CGFloat.random(in: -260...260)
-                    )
-                    .opacity(welcomeAppeared ? Double.random(in: 0.25...0.5) : 0)
+                    .offset(x: spec.x, y: spec.y)
+                    .opacity(welcomeAppeared ? spec.opacity : 0)
                     .animation(
                         .easeInOut(duration: 1.2)
                             .delay(Double(i) * 0.12),
@@ -453,7 +454,6 @@ struct CuratedOnboardingView: View {
                             ) {
                                 answer(.left)
                             }
-                            .matchedGeometryEffect(id: "card-left", in: cardNamespace)
 
                             CuratedStoryChoiceCard(
                                 candidate: pair.right,
@@ -462,7 +462,6 @@ struct CuratedOnboardingView: View {
                             ) {
                                 answer(.right)
                             }
-                            .matchedGeometryEffect(id: "card-right", in: cardNamespace)
                         }
                         .id(pair.id)
                         .transition(
@@ -820,28 +819,30 @@ struct CuratedOnboardingView: View {
             session.answer(outcome)
         }
 
-        // Haptic
+        // Haptic — prepare for next call, fire now
         let impact = UIImpactFeedbackGenerator(style: .medium)
+        impact.prepare()
         impact.impactOccurred()
 
         // If reached target, a stronger celebration
         if session.reachedTarget && !session.isComplete {
             let heavyImpact = UIImpactFeedbackGenerator(style: .heavy)
+            heavyImpact.prepare()
             heavyImpact.impactOccurred()
         }
 
         if session.currentPair == nil && !session.isComplete {
-            // Brief pause for the user to see the constellation update, then load next pair
-            Task {
+            answerDelayTask = Task { @MainActor in
                 try? await Task.sleep(for: .milliseconds(350))
+                guard !Task.isCancelled else { return }
                 refreshCandidatePool()
             }
         }
 
         if session.isComplete {
-            // Dramatic pause before review reveal
-            Task {
+            answerDelayTask = Task { @MainActor in
                 try? await Task.sleep(for: .milliseconds(500))
+                guard !Task.isCancelled, session.isComplete else { return }
                 withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
                     stage = .review
                 }
@@ -1226,7 +1227,7 @@ private struct CuratedBackdrop: View {
             }
         }
         .allowsHitTesting(false)
-        .task {
+        .task(id: imageURLs.map(\.absoluteString).joined()) {
             await loadAmbientImages()
         }
     }
