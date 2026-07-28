@@ -225,7 +225,7 @@ struct SettingsSheetView: View {
                         if let image = renderStatsCard(
                             readCount: loader.readItemIDs.count,
                             bookmarkCount: loader.bookmarkedIDs.count,
-                            streakCount: 1,
+                            streakCount: Settings.sessionStreak,
                             topCategory: topCat,
                             sourceCount: loader.sourceCount
                         ) {
