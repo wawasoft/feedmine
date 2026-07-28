@@ -200,8 +200,12 @@ struct SettingsSheetView: View {
                         isPresented: $showResetConfirmation
                     ) {
                         Button("Reset Everything", role: .destructive) {
-                            // Reset handled by SQLite — Task 11 wires clear methods on FeedStore.
-                            // PersistenceManager.shared.save(loader.buildState()) // REMOVED: migrated to SQLite
+                            loader.clearReadHistory()
+                            loader.clearAllBookmarks()
+                            loader.resetAllSourceToggles()
+                            UserDefaults.standard.removeObject(forKey: "hasSeenOnboarding")
+                            Settings.filterRegion = nil
+                            Settings.activePreset = .everything
                         }
                     }
 

@@ -785,6 +785,10 @@ final class FeedLoader {
         Task { await refreshBookmarkState() }
     }
 
+    func resetAllSourceToggles() {
+        store.resetAllSourceToggles()
+    }
+
     /// Commits the visible tag set. Typing in the draft field never calls this;
     /// Return or the explicit add button is the only search trigger.
     func submitSearchTerms(_ terms: [SearchTerm]) {
