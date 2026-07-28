@@ -451,10 +451,22 @@ enum CuratedPreferenceEngine {
 
             let cleanTitle = item.title.trimmingCharacters(in: .whitespacesAndNewlines)
             guard cleanTitle.count >= 12, cleanTitle.count <= 190 else { continue }
+
+            // Title quality: reject spam-looking content
+            let upperRatio = cleanTitle.filter(\.isUppercase).count
+            let letterCount = cleanTitle.filter(\.isLetter).count
+            if letterCount > 0, Double(upperRatio) / Double(letterCount) > 0.85 { continue }
+            if cleanTitle.allSatisfy({ $0.isNumber || $0.isWhitespace || $0 == "." || $0 == "," }) { continue }
+            if cleanTitle.hasPrefix("http") || cleanTitle.hasPrefix("www.") { continue }
+
             let foldedTitle = normalizedText(cleanTitle)
             guard !sensitiveOnboardingTerms.contains(where: foldedTitle.contains),
                   !promotionalStoryTerms.contains(where: foldedTitle.contains),
                   seenTitles.insert(foldedTitle).inserted else { continue }
+
+            // Substance gate: items need meaningful content beyond the title
+            let substance = (item.excerpt).trimmingCharacters(in: .whitespacesAndNewlines)
+            if substance.count < 20 || substance == "No description" { continue }
 
             // Image gate: comparison cards need visual presence. Items without
             // any image potential produce placeholder-gradient-only cards that
@@ -585,11 +597,31 @@ enum CuratedPreferenceEngine {
                 let imagePenalty = a.item.hasPotentialImage == b.item.hasPotentialImage ? 0 : 0.9
                 let ageDays = abs(a.item.publishedAt.timeIntervalSince(b.item.publishedAt)) / 86_400
                 let agePenalty = min(1.2, ageDays / 30)
+
+                // Freshness: reward recent content (last 48h)
+                let now = Date()
+                let freshnessBoost: Double = {
+                    let aHours = now.timeIntervalSince(a.item.publishedAt) / 3600
+                    let bHours = now.timeIntervalSince(b.item.publishedAt) / 3600
+                    return max(0, 1.8 - (aHours + bHours) / 48)
+                }()
+
+                // Engagement: reward compelling titles (longer = more informative,
+                // but penalize extremes)
+                let titleScore: Double = {
+                    let aLen = Double(a.item.title.count)
+                    let bLen = Double(b.item.title.count)
+                    let aScore = max(0, 1 - abs(aLen - 65) / 65)
+                    let bScore = max(0, 1 - abs(bLen - 65) / 65)
+                    return (aScore + bScore) * 0.4
+                }()
+
                 let confoundPenalty = Double(max(0, differing.count - 4)) * 0.32
                 let mediaPenalty = a.source.mediaKind == b.source.mediaKind ? 0 : 0.25
 
                 let score = uncertainty + coverage + relevance
                     + editorialCoverage + cleanEditorialContrast
+                    + freshnessBoost + titleScore
                     - qualityPenalty - imagePenalty - agePenalty
                     - confoundPenalty - mediaPenalty
                 let shouldSwap = (profile.responseCount + leftIndex + rightIndex).isMultiple(of: 2)
