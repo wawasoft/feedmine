@@ -33,7 +33,13 @@ struct ClipboardBanner: View {
                 Button {
                     importing = true
                     Task {
-                        _ = await loader.importFeeds(urls: [url])
+                        let result = await loader.importFeeds(urls: [url])
+                        NotificationCenter.default.post(
+                            name: .feedImportCompleted,
+                            object: nil,
+                            userInfo: ["message": result.importedCount > 0
+                                ? "Feed imported" : "Could not import feed"]
+                        )
                         importing = false
                         dismissed = true
                     }

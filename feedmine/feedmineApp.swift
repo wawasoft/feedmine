@@ -138,6 +138,12 @@ struct FeedmineApp: App {
                             : "Could not import feed"]
                     )
                 }
+            } else {
+                NotificationCenter.default.post(
+                    name: .feedImportCompleted,
+                    object: nil,
+                    userInfo: ["message": "Invalid import link"]
+                )
             }
         } else if url.isFileURL {
             if url.pathExtension.lowercased() == "opml" || url.pathExtension.lowercased() == "xml" {
