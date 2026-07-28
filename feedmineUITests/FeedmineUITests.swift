@@ -27,10 +27,10 @@ final class FeedmineUITests: XCTestCase {
         XCTAssertTrue(start.waitForExistence(timeout: 40), "Curated onboarding must appear")
         start.tap()
 
-        let language = app.buttons["language-en"]
-        XCTAssertTrue(language.waitForExistence(timeout: 30))
-        language.tap()
-        app.buttons["language-continue"].tap()
+        // English is pre-selected by device language; no need to find/tap it
+        let continueBtn = app.buttons["language-continue"]
+        XCTAssertTrue(continueBtn.waitForExistence(timeout: 30))
+        continueBtn.tap()
 
         let firstStory = app.buttons["duel-top-card"]
         if firstStory.waitForExistence(timeout: 60) {
