@@ -757,12 +757,43 @@ struct CuratedOnboardingView: View {
                     languages: selectedLanguages
                 )
                 guard !Task.isCancelled else { return }
+
                 withAnimation(.easeInOut(duration: 0.25)) {
                     session.updateCandidates(candidates)
                 }
-                if session.currentPair != nil { return }
+
+                // Warm images for the current pair before showing cards.
+                // The "Finding a fair comparison" state now does real work.
+                if let pair = session.currentPair {
+                    await warmPairImages(pair)
+                    return
+                }
+
+                // No pair yet — wait and retry.
                 try? await Task.sleep(for: .seconds(1.5))
             }
+        }
+    }
+
+    /// Pre-load images for both cards in a pair so they render with photos,
+    /// not placeholder gradients. Times out at 4 seconds so onboarding
+    /// never stalls — cards show whatever is cached by then.
+    private func warmPairImages(_ pair: CuratedComparisonPair) async {
+        let urlStrings = [pair.left, pair.right].compactMap {
+            $0.item.bestImageURL ?? $0.item.imageURL
+        }
+        guard !urlStrings.isEmpty else { return }
+
+        let urls = urlStrings.compactMap(URL.init(string:))
+
+        // Wait up to 4 seconds for at least one image to land in disk cache.
+        // ImageCache.hasCachedImageData checks disk synchronously.
+        let deadline = Date().addingTimeInterval(4)
+        while Date() < deadline {
+            if Task.isCancelled { break }
+            let anyCached = urls.contains { ImageCache.hasCachedImageData(for: $0) }
+            if anyCached { break }
+            try? await Task.sleep(for: .milliseconds(200))
         }
     }
 

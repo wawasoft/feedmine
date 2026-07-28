@@ -4838,7 +4838,7 @@ final class FeedStore {
         }
 
         var seen = Set<String>()
-        return (visibleItems + cached).filter { item in
+        let pool = (visibleItems + cached).filter { item in
             guard seen.insert(item.id).inserted else { return false }
             guard !requested.isEmpty else { return true }
             guard let language = CuratedPreferenceEngine.baseLanguage(item.language) else {
@@ -4846,6 +4846,18 @@ final class FeedStore {
             }
             return requested.contains(language)
         }
+
+        // Prefetch images for the entire pool so comparison cards don't
+        // render with placeholder gradients. This runs async — the pool
+        // is returned immediately while downloads race ahead.
+        if !pool.isEmpty {
+            let urls = pool.compactMap { $0.bestImageURL ?? $0.imageURL }
+            if !urls.isEmpty {
+                Task { await prefetcher.prefetch(urls: urls, priorityURLs: urls) }
+            }
+        }
+
+        return pool
     }
 
     // MARK: - Smart feeds

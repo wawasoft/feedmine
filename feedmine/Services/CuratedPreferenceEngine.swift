@@ -456,6 +456,11 @@ enum CuratedPreferenceEngine {
                   !promotionalStoryTerms.contains(where: foldedTitle.contains),
                   seenTitles.insert(foldedTitle).inserted else { continue }
 
+            // Image gate: comparison cards need visual presence. Items without
+            // any image potential produce placeholder-gradient-only cards that
+            // look broken next to cards with photos.
+            guard item.hasPotentialImage else { continue }
+
             sourceItemCounts[normalizedURL, default: 0] += 1
             candidates.append(CuratedCandidate(
                 item: item,
