@@ -1,4 +1,5 @@
 import SwiftUI
+import OSLog
 
 enum ImageURLCandidates {
     nonisolated static func candidates(for url: URL) -> [URL] {
@@ -103,6 +104,55 @@ enum ImageUpgradePolicy {
     }
 }
 
+// MARK: - Image Pipeline Logging
+
+enum ImageLog {
+    private static let logger = Logger(subsystem: "com.feedmine.app", category: "images")
+
+    static func cacheHit(_ url: URL, source: String) {
+        logger.debug("Cache hit: \(url.lastPathComponent, privacy: .public) from \(source, privacy: .public)")
+    }
+    static func cacheMiss(_ url: URL) {
+        logger.debug("Cache miss: \(url.lastPathComponent, privacy: .public)")
+    }
+    static func downloadFailed(_ url: URL, error: Error) {
+        logger.warning("Download failed: \(url.lastPathComponent, privacy: .public) — \(error.localizedDescription, privacy: .public)")
+    }
+    static func downloadSuccess(_ url: URL, size: Int) {
+        logger.debug("Download OK: \(url.lastPathComponent, privacy: .public) — \(size) bytes")
+    }
+    static func httpError(_ url: URL, status: Int) {
+        logger.warning("HTTP \(status): \(url.absoluteString, privacy: .public)")
+    }
+    static func invalidImage(_ url: URL, reason: String) {
+        logger.warning("Invalid image: \(url.lastPathComponent, privacy: .public) — \(reason, privacy: .public)")
+    }
+    static func downsampleFailed(_ url: URL) {
+        logger.error("Downsample failed: \(url.lastPathComponent, privacy: .public)")
+    }
+    static func diskWriteFailed(_ url: URL) {
+        logger.error("Disk write failed: \(url.lastPathComponent, privacy: .public)")
+    }
+    static func articleResolveFailed(_ url: URL, reason: String) {
+        logger.warning("Article resolve failed: \(url.host ?? "?", privacy: .public) — \(reason, privacy: .public)")
+    }
+    static func articleResolveSuccess(_ url: URL, imageCount: Int) {
+        logger.debug("Article resolve OK: \(url.host ?? "?", privacy: .public) — \(imageCount) images")
+    }
+    static func prefetchFailed(_ url: URL, reason: String) {
+        logger.warning("Prefetch failed: \(url.lastPathComponent, privacy: .public) — \(reason, privacy: .public)")
+    }
+    static func trackerLeak(_ url: URL) {
+        logger.warning("Download tracker leak: \(url.lastPathComponent, privacy: .public) — entry timed out")
+    }
+    static func retry(_ url: URL, attempt: Int) {
+        logger.debug("Retry \(attempt): \(url.lastPathComponent, privacy: .public)")
+    }
+    static func allFailed(_ urls: [URL]) {
+        logger.error("All image candidates failed: \(urls.map { $0.lastPathComponent }.joined(separator: ", "), privacy: .public)")
+    }
+}
+
 /// Finds article artwork only when a visible card has already proven that its
 /// feed image is too small. Requests are bounded and deduplicated, so normal
 /// images never cause an article-page fetch.
@@ -111,12 +161,13 @@ actor ArticleImageResolver {
 
     private let session: URLSession
     private var resolved: [String: [URL]] = [:]
-    private var misses: Set<String> = []
+    private var misses: [String: Date] = [:]       // TTL-based, not permanent
     private var inFlightKeys: Set<String> = []
     private var activeRequests = 0
     private var htmlByteCounts: [String: Int] = [:]
     private static let maxHTMLBytes = 192 * 1024
     private static let maxConcurrentRequests = 4
+    private static let missTTL: TimeInterval = 300  // 5 minutes — retry after expiry
 
     init(session: URLSession? = nil) {
         if let session {
@@ -142,14 +193,14 @@ actor ArticleImageResolver {
     func imageURLs(for articleURL: URL, replacing currentURL: URL? = nil) async -> [URL] {
         let key = articleURL.absoluteString
         if let cached = resolved[key] { return cached.filter { $0 != currentURL } }
-        guard !misses.contains(key),
+        guard !(misses[key].map { Date().timeIntervalSince($0) < Self.missTTL } ?? false),
               Self.canResolve(articleURL) else { return [] }
 
         while inFlightKeys.contains(key) || activeRequests >= Self.maxConcurrentRequests {
             if Task.isCancelled { return [] }
             try? await Task.sleep(for: .milliseconds(25))
             if let cached = resolved[key] { return cached.filter { $0 != currentURL } }
-            if misses.contains(key) { return [] }
+            if (misses[key].map { Date().timeIntervalSince($0) < Self.missTTL } ?? false) { return [] }
         }
 
         activeRequests += 1
@@ -165,12 +216,12 @@ actor ArticleImageResolver {
             let (bytes, response) = try await session.bytes(for: request)
             if let http = response as? HTTPURLResponse,
                !(200...299).contains(http.statusCode) {
-                misses.insert(key)
+                misses[key] = Date()
                 return []
             }
             let contentType = response.mimeType?.lowercased() ?? ""
             guard contentType.isEmpty || contentType.contains("html") else {
-                misses.insert(key)
+                misses[key] = Date()
                 return []
             }
 
@@ -186,13 +237,13 @@ actor ArticleImageResolver {
             let candidates = Self.articleImageURLs(in: html, baseURL: responseURL)
                 .filter { $0 != currentURL }
             guard !candidates.isEmpty else {
-                misses.insert(key)
+                misses[key] = Date()
                 return []
             }
             resolved[key] = candidates
             return candidates
         } catch {
-            misses.insert(key)
+            misses[key] = Date()
             return []
         }
     }
@@ -284,10 +335,20 @@ actor ArticleImageResolver {
 
     private nonisolated static func isLikelyDecorative(_ url: URL) -> Bool {
         let value = url.absoluteString.lowercased()
+        // Narrow markers: only match tiny site identity images, not article artwork.
+        // "logo" is too aggressive — many CDNs serve article heroes at /logo/ paths.
         let markers = [
-            "favicon", "sprite", "logo", "avatar", "emoji", "tracking",
+            "favicon", "sprite", "avatar", "emoji", "tracking",
             "spacer", "pixel.gif", "count.gif", "doubleclick", "analytics",
         ]
+        // "logo" only when combined with tiny dimensions or site-identity paths
+        if value.contains("logo") {
+            if value.contains("site-logo") || value.contains("header-logo")
+                || value.contains("footer-logo") || value.contains("nav-logo") { return true }
+            // Check for tiny dimension patterns like /logo-32x32.png
+            if let r = try? Regex(#"[-._](1[6-9]|2[0-9]|3[0-2])x\1"#), value.contains(r) { return true }
+            return false  // /logo/ paths without tiny dims are likely article artwork
+        }
         return markers.contains(where: value.contains)
     }
 
@@ -306,10 +367,16 @@ actor ArticleImageResolver {
             return srcset.split(separator: ",").compactMap { entry in
                 let parts = entry.split(whereSeparator: \Character.isWhitespace)
                 guard parts.count >= 2,
-                      parts[1].last == "w",
-                      let width = Int(parts[1].dropLast()),
                       let url = URL(string: String(parts[0]), relativeTo: baseURL)?.absoluteURL else { return nil }
-                return (url, width)
+                let descriptor = parts[1]
+                if descriptor.last == "w", let width = Int(descriptor.dropLast()) {
+                    return (url, width)
+                }
+                // Density descriptor: "2x" → assume 1x = 480px, so 2x = 960px
+                if descriptor.last == "x", let density = Double(descriptor.dropLast()) {
+                    return (url, Int(480 * density))
+                }
+                return nil
             }
         }
     }

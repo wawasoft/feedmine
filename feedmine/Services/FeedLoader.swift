@@ -22,7 +22,7 @@ enum DeferredToggleState: Equatable {
 @Observable
 final class FeedLoader {
     private let store: FeedStore
-    private let prefetcher = ImagePrefetcher()
+    let prefetcher = ImagePrefetcher()
     private var pendingRegionToggleStates: [String: DeferredToggleState] = [:]
 
     // MARK: - UI State (from store)
