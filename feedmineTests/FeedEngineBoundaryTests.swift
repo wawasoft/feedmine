@@ -305,7 +305,8 @@ final class CatalogUpdateServiceTests: XCTestCase {
             generatedAt: "2026-07-20T00:00:00Z",
             sourceCount: 1,
             fileCount: 1,
-            files: [CatalogUpdateFile(path: "Feeds/../escape.opml", sha256: String(repeating: "a", count: 64), bytes: 1)]
+            files: [CatalogUpdateFile(path: "Feeds/../escape.opml", sha256: String(repeating: "a", count: 64), bytes: 1)],
+            signature: ""
         )
         XCTAssertThrowsError(try manifest.validate())
     }
@@ -384,7 +385,8 @@ private struct CatalogUpdateFixture {
                 generatedAt: manifest.generatedAt,
                 sourceCount: manifest.sourceCount,
                 fileCount: manifest.fileCount,
-                files: [CatalogUpdateFile(path: first.path, sha256: String(repeating: "0", count: 64), bytes: first.bytes)]
+                files: [CatalogUpdateFile(path: first.path, sha256: String(repeating: "0", count: 64), bytes: first.bytes)],
+                signature: ""
             )
         }
         try JSONEncoder().encode(manifest).write(
@@ -438,7 +440,8 @@ private struct CatalogUpdateFixture {
             generatedAt: "2026-07-20T00:00:00Z",
             sourceCount: sourceCount,
             fileCount: entries.count,
-            files: entries
+            files: entries,
+            signature: ""
         )
     }
 }

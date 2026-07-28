@@ -1,6 +1,21 @@
 import CryptoKit
 import Foundation
 
+private extension Data {
+    /// Decode a hex string (lowercase, no separator) into raw bytes.
+    init?(hexString: String) {
+        guard hexString.count.isMultiple(of: 2) else { return nil }
+        let chars = Array(hexString)
+        var bytes = Data(capacity: hexString.count / 2)
+        for i in stride(from: 0, to: chars.count, by: 2) {
+            guard let hi = chars[i].hexDigitValue,
+                  let lo = chars[i + 1].hexDigitValue else { return nil }
+            bytes.append(UInt8(hi << 4 | lo))
+        }
+        self = bytes
+    }
+}
+
 struct CatalogUpdateFile: Codable, Equatable, Sendable {
     let path: String
     let sha256: String
@@ -10,12 +25,21 @@ struct CatalogUpdateFile: Codable, Equatable, Sendable {
 struct CatalogUpdateManifest: Codable, Equatable, Sendable {
     static let supportedSchemaVersion = 1
 
+    /// Ed25519 public key (hex-encoded) used to verify manifest signatures.
+    /// The corresponding private key is held outside the repository and used
+    /// only during the editorial release process.
+    /// Generate a new keypair with: scripts/sign_manifest.swift --generate
+    nonisolated(unsafe) static var publicKeyHex: String = ""
+
     let schemaVersion: Int
     let revision: Int
     let generatedAt: String
     let sourceCount: Int
     let fileCount: Int
     let files: [CatalogUpdateFile]
+    /// Ed25519 signature over the canonical JSON of all fields above.
+    /// Empty string if not signed (bundled catalog during development).
+    let signature: String
 
     func validate() throws {
         guard schemaVersion == Self.supportedSchemaVersion else {
@@ -35,6 +59,62 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
                 throw CatalogUpdateError.invalidManifest("invalid file entry: \(file.path)")
             }
         }
+
+        // Verify Ed25519 signature if a public key is configured.
+        // Bundled catalogs during development may omit the signature;
+        // production catalogs must be signed.
+        try verifySignature()
+    }
+
+    private func verifySignature() throws {
+        let pkHex = Self.publicKeyHex
+        guard !pkHex.isEmpty else {
+            // No public key configured — skip verification (development mode).
+            // In production, the key MUST be set before the first catalog load.
+            return
+        }
+        guard !signature.isEmpty else {
+            throw CatalogUpdateError.invalidManifest("manifest is not signed")
+        }
+        guard signature.count == 128,
+              signature.allSatisfy({ $0.isHexDigit }) else {
+            throw CatalogUpdateError.invalidManifest("invalid signature format")
+        }
+
+        guard let publicKeyData = Data(hexString: pkHex),
+              let signatureData = Data(hexString: signature) else {
+            throw CatalogUpdateError.invalidManifest("invalid signature encoding")
+        }
+
+        // Recompute the payload: canonical JSON of all fields EXCEPT signature.
+        let unsigned = CatalogUpdateManifest.UnsignedFields(
+            schemaVersion: schemaVersion,
+            revision: revision,
+            generatedAt: generatedAt,
+            sourceCount: sourceCount,
+            fileCount: fileCount,
+            files: files
+        )
+        guard let payload = try? JSONEncoder().encode(unsigned) else {
+            throw CatalogUpdateError.invalidManifest("failed to re-encode manifest for verification")
+        }
+
+        guard let edPublicKey = try? Curve25519.Signing.PublicKey(rawRepresentation: publicKeyData) else {
+            throw CatalogUpdateError.invalidManifest("invalid public key")
+        }
+        guard (try? edPublicKey.isValidSignature(signatureData, for: payload)) == true else {
+            throw CatalogUpdateError.invalidManifest("manifest signature verification failed")
+        }
+    }
+
+    /// Fields included in the signature payload (everything except `signature`).
+    private struct UnsignedFields: Codable {
+        let schemaVersion: Int
+        let revision: Int
+        let generatedAt: String
+        let sourceCount: Int
+        let fileCount: Int
+        let files: [CatalogUpdateFile]
     }
 
     private static func isSafeOPMLPath(_ path: String) -> Bool {

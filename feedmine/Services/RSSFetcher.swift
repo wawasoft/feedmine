@@ -52,20 +52,24 @@ actor RSSFetcher {
         starterConfig.httpAdditionalHeaders = headers
         self.starterSession = URLSession(configuration: starterConfig)
 
-        self.httpSync = FeedHTTPSync()
-        self.starterHTTPSync = FeedHTTPSync()
+        self.httpSync = FeedHTTPSync(session: session)
+        self.starterHTTPSync = FeedHTTPSync(session: starterSession)
     }
 
     /// Fetch and parse a single feed with conditional GET support.
     /// - Parameters:
     ///   - source: The feed source to fetch.
     ///   - validators: Previously-stored HTTP validators for conditional GET.
-    func fetch(_ source: FeedSource, validators: HTTPValidators = HTTPValidators()) async -> FeedFetchResult {
+    ///   - httpSync: HTTP transport to use (defaults to the normal-timout session).
+    func fetch(_ source: FeedSource,
+               validators: HTTPValidators = HTTPValidators(),
+               httpSync: FeedHTTPSync? = nil) async -> FeedFetchResult {
         guard !Task.isCancelled else {
             return FeedFetchResult(source: source, items: [], outcome: .failed(CancellationError()))
         }
 
-        let httpResult = await httpSync.fetch(source, validators: validators)
+        let transport = httpSync ?? self.httpSync
+        let httpResult = await transport.fetch(source, validators: validators)
 
         switch httpResult.outcome {
         case .notModified:
@@ -131,9 +135,11 @@ actor RSSFetcher {
         }
     }
 
-    /// Cold-start fetch that uses the starter HTTP sync instance.
+    /// Cold-start fetch that uses the starter HTTP sync with the 5s/7s
+    /// timeout session so a slow publisher can't stretch the cold-start
+    /// deadline past the ~2.25s per-feed window.
     private func fetchStarterSource(_ source: FeedSource) async -> FeedFetchResult {
-        await fetch(source, validators: HTTPValidators())
+        await fetch(source, validators: HTTPValidators(), httpSync: starterHTTPSync)
     }
 
     /// Fetch multiple feeds concurrently with a real concurrency cap.

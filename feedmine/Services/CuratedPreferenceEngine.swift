@@ -928,6 +928,7 @@ final class CuratedOnboardingSession {
     private(set) var profile: CuratedProfileDefinition
     private(set) var candidates: [CuratedCandidate] = []
     private(set) var currentPair: CuratedComparisonPair?
+    private(set) var pendingPair: CuratedComparisonPair?
     private(set) var isRefreshingCandidates = false
     private(set) var lastPoolRefreshAt: Date?
 
@@ -999,8 +1000,8 @@ final class CuratedOnboardingSession {
             if $0.quality != $1.quality { return $0.quality > $1.quality }
             return $0.item.publishedAt > $1.item.publishedAt
         }
-        if currentPair == nil && !isComplete {
-            chooseNextPair()
+        if currentPair == nil && pendingPair == nil && !isComplete {
+            prepareNextPair()
         }
     }
 
@@ -1022,6 +1023,7 @@ final class CuratedOnboardingSession {
         )
         if isComplete {
             self.currentPair = nil
+            self.pendingPair = nil
         } else {
             chooseNextPair()
         }
@@ -1033,6 +1035,7 @@ final class CuratedOnboardingSession {
         usedItemIDs = snapshot.usedItemIDs
         usedPairIDs = snapshot.usedPairIDs
         currentPair = snapshot.pair
+        pendingPair = nil
     }
 
     func setDiscoveryLevel(_ value: Double) {
@@ -1058,5 +1061,29 @@ final class CuratedOnboardingSession {
             usedItemIDs: usedItemIDs,
             usedPairIDs: usedPairIDs
         )
+    }
+
+    /// Computes the next pair but does NOT publish it to the UI.
+    /// The caller must warm both images, then call `publishPendingPair()`
+    /// to make the pair visible. This guarantees cards never render with
+    /// placeholder gradients while images are still downloading.
+    func prepareNextPair() {
+        pendingPair = CuratedPreferenceEngine.nextPair(
+            candidates: candidates,
+            profile: profile,
+            usedItemIDs: usedItemIDs,
+            usedPairIDs: usedPairIDs
+        )
+    }
+
+    /// Moves the warmed pending pair to `currentPair`, making it visible.
+    func publishPendingPair() {
+        currentPair = pendingPair
+        pendingPair = nil
+    }
+
+    /// Discards the pending pair without publishing it.
+    func discardPendingPair() {
+        pendingPair = nil
     }
 }

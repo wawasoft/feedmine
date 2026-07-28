@@ -101,13 +101,16 @@ struct FeedScreen: View {
 
             if isSearching && hasCommittedSearch {
                 unifiedSearchPanel
-            } else if loader.items.isEmpty
+            } else if (loader.items.isEmpty || loader.presentations.isEmpty)
                 && (loader.isPreparingInitialRunway
                     || loader.loadingState == .initial
                     || ((loader.activePreset.collectionID != nil
                         || loader.activePreset.isSmartFeed
                         || loader.activePreset.isCuratedFeed)
                         && loader.loadingState == .refreshing)) {
+                // Keep the loading screen until at least one batch of cards
+                // has resolved media. Prevents cards from rendering with
+                // CachedAsyncImage post-insertion downloads.
                 InitialFeedLoadingView()
             } else if loader.items.isEmpty && loader.loadingState != .initial {
                 FeedEmptyStateView(mode: emptyMode)
@@ -1271,8 +1274,14 @@ struct FeedScreen: View {
     }
 
     private func updateBadge() {
-        let unread = loader.items.count - loader.readItemIDs.count
-        Task { @MainActor in UIApplication.shared.applicationIconBadgeNumber = max(0, unread) }
+        // Only count items visible in the current feed that haven't been read.
+        // loader.items is screen-scoped; loader.readItemIDs is global. Subtracting
+        // the two directly can go negative when the user has read items from other
+        // feeds, so we intersect the visible set with the read set.
+        let visibleIDs = Set(loader.items.map(\.id))
+        let visibleRead = visibleIDs.intersection(loader.readItemIDs)
+        let unread = visibleIDs.count - visibleRead.count
+        Task { @MainActor in UIApplication.shared.applicationIconBadgeNumber = unread }
     }
 
     private func recordFirstScreenMetric() {
@@ -1394,7 +1403,11 @@ private struct CollectionOPMLExportView: View {
 
 struct CompactDebugInfo: View {
     @Environment(FeedLoader.self) private var loader
-    private var unread: Int { loader.items.count - loader.readItemIDs.count }
+    private var unread: Int {
+        let visibleIDs = Set(loader.items.map(\.id))
+        let visibleRead = visibleIDs.intersection(loader.readItemIDs)
+        return visibleIDs.count - visibleRead.count
+    }
     var body: some View {
         HStack(spacing: 6) {
             Circle().fill(loader.loadingState == .idle ? Color.green : Color.blue).frame(width: 6, height: 6)
@@ -1489,7 +1502,7 @@ struct CompactFeedStatus: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .accessibilityLabel(
-                    "\(loader.startupFetchedSourceCount) de \(startupTotal) fontes verificadas"
+                    "\(loader.startupFetchedSourceCount) of \(startupTotal) sources verified"
                 )
             } else {
                 Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")
