@@ -19,7 +19,6 @@ struct FeedItemView: View {
                     item: item,
                     isRead: item.isRead,
                     isBookmarked: item.isBookmarked,
-                    presentation: loader.presentation(for: item.id),
                     onBookmark: { loader.toggleBookmark(item.id) },
                     onViewSource: onViewSource,
                     onAddSourceToCollection: onAddSourceToCollection,
