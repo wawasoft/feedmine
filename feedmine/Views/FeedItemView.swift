@@ -37,7 +37,6 @@ struct FeedItemView: View {
                 Divider()
             }
         }
-        .id(item.id)
         .onTapGesture {
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()

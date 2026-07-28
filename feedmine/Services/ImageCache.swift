@@ -808,17 +808,10 @@ struct CachedAsyncImage: View {
     var body: some View {
         Group {
             if let image = loadedImage
-                ?? url.flatMap({ ImageCache.shared.memoryImage(for: $0) })
-                ?? url.flatMap({ ImageCache.shared.diskImageSync(for: $0) }) {
+                ?? url.flatMap({ ImageCache.shared.memoryImage(for: $0) }) {
                 Image(uiImage: image)
                     .resizable()
                     .opacity(loadedImage == nil ? 1 : imageOpacity)
-                    .onAppear {
-                        if loadedImage == nil {
-                            // Sync cache hit (memory or disk) — no fade needed.
-                            onResult?(true)
-                        }
-                    }
             } else if !didAttempt {
                 Color.clear
                     .task(id: retryCount) { await load() }
