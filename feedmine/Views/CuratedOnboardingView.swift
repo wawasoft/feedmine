@@ -77,48 +77,40 @@ struct CuratedOnboardingView: View {
                             onContinue: startComparisons
                         )
                     case .comparisons:
-                        VStack(spacing: 0) {
-                            if let session, let pair = session.currentPair {
-                                StoryDuelScene(
-                                    pair: pair,
-                                    accent: engine.accent,
-                                    canUndo: session.canUndo,
-                                    canFinish: session.canFinish,
-                                    isReady: session.isReady,
-                                    onChoose: answer,
-                                    onUndo: {
-                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                            session.undo()
-                                            updateAutoName()
-                                        }
-                                    },
-                                    onFinish: {
-                                        previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
-                                        withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                                            stage = .review
-                                        }
+                        if let session, let pair = session.currentPair {
+                            StoryDuelScene(
+                                pair: pair,
+                                accent: engine.accent,
+                                canUndo: session.canUndo,
+                                canFinish: session.canFinish,
+                                isReady: session.isReady,
+                                onChoose: answer,
+                                onUndo: {
+                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                        session.undo()
+                                        updateAutoName()
                                     }
-                                )
-                                .id(pair.id)
-                                .transition(.asymmetric(
-                                    insertion: .move(edge: .bottom).combined(with: .opacity),
-                                    removal: .move(edge: .top).combined(with: .opacity)
-                                ))
-                            } else {
-                                candidateLoadingState(session)
-                            }
-
-                            Button("Skip") {
-                                if let session {
+                                },
+                                onFinish: {
                                     previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
+                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                                        stage = .review
+                                    }
+                                },
+                                onSkip: {
+                                    previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
+                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
+                                        stage = .review
+                                    }
                                 }
-                                withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                                    stage = .review
-                                }
-                            }
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                            .padding(.bottom, 12)
+                            )
+                            .id(pair.id)
+                            .transition(.asymmetric(
+                                insertion: .move(edge: .bottom).combined(with: .opacity),
+                                removal: .move(edge: .top).combined(with: .opacity)
+                            ))
+                        } else {
+                            candidateLoadingState(session)
                         }
                     case .review:
                         FeedRevealScene(

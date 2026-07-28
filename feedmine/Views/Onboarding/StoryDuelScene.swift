@@ -2,6 +2,7 @@ import SwiftUI
 
 /// Vertical story comparison — each card gets nearly full width.
 /// Both/Neither/Skip actions sit between the two cards.
+/// A permanent "Skip" footer lets impatient users jump to review.
 struct StoryDuelScene: View {
     let pair: CuratedComparisonPair
     let accent: Color
@@ -11,6 +12,7 @@ struct StoryDuelScene: View {
     let onChoose: (CuratedChoiceOutcome) -> Void
     let onUndo: () -> Void
     let onFinish: () -> Void
+    let onSkip: () -> Void
 
     var body: some View {
         ScrollView {
@@ -69,6 +71,17 @@ struct StoryDuelScene: View {
             .font(.subheadline)
             .padding(.horizontal, 20)
             }
+            .padding(.bottom, 52)
+        }
+        .safeAreaInset(edge: .bottom) {
+            Button("Skip to review") {
+                onSkip()
+            }
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 10)
+            .background(.regularMaterial)
         }
     }
 
