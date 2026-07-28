@@ -34,10 +34,24 @@ struct CuratedOnboardingView: View {
     var onCancel: () -> Void = {}
     var onSaved: (CuratedFeed) -> Void = { _ in }
 
+    /// Image URLs from the candidate pool or visible feed — used as ambient
+    /// backdrop glows so the background reflects real content, not static decor.
+    private var ambientImageURLs: [URL] {
+        if let session, let pair = session.currentPair {
+            return [pair.left, pair.right].compactMap {
+                ($0.item.bestImageURL ?? $0.item.imageURL).flatMap(URL.init(string:))
+            }
+        }
+        // During welcome/languages, use whatever's in the visible feed
+        return loader.items.prefix(8).compactMap {
+            ($0.bestImageURL ?? $0.imageURL).flatMap(URL.init(string:))
+        }
+    }
+
     var body: some View {
         ZStack {
             engine.pageBackground.ignoresSafeArea()
-            CuratedBackdrop(accent: engine.accent)
+            CuratedBackdrop(accent: engine.accent, imageURLs: ambientImageURLs)
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -1177,16 +1191,70 @@ private struct CuratedPressStyle: ButtonStyle {
 
 // MARK: - Decorative artwork
 
+/// Ambient backdrop built from real article images in the candidate pool.
+/// Heavily blurred and dimmed so they create atmosphere without distracting.
 private struct CuratedBackdrop: View {
     let accent: Color
+    let imageURLs: [URL]
+
+    @State private var loadedImages: [UIImage] = []
 
     var body: some View {
-        Circle()
-            .fill(accent.opacity(0.07))
-            .frame(width: 340, height: 340)
-            .blur(radius: 48)
-            .offset(y: -120)
-            .allowsHitTesting(false)
+        ZStack {
+            // Base accent glow
+            Circle()
+                .fill(accent.opacity(0.05))
+                .frame(width: 300, height: 300)
+                .blur(radius: 60)
+
+            // Real article images as ambient glows
+            ForEach(Array(loadedImages.enumerated()), id: \.offset) { i, image in
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: randomSize(i), height: randomSize(i))
+                    .blur(radius: 60 + CGFloat(i) * 5)
+                    .opacity(0.08)
+                    .offset(
+                        x: randomOffset(i, index: i).x,
+                        y: randomOffset(i, index: i).y
+                    )
+                    .animation(
+                        .easeInOut(duration: 4 + Double(i)).repeatForever(autoreverses: true),
+                        value: loadedImages.count
+                    )
+            }
+        }
+        .allowsHitTesting(false)
+        .task {
+            await loadAmbientImages()
+        }
+    }
+
+    private func loadAmbientImages() async {
+        var images: [UIImage] = []
+        for url in imageURLs.prefix(5) {
+            if let cached = await ImageCache.shared.diskImage(for: url) {
+                images.append(cached)
+            }
+            guard images.count < 3 else { break }
+        }
+        withAnimation(.easeInOut(duration: 2)) {
+            loadedImages = images
+        }
+    }
+
+    private func randomSize(_ seed: Int) -> CGFloat {
+        let sizes: [CGFloat] = [220, 280, 340, 190, 310]
+        return sizes[seed % sizes.count]
+    }
+
+    private func randomOffset(_ seed: Int, index: Int) -> CGPoint {
+        let offsets: [(CGFloat, CGFloat)] = [
+            (-100, -200), (140, -100), (-120, 180), (160, 200), (0, -250),
+        ]
+        let (x, y) = offsets[index % offsets.count]
+        return CGPoint(x: x + CGFloat(seed % 20) - 10, y: y + CGFloat(seed % 20) - 10)
     }
 }
 
