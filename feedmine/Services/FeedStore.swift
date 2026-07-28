@@ -1248,8 +1248,8 @@ final class FeedStore {
 
             self.collectWhatsNewCandidates(actualNew)
             self.throttledReservoirAppend(actualNew)
-            await self.flushPendingReservoir()
             self.prefetchImagesIfEnabled(for: actualNew)
+            await self.flushPendingReservoir()
             if !self.visibleItems.isEmpty {
                 self.isPreparingInitialRunway = false
                 self.loadingState = .idle
@@ -3545,6 +3545,7 @@ final class FeedStore {
         // Flush synchronously so items are committed to the reservoir BEFORE
         // the .refresh pipeline runs — the refresh must see the new items.
         pendingReservoirItems.append(contentsOf: actualNew)
+        prefetchImagesIfEnabled(for: actualNew)
         reservoirFlushTask?.cancel()
         await flushPendingReservoir()
 
@@ -3556,7 +3557,6 @@ final class FeedStore {
         }
 
         collectWhatsNewCandidates(actualNew)
-        prefetchImagesIfEnabled(for: actualNew)
         Log.feed.info("[TaxonomyTrace] urgentFetch gen=\(generation) DONE visibleItems=\(self.visibleItems.count)")
     }
 
@@ -3915,6 +3915,7 @@ final class FeedStore {
             saveSourceHealthBatch(healthEntries)
             let actualNew = await persistFetchedItems(result.items)
             throttledReservoirAppend(actualNew)
+            prefetchImagesIfEnabled(for: actualNew)
             if reservoir.reservoirCount < Reservoir.progressiveFillTarget {
                 await flushPendingReservoir()
             }
@@ -3924,7 +3925,6 @@ final class FeedStore {
                 let sourceURLs = Array(Set(actualNew.map(\.sourceURL)))
                 await capSourceItemsBatch(sourceURLs)
             }
-            prefetchImagesIfEnabled(for: actualNew)
             await matchPersistentSearches(actualNew)
             if visibleItems.isEmpty {
                 await flushPendingReservoir()
