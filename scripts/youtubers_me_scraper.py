@@ -24,6 +24,7 @@ from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
+
 # ── Paths ────────────────────────────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "scripts/feed_discovery/data"
@@ -159,6 +160,109 @@ def load_existing_channel_cache() -> dict[str, dict]:
                 cache[cid] = {"channel_id": cid, "channel_name": ch.get("channel_name", ""),
                               "feed_url": ch.get("feed_url", "")}
     return cache
+
+
+def resolve_channel_id(slug: str, channel_name: str, cache: dict[str, dict]) -> str | None:
+    """Resolve a YouTube Channel ID for a youtubers.me channel.
+
+    Strategy:
+      1. Check cache (existing JSON files) by normalized name
+      2. Scrape youtube.com/@<slug> -> extract UC ID from meta/script tags
+      3. Fallback: scrape youtube.com/results?search_query=<name> -> first channel result
+    """
+    # Strategy 1: local cache by name
+    name_key = channel_name.lower().strip()
+    if name_key in cache and cache[name_key].get("channel_id"):
+        return cache[name_key]["channel_id"]
+
+    # Strategy 2: try youtube.com/@<slug>
+    handle_url = f"https://www.youtube.com/@{slug}"
+    soup = fetch_page(handle_url, timeout=15)
+    if soup:
+        html = str(soup)
+        # Patterns YouTube uses in page source
+        for pattern in [
+            r'"externalId"\s*:\s*"(UC[\w-]{22})"',
+            r'"channelId"\s*:\s*"(UC[\w-]{22})"',
+            r'browse_id\s*=\s*(UC[\w-]{22})',
+            r'canonicalBaseUrl"\s*:\s*"/channel/(UC[\w-]{22})"',
+        ]:
+            match = re.search(pattern, html)
+            if match:
+                return match.group(1)
+
+    # Strategy 3: search fallback
+    search_url = f"https://www.youtube.com/results?search_query={requests.utils.quote(channel_name)}"
+    soup = fetch_page(search_url, timeout=15)
+    if soup:
+        html = str(soup)
+        # First channel result
+        match = re.search(r'UC[\w-]{22}', html)
+        if match:
+            return match.group(0)
+
+    return None
+
+
+def resolve_all_channel_ids(
+    merged: dict[str, dict],
+    cache: dict[str, dict],
+    resume: bool = False,
+) -> dict[str, str]:
+    """Resolve channel IDs for all unique channels. Returns {slug: channel_id}."""
+    resolved: dict[str, str] = {}
+    if resume:
+        cp = load_checkpoint("phase3_resolved")
+        if cp:
+            resolved = cp
+
+    slugs = sorted(merged.keys())
+    # Already-resolved from cache can be loaded immediately
+    for slug in slugs:
+        if slug in resolved:
+            continue
+        name = merged[slug]["channel_name"]
+        name_key = name.lower().strip()
+        if name_key in cache and cache[name_key].get("channel_id"):
+            resolved[slug] = cache[name_key]["channel_id"]
+
+    pending = [s for s in slugs if s not in resolved]
+
+    print(f"\n{'='*60}", file=sys.stderr)
+    print(f"Phase 3: Resolving {len(pending)} Channel IDs (via youtube.com scraping)", file=sys.stderr)
+    print(f"  Pre-resolved from cache: {len(resolved)}/{len(slugs)}", file=sys.stderr)
+
+    consecutive_failures = 0
+    for i, slug in enumerate(pending):
+        if consecutive_failures >= 5:
+            time.sleep(5)  # Longer pause if we hit a block
+            consecutive_failures = 0
+
+        name = merged[slug]["channel_name"]
+        if i > 0:
+            time.sleep(2)  # Rate limit: be polite to YouTube
+
+        cid = resolve_channel_id(slug, name, cache)
+        if cid:
+            resolved[slug] = cid
+            consecutive_failures = 0
+        else:
+            consecutive_failures += 1
+
+        if (i + 1) % 50 == 0 or i == len(pending) - 1:
+            pct = (i + 1) / max(len(pending), 1) * 100
+            resolved_count = sum(1 for s in pending[:i+1] if s in resolved)
+            print(f"  [{i+1}/{len(pending)}] {pct:.0f}% — {resolved_count} resolved, "
+                  f"cache total: {len(resolved)}", file=sys.stderr)
+            save_checkpoint("phase3_resolved", resolved)
+            time.sleep(1)  # Extra pause every 50
+
+    unresolved = [s for s in slugs if s not in resolved]
+    print(f"Resolved: {len(resolved)}/{len(slugs)} ({len(unresolved)} unresolved)", file=sys.stderr)
+    if unresolved:
+        print(f"Sample unresolved: {unresolved[:10]}", file=sys.stderr)
+
+    return resolved
 
 
 def scrape_listing_page(url: str, source_type: str, source_value: str) -> list[dict]:
@@ -424,6 +528,20 @@ def main():
         print(f"  With countries: {with_countries}", file=sys.stderr)
         print(f"  With categories: {with_categories}", file=sys.stderr)
         print(f"  Avg countries/channel: {sum(len(c['countries']) for c in unique_channels) / max(len(unique_channels), 1):.1f}", file=sys.stderr)
+
+    # Phase 3: Resolve Channel IDs
+    if phase_filter in (None, 3):
+        # Rebuild merged from checkpoints if Phase 2 was skipped (--phase 3 alone)
+        try:
+            _ = merged  # type: ignore[name-defined]
+        except NameError:
+            cp_countries = load_checkpoint("phase1_countries") or {}
+            cp_categories = load_checkpoint("phase1_categories") or {}
+            merged = merge_and_dedup(cp_countries, cp_categories)
+
+        cache = load_existing_channel_cache()
+        print(f"Channel cache loaded: {len(cache)} entries", file=sys.stderr)
+        resolved_ids = resolve_all_channel_ids(merged, cache, resume=resume_mode)
 
 
 if __name__ == "__main__":
