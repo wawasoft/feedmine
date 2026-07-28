@@ -89,7 +89,7 @@ struct StoryDuelScene: View {
                 .padding(.vertical, 10)
         }
         .buttonStyle(.plain)
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 13))
+        .background { RoundedRectangle(cornerRadius: 13).fill(.thinMaterial) }
         .overlay(
             RoundedRectangle(cornerRadius: 13)
                 .stroke(accent.opacity(0.1), lineWidth: 0.5)

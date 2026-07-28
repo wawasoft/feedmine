@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Language selection — single confirmed language + "Add another" expandable UI.
 /// No flags, no source counts — just language names and codes.
@@ -13,7 +14,6 @@ struct LanguageScene: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            // Question
             VStack(alignment: .leading, spacing: 8) {
                 Text("What do you read?")
                     .font(.system(size: 28, weight: .bold))
@@ -25,10 +25,8 @@ struct LanguageScene: View {
             .padding(.horizontal, 22)
             .padding(.top, 12)
 
-            // Selected languages as chips
             selectedLanguagesList
 
-            // Expand/collapse toggle
             Button {
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                     isExpanded.toggle()
@@ -44,7 +42,6 @@ struct LanguageScene: View {
             .accessibilityIdentifier("language-add")
 
             if isExpanded {
-                // Search
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .foregroundStyle(.secondary)
@@ -53,11 +50,10 @@ struct LanguageScene: View {
                 }
                 .padding(.horizontal, 14)
                 .frame(height: 46)
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                .background { RoundedRectangle(cornerRadius: 14).fill(.ultraThinMaterial) }
                 .padding(.horizontal, 22)
                 .transition(.opacity.combined(with: .move(edge: .top)))
 
-                // Language grid
                 ScrollView {
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 140), spacing: 10)],
@@ -74,7 +70,6 @@ struct LanguageScene: View {
 
             Spacer()
 
-            // Continue
             Button(action: onContinue) {
                 Text("Continue")
                     .fontWeight(.semibold)
@@ -90,10 +85,13 @@ struct LanguageScene: View {
         }
     }
 
+    // MARK: - Selected languages
+
+    @ViewBuilder
     private var selectedLanguagesList: some View {
         let selected = availableLanguages.filter { selectedLanguages.contains($0.code) }
-        return Group {
-            if selected.isEmpty {
+        if selected.isEmpty {
+            AnyView(
                 HStack {
                     Image(systemName: "character.bubble.fill")
                         .foregroundStyle(accent)
@@ -103,10 +101,12 @@ struct LanguageScene: View {
                 }
                 .padding(.horizontal, 14)
                 .frame(height: 48)
-                .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                .background { RoundedRectangle(cornerRadius: 14).fill(.thinMaterial) }
                 .padding(.horizontal, 22)
-            } else {
-                ForEach(Array(selected)) { lang in
+            )
+        } else {
+            AnyView(
+                ForEach(selected, id: \.code) { lang in
                     HStack {
                         Image(systemName: "character.bubble.fill")
                             .foregroundStyle(accent)
@@ -115,7 +115,7 @@ struct LanguageScene: View {
                         Spacer()
                         Button {
                             withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                                selectedLanguages.remove(lang.code)
+                                _ = selectedLanguages.remove(lang.code)
                             }
                         } label: {
                             Image(systemName: "xmark.circle.fill")
@@ -124,12 +124,14 @@ struct LanguageScene: View {
                     }
                     .padding(.horizontal, 14)
                     .frame(height: 48)
-                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+                    .background { RoundedRectangle(cornerRadius: 14).fill(.thinMaterial) }
                     .padding(.horizontal, 22)
                 }
-            }
+            )
         }
     }
+
+    // MARK: - Language options
 
     private var filteredOptions: [FeedLoader.LanguageInfo] {
         let query = languageSearch.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -161,7 +163,7 @@ struct LanguageScene: View {
             }
             .padding(.horizontal, 14)
             .frame(height: 48)
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 14))
+            .background { RoundedRectangle(cornerRadius: 14).fill(.thinMaterial) }
         }
         .buttonStyle(.plain)
     }
