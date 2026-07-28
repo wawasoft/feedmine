@@ -335,8 +335,14 @@ struct FeedScreen: View {
             + (isSearching ? searchControlsHeight : (isFilterLensVisible ? 20 : 0))
     }
 
+    @State private var _cachedFilterLensKey: String = ""
+    @State private var _cachedFilterLensSig: String = ""
+
     private var filterLensSignature: String {
         guard hasFilterLensContent else { return "" }
+        // Cache against filter state to avoid string join on every scroll frame
+        let key = "\(loader.selectedRegion ?? ".")|\(loader.selectedContentType.rawValue)|\(loader.selectedMood.rawValue)|\(loader.searchQuery)"
+        if key == _cachedFilterLensKey { return _cachedFilterLensSig }
         var parts: [String] = []
         parts.append(loader.activePreset.displayName)
         parts.append(loader.selectedRegion ?? "")
@@ -345,7 +351,10 @@ struct FeedScreen: View {
         parts.append(loader.selectedNodeIDs.sorted().joined(separator: ","))
         parts.append(loader.selectedLanguages.sorted().joined(separator: ","))
         parts.append(loader.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines))
-        return parts.joined(separator: "|")
+        let sig = parts.joined(separator: "|")
+        _cachedFilterLensKey = key
+        _cachedFilterLensSig = sig
+        return sig
     }
 
     // MARK: - Compact Header
