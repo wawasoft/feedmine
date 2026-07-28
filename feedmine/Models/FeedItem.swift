@@ -310,6 +310,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
         )
     }
 
+    /// Mutates isRead/isBookmarked in-place from the given sets.
+    /// Used in hot paths (setVisibleItems) to avoid 300+ full-struct copies
+    /// per scroll page on @MainActor.
+    mutating func stamp(readItemIDs: Set<String>, bookmarkItemIDs: Set<String>) {
+        isRead = readItemIDs.contains(id)
+        isBookmarked = bookmarkItemIDs.contains(id)
+    }
+
     static func resolvedMediaURL(from rawValue: String?, baseURL: String? = nil) -> URL? {
         guard var raw = rawValue?.trimmingCharacters(in: .whitespacesAndNewlines), !raw.isEmpty else {
             return nil
