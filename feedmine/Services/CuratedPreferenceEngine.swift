@@ -718,6 +718,9 @@ enum CuratedPreferenceEngine {
             affected = []
         }
 
+        // Snapshot weights before adjustment to compute signed deltas
+        let weightsBefore = profile.weights
+
         func adjust(_ keys: Set<String>, by amount: Double) {
             for key in keys {
                 let scaledAmount = key.hasPrefix("scope:") ? amount * 0.55 : amount
@@ -747,6 +750,15 @@ enum CuratedPreferenceEngine {
             break
         }
 
+        // Compute signed deltas for affected keys
+        var deltas: [String: Double] = [:]
+        for key in affected {
+            let before = weightsBefore[key, default: 0]
+            let after = profile.weights[key, default: 0]
+            let delta = after - before
+            if abs(delta) > 0.005 { deltas[key] = delta }
+        }
+
         for key in affected {
             profile.evidenceCounts[key, default: 0] += 1
         }
@@ -756,7 +768,8 @@ enum CuratedPreferenceEngine {
             rightTitle: pair.right.item.title,
             rightSource: pair.right.item.sourceTitle,
             outcome: outcome,
-            affectedKeys: Array(affected)
+            affectedKeys: Array(affected),
+            weightChanges: deltas
         ))
         profile.evidence = Array(profile.evidence.suffix(80))
         return profile

@@ -100,6 +100,9 @@ struct CuratedEvidence: Codable, Sendable, Hashable, Identifiable {
     let rightSource: String
     let outcome: CuratedChoiceOutcome
     let affectedKeys: [String]
+    /// Per-key signed deltas — positive means the preference increased,
+    /// negative means it decreased. Only populated for affected keys.
+    let weightChanges: [String: Double]
     let createdAt: Date
 
     init(
@@ -110,6 +113,7 @@ struct CuratedEvidence: Codable, Sendable, Hashable, Identifiable {
         rightSource: String,
         outcome: CuratedChoiceOutcome,
         affectedKeys: [String],
+        weightChanges: [String: Double] = [:],
         createdAt: Date = .now
     ) {
         self.id = id
@@ -119,6 +123,7 @@ struct CuratedEvidence: Codable, Sendable, Hashable, Identifiable {
         self.rightSource = rightSource
         self.outcome = outcome
         self.affectedKeys = affectedKeys.sorted()
+        self.weightChanges = weightChanges
         self.createdAt = createdAt
     }
 }
