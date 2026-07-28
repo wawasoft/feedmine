@@ -194,12 +194,26 @@ final class Reservoir {
         guard !visibleItems.isEmpty || !reservoir.isEmpty else { return }
         reservoir.append(contentsOf: visibleItems)
         visibleItems.removeAll()
-        reservoir = interleave(reservoir, presetMultipliers: presetMultipliers)
-        capReservoir()
-        let w = min(Self.pageSize, reservoir.count)
-        visibleItems = Array(reservoir.prefix(w))
-        reservoir.removeFirst(w)
-        markAsSurfaced(visibleItems)
+        // Offload interleave to background — same pattern as seed().
+        // The synchronous interleave() on MainActor was blocking for 10-100ms.
+        Task.detached { [reservoir, presetMultipliers, sourceRegionMap, readItemIDs, surfacedTimestamps] in
+            let interleaved = Self.interleaveOffMain(
+                reservoir,
+                readItemIDs: readItemIDs,
+                surfacedTimestamps: surfacedTimestamps,
+                sourceRegionMap: sourceRegionMap,
+                presetMultipliers: presetMultipliers
+            )
+            await MainActor.run {
+                let result = interleaved
+                self.reservoir = result
+                self.capReservoir()
+                let w = min(Self.pageSize, self.reservoir.count)
+                self.visibleItems = Array(self.reservoir.prefix(w))
+                self.reservoir.removeFirst(w)
+                self.markAsSurfaced(self.visibleItems)
+            }
+        }
     }
 
     // MARK: - Interleave

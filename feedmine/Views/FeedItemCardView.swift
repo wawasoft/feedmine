@@ -489,7 +489,7 @@ struct FeedItemCardView: View, Equatable {
 
     // MARK: - Helpers
 
-    private var isNew: Bool { Date().timeIntervalSince(item.publishedAt) < 3600 }
+    private var isNew: Bool { item.sectionDayOffset == 0 }
 
     private static let relativeFormatter: RelativeDateTimeFormatter = {
         let f = RelativeDateTimeFormatter()
