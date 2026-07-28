@@ -417,6 +417,13 @@ final class SourceRegistry {
         scheduleSaveState()
     }
 
+    /// Resets all per-source toggles: clears both disabled set and override set.
+    func resetAllToggles() {
+        disabled.removeAll()
+        enabledOverrides.removeAll()
+        ensureActiveCounts()
+    }
+
     func toggleAllCountries() {
         setAllCountriesEnabled(!isAnyCountryEnabled)
     }

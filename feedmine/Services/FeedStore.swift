@@ -2724,7 +2724,12 @@ final class FeedStore {
 
     func setCategoryEnabled(_ category: String, enabled: Bool) {
         registry.setCategoryEnabled(category, enabled: enabled)
-        // Category toggle is structural — reload feed
+        scheduleSourceEnablementRefresh()
+    }
+
+    /// Resets all source toggles to default (enabled). Used by "Reset All Data".
+    func resetAllSourceToggles() {
+        registry.resetAllToggles()
         scheduleSourceEnablementRefresh()
     }
 
