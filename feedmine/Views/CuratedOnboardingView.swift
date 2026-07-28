@@ -10,21 +10,6 @@ struct CuratedOnboardingView: View {
     }
 
     @Environment(FeedLoader.self) private var loader
-    @State private var engine = CircadianEngine.shared
-    @State private var stage: Stage = .welcome
-    @State private var selectedLanguages: Set<String> = []
-    @State private var session: CuratedOnboardingSession?
-    @State private var feedName = "My Feed"
-    @State private var candidateTask: Task<Void, Never>?
-    @State private var candidateAttempts = 0
-    @State private var isSaving = false
-    @State private var errorMessage: String?
-    @State private var answerPulse = 0
-    @State private var answerDelayTask: Task<Void, Never>?
-    @State private var feedbackOutcome: CuratedChoiceOutcome?
-    @State private var feedbackKeys: [String] = []
-    @State private var pairQueue: OnboardingPairQueue?
-    @State private var showInspector = false
 
     let isFirstRun: Bool
     var onCancel: () -> Void = {}
@@ -46,134 +31,10 @@ struct CuratedOnboardingView: View {
 
     var body: some View {
         ZStack {
-            engine.pageBackground.ignoresSafeArea()
-            CuratedBackdrop(accent: engine.accent, imageURLs: ambientImageURLs)
-                .ignoresSafeArea()
-
-            VStack(spacing: 0) {
-                simplifiedTopBar
-                Group {
-                    switch stage {
-                    case .welcome:
-                        WelcomeScene(
-                            accent: engine.accent,
-                            onStart: {
-                                startPairQueue()
-                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                                    stage = .languages
-                                }
-                            },
-                            onSkip: onCancel
-                        )
-                    case .languages:
-                        LanguageScene(
-                            selectedLanguages: $selectedLanguages,
-                            availableLanguages: loader.availableLanguages,
-                            accent: engine.accent,
-                            onContinue: startComparisons
-                        )
-                    case .comparisons:
-                        if let session, let pair = session.currentPair {
-                            ZStack {
-                                StoryDuelScene(
-                                    pair: pair,
-                                    accent: engine.accent,
-                                    canUndo: session.canUndo,
-                                    canFinish: session.canFinish,
-                                    isReady: session.isReady,
-                                    onChoose: answer,
-                                    onUndo: {
-                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                            session.undo()
-                                        }
-                                    },
-                                    onNewPair: refreshCandidatePool,
-                                    onFinish: {
-                                        withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                                            stage = .review
-                                        }
-                                    }
-                                )
-                                .id(pair.id)
-                                .transition(.asymmetric(
-                                    insertion: .move(edge: .bottom).combined(with: .opacity),
-                                    removal: .move(edge: .top).combined(with: .opacity)
-                                ))
-                                if let outcome = feedbackOutcome {
-                                    ChoiceFeedbackOverlay(
-                                        outcome: outcome,
-                                        affectedKeys: feedbackKeys,
-                                        accent: engine.accent,
-                                        onDismiss: { dismissFeedback() }
-                                    )
-                                    .zIndex(10)
-                                }
-                            }
-                        } else {
-                            candidateLoadingState(session)
-                        }
-                    case .review:
-                        FeedRevealScene(
-                            profile: session?.profile ?? CuratedProfileDefinition(),
-                            feedName: $feedName,
-                            accent: engine.accent,
-                            previewItems: Array(loader.items.prefix(3)),
-                            isSaving: isSaving,
-                            onSave: { Task { await save(session!) } },
-                            onOpenHood: { showInspector = true }
-                        )
-                    }
-                }
-                .transition(.asymmetric(
-                    insertion: .opacity.animation(.easeInOut(duration: 0.35)),
-                    removal: .opacity.animation(.easeInOut(duration: 0.2))
-                ))
-            }
-        }
-        .tint(engine.accent)
-        .preferredColorScheme(nil)
-        .onAppear {
-            seedLanguageSelection()
-            prepareDefaultName()
-        }
-        .onDisappear {
-            candidateTask?.cancel()
-            pairQueue?.stop()
-        }
-        .alert("Couldn’t save this feed", isPresented: Binding(
-            get: { errorMessage != nil },
-            set: { if !$0 { errorMessage = nil } }
-        )) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text(errorMessage ?? "")
-        }
-        .sensoryFeedback(.selection, trigger: answerPulse)
-        .sheet(isPresented: $showInspector) {
-            if let session {
-                NavigationStack {
-                    ScrollView {
-                        CuratedProfileControls(
-                            profile: session.profile,
-                            accent: engine.accent,
-                            onTopicChange: { session.setTopicWeight($0, $1) },
-                            onEditorialChange: { session.setEditorialWeight($0, $1) },
-                            onDiscoveryChange: { session.setDiscoveryLevel($0) },
-                            onLearningChange: { session.setLearningEnabled($0) }
-                        )
-                        .padding(.horizontal, 22)
-                        .padding(.vertical, 16)
-                    }
-                    .background(engine.pageBackground)
-                    .navigationTitle("Everything learned")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button("Done") { showInspector = false }
-                        }
-                    }
-                }
-            }
+            Color.red.ignoresSafeArea()
+            Text("ONBOARDING VIEW RENDERING")
+                .font(.largeTitle)
+                .foregroundStyle(.white)
         }
     }
 

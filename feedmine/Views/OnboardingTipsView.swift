@@ -8,15 +8,14 @@ struct OnboardingTipsView: View {
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
 
     var body: some View {
-        if !hasSeenOnboarding {
-            CuratedOnboardingView(
-                isFirstRun: true,
-                onCancel: complete,
-                onSaved: { _ in complete() }
-            )
-            .transition(.opacity)
-            .zIndex(100)
-        }
+        // DEBUG: Always show onboarding to verify rendering
+        CuratedOnboardingView(
+            isFirstRun: true,
+            onCancel: complete,
+            onSaved: { _ in complete() }
+        )
+        .transition(.opacity)
+        .zIndex(100)
     }
 
     private func complete() {

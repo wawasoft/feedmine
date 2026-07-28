@@ -23,8 +23,18 @@ final class FeedmineUITests: XCTestCase {
         ]
         app.launch()
 
+        // Wait for ANY element to appear first, then look for the specific button
+        let someElement = app.descendants(matching: .any).firstMatch
+        XCTAssertTrue(someElement.waitForExistence(timeout: 40), "App must show something")
+
+        // Dump top-level elements for debugging
+        print("DEBUG: Top-level elements:")
+        for elem in app.children(matching: .any).allElementsBoundByIndex.prefix(30) {
+            print("  \(elem.elementType): id='\(elem.identifier)', label='\(elem.label)'")
+        }
+
         let start = app.buttons["welcome-start"]
-        XCTAssertTrue(start.waitForExistence(timeout: 40), "Curated onboarding must appear")
+        XCTAssertTrue(start.waitForExistence(timeout: 10), "Curated onboarding must appear")
         start.tap()
 
         let language = app.buttons["language-en"]
