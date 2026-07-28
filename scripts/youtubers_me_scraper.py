@@ -477,6 +477,196 @@ def merge_and_dedup(
     return merged
 
 
+def scrape_channel_profile(slug: str) -> dict | None:
+    """Scrape a single /{slug}/youtuber-stats page for detailed profile data."""
+    url = f"{YT_BASE}/{slug}/youtuber-stats"
+    soup = fetch_page(url)
+    if not soup:
+        return None
+
+    profile: dict = {}
+
+    # ── Identity section ──
+    # Real name (often in a definition list or labeled section)
+    for label in soup.find_all(["dt", "th", "strong", "b"]):
+        text = label.get_text(strip=True).lower()
+        next_el = label.find_next(["dd", "td", "span", "p"])
+        if not next_el:
+            continue
+        value = next_el.get_text(strip=True)
+        if not value:
+            continue
+        if "real name" in text or "full name" in text:
+            profile["real_name"] = value
+        elif "age" in text and ":" not in text:
+            try:
+                profile["age"] = int(value)
+            except ValueError:
+                pass
+        elif "birthday" in text or "born" in text:
+            profile["birthday"] = value
+        elif "zodiac" in text:
+            profile["zodiac"] = value
+
+    # ── Biography (first substantial paragraph) ──
+    for p in soup.find_all("p"):
+        text = p.get_text(strip=True)
+        if len(text) > 80 and not text.startswith("<") and "cookie" not in text.lower():
+            profile["biography"] = text
+            break
+
+    # ── Growth stats (7d, 30d, 90d) ──
+    # These are typically in labeled divs/spans near the main stats
+    page_text = soup.get_text()
+
+    growth_fields = {
+        "subs_7d": r"last\s*7\s*days?\s*[:\-]?\s*([\d,]+)",
+        "subs_30d": r"last\s*30\s*days?\s*[:\-]?\s*([\d,]+)",
+        "subs_90d": r"last\s*90\s*days?\s*[:\-]?\s*([\d,]+)",
+    }
+    growth: dict[str, int] = {}
+    for field, pattern in growth_fields.items():
+        match = re.search(pattern, page_text, re.IGNORECASE)
+        if match:
+            growth[field] = parse_number(match.group(1))
+
+    # View growth (similar patterns but for views)
+    view_growth_fields = {
+        "views_7d": r"(?:video\s*)?views?\s*(?:last\s*)?7\s*days?\s*[:\-]?\s*([\d,]+)",
+        "views_30d": r"(?:video\s*)?views?\s*(?:last\s*)?30\s*days?\s*[:\-]?\s*([\d,]+)",
+        "views_90d": r"(?:video\s*)?views?\s*(?:last\s*)?90\s*days?\s*[:\-]?\s*([\d,]+)",
+    }
+    for field, pattern in view_growth_fields.items():
+        match = re.search(pattern, page_text, re.IGNORECASE)
+        if match:
+            growth[field] = parse_number(match.group(1))
+
+    if growth:
+        profile["growth"] = growth
+
+    # ── Earnings (30-day) ──
+    earnings_match = re.search(
+        r'\$[\s]*([\d,.]+[KMB]?)\s*[-–—]\s*\$[\s]*([\d,.]+[KMB]?)',
+        page_text, re.IGNORECASE,
+    )
+    if earnings_match:
+        profile["earnings_30d"] = {
+            "low": parse_number(earnings_match.group(1)),
+            "high": parse_number(earnings_match.group(2)),
+        }
+
+    # ── Daily stats table ──
+    daily_stats = []
+    for table in soup.find_all("table"):
+        # Look for table with date + views + earnings columns
+        rows = table.find_all("tr")
+        if len(rows) < 2:
+            continue
+        header_text = " ".join(cell.get_text(strip=True).lower() for cell in rows[0].find_all(["td", "th"]))
+        if "date" in header_text and ("views" in header_text or "earnings" in header_text):
+            for row in rows[1:]:
+                cells = row.find_all("td")
+                if len(cells) < 3:
+                    continue
+                date_text = cells[0].get_text(strip=True)
+                views = parse_number(cells[1].get_text(strip=True))
+                earnings_text = cells[-1].get_text(strip=True)
+                earnings_match = re.search(
+                    r'\$[\s]*([\d,.]+[KMB]?)\s*[-–—]\s*\$[\s]*([\d,.]+[KMB]?)',
+                    earnings_text, re.IGNORECASE,
+                )
+                daily_stats.append({
+                    "date": date_text,
+                    "views": views,
+                    "earnings_low": parse_number(earnings_match.group(1)) if earnings_match else 0,
+                    "earnings_high": parse_number(earnings_match.group(2)) if earnings_match else 0,
+                })
+            if daily_stats:
+                profile["daily_stats"] = daily_stats
+            break
+
+    # ── Social links ──
+    for a in soup.find_all("a", href=True):
+        href = a["href"]
+        if "twitter.com" in href and "share" not in href:
+            profile["twitter_url"] = href
+            break
+
+    # ── Similar channels ──
+    similar = []
+    for section in soup.find_all(["div", "section"]):
+        section_text = section.get_text().lower()
+        if "similar" in section_text and "youtuber" in section_text:
+            for card in section.find_all(["div", "li"], class_=True):
+                link = card.find("a", href=True)
+                if link and "/youtuber-stats" in link["href"]:
+                    name_el = card.find(["span", "strong", "h3", "h4", "p"])
+                    subs_el = card.find(text=re.compile(r'subscriber', re.I))
+                    s_slug = link["href"].split("/")[1] if link["href"].startswith("/") else ""
+                    similar.append({
+                        "channel_name": name_el.get_text(strip=True) if name_el else "",
+                        "subscribers_text": subs_el.parent.get_text(strip=True) if subs_el and subs_el.parent else "",
+                        "youtubersme_slug": s_slug,
+                    })
+            break
+    if similar:
+        profile["similar_channels"] = similar
+
+    # ── Trending videos ──
+    trending = []
+    for section in soup.find_all(["div", "section"]):
+        section_text = section.get_text().lower()
+        if "trending" in section_text and "video" in section_text:
+            for card in section.find_all(["div", "li"], class_=True):
+                link = card.find("a", href=True)
+                title_el = link or card.find(["span", "p", "h4"])
+                views_el = card.find(text=re.compile(r'(view|watch)', re.I))
+                if title_el:
+                    trending.append({
+                        "title": title_el.get_text(strip=True) if hasattr(title_el, 'get_text') else str(title_el),
+                        "views_text": views_el.parent.get_text(strip=True) if views_el and hasattr(views_el, 'parent') and views_el.parent else "",
+                    })
+            break
+    if trending:
+        profile["trending_videos"] = trending
+
+    return profile
+
+
+def scrape_all_profiles(
+    merged: dict[str, dict],
+    resolved_ids: dict[str, str],
+    resume: bool = False,
+) -> dict[str, dict]:
+    """Scrape profile pages for all channels with resolved IDs. Returns {slug: profile_dict}."""
+    profiles: dict[str, dict] = {}
+    if resume:
+        cp = load_checkpoint("phase4_profiles")
+        if cp:
+            profiles = cp
+
+    # Only scrape profiles for channels we have IDs for
+    to_scrape = [s for s in resolved_ids if s not in profiles and s in merged]
+
+    print(f"\n{'='*60}", file=sys.stderr)
+    print(f"Phase 4: Scraping {len(to_scrape)} individual channel profiles", file=sys.stderr)
+
+    for i, slug in enumerate(to_scrape):
+        if i > 0:
+            time.sleep(0.5)  # Rate limit
+
+        profile = scrape_channel_profile(slug)
+        if profile:
+            profiles[slug] = profile
+
+        if (i + 1) % 100 == 0 or i == len(to_scrape) - 1:
+            print(f"  [{i+1}/{len(to_scrape)}] {len(profiles)} profiles scraped", file=sys.stderr)
+            save_checkpoint("phase4_profiles", profiles)
+
+    print(f"Profiles scraped: {len(profiles)}", file=sys.stderr)
+    return profiles
+
+
 def main():
     write_mode = "--write" in sys.argv
     resume_mode = "--resume" in sys.argv
@@ -542,6 +732,25 @@ def main():
         cache = load_existing_channel_cache()
         print(f"Channel cache loaded: {len(cache)} entries", file=sys.stderr)
         resolved_ids = resolve_all_channel_ids(merged, cache, resume=resume_mode)
+
+    # Phase 4: Individual profiles
+    if phase_filter in (None, 4):
+        # Rebuild merged + resolved_ids from checkpoints if earlier phases skipped
+        try:
+            _ = merged  # type: ignore[name-defined]
+        except NameError:
+            cp_countries = load_checkpoint("phase1_countries") or {}
+            cp_categories = load_checkpoint("phase1_categories") or {}
+            merged = merge_and_dedup(cp_countries, cp_categories)
+        try:
+            _ = resolved_ids  # type: ignore[name-defined]
+        except NameError:
+            resolved_ids = load_checkpoint("phase3_resolved") or {}
+            if not resolved_ids:
+                print("  ⚠ No resolved IDs found — Phase 3 must run first", file=sys.stderr)
+                resolved_ids = {}
+
+        profiles = scrape_all_profiles(merged, resolved_ids, resume=resume_mode)
 
 
 if __name__ == "__main__":
