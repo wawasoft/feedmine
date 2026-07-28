@@ -256,9 +256,9 @@ def resolve_all_channel_ids(
     pending_slugs = [s for s in slugs if s not in resolved]
 
     print(f"\n{'='*60}", file=sys.stderr)
-    print(f"Phase 3: Resolving {len(pending_slugs)} Channel IDs (via youtubers.me/youtube redirect)", file=sys.stderr)
-    print(f"  Pre-resolved from cache: {len(resolved)}/{len(slugs)}", file=sys.stderr)
-    print(f"  Workers: 8 concurrent", file=sys.stderr)
+    print(f"Phase 3: Resolving {len(pending_slugs)} Channel IDs (via youtubers.me/youtube redirect)", file=sys.stderr, flush=True)
+    print(f"  Pre-resolved from cache: {len(resolved)}/{len(slugs)}", file=sys.stderr, flush=True)
+    print(f"  Workers: 8 concurrent, ~0.9/s", file=sys.stderr, flush=True)
 
     # Build work list: (slug, channel_name)
     work = [(s, merged[s]["channel_name"]) for s in pending_slugs]
@@ -302,13 +302,13 @@ def resolve_all_channel_ids(
                 rate = completed / elapsed if elapsed > 0 else 0
                 pct = completed / len(work) * 100
                 print(f"  [{completed}/{len(work)}] {pct:.0f}% — "
-                      f"{len(resolved)} resolved ({rate:.1f}/s)", file=sys.stderr)
+                      f"{len(resolved)} resolved ({rate:.1f}/s)", file=sys.stderr, flush=True)
                 save_checkpoint("phase3_resolved", resolved)
 
     unresolved = [s for s in slugs if s not in resolved]
     elapsed = time.time() - start
     print(f"Phase 3 complete in {elapsed/60:.1f}m — "
-          f"{len(resolved)}/{len(slugs)} resolved ({len(unresolved)} unresolved)", file=sys.stderr)
+          f"{len(resolved)}/{len(slugs)} resolved ({len(unresolved)} unresolved)", file=sys.stderr, flush=True)
     if unresolved:
         print(f"Sample unresolved: {unresolved[:10]}", file=sys.stderr)
 
