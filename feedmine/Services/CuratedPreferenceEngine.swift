@@ -448,10 +448,14 @@ enum CuratedPreferenceEngine {
     ]
 
     /// Check whether a source URL matches any hand-picked onboarding domain.
+    /// Uses host extraction + suffix matching to avoid false positives
+    /// (e.g. "fakereuters.com" must not match "reuters.com").
     static func isOnboardingShowcase(url: String, language: String) -> Bool {
         guard let domains = onboardingShowcaseDomains[language] else { return false }
-        let lower = url.lowercased()
-        return domains.contains { lower.contains($0) }
+        guard let host = URL(string: url)?.host?.lowercased() else { return false }
+        return domains.contains { domain in
+            host == domain || host.hasSuffix("." + domain)
+        }
     }
 
     static func makeCandidates(
@@ -486,19 +490,10 @@ enum CuratedPreferenceEngine {
             guard editorial.isEligible,
                   sourceItemCounts[normalizedURL, default: 0] < 2 else { continue }
 
-            let declaredLanguage = baseLanguage(item.language ?? source.language)
-            let detectedLanguage = detectedContentLanguage(for: item)
-            let language = detectedLanguage ?? declaredLanguage
-            if !normalizedLanguages.isEmpty {
-                guard let language, normalizedLanguages.contains(language) else {
-                    continue
-                }
-            }
-
+            // Cheap gates first — reject before expensive NLP
             let cleanTitle = item.title.trimmingCharacters(in: .whitespacesAndNewlines)
             guard cleanTitle.count >= 12, cleanTitle.count <= 190 else { continue }
 
-            // Title quality: reject spam-looking content
             let upperRatio = cleanTitle.filter(\.isUppercase).count
             let letterCount = cleanTitle.filter(\.isLetter).count
             if letterCount > 0, Double(upperRatio) / Double(letterCount) > 0.85 { continue }
@@ -510,14 +505,21 @@ enum CuratedPreferenceEngine {
                   !promotionalStoryTerms.contains(where: foldedTitle.contains),
                   seenTitles.insert(foldedTitle).inserted else { continue }
 
-            // Substance gate: items need meaningful content beyond the title
             let substance = (item.excerpt).trimmingCharacters(in: .whitespacesAndNewlines)
             if substance.count < 20 || substance == "No description" { continue }
 
-            // Image gate: comparison cards need visual presence. Items without
-            // any image potential produce placeholder-gradient-only cards that
-            // look broken next to cards with photos.
             guard item.hasPotentialImage else { continue }
+
+            // NLP language detection: expensive, only run for items that
+            // already passed all cheaper gates above.
+            let declaredLanguage = baseLanguage(item.language ?? source.language)
+            let detectedLanguage = detectedContentLanguage(for: item)
+            let language = detectedLanguage ?? declaredLanguage
+            if !normalizedLanguages.isEmpty {
+                guard let language, normalizedLanguages.contains(language) else {
+                    continue
+                }
+            }
 
             sourceItemCounts[normalizedURL, default: 0] += 1
             candidates.append(CuratedCandidate(
@@ -541,8 +543,10 @@ enum CuratedPreferenceEngine {
             .specialist: 1,
             .distinctive: 2,
         ]
-        // Sort: hand-picked showcase domains first, then quality, then recency
-        let languageForShowcase = languages.first ?? "en"
+        // Sort: hand-picked showcase domains first, then quality, then recency.
+        // Use sorted languages for determinism + baseLanguage for code normalization.
+        let sortedLangs = languages.sorted()
+        let languageForShowcase = sortedLangs.first.flatMap { Self.baseLanguage($0) } ?? "en"
         let sorted = candidates.sorted {
             let aShowcase = Self.isOnboardingShowcase(url: $0.source.feedURL, language: languageForShowcase)
             let bShowcase = Self.isOnboardingShowcase(url: $1.source.feedURL, language: languageForShowcase)
@@ -647,20 +651,18 @@ enum CuratedPreferenceEngine {
                     ? 1.35 : 0
 
                 let qualityPenalty = abs(a.quality - b.quality) * 4
-                let imagePenalty = a.item.hasPotentialImage == b.item.hasPotentialImage ? 0 : 0.9
                 let ageDays = abs(a.item.publishedAt.timeIntervalSince(b.item.publishedAt)) / 86_400
                 let agePenalty = min(1.2, ageDays / 30)
 
-                // Freshness: reward recent content (last 48h)
+                // Freshness: reward recent content, capped for clock skew safety
                 let now = Date()
                 let freshnessBoost: Double = {
-                    let aHours = now.timeIntervalSince(a.item.publishedAt) / 3600
-                    let bHours = now.timeIntervalSince(b.item.publishedAt) / 3600
-                    return max(0, 1.8 - (aHours + bHours) / 48)
+                    let aHours = max(0, now.timeIntervalSince(a.item.publishedAt) / 3600)
+                    let bHours = max(0, now.timeIntervalSince(b.item.publishedAt) / 3600)
+                    return max(0, min(1.8, 1.8 - (aHours + bHours) / 48))
                 }()
 
-                // Engagement: reward compelling titles (longer = more informative,
-                // but penalize extremes)
+                // Engagement: reward compelling titles (longer = more informative)
                 let titleScore: Double = {
                     let aLen = Double(a.item.title.count)
                     let bLen = Double(b.item.title.count)
@@ -675,7 +677,7 @@ enum CuratedPreferenceEngine {
                 let score = uncertainty + coverage + relevance
                     + editorialCoverage + cleanEditorialContrast
                     + freshnessBoost + titleScore
-                    - qualityPenalty - imagePenalty - agePenalty
+                    - qualityPenalty - agePenalty
                     - confoundPenalty - mediaPenalty
                 let shouldSwap = (profile.responseCount + leftIndex + rightIndex).isMultiple(of: 2)
                 let pair = CuratedComparisonPair(
@@ -911,7 +913,10 @@ final class CuratedOnboardingSession {
     var answerCount: Int { profile.responseCount }
     var canUndo: Bool { !undoStack.isEmpty }
     var canFinish: Bool {
-        answerCount >= Self.minimumAnswers || (answerCount > 0 && currentPair == nil)
+        // Require minimum answers before "Finish now" appears. If the
+        // fresh candidate pool runs dry before then, the UI must show
+        // the loading state, not an early-exit button.
+        answerCount >= Self.minimumAnswers
     }
     var reachedTarget: Bool { answerCount >= Self.targetAnswers }
     var isComplete: Bool { answerCount >= Self.maximumAnswers }
@@ -934,7 +939,14 @@ final class CuratedOnboardingSession {
             (candidates + incoming).map { ($0.id, $0) },
             uniquingKeysWith: { _, newest in newest }
         )
+        // Preserve showcase-first ordering from makeCandidates. Incoming
+        // items should already be sorted showcase-first; we only need to
+        // maintain that priority when merging with existing candidates.
+        let lang = profile.languages.first ?? "en"
         candidates = Array(merged.values).sorted {
+            let aShowcase = CuratedPreferenceEngine.isOnboardingShowcase(url: $0.source.feedURL, language: lang)
+            let bShowcase = CuratedPreferenceEngine.isOnboardingShowcase(url: $1.source.feedURL, language: lang)
+            if aShowcase != bShowcase { return aShowcase }
             if $0.topic != $1.topic { return $0.topic.rawValue < $1.topic.rawValue }
             if $0.quality != $1.quality { return $0.quality > $1.quality }
             return $0.item.publishedAt > $1.item.publishedAt
