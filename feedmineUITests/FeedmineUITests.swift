@@ -23,24 +23,24 @@ final class FeedmineUITests: XCTestCase {
         ]
         app.launch()
 
-        let start = app.buttons["curated-onboarding-start"]
+        let start = app.buttons["welcome-start"]
         XCTAssertTrue(start.waitForExistence(timeout: 40), "Curated onboarding must appear")
         start.tap()
 
-        let language = app.buttons["curated-language-en"]
+        let language = app.buttons["language-en"]
         XCTAssertTrue(language.waitForExistence(timeout: 30))
-        if (language.value as? String) != "selected" {
-            language.tap()
-        }
-        app.buttons["curated-languages-continue"].tap()
+        language.tap()
+        app.buttons["language-continue"].tap()
 
-        let firstStory = app.buttons["curated-choice-a"]
+        let firstStory = app.buttons["duel-top-card"]
         if firstStory.waitForExistence(timeout: 60) {
-            for _ in 0..<8 {
+            for _ in 0..<7 {
                 XCTAssertTrue(firstStory.waitForExistence(timeout: 15))
                 firstStory.tap()
+                // Wait for feedback overlay to dismiss
+                _ = app.staticTexts["You chose this"].waitForExistence(timeout: 3)
             }
-            let review = app.buttons["curated-review"]
+            let review = app.buttons["duel-finish"]
             XCTAssertTrue(review.waitForExistence(timeout: 10))
             review.tap()
         } else {
@@ -52,7 +52,7 @@ final class FeedmineUITests: XCTestCase {
             balanced.tap()
         }
 
-        let save = app.buttons["curated-save"]
+        let save = app.buttons["reveal-save"]
         XCTAssertTrue(save.waitForExistence(timeout: 10))
         save.tap()
 
