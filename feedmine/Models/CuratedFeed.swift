@@ -126,6 +126,21 @@ struct CuratedEvidence: Codable, Sendable, Hashable, Identifiable {
         self.weightChanges = weightChanges
         self.createdAt = createdAt
     }
+
+    /// Custom decoder so Curated Feeds saved before weightChanges existed
+    /// don't fail to decode. The field defaults to empty when absent.
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UUID.self, forKey: .id)
+        leftTitle = try container.decode(String.self, forKey: .leftTitle)
+        leftSource = try container.decode(String.self, forKey: .leftSource)
+        rightTitle = try container.decode(String.self, forKey: .rightTitle)
+        rightSource = try container.decode(String.self, forKey: .rightSource)
+        outcome = try container.decode(CuratedChoiceOutcome.self, forKey: .outcome)
+        affectedKeys = try container.decode([String].self, forKey: .affectedKeys)
+        weightChanges = try container.decodeIfPresent([String: Double].self, forKey: .weightChanges) ?? [:]
+        createdAt = try container.decode(Date.self, forKey: .createdAt)
+    }
 }
 
 // MARK: - Broad, culturally neutral topic vocabulary
