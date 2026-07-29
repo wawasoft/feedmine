@@ -31,6 +31,22 @@ final class FeedStore {
     let prefetcher = ImagePrefetcher()
     let cardQueue = ReadyCardQueue()
     private(set) var imageResolutionQueue: ImageResolutionQueue!
+
+    // MARK: - Prepared feed pipeline (Phase 3+)
+    /// Feature flag controlling which pipeline publishes.
+    private var usePreparedPipeline: Bool { Settings.preparedFeedPipelineEnabled }
+    /// Monotonic counter incremented on filter/preset/mode changes.
+    private var presentationEpoch: UInt64 = 0
+    /// Active context for the current feed composition.
+    private var activePresentationContext = FeedPresentationContext(
+        epoch: 0, mode: .main, filterGeneration: 0, presetGeneration: 0
+    )
+    /// Current feed mode — updated when switching between main/collection/bookmark/etc.
+    private var currentMode: FeedPresentationMode = .main
+    /// New pipeline components — initialized after DB is ready.
+    private var mediaAssetStore: MediaAssetStore!
+    private var runwayPolicy: RunwayPolicy!
+    private var preparationCoordinator: CardPreparationCoordinator!
     let networkMonitor = NetworkMonitor()
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
@@ -750,6 +766,13 @@ final class FeedStore {
         // Image resolution retry queue — starts polling after migration
         // creates the image_retry_queue table.
         self.imageResolutionQueue = ImageResolutionQueue(db: db)
+        let assetStore = MediaAssetStore(db: db)
+        let policy = RunwayPolicy.forDevice()
+        self.mediaAssetStore = assetStore
+        self.runwayPolicy = policy
+        self.preparationCoordinator = CardPreparationCoordinator(
+            mediaStore: assetStore, policy: policy
+        )
         // user.sqlite — owns bookmark identity, survives catalog rebuilds
         self.userRepo = try UserStateStore(inMemory: inMemory)
         self.bookmarkStore = BookmarkStore(userDB: userRepo.db, contentDB: db)
@@ -1993,6 +2016,11 @@ final class FeedStore {
         // Increment generation BEFORE updating state — every async operation
         // captures this and discards results if a newer filter supersedes it.
         filterGeneration &+= 1
+        presentationEpoch &+= 1
+        activePresentationContext = FeedPresentationContext(
+            epoch: presentationEpoch, mode: currentMode,
+            filterGeneration: filterGeneration, presetGeneration: presetGeneration
+        )
         let generation = filterGeneration
 
         // Update state immediately for UI responsiveness
@@ -2807,6 +2835,11 @@ final class FeedStore {
             activeSmartFeedSourceURLs = []
         }
         presetGeneration &+= 1
+        presentationEpoch &+= 1
+        activePresentationContext = FeedPresentationContext(
+            epoch: presentationEpoch, mode: currentMode,
+            filterGeneration: filterGeneration, presetGeneration: presetGeneration
+        )
         let capturedGeneration = presetGeneration
         resetWhatsNewBaseline()
 
