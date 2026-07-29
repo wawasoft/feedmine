@@ -48,6 +48,8 @@ final class FeedStore {
     private var runwayPolicy: RunwayPolicy!
     private var preparationCoordinator: CardPreparationCoordinator!
     private var runwayController: FeedRunwayController!
+    private var pipelineTask: Task<Void, Never>?
+    private var cardPreparationTask: Task<Void, Never>?
     let networkMonitor = NetworkMonitor()
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
@@ -178,6 +180,7 @@ final class FeedStore {
     /// Pauses all background processes that would modify the screen.
     func loadBookmarkFeed(items: [FeedItem]) {
         isBookmarkFeed = true
+        currentMode = .bookmarks(selectedBookmarkListID)
         pipelineTask?.cancel()
         trimDebounceTask?.cancel()
         progressiveFetchTask?.cancel()
@@ -191,6 +194,7 @@ final class FeedStore {
     /// Clear bookmark mode and reload the normal feed.
     func clearBookmarkFeed() {
         isBookmarkFeed = false
+        currentMode = .main
         startBackgroundRefresh()
         applyUpdate(.flush())
     }
@@ -1657,8 +1661,6 @@ final class FeedStore {
         case trim(Int, generation: Int64 = 0)      // Trim buffer with currentVisibleIndex
         case replace([FeedItem])  // Full replace (search, toggle)
     }
-    private var pipelineTask: Task<Void, Never>?
-
     /// Single writer for `visibleItems`. Every mutation routes through here.
     /// Stamps each item with isRead/isBookmarked so views don't observe the
     /// global sets directly — reading one item won't invalidate all cards.
@@ -1676,16 +1678,47 @@ final class FeedStore {
         visibleItemsGeneration &+= 1
         markPreviouslyLoadedContentIfNeeded(stamped)
 
-        // Shadow mode: run new pipeline in parallel for metrics comparison.
-        // When usePreparedPipeline is true, this will become the primary path.
-        if !usePreparedPipeline, !stamped.isEmpty {
-            let ctx = activePresentationContext
-            let items = Array(stamped.prefix(60))
-            Task { [weak self] in
-                guard let self else { return }
-                await self.preparationCoordinator.replaceEditorialSequence(items, context: ctx)
-                await self.preparationCoordinator.fillRunway(targetRenderReady: 20, context: ctx)
+        // Prepared pipeline: feed items to coordinator for background preparation.
+        // When ready, the coordinator's render-ready cards are published via
+        // promotePreparedCards(), which updates visibleCards for the views.
+        guard !stamped.isEmpty else { return }
+        let ctx = activePresentationContext
+        let items = Array(stamped.prefix(120))
+        cardPreparationTask?.cancel()
+        cardPreparationTask = Task { [weak self] in
+            guard let self else { return }
+            await self.preparationCoordinator.replaceEditorialSequence(items, context: ctx)
+            await self.preparationCoordinator.fillRunway(
+                targetRenderReady: min(items.count, self.runwayPolicy.initialPublishedCount),
+                context: ctx
+            )
+            if self.usePreparedPipeline {
+                await self.promotePreparedCards(context: ctx)
             }
+        }
+    }
+
+    /// Promote render-ready cards from the coordinator into visibleCards.
+    /// Called after the pipeline finishes preparing the initial batch.
+    private func promotePreparedCards(context: FeedPresentationContext) async {
+        let ready = await preparationCoordinator.takeRenderReadyPrefix(
+            maximumCount: runwayPolicy.initialPublishedCount,
+            context: context
+        )
+        guard !ready.isEmpty else { return }
+        guard context.epoch == presentationEpoch else { return }
+
+        let legacyPresentations = ready.map { card in
+            FeedCardPresentation(
+                from: card,
+                isRead: card.item.isRead,
+                isBookmarked: card.item.isBookmarked
+            )
+        }
+        visibleCards = legacyPresentations
+        hasPreviouslyLoadedContent = true
+        if loadingState == .initial {
+            loadingState = .idle
         }
     }
 
@@ -2847,6 +2880,13 @@ final class FeedStore {
         guard preset != activePreset else { return }
         activePreset = preset
         Settings.activePreset = preset
+        // Update presentation mode for the new preset
+        switch preset {
+        case .collection(let id, _): currentMode = .collection(id)
+        case .smartFeed: break  // Set when feed loads
+        case .lastClicked: currentMode = .lastClicked
+        default: currentMode = .main
+        }
         if !preset.isSmartFeed {
             activeSmartFeedItemIDs = []
             activeSmartFeedSourceURLs = []
@@ -2990,6 +3030,7 @@ final class FeedStore {
                 """)
         }) ?? []
         guard activePreset.isLastClicked else { return }
+        currentMode = .lastClicked
         reservoir.clear()
         reservoirCount = 0
         setVisibleItems(applyFilters(records.map { $0.toFeedItem() }))
@@ -5420,6 +5461,7 @@ final class FeedStore {
             activeSmartFeedSourceURLs = Set(items.map {
                 OPMLParser.normalizeURL($0.sourceURL)
             })
+            currentMode = .smartFeed(id)
             pendingReservoirItems = []
             reservoirFlushTask?.cancel()
             reservoir.clear()
