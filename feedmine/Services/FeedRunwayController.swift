@@ -71,30 +71,35 @@ actor FeedRunwayController {
 
         let renderReadyCount = await coordinator.renderReadyCount
         let resolvedCount = await coordinator.resolvedCount
-        let editorialCount = await coordinator.editorialCount
+        let editorialAhead = await coordinator.editorialAheadCount
 
         let estimatedSeconds = metrics.estimatedRunwaySeconds(
             renderReadyCount: renderReadyCount,
             publishedAhead: publishedAhead
         )
 
-        let newPressure = computePressure(
+        let computedPressure = computePressure(
             renderReadyCount: renderReadyCount,
             resolvedCount: resolvedCount,
-            editorialCount: editorialCount,
+            editorialCount: editorialAhead,
             estimatedSeconds: estimatedSeconds
         )
 
-        guard newPressure != pressureState else { return }
-
-        // Hysteresis: don't transition faster than minimumDwell
+        // Transition state with hysteresis to prevent oscillation.
+        // Hysteresis gates the STATE label, not the ACTION — we always
+        // perform top-up work based on the current state, even if the
+        // label hasn't changed since the last evaluation.
         let now = Date()
-        guard now.timeIntervalSince(lastTransition) > minimumDwell else { return }
+        if computedPressure != pressureState,
+           now.timeIntervalSince(lastTransition) > minimumDwell {
+            pressureState = computedPressure
+            lastTransition = now
+        }
 
-        pressureState = newPressure
-        lastTransition = now
-
-        switch newPressure {
+        // Always execute actions for the current (possibly just-transitioned)
+        // pressure state. The state label controls intensity; top-up work
+        // runs on every evaluation, not just on transitions.
+        switch pressureState {
         case .critical, .bootstrap:
             await coordinator.fillRunway(
                 targetRenderReady: policy.initialPublishedCount + policy.publishedAheadLow,
