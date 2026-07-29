@@ -64,9 +64,13 @@ actor MediaAssetStore {
         await diskCache.data(for: key)
     }
 
-    /// Cancel all in-flight work (context change).
+    /// Context change does NOT cancel or clear in-flight downloads. The
+    /// coordinator's context guard prevents stale tasks from publishing.
+    /// Keeping the dictionary means new contexts reuse in-progress downloads
+    /// (single-flight across contexts), and completed disk writes benefit
+    /// all future compositions.
     func cancelAll() {
-        inFlight.removeAll()
+        // Intentionally empty — in-flight tasks are shared across contexts.
     }
 
     /// Clear memory cache (memory warning).
@@ -250,10 +254,15 @@ struct ImageAssetKey: Hashable, Sendable {
 }
 
 enum ImageCacheKey {
-    /// Stable hash of a URL for use as a cache filename.
+    /// FNV-1a 64-bit — deterministic across launches, unlike Hasher.
+    /// Same algorithm as `ImageCache.stableHash` so cache keys are
+    /// consistent regardless of which pipeline produced the file.
     static func forURL(_ url: URL) -> String {
-        var hasher = Hasher()
-        url.absoluteString.hash(into: &hasher)
-        return String(hasher.finalize(), radix: 36)
+        var hash: UInt64 = 0xcbf2_9ce4_8422_2325
+        for byte in url.absoluteString.utf8 {
+            hash ^= UInt64(byte)
+            hash = hash &* 0x0000_0100_0000_01b3
+        }
+        return "img_\(String(hash, radix: 16))"
     }
 }

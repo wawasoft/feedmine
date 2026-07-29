@@ -90,6 +90,8 @@ actor CardPreparationCoordinator {
 
     /// Take the longest contiguous prefix of render-ready cards starting
     /// from `nextPublishIndex`. Returns cards in editorial order.
+    /// Published cards are removed from internal maps — the UI holds a strong
+    /// reference to the UIImage, so the coordinator doesn't need to retain it.
     func takeRenderReadyPrefix(
         maximumCount: Int,
         context: FeedPresentationContext
@@ -106,6 +108,14 @@ actor CardPreparationCoordinator {
             } else {
                 break  // Not contiguous — stop here
             }
+        }
+
+        // Remove published cards from internal maps. The UI now owns the
+        // UIImage reference; keeping cards here inflates runway counters.
+        for card in ready {
+            renderReadyByID.removeValue(forKey: card.id)
+            resolvedByID.removeValue(forKey: card.id)
+            stateByID.removeValue(forKey: card.id)
         }
 
         nextPublishIndex = idx
@@ -133,10 +143,29 @@ actor CardPreparationCoordinator {
         Task { await mediaStore.clearMemoryCache() }
     }
 
-    /// Number of cards currently render-ready (for metrics).
-    var renderReadyCount: Int { renderReadyByID.count }
-    var resolvedCount: Int { resolvedByID.count }
+    /// Number of render-ready cards ahead of the publish index (not yet published).
+    var renderReadyCount: Int {
+        renderReadyByID.keys.filter { id in
+            guard let idx = orderedItems.firstIndex(where: { $0.id == id }) else { return false }
+            return idx >= nextPublishIndex
+        }.count
+    }
+
+    /// Number of resolved (disk-level) cards ahead of the publish index.
+    var resolvedCount: Int {
+        resolvedByID.keys.filter { id in
+            guard let idx = orderedItems.firstIndex(where: { $0.id == id }) else { return false }
+            return idx >= nextPublishIndex
+        }.count
+    }
+
+    /// Total items in the editorial sequence (includes published + pending).
     var editorialCount: Int { orderedItems.count }
+
+    /// Remaining editorial items after the publish index.
+    var editorialAheadCount: Int {
+        max(0, orderedItems.count - nextPublishIndex)
+    }
 
     // MARK: - Private
 
@@ -211,7 +240,7 @@ actor CardPreparationCoordinator {
         let request = ImageResolutionRequest(
             itemID: item.id,
             url: imageURL,
-            cacheKey: nil,
+            cacheKey: ImageCacheKey.forURL(imageURL),
             source: .directImageURL
         )
 

@@ -52,6 +52,9 @@ final class FeedStore {
     private var runwayPolicy: RunwayPolicy!
     private var preparationCoordinator: CardPreparationCoordinator!
     private var runwayController: FeedRunwayController!
+    /// IDs already registered in the coordinator's editorial sequence.
+    /// Used to detect new items by identity (not position) during append.
+    private var coordinatorKnownIDs: Set<String> = []
     private var pipelineTask: Task<Void, Never>?
     private var cardPreparationTask: Task<Void, Never>?
     let networkMonitor = NetworkMonitor()
@@ -1705,16 +1708,17 @@ final class FeedStore {
         // publishes both visibleItems and visibleCards together.
         if usePreparedPipeline, !stamped.isEmpty {
             let ctx = activePresentationContext
-            let items = Array(stamped.prefix(120))
             cardPreparationTask?.cancel()
             cardPreparationTask = Task { [weak self] in
                 guard let self else { return }
                 if isAppend {
-                    // Only pass NEW items (those not already in the coordinator).
-                    // The full `items` array includes already-visible + new items.
-                    let existingCount = self.visibleItems.count
-                    let newItems = Array(items.dropFirst(existingCount))
+                    // Detect new items by ID, not position. visibleItems.count
+                    // may lag behind the coordinator (promotion is async), so
+                    // position-based counting would miss items or re-add known ones.
+                    let knownIDs = self.coordinatorKnownIDs
+                    let newItems = stamped.filter { !knownIDs.contains($0.id) }
                     if !newItems.isEmpty {
+                        self.coordinatorKnownIDs.formUnion(newItems.map(\.id))
                         await self.preparationCoordinator.appendEditorialSequence(newItems, context: ctx)
                     }
                     // Target: current published count + page size worth of new cards
@@ -1724,9 +1728,11 @@ final class FeedStore {
                         context: ctx
                     )
                 } else {
-                    await self.preparationCoordinator.replaceEditorialSequence(items, context: ctx)
+                    // Full replace — clear known IDs and rebuild from scratch.
+                    self.coordinatorKnownIDs = Set(stamped.map(\.id))
+                    await self.preparationCoordinator.replaceEditorialSequence(stamped, context: ctx)
                     await self.preparationCoordinator.fillRunway(
-                        targetRenderReady: min(items.count, self.runwayPolicy.initialPublishedCount),
+                        targetRenderReady: min(stamped.count, self.runwayPolicy.initialPublishedCount),
                         context: ctx
                     )
                 }
@@ -1750,36 +1756,32 @@ final class FeedStore {
     /// AND visibleItems simultaneously. No card is ever visible without
     /// its terminal media already resolved — the feed contract is preserved.
     ///
-    /// For appends, waits up to 3 seconds (in 300ms steps) for the newly
-    /// enqueued items to finish preparation. This is NOT the legacy 100ms
-    /// polling — it's a scoped wait that only activates during scroll append
-    /// and terminates as soon as contiguous cards are ready.
+    /// Both first-paint and append paths wait for the contiguous prefix
+    /// to become ready. First paint gets the full initial-viewport deadline
+    /// (6s); append gets a shorter 3s window. Cards that miss their deadline
+    /// are terminal-fallbacked by the coordinator — the wait here just
+    /// ensures the UI batch is contiguous.
     private func promotePreparedCards(
         context: FeedPresentationContext,
         isAppend: Bool = false,
         maxCount: Int = 20
     ) async {
         let ready: [PreparedFeedCard]
-        if isAppend {
-            // Wait for the coordinator's async Tasks to finish preparing
-            // the newly appended items. Each iteration checks if a
-            // contiguous prefix is ready; exits early on success.
-            var cards: [PreparedFeedCard] = []
-            for _ in 0..<10 {  // 10 × 300ms = 3s max wait
-                cards = await preparationCoordinator.takeRenderReadyPrefix(
-                    maximumCount: maxCount,
-                    context: context
-                )
-                if !cards.isEmpty { break }
-                try? await Task.sleep(for: .milliseconds(300))
-            }
-            ready = cards
-        } else {
-            ready = await preparationCoordinator.takeRenderReadyPrefix(
+        // First paint: wait up to initialViewportDeadline for the first page.
+        // Append: wait up to 3s for newly enqueued items.
+        let maxWait: Duration = isAppend ? .seconds(3) : runwayPolicy.initialViewportDeadline
+        let step: Duration = .milliseconds(300)
+        let maxSteps = Int(maxWait.components.seconds / step.components.seconds)
+        var cards: [PreparedFeedCard] = []
+        for _ in 0..<maxSteps {
+            cards = await preparationCoordinator.takeRenderReadyPrefix(
                 maximumCount: maxCount,
                 context: context
             )
+            if !cards.isEmpty { break }
+            try? await Task.sleep(for: step)
         }
+        ready = cards
         guard !ready.isEmpty else { return }
         guard context.epoch == presentationEpoch else { return }
 
@@ -1969,14 +1971,21 @@ final class FeedStore {
                 // recent pipeline that already seeded fresher data.
                 if generation != 0, generation != self.filterGeneration { return }
                 self.reservoir.trimBuffer(currentVisibleIndex: idx)
-                let filtered = self.applyFilters(self.reservoir.visibleItems)
-                self.setVisibleItems(filtered)
-                if !self.usePreparedPipeline {
+                if self.usePreparedPipeline {
+                    // The prepared coordinator manages its own editorial sequence.
+                    // Trim only affects the reservoir buffer — the coordinator's
+                    // published cards are preserved. Calling setVisibleItems here
+                    // would trigger a full replaceEditorialSequence, truncating
+                    // the feed back to the initial page.
+                    self.reservoirCount = self.reservoir.reservoirCount
+                } else {
+                    let filtered = self.applyFilters(self.reservoir.visibleItems)
+                    self.setVisibleItems(filtered)
                     // Rebuild visibleCards from legacy queue, keeping only items still visible
                     let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
                     self.visibleCards = filtered.compactMap { presMap[$0.id] }
+                    self.reservoirCount = self.reservoir.reservoirCount
                 }
-                self.reservoirCount = self.reservoir.reservoirCount
             }
 
         case .replace(let items):
@@ -4800,28 +4809,44 @@ final class FeedStore {
         // markSurfaced runs on reservoir.visibleItems AFTER seed, so only
         // items that actually appear on screen are recorded as surfaced.
         markSurfaced(reservoir.visibleItems)
-        setVisibleItems(reservoir.visibleItems)  // already filtered — no double-filter needed)
+        setVisibleItems(reservoir.visibleItems)  // already filtered — no double-filter needed
+
+        // Start the runway controller for the initial feed composition.
+        // This was previously only called on filter/preset changes, so the
+        // controller was idle during normal startup — scrolling depended
+        // entirely on setVisibleItems and never evaluated runway health.
+        if usePreparedPipeline {
+            await runwayController.start(context: activePresentationContext)
+            await runwayController.evaluate()
+        }
+
         // If the active filter (e.g. Podcasts) removed all seeded items,
         // pull more from the reservoir so the screen isn't empty.
         // (This loop is now a safety net — the reservoir is pre-filtered,
         // but edge cases like very restrictive mood filters may still
         // produce an empty first page.)
-        if visibleItems.count < Reservoir.pageSize && reservoir.reservoirCount > 0 {
-            repeat {
-                reservoir.moveToVisible(count: Reservoir.pageSize)
-                setVisibleItems(applyFilters(reservoir.visibleItems))
-            } while visibleItems.count < Reservoir.pageSize && reservoir.reservoirCount > 0
-        }
-        // Pre-resolve images for the initial visible page
-        let upcoming = reservoir.visibleItems
-        if !upcoming.isEmpty {
-            cardQueue.enqueue(upcoming)
-            await cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
-            let presMap = Dictionary(uniqueKeysWithValues: cardQueue.presentations.map { ($0.id, $0) })
-            let filtered = applyFilters(upcoming)
-            visibleCards = filtered.compactMap { presMap[$0.id] }
-            // Enqueue failed resolutions for background retry
-            enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
+        if !usePreparedPipeline {
+            // Legacy safety net: pull more items from reservoir until the
+            // first page is full. With the prepared pipeline, setVisibleItems
+            // publishes asynchronously — visibleItems stays empty during the
+            // loop, which would drain the entire reservoir. Skip entirely.
+            if visibleItems.count < Reservoir.pageSize && reservoir.reservoirCount > 0 {
+                repeat {
+                    reservoir.moveToVisible(count: Reservoir.pageSize)
+                    setVisibleItems(applyFilters(reservoir.visibleItems))
+                } while visibleItems.count < Reservoir.pageSize && reservoir.reservoirCount > 0
+            }
+            // Pre-resolve images for the initial visible page
+            let upcoming = reservoir.visibleItems
+            if !upcoming.isEmpty {
+                cardQueue.enqueue(upcoming)
+                await cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
+                let presMap = Dictionary(uniqueKeysWithValues: cardQueue.presentations.map { ($0.id, $0) })
+                let filtered = applyFilters(upcoming)
+                visibleCards = filtered.compactMap { presMap[$0.id] }
+                // Enqueue failed resolutions for background retry
+                enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
+            }
         }
         reservoirCount = reservoir.reservoirCount
         Log.feed.info("[TaxonomyTrace] reloadFromSQLite gen=\(generation) done visibleItems=\(self.visibleItems.count) reservoirCount=\(self.reservoirCount)")
