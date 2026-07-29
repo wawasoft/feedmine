@@ -118,21 +118,41 @@ def integrate_country_opml(slug: str, feeds: list[dict], country_name: str) -> s
 
     # Check if "Artist Blogs" subcategory already exists
     if 'feedmineSubcategory="Artist Blogs"' in content:
-        print(f"    [skip] Artist Blogs subcategory already exists in {slug}.opml")
-        return None  # Already integrated — just update
+        # Append new feeds to the existing subcategory
+        # Find existing URLs in the subcategory
+        existing_in_subcat = set()
+        for m in re.finditer(r'feedmineSubcategory="Artist Blogs".*?xmlUrl="([^"]+)"', content):
+            existing_in_subcat.add(m.group(1).strip().rstrip("/").lower())
 
-    # Find the </body> tag to insert before it
-    entries_xml = "\n".join(generate_outline_entry(f, country_name) for f in feeds)
+        truly_new = [f for f in feeds if f["url"].lower().rstrip("/") not in existing_in_subcat]
+        if not truly_new:
+            print(f"    [skip] All {len(feeds)} feeds already in Artist Blogs")
+            return None
 
-    new_subcategory = f"""    <outline text="Artist Blogs" title="Artist Blogs">
+        print(f"    Appending {len(truly_new)} new feeds to existing Artist Blogs ({len(feeds)-len(truly_new)} already there)")
+        new_entries = "\n".join(generate_outline_entry(f, country_name) for f in truly_new)
+
+        # Insert before the closing </outline> of the Artist Blogs section
+        # Find the Artist Blogs section end
+        artist_section_start = content.find('text="Artist Blogs" title="Artist Blogs">')
+        if artist_section_start > 0:
+            # Find the matching </outline> — go forward from the start
+            end_tag_pos = content.find('</outline>', artist_section_start)
+            if end_tag_pos > 0:
+                # Insert new entries before this closing tag
+                new_content = content[:end_tag_pos] + new_entries + "\n    " + content[end_tag_pos:]
+                return new_content
+
+        # Fallback: insert before </body>
+        return content.replace("  </body>", f"    <!-- Additional Artist Blog feeds -->\n{new_entries}\n  </body>")
+    else:
+        # No existing Artist Blogs section — create one
+        entries_xml = "\n".join(generate_outline_entry(f, country_name) for f in feeds)
+        new_section = f"""    <outline text="Artist Blogs" title="Artist Blogs">
 {entries_xml}
     </outline>
   </body>"""
-
-    # Insert before </body>
-    new_content = content.replace("  </body>", new_subcategory)
-
-    return new_content
+        return content.replace("  </body>", new_section)
 
 
 def create_new_opml(country_name: str, feeds: list[dict]) -> str:
