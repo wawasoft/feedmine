@@ -167,8 +167,15 @@ enum Settings {
     }
 
     // MARK: Prepared Feed Pipeline
+    /// Defaults to true — the prepared feed pipeline is the primary path.
+    /// Can be disabled via UserDefaults or launch argument for debugging.
     static var preparedFeedPipelineEnabled: Bool {
-        get { d.bool(forKey: Keys.preparedFeedPipelineEnabled) }
+        get {
+            if d.object(forKey: Keys.preparedFeedPipelineEnabled) == nil {
+                return true  // enabled by default after Phase 9
+            }
+            return d.bool(forKey: Keys.preparedFeedPipelineEnabled)
+        }
         set { d.set(newValue, forKey: Keys.preparedFeedPipelineEnabled) }
     }
 }
