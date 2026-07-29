@@ -212,7 +212,7 @@ def check_one_url(url: str, source: str) -> dict | None:
 # ---------------------------------------------------------------------------
 
 COUNTRY_NAME_TO_SLUG: dict[str, str] = {
-    "brazil": "brazil", "united states": "usa", "united kingdom": "united_kingdom",
+    "brazil": "brazil", "united states": "usa", "united kingdom": "united-kingdom",
     "france": "france", "germany": "germany", "japan": "japan",
     "india": "india", "canada": "canada", "mexico": "mexico",
     "nigeria": "nigeria", "south korea": "south_korea", "argentina": "argentina",
