@@ -820,6 +820,16 @@ final class FeedStore {
             }
         }
         loadSourceHealth()
+
+        // Memory pressure: forward to the coordinator to release decoded images
+        // beyond the published window and trim the memory cache.
+        let prepCoordinator = self.preparationCoordinator
+        NotificationCenter.default.addObserver(
+            forName: Notification.Name("UIApplicationDidReceiveMemoryWarningNotification"),
+            object: nil, queue: .main
+        ) { _ in
+            Task { await prepCoordinator?.handleMemoryPressure() }
+        }
     }
 
     /// Last-resort fallback: creates an in-memory store. Uses try! because if
