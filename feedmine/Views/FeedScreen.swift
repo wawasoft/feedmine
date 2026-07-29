@@ -819,8 +819,14 @@ struct FeedScreen: View {
                         }
                         ForEach(loader.dateSections) { section in
                             Section {
+                                // Build a lookup so each row gets its pre-resolved
+                                // card presentation without scanning the full array.
+                                let cardsByID = Dictionary(
+                                    uniqueKeysWithValues: section.cards.map { ($0.id, $0) }
+                                )
                                 ForEach(section.items) { item in
                                     FeedItemView(item: item,
+                                        presentation: cardsByID[item.id],
                                         onOpen: {
                                             guard !searchFocused else {
                                                 searchFocused = false

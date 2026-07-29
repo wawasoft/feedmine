@@ -5,6 +5,11 @@ import SwiftUI
 struct FeedItemView: View {
     @Environment(FeedLoader.self) private var loader
     let item: FeedItem
+    /// Pre-resolved card presentation from the prepared pipeline.
+    /// When non-nil and media is .image, the card renders the UIImage
+    /// directly via PreparedCardImage — zero async work. When nil,
+    /// falls back to looking up the card from loader.cards.
+    var presentation: FeedCardPresentation? = nil
     var onOpen: (() -> Void)? = nil
     var onCopy: (() -> Void)? = nil
     var onPlaybackFailed: (() -> Void)? = nil
@@ -13,12 +18,14 @@ struct FeedItemView: View {
 
     var body: some View {
         let isDirectAudio = item.isDirectAudioLink
+        let pres = presentation ?? loader.cards.first { $0.id == item.id }
         Group {
             if loader.layout == .card {
                 FeedItemCardView(
                     item: item,
                     isRead: item.isRead,
                     isBookmarked: item.isBookmarked,
+                    presentation: pres,
                     onBookmark: { loader.toggleBookmark(item.id) },
                     onViewSource: onViewSource,
                     onAddSourceToCollection: onAddSourceToCollection,
@@ -32,6 +39,7 @@ struct FeedItemView: View {
                     item: item,
                     isRead: item.isRead,
                     isBookmarked: item.isBookmarked,
+                    presentation: pres,
                     onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil
                 )
                 Divider()

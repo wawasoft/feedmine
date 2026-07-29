@@ -127,13 +127,20 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
         return "https://img.youtube.com/vi/\(videoID)/sddefault.jpg"
     }
 
-    /// Best available image URL — RSS image takes priority over YouTube thumbnail.
-    /// RSS media:content images are typically full-resolution article images (1200×800+),
-    /// while YouTube thumbnails top out at 640×480 (sddefault). YouTube is the fallback.
-    /// Returns nil when imageURL is an empty sentinel ("": article resolution tried, no image).
+    /// Best available image URL.
+    ///
+    /// YouTube videos: always use the YouTube thumbnail first. Channel feeds are
+    /// Atom with ``media:group/media:thumbnail`` — FeedKit never populates
+    /// ``imageURL`` from that path, so the RSS image is always nil. Even when a
+    /// non-YouTube feed links to a YouTube URL, the thumbnail is the best
+    /// representation of the video.
+    ///
+    /// Non-YouTube: feed-supplied image (typically 1200×800+ article artwork)
+    /// takes priority. Returns nil when neither source is available.
     var bestImageURL: String? {
+        if let yt = youTubeThumbnailURL { return yt }
         if let img = imageURL, !img.isEmpty { return img }
-        return youTubeThumbnailURL
+        return nil
     }
 
     /// Direct article pages can often supply Open Graph or responsive artwork
