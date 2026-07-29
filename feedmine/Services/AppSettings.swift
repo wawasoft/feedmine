@@ -53,6 +53,9 @@ enum Keys {
     // Audio
     static let lastPodcastItemID = "lastPodcastItemID"
     static let lastPodcastPosition = "lastPodcastPosition"
+
+    // Prepared Feed Pipeline
+    static let preparedFeedPipelineEnabled = "preparedFeedPipelineEnabled"
 }
 
 // MARK: - Typed Settings Accessor
@@ -161,5 +164,11 @@ enum Settings {
     static var contentFiltersEnabled: Bool {
         get { d.object(forKey: Keys.contentFiltersEnabled) as? Bool ?? true }
         set { d.set(newValue, forKey: Keys.contentFiltersEnabled) }
+    }
+
+    // MARK: Prepared Feed Pipeline
+    static var preparedFeedPipelineEnabled: Bool {
+        get { d.bool(forKey: Keys.preparedFeedPipelineEnabled) }
+        set { d.set(newValue, forKey: Keys.preparedFeedPipelineEnabled) }
     }
 }
