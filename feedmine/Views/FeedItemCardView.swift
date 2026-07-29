@@ -6,6 +6,7 @@ struct FeedItemCardView: View, Equatable {
     /// @Environment properties (tracked independently by SwiftUI).
     nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.item == rhs.item
+        && lhs.presentation?.media == rhs.presentation?.media
         && lhs.isRead == rhs.isRead
         && lhs.isBookmarked == rhs.isBookmarked
         && lhs.isInBookmarkBox == rhs.isInBookmarkBox
@@ -13,25 +14,32 @@ struct FeedItemCardView: View, Equatable {
     let item: FeedItem
     let isRead: Bool
     let isBookmarked: Bool
+    /// Pre-resolved card presentation from the pipeline. When non-nil and
+    /// media is .image, the card renders the UIImage directly via
+    /// PreparedCardImage — no async work, no network. When nil (search,
+    /// onboarding, non-pipeline paths), falls back to CachedAsyncImage.
+    var presentation: FeedCardPresentation? = nil
     var onBookmark: (() -> Void)? = nil
     var onViewSource: (() -> Void)? = nil
     var onAddSourceToCollection: (() -> Void)? = nil
     var onImageTap: (() -> Void)? = nil
     var isInBookmarkBox: Bool = false
-    @State private var imageLoadFailed = false
-    @State private var imageAppeared = false
     @AppStorage("fontSize") private var fontSize = "medium"
     @State private var engine = CircadianEngine.shared
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
     private var isLandscape: Bool { horizontalSizeClass == .regular }
-    /// Structural: does this item have an image URL at all? Drives whether the
-    /// card reserves a hero/thumb slot. Deliberately does NOT depend on
-    /// `imageLoadFailed` — a failed load must NOT remove the slot and collapse
-    /// the card, or content below jumps. On failure the slot stays; the image
-    /// area just shows the placeholder. (Feed is sacred: layout never shifts
-    /// from async image state.)
-    private var hasImage: Bool { item.hasPotentialImage }
+    /// Structural: does this card have a resolved image to display?
+    /// Only true when the presentation pipeline has delivered a terminal `.image`.
+    /// Otherwise the slot shows the content-type placeholder — layout never shifts.
+    private var hasImage: Bool {
+        guard let pres = presentation, case .image = pres.media else { return false }
+        return true
+    }
+
+    /// Test-facing property — mirrors hasImage so tests can verify that
+    /// presentation-driven image decisions are correct without rendering.
+    var hasImageTest: Bool { hasImage }
 
     private var titleFont: Font {
         switch fontSize {
@@ -58,10 +66,6 @@ struct FeedItemCardView: View, Equatable {
             }
         }
         .opacity(isRead ? 0.92 : 1)
-        .onChange(of: item.id) { _, _ in
-            imageAppeared = false
-            imageLoadFailed = false
-        }
     }
 
     /// Base hero view — the placeholder itself defines the 16:9 frame so it
@@ -92,21 +96,13 @@ struct FeedItemCardView: View, Equatable {
                         heroBase
                             .frame(width: geometry.size.width, height: geometry.size.height)
 
-                        // Real image layered on top so it covers the placeholder
-                        // on success. CachedAsyncImage returns Color.clear on
-                        // failure, letting the placeholder show through.
-                        if hasImage, !imageLoadFailed {
-                            CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
-                                if success {
-                                    withAnimation(.easeIn(duration: 0.25)) { imageAppeared = true }
-                                } else {
-                                    imageLoadFailed = true
-                                }
-                            })
-                            .scaledToFill()
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                            .opacity(imageAppeared ? 1 : 0)
-                            .overlay(isRead ? Color.black.opacity(0.15) : nil)
+                        // Render resolved image directly from the presentation.
+                        // Zero async work — the pipeline already resolved it.
+                        if let pres = presentation, case .image = pres.media {
+                            PreparedCardImage(media: pres.media)
+                                .scaledToFill()
+                                .frame(width: geometry.size.width, height: geometry.size.height)
+                                .overlay(isRead ? Color.black.opacity(0.15) : nil)
                         }
                     }
                 }
@@ -201,14 +197,12 @@ struct FeedItemCardView: View, Equatable {
                 .frame(width: 90, height: 90)
                 .clipped()
                 .overlay {
-                    if hasImage, !imageLoadFailed {
-                            CachedAsyncImage(url: item.bestImageURL.flatMap(URL.init(string:)), articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil, onResult: { success in
-                                if !success { imageLoadFailed = true }
-                            })
+                    if let pres = presentation, case .image = pres.media {
+                        PreparedCardImage(media: pres.media)
                             .scaledToFill()
-                        }
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 8))
                     .overlay {
                         if onImageTap != nil {
                             Color.clear

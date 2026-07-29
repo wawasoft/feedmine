@@ -1670,6 +1670,18 @@ final class FeedStore {
         visibleItems = stamped
         visibleItemsGeneration &+= 1
         markPreviouslyLoadedContentIfNeeded(stamped)
+
+        // Shadow mode: run new pipeline in parallel for metrics comparison.
+        // When usePreparedPipeline is true, this will become the primary path.
+        if !usePreparedPipeline, !stamped.isEmpty {
+            let ctx = activePresentationContext
+            let items = Array(stamped.prefix(60))
+            Task { [weak self] in
+                guard let self else { return }
+                await self.preparationCoordinator.replaceEditorialSequence(items, context: ctx)
+                await self.preparationCoordinator.fillRunway(targetRenderReady: 20, context: ctx)
+            }
+        }
     }
 
     private func markPreviouslyLoadedContentIfNeeded(_ items: [FeedItem]) {
