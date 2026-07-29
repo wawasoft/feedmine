@@ -4,6 +4,9 @@ struct FeedItemRowView: View {
     let item: FeedItem
     let isRead: Bool
     let isBookmarked: Bool
+    /// Pre-resolved card presentation from the pipeline. When non-nil and
+    /// media is .image, renders via PreparedCardImage instead of CachedAsyncImage.
+    var presentation: FeedCardPresentation? = nil
     var onImageTap: (() -> Void)? = nil
 
     var body: some View {
@@ -20,11 +23,8 @@ struct FeedItemRowView: View {
                                     .foregroundStyle(Color.purple.opacity(0.5))
                                     .offset(x: 1)
                             }
-                    } else {
-                        CachedAsyncImage(
-                            url: item.bestImageURL.flatMap(URL.init(string:)),
-                            articleURL: item.canResolveArticleImage ? URL(string: item.url) : nil
-                        )
+                    } else if let pres = presentation, case .image = pres.media {
+                        PreparedCardImage(media: pres.media)
                             .aspectRatio(contentMode: .fill)
                     }
                 }
