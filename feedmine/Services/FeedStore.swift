@@ -34,7 +34,11 @@ final class FeedStore {
 
     // MARK: - Prepared feed pipeline (Phase 3+)
     /// Feature flag controlling which pipeline publishes.
-    private var usePreparedPipeline: Bool { Settings.preparedFeedPipelineEnabled }
+    /// Disabled in test/in-memory mode so unit tests can assert on
+    /// visibleItems synchronously without waiting for async preparation.
+    private var usePreparedPipeline: Bool {
+        usesPersistentStorage && Settings.preparedFeedPipelineEnabled
+    }
     /// Monotonic counter incremented on filter/preset/mode changes.
     private var presentationEpoch: UInt64 = 0
     /// Active context for the current feed composition.
@@ -1675,11 +1679,38 @@ final class FeedStore {
     /// Stamps each item with isRead/isBookmarked so views don't observe the
     /// global sets directly — reading one item won't invalidate all cards.
     /// Increments `visibleItemsGeneration` so FeedLoader caches invalidate reliably.
-    private func setVisibleItems(_ items: [FeedItem]) {
+    private func setVisibleItems(_ items: [FeedItem], isAppend: Bool = false) {
         var stamped = items
         for i in stamped.indices {
             stamped[i].stamp(readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkedItemIDs)
         }
+
+        // Prepared pipeline: defer publication until cards are terminal.
+        // The UI must never see a card without its resolved media, then
+        // see an image appear later — that violates the "feed is sacred"
+        // contract. Items go to the coordinator first; promotePreparedCards
+        // publishes both visibleItems and visibleCards together.
+        if usePreparedPipeline, !stamped.isEmpty {
+            let ctx = activePresentationContext
+            let items = Array(stamped.prefix(120))
+            cardPreparationTask?.cancel()
+            cardPreparationTask = Task { [weak self] in
+                guard let self else { return }
+                if isAppend {
+                    await self.preparationCoordinator.appendEditorialSequence(items, context: ctx)
+                } else {
+                    await self.preparationCoordinator.replaceEditorialSequence(items, context: ctx)
+                }
+                await self.preparationCoordinator.fillRunway(
+                    targetRenderReady: min(items.count, self.runwayPolicy.initialPublishedCount),
+                    context: ctx
+                )
+                await self.promotePreparedCards(context: ctx, isAppend: isAppend)
+            }
+            return  // <-- DO NOT publish items yet; wait for terminal cards
+        }
+
+        // Legacy path (or prepared pipeline with empty items):
         guard stamped != visibleItems else {
             markPreviouslyLoadedContentIfNeeded(stamped)
             return
@@ -1687,30 +1718,15 @@ final class FeedStore {
         visibleItems = stamped
         visibleItemsGeneration &+= 1
         markPreviouslyLoadedContentIfNeeded(stamped)
-
-        // Prepared pipeline: feed items to coordinator for background preparation.
-        // When ready, the coordinator's render-ready cards are published via
-        // promotePreparedCards(), which updates visibleCards for the views.
-        guard !stamped.isEmpty else { return }
-        let ctx = activePresentationContext
-        let items = Array(stamped.prefix(120))
-        cardPreparationTask?.cancel()
-        cardPreparationTask = Task { [weak self] in
-            guard let self else { return }
-            await self.preparationCoordinator.replaceEditorialSequence(items, context: ctx)
-            await self.preparationCoordinator.fillRunway(
-                targetRenderReady: min(items.count, self.runwayPolicy.initialPublishedCount),
-                context: ctx
-            )
-            if self.usePreparedPipeline {
-                await self.promotePreparedCards(context: ctx)
-            }
-        }
     }
 
-    /// Promote render-ready cards from the coordinator into visibleCards.
-    /// Called after the pipeline finishes preparing the initial batch.
-    private func promotePreparedCards(context: FeedPresentationContext) async {
+    /// Promote render-ready cards from the coordinator into visibleCards
+    /// AND visibleItems simultaneously. No card is ever visible without
+    /// its terminal media already resolved — the feed contract is preserved.
+    private func promotePreparedCards(
+        context: FeedPresentationContext,
+        isAppend: Bool = false
+    ) async {
         let ready = await preparationCoordinator.takeRenderReadyPrefix(
             maximumCount: runwayPolicy.initialPublishedCount,
             context: context
@@ -1718,15 +1734,39 @@ final class FeedStore {
         guard !ready.isEmpty else { return }
         guard context.epoch == presentationEpoch else { return }
 
-        let legacyPresentations = ready.map { card in
+        // Stamp read/bookmark state on each item BEFORE publishing.
+        var stampedCards = ready
+        for i in stampedCards.indices {
+            stampedCards[i].item.stamp(
+                readItemIDs: readItemIDs,
+                bookmarkItemIDs: bookmarkedItemIDs
+            )
+        }
+
+        let legacyPresentations = stampedCards.map { card in
             FeedCardPresentation(
                 from: card,
                 isRead: card.item.isRead,
                 isBookmarked: card.item.isBookmarked
             )
         }
-        visibleCards = legacyPresentations
-        hasPreviouslyLoadedContent = true
+
+        if isAppend {
+            // Append to existing visibleItems/visibleCards — no replace.
+            // Filter out any duplicates (shouldn't happen with contiguous prefix).
+            let existingIDs = Set(visibleCards.map(\.id))
+            let newCards = legacyPresentations.filter { !existingIDs.contains($0.id) }
+            guard !newCards.isEmpty else { return }
+            visibleItems.append(contentsOf: stampedCards.map(\.item))
+            visibleCards.append(contentsOf: newCards)
+        } else {
+            // Replace — first paint or filter change.
+            visibleItems = stampedCards.map(\.item)
+            visibleCards = legacyPresentations
+            hasPreviouslyLoadedContent = true
+        }
+
+        visibleItemsGeneration &+= 1
         if loadingState == .initial {
             loadingState = .idle
         }
@@ -1808,7 +1848,7 @@ final class FeedStore {
                 await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
                 let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
                 let filtered = self.applyFilters(upcoming)
-                self.setVisibleItems(filtered)
+                self.setVisibleItems(filtered, isAppend: true)
                 self.visibleCards = filtered.compactMap { presMap[$0.id] }
                 self.reservoirCount = self.reservoir.reservoirCount
                 self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
@@ -1836,7 +1876,7 @@ final class FeedStore {
                 await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
                 let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
                 let filtered = self.applyFilters(upcoming)
-                self.setVisibleItems(filtered)
+                self.setVisibleItems(filtered, isAppend: true)
                 self.visibleCards = filtered.compactMap { presMap[$0.id] }
                 self.reservoirCount = self.reservoir.reservoirCount
                 self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
