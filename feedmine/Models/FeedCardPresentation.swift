@@ -1,6 +1,12 @@
 import Foundation
 import UIKit
 
+// MARK: - Deprecation Notice
+// FeedCardPresentation, ResolvedCardMedia, and FeedCardLayout are being
+// replaced by PreparedFeedCard, RenderReadyMedia, and PreparedCardLayout
+// respectively (see PreparedFeedCard.swift). During migration, both coexist.
+// After Phase 9, this file will be removed.
+
 // MARK: - Resolved Card Media
 
 /// Terminal visual state for a card's media slot. Once resolved, it never
@@ -86,5 +92,40 @@ struct FeedCardPresentation: Identifiable, Equatable, @unchecked Sendable {
         self.isRead = isRead
         self.isBookmarked = isBookmarked
         self.preparedAt = preparedAt
+    }
+}
+
+// MARK: - Backward Compatibility Bridge
+
+extension FeedCardPresentation {
+    /// Create a legacy FeedCardPresentation from the new PreparedFeedCard.
+    /// Used during migration while views still consume the legacy type.
+    init(from prepared: PreparedFeedCard, isRead: Bool, isBookmarked: Bool) {
+        let legacyMedia: ResolvedCardMedia
+        switch prepared.media {
+        case .image(let ri):
+            legacyMedia = .image(ri.image)
+        case .placeholder:
+            legacyMedia = .placeholder
+        case .none:
+            legacyMedia = .none
+        }
+        self.init(
+            item: prepared.item,
+            media: legacyMedia,
+            layout: FeedCardLayout(from: prepared.layout),
+            isRead: isRead,
+            isBookmarked: isBookmarked
+        )
+    }
+}
+
+extension FeedCardLayout {
+    init(from layout: PreparedCardLayout) {
+        switch layout {
+        case .hero: self = .hero
+        case .thumbnail: self = .thumbnail
+        case .textOnly: self = .textOnly
+        }
     }
 }
