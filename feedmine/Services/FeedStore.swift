@@ -1697,15 +1697,28 @@ final class FeedStore {
             cardPreparationTask = Task { [weak self] in
                 guard let self else { return }
                 if isAppend {
-                    await self.preparationCoordinator.appendEditorialSequence(items, context: ctx)
+                    // Only pass NEW items (those not already in the coordinator).
+                    // The full `items` array includes already-visible + new items.
+                    let existingCount = self.visibleItems.count
+                    let newItems = Array(items.dropFirst(existingCount))
+                    if !newItems.isEmpty {
+                        await self.preparationCoordinator.appendEditorialSequence(newItems, context: ctx)
+                    }
+                    // Target: current published count + page size worth of new cards
+                    let target = self.visibleItems.count + Reservoir.pageSize
+                    await self.preparationCoordinator.fillRunway(
+                        targetRenderReady: target,
+                        context: ctx
+                    )
                 } else {
                     await self.preparationCoordinator.replaceEditorialSequence(items, context: ctx)
+                    await self.preparationCoordinator.fillRunway(
+                        targetRenderReady: min(items.count, self.runwayPolicy.initialPublishedCount),
+                        context: ctx
+                    )
                 }
-                await self.preparationCoordinator.fillRunway(
-                    targetRenderReady: min(items.count, self.runwayPolicy.initialPublishedCount),
-                    context: ctx
-                )
-                await self.promotePreparedCards(context: ctx, isAppend: isAppend)
+                let pageSize = isAppend ? Reservoir.pageSize : self.runwayPolicy.initialPublishedCount
+                await self.promotePreparedCards(context: ctx, isAppend: isAppend, maxCount: pageSize)
             }
             return  // <-- DO NOT publish items yet; wait for terminal cards
         }
@@ -1725,10 +1738,11 @@ final class FeedStore {
     /// its terminal media already resolved — the feed contract is preserved.
     private func promotePreparedCards(
         context: FeedPresentationContext,
-        isAppend: Bool = false
+        isAppend: Bool = false,
+        maxCount: Int = 20
     ) async {
         let ready = await preparationCoordinator.takeRenderReadyPrefix(
-            maximumCount: runwayPolicy.initialPublishedCount,
+            maximumCount: maxCount,
             context: context
         )
         guard !ready.isEmpty else { return }
