@@ -1736,15 +1736,37 @@ final class FeedStore {
     /// Promote render-ready cards from the coordinator into visibleCards
     /// AND visibleItems simultaneously. No card is ever visible without
     /// its terminal media already resolved — the feed contract is preserved.
+    ///
+    /// For appends, waits up to 3 seconds (in 300ms steps) for the newly
+    /// enqueued items to finish preparation. This is NOT the legacy 100ms
+    /// polling — it's a scoped wait that only activates during scroll append
+    /// and terminates as soon as contiguous cards are ready.
     private func promotePreparedCards(
         context: FeedPresentationContext,
         isAppend: Bool = false,
         maxCount: Int = 20
     ) async {
-        let ready = await preparationCoordinator.takeRenderReadyPrefix(
-            maximumCount: maxCount,
-            context: context
-        )
+        let ready: [PreparedFeedCard]
+        if isAppend {
+            // Wait for the coordinator's async Tasks to finish preparing
+            // the newly appended items. Each iteration checks if a
+            // contiguous prefix is ready; exits early on success.
+            var cards: [PreparedFeedCard] = []
+            for _ in 0..<10 {  // 10 × 300ms = 3s max wait
+                cards = await preparationCoordinator.takeRenderReadyPrefix(
+                    maximumCount: maxCount,
+                    context: context
+                )
+                if !cards.isEmpty { break }
+                try? await Task.sleep(for: .milliseconds(300))
+            }
+            ready = cards
+        } else {
+            ready = await preparationCoordinator.takeRenderReadyPrefix(
+                maximumCount: maxCount,
+                context: context
+            )
+        }
         guard !ready.isEmpty else { return }
         guard context.epoch == presentationEpoch else { return }
 
