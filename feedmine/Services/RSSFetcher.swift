@@ -996,12 +996,20 @@ actor RSSFetcher {
 
     /// Pick the best image URL from a Media RSS namespace — largest width
     /// wins; "image/*" type preferred over "thumbnail/*" when sizes match.
+    /// Checks both item-level and ``MediaGroup`` children so that feeds
+    /// wrapping their media in ``<media:group>`` (e.g. YouTube) are covered.
     private func bestMediaImageURL(from media: MediaNamespace?) -> String? {
         guard let media else { return nil }
 
+        // Collect media:content from both the item and its optional media:group.
+        // FeedKit maps <media:group/media:content> into media.mediaGroup.mediaContents
+        // but <media:group/media:thumbnail> is NOT mapped (MediaGroup lacks the
+        // property), so we also check group-level media:content for image/* types.
+        let allContents = (media.mediaContents ?? []) + (media.mediaGroup?.mediaContents ?? [])
+
         // media:content may represent audio, video, documents, or browser
         // players. Only direct raster images are valid card artwork.
-        let imageContents = (media.mediaContents ?? []).filter { content in
+        let imageContents = allContents.filter { content in
             guard let attributes = content.attributes else { return false }
             if attributes.medium?.lowercased() == "image" {
                 return !Self.isUnsupportedImageURL(attributes.url)
@@ -1021,7 +1029,8 @@ actor RSSFetcher {
             if let url = best?.attributes?.url { return url }
         }
 
-        // 2. media:thumbnails — pick largest by width
+        // 2. media:thumbnails — pick largest by width (item-level only;
+        //    MediaGroup has no mediaThumbnails property in FeedKit 9.x).
         if let thumbs = media.mediaThumbnails, !thumbs.isEmpty {
             let best = thumbs.max { a, b in
                 let aW = a.attributes?.width.flatMap(Int.init) ?? 0

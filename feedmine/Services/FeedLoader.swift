@@ -28,6 +28,10 @@ final class FeedLoader {
     // MARK: - UI State (from store)
 
     var items: [FeedItem] { store.visibleItems }
+    /// Pre-resolved card presentations. The main feed should render from these
+    /// when available — images are already resolved. Nil/empty for search and
+    /// paths that skip the pipeline (views fall back to CachedAsyncImage).
+    var cards: [FeedCardPresentation] { store.visibleCards }
     var loadingState: FeedLoadingState { store.loadingState }
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
@@ -99,12 +103,19 @@ final class FeedLoader {
         let id: String
         let title: String
         let items: [FeedItem]
+        /// Pre-resolved card presentations matching `items` in order.
+        /// When the prepared pipeline is active, each card has terminal media
+        /// ready for immediate display. When nil/empty, views fall back to
+        /// content-type placeholders.
+        let cards: [FeedCardPresentation]
         let showsHeader: Bool
 
-        init(id: String? = nil, title: String, items: [FeedItem], showsHeader: Bool = true) {
+        init(id: String? = nil, title: String, items: [FeedItem],
+             cards: [FeedCardPresentation] = [], showsHeader: Bool = true) {
             self.id = id ?? title
             self.title = title
             self.items = items
+            self.cards = cards
             self.showsHeader = showsHeader
         }
     }
@@ -260,6 +271,13 @@ final class FeedLoader {
     private var _cachedGeneration: UInt64?
     private var _cachedSearchQuery: String?
 
+    /// Filtered card presentations matching the active search/filter state.
+    /// Mirrors filteredItems but uses pre-resolved FeedCardPresentation values.
+    var filteredCards: [FeedCardPresentation] {
+        let filteredIDs = Set(filteredItems.map(\.id))
+        return cards.filter { filteredIDs.contains($0.id) }
+    }
+
     var filteredItems: [FeedItem] {
         let generation = store.visibleItemsGeneration
         if _cachedGeneration == generation, _cachedSearchQuery == searchQuery {
@@ -298,13 +316,21 @@ final class FeedLoader {
         }
         _cachedDateSectionsGen = _cachedGeneration
         _cachedDateSectionsQuery = _cachedSearchQuery
+
+        // Build a lookup from item ID → pre-resolved card presentation.
+        // Items still being prepared won't have an entry yet; views handle
+        // nil/missing cards gracefully with content-type placeholders.
+        let cardsByID = Dictionary(uniqueKeysWithValues: cards.map { ($0.id, $0) })
+
         // A filtered feed already has an intentional provider/category/media
         // order. Regrouping it by date would move all fresh aggregator cards
         // ahead of older independent publishers and undo that diversity.
         if hasActiveFilters || !searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            let sectionCards = items.compactMap { cardsByID[$0.id] }
             _cachedSections = items.isEmpty
                 ? []
-                : [DateSection(id: "ordered-results", title: "", items: items, showsHeader: false)]
+                : [DateSection(id: "ordered-results", title: "", items: items,
+                               cards: sectionCards, showsHeader: false)]
             return _cachedSections
         }
         // Use pre-computed sectionDayOffset when available (new items);
@@ -331,7 +357,10 @@ final class FeedLoader {
             grouped[section, default: []].append(item)
         }
         _cachedSections = ["Today", "Yesterday", "This Week", "Earlier"].compactMap { t in
-            grouped[t].map { DateSection(title: t, items: $0) }
+            grouped[t].map { groupItems in
+                let groupCards = groupItems.compactMap { cardsByID[$0.id] }
+                return DateSection(title: t, items: groupItems, cards: groupCards)
+            }
         }
         return _cachedSections
     }

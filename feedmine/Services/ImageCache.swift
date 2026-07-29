@@ -193,6 +193,14 @@ actor ArticleImageResolver {
         return host != "news.google.com"
     }
 
+    /// Clear the miss cache for a specific article URL so the next
+    /// ``imageURLs(for:replacing:)`` call re-fetches the page instead of
+    /// returning early due to the 300-second miss TTL. Called by
+    /// ``ImageResolutionQueue`` before each retry attempt.
+    func resetMiss(for articleURL: URL) {
+        misses.removeValue(forKey: articleURL.absoluteString)
+    }
+
     func imageURLs(for articleURL: URL, replacing currentURL: URL? = nil) async -> [URL] {
         let key = articleURL.absoluteString
         if let cached = resolved[key] { return cached.filter { $0 != currentURL } }

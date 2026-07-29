@@ -231,6 +231,10 @@ final class FeedStore {
 
     /// Prefetch images for items if enabled (default: true).
     private func prefetchImagesIfEnabled(for items: [FeedItem]) {
+        // When the prepared pipeline is active, CardPreparationCoordinator and
+        // MediaAssetStore handle all image resolution via single-flight
+        // deduplication. Avoid duplicate downloads that compete for network.
+        guard !usePreparedPipeline else { return }
         guard Settings.prefetchImages else { return }
         let urls = items.compactMap { $0.bestImageURL ?? $0.imageURL }
         guard !urls.isEmpty else { return }
@@ -242,6 +246,10 @@ final class FeedStore {
     /// items enter the reservoir immediately. Sentinel writes on failure
     /// prevent redundant resolution on future launches.
     private func resolveArticleImagesInBackground(_ items: [FeedItem]) {
+        // When the prepared pipeline is active, CardPreparationCoordinator and
+        // MediaAssetStore handle all image resolution. Skip legacy resolution
+        // to avoid duplicate network and disk work.
+        guard !usePreparedPipeline else { return }
         let needsResolution = items.filter {
             $0.bestImageURL == nil && $0.canResolveArticleImage
         }
@@ -287,6 +295,10 @@ final class FeedStore {
     /// included — by the time they are visible the cells have already started
     /// their own loads; the shared ``ImageDownloadTracker`` deduplicates them.
     private func prefetchUpcoming() {
+        // When the prepared pipeline is active, CardPreparationCoordinator
+        // and MediaAssetStore handle all image resolution. Skip legacy
+        // prefetch to avoid duplicate network and disk work.
+        guard !usePreparedPipeline else { return }
         guard Settings.prefetchImages else { return }
         let upcoming = reservoir.upcomingItems(100).compactMap { $0.bestImageURL ?? $0.imageURL }
         guard !upcoming.isEmpty else { return }
@@ -1514,6 +1526,7 @@ final class FeedStore {
             FeedMetrics.event("FirstVisibleItems", "count=\(visibleItems.count)")
             FeedMetrics.memory("afterFirstVisible")
             loadingState = .idle
+            // Warm-up image resolution/prefetch (no-ops when prepared pipeline is active).
             resolveArticleImagesInBackground(visibleItems)
             prefetchUpcoming()
         }
@@ -1806,6 +1819,20 @@ final class FeedStore {
         if loadingState == .initial {
             loadingState = .idle
         }
+
+        // After publishing a batch, let the runway controller re-evaluate
+        // whether preparation intensity needs adjustment.
+        if usePreparedPipeline {
+            Task { [weak self] in
+                guard let self else { return }
+                let idx = self.visibleItems.count - max(ready.count, 0)
+                await self.runwayController.reportViewport(
+                    currentIndex: max(0, idx),
+                    publishedCount: self.visibleItems.count
+                )
+                await self.runwayController.evaluate()
+            }
+        }
     }
 
     private func markPreviouslyLoadedContentIfNeeded(_ items: [FeedItem]) {
@@ -1834,8 +1861,10 @@ final class FeedStore {
             setVisibleItems([])
             reservoirCount = 0
             reservoir.clear()
-            cardQueue.reset()
-            visibleCards = []
+            if !usePreparedPipeline {
+                cardQueue.reset()
+                visibleCards = []
+            }
             Log.feed.info("[TaxonomyTrace] flush gen=\(generation) clearing visible+reservoir, will reloadFromSQLite")
             pipelineTask = Task { [weak self] in
                 guard let self else { return }
@@ -1876,18 +1905,26 @@ final class FeedStore {
                 guard !Task.isCancelled, let self else { return }
                 self.reservoir.moveToVisible(count: Reservoir.pageSize)
                 self.markSurfaced(self.reservoir.visibleItems)
-                // Pre-resolve images through the card pipeline BEFORE publishing.
-                // The 3-second timeout in ReadyCardQueue ensures stuck URLs
-                // don't stall the feed — items resolve as .placeholder.
                 let upcoming = self.reservoir.visibleItems
-                self.cardQueue.enqueue(upcoming)
-                await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
-                let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
                 let filtered = self.applyFilters(upcoming)
-                self.setVisibleItems(filtered, isAppend: true)
-                self.visibleCards = filtered.compactMap { presMap[$0.id] }
+
+                if self.usePreparedPipeline {
+                    // New pipeline: CardPreparationCoordinator handles everything.
+                    // setVisibleItems appends items to the coordinator, fills the
+                    // runway, and promotes render-ready cards — all async.
+                    // visibleItems and visibleCards are set atomically inside
+                    // promotePreparedCards when the contiguous prefix is ready.
+                    self.setVisibleItems(filtered, isAppend: true)
+                } else {
+                    // Legacy pipeline: ReadyCardQueue + CardPreparationPipeline.
+                    self.cardQueue.enqueue(upcoming)
+                    await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
+                    let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
+                    self.setVisibleItems(filtered, isAppend: true)
+                    self.visibleCards = filtered.compactMap { presMap[$0.id] }
+                    self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
+                }
                 self.reservoirCount = self.reservoir.reservoirCount
-                self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
             }
 
         case .refresh(let generation):
@@ -1906,16 +1943,20 @@ final class FeedStore {
                     self.reservoir.moveToVisible(count: Reservoir.pageSize)
                 }
                 self.markSurfaced(self.reservoir.visibleItems)
-                // Pre-resolve images for any newly-visible items
                 let upcoming = self.reservoir.visibleItems
-                self.cardQueue.enqueue(upcoming)
-                await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
-                let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
                 let filtered = self.applyFilters(upcoming)
-                self.setVisibleItems(filtered, isAppend: true)
-                self.visibleCards = filtered.compactMap { presMap[$0.id] }
+
+                if self.usePreparedPipeline {
+                    self.setVisibleItems(filtered, isAppend: true)
+                } else {
+                    self.cardQueue.enqueue(upcoming)
+                    await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
+                    let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
+                    self.setVisibleItems(filtered, isAppend: true)
+                    self.visibleCards = filtered.compactMap { presMap[$0.id] }
+                    self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
+                }
                 self.reservoirCount = self.reservoir.reservoirCount
-                self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
                 Log.feed.info("[TaxonomyTrace] refresh gen=\(generation) visibleItems=\(self.visibleItems.count) (was \(oldCount))")
             }
 
@@ -1930,16 +1971,20 @@ final class FeedStore {
                 self.reservoir.trimBuffer(currentVisibleIndex: idx)
                 let filtered = self.applyFilters(self.reservoir.visibleItems)
                 self.setVisibleItems(filtered)
-                // Rebuild visibleCards from queue, keeping only items still visible
-                let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
-                self.visibleCards = filtered.compactMap { presMap[$0.id] }
+                if !self.usePreparedPipeline {
+                    // Rebuild visibleCards from legacy queue, keeping only items still visible
+                    let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
+                    self.visibleCards = filtered.compactMap { presMap[$0.id] }
+                }
                 self.reservoirCount = self.reservoir.reservoirCount
             }
 
         case .replace(let items):
             pipelineTask?.cancel()
-            cardQueue.reset()
-            visibleCards = []
+            if !usePreparedPipeline {
+                cardQueue.reset()
+                visibleCards = []
+            }
             setVisibleItems(items)
         }
     }
@@ -2004,6 +2049,18 @@ final class FeedStore {
 
         scheduler.recordConsumption()
         applyUpdate(.append)
+        // Report viewport position and let the runway controller evaluate
+        // whether preparation intensity needs adjustment.
+        if usePreparedPipeline {
+            Task { [weak self] in
+                guard let self else { return }
+                await self.runwayController.reportViewport(
+                    currentIndex: itemIndex,
+                    publishedCount: self.visibleItems.count
+                )
+                await self.runwayController.evaluate()
+            }
+        }
         // Defer trimming: cancel previous, schedule new after 1.5s pause.
         trimDebounceTask?.cancel()
         let idx = itemIndex
@@ -2153,10 +2210,22 @@ final class FeedStore {
         // captures this and discards results if a newer filter supersedes it.
         filterGeneration &+= 1
         presentationEpoch &+= 1
+        let oldContext = activePresentationContext
         activePresentationContext = FeedPresentationContext(
             epoch: presentationEpoch, mode: currentMode,
             filterGeneration: filterGeneration, presetGeneration: presetGeneration
         )
+        let newContext = activePresentationContext
+
+        // Notify the runway controller of the context change so it can
+        // adjust preparation targets for the new feed composition.
+        if usePreparedPipeline {
+            Task { [weak self] in
+                guard let self else { return }
+                await self.runwayController.stop(context: oldContext)
+                await self.runwayController.start(context: newContext)
+            }
+        }
         let generation = filterGeneration
 
         // Update state immediately for UI responsiveness
@@ -2979,10 +3048,19 @@ final class FeedStore {
         }
         presetGeneration &+= 1
         presentationEpoch &+= 1
+        let oldContext = activePresentationContext
         activePresentationContext = FeedPresentationContext(
             epoch: presentationEpoch, mode: currentMode,
             filterGeneration: filterGeneration, presetGeneration: presetGeneration
         )
+        let newContext = activePresentationContext
+        if usePreparedPipeline {
+            Task { [weak self] in
+                guard let self else { return }
+                await self.runwayController.stop(context: oldContext)
+                await self.runwayController.start(context: newContext)
+            }
+        }
         let capturedGeneration = presetGeneration
         resetWhatsNewBaseline()
 
@@ -3685,12 +3763,8 @@ final class FeedStore {
             logNonEnglishItems(actualNew)
         }
 
-        // Resolve article images in parallel background tasks — NOT blocking the
-        // pipeline. Items enter the reservoir immediately; resolution populates
-        // the image cache and writes sentinels asynchronously.
+        // Warm-up image resolution/prefetch (no-ops when prepared pipeline is active).
         resolveArticleImagesInBackground(actualNew)
-
-        // Prefetch feed-supplied images so downloads race ahead of card rendering.
         prefetchImagesIfEnabled(for: actualNew)
 
         // Append to the reservoir via the batched off-main interleave path.
