@@ -47,6 +47,7 @@ final class FeedStore {
     private var mediaAssetStore: MediaAssetStore!
     private var runwayPolicy: RunwayPolicy!
     private var preparationCoordinator: CardPreparationCoordinator!
+    private var runwayController: FeedRunwayController!
     let networkMonitor = NetworkMonitor()
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
@@ -770,8 +771,12 @@ final class FeedStore {
         let policy = RunwayPolicy.forDevice()
         self.mediaAssetStore = assetStore
         self.runwayPolicy = policy
-        self.preparationCoordinator = CardPreparationCoordinator(
+        let coordinator = CardPreparationCoordinator(
             mediaStore: assetStore, policy: policy
+        )
+        self.preparationCoordinator = coordinator
+        self.runwayController = FeedRunwayController(
+            policy: policy, coordinator: coordinator
         )
         // user.sqlite — owns bookmark identity, survives catalog rebuilds
         self.userRepo = try UserStateStore(inMemory: inMemory)
