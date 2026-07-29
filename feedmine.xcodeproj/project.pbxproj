@@ -140,6 +140,7 @@
 		BD6646C8B36B6A616DC24680 /* ArticleReaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EBEEC23B00D4353C6DD6A9 /* ArticleReaderView.swift */; };
 		BEA78645360A53136C755A23 /* CardPreparationPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B53B78334AEF5B844C26B3 /* CardPreparationPipeline.swift */; };
 		BF0AB5F12DDD7C2D0580A9CB /* pt-PT.json in Resources */ = {isa = PBXBuildFile; fileRef = DE061421FFC0F1EB42F20488 /* pt-PT.json */; };
+		BF7126244EC95EF141481EA3 /* CardPreparationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36175A183E116E31179FBF8 /* CardPreparationCoordinator.swift */; };
 		C04601FB04B8DEB407C4AF69 /* FeedItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA62DAEEEDC39D6FA1CFF4F /* FeedItemRowView.swift */; };
 		C32110D3E513D256E461A5BB /* es.json in Resources */ = {isa = PBXBuildFile; fileRef = 87CEF7256570A4EC3F05DF96 /* es.json */; };
 		C45B317AFADC404026F51D49 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F08DCDC7CAEAF98BEFD0654 /* Country.swift */; };
@@ -359,6 +360,7 @@
 		CCA3BD334F228377EE226841 /* uk.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = uk.json; sourceTree = "<group>"; };
 		CCFE40D8C0B0EC9B61DA1F43 /* FeedHTTPSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHTTPSync.swift; sourceTree = "<group>"; };
 		CEFF4F67C0D676CDCECEA119 /* RegionDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDetailScreen.swift; sourceTree = "<group>"; };
+		D36175A183E116E31179FBF8 /* CardPreparationCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CardPreparationCoordinator.swift; sourceTree = "<group>"; };
 		D3CBE7E698A0BA8BDAC8AE52 /* fr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = fr.json; sourceTree = "<group>"; };
 		D43637F484CFF16738302685 /* OPMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OPMLParser.swift; sourceTree = "<group>"; };
 		D4AE3F2D11A4FB68D2A48BEC /* TaxonomyStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxonomyStoreTests.swift; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 				0129250048A48DD3EF090EAC /* MemoryImageCache.swift */,
 				67097EE713557BA607B014D4 /* DiskImageCache.swift */,
 				32B737BC02EAE33A53BFDF68 /* MediaAssetStore.swift */,
+				D36175A183E116E31179FBF8 /* CardPreparationCoordinator.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1033,6 +1036,7 @@
 				F47CA2164DC735D1DB5991B1 /* MemoryImageCache.swift in Sources */,
 				B3CEFDADA351BFA482F893A2 /* DiskImageCache.swift in Sources */,
 				3505A72463241F60076F1A3E /* MediaAssetStore.swift in Sources */,
+				BF7126244EC95EF141481EA3 /* CardPreparationCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
