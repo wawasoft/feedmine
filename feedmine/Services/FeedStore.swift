@@ -29,6 +29,8 @@ final class FeedStore {
     let reservoir = Reservoir()
     let fetcher = RSSFetcher()
     let prefetcher = ImagePrefetcher()
+    let cardQueue = ReadyCardQueue()
+    private(set) var imageResolutionQueue: ImageResolutionQueue!
     let networkMonitor = NetworkMonitor()
     let userRepo: UserStateStore
     let bookmarkStore: BookmarkStore
@@ -40,6 +42,11 @@ final class FeedStore {
 
     // MARK: - Public state
     private(set) var visibleItems: [FeedItem] = []
+    /// Pre-resolved card presentations for the main feed. Published alongside
+    /// visibleItems so views can render images synchronously (no post-insertion
+    /// downloads). Search and onboarding paths that skip the pipeline will have
+    /// an empty visibleCards — views fall back to CachedAsyncImage.
+    private(set) var visibleCards: [FeedCardPresentation] = []
     /// Monotonic generation counter — incremented on every visibleItems change.
     /// FeedLoader uses this for cache invalidation instead of item count.
     private(set) var visibleItemsGeneration: UInt64 = 0
@@ -241,13 +248,11 @@ final class FeedStore {
         guard !ImageCache.hasCachedImageData(for: articleURL) else { return }
         let found = await prefetcher.prefetchArticleImage(for: articleURL)
         if !found {
-            do {
-                try await db.write { db in
-                    try db.execute(sql: "UPDATE feed_item SET image_url = '' WHERE id = ?",
-                                   arguments: [item.id])
-                }
-            } catch {
-                Log.feed.error("Failed to write image sentinel for \(item.id): \(error)")
+            // Instead of writing a permanent empty sentinel, enqueue for
+            // background retry. The ImageResolutionQueue will retry with
+            // exponential backoff and update the card in-place on success.
+            Task { [weak self] in
+                await self?.imageResolutionQueue.enqueue(itemID: item.id)
             }
         }
     }
@@ -742,6 +747,9 @@ final class FeedStore {
             self.db = try DatabaseQueue(path: Self.dbPath, configuration: Self.dbConfig)
         }
         try Self.migrate(db)
+        // Image resolution retry queue — starts polling after migration
+        // creates the image_retry_queue table.
+        self.imageResolutionQueue = ImageResolutionQueue(db: db)
         // user.sqlite — owns bookmark identity, survives catalog rebuilds
         self.userRepo = try UserStateStore(inMemory: inMemory)
         self.bookmarkStore = BookmarkStore(userDB: userRepo.db, contentDB: db)
@@ -1316,6 +1324,10 @@ final class FeedStore {
         FeedMetrics.event("Backend.start")
         networkMonitor.start()
 
+        // Start the image retry queue — processes items whose images
+        // failed during initial pipeline resolution.
+        await imageResolutionQueue.configure(delegate: self)
+
         // A persisted collection is already a complete source allowlist. Build
         // it before touching the bundled catalogue so a retained personal feed
         // can paint from SQLite while OPML/taxonomy startup continues.
@@ -1663,6 +1675,8 @@ final class FeedStore {
             setVisibleItems([])
             reservoirCount = 0
             reservoir.clear()
+            cardQueue.reset()
+            visibleCards = []
             Log.feed.info("[TaxonomyTrace] flush gen=\(generation) clearing visible+reservoir, will reloadFromSQLite")
             pipelineTask = Task { [weak self] in
                 guard let self else { return }
@@ -1701,14 +1715,20 @@ final class FeedStore {
             pipelineTask = Task { [weak self] in
                 await prev?.value
                 guard !Task.isCancelled, let self else { return }
-                // Prefetch BEFORE moveToVisible — the items at the front of the
-                // reservoir are about to become visible. ImageDownloadTracker
-                // deduplicates so cell-level loads and prefetch don't double-fetch.
-                self.prefetchUpcoming()
                 self.reservoir.moveToVisible(count: Reservoir.pageSize)
                 self.markSurfaced(self.reservoir.visibleItems)
-                self.setVisibleItems(self.applyFilters(self.reservoir.visibleItems))
+                // Pre-resolve images through the card pipeline BEFORE publishing.
+                // The 3-second timeout in ReadyCardQueue ensures stuck URLs
+                // don't stall the feed — items resolve as .placeholder.
+                let upcoming = self.reservoir.visibleItems
+                self.cardQueue.enqueue(upcoming)
+                await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
+                let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
+                let filtered = self.applyFilters(upcoming)
+                self.setVisibleItems(filtered)
+                self.visibleCards = filtered.compactMap { presMap[$0.id] }
                 self.reservoirCount = self.reservoir.reservoirCount
+                self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
             }
 
         case .refresh(let generation):
@@ -1727,8 +1747,16 @@ final class FeedStore {
                     self.reservoir.moveToVisible(count: Reservoir.pageSize)
                 }
                 self.markSurfaced(self.reservoir.visibleItems)
-                self.setVisibleItems(self.applyFilters(self.reservoir.visibleItems))
+                // Pre-resolve images for any newly-visible items
+                let upcoming = self.reservoir.visibleItems
+                self.cardQueue.enqueue(upcoming)
+                await self.cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
+                let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
+                let filtered = self.applyFilters(upcoming)
+                self.setVisibleItems(filtered)
+                self.visibleCards = filtered.compactMap { presMap[$0.id] }
                 self.reservoirCount = self.reservoir.reservoirCount
+                self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
                 Log.feed.info("[TaxonomyTrace] refresh gen=\(generation) visibleItems=\(self.visibleItems.count) (was \(oldCount))")
             }
 
@@ -1741,12 +1769,18 @@ final class FeedStore {
                 // recent pipeline that already seeded fresher data.
                 if generation != 0, generation != self.filterGeneration { return }
                 self.reservoir.trimBuffer(currentVisibleIndex: idx)
-                self.setVisibleItems(self.applyFilters(self.reservoir.visibleItems))
+                let filtered = self.applyFilters(self.reservoir.visibleItems)
+                self.setVisibleItems(filtered)
+                // Rebuild visibleCards from queue, keeping only items still visible
+                let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
+                self.visibleCards = filtered.compactMap { presMap[$0.id] }
                 self.reservoirCount = self.reservoir.reservoirCount
             }
 
         case .replace(let items):
             pipelineTask?.cancel()
+            cardQueue.reset()
+            visibleCards = []
             setVisibleItems(items)
         }
     }
@@ -4458,7 +4492,7 @@ final class FeedStore {
                     .filter(Column("audio_url") == nil)
                     .filter(!Column("source_url").like("%youtube%"))
                     .filter(!Column("source_url").like("%reddit%"))
-                    .filter(Column("image_url") == nil)
+                    .filter(Column("image_url") == nil || Column("image_url") == "")
                     .order(Column("published_at").desc)
                     .limit(Self.textCandidateReadLimit - Self.illustratedTextCandidateReadLimit)
                     .fetchAll(db)
@@ -4526,6 +4560,17 @@ final class FeedStore {
                 reservoir.moveToVisible(count: Reservoir.pageSize)
                 setVisibleItems(applyFilters(reservoir.visibleItems))
             } while visibleItems.count < Reservoir.pageSize && reservoir.reservoirCount > 0
+        }
+        // Pre-resolve images for the initial visible page
+        let upcoming = reservoir.visibleItems
+        if !upcoming.isEmpty {
+            cardQueue.enqueue(upcoming)
+            await cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
+            let presMap = Dictionary(uniqueKeysWithValues: cardQueue.presentations.map { ($0.id, $0) })
+            let filtered = applyFilters(upcoming)
+            visibleCards = filtered.compactMap { presMap[$0.id] }
+            // Enqueue failed resolutions for background retry
+            enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
         }
         reservoirCount = reservoir.reservoirCount
         Log.feed.info("[TaxonomyTrace] reloadFromSQLite gen=\(generation) done visibleItems=\(self.visibleItems.count) reservoirCount=\(self.reservoirCount)")
@@ -6353,6 +6398,62 @@ final class FeedStore {
                 )
             """)
         }
+
+        // v24: Image resolution retry queue.
+        // Separates retry state from feed_item so the queue can be queried
+        // efficiently (indexed scan) and cleaned up via CASCADE on item expiry.
+        migrator.registerMigration("v24_image_retry_queue") { db in
+            try db.create(table: "image_retry_queue") { t in
+                t.column("item_id", .text).notNull()
+                    .primaryKey()
+                    .references("feed_item", onDelete: .cascade)
+                t.column("state", .text).notNull().defaults(to: "pending")
+                t.column("retry_count", .integer).notNull().defaults(to: 0)
+                t.column("next_retry_at", .integer)       // epoch seconds
+                t.column("last_error", .text)
+                t.column("created_at", .integer).notNull()
+                t.column("updated_at", .integer).notNull()
+            }
+            try db.create(
+                index: "idx_image_retry_state_next",
+                on: "image_retry_queue",
+                columns: ["state", "next_retry_at"]
+            )
+        }
+
+        migrator.registerMigration("v25_image_resolution") { db in
+            try db.create(table: "image_resolution") { t in
+                t.column("item_id", .text)
+                    .primaryKey()
+                    .references("feed_item", column: "id", onDelete: .cascade)
+                t.column("candidate_fingerprint", .text).notNull()
+                t.column("state", .text).notNull().defaults(to: "unknown")
+                t.column("cache_key", .text)
+                t.column("resolved_url", .text)
+                t.column("pixel_width", .integer)
+                t.column("pixel_height", .integer)
+                t.column("byte_count", .integer)
+                t.column("attempt_count", .integer).notNull().defaults(to: 0)
+                t.column("last_attempt_at", .integer)
+                t.column("next_retry_at", .integer)
+                t.column("failure_class", .text)
+                t.column("failure_code", .integer)
+                t.column("updated_at", .integer).notNull()
+            }
+            try db.create(
+                index: "image_resolution_state_retry",
+                on: "image_resolution",
+                columns: ["state", "next_retry_at"]
+            )
+            // Clean up legacy empty-string image_url sentinels.
+            // An empty string was written as a permanent "no image" marker,
+            // but it could also represent a transient failure. Reset to NULL
+            // so the new resolution pipeline can re-evaluate.
+            try db.execute(sql: """
+                UPDATE feed_item SET image_url = NULL WHERE image_url = ''
+                """)
+        }
+
         try migrator.migrate(db)
     }
 }
@@ -6574,6 +6675,30 @@ struct FeedItemRecord: Codable, PersistableRecord, FetchableRecord {
     }
 }
 
+// MARK: - Image Retry Queue Record
+
+/// A row in the `image_retry_queue` table. Tracks retry state for items
+/// whose image resolution failed during initial pipeline processing.
+struct ImageRetryQueueRecord: Codable, PersistableRecord, FetchableRecord {
+    var itemID: String
+    var state: String        // "pending" | "in_progress" | "failed"
+    var retryCount: Int
+    var nextRetryAt: Int?    // epoch seconds
+    var lastError: String?
+    var createdAt: Int
+    var updatedAt: Int
+
+    enum CodingKeys: String, CodingKey {
+        case itemID = "item_id"
+        case state
+        case retryCount = "retry_count"
+        case nextRetryAt = "next_retry_at"
+        case lastError = "last_error"
+        case createdAt = "created_at"
+        case updatedAt = "updated_at"
+    }
+}
+
 // MARK: - Bookmark Models
 
 struct BookmarkListRecord: Codable, FetchableRecord, PersistableRecord {
@@ -6615,5 +6740,59 @@ struct BookmarkItemRecord: Codable, FetchableRecord, PersistableRecord {
         case itemId = "item_id"
         case addedAt = "added_at"
         case sortOrder = "sort_order"
+    }
+}
+
+// MARK: - Image Resolution Queue Delegate
+
+extension FeedStore: ImageResolutionQueueDelegate {
+
+    /// After the pipeline publishes visible cards, collect items that resolved
+    /// to `.placeholder` but still have image potential and enqueue them for
+    /// background retry with exponential backoff.
+    func enqueueFailedCardsForRetry(
+        presMap: [String: FeedCardPresentation],
+        filtered: [FeedItem]
+    ) {
+        let retryEligible = filtered.compactMap { item -> String? in
+            guard let pres = presMap[item.id],
+                  case .placeholder = pres.media,
+                  item.hasPotentialImage else { return nil }
+            return item.id
+        }
+        guard !retryEligible.isEmpty else { return }
+
+        Task { [weak self] in
+            await self?.imageResolutionQueue.enqueueBatch(itemIDs: retryEligible)
+        }
+    }
+
+    /// Called by ``ImageResolutionQueue`` when a background retry resolves an
+    /// image. Updates the item's card in ``visibleCards`` so the UI transitions
+    /// from placeholder to image in-place — no feed shift, no re-insertion.
+    func imageResolutionQueue(didResolveImageFor itemID: String) {
+        guard let idx = visibleCards.firstIndex(where: { $0.id == itemID }),
+              let item = visibleItems.first(where: { $0.id == itemID })
+                ?? visibleCards[idx].item as FeedItem? else { return }
+
+        // Image is now in ImageCache (stored by ImageLoader during retry).
+        let imageURL = item.bestImageURL.flatMap(URL.init(string:))
+        let uiImage = imageURL.flatMap { ImageCache.shared.memoryImage(for: $0) }
+
+        guard let uiImage else { return }
+
+        let newCard = FeedCardPresentation(
+            item: item,
+            media: .image(uiImage),
+            layout: .hero,
+            isRead: item.isRead,
+            isBookmarked: item.isBookmarked
+        )
+        visibleCards[idx] = newCard
+    }
+
+    /// Called when all retries are exhausted. The item stays text-only.
+    func imageResolutionQueue(didExhaustRetriesFor itemID: String) {
+        Log.feed.info("Image retries exhausted for item \(itemID.prefix(12))...")
     }
 }
