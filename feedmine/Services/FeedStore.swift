@@ -1712,21 +1712,21 @@ final class FeedStore {
                 guard !Task.isCancelled, ctx.epoch == self.presentationEpoch else { return }
 
                 if isAppend {
-                    // Coordinator deduplicates internally — pass all stamped
-                    // items; only new IDs are appended.
                     await self.preparationCoordinator.appendEditorialSequence(stamped, context: ctx)
-                    // Target: render-ready depth ahead, not published + desired.
+                    guard !Task.isCancelled, ctx.epoch == self.presentationEpoch else { return }
                     await self.preparationCoordinator.fillRunway(
                         targetRenderReady: self.runwayPolicy.renderReadyTarget,
                         context: ctx
                     )
                 } else {
                     await self.preparationCoordinator.replaceEditorialSequence(stamped, context: ctx)
+                    guard !Task.isCancelled, ctx.epoch == self.presentationEpoch else { return }
                     await self.preparationCoordinator.fillRunway(
                         targetRenderReady: self.runwayPolicy.initialPublishedCount,
                         context: ctx
                     )
                 }
+                guard !Task.isCancelled, ctx.epoch == self.presentationEpoch else { return }
                 let pageSize = isAppend ? Reservoir.pageSize : self.runwayPolicy.initialPublishedCount
                 await self.promotePreparedCards(context: ctx, isAppend: isAppend, maxCount: pageSize)
             }
@@ -1770,9 +1770,12 @@ final class FeedStore {
         // Append: accept any non-empty contiguous prefix.
         let minimumCount = isAppend ? 1 : runwayPolicy.initialPublishedCount
 
+        // Peek in the loop (non-destructive) so cards aren't lost if we're
+        // cancelled mid-wait. Only commit after validating cancellation and
+        // context — the coordinator's nextPublishIndex stays correct.
         var accumulated: [PreparedFeedCard] = []
         repeat {
-            let batch = await preparationCoordinator.takeRenderReadyPrefix(
+            let batch = await preparationCoordinator.peekRenderReadyPrefix(
                 maximumCount: maxCount - accumulated.count,
                 context: context
             )
@@ -1782,9 +1785,14 @@ final class FeedStore {
             guard clock.now < deadline else { break }
             try? await Task.sleep(for: .milliseconds(300))
         } while !Task.isCancelled
-        ready = accumulated
-        guard !ready.isEmpty else { return }
+
+        guard !Task.isCancelled else { return }
+        guard !accumulated.isEmpty else { return }
         guard context.epoch == presentationEpoch else { return }
+
+        // All checks passed — commit the cards as published.
+        await preparationCoordinator.commitPublished(ids: accumulated.map(\.id))
+        ready = accumulated
 
         // Stamp read/bookmark state on each item BEFORE publishing.
         var stampedCards = ready
@@ -4810,20 +4818,28 @@ final class FeedStore {
         // markSurfaced runs on reservoir.visibleItems AFTER seed, so only
         // items that actually appear on screen are recorded as surfaced.
         markSurfaced(reservoir.visibleItems)
-        setVisibleItems(reservoir.visibleItems)  // already filtered — no double-filter needed
-
-        // Feed the full editorial backlog to the coordinator so it can prepare
-        // cards proactively. visibleItems only contains the first page; the
-        // reservoir holds the rest of the editorial sequence.
+        // Install the full editorial sequence into the coordinator in ONE
+        // awaited operation. Previously setVisibleItems spawned an async Task
+        // that set activeContext, and a subsequent appendEditorialSequence
+        // raced against it — the append was often rejected because the
+        // coordinator's activeContext hadn't been set yet.
         if usePreparedPipeline {
-            let upcoming = reservoir.upcomingItems(reservoir.reservoirCount)
-            if !upcoming.isEmpty {
-                await preparationCoordinator.appendEditorialSequence(
-                    upcoming, context: activePresentationContext
-                )
-            }
+            let editorialItems = reservoir.visibleItems
+                + reservoir.upcomingItems(reservoir.reservoirCount)
+            await preparationCoordinator.replaceEditorialSequence(
+                editorialItems, context: activePresentationContext
+            )
+            await preparationCoordinator.fillRunway(
+                targetRenderReady: runwayPolicy.initialPublishedCount,
+                context: activePresentationContext
+            )
             await runwayController.start(context: activePresentationContext)
             await runwayController.evaluate()
+            await promotePreparedCards(
+                context: activePresentationContext,
+                isAppend: false,
+                maxCount: runwayPolicy.initialPublishedCount
+            )
         } else {
             // Legacy safety net: pull more items from reservoir until the
             // first page is full.
