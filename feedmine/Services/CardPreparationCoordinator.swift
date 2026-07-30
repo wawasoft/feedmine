@@ -358,23 +358,42 @@ actor CardPreparationCoordinator {
         context: FeedPresentationContext,
         deadline: ContinuousClock.Instant
     ) async -> ResolvedImageAsset? {
-        guard let imageURL = item.bestImageURL.flatMap(URL.init(string:)) else {
-            return nil
+        // Primary path: direct image URL from feed item
+        if let imageURL = item.bestImageURL.flatMap(URL.init(string:)) {
+            let request = ImageResolutionRequest(
+                itemID: item.id,
+                url: imageURL,
+                cacheKey: ImageCacheKey.forURL(imageURL),
+                source: .directImageURL
+            )
+            let result = await raceWithDeadline(deadline: deadline) {
+                await self.limiter.withSlot(category: "direct_image") {
+                    await self.mediaStore.resolve(request: request)
+                }
+            }
+            if result != nil { return result }
         }
 
-        let request = ImageResolutionRequest(
-            itemID: item.id,
-            url: imageURL,
-            cacheKey: ImageCacheKey.forURL(imageURL),
-            source: .directImageURL
-        )
-
-        // Race: resolution vs deadline
-        return await raceWithDeadline(deadline: deadline) {
-            await self.limiter.withSlot(category: "direct_image") {
-                await self.mediaStore.resolve(request: request)
+        // Fallback: podcast episodes and articles without feed images
+        // can have artwork on their episode/article page (Open Graph).
+        // This is essential for podcasts — many RSS feeds have no
+        // per-episode <itunes:image> but the episode page has artwork.
+        if item.canResolveArticleImage, let articleURL = URL(string: item.url) {
+            let cacheKey = ImageCacheKey.forURL(articleURL)
+            let request = ImageResolutionRequest(
+                itemID: item.id,
+                url: articleURL,
+                cacheKey: cacheKey,
+                source: .articleOpenGraph
+            )
+            return await raceWithDeadline(deadline: deadline) {
+                await self.limiter.withSlot(category: "article_image") {
+                    await self.mediaStore.resolve(request: request)
+                }
             }
         }
+
+        return nil
     }
 
     private func decodeToRenderReady(

@@ -2404,9 +2404,29 @@ final class FeedStore {
             && (taxonomyURLs.isEmpty || taxonomyURLs.contains(OPMLParser.normalizeURL(item.sourceURL)))
             && (contentFilters.isEmpty || !contentFilterExcludes(item, filters: contentFilters))
         }
+
+        // CRITICAL: Do NOT publish surviving items as an intermediate composition.
+        // Publishing a partial set (sometimes just 1 card) creates a jarring
+        // flash of incorrect content before the full reload arrives.
+        //
+        // Instead, immediately clear the screen and show preparing state.
+        // The scheduled filter reload (scheduleFilterReload) produces the
+        // FULL composition and publishes it atomically.
         if !visibleItems.isEmpty {
-            setVisibleItems(visibleItems.filter(filterPredicate))
+            // Clear visible content without publishing survivors
+            visibleItems = []
+            visibleCards = []
+            visibleItemsGeneration &+= 1
+            if loadingState != .initial {
+                loadingState = .refreshing
+            }
+            // Cancel in-flight preparation task — it belongs to the old
+            // composition and would try to publish stale cards
+            cardPreparationTask?.cancel()
+            reservoir.clear()
+            reservoirCount = 0
         }
+
         // The What's New carousel renders above the main feed. Its items were
         // collected under the previous filter and must be culled immediately
         // so an English card doesn't flash at the top after switching to Swedish.
