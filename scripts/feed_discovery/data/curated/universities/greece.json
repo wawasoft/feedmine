@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCyTJNKxk8STI5m4VZwu7a0Q",
+    "category": "Education",
+    "title": "Aegean College (YouTube)",
+    "genre": "University",
+    "source_page": "",
+    "national": true,
+    "national_reason": "universities/youtube/greece",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCqWN4P_dBaXDM8gM27jJPcg",
+    "category": "Education",
+    "title": "BCA College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.bca.edu.gr/",
+    "national": true,
+    "national_reason": "universities/youtube/greece",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCayX1elsf0_Xl1r0WfXB7PQ",
+    "category": "Education",
+    "title": "Deree College (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.acg.edu/",
+    "national": true,
+    "national_reason": "universities/youtube/greece",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCTPKrrkdtboGepzNwN0YonQ",
+    "category": "Education",
+    "title": "European Law and Governance School (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.elgs.eu/",
+    "national": true,
+    "national_reason": "universities/youtube/greece",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwa1veWZT5QL60xq_IZ6RHw",
+    "category": "Education",
+    "title": "Hellenic Open University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.eap.gr/",
+    "national": true,
+    "national_reason": "universities/youtube/greece",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCz9D6aUKkfItjR6cPrn1OVw",
+    "category": "Education",
+    "title": "National and Kapodistrian University of Athens (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uoa.gr",
+    "national": true,
+    "national_reason": "universities/youtube/greece",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCfjf4iPCx6w3_dF2cVz6grA",
+    "category": "Education",
+    "title": "University of Piraeus (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.unipi.gr/",
+    "national": true,
+    "national_reason": "universities/youtube/greece",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

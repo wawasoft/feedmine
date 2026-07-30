@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSfHJCX9nDYpnThg2fw60TA",
+    "category": "YouTube",
+    "title": "Hallwyl Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://hallwylskamuseet.se/en",
+    "national": true,
+    "national_reason": "museums/youtube/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCVH1eQ5KnOYBjPYy60S-gEQ",
+    "category": "YouTube",
+    "title": "Moderna Museet — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.modernamuseet.se",
+    "national": true,
+    "national_reason": "museums/youtube/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCni2vEqnNC0Zkv_ZeAaD1lg",
+    "category": "YouTube",
+    "title": "Vrak – Museum of Wrecks — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.vrakmuseum.se/",
+    "national": true,
+    "national_reason": "museums/youtube/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

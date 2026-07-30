@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCqsZXi3FlpBcM_kXM-Ick_Q",
+    "category": "Education",
+    "title": "Higher Colleges of Technology (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.hct.ac.ae",
+    "national": true,
+    "national_reason": "universities/youtube/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

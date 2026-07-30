@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1qOy7KZHaxnqB1zzz8Mn2g",
+    "category": "Education",
+    "title": "Campus Santana (YouTube)",
+    "genre": "University",
+    "source_page": "https://www2.unifap.br/santana/",
+    "national": true,
+    "national_reason": "universities/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCZwLDXOiodFF0jRJH0ybZjg",
+    "category": "Education",
+    "title": "Federal University of Amapá (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.unifap.br",
+    "national": true,
+    "national_reason": "universities/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCEVo6ce0sZZZ4xU4h9QhMFQ",
+    "category": "Education",
+    "title": "Federal University of Rio Grande (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.furg.br/en/",
+    "national": true,
+    "national_reason": "universities/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCpVuk_5wtbDb3hq-gFyMZEA",
+    "category": "Education",
+    "title": "Santo André Foundation (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.fsa.br",
+    "national": true,
+    "national_reason": "universities/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCMwBCm2NdKdMtLW3H5mAvkQ",
+    "category": "Education",
+    "title": "Universidade Federal do Amazonas (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.ufam.edu.br",
+    "national": true,
+    "national_reason": "universities/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

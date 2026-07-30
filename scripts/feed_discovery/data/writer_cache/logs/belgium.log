@@ -1,0 +1,14 @@
+[21:47:43] Starting belgium...
+  [belgium] Substack:0 | Medium:0 | General:5 | WordPress:4 | Ghost/Blogger:0 | Associations:0 | Wattpad:0 | EN-fallback:10 | Broad:13 → 32 total ✅
+
+============================================================
+SUMMARY: 32 feeds across 1 countries
+         OPML written for 32 feeds
+         Files in: /Users/wagnermontes/Documents/GitHub/feedmine/scripts/feed_discovery/data/writer_cache/opml
+         Cache in: /Users/wagnermontes/Documents/GitHub/feedmine/scripts/feed_discovery/data/writer_cache
+
+📊 At target (20+): 1/1 countries
+
+✅ All countries reached 20+ writer feeds!
+============================================================
+[21:52:14] Finished belgium

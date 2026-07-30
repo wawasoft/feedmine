@@ -1,0 +1,218 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "mexico"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/feed/",
+    "title": "Blog | andi novelista",
+    "source": "page:novelista",
+    "country": "mexico"
+  },
+  {
+    "url": "https://iecastellano.blogspot.com/feeds/posts/default",
+    "title": "Novelista",
+    "source": "page:novelista",
+    "country": "mexico"
+  },
+  {
+    "url": "https://www.abigailyardimci.com/blog-feed.xml",
+    "title": "Abigail Yardimci Blog | Novelista Mum | Devon | Page 2 of 15",
+    "source": "page:novelista",
+    "country": "mexico"
+  },
+  {
+    "url": "https://www.goodreads.com/review/list_rss/57889133",
+    "title": "Novelista Blogs (novelistablogs) - Austin, TX (103 books)",
+    "source": "page:novelista",
+    "country": "mexico"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "mexico"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "mexico"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "mexico"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "mexico"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "mexico"
+  },
+  {
+    "url": "https://loiolaxxi.wordpress.com/2016/02/22/usa-excarcelado-despues-de-40-anos-de-prision/feed",
+    "title": "USA: excarcelado después de 40 años de prisión. | Loiola XXI",
+    "source": "wp:escritor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://oxfordenglishblog.wordpress.com/2014/09/feed",
+    "title": "10 entradas publicadas por BUENOS DÍAS SEÑOR en September 2014",
+    "source": "wp:escritor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://tenejapanboy.wordpress.com/2015/03/07/cutre-mexico-tiene-un-gobierno-cutre-autor-tenejapanboy/feed",
+    "title": "Cutre… México tiene un gobierno cutre (autor...) | tenejapanboy",
+    "source": "wp:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2010/09/27/bienvenidos-bloggers-de-windows-live-spaces/feed",
+    "title": "Bienvenidos Bloggers de Windows Live Spaces – WordPress.com en...",
+    "source": "wp:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://blogdelerolico.wordpress.com/2026/07/25/formacion-de-centroamerica-y-su-relacion-con-mexico/feed",
+    "title": "«Formación de Centroamérica y su relación con México»",
+    "source": "wp:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://nuevoordenmundialreptiliano.wordpress.com/2016/06/12/feed",
+    "title": "12 junio, 2016 – Contra el Nuevo Orden Mundial Reptiliano del Anticristo",
+    "source": "wp:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://comunicandoconmario.wordpress.com/tag/enrique/page/2/feed",
+    "title": "ENRIQUE | el bLoc | Página 2",
+    "source": "wp:autor",
+    "country": "mexico"
+  },
+  {
+    "url": "https://la680.wordpress.com/category/sin-categoria/page/6/feed",
+    "title": "Sin categoría – Página 6 – La Mirada de la Medusa.",
+    "source": "wp:novelista",
+    "country": "mexico"
+  },
+  {
+    "url": "https://adam-isacson.ghost.io/rss",
+    "title": "Updates from Adam Isacson (January 29, 2024)",
+    "source": "platform:ghost.io",
+    "country": "mexico"
+  },
+  {
+    "url": "http://adansalgadoandrade.blogspot.com/feeds/posts/default",
+    "title": "adansalgadoandrade: julio 2026",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://esoterismo-guia.blogspot.com/feeds/posts/default",
+    "title": "Esoterica: una mujer saltó de un puente por culpa de carlos castaneda",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://432magazine.blogspot.com/feeds/posts/default",
+    "title": "432 Magazine: 2016",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://pequenasprettyliars.blogspot.com/feeds/posts/default",
+    "title": "La Plaza de Las Cinco Lunas (2003) Watch Full HD Streaming Online",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://deseoaprenders.blogspot.com/feeds/posts/default",
+    "title": "Gogos Pechanga: Tu Guía Completa para Apostar y Ganar en Casinos...",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "Casinos Promociones Gratis: La Guía Completa para Apostar sin...",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://codfloranorton518.blogspot.com/feeds/posts/default",
+    "title": "The Boy in the Striped Pyjamas PDF Español Completo Gratis",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://labandzi.blogspot.com/feeds/posts/default",
+    "title": "Łabandzi Śpiew: lipca 2026",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://aizti-estrategiasdelahistoria.blogspot.com/feeds/posts/default",
+    "title": "Estrategias de la Historia",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://despiertaalfuturo.blogspot.com/feeds/posts/default",
+    "title": "México: Envían a una indígena a dar a luz al patio trasero del consultorio",
+    "source": "platform:blogspot.com",
+    "country": "mexico"
+  },
+  {
+    "url": "https://escritores.wordpress.com/comments/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "assoc:es",
+    "country": "mexico"
+  },
+  {
+    "url": "https://www.dipublico.org/feed/",
+    "title": "Asociación de escritores y artistas americanos (Conferencia",
+    "source": "assoc:es",
+    "country": "mexico"
+  }
+]

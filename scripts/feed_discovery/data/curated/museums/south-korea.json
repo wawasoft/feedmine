@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrNu1ALjDM1Rz-oQEPq__Yw",
+    "category": "YouTube",
+    "title": "Dokdo Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.dokdomuseum.go.kr/",
+    "national": true,
+    "national_reason": "museums/youtube/south-korea",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCzjCoCi2g2_kWhQusUOYF5w",
+    "category": "YouTube",
+    "title": "National Museum of Modern and Contemporary Art, South Korea — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.mmca.go.kr/eng",
+    "national": true,
+    "national_reason": "museums/youtube/south-korea",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSqM3n8PAPCPD7SGXd7UfAQ",
+    "category": "YouTube",
+    "title": "SOMA Museum of Art — YouTube",
+    "genre": "Museum",
+    "source_page": "https://soma.kspo.or.kr/",
+    "national": true,
+    "national_reason": "museums/youtube/south-korea",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

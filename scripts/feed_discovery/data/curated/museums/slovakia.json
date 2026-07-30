@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvAf3Q_ihDazHFW3nVoQqwg",
+    "category": "YouTube",
+    "title": "Museum Q122948574 — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.kysuckemuzeum.sk/sk/",
+    "national": true,
+    "national_reason": "museums/youtube/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCTog8yv6_Ec2eaIwjW0_o3w",
+    "category": "YouTube",
+    "title": "Museum Q123028528 — YouTube",
+    "genre": "Museum",
+    "source_page": "https://muzeummalacky.sk/",
+    "national": true,
+    "national_reason": "museums/youtube/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCx7TifR3U2_Cz6hf3AQOknA",
+    "category": "YouTube",
+    "title": "Dubnické múzeum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.kastiel.dubnica.eu/",
+    "national": true,
+    "national_reason": "museums/youtube/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCGI3xc6dCBf4ekKj6wbHbBA",
+    "category": "YouTube",
+    "title": "East Slovak Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.vsmuzeum.sk",
+    "national": true,
+    "national_reason": "museums/youtube/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCpI7UPetsCbUvTTGbg5vqqQ",
+    "category": "YouTube",
+    "title": "Museum of Victims of Communism — YouTube",
+    "genre": "Museum",
+    "source_page": "https://mok.sk",
+    "national": true,
+    "national_reason": "museums/youtube/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

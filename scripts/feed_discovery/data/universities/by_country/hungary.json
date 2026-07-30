@@ -1,0 +1,902 @@
+[
+  {
+    "name": "Q1035143",
+    "wikidata_id": "Q1035143",
+    "website": "http://www.hff.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q1162991",
+    "wikidata_id": "Q1162991",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q1316659",
+    "wikidata_id": "Q1316659",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q60048585",
+    "wikidata_id": "Q60048585",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q60148843",
+    "wikidata_id": "Q60148843",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q61066842",
+    "wikidata_id": "Q61066842",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q61748708",
+    "wikidata_id": "Q61748708",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q61776769",
+    "wikidata_id": "Q61776769",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q835347",
+    "wikidata_id": "Q835347",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q85284676",
+    "wikidata_id": "Q85284676",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Adventista Teológiai Fõiskola",
+    "wikidata_id": "Q30257556",
+    "website": "http://atf.adventista.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Albert Szent-Györgyi University of Medicine",
+    "wikidata_id": "Q61052428",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Albert_Szent-Gy%C3%B6rgyi_Medical_University"
+  },
+  {
+    "name": "András Pető College",
+    "wikidata_id": "Q62071871",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Andrássy University Budapest",
+    "wikidata_id": "Q281572",
+    "website": "http://www.andrassyuni.eu/",
+    "youtube": "",
+    "instagram": "andrassy_uni",
+    "twitter": "andrassyuni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Andr%C3%A1ssy_University_Budapest"
+  },
+  {
+    "name": "Apor Vilmos Catholic College",
+    "wikidata_id": "Q773918",
+    "website": "http://www.avkf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Apáczai Csere János Teacher Training College",
+    "wikidata_id": "Q61793944",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Baptist Theological Seminary",
+    "wikidata_id": "Q790104",
+    "website": "http://www.bta.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Berzsenyi Daniel College",
+    "wikidata_id": "Q25452188",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Bessenyei György Teacher Training College",
+    "wikidata_id": "Q60047365",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Bhaktivedanta College",
+    "wikidata_id": "Q30257502",
+    "website": "http://www.bhf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Bolyai János Katonai Műszaki Főiskola",
+    "wikidata_id": "Q60552958",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Brenner János Theological College",
+    "wikidata_id": "Q64917973",
+    "website": "http://bjhf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Budapest Business University",
+    "wikidata_id": "Q573061",
+    "website": "https://uni-bge.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Budapest_University_of_Economics_and_Business"
+  },
+  {
+    "name": "Budapest College of Management",
+    "wikidata_id": "Q736573",
+    "website": "http://www.avf.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Budapest_College_of_Management"
+  },
+  {
+    "name": "Budapest College of Primary Teachers' Education",
+    "wikidata_id": "Q851204",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Budapest Contemporary Dance Academy",
+    "wikidata_id": "Q850985",
+    "website": "http://tanc.org.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Budapest Polytechnic Hungary",
+    "wikidata_id": "Q59416445",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Budapest University of Jewish Studies",
+    "wikidata_id": "Q285382",
+    "website": "https://or-zse.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Budapest_University_of_Jewish_Studies"
+  },
+  {
+    "name": "Bánki Donát Polytechnic",
+    "wikidata_id": "Q853096",
+    "website": "http://www.bgk.uni-obuda.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "College of Finance and Accountancy",
+    "wikidata_id": "Q60041143",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "College of Management and Business Studies",
+    "wikidata_id": "Q60041233",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "College of Public Administration",
+    "wikidata_id": "Q60877038",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "College of Szolnok",
+    "wikidata_id": "Q1294980",
+    "website": "http://www.szolfportal.hu/",
+    "youtube": "UCghtsJBzsvCMCgnblfXAn5Q",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Corvinus University of Budapest",
+    "wikidata_id": "Q851164",
+    "website": "https://www.uni-corvinus.hu/?lang=en",
+    "youtube": "UCp92YLL5NhyKs7V0ua-UX2g",
+    "instagram": "uni.corvinus",
+    "twitter": "uni_corvinus",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Corvinus_University_of_Budapest"
+  },
+  {
+    "name": "Csokonai Vitéz Mihály Tanítóképző Főiskola",
+    "wikidata_id": "Q60189110",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Debrecen Reformed Theological University",
+    "wikidata_id": "Q693351",
+    "website": "http://drhe.hu/index.php?lang=en",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Debrecen_Reformed_Theological_University"
+  },
+  {
+    "name": "Debrecen University of Agrarian Sciences",
+    "wikidata_id": "Q59386645",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Dennis Gabor University",
+    "wikidata_id": "Q941534",
+    "website": "http://www.gdf.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dennis_Gabor_University"
+  },
+  {
+    "name": "Dharma Gate Buddhist College",
+    "wikidata_id": "Q20439432",
+    "website": "http://www.tkbf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dharma_Gate_Buddhist_College"
+  },
+  {
+    "name": "ELTE Savaria University Centre",
+    "wikidata_id": "Q59590471",
+    "website": "https://sek.elte.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Eger Archiepiscopal Law Academy",
+    "wikidata_id": "Q27994757",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Eötvös József Főiskola",
+    "wikidata_id": "Q994537",
+    "website": "http://www.ejf.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Ferenc Kölcsey Teacher Training College of the Reformed Church",
+    "wikidata_id": "Q1125173",
+    "website": "http://www.kolcseyfoiskola.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ferenc_K%C3%B6lcsey_Teacher_Training_College_of_the_Reformed_Church"
+  },
+  {
+    "name": "Gépipari és Automatizálási Műszaki Főiskola (Kecskemét, Hungary)",
+    "wikidata_id": "Q61650180",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Gödöllő University of Agricultural Sciences",
+    "wikidata_id": "Q1031477",
+    "website": "http://www.gau.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Hajdúböszörményi Óvóképző Főiskola",
+    "wikidata_id": "Q61090514",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Haynal Imre University of Health Sciences",
+    "wikidata_id": "Q59773310",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Ho Si Minh Tanárképző Főiskola. Budapesti Kihelyezett Tagozat",
+    "wikidata_id": "Q60733176",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Hungarian Dance University",
+    "wikidata_id": "Q15148601",
+    "website": "http://mte.eu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Hungarian University of Agriculture and Life Sciences",
+    "wikidata_id": "Q1296434",
+    "website": "https://www.uni-mate.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hungarian_University_of_Agriculture_and_Life_Sciences"
+  },
+  {
+    "name": "Hungarian University of Fine Arts",
+    "wikidata_id": "Q844153",
+    "website": "https://www.mke.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hungarian_University_of_Fine_Arts"
+  },
+  {
+    "name": "Hungarian University of Sports Science",
+    "wikidata_id": "Q1287034",
+    "website": "https://tf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Illyés Gyula Pedagógiai Főiskola",
+    "wikidata_id": "Q59602375",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Institute of Psychology",
+    "wikidata_id": "Q1295408",
+    "website": "http://www.pszich.u-szeged.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Psychology_(Szeged)"
+  },
+  {
+    "name": "International Business School, Budapest",
+    "wikidata_id": "Q285153",
+    "website": "http://www.ibs-b.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_Business_School,_Budapest"
+  },
+  {
+    "name": "John von Neumann University",
+    "wikidata_id": "Q1105954",
+    "website": "http://www.uni-neumann.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Kandó Kálmán Technical College",
+    "wikidata_id": "Q1104077",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Kereskedelmi és Vendéglátóipari Főiskola",
+    "wikidata_id": "Q60046394",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Keszthely Agricultural University",
+    "wikidata_id": "Q61943560",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Kilián György College for Aviation Technology",
+    "wikidata_id": "Q60860542",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Kodolányi János University",
+    "wikidata_id": "Q1114851",
+    "website": "http://www.kodolanyi.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kodol%C3%A1nyi_J%C3%A1nos_University"
+  },
+  {
+    "name": "Kossuth Lajos Military College",
+    "wikidata_id": "Q60622598",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Károli Gáspár University of the Reformed Church in Hungary",
+    "wikidata_id": "Q1123379",
+    "website": "http://www.kre.hu/english/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/K%C3%A1roli_G%C3%A1sp%C3%A1r_University_of_the_Reformed_Church_in_Hungary"
+  },
+  {
+    "name": "Könnyűipari Műszaki Főiskola",
+    "wikidata_id": "Q59779539",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Lutheran Theological University",
+    "wikidata_id": "Q240041",
+    "website": "https://uni.lutheran.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "MSZMP Political College",
+    "wikidata_id": "Q60795500",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Medical University of Debrecen",
+    "wikidata_id": "Q61268750",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Medical University of Pécs",
+    "wikidata_id": "Q61187321",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Modern College of Business Sciences",
+    "wikidata_id": "Q110846712",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Moholy-Nagy University of Art and Design",
+    "wikidata_id": "Q718311",
+    "website": "https://mome.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Moholy-Nagy_University_of_Art_and_Design"
+  },
+  {
+    "name": "National University of Public Service",
+    "wikidata_id": "Q12815487",
+    "website": "https://www.uni-nke.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "uni_nke",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Public_Service"
+  },
+  {
+    "name": "Pollack Mihály Műszaki Főiskola",
+    "wikidata_id": "Q59644618",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Pápa Reformed Theological Seminary",
+    "wikidata_id": "Q109929660",
+    "website": "http://www.prta.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Pécsi Tanárképző Főiskola",
+    "wikidata_id": "Q60695616",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Sapientia College of Theology of Religious Orders",
+    "wikidata_id": "Q1256618",
+    "website": "http://www.sapientia.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Semmelweis University",
+    "wikidata_id": "Q277681",
+    "website": "https://semmelweis.hu/english/",
+    "youtube": "",
+    "instagram": "semmelweis_egyetem",
+    "twitter": "semmelweishu",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Semmelweis_University"
+  },
+  {
+    "name": "Széchenyi István University",
+    "wikidata_id": "Q631317",
+    "website": "http://uni.sze.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sz%C3%A9chenyi_Istv%C3%A1n_University"
+  },
+  {
+    "name": "Tessedik Sámuel College",
+    "wikidata_id": "Q59387102",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Theological Archbishop's College",
+    "wikidata_id": "Q27994543",
+    "website": "https://www.vhf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Theological College of Eger",
+    "wikidata_id": "Q18599934",
+    "website": "http://www.eghf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Theological College of Pécs",
+    "wikidata_id": "Q1242824",
+    "website": "http://www.pphf.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Tomori Pál College",
+    "wikidata_id": "Q30257548",
+    "website": "https://tpfk.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Buda",
+    "wikidata_id": "Q65589756",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Debrecen",
+    "wikidata_id": "Q903092",
+    "website": "https://unideb.hu/en",
+    "youtube": "",
+    "instagram": "universityofdebrecen_official",
+    "twitter": "degyetem",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Debrecen"
+  },
+  {
+    "name": "University of Dunaújváros",
+    "wikidata_id": "Q782452",
+    "website": "http://www.uniduna.hu/",
+    "youtube": "",
+    "instagram": "miertdue",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Duna%C3%BAjv%C3%A1ros"
+  },
+  {
+    "name": "University of Horticulture and Food Industry",
+    "wikidata_id": "Q1107723",
+    "website": "http://www.kee.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Kaposvár",
+    "wikidata_id": "Q836467",
+    "website": "http://www.ke.hu/",
+    "youtube": "",
+    "instagram": "kaposvariegyetem",
+    "twitter": "kegyetem",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Kaposv%C3%A1r"
+  },
+  {
+    "name": "University of Miskolc",
+    "wikidata_id": "Q729786",
+    "website": "http://www.uni-miskolc.hu",
+    "youtube": "",
+    "instagram": "miskolci_egyetem",
+    "twitter": "unimiskolc",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Miskolc"
+  },
+  {
+    "name": "University of Nyíregyháza",
+    "wikidata_id": "Q1219886",
+    "website": "https://www.nye.hu/",
+    "youtube": "",
+    "instagram": "nyiregyhazi_egyetem",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Pannonia",
+    "wikidata_id": "Q606815",
+    "website": "http://www.uni-pannon.hu",
+    "youtube": "",
+    "instagram": "pannon_egyetem",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Pannonia"
+  },
+  {
+    "name": "University of Pécs",
+    "wikidata_id": "Q1187444",
+    "website": "https://pte.hu/",
+    "youtube": "UC4oZgd324OjN3dYgFLCzVJg",
+    "instagram": "studyinpecshungary",
+    "twitter": "ptelibrary",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_P%C3%A9cs"
+  },
+  {
+    "name": "University of Sopron",
+    "wikidata_id": "Q897033",
+    "website": "http://uni-sopron.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Sopron"
+  },
+  {
+    "name": "University of Szeged, Juhász Gyula Faculty of Education",
+    "wikidata_id": "Q60543638",
+    "website": "https://www.jgypk.u-szeged.hu/karrol/intezmenyunkrol/intezmenyunkrol",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Theatre and Film Arts",
+    "wikidata_id": "Q1303297",
+    "website": "http://www.szfe.hu",
+    "youtube": "",
+    "instagram": "szfe150",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Theatre_and_Film_Arts_in_Budapest"
+  },
+  {
+    "name": "University of Tokaj",
+    "wikidata_id": "Q1177741",
+    "website": "https://www.unithe.hu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Veterinary Medicine Budapest",
+    "wikidata_id": "Q1469723",
+    "website": "https://univet.hu/",
+    "youtube": "",
+    "instagram": "univet_budapest",
+    "twitter": "UNIVET_Budapest",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Veterinary_Medicine_Budapest"
+  },
+  {
+    "name": "Ybl Miklós Technical College",
+    "wikidata_id": "Q61022704",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Zrínyi Miklós National Defense University",
+    "wikidata_id": "Q1467882",
+    "website": "http://www.zmne.hu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Élelmiszeripari Főiskola",
+    "wikidata_id": "Q102046106",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Óbuda University",
+    "wikidata_id": "Q1412435",
+    "website": "https://www.uni-obuda.hu/",
+    "youtube": "",
+    "instagram": "obudaiegyetem",
+    "twitter": "uni_obuda",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/%C3%93buda_University"
+  }
+]

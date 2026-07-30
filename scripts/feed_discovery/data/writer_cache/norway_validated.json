@@ -1,0 +1,128 @@
+[
+  {
+    "url": "https://knowledge.hubspot.com/no/rss.xml",
+    "title": "Generer RSS-feed-URL-er for blogger, forfattere og tagger",
+    "source": "page:forfatter",
+    "country": "norway"
+  },
+  {
+    "url": "https://www.microsoft.com/en-us/translator/blog/feed/",
+    "title": "Microsoft Translator, forfatter på Microsoft Translator Blog - Side 2 av 27",
+    "source": "page:forfatter",
+    "country": "norway"
+  },
+  {
+    "url": "https://blogg.sintef.no/feed/",
+    "title": "Arkiv – SINTEF-blogg",
+    "source": "page:forfatter",
+    "country": "norway"
+  },
+  {
+    "url": "https://erikmartiniussen.com/feed/",
+    "title": "Erik Martiniussen – Journalist, blogger, forfatter",
+    "source": "page:forfatter",
+    "country": "norway"
+  },
+  {
+    "url": "https://www.mobit.no/WebPages/produkt/rss.aspx",
+    "title": "Møt våre forfattere",
+    "source": "page:forfatter",
+    "country": "norway"
+  },
+  {
+    "url": "https://dintekstforfatter.no/feed",
+    "title": "Skribent Blogg | Firmablogg Hjelp | Din Tekstforfatter",
+    "source": "page:skribent",
+    "country": "norway"
+  },
+  {
+    "url": "http://kapptilkapp.no/blogg/atom.xml",
+    "title": "Kapp til Kapp - Blogg - Kapp til Kapp - Sykkelekspedisjon på langs...",
+    "source": "page:skribent",
+    "country": "norway"
+  },
+  {
+    "url": "https://ingvarholmberg.se/feed/",
+    "title": "Ingvar Holmbergs blogg - dikter, predikan, youtube, sånger - kristen...",
+    "source": "page:dikter",
+    "country": "norway"
+  },
+  {
+    "url": "https://fuxialena.com/feed/",
+    "title": "Lenas blogg – Blogg-dikter och annat.",
+    "source": "page:dikter",
+    "country": "norway"
+  },
+  {
+    "url": "https://elinmarialarsson.bloggproffs.se/feed/",
+    "title": "Dikter",
+    "source": "page:dikter",
+    "country": "norway"
+  },
+  {
+    "url": "https://matshammarlunddikter12.wordpress.com/feed/",
+    "title": "Mats Hammarlund Dikter | Ännu en WordPress.com blogg",
+    "source": "page:dikter",
+    "country": "norway"
+  },
+  {
+    "url": "https://ensson.wordpress.com/feed/",
+    "title": "Dikter | Cyberbuddha",
+    "source": "page:dikter",
+    "country": "norway"
+  },
+  {
+    "url": "https://062n09.wordpress.com/feed",
+    "title": "062n09 | Living in Norway, Writing in English",
+    "source": "en-fb-wp:writer",
+    "country": "norway"
+  },
+  {
+    "url": "https://euroadnet.wordpress.com/feed",
+    "title": "euroadnet.wordpress.com",
+    "source": "en-fb-wp:writer",
+    "country": "norway"
+  },
+  {
+    "url": "https://tonysreadinglist.wordpress.com/2026/07/23/the-tale-of-genji-30-fujibakama/feed",
+    "title": "The Tale of Genji: 30 – Fujibakama – Tony's Reading List",
+    "source": "en-fb-wp:writer",
+    "country": "norway"
+  },
+  {
+    "url": "https://startbigthinksmall.wordpress.com/tag/technology/feed",
+    "title": "Posts about technology written by Lars Corneliussen",
+    "source": "en-fb-wp:writer",
+    "country": "norway"
+  },
+  {
+    "url": "https://tonysreadinglist.wordpress.com/category/prototype-publishing/feed",
+    "title": "Prototype Publishing – Tony's Reading List",
+    "source": "en-fb-wp:author",
+    "country": "norway"
+  },
+  {
+    "url": "https://herrenblut.wordpress.com/2026/06/06/the-lost-homeland/feed",
+    "title": "THE LOST HOMELAND | Herrenblut - Blog",
+    "source": "en-fb-wp:author",
+    "country": "norway"
+  },
+  {
+    "url": "https://0hours9am.wordpress.com/2011/06/11/bergen-voss-aurland-and-the-fjords-norway/feed",
+    "title": "Bergen, Voss, Aurland and the fjords, Norway | Sunk Costs Tourism",
+    "source": "en-fb-wp:poet",
+    "country": "norway"
+  },
+  {
+    "url": "https://eyeseverywhere.wordpress.com/cynthia-pech/feed",
+    "title": "Cynthia Pech | eyeseverywhere",
+    "source": "en-fb-wp:poet",
+    "country": "norway"
+  },
+  {
+    "url": "https://richedwardsimagery.wordpress.com/tag/frederick-sound/feed",
+    "title": "Frederick Sound | Where in the world is Riccardo?",
+    "source": "en-fb-wp:poet",
+    "country": "norway"
+  }
+]

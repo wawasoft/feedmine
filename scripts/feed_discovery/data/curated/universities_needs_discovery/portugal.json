@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Centro Dramático de Évora",
+    "website": "http://www.cendrev.com/",
+    "wikidata_id": "Q18483769",
+    "wikipedia_url": "",
+    "country": "portugal"
+  },
+  {
+    "name": "ISPA – University Institute",
+    "website": "http://www.ispa.pt/",
+    "wikidata_id": "Q10299478",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/ISPA_%E2%80%93_Instituto_Universit%C3%A1rio",
+    "country": "portugal"
+  },
+  {
+    "name": "Institute of Higher Studies of Fafe",
+    "website": "http://www.iesfafe.pt/",
+    "wikidata_id": "Q13847486",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Higher_Studies_of_Fafe",
+    "country": "portugal"
+  },
+  {
+    "name": "Instituto Superior Autónomo de Estudos Politécnicos",
+    "website": "http://www.ipa.univ.pt/",
+    "wikidata_id": "Q10302676",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Instituto_Superior_Aut%C3%B3nomo_de_Estudos_Polit%C3%A9cnicos",
+    "country": "portugal"
+  },
+  {
+    "name": "Instituto Superior de Administração e Línguas da Madeira",
+    "website": "https://isal.pt/",
+    "wikidata_id": "Q48879632",
+    "wikipedia_url": "",
+    "country": "portugal"
+  },
+  {
+    "name": "Lusíada University",
+    "website": "http://www.ulusiada.pt/",
+    "wikidata_id": "Q635878",
+    "wikipedia_url": "",
+    "country": "portugal"
+  },
+  {
+    "name": "NOVA University Lisbon",
+    "website": "https://www.unl.pt/",
+    "wikidata_id": "Q1979891",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/NOVA_University_of_Lisbon",
+    "country": "portugal"
+  },
+  {
+    "name": "Oporto Global University",
+    "website": "https://www.upt.pt/",
+    "wikidata_id": "Q10387859",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Portucalense_Infante_D._Henrique",
+    "country": "portugal"
+  },
+  {
+    "name": "Universidade Atlântica",
+    "website": "http://www.uatlantica.pt/",
+    "wikidata_id": "Q10387774",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Atl%C3%A2ntica",
+    "country": "portugal"
+  },
+  {
+    "name": "University of Beira Interior",
+    "website": "http://www.ubi.pt",
+    "wikidata_id": "Q846725",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Beira_Interior",
+    "country": "portugal"
+  },
+  {
+    "name": "University of Madeira",
+    "website": "http://www.uma.pt",
+    "wikidata_id": "Q1434847",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Madeira",
+    "country": "portugal"
+  },
+  {
+    "name": "University of Trás-os-Montes and Alto Douro",
+    "website": "https://www.utad.pt/en/",
+    "wikidata_id": "Q3309132",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Tr%C3%A1s-os-Montes_and_Alto_Douro",
+    "country": "portugal"
+  }
+]

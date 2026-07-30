@@ -1,0 +1,134 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/comments/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/comments/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/comments/feed/",
+    "title": "Blog | andi novelista",
+    "source": "page:novelista",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://iecastellano.blogspot.com/feeds/posts/default?alt=rss",
+    "title": "Novelista",
+    "source": "page:novelista",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/comments/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://www.goodreads.com/user/updates_rss/57889133",
+    "title": "Novelista Blogs (novelistablogs) - Austin, TX (103 books)",
+    "source": "page:novelista",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://blogbagatela.wordpress.com/2026/01/08/un-total-de-18-obras-de-europa-america-y-oceania-competiran-en-edicion-2026-del-pirineos-mountain-film-festival/feed",
+    "title": "Un total de 18 obras de europa, américa y oceanía competirán en...",
+    "source": "wp:autor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://musicarberdi.wordpress.com/2009/10/20/feed",
+    "title": "20 | octubre | 2009 | TangoRBerdi - Tango y Otras",
+    "source": "wp:autor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://loiolaxxi.wordpress.com/2016/02/22/usa-excarcelado-despues-de-40-anos-de-prision/feed",
+    "title": "USA: excarcelado después de 40 años de prisión. | Loiola XXI",
+    "source": "wp:autor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://honduprensa.wordpress.com/2014/11/04/feed",
+    "title": "24 entradas publicadas por honduprensa el November 4, 2014",
+    "source": "wp:autor",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://rubencaravaca.blogspot.com/feeds/posts/default",
+    "title": "Winnipeg, el cómic del barco que naufragó en la memoria del exilio...",
+    "source": "platform:blogspot.com",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "Jonathan Little Mastering Small Stakes: Guía definitiva para apostar...",
+    "source": "platform:blogspot.com",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://alejandro-8.blogspot.com/feeds/posts/default",
+    "title": "Historia y tecnología militar: Rusia: análisis de ventas a Argentina",
+    "source": "platform:blogspot.com",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://parlamentocaribe.blogspot.com/feeds/posts/default?alt=rss",
+    "title": "Parlamento nacional de escritores de colombia",
+    "source": "assoc:es",
+    "country": "bolivia"
+  },
+  {
+    "url": "https://encuentrotarija2009.blogspot.com/feeds/posts/default?alt=rss",
+    "title": "II Encuentro Internacional de Escritores en Tarija - Bolivia...",
+    "source": "assoc:es",
+    "country": "bolivia"
+  }
+]

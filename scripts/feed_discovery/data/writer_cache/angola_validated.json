@@ -1,0 +1,128 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "angola"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "angola"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "angola"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "angola"
+  },
+  {
+    "url": "https://www.bonashistorias.com.br/blog-feed.xml",
+    "title": "Livros: O Romancista Ingênuo e o Sentimental - O ensaio literário de...",
+    "source": "page:romancista",
+    "country": "angola"
+  },
+  {
+    "url": "https://viaeditora.com.br/feed/",
+    "title": "O Romancista Aramis Ribeiro Costa por Cyro de Mattos – Via...",
+    "source": "page:romancista",
+    "country": "angola"
+  },
+  {
+    "url": "https://amigosdopoetapenal.blogspot.com/feeds/posts/default",
+    "title": "WILTINHO POETA",
+    "source": "page:poeta",
+    "country": "angola"
+  },
+  {
+    "url": "https://poesiasyrelatos.com/feed/",
+    "title": "Blog de poesía – Alejandro Tomás",
+    "source": "page:poeta",
+    "country": "angola"
+  },
+  {
+    "url": "https://poetamodernof.blogspot.com/feeds/posts/default",
+    "title": "Blog Poeta Moderno",
+    "source": "page:poeta",
+    "country": "angola"
+  },
+  {
+    "url": "https://elpoetaensuprobeta.blogspot.com/feeds/posts/default",
+    "title": "El Poeta en su Probeta * La Probeta del Poeta",
+    "source": "page:poeta",
+    "country": "angola"
+  },
+  {
+    "url": "https://sabine77.wordpress.com/2026/07/27/feed",
+    "title": "2026-07-27 – Insustentável Leveza 2",
+    "source": "wp:escritor",
+    "country": "angola"
+  },
+  {
+    "url": "https://libertamen.wordpress.com/2026/07/26/el-hombre-negro-en-una-sociedad-blanca-1969-barbara-jones/feed",
+    "title": "El hombre negro en una sociedad blanca (1969) – Barbara Jones",
+    "source": "wp:escritor",
+    "country": "angola"
+  },
+  {
+    "url": "https://loiolaxxi.wordpress.com/2016/02/22/usa-excarcelado-despues-de-40-anos-de-prision/feed",
+    "title": "USA: excarcelado después de 40 años de prisión. | Loiola XXI",
+    "source": "wp:escritor",
+    "country": "angola"
+  },
+  {
+    "url": "https://kapitololo.wordpress.com/tag/estados-unidos/feed",
+    "title": "Posts about Estados Unidos written by kapitololo",
+    "source": "wp:escritor",
+    "country": "angola"
+  },
+  {
+    "url": "https://sabine77.wordpress.com/2026/07/28/notas-quotidianas-em-19/feed",
+    "title": "Visto de Leiria: Notas Quotidianas Junho-Julho 2026 – Insustentável...",
+    "source": "wp:autor",
+    "country": "angola"
+  },
+  {
+    "url": "https://jornaloolho.blogspot.com/feeds/posts/default",
+    "title": "O OLHO: 22 de dez. de 2008",
+    "source": "platform:blogspot.com",
+    "country": "angola"
+  },
+  {
+    "url": "https://rubencaravaca.blogspot.com/feeds/posts/default",
+    "title": "Winnipeg, el cómic del barco que naufragó en la memoria del exilio...",
+    "source": "platform:blogspot.com",
+    "country": "angola"
+  },
+  {
+    "url": "https://pravdailheu.blogspot.com/feeds/posts/default",
+    "title": "Pravda Ilheu: O camarada Paulo Raimundo é o autor da Mentira do Dia",
+    "source": "platform:blogspot.com",
+    "country": "angola"
+  },
+  {
+    "url": "https://fdra-aereo.blogspot.com/feeds/posts/default",
+    "title": "FDRA - Fuerza Aérea: Avión de combate colaborativo (CCA) MQ-28...",
+    "source": "platform:blogspot.com",
+    "country": "angola"
+  },
+  {
+    "url": "http://011-tutorial.blogspot.com/feeds/posts/default",
+    "title": "11tutorial",
+    "source": "platform:blogspot.com",
+    "country": "angola"
+  },
+  {
+    "url": "https://www.dicio.com.br/rss/",
+    "title": "Associação - Dicio, Dicionário Online de Português",
+    "source": "assoc:pt",
+    "country": "angola"
+  }
+]

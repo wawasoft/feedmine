@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCeaAk-bpcc_SYfmA28HZlAQ",
+    "category": "YouTube",
+    "title": "Art Museum Riga Bourse — YouTube",
+    "genre": "Museum",
+    "source_page": "https://lnmm.gov.lv/makslas-muzejs-rigas-birza",
+    "national": true,
+    "national_reason": "museums/youtube/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCcnq1bDn3GDHqLnHrpicUxg",
+    "category": "YouTube",
+    "title": "Jekabpils History Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://jekabpilsmuzejs.lv/",
+    "national": true,
+    "national_reason": "museums/youtube/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCqxuDUO4W-eopQdpSTuCBZQ",
+    "category": "YouTube",
+    "title": "Latvian Museum of Decorative Arts and Design — YouTube",
+    "genre": "Museum",
+    "source_page": "https://lnmm.gov.lv/dekorativas-makslas-un-dizaina-muzejs",
+    "national": true,
+    "national_reason": "museums/youtube/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

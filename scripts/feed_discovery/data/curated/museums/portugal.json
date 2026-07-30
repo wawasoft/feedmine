@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCUG7Ev5KgQA5EJjbfbdfAPQ",
+    "category": "YouTube",
+    "title": "Madeira Whale Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.museudabaleia.org",
+    "national": true,
+    "national_reason": "museums/youtube/portugal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCtsFzhi5scFk0z04zg8Yrjw",
+    "category": "YouTube",
+    "title": "Museu de Lisboa — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.museudelisboa.pt",
+    "national": true,
+    "national_reason": "museums/youtube/portugal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC710gvHybEbeZZnMZxvxP6A",
+    "category": "YouTube",
+    "title": "National Museum of Music — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.museunacionaldamusica.gov.pt",
+    "national": true,
+    "national_reason": "museums/youtube/portugal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

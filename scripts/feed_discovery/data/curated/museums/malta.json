@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC8sJoxjFQjAy8KgYXHdlOKg",
+    "category": "YouTube",
+    "title": "Mdina Cathedral Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.metropolitanchapter.com/mdina-cathedral-museum/",
+    "national": true,
+    "national_reason": "museums/youtube/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_2nStKJApSrI1U8Cz7s2hg",
+    "category": "YouTube",
+    "title": "Palazzo Falson Historic House Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.patrimonju.org/palazzo-falson-new-website-under-construction",
+    "national": true,
+    "national_reason": "museums/youtube/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

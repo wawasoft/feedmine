@@ -1,0 +1,786 @@
+[
+  {
+    "name": "ALTIS – Postgraduate School Business & Society",
+    "website": "http://altis.unicatt.it/altis-home?rdeLocaleAttr=en",
+    "wikidata_id": "Q4652448",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/ALTIS_Graduate_School_of_Sustainable_Management",
+    "country": "italy"
+  },
+  {
+    "name": "Academy of Fine Arts, Verona",
+    "website": "http://www.accademiabelleartiverona.it/",
+    "wikidata_id": "Q4671475",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Academy_of_Fine_Arts,_Verona",
+    "country": "italy"
+  },
+  {
+    "name": "Accademia Albertina",
+    "website": "https://albertina-academy.it/",
+    "wikidata_id": "Q1168859",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Accademia_Albertina",
+    "country": "italy"
+  },
+  {
+    "name": "Accademia Nazionale d'Arte Drammatica Silvio D'Amico",
+    "website": "http://www.silviodamico.it/",
+    "wikidata_id": "Q2822439",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Accademia_Nazionale_d%27Arte_Drammatica_Silvio_D%27Amico",
+    "country": "italy"
+  },
+  {
+    "name": "Accademia di Belle Arti di Perugia",
+    "website": "http://www.abaperugia.org",
+    "wikidata_id": "Q3604024",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Accademia_di_Belle_Arti_di_Perugia",
+    "country": "italy"
+  },
+  {
+    "name": "Accademia di Belle Arti di Venezia",
+    "website": "http://www.accademiavenezia.it/",
+    "wikidata_id": "Q338505",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Accademia_di_Belle_Arti_di_Venezia",
+    "country": "italy"
+  },
+  {
+    "name": "Accademia italiana",
+    "website": "http://www.accademiaitaliana.com",
+    "wikidata_id": "Q14539971",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Accademia_Italiana",
+    "country": "italy"
+  },
+  {
+    "name": "Alta Scuola Politecnica",
+    "website": "https://www.asp-poli.it/",
+    "wikidata_id": "Q3613070",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "American University of Rome",
+    "website": "http://www.aur.edu/",
+    "wikidata_id": "Q469446",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/American_University_of_Rome",
+    "country": "italy"
+  },
+  {
+    "name": "Aosta Valley University",
+    "website": "https://www.univda.it",
+    "wikidata_id": "Q2319621",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aosta_Valley_University",
+    "country": "italy"
+  },
+  {
+    "name": "Ca' Foscari University of Venice",
+    "website": "https://www.unive.it",
+    "wikidata_id": "Q1546906",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ca%27_Foscari_University_of_Venice",
+    "country": "italy"
+  },
+  {
+    "name": "Campus Bio Medico University of Rome",
+    "website": "https://www.unicampus.it",
+    "wikidata_id": "Q1440288",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universit%C3%A0_Campus_Bio-Medico_di_Roma",
+    "country": "italy"
+  },
+  {
+    "name": "Centre for Studies on Federalism",
+    "website": "http://www.csfederalismo.it/index.php/en",
+    "wikidata_id": "Q1054341",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centre_for_Studies_on_Federalism",
+    "country": "italy"
+  },
+  {
+    "name": "Civica Accademia d'arte drammatica Nico Pepe",
+    "website": "https://www.nicopepe.it/",
+    "wikidata_id": "Q137995366",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Collegio Artistico Venturoli",
+    "website": "https://www.fondazionecollegioventuroli.org/",
+    "wikidata_id": "Q24937687",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Collegio Carlo Alberto",
+    "website": "http://www.carloalberto.org/",
+    "wikidata_id": "Q3682946",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Collegio_Carlo_Alberto",
+    "country": "italy"
+  },
+  {
+    "name": "Collegio Castiglioni Brugnatelli",
+    "website": "http://www.edisu.pv.it",
+    "wikidata_id": "Q16542933",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Collegio_Castiglioni_Brugnatelli",
+    "country": "italy"
+  },
+  {
+    "name": "Consorzio ICoN",
+    "website": "https://www.italicon.education/",
+    "wikidata_id": "Q1127590",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Consorzio_ICoN",
+    "country": "italy"
+  },
+  {
+    "name": "Consorzio universitario di Caltanissetta",
+    "website": "https://www.uni.cl.it/",
+    "wikidata_id": "Q97966939",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "D'Annunzio University of Chieti–Pescara",
+    "website": "https://www.unich.it",
+    "wikidata_id": "Q2261128",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gabriele_d%27Annunzio_University",
+    "country": "italy"
+  },
+  {
+    "name": "Facoltà di Lettere Cristiane e Classiche",
+    "website": "http://www.latinitas.unisal.it",
+    "wikidata_id": "Q1248213",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Foreigners University of Siena",
+    "website": "https://www.unistrasi.it",
+    "wikidata_id": "Q600924",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universit%C3%A0_per_Stranieri_di_Siena",
+    "country": "italy"
+  },
+  {
+    "name": "Free Academy of Fine Arts (LABA)",
+    "website": "https://laba.edu/",
+    "wikidata_id": "Q29915035",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Libera_Accademia_di_Belle_Arti",
+    "country": "italy"
+  },
+  {
+    "name": "Free University of Bozen-Bolzano",
+    "website": "https://www.unibz.it",
+    "wikidata_id": "Q1231433",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Free_University_of_Bozen-Bolzano",
+    "country": "italy"
+  },
+  {
+    "name": "Ghislieri College",
+    "website": "http://www.ghislieri.it",
+    "wikidata_id": "Q427141",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ghislieri_College",
+    "country": "italy"
+  },
+  {
+    "name": "Graduate School of Agri-Food Management and Economics",
+    "website": "http://smea.unicatt.it/",
+    "wikidata_id": "Q7391137",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graduate_School_of_Agri-Food_Management_and_Economics",
+    "country": "italy"
+  },
+  {
+    "name": "Graduate School of Economics and International Relations",
+    "website": "http://aseri.unicatt.it/",
+    "wikidata_id": "Q4654207",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graduate_School_of_Economics_and_International_Relations",
+    "country": "italy"
+  },
+  {
+    "name": "Graduate School of Health Economics and Management",
+    "website": "http://altems.unicatt.it/",
+    "wikidata_id": "Q4652446",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graduate_School_of_Health_Economics_and_Management",
+    "country": "italy"
+  },
+  {
+    "name": "Graduate School of Media Communication and Performing Arts",
+    "website": "http://almed.unicatt.it/",
+    "wikidata_id": "Q4652396",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graduate_School_of_Media_Communications_and_Performing_Arts",
+    "country": "italy"
+  },
+  {
+    "name": "History Curriculum at the Gregorian University",
+    "website": "https://www.unigre.it/it/storia/",
+    "wikidata_id": "Q5774694",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/History_Curriculum_at_the_Gregorian_University",
+    "country": "italy"
+  },
+  {
+    "name": "Humanitas University",
+    "website": "https://www.hunimed.eu",
+    "wikidata_id": "Q59386762",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Humanitas_University",
+    "country": "italy"
+  },
+  {
+    "name": "IUAV University of Venice",
+    "website": "http://www.iuav.it/homepage",
+    "wikidata_id": "Q727492",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universit%C3%A0_Iuav_di_Venezia",
+    "country": "italy"
+  },
+  {
+    "name": "Institute for International Political Studies",
+    "website": "https://www.ispionline.it",
+    "wikidata_id": "Q6039434",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_for_International_Political_Studies",
+    "country": "italy"
+  },
+  {
+    "name": "Institute of Anthropology: Interdisciplinary Studies on Human Dignity and Care",
+    "website": "https://iadc.unigre.it/",
+    "wikidata_id": "Q27926167",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Anthropology:_Interdisciplinary_Studies_on_Human_Dignity_and_Care",
+    "country": "italy"
+  },
+  {
+    "name": "International University College of Turin",
+    "website": "http://www.iuctorino.it/",
+    "wikidata_id": "Q3799758",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_University_College_of_Turin",
+    "country": "italy"
+  },
+  {
+    "name": "Istituto Italiano di Criminologia",
+    "website": "http://www.criminologia.it",
+    "wikidata_id": "Q67437352",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Istituto Superiore di Scienze Religiose Metropolitano \"Don Tonino Bello\"",
+    "website": "https://www.issrm-dontoninobello.org",
+    "wikidata_id": "Q140191131",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Istituto Universitario Salesiano Venezia",
+    "website": "http://iusve.it/",
+    "wikidata_id": "Q48805280",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Istituto di Moda Burgo",
+    "website": "https://www.imb.it/it/",
+    "wikidata_id": "Q45745121",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Istituto_di_Moda_Burgo",
+    "country": "italy"
+  },
+  {
+    "name": "John Cabot University",
+    "website": "http://www.johncabot.edu",
+    "wikidata_id": "Q1314405",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/John_Cabot_University",
+    "country": "italy"
+  },
+  {
+    "name": "John Felice Rome Center",
+    "website": "http://www.luc.edu/romecenter/",
+    "wikidata_id": "Q6232900",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/John_Felice_Rome_Center",
+    "country": "italy"
+  },
+  {
+    "name": "Kore University of Enna",
+    "website": "https://www.unikore.it/index.php",
+    "wikidata_id": "Q1481995",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kore_University_of_Enna",
+    "country": "italy"
+  },
+  {
+    "name": "Lay Centre at Foyer Unitas",
+    "website": "http://www.laycentre.org/",
+    "wikidata_id": "Q6505336",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lay_Centre_at_Foyer_Unitas",
+    "country": "italy"
+  },
+  {
+    "name": "Libera Accademia di Belle Arti",
+    "website": "https://laba.biz/",
+    "wikidata_id": "Q131322938",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Lorenzo de' Medici School",
+    "website": "http://www.lorenzodemedici.org",
+    "wikidata_id": "Q16949007",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lorenzo_de%27_Medici_School",
+    "country": "italy"
+  },
+  {
+    "name": "Lycée Stendhal de Milan",
+    "website": "http://www.lsmi.it/",
+    "wikidata_id": "Q3268949",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lyc%C3%A9e_Stendhal_de_Milan",
+    "country": "italy"
+  },
+  {
+    "name": "Magna Græcia University",
+    "website": "https://web.unicz.it",
+    "wikidata_id": "Q266537",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Magna_Gr%C3%A6cia_University",
+    "country": "italy"
+  },
+  {
+    "name": "Mediterranea University of Reggio Calabria",
+    "website": "http://www.unirc.it",
+    "wikidata_id": "Q1780716",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mediterranea_University_of_Reggio_Calabria",
+    "country": "italy"
+  },
+  {
+    "name": "Military Academy of Modena",
+    "website": "http://www.esercito.difesa.it/organizzazione/capo-di-sme/comando-per-la-formazione-specializzazione-e-dottrina-dell-esercito/Comando-per-la-Formazione-e-Scuola-di-Applicazione/Accademia-Militare",
+    "wikidata_id": "Q1934874",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Military_Academy_of_Modena",
+    "country": "italy"
+  },
+  {
+    "name": "Monash University Prato",
+    "website": "https://www.monash.edu/prato",
+    "wikidata_id": "Q64153182",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Monash_University,_Prato_Centre",
+    "country": "italy"
+  },
+  {
+    "name": "Naples Eastern University",
+    "website": "https://www.unior.it/",
+    "wikidata_id": "Q1632525",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Naples_%22L%27Orientale%22",
+    "country": "italy"
+  },
+  {
+    "name": "National Observatory of Outsider Art",
+    "website": "http://www.accademiacignaroli.it",
+    "wikidata_id": "Q15261139",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Observatory_of_Outsider_Art",
+    "country": "italy"
+  },
+  {
+    "name": "Parthenope University of Naples",
+    "website": "https://www.uniparthenope.it",
+    "wikidata_id": "Q3551650",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Parthenope_University_of_Naples",
+    "country": "italy"
+  },
+  {
+    "name": "Pisa University System",
+    "website": "http://rassegnastampa.unipi.it/sup/",
+    "wikidata_id": "Q7198162",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Polimoda",
+    "website": "https://www.polimoda.com",
+    "wikidata_id": "Q7209754",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polimoda",
+    "country": "italy"
+  },
+  {
+    "name": "Polo Universitario Grossetano",
+    "website": "https://www.polouniversitariogrosseto.it/",
+    "wikidata_id": "Q107496653",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Pontificio Ateneo Sant Anselmo",
+    "website": "https://www.anselmianum.com/it/",
+    "wikidata_id": "Q470997",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pontifical_Athenaeum_of_Saint_Anselm",
+    "country": "italy"
+  },
+  {
+    "name": "Pontificio istituto ambrosiano di musica sacra",
+    "website": "https://unipiams.org/",
+    "wikidata_id": "Q124464079",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Postgraduate School for Environmental Studies",
+    "website": "http://asa.unicatt.it/",
+    "wikidata_id": "Q4654068",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Postgraduate_School_for_Environmental_Studies",
+    "country": "italy"
+  },
+  {
+    "name": "Postgraduate School of Psychology Agostino Gemelli",
+    "website": "https://asag.unicatt.it/",
+    "wikidata_id": "Q4654029",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Postgraduate_School_of_Psychology_Agostino_Gemelli",
+    "country": "italy"
+  },
+  {
+    "name": "Rome Business School",
+    "website": "https://romebusinessschool.com/",
+    "wikidata_id": "Q29366803",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rome_Business_School",
+    "country": "italy"
+  },
+  {
+    "name": "San Pietro a Majella Conservatory of Music",
+    "website": "https://sanpietroamajella.it",
+    "wikidata_id": "Q368820",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Conservatorio_di_San_Pietro_a_Majella",
+    "country": "italy"
+  },
+  {
+    "name": "School of Mathematics, Physics e Natural Sciences",
+    "website": "https://www.scienze.unifi.it/",
+    "wikidata_id": "Q35326663",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Scuola Italiana Design",
+    "website": "http://www.scuolaitalianadesign.com",
+    "wikidata_id": "Q7439503",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Scuola_Italiana_Design",
+    "country": "italy"
+  },
+  {
+    "name": "Scuola Politecnica di Design",
+    "website": "http://www.scuoladesign.com",
+    "wikidata_id": "Q3953349",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Scuola_Politecnica_di_Design",
+    "country": "italy"
+  },
+  {
+    "name": "Scuola superiore per mediatori linguistici Carlo Bo",
+    "website": "https://www.ssmlcarlobo.it/",
+    "wikidata_id": "Q16601145",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Suor Orsola Benincasa University of Naples",
+    "website": "https://www.unisob.na.it",
+    "wikidata_id": "Q3551499",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Suor_Orsola_Benincasa_University_of_Naples",
+    "country": "italy"
+  },
+  {
+    "name": "Temple University Rome",
+    "website": "https://rome.temple.edu/",
+    "wikidata_id": "Q123357817",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Temple_University_Rome",
+    "country": "italy"
+  },
+  {
+    "name": "The European International School & College",
+    "website": "https://www.euisc.com/",
+    "wikidata_id": "Q115734773",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "The Johns Hopkins University SAIS Bologna Center",
+    "website": "http://www.jhubc.it/",
+    "wikidata_id": "Q7743414",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/SAIS_Europe",
+    "country": "italy"
+  },
+  {
+    "name": "Theological University of Northern Italy – Turin Campus",
+    "website": "http://www.teologiatorino.it",
+    "wikidata_id": "Q3738249",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Theological_University_of_Northern_Italy_%E2%80%93_Turin_Campus",
+    "country": "italy"
+  },
+  {
+    "name": "Toppo Wassermann College",
+    "website": "http://qui.uniud.it",
+    "wikidata_id": "Q7825120",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Toppo_Wassermann_College",
+    "country": "italy"
+  },
+  {
+    "name": "Tor Vergata University of Rome",
+    "website": "https://web.uniroma2.it/it",
+    "wikidata_id": "Q1031803",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Rome_Tor_Vergata",
+    "country": "italy"
+  },
+  {
+    "name": "Turin School of Development",
+    "website": "http://turinschool.itcilo.org",
+    "wikidata_id": "Q7854950",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Turin_School_of_Development",
+    "country": "italy"
+  },
+  {
+    "name": "University Carlo Cattaneo",
+    "website": "https://www.liuc.it/",
+    "wikidata_id": "Q3551385",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_Carlo_Cattaneo",
+    "country": "italy"
+  },
+  {
+    "name": "University for Foreigners \"Dante Alighieri\" of Reggio Calabria",
+    "website": "https://www.unidarc.it/",
+    "wikidata_id": "Q4005936",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universit%C3%A0_per_stranieri_%22Dante_Alighieri%22_di_Reggio_Calabria",
+    "country": "italy"
+  },
+  {
+    "name": "University of Bari",
+    "website": "https://www.uniba.it",
+    "wikidata_id": "Q1236136",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Bari",
+    "country": "italy"
+  },
+  {
+    "name": "University of Brescia",
+    "website": "https://www.unibs.it",
+    "wikidata_id": "Q1781263",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Brescia",
+    "country": "italy"
+  },
+  {
+    "name": "University of Calabria",
+    "website": "https://www.unical.it",
+    "wikidata_id": "Q1752540",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Calabria",
+    "country": "italy"
+  },
+  {
+    "name": "University of Camerino",
+    "website": "https://www.unicam.it",
+    "wikidata_id": "Q676817",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Camerino",
+    "country": "italy"
+  },
+  {
+    "name": "University of Cassino",
+    "website": "http://www.unicas.it",
+    "wikidata_id": "Q504263",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Cassino_and_Southern_Lazio",
+    "country": "italy"
+  },
+  {
+    "name": "University of Eastern Piedmont",
+    "website": "https://www.uniupo.it",
+    "wikidata_id": "Q1235561",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Eastern_Piedmont",
+    "country": "italy"
+  },
+  {
+    "name": "University of Ferrara",
+    "website": "http://www.unife.it",
+    "wikidata_id": "Q955609",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Ferrara",
+    "country": "italy"
+  },
+  {
+    "name": "University of Florence",
+    "website": "https://www.unifi.it/",
+    "wikidata_id": "Q820887",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Florence",
+    "country": "italy"
+  },
+  {
+    "name": "University of Foggia",
+    "website": "https://www.unifg.it",
+    "wikidata_id": "Q617446",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Foggia",
+    "country": "italy"
+  },
+  {
+    "name": "University of Genoa",
+    "website": "https://unige.it",
+    "wikidata_id": "Q593321",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Genoa",
+    "country": "italy"
+  },
+  {
+    "name": "University of Insubria",
+    "website": "https://www.uninsubria.it",
+    "wikidata_id": "Q1309998",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Insubria",
+    "country": "italy"
+  },
+  {
+    "name": "University of L'Aquila",
+    "website": "https://www.univaq.it",
+    "wikidata_id": "Q1494671",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_L%27Aquila",
+    "country": "italy"
+  },
+  {
+    "name": "University of Messina",
+    "website": "https://www.unime.it",
+    "wikidata_id": "Q1245318",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Messina",
+    "country": "italy"
+  },
+  {
+    "name": "University of Milan-Bicocca",
+    "website": "https://www.unimib.it",
+    "wikidata_id": "Q1073674",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Milano-Bicocca",
+    "country": "italy"
+  },
+  {
+    "name": "University of Modena and Reggio Emilia",
+    "website": "https://www.unimore.it",
+    "wikidata_id": "Q1243705",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Modena_and_Reggio_Emilia",
+    "country": "italy"
+  },
+  {
+    "name": "University of Molise",
+    "website": "https://www3.unimol.it/",
+    "wikidata_id": "Q1093340",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Molise",
+    "country": "italy"
+  },
+  {
+    "name": "University of Padua",
+    "website": "https://www.unipd.it/en/",
+    "wikidata_id": "Q193510",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Padua",
+    "country": "italy"
+  },
+  {
+    "name": "University of Palermo",
+    "website": "https://www.unipa.it/",
+    "wikidata_id": "Q1641504",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Palermo",
+    "country": "italy"
+  },
+  {
+    "name": "University of Perugia",
+    "website": "https://www.unipg.it",
+    "wikidata_id": "Q748085",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perugia",
+    "country": "italy"
+  },
+  {
+    "name": "University of Ragusa",
+    "website": "http://www.unirg.it/",
+    "wikidata_id": "Q3699300",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Ragusa",
+    "country": "italy"
+  },
+  {
+    "name": "University of Sannio",
+    "website": "https://www.unisannio.it",
+    "wikidata_id": "Q3551769",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Sannio",
+    "country": "italy"
+  },
+  {
+    "name": "University of Sassari",
+    "website": "https://www.uniss.it",
+    "wikidata_id": "Q532822",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Sassari",
+    "country": "italy"
+  },
+  {
+    "name": "University of Siena",
+    "website": "https://www.unisi.it",
+    "wikidata_id": "Q1245999",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Siena",
+    "country": "italy"
+  },
+  {
+    "name": "University of Trento",
+    "website": "https://www.unitn.it",
+    "wikidata_id": "Q930528",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Trento",
+    "country": "italy"
+  },
+  {
+    "name": "University of Turin",
+    "website": "https://www.unito.it",
+    "wikidata_id": "Q499911",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Turin",
+    "country": "italy"
+  },
+  {
+    "name": "University of Tuscia",
+    "website": "http://www.unitus.it/",
+    "wikidata_id": "Q1780458",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tuscia_University",
+    "country": "italy"
+  },
+  {
+    "name": "University of Udine",
+    "website": "https://www.uniud.it",
+    "wikidata_id": "Q2307935",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Udine",
+    "country": "italy"
+  },
+  {
+    "name": "University of Verona",
+    "website": "https://www.univr.it",
+    "wikidata_id": "Q2531629",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Verona",
+    "country": "italy"
+  },
+  {
+    "name": "Università Europea di Roma",
+    "website": "https://www.uer.it",
+    "wikidata_id": "Q1274578",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/European_University_of_Rome",
+    "country": "italy"
+  },
+  {
+    "name": "Università a Vicenza",
+    "website": "http://www.univi.it/fsu.html",
+    "wikidata_id": "Q123600984",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Università degli Studi di Roma \"Unitelma Sapienza\"",
+    "website": "http://www.unitelmasapienza.it",
+    "wikidata_id": "Q4005942",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Rome_Unitelma_Sapienza",
+    "country": "italy"
+  },
+  {
+    "name": "Università dei cani da tartufo",
+    "website": "http://www.universitadeicanidatartufo.it/",
+    "wikidata_id": "Q84035409",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Università popolare di Prato",
+    "website": "https://www.unipopprato.it/",
+    "wikidata_id": "Q109933483",
+    "wikipedia_url": "",
+    "country": "italy"
+  },
+  {
+    "name": "Università telematica internazionale UniNettuno",
+    "website": "https://www.uninettunouniversity.net/en/default.aspx",
+    "wikidata_id": "Q4005949",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universit%C3%A0_telematica_internazionale_Uninettuno",
+    "country": "italy"
+  },
+  {
+    "name": "Venice International University",
+    "website": "http://www.univiu.org",
+    "wikidata_id": "Q2905216",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Venice_International_University",
+    "country": "italy"
+  },
+  {
+    "name": "Vita-Salute San Raffaele University",
+    "website": "https://www.unisr.it",
+    "wikidata_id": "Q3551506",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vita-Salute_San_Raffaele_University",
+    "country": "italy"
+  }
+]

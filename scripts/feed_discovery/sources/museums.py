@@ -104,7 +104,7 @@ _A_HREF_FEED_RE = re.compile(
 )
 
 _MAX_HTML_BYTES = 512 * 1024
-_CONCURRENT_CRAWL = 5
+_CONCURRENT_CRAWL = 3  # Reduced from 5 to avoid OOM with many TCP connections
 
 
 # ── URL helpers ────────────────────────────────────────────────────────

@@ -23,6 +23,10 @@ actor CardPreparationCoordinator {
     /// by a call to `takeRenderReadyPrefix`.
     private var nextPublishIndex: Int = 0
 
+    /// Continuations waiting for the contiguous prefix to grow.
+    /// Woken by storeRenderReady when a new card joins the prefix.
+    private var prefixWaiters: [UUID: CheckedContinuation<Void, Never>] = [:]
+
     /// The context this coordinator is currently serving.
     private var activeContext: FeedPresentationContext?
 
@@ -66,13 +70,24 @@ actor CardPreparationCoordinator {
         if let current = activeContext, context.epoch < current.epoch {
             return
         }
-        orderedItems = items
+        // Deduplicate within the batch itself — duplicate IDs in the same
+        // batch would corrupt renderReadyByID and permanently block the
+        // publish index when the first commit removes the shared card.
+        var seenIDs = Set<String>()
+        let uniqueItems = items.filter { seenIDs.insert($0.id).inserted }
+        orderedItems = uniqueItems
         stateByID.removeAll()
         resolvedByID.removeAll()
         renderReadyByID.removeAll()
         nextPrepareIndex = 0
         nextPublishIndex = 0
         activeContext = context
+
+        // Wake any prefix waiters — the sequence changed so they should
+        // re-evaluate whether their prefix condition is met.
+        let waiters = prefixWaiters
+        prefixWaiters.removeAll()
+        for (_, cont) in waiters { cont.resume() }
     }
 
     /// Append items to the end of the editorial sequence. Filters out
@@ -83,8 +98,10 @@ actor CardPreparationCoordinator {
         context: FeedPresentationContext
     ) async {
         guard context == activeContext else { return }
-        let existingIDs = Set(orderedItems.map(\.id))
-        let newItems = items.filter { !existingIDs.contains($0.id) }
+        // Track both existing and newly-seen IDs within this batch so
+        // intra-batch duplicates are also filtered.
+        var seenIDs = Set(orderedItems.map(\.id))
+        let newItems = items.filter { seenIDs.insert($0.id).inserted }
         guard !newItems.isEmpty else { return }
         orderedItems.append(contentsOf: newItems)
     }
@@ -117,7 +134,8 @@ actor CardPreparationCoordinator {
         context: FeedPresentationContext
     ) -> [PreparedFeedCard] {
         let cards = peekRenderReadyPrefix(maximumCount: maximumCount, context: context)
-        commitPublished(ids: cards.map(\.id))
+        let ids = cards.map(\.id)
+        guard commitPublished(expectedIDs: ids, context: context) else { return [] }
         return cards
     }
 
@@ -144,17 +162,69 @@ actor CardPreparationCoordinator {
         return ready
     }
 
-    /// Commit previously peeked cards as published. Removes them from
-    /// internal maps and advances nextPublishIndex past them.
-    func commitPublished(ids: [String]) {
-        for id in ids {
+    /// Suspend until the contiguous prefix reaches `minimumCount`, or the
+    /// deadline expires, or the context changes. Returns the prefix at that
+    /// point (may be shorter than minimumCount if the deadline fired).
+    ///
+    /// Unlike the old polling loop in FeedStore, this suspends passively —
+    /// `storeRenderReady` wakes waiters when a new card joins the prefix.
+    /// This eliminates the 300ms polling interval and the race window at
+    /// the deadline instant.
+    func waitForContiguousPrefix(
+        minimumCount: Int,
+        maximumCount: Int,
+        deadline: ContinuousClock.Instant,
+        context: FeedPresentationContext
+    ) async -> [PreparedFeedCard] {
+        while true {
+            let cards = peekRenderReadyPrefix(
+                maximumCount: maximumCount, context: context
+            )
+            if cards.count >= minimumCount { return cards }
+            guard context == activeContext else { return [] }
+            guard ContinuousClock().now < deadline else { return cards }
+
+            // Suspend until storeRenderReady signals or cancellation.
+            let waiterID = UUID()
+            await withTaskCancellationHandler {
+                await withCheckedContinuation { cont in
+                    prefixWaiters[waiterID] = cont
+                }
+            } onCancel: {
+                Task { [weak self] in
+                    await self?.removePrefixWaiter(waiterID)
+                }
+            }
+        }
+    }
+
+    /// Commit previously peeked cards as published. Validates that the
+    /// context is still active and that the expected IDs match the actual
+    /// contiguous prefix — a stale or duplicate commit is rejected.
+    /// Returns true if the commit succeeded (cards were removed and
+    /// nextPublishIndex advanced); false if the context changed or the
+    /// prefix no longer matches.
+    func commitPublished(
+        expectedIDs: [String],
+        context: FeedPresentationContext
+    ) -> Bool {
+        guard context == activeContext else { return false }
+
+        // Verify expectedIDs match the actual contiguous prefix.
+        let actual = peekRenderReadyPrefix(
+            maximumCount: expectedIDs.count,
+            context: context
+        ).map(\.id)
+        guard actual == expectedIDs else { return false }
+
+        // Commit: advance publish index and clean up maps in one pass.
+        nextPublishIndex += expectedIDs.count
+        for id in expectedIDs {
             renderReadyByID.removeValue(forKey: id)
             resolvedByID.removeValue(forKey: id)
             stateByID.removeValue(forKey: id)
-            if let idx = orderedItems.firstIndex(where: { $0.id == id }) {
-                nextPublishIndex = max(nextPublishIndex, idx + 1)
-            }
         }
+        return true
     }
 
     /// Discard all state for a context that's no longer active.
@@ -271,6 +341,16 @@ actor CardPreparationCoordinator {
     private func storeRenderReady(_ id: String, card: PreparedFeedCard) {
         renderReadyByID[id] = card
         stateByID[id] = .renderReady(card)
+
+        // Wake any callers suspended in waitForContiguousPrefix so they
+        // can re-evaluate whether the prefix is now long enough.
+        let waiters = prefixWaiters
+        prefixWaiters.removeAll()
+        for (_, cont) in waiters { cont.resume() }
+    }
+
+    private func removePrefixWaiter(_ id: UUID) {
+        prefixWaiters.removeValue(forKey: id)
     }
 
     private func resolveImageAsset(
@@ -355,31 +435,33 @@ actor CardPreparationCoordinator {
 
 // MARK: - Deadline Helper
 
-/// Race an async operation against a deadline. Returns the operation result
-/// if it completes before the deadline, or nil if the deadline expires first.
+/// Race an async operation against a deadline. Uses TaskGroup so the first
+/// to complete wins — the deadline is a hard guarantee, not a cooperative
+/// cancellation request. If the deadline fires first, the operation's
+/// TaskGroup child is cancelled (but the actual download may continue in
+/// shared MediaAssetStore state — that's fine; this caller abandons the
+/// wait and returns nil, which the coordinator converts to a placeholder).
 ///
-/// The operation runs in a cancellable Task. When the deadline fires, the
-/// timeout cancels it. We await the operation's value — if cancelled, the
-/// `try?` converts the CancellationError to nil (which the coordinator
-/// converts to a terminal placeholder).
+/// The operation's result is returned only if it completes before the
+/// deadline. Otherwise nil is returned and the operation is abandoned.
 private func raceWithDeadline<T: Sendable>(
     deadline: ContinuousClock.Instant,
     operation: @escaping @Sendable () async -> T?
 ) async -> T? {
-    let clock = ContinuousClock()
-
-    let downloadTask = Task<T?, Error> {
-        try Task.checkCancellation()
-        return await operation()
+    await withTaskGroup(of: T?.self) { group in
+        // Runner: the actual operation
+        group.addTask {
+            return await operation()
+        }
+        // Timer: fires at deadline, returns nil
+        group.addTask {
+            try? await Task.sleep(until: deadline, clock: .continuous)
+            return nil
+        }
+        // First to complete wins; cancel the other
+        let result = await group.next() ?? nil
+        group.cancelAll()
+        return result
     }
-
-    let timeoutTask = Task {
-        try? await Task.sleep(until: deadline, clock: clock)
-        downloadTask.cancel()
-    }
-
-    let result = try? await downloadTask.value
-    timeoutTask.cancel()
-    return result ?? nil
 }
 

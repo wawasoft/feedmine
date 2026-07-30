@@ -1,0 +1,188 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/feed/",
+    "title": "andi novelista | a peek inside a wicked mind",
+    "source": "page:novelista",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://www.abigailyardimci.com/blog-feed.xml",
+    "title": "Abigail Yardimci Blog | Novelista Mum | Devon | Page 2 of 15",
+    "source": "page:novelista",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://www.goodreads.com/review/list_rss/57889133",
+    "title": "Novelista Blogs (novelistablogs) - Austin, TX (103 books)",
+    "source": "page:novelista",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://e-novelista.blogspot.com/feeds/posts/default",
+    "title": "E-novelista: técnica narrativa",
+    "source": "page:novelista",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://poesiasyrelatos.com/feed/",
+    "title": "Blog de poesía – Alejandro Tomás",
+    "source": "page:poeta",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://elpoetaensuprobeta.blogspot.com/feeds/posts/default",
+    "title": "El Poeta en su Probeta * La Probeta del Poeta",
+    "source": "page:poeta",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://elpoetadelamancha.blogspot.com/feeds/posts/default",
+    "title": "El Poeta de La Mancha",
+    "source": "page:poeta",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://www.elespanol.com/rss/temas/poema/",
+    "title": "elespanol - poema",
+    "source": "direct:poeta",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://oxfordenglishblog.wordpress.com/2014/09/feed",
+    "title": "10 entradas publicadas por BUENOS DÍAS SEÑOR en September 2014",
+    "source": "wp:escritor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://bae2008.wordpress.com/registro-de-derechos-de-autora/feed",
+    "title": "Registro de Derechos de Autor/a",
+    "source": "wp:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://bae2008.wordpress.com/politicas-derechos-de-autor-uprrp/feed",
+    "title": "Políticas – Derechos de autor – UPRRP",
+    "source": "wp:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://bibliotecaap.wordpress.com/2017/02/03/conversatorio-con-el-autor-del-libro-puerto-rico-y-su-gobierno/feed",
+    "title": "Conversatorio con el autor del libro: Puerto Rico y su Gobierno |",
+    "source": "wp:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://puertoricoentresiglos.wordpress.com/feed",
+    "title": "Puerto Rico entre siglos: Historiografía y cultura | El presente del ...",
+    "source": "wp:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://literaturamodernapr.wordpress.com/autores/feed",
+    "title": "Autores | Literatura Moderna Puertorriqueña - WordPress.com",
+    "source": "wp:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://puertoricoentresiglos.wordpress.com/tag/historia-de-puerto-rico/feed",
+    "title": "Historia de Puerto Rico | Puerto Rico entre siglos",
+    "source": "wp:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://bae2008.wordpress.com/ley-num-96-del-1988/feed",
+    "title": "Ley Núm. 96 del 1988 - biblioteca administración de empresas (bae)",
+    "source": "wp:autor",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://acoso-textual.blogspot.com/feeds/posts/default",
+    "title": "Acoso textual: Dos poemarios: «Ánimas» y «Selección natural»; y un...",
+    "source": "platform:blogspot.com",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://rubencaravaca.blogspot.com/feeds/posts/default",
+    "title": "Winnipeg, el cómic del barco que naufragó en la memoria del exilio...",
+    "source": "platform:blogspot.com",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://labandzi.blogspot.com/feeds/posts/default",
+    "title": "Łabandzi Śpiew: lipca 2026",
+    "source": "platform:blogspot.com",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://yurakuna.blogspot.com/feeds/posts/default",
+    "title": "Modelos arquitecturales (5): el modelo de Holttum | Crónicas de un...",
+    "source": "platform:blogspot.com",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "http://011-tutorial.blogspot.com/feeds/posts/default",
+    "title": "11tutorial",
+    "source": "platform:blogspot.com",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://cabezademoog.blogspot.com/feeds/posts/default",
+    "title": "Rohmer - Rohemer (2008)",
+    "source": "platform:blogspot.com",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://narrativadeyolanda.blogspot.com/feeds/posts/default",
+    "title": "Boreales...: Asociación de escritores de Puerto Rico: carácter gremial",
+    "source": "assoc:es",
+    "country": "puerto-rico"
+  },
+  {
+    "url": "https://aldia.microjuris.com/feed/",
+    "title": "Escritores peticionan a Nueva York para que... - Microjuris al Día",
+    "source": "assoc:es",
+    "country": "puerto-rico"
+  }
+]

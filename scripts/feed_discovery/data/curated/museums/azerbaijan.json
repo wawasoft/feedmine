@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrvwI99gEY9mHVmxsODVbGw",
+    "category": "YouTube",
+    "title": "Azerbaijan Carpet Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.azcarpetmuseum.az/index_eng.htm",
+    "national": true,
+    "national_reason": "museums/youtube/azerbaijan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCcvYA9YC5PLsB39-LktFWHQ",
+    "category": "YouTube",
+    "title": "Azerbaijan State Agriculture Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://kendteserrufatimuzeyi.az/index.php/ru/",
+    "national": true,
+    "national_reason": "museums/youtube/azerbaijan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6Z5u2AMxguAghEgHHaBQ6g",
+    "category": "YouTube",
+    "title": "Azerbaijan State Art Gallery — YouTube",
+    "genre": "Museum",
+    "source_page": "https://azgallery.az",
+    "national": true,
+    "national_reason": "museums/youtube/azerbaijan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4efJGvWGgltbXlRASgdyHA",
+    "category": "YouTube",
+    "title": "National Museum of History of Azerbaijan — YouTube",
+    "genre": "Museum",
+    "source_page": "http://azhistorymuseum.gov.az/",
+    "national": true,
+    "national_reason": "museums/youtube/azerbaijan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCaYj-lMlJErvinNzah9akhA",
+    "category": "YouTube",
+    "title": "Nizami Museum of Azerbaijani Literature — YouTube",
+    "genre": "Museum",
+    "source_page": "http://nizamimuseum.az/museum/",
+    "national": true,
+    "national_reason": "museums/youtube/azerbaijan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

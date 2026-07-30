@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCm3Q-0PWJph__rDt-0mYiRg",
+    "category": "YouTube",
+    "title": "Asian Civilisations Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.nhb.gov.sg/acm/",
+    "national": true,
+    "national_reason": "museums/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCs9vUzWF0lMqJdzABLnykQA",
+    "category": "YouTube",
+    "title": "Indian Heritage Centre — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.indianheritage.gov.sg/ta",
+    "national": true,
+    "national_reason": "museums/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbLNeYM9jKBCl_B2Of7LFpw",
+    "category": "YouTube",
+    "title": "Malay Heritage Centre — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.malayheritage.gov.sg/my",
+    "national": true,
+    "national_reason": "museums/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCWXjiuvQMS-EoI2W4kQpieg",
+    "category": "YouTube",
+    "title": "National Museum of Singapore — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.nhb.gov.sg/nationalmuseum/",
+    "national": true,
+    "national_reason": "museums/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,5 +1,11 @@
 {
-  "source_count": 43556,
+  "duplicate_occurrence_count": 27,
+  "failed_file_count": 0,
   "file_count": 118,
-  "generated_at": "2026-07-29T21:50:00Z"
+  "invalid_source_count": 0,
+  "node_count": 5942,
+  "output": "/Users/wagnermontes/Documents/GitHub/feedmine/build/feed-curation/catalog.sqlite",
+  "placement_count": 43583,
+  "size_bytes": 64593920,
+  "source_count": 43556
 }

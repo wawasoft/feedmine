@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCZvaXGJhKOP6NAQ-tVZys7A",
+    "category": "YouTube",
+    "title": "Hong Kong Museum of Art — YouTube",
+    "genre": "Museum",
+    "source_page": "https://hk.art.museum/zh_TW/web/ma/home.html",
+    "national": true,
+    "national_reason": "museums/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCxxXL20QGxSBRG9yjFNIfdQ",
+    "category": "YouTube",
+    "title": "Macao Science Center — YouTube",
+    "genre": "Museum",
+    "source_page": "",
+    "national": true,
+    "national_reason": "museums/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCqzcPPHzit1kNvpEAuvPMuw",
+    "category": "YouTube",
+    "title": "Song Art Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "",
+    "national": true,
+    "national_reason": "museums/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCEg4q5iMw0vtBTGw7EaKfBA",
+    "category": "YouTube",
+    "title": "Sun Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.sunmuseum.org.hk",
+    "national": true,
+    "national_reason": "museums/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

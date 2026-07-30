@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCV2ad5E3-TyXrZJ27-o-eMg",
+    "category": "Education",
+    "title": "Conestoga College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.conestogac.on.ca/",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNA5q_idpAQaQLCSRW-7w8A",
+    "category": "Education",
+    "title": "Douglas College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.douglascollege.ca/",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCr-9sz2aI5NT-4X-k3Au-0A",
+    "category": "Education",
+    "title": "Educacentre College (YouTube)",
+    "genre": "University",
+    "source_page": "https://educacentre.com/",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCh8-dwwoDsHIebdgSOXLlkQ",
+    "category": "Education",
+    "title": "Okanagan College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.okanagan.bc.ca/",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCEBoj3DKkfQo23CYbq99QHQ",
+    "category": "Education",
+    "title": "Red River College Polytechnic (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.rrc.ca/",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC327M9im1ba32Pv32LR118w",
+    "category": "Education",
+    "title": "University of British Columbia (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ubc.ca/",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCs3lyyFBSXvVywEgvcHhbvA",
+    "category": "Education",
+    "title": "University of Winnipeg (YouTube)",
+    "genre": "University",
+    "source_page": "https://uwinnipeg.ca",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrobexy2md2SGfWZXFCwZSg",
+    "category": "Education",
+    "title": "York University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.yorku.ca/",
+    "national": true,
+    "national_reason": "universities/youtube/canada",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

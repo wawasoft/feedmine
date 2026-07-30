@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.maticmunc.net/feed/",
+    "title": "Matic Munc - Psiholog, predavatelj, pisatelj in bloger",
+    "source": "page:pisatelj",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://www.dobreknjige.si/feed/",
+    "title": "Pisatelj, Adam in pilot - Dobre knjige",
+    "source": "page:pisatelj",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://www.os-domzale.si/feed/",
+    "title": "Pisatelj Žiga X. Gombač na obisku | Osnovna šola Domžale",
+    "source": "page:pisatelj",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://gregormajdic.splet.arnes.si/feed/",
+    "title": "Gregor; znanstvenik, pisatelj, popotnik | Gregor Majdič",
+    "source": "page:pisatelj",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://forum-amit.ru/index.php?type=rss;action=.xml",
+    "title": "Просмотр сообщений - avtor55",
+    "source": "page:avtor",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://www.slobodnaevropa.org/api/",
+    "title": "Zatvoreni ruski antiratni pesnik odbio da se pridruži ruskoj vojsci...",
+    "source": "page:pesnik",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://www.jutarnji.hr/feed",
+    "title": "Jutarnji list - ESEJIST, KNJIŽEVNI UREDNIK, IZDAVAČ...",
+    "source": "page:esejist",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://www.mladina.si/media/rss/rss-fb-mladina.xml",
+    "title": "Mitja Čander, literarni urednik in esejist | MLADINA.si",
+    "source": "page:esejist",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://europebetweeneastandwest.wordpress.com/tag/plovdiv-bulgaria/feed",
+    "title": "Posts about Plovdiv Bulgaria written by fortchoteau1",
+    "source": "en-fb-wp:writer",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://kavarnahayek.wordpress.com/2026/07/10/angels-will-always-sit-on-the-shoulders-of-upright-men/feed",
+    "title": "Angels Will Always Sit on the Shoulders of Upright Men | Kavarna Hayek",
+    "source": "en-fb-wp:writer",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://christinerobledo.wordpress.com/2026/07/26/feed",
+    "title": "26/07/2026 – les chroniques mortes ou vives",
+    "source": "en-fb-wp:writer",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://criancasatortoeadireitos.wordpress.com/2014/11/28/feed",
+    "title": "28 | Novembro | 2014 | Crianças a torto e a Direitos",
+    "source": "en-fb-wp:writer",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://europebetweeneastandwest.wordpress.com/tag/cities-in-bulgaria/feed",
+    "title": "Cities in Bulgaria | Europe Between East And West",
+    "source": "en-fb-wp:author",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://ausertimes.blogspot.com/feeds/posts/default",
+    "title": "THE AUSER TIMES: As far as cars in Slovenia",
+    "source": "broad:site:blogspot.com \"Slovenia\"",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://warshipsresearch.blogspot.com/feeds/posts/default",
+    "title": "WARSHIPSRESEARCH: American whaler Good Return visited...",
+    "source": "broad:site:blogspot.com \"Slovenia\"",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://newnavitel.blogspot.com/feeds/posts/default",
+    "title": "New Navitel : Карты",
+    "source": "broad:site:blogspot.com \"Slovenia\"",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://ukemucodes.blogspot.com/feeds/posts/default",
+    "title": "FREE UK STBEMU CODES 25/07/2026 - Free uk stb emu codes",
+    "source": "broad:site:blogspot.com \"Slovenia\"",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://deseoaprenders.blogspot.com/feeds/posts/default",
+    "title": "Integrating AI into CMS for Smarter SEO Plug-ins",
+    "source": "broad:site:blogspot.com \"Slovenia\"",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://metalrock7.blogspot.com/feeds/posts/default",
+    "title": "MᴇᴛᴀʟRᴏᴄᴋ 7: WOLFPAKK - Rise Of The Animal (2015)",
+    "source": "broad:site:blogspot.com \"Slovenia\"",
+    "country": "slovenia"
+  },
+  {
+    "url": "https://fontfootball.blogspot.com/feeds/posts/default",
+    "title": "FONT FOOTBALL: Font Vector Benfica Away UCL 2026 2027 Shirt",
+    "source": "broad:site:blogspot.com \"Slovenia\"",
+    "country": "slovenia"
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC9Q74g-Y1J4w228-SSbI0Qg",
+    "category": "Education",
+    "title": "Charles University (YouTube)",
+    "genre": "University",
+    "source_page": "https://cuni.cz",
+    "national": true,
+    "national_reason": "universities/youtube/czech-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCEzOI2nf-jMJcmVsZiRbZkA",
+    "category": "Education",
+    "title": "VSB – Technical University of Ostrava (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.vsb.cz/",
+    "national": true,
+    "national_reason": "universities/youtube/czech-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNaeUO-IRSN88H1qqTssqMA",
+    "category": "Education",
+    "title": "Škoda Auto University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.savs.cz/en/",
+    "national": true,
+    "national_reason": "universities/youtube/czech-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

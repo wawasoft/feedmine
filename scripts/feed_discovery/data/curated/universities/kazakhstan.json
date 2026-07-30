@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLzOZI2A46EvQp2z6qXM64w",
+    "category": "Education",
+    "title": "Almaty College of Decorative and Applied Arts (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.akdpi.kz/",
+    "national": true,
+    "national_reason": "universities/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCo6yF4QlDvusrEH9f_8_nYw",
+    "category": "Education",
+    "title": "East Kazakhstan State University (YouTube)",
+    "genre": "University",
+    "source_page": "https://en.wikipedia.org/wiki/Sarsen_Amanzholov_East_Kazakhstan_State_University",
+    "national": true,
+    "national_reason": "universities/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCt5TVj_m_eWyAHcbQujDQ3Q",
+    "category": "Education",
+    "title": "Kazakh Leading Academy of Architecture and Construction (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.kazgasa.kz/",
+    "national": true,
+    "national_reason": "universities/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNBcb0ogBZHjEpwjrdIoFGQ",
+    "category": "Education",
+    "title": "Kokshetau State University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.kgu.kz/",
+    "national": true,
+    "national_reason": "universities/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCcR2IfrIG53yxZZbWoYirHQ",
+    "category": "Education",
+    "title": "Narkhoz University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.narxoz.kz",
+    "national": true,
+    "national_reason": "universities/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCp8X0UcHU-KPRXAifu4IHlQ",
+    "category": "Education",
+    "title": "Nazarbayev University (YouTube)",
+    "genre": "University",
+    "source_page": "http://nu.edu.kz",
+    "national": true,
+    "national_reason": "universities/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCzpfUbR-imEHBlhOX9tnKEg",
+    "category": "Education",
+    "title": "Satbayev University (YouTube)",
+    "genre": "University",
+    "source_page": "https://satbayev.university",
+    "national": true,
+    "national_reason": "universities/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

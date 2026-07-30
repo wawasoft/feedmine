@@ -1,0 +1,218 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/feed/",
+    "title": "andi novelista | a peek inside a wicked mind",
+    "source": "page:novelista",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://www.abigailyardimci.com/blog-feed.xml",
+    "title": "Abigail Yardimci Blog | Novelista Mum | Devon | Page 2 of 15",
+    "source": "page:novelista",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://e-novelista.blogspot.com/feeds/posts/default",
+    "title": "E-novelista: técnica narrativa",
+    "source": "page:novelista",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "uruguay"
+  },
+  {
+    "url": "http://eded.org.cn.anticopyrighttr.wordpress.com/feed",
+    "title": "Anticopyright-tr Blog | Just another WordPress.com weblog",
+    "source": "wp:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://delamarylosbarcos.wordpress.com/tag/sagres/feed",
+    "title": "Sagres | De la mar y los barcos",
+    "source": "wp:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://mobemito.wordpress.com/tag/familia/feed",
+    "title": "familia – Los escritos de Mobemito",
+    "source": "wp:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://fuegosagrado2017.wordpress.com/2017/09/19/el-loco-sarmiento-apuntes-sobre-el-hombre-que-escribia-con-la-espada-y-disparaba-con-la-pluma/feed",
+    "title": "El loco Sarmiento: apuntes sobre el hombre que escribía con la espada...",
+    "source": "wp:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://salidaalmar.wordpress.com/category/trazos-sueltos/feed",
+    "title": "Entradas sobre Trazos sueltos escritas por denapoli | SALIDA AL MAR",
+    "source": "wp:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://oxfordenglishblog.wordpress.com/tag/imperio-britanico-2/feed",
+    "title": "Entradas sobre Imperio británico escritas por BUENOS DÍAS SEÑOR",
+    "source": "wp:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://erikostark001.wordpress.com/category/reflexion/feed",
+    "title": "Entradas sobre reflexión escritas por Eriko Stark",
+    "source": "wp:escritor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2010/05/30/formulario-de-contacto-actualizado/feed",
+    "title": "Formulario de Contacto Actualizado – WordPress.com en Español",
+    "source": "wp:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://blogdelerolico.wordpress.com/2026/07/25/formacion-de-centroamerica-y-su-relacion-con-mexico/feed",
+    "title": "«Formación de Centroamérica y su relación con...» | Blog de Lerolico",
+    "source": "wp:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://musicarberdi.wordpress.com/2009/10/20/feed",
+    "title": "20 | octubre | 2009 | TangoRBerdi - Tango y Otras",
+    "source": "wp:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://cazadebunkers.wordpress.com/tag/estado-islamico/feed",
+    "title": "Entradas sobre Estado Islámico escritas por Ciencia y Espíritu",
+    "source": "wp:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://salidaalmar.wordpress.com/2012/01/feed",
+    "title": "5 entradas publicadas por denapoli en January 2012",
+    "source": "wp:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://blogbagatela.wordpress.com/2026/07/20/el-nino-impacta-en-la-region-forza-explica-como-fortalecer-la-infraestructura-electrica-y-mantener-la-continuidad-operativa-en-colombia/feed",
+    "title": "El Niño impacta en la región: Forza explica cómo fortalecer la...",
+    "source": "wp:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://honduprensa.wordpress.com/2014/11/04/feed",
+    "title": "24 entradas publicadas por honduprensa el November 4, 2014",
+    "source": "wp:autor",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://la680.wordpress.com/category/sin-categoria/page/6/feed",
+    "title": "Sin categoría – Página 6 – La Mirada de la Medusa.",
+    "source": "wp:novelista",
+    "country": "uruguay"
+  },
+  {
+    "url": "http://uruguay1.blogspot.com/feeds/posts/default",
+    "title": "Uruguay's wildlife & Natural sanctuaries - Santuarios naturales & f...",
+    "source": "platform:blogspot.com",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://lasmusasdespiertas.blogspot.com/feeds/posts/default",
+    "title": "Entrevistas: Martha Velandia Gonzalez: \"No hay nada más satisfactorio...",
+    "source": "platform:blogspot.com",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://rubencaravaca.blogspot.com/feeds/posts/default",
+    "title": "Winnipeg, el cómic del barco que naufragó en la memoria del exilio...",
+    "source": "platform:blogspot.com",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://deseoaprenders.blogspot.com/feeds/posts/default",
+    "title": "Gogos Pechanga: Tu Guía Completa para Apostar y Ganar en Casinos...",
+    "source": "platform:blogspot.com",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "www drbet: Guía definitiva para Juego y Apuestas en Uruguay",
+    "source": "platform:blogspot.com",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://leersociologia.blogspot.com/feeds/posts/default",
+    "title": "Auguste Comte: Système de politique positive (Indice Tomos II/III)...",
+    "source": "platform:blogspot.com",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://labandzi.blogspot.com/feeds/posts/default",
+    "title": "Łabandzi Śpiew: lipca 2026",
+    "source": "platform:blogspot.com",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://aediuruguay.blogspot.com/feeds/posts/default",
+    "title": "Asociación de escritores del interior",
+    "source": "assoc:es",
+    "country": "uruguay"
+  },
+  {
+    "url": "https://www.elciudadano.com/feed/",
+    "title": "Regalo: Aquí puedes descargar 362 libros gratis en PDF de escritores...",
+    "source": "assoc:es",
+    "country": "uruguay"
+  }
+]

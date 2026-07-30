@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCPP_9DNSv-EdVwwUxGU4oDw",
+    "category": "Education",
+    "title": "Medical University of Łódź (YouTube)",
+    "genre": "University",
+    "source_page": "http://umed.pl/",
+    "national": true,
+    "national_reason": "universities/youtube/poland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,1794 @@
+[
+  {
+    "name": "Q5440479",
+    "website": "http://www.ufpb.br",
+    "wikidata_id": "Q5440479",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Para%C3%ADba",
+    "country": "brazil"
+  },
+  {
+    "name": "Aeronautics Institute of Technology",
+    "website": "http://www.ita.br",
+    "wikidata_id": "Q1317163",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Instituto_Tecnol%C3%B3gico_de_Aeron%C3%A1utica",
+    "country": "brazil"
+  },
+  {
+    "name": "Anhanguera Educacional",
+    "website": "https://www.anhanguera.com/",
+    "wikidata_id": "Q4764337",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Anhanguera_Educacional",
+    "country": "brazil"
+  },
+  {
+    "name": "Anhembi Morumbi University",
+    "website": "http://www.anhembi.br/",
+    "wikidata_id": "Q2043612",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Anhembi_Morumbi_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Brasil University",
+    "website": "http://www.universidadebrasil.edu.br",
+    "wikidata_id": "Q10387776",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Brazilian National Telecommunications Institute",
+    "website": "http://www.inatel.br",
+    "wikidata_id": "Q6013669",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Inatel",
+    "country": "brazil"
+  },
+  {
+    "name": "Brusque University Center",
+    "website": "http://www.unifebe.edu.br",
+    "wikidata_id": "Q29183007",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Castelo Branco University",
+    "website": "http://www.castelobranco.br",
+    "wikidata_id": "Q10387777",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Catholic University of Pernambuco",
+    "website": "http://www.unicap.br",
+    "wikidata_id": "Q7894356",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Catholic_University_of_Pernambuco",
+    "country": "brazil"
+  },
+  {
+    "name": "Catholic University of Petropolis",
+    "website": "http://www.ucp.br",
+    "wikidata_id": "Q7894360",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Catholic_University_of_Petr%C3%B3polis",
+    "country": "brazil"
+  },
+  {
+    "name": "Ceará State University",
+    "website": "http://www.uece.br",
+    "wikidata_id": "Q7894366",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_Cear%C3%A1",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário - Católica de Santa Catarina",
+    "website": "http://www.catolicasc.org.br",
+    "wikidata_id": "Q9726305",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Assunção",
+    "website": "http://www.unifai.edu.br",
+    "wikidata_id": "Q16494989",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Barriga Verde",
+    "website": "http://www.unibave.net",
+    "wikidata_id": "Q29177887",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Belas Artes de São Paulo",
+    "website": "http://www.belasartes.br",
+    "wikidata_id": "Q9726404",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Católica de Quixadá",
+    "website": "http://www.fcrs.edu.br",
+    "wikidata_id": "Q10279228",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Católico Salesiano Auxilium",
+    "website": "http://www.unisalesiano.edu.br",
+    "wikidata_id": "Q29178188",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Celso Lisboa",
+    "website": "https://celsolisboa.edu.br/",
+    "wikidata_id": "Q9726493",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Central Paulista",
+    "website": "http://www.unicep.edu.br",
+    "wikidata_id": "Q18484094",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Claretiano",
+    "website": "http://www.claretiano.edu.br",
+    "wikidata_id": "Q25429673",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Euroamericano",
+    "website": "http://www.unieuro.edu.br",
+    "wikidata_id": "Q9726572",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Eurípedes de Marília",
+    "website": "http://www.univem.edu.br",
+    "wikidata_id": "Q5062887",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Universit%C3%A1rio_Eur%C3%ADpedes_de_Mar%C3%ADlia",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Filadélfia",
+    "website": "http://www.unifil.br",
+    "wikidata_id": "Q29168539",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário La Salle",
+    "website": "http://www.unilasalle.edu.br",
+    "wikidata_id": "Q19704353",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Metodista IPA",
+    "website": "http://www.metodistadosul.edu.br",
+    "wikidata_id": "Q18484127",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Moura Lacerda",
+    "website": "http://www.mouralacerda.edu.br",
+    "wikidata_id": "Q18484131",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Municipal de São José",
+    "website": "http://www.usj.edu.br",
+    "wikidata_id": "Q10387903",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Nossa Senhora do Patrocínio",
+    "website": "http://www.ceunsp.edu.br",
+    "wikidata_id": "Q18484147",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Octávio Bastos",
+    "website": "http://unifeob.edu.br/",
+    "wikidata_id": "Q18484169",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Plínio Leite",
+    "website": "http://www.unipli.com.br",
+    "wikidata_id": "Q9726803",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Ritter dos Reis",
+    "website": "http://www.uniritter.edu.br",
+    "wikidata_id": "Q5062890",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Universit%C3%A1rio_Ritter_dos_Reis",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Santa Cruz de Curitiba",
+    "website": "https://unisantacruz.edu.br/h",
+    "wikidata_id": "Q112876760",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Serra dos Órgãos",
+    "website": "http://www.feso.br",
+    "wikidata_id": "Q18484159",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Toledo",
+    "website": "http://www.toledo.br",
+    "wikidata_id": "Q18484166",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário UNA",
+    "website": "http://www.una.br",
+    "wikidata_id": "Q9726859",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Unifafibe",
+    "website": "http://unifafibe.com.br/",
+    "wikidata_id": "Q55662198",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário Uninovafapi",
+    "website": "https://www.uninovafapi.edu.br/",
+    "wikidata_id": "Q5428824",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Universit%C3%A1rio_Uninovafapi",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário da Fundação Educacional Guaxupé",
+    "website": "http://www.unifeg.edu.br",
+    "wikidata_id": "Q29177461",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário da Fundação Educacional de Barretos",
+    "website": "http://www.unifeb.edu.br",
+    "wikidata_id": "Q29182797",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário das Faculdades Metropolitanas Unidas",
+    "website": "http://www.fmu.br",
+    "wikidata_id": "Q18370083",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Universit%C3%A1rio_das_Faculdades_Metropolitanas_Unidas",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Barra Mansa",
+    "website": "http://www.ubm.br",
+    "wikidata_id": "Q29182738",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Belo Horizonte",
+    "website": "http://www.unibh.br",
+    "wikidata_id": "Q18370088",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_Center_of_Belo_Horizonte",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Desenvolvimento do Centro Oeste",
+    "website": "http://www.unidesc.edu.br/",
+    "wikidata_id": "Q29177670",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Formiga",
+    "website": "http://www.uniformg.edu.br",
+    "wikidata_id": "Q18484191",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Franca",
+    "website": "http://www.facef.br",
+    "wikidata_id": "Q18484195",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Itajubá",
+    "website": "http://www.fepi.br",
+    "wikidata_id": "Q10302508",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Jaguariúna",
+    "website": "https://unifaj.grupounieduk.com.br/",
+    "wikidata_id": "Q54864274",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de João Pessoa",
+    "website": "http://www.unipe.br",
+    "wikidata_id": "Q9727031",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Lins",
+    "website": "http://www.unilins.edu.br",
+    "wikidata_id": "Q18484209",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Sete Lagoas",
+    "website": "http://www.unifemm.edu.br",
+    "wikidata_id": "Q29183581",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de União da Vitória",
+    "website": "http://www.uniuv.edu.br",
+    "wikidata_id": "Q18484215",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Volta Redonda",
+    "website": "http://www.unifoa.edu.br",
+    "wikidata_id": "Q18484219",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário de Votuporanga",
+    "website": "http://www.unifev.edu.br",
+    "wikidata_id": "Q18484225",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário do Cerrado Patrocínio",
+    "website": "http://www.unicerp.edu.br",
+    "wikidata_id": "Q29178015",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário do Espírito Santo",
+    "website": "http://www.unesc.br",
+    "wikidata_id": "Q18484236",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Centro Universitário do Triângulo",
+    "website": "http://www.unitri.edu.br",
+    "wikidata_id": "Q18484245",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Ceuma University",
+    "website": "https://www.ceuma.br",
+    "wikidata_id": "Q9727195",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "College of Amazon",
+    "website": "http://www.faam.com.br/",
+    "wikidata_id": "Q17510474",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Amazon",
+    "country": "brazil"
+  },
+  {
+    "name": "Colégio Anchieta",
+    "website": "http://www.colegioanchieta.org.br/",
+    "wikidata_id": "Q18473464",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Anchieta_College_(Nova_Friburgo)",
+    "country": "brazil"
+  },
+  {
+    "name": "Colégio Culto à Ciência",
+    "website": "",
+    "wikidata_id": "Q5150401",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Col%C3%A9gio_Culto_%C3%A0_Ci%C3%AAncia",
+    "country": "brazil"
+  },
+  {
+    "name": "Colégio Dante Alighieri",
+    "website": "http://www.colegiodante.com.br",
+    "wikidata_id": "Q17126291",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Col%C3%A9gio_Dante_Alighieri",
+    "country": "brazil"
+  },
+  {
+    "name": "Colégio Nossa Senhora das Dores",
+    "website": "http://www.cnsdfri.com.br/",
+    "wikidata_id": "Q9819485",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Colégio Sinodal",
+    "website": "http://www.sinodal.com.br/",
+    "wikidata_id": "Q29512086",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Dom Bosco Catholic University",
+    "website": "http://www.ucdb.br",
+    "wikidata_id": "Q7894353",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dom_Bosco_Catholic_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Escola Superior de Propaganda e Marketing",
+    "website": "http://www.espm.br",
+    "wikidata_id": "Q3847972",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Escola_Superior_de_Propaganda_e_Marketing",
+    "country": "brazil"
+  },
+  {
+    "name": "Escola da Cidade",
+    "website": "http://www.escoladacidade.org/",
+    "wikidata_id": "Q10274550",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Escola_da_Cidade",
+    "country": "brazil"
+  },
+  {
+    "name": "Estácio de Sá University",
+    "website": "http://www.estacio.br",
+    "wikidata_id": "Q2091986",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Est%C3%A1cio_de_S%C3%A1_University",
+    "country": "brazil"
+  },
+  {
+    "name": "FAE University Center",
+    "website": "http://www.fae.edu/",
+    "wikidata_id": "Q10278991",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "FAESA Centro Universitário",
+    "website": "http://www.faesa.br",
+    "wikidata_id": "Q10279662",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade Flamingo",
+    "website": "http://www.faculdadeflamingo.com.br",
+    "wikidata_id": "Q55662145",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade Instituto Paulista de Ensino",
+    "website": "http://www.fipen.edu.br",
+    "wikidata_id": "Q55663340",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade La Salle",
+    "website": "http://www.unilasalle.edu.br/lucas",
+    "wikidata_id": "Q28220933",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Salle_College_of_Lucas_do_Rio_Verde",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade Redentor",
+    "website": "http://www.redentor.edu.br",
+    "wikidata_id": "Q10279304",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade da Cidade de Maceió",
+    "website": "http://www.facima.edu.br/",
+    "wikidata_id": "Q55662564",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade de Direito do Recife",
+    "website": "https://www.ufpe.br/",
+    "wikidata_id": "Q5428830",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Pernambuco_Recife_School_of_Law",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade de Filosofia, Ciências e Letras de Ribeirão Preto, University of Sao Paulo",
+    "website": "http://www.ffclrp.usp.br",
+    "wikidata_id": "Q5428833",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Faculdade_de_Filosofia,_Ci%C3%AAncias_e_Letras_de_Ribeir%C3%A3o_Preto",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade de São José dos Campos",
+    "website": "http://www.bilac.com.br",
+    "wikidata_id": "Q55663286",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdade de Telêmaco Borba",
+    "website": "http://www.fatebtb.edu.br",
+    "wikidata_id": "Q5428845",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Faculdade_de_Tel%C3%AAmaco_Borba",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdades Associadas de São Paulo",
+    "website": "http://fasp.br/",
+    "wikidata_id": "Q55663221",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdades Integradas Campos Salles",
+    "website": "http://www.csedu.br",
+    "wikidata_id": "Q54932317",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdades Integradas Rio Branco",
+    "website": "http://www.riobrancofac.edu.br",
+    "wikidata_id": "Q5428848",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Faculdades_Integradas_Rio_Branco",
+    "country": "brazil"
+  },
+  {
+    "name": "Faculdades Integradas Teresa D´ávila",
+    "website": "http://fatea.br/fatea/",
+    "wikidata_id": "Q10279674",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal Rural University of Amazonia",
+    "website": "http://www.ufra.edu.br",
+    "wikidata_id": "Q20061641",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_Rural_University_of_Amazonia",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal Rural University of Pernambuco",
+    "website": "http://www.ufrpe.br",
+    "wikidata_id": "Q7894368",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_Rural_University_of_Pernambuco",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal Rural University of Rio de Janeiro",
+    "website": "http://www.ufrrj.br",
+    "wikidata_id": "Q7834196",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_Rural_University_of_Rio_de_Janeiro",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Alfenas",
+    "website": "http://www.unifal-mg.edu.br",
+    "wikidata_id": "Q10387825",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Alfenas",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Campina Grande",
+    "website": "http://www.ufcg.edu.br",
+    "wikidata_id": "Q3848464",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Campina_Grande",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Espírito Santo",
+    "website": "http://www.ufes.br",
+    "wikidata_id": "Q10387830",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Esp%C3%ADrito_Santo",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Fronteira Sul",
+    "website": "http://www.uffs.edu.br/",
+    "wikidata_id": "Q7894370",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Fronteira_Sul",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Health Sciences of Porto Alegre",
+    "website": "https://www.ufcspa.edu.br/",
+    "wikidata_id": "Q2036836",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Health_Sciences_of_Porto_Alegre",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Itajubá",
+    "website": "http://www.unifei.edu.br",
+    "wikidata_id": "Q7894372",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Itajub%C3%A1",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Lavras",
+    "website": "https://ufla.br/",
+    "wikidata_id": "Q10387826",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Lavras",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Maranhão",
+    "website": "http://www.ufma.br",
+    "wikidata_id": "Q5440477",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Maranh%C3%A3o",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Mato Grosso",
+    "website": "https://www.ufmt.br/",
+    "wikidata_id": "Q7894374",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Mato_Grosso",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Rio Grande do Norte",
+    "website": "https://ufrn.br/en",
+    "wikidata_id": "Q3847505",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Rio_Grande_do_Norte",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Rio Grande do Sul",
+    "website": "http://www.ufrgs.br/",
+    "wikidata_id": "Q766447",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Rio_Grande_do_Sul",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Rondônia",
+    "website": "http://www.unir.br",
+    "wikidata_id": "Q7894377",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Rond%C3%B4nia",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Sergipe",
+    "website": "https://www.ufs.br/",
+    "wikidata_id": "Q7894380",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Sergipe",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Triângulo Mineiro",
+    "website": "http://www.uftm.edu.br",
+    "wikidata_id": "Q10387837",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Tri%C3%A2ngulo_Mineiro",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Uberlândia",
+    "website": "http://www.ufu.br",
+    "wikidata_id": "Q5440489",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Uberl%C3%A2ndia",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of Viçosa",
+    "website": "http://www.ufv.br",
+    "wikidata_id": "Q5814528",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Vi%C3%A7osa",
+    "country": "brazil"
+  },
+  {
+    "name": "Federal University of the Valleys of Jequitinhonha and Mucuri",
+    "website": "http://www.ufvjm.edu.br",
+    "wikidata_id": "Q10387836",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Vales_do_Jequitinhonha_e_Mucuri",
+    "country": "brazil"
+  },
+  {
+    "name": "Fluminense Federal University",
+    "website": "https://www.uff.br/",
+    "wikidata_id": "Q280247",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fluminense_Federal_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Franciscan University",
+    "website": "http://www.ufn.edu.br",
+    "wikidata_id": "Q5062888",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Franciscana",
+    "country": "brazil"
+  },
+  {
+    "name": "Fundação Armando Alvares Penteado",
+    "website": "https://www.faap.br",
+    "wikidata_id": "Q5508993",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Funda%C3%A7%C3%A3o_Armando_Alvares_Penteado",
+    "country": "brazil"
+  },
+  {
+    "name": "Fundação do Ensino Superior de Rio Verde",
+    "website": "http://www.unirv.edu.br/",
+    "wikidata_id": "Q10387898",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Gama Filho University",
+    "website": "http://www.ugf.br",
+    "wikidata_id": "Q10387839",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Gama_Filho",
+    "country": "brazil"
+  },
+  {
+    "name": "Goiás State University",
+    "website": "http://www.ueg.br",
+    "wikidata_id": "Q10387810",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Goi%C3%A1s_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Guarulhos University",
+    "website": "http://www.ung.br",
+    "wikidata_id": "Q10387838",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Guignard University of Art of Minas Gerais",
+    "website": "http://www.uemg.br/",
+    "wikidata_id": "Q5615688",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Guignard_University_of_Art_of_Minas_Gerais",
+    "country": "brazil"
+  },
+  {
+    "name": "Ibmec",
+    "website": "http://www.ibmec.br/",
+    "wikidata_id": "Q5984146",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ibmec",
+    "country": "brazil"
+  },
+  {
+    "name": "Instituição Toledo de Ensino",
+    "website": "http://www.ite.edu.br/",
+    "wikidata_id": "Q10302373",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Instituto Mauá de Tecnologia",
+    "website": "http://www.maua.br",
+    "wikidata_id": "Q6041362",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Instituto_Mau%C3%A1_de_Tecnologia",
+    "country": "brazil"
+  },
+  {
+    "name": "Instituto Metodista Granbery",
+    "website": "http://www.granbery.edu.br",
+    "wikidata_id": "Q10302582",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Ipog - Instituto de Pós-graduação & Graduação",
+    "website": "http://www.ipog.edu.br",
+    "wikidata_id": "Q54864393",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Jesuit School of Philosophy and Theology",
+    "website": "http://www.faculdadejesuita.edu.br",
+    "wikidata_id": "Q1532146",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jesuit_School_of_Philosophy_and_Theology",
+    "country": "brazil"
+  },
+  {
+    "name": "Law School of Fluminense Federal University",
+    "website": "http://www.uff.br/direito/",
+    "wikidata_id": "Q6503087",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Law_School_of_Fluminense_Federal_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Lutheran University of Brazil",
+    "website": "https://www.ulbra.br/",
+    "wikidata_id": "Q5650092",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lutheran_University_of_Brazil",
+    "country": "brazil"
+  },
+  {
+    "name": "METROCAMP",
+    "website": "http://www.devrybrasil.edu.br/metrocamp/",
+    "wikidata_id": "Q10322350",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Mackenzie Presbyterian University",
+    "website": "http://www.mackenzie.com.br",
+    "wikidata_id": "Q7894395",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mackenzie_Presbyterian_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Mato Grosso State University",
+    "website": "http://www.unemat.br",
+    "wikidata_id": "Q10387911",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mato_Grosso_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Mato Grosso do Sul State University",
+    "website": "http://www.uems.br",
+    "wikidata_id": "Q10387811",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mato_Grosso_do_Sul_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Methodist University of Piracicaba",
+    "website": "http://www.unimep.br",
+    "wikidata_id": "Q10387852",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Methodist_University_of_Piracicaba",
+    "country": "brazil"
+  },
+  {
+    "name": "Methodist University of São Paulo",
+    "website": "http://www.metodista.br/",
+    "wikidata_id": "Q7894387",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Methodist_University_of_S%C3%A3o_Paulo",
+    "country": "brazil"
+  },
+  {
+    "name": "Milton Campos College",
+    "website": "http://www.mcampos.br/",
+    "wikidata_id": "Q10279683",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Milton_Campos_Law_School",
+    "country": "brazil"
+  },
+  {
+    "name": "Montes Claros State University",
+    "website": "http://www.unimontes.br",
+    "wikidata_id": "Q10387812",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_Montes_Claros",
+    "country": "brazil"
+  },
+  {
+    "name": "Museu Nacional",
+    "website": "http://www.museunacional.ufrj.br/",
+    "wikidata_id": "Q1850416",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Museum_of_Brazil",
+    "country": "brazil"
+  },
+  {
+    "name": "National Institute of Applied Naturopathy",
+    "website": "https://faculdadeinnap.com.br/",
+    "wikidata_id": "Q131920904",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Nilton Lins University",
+    "website": "http://www.niltonlins.br",
+    "wikidata_id": "Q18484140",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Ponta Grossa State University",
+    "website": "http://www.uepg.br",
+    "wikidata_id": "Q7228043",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_Ponta_Grossa",
+    "country": "brazil"
+  },
+  {
+    "name": "Pontifical Catholic University of Rio de Janeiro",
+    "website": "https://www.puc-rio.br",
+    "wikidata_id": "Q1857293",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pontifical_Catholic_University_of_Rio_de_Janeiro",
+    "country": "brazil"
+  },
+  {
+    "name": "Pontifícia Universidade Católica de Minas Gerais",
+    "website": "http://www.pucminas.br",
+    "wikidata_id": "Q923610",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pontifical_Catholic_University_of_Minas_Gerais",
+    "country": "brazil"
+  },
+  {
+    "name": "Pontifícia Universidade Católica de São Paulo",
+    "website": "http://www.pucsp.br",
+    "wikidata_id": "Q1815994",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pontifical_Catholic_University_of_S%C3%A3o_Paulo",
+    "country": "brazil"
+  },
+  {
+    "name": "Regional University of Blumenau",
+    "website": "http://www.furb.br",
+    "wikidata_id": "Q10387863",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Rio Grande do Sul State University",
+    "website": "http://www.uergs.edu.br",
+    "wikidata_id": "Q10387820",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rio_Grande_do_Sul_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Rio de Janeiro State University",
+    "website": "http://www.uerj.br",
+    "wikidata_id": "Q2840233",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rio_de_Janeiro_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Sant'Anna University",
+    "website": "http://www.unisantanna.br",
+    "wikidata_id": "Q10387871",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "School of Engineering of São Carlos of the University of São Paulo",
+    "website": "http://www.eesc.usp.br/",
+    "wikidata_id": "Q10274620",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Senac University Center",
+    "website": "http://www.sp.senac.br/centrouniversitario",
+    "wikidata_id": "Q18484155",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Sergipe Faculty of Economics",
+    "website": "https://www.ufs.br/pagina/432#:~:text=Criada%20oficialmente%20em%2015%20de,através%20de%20processo%20seletivo%20anual.",
+    "wikidata_id": "Q131308257",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "State College of Paraná",
+    "website": "http://www.cep.pr.gov.br/",
+    "wikidata_id": "Q9818326",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of Amapá",
+    "website": "http://www.ueap.edu.br/",
+    "wikidata_id": "Q10387816",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of Maranhão",
+    "website": "http://www.uema.br",
+    "wikidata_id": "Q10387817",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Estadual_do_Maranh%C3%A3o",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of Minas Gerais",
+    "website": "http://www.uemg.br",
+    "wikidata_id": "Q2495760",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Minas_Gerais_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of Norte Fluminense",
+    "website": "http://www.uenf.br",
+    "wikidata_id": "Q7603631",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_Northern_Rio_de_Janeiro",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of Piauí",
+    "website": "http://www.uespi.br",
+    "wikidata_id": "Q10387821",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of Roraima",
+    "website": "http://www.uerr.edu.br",
+    "wikidata_id": "Q10387813",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of West Paraná",
+    "website": "http://www.unioeste.br",
+    "wikidata_id": "Q7603637",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Western_Paran%C3%A1_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "State University of the Centre-West",
+    "website": "http://www.unicentro.br",
+    "wikidata_id": "Q126415696",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_the_Centre-West",
+    "country": "brazil"
+  },
+  {
+    "name": "São Paulo State Technological College",
+    "website": "http://www.centropaulasouza.sp.gov.br/",
+    "wikidata_id": "Q7665663",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo_State_Technological_College",
+    "country": "brazil"
+  },
+  {
+    "name": "São Paulo State University (Assis)",
+    "website": "http://www.assis.unesp.br/index_portal.php",
+    "wikidata_id": "Q10387786",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "São Paulo State University (Bauru)",
+    "website": "https://www.bauru.unesp.br/",
+    "wikidata_id": "Q10387788",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Technical High School of Limeira",
+    "website": "http://www.cotil.unicamp.br/",
+    "wikidata_id": "Q5013529",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technical_High_School_of_Limeira",
+    "country": "brazil"
+  },
+  {
+    "name": "UCEFF",
+    "website": "https://www.uceff.edu.br/",
+    "wikidata_id": "Q106472328",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "UNIARAXÁ",
+    "website": "http://www.uniaraxa.edu.br",
+    "wikidata_id": "Q9727241",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "UNICURITIBA",
+    "website": "http://www.unicuritiba.edu.br",
+    "wikidata_id": "Q6174695",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Universit%C3%A1rio_Curitiba",
+    "country": "brazil"
+  },
+  {
+    "name": "UNIMAR",
+    "website": "http://www.unimar.com.br",
+    "wikidata_id": "Q10387893",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "UNIVERSIDADE FEDERAL DO OESTE DO PARÁ",
+    "website": "http://www.ufopa.edu.br/",
+    "wikidata_id": "Q10387833",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Western_Par%C3%A1",
+    "country": "brazil"
+  },
+  {
+    "name": "URCA",
+    "website": "http://www.urca.br",
+    "wikidata_id": "Q10387864",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Regional_do_Cariri",
+    "country": "brazil"
+  },
+  {
+    "name": "UniABC",
+    "website": "http://www.uniabc.br",
+    "wikidata_id": "Q56840375",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "UniEvangélica",
+    "website": "http://www.unievangelica.edu.br",
+    "wikidata_id": "Q10387639",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Uniandrade",
+    "website": "http://www.uniandrade.edu.br",
+    "wikidata_id": "Q10387641",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Uniararas",
+    "website": "http://www.uniararas.br",
+    "wikidata_id": "Q10387640",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Bandeirante de São Paulo",
+    "website": "http://www.uniban.br",
+    "wikidata_id": "Q7894354",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bandeirante_University_of_S%C3%A3o_Paulo",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Braz Cubas",
+    "website": "http://www.brazcubas.br",
+    "wikidata_id": "Q10387775",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Católica de Brasília",
+    "website": "http://www.ucb.br",
+    "wikidata_id": "Q7894359",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Catholic_University_of_Bras%C3%ADlia",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Católica de Pelotas",
+    "website": "http://www.ucpel.tche.br",
+    "wikidata_id": "Q7894357",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Catholic_University_of_Pelotas",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Católica de Santos",
+    "website": "https://www.unisantos.br/",
+    "wikidata_id": "Q1736410",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Catholic_University_of_Santos",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Cesumar",
+    "website": "http://www.unicesumar.edu.br/",
+    "wikidata_id": "Q18484212",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Comunitária Regional de Chapecó",
+    "website": "http://www.unochapeco.edu.br",
+    "wikidata_id": "Q10387780",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Cândido Mendes",
+    "website": "http://www.ucam.edu.br",
+    "wikidata_id": "Q7894362",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Candido_Mendes",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual Paulista (Guaratinguetá)",
+    "website": "http://www.feg.unesp.br/",
+    "wikidata_id": "Q10387791",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual Paulista (Ilha Solteira)",
+    "website": "https://www.feis.unesp.br/",
+    "wikidata_id": "Q10387793",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual Paulista em Araçatuba",
+    "website": "http://www.foa.unesp.br/",
+    "wikidata_id": "Q10387787",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual da Paraíba",
+    "website": "http://www.uepb.edu.br",
+    "wikidata_id": "Q4984567",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Para%C3%ADba_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual de Alagoas",
+    "website": "http://www.uneal.edu.br",
+    "wikidata_id": "Q10387808",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual de Ciências da Saúde de Alagoas",
+    "website": "http://www.uncisal.edu.br",
+    "wikidata_id": "Q10387809",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual de Maringá (UEM)",
+    "website": "http://www.uem.br",
+    "wikidata_id": "Q7894365",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_Maring%C3%A1",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Estadual do Vale do Acaraú",
+    "website": "http://www.uvanet.br",
+    "wikidata_id": "Q7894363",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_Vale_do_Acara%C3%BA",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal de Mato Grosso do Sul",
+    "website": "http://www.ufms.br",
+    "wikidata_id": "Q5440478",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Mato_Grosso_do_Sul",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal de Ouro Preto",
+    "website": "http://www.ufop.br",
+    "wikidata_id": "Q6741204",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Ouro_Preto",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal de Roraima",
+    "website": "http://www.ufrr.br",
+    "wikidata_id": "Q7894378",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Roraima",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal de Santa Maria",
+    "website": "https://www.ufsm.br/",
+    "wikidata_id": "Q3790133",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Santa_Maria",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal do Acre",
+    "website": "http://www.ufac.br",
+    "wikidata_id": "Q10387829",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Acre",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal do Ceará",
+    "website": "https://www.ufc.br/",
+    "wikidata_id": "Q2749558",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Cear%C3%A1",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal do Paraná",
+    "website": "https://www.ufpr.br/",
+    "wikidata_id": "Q1232831",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Paran%C3%A1",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Federal do Piauí",
+    "website": "http://www.ufpi.br/",
+    "wikidata_id": "Q945699",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Piau%C3%AD",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Feevale",
+    "website": "http://www.feevale.br",
+    "wikidata_id": "Q7894384",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Feevale",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Fundação Mineira de Educação e Cultura",
+    "website": "http://www.fumec.br",
+    "wikidata_id": "Q10387822",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/FUMEC_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Ibirapuera",
+    "website": "https://www.ibirapuera.br/",
+    "wikidata_id": "Q10387840",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Iguaçu",
+    "website": "http://www.unig.br",
+    "wikidata_id": "Q10387841",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Livre de Música",
+    "website": "http://www.ulm.org.br/",
+    "wikidata_id": "Q7894385",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Livre_de_M%C3%BAsica",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Metropolitana de Santos",
+    "website": "http://www.unimes.br",
+    "wikidata_id": "Q10387853",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Municipal de São Caetano do Sul",
+    "website": "https://www.uscs.edu.br/",
+    "wikidata_id": "Q7894391",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Municipal_University_of_S%C3%A3o_Caetano_do_Sul",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Paranaense",
+    "website": "http://www.unipar.br/",
+    "wikidata_id": "Q7894390",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Paranaense",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Positivo",
+    "website": "http://www.up.com.br",
+    "wikidata_id": "Q7894392",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Positivo",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Potiguar",
+    "website": "http://www.unp.br",
+    "wikidata_id": "Q10387860",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Regional Integrada do Alto Uruguai e das Missões",
+    "website": "http://www.uri.br/",
+    "wikidata_id": "Q10387862",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Regional do Noroeste do Estado do Rio Grande do Sul",
+    "website": "http://www.unijui.edu.br",
+    "wikidata_id": "Q10387866",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Santa Cecília",
+    "website": "http://www.unisanta.br",
+    "wikidata_id": "Q10387870",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Santa Úrsula",
+    "website": "http://www.usu.br",
+    "wikidata_id": "Q7894394",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_Santa_%C3%9Arsula",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade São Judas Tadeu",
+    "website": "https://www.usjt.br/",
+    "wikidata_id": "Q7894396",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_S%C3%A3o_Judas_Tadeu",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Tecnológica Federal do Paraná",
+    "website": "http://www.utfpr.edu.br/",
+    "wikidata_id": "Q1131055",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_University_of_Technology_%E2%80%93_Paran%C3%A1",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Tuiuti do Paraná",
+    "website": "http://www.utp.br",
+    "wikidata_id": "Q10387879",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade Vale do Rio Verde",
+    "website": "http://www.unincor.br",
+    "wikidata_id": "Q10387880",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade da Região da Campanha",
+    "website": "http://www.urcamp.tche.br",
+    "wikidata_id": "Q10387885",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Universit%C3%A1rio_da_Regi%C3%A3o_da_Campanha",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade da Região de Joinville",
+    "website": "http://www.univille.br",
+    "wikidata_id": "Q10387888",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade de Fortaleza",
+    "website": "https://www.unifor.br/",
+    "wikidata_id": "Q10387891",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Fortaleza",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade de Franca",
+    "website": "http://www.unifran.br",
+    "wikidata_id": "Q10387894",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade de Mogi das Cruzes",
+    "website": "http://www.umc.br",
+    "wikidata_id": "Q10387895",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_de_Mogi_das_Cruzes",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade de Passo Fundo",
+    "website": "https://www.upf.br/",
+    "wikidata_id": "Q7161124",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Passo_Fundo",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade de Ribeirão Preto",
+    "website": "http://www.unaerp.br",
+    "wikidata_id": "Q10387899",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_de_Ribeir%C3%A3o_Preto",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade de Santa Cruz do Sul",
+    "website": "http://www.unisc.br",
+    "wikidata_id": "Q7894400",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_de_Santa_Cruz_do_Sul",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade de Santo Amaro",
+    "website": "https://www.unisa.br/",
+    "wikidata_id": "Q10387902",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Alto Vale do Rio do Peixe",
+    "website": "http://www.uniarp.edu.br",
+    "wikidata_id": "Q10387771",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Contestado",
+    "website": "https://www.unc.br/",
+    "wikidata_id": "Q10387909",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Estado de Santa Catarina",
+    "website": "http://www.udesc.br/",
+    "wikidata_id": "Q3551702",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Santa_Catarina_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Estado do Amapá",
+    "website": "http://www.ueap.ap.gov.br",
+    "wikidata_id": "Q56847065",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Estado do Pará",
+    "website": "http://www.uepa.br",
+    "wikidata_id": "Q4562501",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Par%C3%A1_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Estado do Rio Grande do Norte",
+    "website": "http://www.uern.br",
+    "wikidata_id": "Q10387913",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Extremo Sul Catarinense",
+    "website": "http://www.unesc.net",
+    "wikidata_id": "Q2495752",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_do_Extremo_Sul_Catarinense",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Oeste de Santa Catarina",
+    "website": "http://www.unoesc.edu.br/",
+    "wikidata_id": "Q3551699",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Planalto Catarinense",
+    "website": "http://www.uniplac.net",
+    "wikidata_id": "Q10387916",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Sul de Santa Catarina",
+    "website": "http://www.unisul.br",
+    "wikidata_id": "Q2495772",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Universidade do Vale do Sapucaí",
+    "website": "http://www.univas.edu.br",
+    "wikidata_id": "Q10387921",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Adventist Center of São Paulo",
+    "website": "https://unasp.br/",
+    "wikidata_id": "Q3551513",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adventist_University_Center_of_S%C3%A3o_Paulo",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center Candido Rondon",
+    "website": "http://www.unirondon.br",
+    "wikidata_id": "Q9726533",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center FIEO",
+    "website": "http://www.unifieo.br",
+    "wikidata_id": "Q18484105",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center Fluminense",
+    "website": "http://www.uniflu.edu.br",
+    "wikidata_id": "Q16143001",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center Grande Dourados",
+    "website": "http://www.unigran.br",
+    "wikidata_id": "Q9726904",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center Monte Serrat",
+    "website": "http://www.unimonte.br",
+    "wikidata_id": "Q10387726",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center of Rio Grande do Norte",
+    "website": "http://www.farn.br",
+    "wikidata_id": "Q55662412",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center of the City of Rio de Janeiro",
+    "website": "http://www.univercidade.edu",
+    "wikidata_id": "Q9726872",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Universit%C3%A1rio_da_Cidade_do_Rio_de_Janeiro",
+    "country": "brazil"
+  },
+  {
+    "name": "University Center of the Ipojuca Valley",
+    "website": "http://www.favip.edu.br",
+    "wikidata_id": "Q10279646",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University Professor Edson Antonio Velano",
+    "website": "http://www.unifenas.br",
+    "wikidata_id": "Q10387846",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University do Vale do Paraíba",
+    "website": "http://www.univap.br",
+    "wikidata_id": "Q7894998",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_do_Vale_do_Para%C3%ADba",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Caxias do Sul",
+    "website": "http://www.ucs.br",
+    "wikidata_id": "Q5392048",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Caxias_do_Sul",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Cruz Alta",
+    "website": "http://www.unicruz.edu.br",
+    "wikidata_id": "Q7894397",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Cruz_Alta",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Itaúna",
+    "website": "http://www.uit.edu.br",
+    "wikidata_id": "Q7895570",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Ita%C3%BAna",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Pernambuco",
+    "website": "http://www.upe.br",
+    "wikidata_id": "Q7894399",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Pernambuco",
+    "country": "brazil"
+  },
+  {
+    "name": "University of São Paulo",
+    "website": "https://www5.usp.br/#english",
+    "wikidata_id": "Q835960",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_S%C3%A3o_Paulo",
+    "country": "brazil"
+  },
+  {
+    "name": "University of São Paulo, Ribeirão Preto",
+    "website": "http://www.ribeirao.usp.br/",
+    "wikidata_id": "Q48872581",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University of São Paulo, São Carlos",
+    "website": "http://www.saocarlos.usp.br/",
+    "wikidata_id": "Q48872290",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Taquari Valley",
+    "website": "http://www.univates.br",
+    "wikidata_id": "Q10387654",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Univates",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Tocantins",
+    "website": "http://www.unitins.br",
+    "wikidata_id": "Q10286408",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Vale do Rio dos Sinos",
+    "website": "http://www.unisinos.br",
+    "wikidata_id": "Q7894410",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Unisinos",
+    "country": "brazil"
+  },
+  {
+    "name": "University of Western São Paulo",
+    "website": "http://www.unoeste.br",
+    "wikidata_id": "Q10387915",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University of the Alto Vale do Itajaí",
+    "website": "http://www.unidavi.edu.br",
+    "wikidata_id": "Q10387906",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "University of the Amazon",
+    "website": "http://www.unama.br",
+    "wikidata_id": "Q4504755",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidade_da_Amaz%C3%B4nia",
+    "country": "brazil"
+  },
+  {
+    "name": "University of the State of Amazonas",
+    "website": "http://www1.uea.edu.br/",
+    "wikidata_id": "Q7896773",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Amazonas_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "UniÍtalo",
+    "website": "http://www.italo.br",
+    "wikidata_id": "Q14932567",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Uni%C3%8Dtalo",
+    "country": "brazil"
+  },
+  {
+    "name": "União Latino-Americana de Tecnologia",
+    "website": "http://www.fajar.edu.br",
+    "wikidata_id": "Q10388045",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Uni%C3%A3o_Latino-Americana_de_Tecnologia",
+    "country": "brazil"
+  },
+  {
+    "name": "Vale do Rio Doce University",
+    "website": "https://www.univale.br/",
+    "wikidata_id": "Q10387881",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "Vila Velha University",
+    "website": "http://www.uvv.br",
+    "wikidata_id": "Q10387883",
+    "wikipedia_url": "",
+    "country": "brazil"
+  },
+  {
+    "name": "West Zone State University",
+    "website": "http://www.uezo.rj.gov.br",
+    "wikidata_id": "Q10387807",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_Zone_State_University",
+    "country": "brazil"
+  },
+  {
+    "name": "École intuit.lab",
+    "website": "https://ecole-intuit-lab.co.in",
+    "wikidata_id": "Q18164744",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/%C3%89cole_intuit.lab",
+    "country": "brazil"
+  }
+]

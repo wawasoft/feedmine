@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCCwpMNal_7HAEQSVpHyyKaw",
+    "category": "Education",
+    "title": "Akademia (YouTube)",
+    "genre": "University",
+    "source_page": "http://akademia.ac.za/",
+    "national": true,
+    "national_reason": "universities/youtube/south-africa",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UChgJhLchQSrZMYyV06zy9pw",
+    "category": "Education",
+    "title": "Nelson Mandela University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.mandela.ac.za/",
+    "national": true,
+    "national_reason": "universities/youtube/south-africa",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1E3lLViKfC6NgDztvTlnDw",
+    "category": "Education",
+    "title": "Sol-Tech (YouTube)",
+    "genre": "University",
+    "source_page": "https://sol-tech.co.za/",
+    "national": true,
+    "national_reason": "universities/youtube/south-africa",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1QWx2wruTCTuv38ghHXtYQ",
+    "category": "Education",
+    "title": "University of Pretoria (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.up.ac.za/",
+    "national": true,
+    "national_reason": "universities/youtube/south-africa",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC-5nTrCYaj7babZVkmzM94Q",
+    "category": "Education",
+    "title": "University of the Free State (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ufs.ac.za/",
+    "national": true,
+    "national_reason": "universities/youtube/south-africa",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

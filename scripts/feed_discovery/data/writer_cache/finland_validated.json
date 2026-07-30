@@ -1,0 +1,146 @@
+[
+  {
+    "url": "https://www.paivituulikkikoskela.fi/blogi?format=rss",
+    "title": "Blogi — Kirjailija Päivi Tuulikki Koskela",
+    "source": "page:kirjailija",
+    "country": "finland"
+  },
+  {
+    "url": "https://joonastolvanen.fi/feed/",
+    "title": "Blogi – Kirjailija Joonas Tolvanen",
+    "source": "page:kirjailija",
+    "country": "finland"
+  },
+  {
+    "url": "https://kirsipehkonen.net/feed/",
+    "title": "Blogi | kirsi pehkonen Blogi | kirjailija",
+    "source": "page:kirjailija",
+    "country": "finland"
+  },
+  {
+    "url": "https://kirjailijoidensalaseura.wordpress.com/feed/",
+    "title": "Kirjailijahaastattelu | alaston kirjailija!",
+    "source": "page:kirjailija",
+    "country": "finland"
+  },
+  {
+    "url": "https://www.maaretta.com/inspired?format=rss",
+    "title": "Inspired-blogi — Inspired-blogi | Kirjailija... — Maaretta Tukiainen",
+    "source": "page:kirjailija",
+    "country": "finland"
+  },
+  {
+    "url": "https://kiropraktikkomarkus.fi/comments/feed",
+    "title": "Blogi | Kiropraktikko Turku | Kiropraktikko Markus Lehtonen DC",
+    "source": "page:kirjoittaja",
+    "country": "finland"
+  },
+  {
+    "url": "https://www.tiski.fi/comments/feed/",
+    "title": "Mikä on RSS Feed eli fiidi ja kuinka se tehdään",
+    "source": "page:kirjoittaja",
+    "country": "finland"
+  },
+  {
+    "url": "https://www.siistiihommaa.fi/comments/feed/",
+    "title": "Blogi - Siistiihommaa.fi",
+    "source": "page:kirjoittaja",
+    "country": "finland"
+  },
+  {
+    "url": "https://blogikonsultti.blogspot.com/feeds/posts/default?alt=rss",
+    "title": "Blogikonsultti: Miten blogiin lisätään kirjoittajia?",
+    "source": "page:kirjoittaja",
+    "country": "finland"
+  },
+  {
+    "url": "https://www.blog.ethene.eu/comments/feed/",
+    "title": "runoilija – Ethene",
+    "source": "page:runoilija",
+    "country": "finland"
+  },
+  {
+    "url": "https://suomivenajaseura.fi/comments/feed/",
+    "title": "Runoilija, esseisti Lev Rubinšteinin muistolle - Suomi-Venäjä-Seura",
+    "source": "page:runoilija",
+    "country": "finland"
+  },
+  {
+    "url": "https://www.tuukkaterho.com/feed/",
+    "title": "Runoilija - Tuukka Terho",
+    "source": "page:runoilija",
+    "country": "finland"
+  },
+  {
+    "url": "https://www.animelehti.fi/feed/",
+    "title": "BL-novelisti Saki Aida on kuollut – Animelehti.fi",
+    "source": "page:novelisti",
+    "country": "finland"
+  },
+  {
+    "url": "https://kirjailijaliitto.fi/feed/",
+    "title": "In English - Kirjailijaliitto",
+    "source": "assoc:fi",
+    "country": "finland"
+  },
+  {
+    "url": "https://alfons.digital/feed/",
+    "title": "Suomen Kirjailijaliitto - Alfons Digital",
+    "source": "assoc:fi",
+    "country": "finland"
+  },
+  {
+    "url": "https://euroadnet.wordpress.com/feed",
+    "title": "euroadnet.wordpress.com",
+    "source": "en-fb-wp:writer",
+    "country": "finland"
+  },
+  {
+    "url": "https://tonysreadinglist.wordpress.com/2026/07/23/the-tale-of-genji-30-fujibakama/feed",
+    "title": "The Tale of Genji: 30 – Fujibakama – Tony's Reading List",
+    "source": "en-fb-wp:writer",
+    "country": "finland"
+  },
+  {
+    "url": "https://ejbron.wordpress.com/2026/07/28/terwijl-de-vs-nog-steeds-van-de-ruslandhandel-profiteren-schiet-europa-zichzelf-in-de-voet/feed",
+    "title": "Terwijl de VS nog steeds van de Ruslandhandel profiteren... | E.J. Bron",
+    "source": "en-fb-wp:writer",
+    "country": "finland"
+  },
+  {
+    "url": "https://wordpress.com/blog/2023/09/29/wordpress-themes-sept-23/feed",
+    "title": "Even More New WordPress.com Themes for September 2023",
+    "source": "en-fb-wp:author",
+    "country": "finland"
+  },
+  {
+    "url": "https://accordionuprising.wordpress.com/2026/07/23/accordion-noir-radio-playlist-2026-07-15-wednesday-comes-forth-in-july/feed",
+    "title": "Accordion Noir radio playlist 2026-07-15: Wednesday Comes Forth in...",
+    "source": "en-fb-wp:author",
+    "country": "finland"
+  },
+  {
+    "url": "https://uprootedpalestinians.wordpress.com/tag/kermanshah/feed",
+    "title": "Kermanshah | UPROOTED PALESTINIANS: SALAM ALQUDS...",
+    "source": "en-fb-wp:author",
+    "country": "finland"
+  },
+  {
+    "url": "https://tonysreadinglist.wordpress.com/category/prototype-publishing/feed",
+    "title": "Prototype Publishing – Tony's Reading List",
+    "source": "en-fb-wp:author",
+    "country": "finland"
+  },
+  {
+    "url": "https://uprootedpalestinians.wordpress.com/tag/divine-sovereignty/feed",
+    "title": "Divine sovereignty | UPROOTED PALESTINIANS: SALAM ALQUDS...",
+    "source": "en-fb-wp:novelist",
+    "country": "finland"
+  },
+  {
+    "url": "https://ejbron.wordpress.com/2026/07/27/feed",
+    "title": "27 | juli | 2026 | E.J. Bron",
+    "source": "en-fb-wp:novelist",
+    "country": "finland"
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCJdhMwZ1E92KzBrmWGixIBQ",
+    "category": "Education",
+    "title": "City University of Paris (YouTube)",
+    "genre": "University",
+    "source_page": "https://cityuparis.fr/",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5ixPP3TPzNUa_ORNVAqy_w",
+    "category": "Education",
+    "title": "Digital Business School (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.dbs.school/",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6y7UbzrURslMdZWLf62fUw",
+    "category": "Education",
+    "title": "INSA Hauts-de-France (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.insa-hautsdefrance.fr/",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCOlxIv6pqgiCpdiaFXxLmNw",
+    "category": "Education",
+    "title": "Institut supérieur des affaires (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.hec.edu/fr/mba-programs",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC8np6j7Kn3iU9l9DzHxZayg",
+    "category": "Education",
+    "title": "International Space University (YouTube)",
+    "genre": "University",
+    "source_page": "https://isunet.edu",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCDdXZLzFKp4F6KAtAnxzgKw",
+    "category": "Education",
+    "title": "National Polytechnic Institute of Toulouse (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.inp-toulouse.fr",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCr9QpvmJWcy9exV6ashQ0nA",
+    "category": "Education",
+    "title": "Paris Institute of Earth Physics (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ipgp.fr",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwLe4Af_lNmf1NXn1XVWE2A",
+    "category": "Education",
+    "title": "Toulouse Tech (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.toulousetech.net",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1uMC9fMvLSUHUDt1mPUbrw",
+    "category": "Education",
+    "title": "École des technologies numériques avancées (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.etna.io",
+    "national": true,
+    "national_reason": "universities/youtube/france",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

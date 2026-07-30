@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB8GSWPomoINFSg9wI1LCNw",
+    "category": "YouTube",
+    "title": "Amos Rex — YouTube",
+    "genre": "Museum",
+    "source_page": "https://amosrex.fi/",
+    "national": true,
+    "national_reason": "museums/youtube/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCqh68DxTpPWM2f_3_afs2pg",
+    "category": "YouTube",
+    "title": "Kainuu Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.kajaani.fi/kulttuuri-ja-liikunta/kainuun-museo/",
+    "national": true,
+    "national_reason": "museums/youtube/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAlY9DNGoAM4GasrkjeO4ug",
+    "category": "YouTube",
+    "title": "Pori Art Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.poriartmuseum.fi/",
+    "national": true,
+    "national_reason": "museums/youtube/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

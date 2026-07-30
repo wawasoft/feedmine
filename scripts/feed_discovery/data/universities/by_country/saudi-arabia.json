@@ -1,0 +1,632 @@
+[
+  {
+    "name": "Q136468963",
+    "wikidata_id": "Q136468963",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q20412724",
+    "wikidata_id": "Q20412724",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q83597147",
+    "wikidata_id": "Q83597147",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q83630356",
+    "wikidata_id": "Q83630356",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q83876082",
+    "wikidata_id": "Q83876082",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Q83883971",
+    "wikidata_id": "Q83883971",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Al Baha University",
+    "wikidata_id": "Q4703529",
+    "website": "https://bu.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Al_Baha_University"
+  },
+  {
+    "name": "Al-Madinah College of Technology",
+    "wikidata_id": "Q80675506",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Al-Madinah_College_of_Technology"
+  },
+  {
+    "name": "Al-Yamamah Private University",
+    "wikidata_id": "Q4703347",
+    "website": "http://www.yu.edu.sa",
+    "youtube": "",
+    "instagram": "alyamamah_university",
+    "twitter": "AlYamamah_Uni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Al_Yamamah_University"
+  },
+  {
+    "name": "Albaha University",
+    "wikidata_id": "Q112085343",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Alfaisal University",
+    "wikidata_id": "Q4118882",
+    "website": "https://www.alfaisal.edu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "Alfaisaluniv",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Alfaisal_University"
+  },
+  {
+    "name": "Arab Open University",
+    "wikidata_id": "Q3679860",
+    "website": "https://www.arabou.edu.kw/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "aou_kwt",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arab_Open_University"
+  },
+  {
+    "name": "Arab Open University Saudi Arabia",
+    "wikidata_id": "Q104670131",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "College of Business Administration",
+    "wikidata_id": "Q5146656",
+    "website": "http://www.cba.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "College of Dentistry University of Dammam",
+    "wikidata_id": "Q5146675",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Dentistry_University_of_Dammam"
+  },
+  {
+    "name": "College of Food and Environment Technology in Buraydah",
+    "wikidata_id": "Q5146719",
+    "website": "http://www.tvtc.gov.sa/arabic/trainingunits/collegesoftechnology/bfet/Pages/default.aspx",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Food_and_Environment_Technology_in_Buraydah"
+  },
+  {
+    "name": "Dammam College of Technology",
+    "wikidata_id": "Q83593932",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dammam_College_of_Technology"
+  },
+  {
+    "name": "Dar Al Uloom University",
+    "wikidata_id": "Q12204482",
+    "website": "http://www.dau.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "dau_university",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dar_Al_Uloom_University"
+  },
+  {
+    "name": "Dar Al-Hekma University",
+    "wikidata_id": "Q5221862",
+    "website": "http://www.dah.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dar_Al-Hekma_University"
+  },
+  {
+    "name": "Dar Al-Uloom Colleges",
+    "wikidata_id": "Q5221861",
+    "website": "http://www.dau.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "dau_university",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dar_Al-Uloom_Colleges"
+  },
+  {
+    "name": "Effat University",
+    "wikidata_id": "Q5347215",
+    "website": "http://www.effatuniversity.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Effat_University"
+  },
+  {
+    "name": "Fahd Bin Sultan University",
+    "wikidata_id": "Q5429530",
+    "website": "http://www.fbsu.edu.sa/",
+    "youtube": "",
+    "instagram": "fahad.bin.sultan.university",
+    "twitter": "fbsuniversity",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fahd_bin_Sultan_University"
+  },
+  {
+    "name": "Ha'il University",
+    "wikidata_id": "Q12204479",
+    "website": "http://www.uoh.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Hail"
+  },
+  {
+    "name": "Ibn Sina National College for Medical Studies",
+    "wikidata_id": "Q5984260",
+    "website": "http://ibnsina.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ibn_Sina_National_College_for_Medical_Studies"
+  },
+  {
+    "name": "Imam Abdulrahman Bin Faisal University",
+    "wikidata_id": "Q7895319",
+    "website": "https://uqu.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Imam_Abdulrahman_Bin_Faisal_University"
+  },
+  {
+    "name": "Imam Mohammad Ibn Saud Islamic University Al Malaz Campus",
+    "wikidata_id": "Q108084720",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Imam_Mohammad_Ibn_Saud_Islamic_University_Al_Malaz_Campus"
+  },
+  {
+    "name": "Imam Mohammad Ibn Saud Islamic University Al Nafal Campus",
+    "wikidata_id": "Q108899083",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Imam_Mohammad_Ibn_Saud_Islamic_University_Al_Nafal_Campus"
+  },
+  {
+    "name": "Jazan University",
+    "wikidata_id": "Q6168054",
+    "website": "http://www.jazanu.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jazan_University"
+  },
+  {
+    "name": "Jouf University",
+    "wikidata_id": "Q12204417",
+    "website": "https://www.ju.edu.sa",
+    "youtube": "",
+    "instagram": "joufuniversity",
+    "twitter": "JoufUniversity",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Al_Jouf_University"
+  },
+  {
+    "name": "Jubail Industrial College",
+    "wikidata_id": "Q6301704",
+    "website": "http://www.jic.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jubail_Industrial_College"
+  },
+  {
+    "name": "Jubail Technical Institute",
+    "wikidata_id": "Q6301702",
+    "website": "http://www.jti.edu.sa/",
+    "youtube": "",
+    "instagram": "jti_ir",
+    "twitter": "JTI_IR",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jubail_Technical_Institute"
+  },
+  {
+    "name": "Jāmiʻat al-Malik Khālid",
+    "wikidata_id": "Q20411175",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "King Abdulaziz University",
+    "wikidata_id": "Q1795928",
+    "website": "https://www.kau.edu.sa/en",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "kauweb",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Abdulaziz_University"
+  },
+  {
+    "name": "King Abdullah City for Female Students",
+    "wikidata_id": "Q108919788",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Abdullah_City_for_Female_Students"
+  },
+  {
+    "name": "King Fahd Security College",
+    "wikidata_id": "Q6411557",
+    "website": "http://www.kfsc.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Fahd_Security_College"
+  },
+  {
+    "name": "King Fahd University of Petroleum and Minerals",
+    "wikidata_id": "Q4116241",
+    "website": "http://www.kfupm.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Fahd_University_of_Petroleum_and_Minerals"
+  },
+  {
+    "name": "King Khalid University",
+    "wikidata_id": "Q6411791",
+    "website": "http://www.kku.edu.sa/",
+    "youtube": "",
+    "instagram": "insta_kku",
+    "twitter": "kkueduksa",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Khalid_University"
+  },
+  {
+    "name": "King Saud University",
+    "wikidata_id": "Q1752043",
+    "website": "https://ksu.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "_KSU",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Saud_University"
+  },
+  {
+    "name": "King Saud University College of Medicine",
+    "wikidata_id": "Q17067747",
+    "website": "http://medicine.ksu.edu.sa/",
+    "youtube": "",
+    "instagram": "king_saud_university",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Saud_University_College_of_Medicine"
+  },
+  {
+    "name": "Kingdom University",
+    "wikidata_id": "Q139766194",
+    "website": "https://ku.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Knowledge International University",
+    "wikidata_id": "Q107919929",
+    "website": "https://site.kiu.org/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "MBS College for Cybersecurity, Artificial Intelligence and Advanced Technologies",
+    "wikidata_id": "Q110442613",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/MBS_College_for_Cybersecurity_and_Advanced_Technologies"
+  },
+  {
+    "name": "Majmaah University",
+    "wikidata_id": "Q6737968",
+    "website": "http://www.mu.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "umajmaah",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Majmaah_University"
+  },
+  {
+    "name": "Mustaqbal University",
+    "wikidata_id": "Q12235841",
+    "website": "https://uom.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "UMQ_SA",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Najran University",
+    "wikidata_id": "Q2913037",
+    "website": "http://portal.nu.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "Najran_Univers",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Najran_University"
+  },
+  {
+    "name": "Northern Borders University",
+    "wikidata_id": "Q7058167",
+    "website": "http://nbu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northern_Borders_University"
+  },
+  {
+    "name": "Prince Mohammad bin Fahd University",
+    "wikidata_id": "Q7244166",
+    "website": "http://www.pmu.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "pmuofficial",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Prince_Mohammad_bin_Fahd_University"
+  },
+  {
+    "name": "Prince Mohammed bin Salman College of Business and Entrepreneurship",
+    "wikidata_id": "Q60775836",
+    "website": "https://www.mbsc.edu.sa/",
+    "youtube": "",
+    "instagram": "mbsckaec",
+    "twitter": "mbsckaec",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Prince_Mohammed_Bin_Salman_College_of_Business_and_Entrepreneurship"
+  },
+  {
+    "name": "Prince Sattam bin Abdulaziz University",
+    "wikidata_id": "Q12204394",
+    "website": "http://www.psau.edu.sa/",
+    "youtube": "",
+    "instagram": "psau_edu_sa",
+    "twitter": "psau_edu_sa",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Prince_Sattam_bin_Abdulaziz_University"
+  },
+  {
+    "name": "Prince Sultan Aviation Academy",
+    "wikidata_id": "Q7244251",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Prince_Sultan_Aviation_Academy"
+  },
+  {
+    "name": "Prince Sultan University",
+    "wikidata_id": "Q7244255",
+    "website": "http://www.psu.edu.sa",
+    "youtube": "",
+    "instagram": "psu_ruh",
+    "twitter": "PSU_RUH",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Prince_Sultan_University"
+  },
+  {
+    "name": "Princess Nora bint Abdul Rahman University",
+    "wikidata_id": "Q4118886",
+    "website": "http://www.pnu.edu.sa/",
+    "youtube": "",
+    "instagram": "_pnu_ksa",
+    "twitter": "_PNU_KSA",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Princess_Nourah_Bint_Abdul_Rahman_University"
+  },
+  {
+    "name": "Qassim University",
+    "wikidata_id": "Q7267062",
+    "website": "http://www.qu.edu.sa/",
+    "youtube": "",
+    "instagram": "qu_uni",
+    "twitter": "QassimUniv1",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Qassim_University"
+  },
+  {
+    "name": "Riyadh University of Arts",
+    "wikidata_id": "Q136399586",
+    "website": "https://www.rua.edu.sa/",
+    "youtube": "",
+    "instagram": "riyadhuniarts",
+    "twitter": "RiyadhUniArts",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Royal Secondary Industrial Institute",
+    "wikidata_id": "Q131598453",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Royal_Secondary_Industrial_Institute"
+  },
+  {
+    "name": "Saudi Electronic University",
+    "wikidata_id": "Q7427134",
+    "website": "http://seu.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "Saudi_EUni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saudi_Electronic_University"
+  },
+  {
+    "name": "Shaqra University",
+    "wikidata_id": "Q12204502",
+    "website": "http://www.su.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "ShaqraUni",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shaqra_University"
+  },
+  {
+    "name": "Sulaiman Al Rajhi Colleges",
+    "wikidata_id": "Q7635955",
+    "website": "http://sr.edu.sa/site/en/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sulaiman_Al_Rajhi_Colleges"
+  },
+  {
+    "name": "Taibah University",
+    "wikidata_id": "Q7675882",
+    "website": "http://www.taibahu.edu.sa/",
+    "youtube": "",
+    "instagram": "taibah_uni",
+    "twitter": "taibahu",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taibah_University"
+  },
+  {
+    "name": "Taif University",
+    "wikidata_id": "Q7675938",
+    "website": "http://web.tu.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taif_University"
+  },
+  {
+    "name": "Technical Trainers College",
+    "wikidata_id": "Q16123522",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Technical and Vocational Training Corporation",
+    "wikidata_id": "Q3916368",
+    "website": "http://tvtc.gov.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technical_and_Vocational_Training_Corporation"
+  },
+  {
+    "name": "Umm al-Qura University",
+    "wikidata_id": "Q3133606",
+    "website": "http://www.uqu.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "uqu_edu",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Umm_al-Qura_University"
+  },
+  {
+    "name": "University of Bisha",
+    "wikidata_id": "Q22929373",
+    "website": "http://www.ub.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "Bisha_U",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Business and Technology",
+    "wikidata_id": "Q12235851",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Business_and_Technology"
+  },
+  {
+    "name": "University of Hafr Albatin",
+    "wikidata_id": "Q27156930",
+    "website": "http://www.uohb.edu.sa/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Hafr_Albatin"
+  },
+  {
+    "name": "University of Jeddah",
+    "wikidata_id": "Q20411232",
+    "website": "http://www.uj.edu.sa/Home.aspx?Lng=EN",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Jeddah"
+  },
+  {
+    "name": "University of Prince Mugrin",
+    "wikidata_id": "Q42170247",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Prince_Mugrin"
+  },
+  {
+    "name": "University of Tabuk",
+    "wikidata_id": "Q7896400",
+    "website": "http://www.ut.edu.sa",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "U_Tabuk",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Tabuk"
+  },
+  {
+    "name": "Yanbu University College",
+    "wikidata_id": "Q8048282",
+    "website": "http://www.rcyci.edu.sa/en/yuc-m/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yanbu_University_College"
+  }
+]

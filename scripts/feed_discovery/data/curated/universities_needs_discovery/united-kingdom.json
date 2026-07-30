@@ -1,0 +1,2403 @@
+[
+  {
+    "name": "Abingdon and Witney College",
+    "website": "http://www.abingdon-witney.ac.uk",
+    "wikidata_id": "Q4667848",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Abingdon_and_Witney_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Accrington and Rossendale College",
+    "website": "http://www.accross.ac.uk/",
+    "wikidata_id": "Q4672879",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Accrington_and_Rossendale_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "American University in London",
+    "website": "http://www.aul.edu/",
+    "wikidata_id": "Q4745314",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/American_University_in_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "American University of London",
+    "website": "http://www.americanuniversity.eu/",
+    "wikidata_id": "Q4745318",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/American_University_of_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Andover College",
+    "website": "http://www.andover.ac.uk",
+    "wikidata_id": "Q4754603",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Andover_College_(Hampshire)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Art Academy London",
+    "website": "https://artacademy.ac.uk/",
+    "wikidata_id": "Q122678492",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Arthur Findlay College",
+    "website": "http://www.arthurfindlaycollege.org/",
+    "wikidata_id": "Q3624268",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arthur_Findlay_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Arts University Plymouth",
+    "website": "http://www.plymouthart.ac.uk",
+    "wikidata_id": "Q7205783",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arts_University_Plymouth",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Ashford College",
+    "website": "http://www.ashford.ac.uk/",
+    "wikidata_id": "Q17985624",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ashford_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Astrophysics Research Institute",
+    "website": "http://www.astro.ljmu.ac.uk/Main_Page/",
+    "wikidata_id": "Q4811699",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Astrophysics_Research_Institute",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "BIMM University",
+    "website": "https://www.bimm.ac.uk/",
+    "wikidata_id": "Q4967681",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/BIMM_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Barking and Dagenham College",
+    "website": "http://www.barkingdagenhamcollege.ac.uk/",
+    "wikidata_id": "Q4861050",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Barking_and_Dagenham_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Barnsley College",
+    "website": "http://www.barnsley.ac.uk/",
+    "wikidata_id": "Q4861904",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Barnsley_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bath Spa University",
+    "website": "https://bathspa.ac.uk/",
+    "wikidata_id": "Q3091754",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bath_Spa_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bedford College",
+    "website": "http://www.bedford.ac.uk/",
+    "wikidata_id": "Q4879121",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bedford_College,_Bedford",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Berkshire College of Agriculture",
+    "website": "https://www.bca.ac.uk/",
+    "wikidata_id": "Q4892248",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Berkshire_College_of_Agriculture",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bermuda College",
+    "website": "http://www.college.bm/",
+    "wikidata_id": "Q4892612",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bermuda_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bexley College",
+    "website": "http://www.bexley.ac.uk/",
+    "wikidata_id": "Q4899792",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bexley_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bicton College",
+    "website": "http://www.bicton.ac.uk/",
+    "wikidata_id": "Q4903727",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bicton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bird College",
+    "website": "http://www.birdcollege.co.uk",
+    "wikidata_id": "Q4915845",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/BIRD_Conservatoire",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Birmingham City University",
+    "website": "http://www.bcu.ac.uk",
+    "wikidata_id": "Q3547145",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Birmingham_City_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Birmingham Metropolitan College",
+    "website": "http://www.bmetc.ac.uk/",
+    "wikidata_id": "Q4916750",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Birmingham_Metropolitan_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Birmingham Metropolitan College, James Watt Campus",
+    "website": "https://www.bmet.ac.uk/our-locations/james-watt/",
+    "wikidata_id": "Q136349339",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Birmingham School of Jewellery",
+    "website": "https://www.bcu.ac.uk/jewellery/",
+    "wikidata_id": "Q4916801",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Birmingham_School_of_Jewellery",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bishop Auckland College",
+    "website": "http://www.bishopaucklandcollege.ac.uk/",
+    "wikidata_id": "Q4917489",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bishop_Auckland_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bishop Burton College",
+    "website": "https://www.bishopburton.ac.uk/",
+    "wikidata_id": "Q4917504",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bishop_Burton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Blackburn College",
+    "website": "http://www.blackburn.ac.uk/",
+    "wikidata_id": "Q4922668",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Blackburn_College,_Lancashire",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Blackpool and The Fylde College",
+    "website": "http://www.blackpool.ac.uk",
+    "wikidata_id": "Q16984484",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Blackpool_and_The_Fylde_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bolton College",
+    "website": "http://www.boltoncollege.ac.uk",
+    "wikidata_id": "Q4940147",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bolton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Borders College",
+    "website": "http://www.borderscollege.ac.uk/",
+    "wikidata_id": "Q16823883",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Borders_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bournemouth University",
+    "website": "http://www.bournemouth.ac.uk",
+    "wikidata_id": "Q3182943",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bournemouth_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bournemouth and Poole College",
+    "website": "https://www.thecollege.co.uk/",
+    "wikidata_id": "Q4950301",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bournemouth_and_Poole_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bournville College",
+    "website": "http://www.bournville.ac.uk/",
+    "wikidata_id": "Q4950320",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bournville_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bracknell and Wokingham College",
+    "website": "http://www.bracknell.ac.uk/",
+    "wikidata_id": "Q4953740",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bracknell_and_Wokingham_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bradford College",
+    "website": "http://www.bradfordcollege.ac.uk",
+    "wikidata_id": "Q4954635",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bradford_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Braintree College",
+    "website": "http://www.colchester.ac.uk/about-us/campuses/braintree/",
+    "wikidata_id": "Q4955943",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Braintree_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bridgend College",
+    "website": "https://www.bridgend.ac.uk/",
+    "wikidata_id": "Q4966531",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bridgend_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bridgwater and Taunton College",
+    "website": "http://www.btc.ac.uk",
+    "wikidata_id": "Q4966922",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bridgwater_and_Taunton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "British College of Osteopathic Medicine",
+    "website": "http://www.bcom.ac.uk/",
+    "wikidata_id": "Q4969655",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/British_College_of_Osteopathic_Medicine",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "British Maternal and Fetal Medicine Society",
+    "website": "http://www.bmfms.org.uk",
+    "wikidata_id": "Q15994953",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/British_Maternal_and_Fetal_Medicine_Society",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Brockenhurst College",
+    "website": "http://www.brock.ac.uk",
+    "wikidata_id": "Q4972779",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Brockenhurst_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Brooklands College",
+    "website": "http://www.brooklands.ac.uk/",
+    "wikidata_id": "Q4974673",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Brooklands_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Buckinghamshire New University",
+    "website": "http://www.bcuc.ac.uk",
+    "wikidata_id": "Q448403",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Buckinghamshire_New_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Built Environment and Sustainable Technologies Research Institute",
+    "website": "http://www.ljmu.ac.uk/BLT/BEST/index.htm/",
+    "wikidata_id": "Q16150721",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Built_Environment_and_Sustainable_Technologies_Research_Institute",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Burnley College",
+    "website": "https://www.burnley.ac.uk/",
+    "wikidata_id": "Q4999956",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Burnley_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Bury College",
+    "website": "http://www.burycollege.ac.uk",
+    "wikidata_id": "Q5001080",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bury_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Calderdale College",
+    "website": "http://www.calderdale.ac.uk/",
+    "wikidata_id": "Q5019038",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Calderdale_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cambridge Institute for Sustainability Leadership",
+    "website": "https://www.cisl.cam.ac.uk/",
+    "wikidata_id": "Q5025499",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cambridge_Institute_for_Sustainability_Leadership",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cambridge Muslim College",
+    "website": "http://www.cambridgemuslimcollege.org/",
+    "wikidata_id": "Q16830779",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cambridge_Muslim_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cambridge Regional College",
+    "website": "http://www.camre.ac.uk/",
+    "wikidata_id": "Q5025507",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cambridge_Regional_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Capital City College Group",
+    "website": "https://www.capitalccg.ac.uk/",
+    "wikidata_id": "Q130719251",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Capital_City_College_Group",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cardiff Metropolitan University",
+    "website": "http://www.cardiffmet.ac.uk",
+    "wikidata_id": "Q5038449",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cardiff_Metropolitan_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cardiff School of Art & Design",
+    "website": "https://www.metcaerdydd.ac.uk/artanddesign/Pages/default.aspx",
+    "wikidata_id": "Q5038460",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cardiff_School_of_Art_%26_Design",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cardonald College",
+    "website": "http://www.glasgowclyde.ac.uk/",
+    "wikidata_id": "Q5038772",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cardonald_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Carrington Equine College",
+    "website": "https://www.carringtonequinecollege.co.uk/",
+    "wikidata_id": "Q105446688",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Carshalton College",
+    "website": "http://www.carshalton.ac.uk",
+    "wikidata_id": "Q5046868",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Carshalton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Central College Nottingham",
+    "website": "https://www.centralnottingham.ac.uk",
+    "wikidata_id": "Q5060602",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Centre for Energy, Petroleum and Mineral Law and Policy",
+    "website": "http://www.dundee.ac.uk/cepmlp/",
+    "wikidata_id": "Q5062424",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centre_for_Energy,_Petroleum_and_Mineral_Law_and_Policy",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cheshire College - Ellesmere Port",
+    "website": "http://www.west-cheshire.ac.uk",
+    "wikidata_id": "Q7984706",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Chesterfield College",
+    "website": "https://www.chesterfield.ac.uk/",
+    "wikidata_id": "Q5093795",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chesterfield_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Chichester College",
+    "website": "https://chichester.ac.uk/",
+    "wikidata_id": "Q5095986",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chichester_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cirencester College",
+    "website": "http://www.cirencester.ac.uk/",
+    "wikidata_id": "Q5121865",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cirencester_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City College Brighton & Hove",
+    "website": "http://www.ccb.ac.uk/",
+    "wikidata_id": "Q5123113",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Brighton_MET_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City College Coventry",
+    "website": "http://www.covcollege.ac.uk/Pages/default.aspx",
+    "wikidata_id": "Q5123115",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Coventry_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City College Norwich",
+    "website": "https://www.ccn.ac.uk/",
+    "wikidata_id": "Q5123119",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_College_Norwich",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City College Peterborough",
+    "website": "http://www.citycollegepeterborough.ac.uk/",
+    "wikidata_id": "Q19872145",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_College_Peterborough",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City St George's, University of London",
+    "website": "https://citystgeorges.ac.uk",
+    "wikidata_id": "Q124917493",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_St_George%27s,_University_of_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City and Guilds of London Art School",
+    "website": "http://www.cityandguildsartschool.ac.uk/home",
+    "wikidata_id": "Q5123522",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_and_Guilds_of_London_Art_School",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City of Bath College",
+    "website": "https://www.bathcollege.ac.uk/",
+    "wikidata_id": "Q5123579",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bath_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City of Glasgow College",
+    "website": "http://www.cityofglasgowcollege.ac.uk",
+    "wikidata_id": "Q2988296",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_of_Glasgow_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City of Sunderland College",
+    "website": "http://www.sunderlandcollege.ac.uk",
+    "wikidata_id": "Q5123940",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sunderland_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City of Wolverhampton College",
+    "website": "http://www.wolvcoll.ac.uk",
+    "wikidata_id": "Q5123991",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_of_Wolverhampton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "City, University of London",
+    "website": "http://web.city.ac.uk/",
+    "wikidata_id": "Q1094046",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City,_University_of_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Coleg Cambria",
+    "website": "http://www.cambria.ac.uk/",
+    "wikidata_id": "Q16890510",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Coleg_Cambria",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Coleg Ceredigion",
+    "website": "https://www.csgcc.ac.uk/",
+    "wikidata_id": "Q5142753",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Coleg_Ceredigion",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Coleg Morgannwg",
+    "website": "http://www.morgannwg.ac.uk",
+    "wikidata_id": "Q5142758",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Coleg_Morgannwg",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "College of Agriculture, Food and Rural Enterprise",
+    "website": "http://www.cafre.ac.uk/",
+    "wikidata_id": "Q5146616",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Agriculture,_Food_and_Rural_Enterprise",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "College of North West London",
+    "website": "http://www.cnwl.ac.uk/",
+    "wikidata_id": "Q5146785",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_North_West_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "College of Optometrists",
+    "website": "http://www.college-optometrists.org/",
+    "wikidata_id": "Q5146790",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Optometrists",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "College of West Anglia",
+    "website": "http://www.cwa.ac.uk/",
+    "wikidata_id": "Q5146873",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_West_Anglia",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "College of the Resurrection",
+    "website": "http://college.mirfield.org.uk",
+    "wikidata_id": "Q5146896",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_the_Resurrection",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cornwall College",
+    "website": "http://www.cornwall.ac.uk",
+    "wikidata_id": "Q5171960",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cornwall_College,_England",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cranfield University",
+    "website": "https://www.cranfield.ac.uk/",
+    "wikidata_id": "Q181177",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cranfield_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Craven College",
+    "website": "http://www.craven-college.ac.uk",
+    "wikidata_id": "Q5182719",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Craven_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Cumbria County History Trust",
+    "website": "http://www.cumbriacountyhistory.org.uk/",
+    "wikidata_id": "Q17183672",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cumbria_County_History_Trust",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Darlington College",
+    "website": "http://www.darlington.ac.uk",
+    "wikidata_id": "Q5223980",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Darlington_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Denman College",
+    "website": "https://www.denman.org.uk/",
+    "wikidata_id": "Q5257909",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Denman_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Doncaster College",
+    "website": "http://www.don.ac.uk",
+    "wikidata_id": "Q5295490",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Doncaster_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Duchy College Rural Business School",
+    "website": "https://www.duchy.ac.uk/",
+    "wikidata_id": "Q16989127",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Duchy_College_Rural_Business_School",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Dudley College of Technology",
+    "website": "http://www.dudleycol.ac.uk",
+    "wikidata_id": "Q5311834",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dudley_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Dundee College",
+    "website": "https://dundeeandangus.ac.uk/",
+    "wikidata_id": "Q3041279",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dundee_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Durrell Institute of Conservation and Ecology",
+    "website": "http://www.kent.ac.uk/dice/",
+    "wikidata_id": "Q5316738",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Durrell_Institute_of_Conservation_and_Ecology",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "East Riding College",
+    "website": "https://www.eastridingcollege.ac.uk/",
+    "wikidata_id": "Q5329257",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/East_Riding_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Edgehill Theological College",
+    "website": "http://www.edgehillcollege.org/",
+    "wikidata_id": "Q5337767",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Edgehill_Theological_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "European College of Business and Management",
+    "website": "http://www.ecbm-london.de/en/",
+    "wikidata_id": "Q5412393",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/European_College_of_Business_and_Management",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Faculty of Education, Law and Social Sciences",
+    "website": "http://www.bcu.ac.uk/elss/",
+    "wikidata_id": "Q5428938",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Birmingham_City_University_Faculty_of_Education,_Law_and_Social_Sciences",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Faculty of Performance, Media and English",
+    "website": "http://www.bcu.ac.uk/about-us/faculties/faculty-of-performance-media-and-english/",
+    "wikidata_id": "Q5429040",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Birmingham_City_University_Faculty_of_Performance,_Media_and_English",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Faculty of Sexual and Reproductive Healthcare",
+    "website": "http://www.fsrh.org",
+    "wikidata_id": "Q5429067",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Sexual_and_Reproductive_Healthcare",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Falmouth University",
+    "website": "http://www.falmouth.ac.uk/",
+    "wikidata_id": "Q5432602",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Falmouth_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Fareham College",
+    "website": "http://www.fareham.ac.uk",
+    "wikidata_id": "Q5434953",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fareham_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Fife College",
+    "website": "http://www.fife.ac.uk/Pages/default.aspx",
+    "wikidata_id": "Q16992127",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fife_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Furness College, Barrow-in-Furness",
+    "website": "http://www.Furness.ac.uk/",
+    "wikidata_id": "Q5509647",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Furness_College,_Barrow-in-Furness",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "GCU London",
+    "website": "http://www.gculondon.ac.uk/",
+    "wikidata_id": "Q5513054",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/GCU_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Gateshead College",
+    "website": "http://www.gateshead.ac.uk/",
+    "wikidata_id": "Q5527146",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gateshead_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Glasgow Caledonian University",
+    "website": "https://www.gcu.ac.uk/",
+    "wikidata_id": "Q1353139",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Glasgow_Caledonian_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Glasgow Kelvin College",
+    "website": "http://www.glasgowkelvin.ac.uk",
+    "wikidata_id": "Q16982077",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Glasgow_Kelvin_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Glasgow Metropolitan College",
+    "website": "http://www.glasgowmet.ac.uk/",
+    "wikidata_id": "Q5566867",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Glasgow_Metropolitan_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Glasgow School for Business and Society",
+    "website": "http://www.moffatcentre.com/",
+    "wikidata_id": "Q5566908",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Glasgow_School_for_Business_and_Society",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Glasgow School of Art",
+    "website": "https://www.gsa.ac.uk/",
+    "wikidata_id": "Q748106",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Glasgow_School_of_Art",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Global Banking School",
+    "website": "https://globalbanking.ac.uk",
+    "wikidata_id": "Q136995021",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Global_Banking_School",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Goldsmiths, University of London",
+    "website": "https://gold.ac.uk",
+    "wikidata_id": "Q528231",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Goldsmiths,_University_of_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Goodenough College",
+    "website": "http://www.goodenough.ac.uk",
+    "wikidata_id": "Q5583351",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Goodenough_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Gorseinon College",
+    "website": "http://www.gorseinon.ac.uk/",
+    "wikidata_id": "Q5586879",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gorseinon_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Gower College Swansea",
+    "website": "http://www.gcs.ac.uk/",
+    "wikidata_id": "Q5590045",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gower_College_Swansea",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Grantham College",
+    "website": "https://www.grantham.ac.uk/",
+    "wikidata_id": "Q5596621",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Grantham_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Great Yarmouth College",
+    "website": "http://www.gyc.ac.uk/",
+    "wikidata_id": "Q5600279",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Great_Yarmouth_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Guildford College",
+    "website": "http://www.guildford.ac.uk",
+    "wikidata_id": "Q5615798",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Guildford_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Guildhall School of Music and Drama",
+    "website": "http://www.gsmd.ac.uk",
+    "wikidata_id": "Q1419737",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Guildhall_School_of_Music_and_Drama",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Hackney College",
+    "website": "http://www.hackney.ac.uk/",
+    "wikidata_id": "Q5637350",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hackney_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Halesowen College",
+    "website": "https://www.halesowen.ac.uk/",
+    "wikidata_id": "Q5641515",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Halesowen_College_of_Further_Education",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Harlow College",
+    "website": "https://www.harlow-college.ac.uk",
+    "wikidata_id": "Q5658944",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Harlow_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Harper Adams University",
+    "website": "http://www.haac.ac.uk/",
+    "wikidata_id": "Q5663364",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Harper_Adams_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Hartlepool College of Further Education",
+    "website": "http://www.hartlepoolfe.ac.uk",
+    "wikidata_id": "Q5674793",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hartlepool_College_of_Further_Education",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Hartpury University and College",
+    "website": "https://www.hartpury.ac.uk/",
+    "wikidata_id": "Q5675151",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hartpury_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Health Sciences University",
+    "website": "http://www.aecc.ac.uk",
+    "wikidata_id": "Q4763618",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Health_Sciences_University_(United_Kingdom)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Heriot-Watt University",
+    "website": "https://www.hw.ac.uk/",
+    "wikidata_id": "Q1610024",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Heriot-Watt_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Highbury College",
+    "website": "http://www.highbury.ac.uk",
+    "wikidata_id": "Q5757880",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Highbury_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Hillcroft College",
+    "website": "http://www.hillcroft.ac.uk/",
+    "wikidata_id": "Q5762899",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hillcroft_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Hugh Baird College",
+    "website": "http://www.hughbaird.uk.com/",
+    "wikidata_id": "Q5929941",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hugh_Baird_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Hull College",
+    "website": "http://www.hull-college.ac.uk/",
+    "wikidata_id": "Q5935849",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hull_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Inns of Court College of Advocacy",
+    "website": "https://www.icca.ac.uk",
+    "wikidata_id": "Q105082339",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "International Christian College",
+    "website": "http://sscm.ac.uk/new-life/",
+    "wikidata_id": "Q6049212",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_Christian_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "International College Portsmouth",
+    "website": "http://www.port.ac.uk/icp",
+    "wikidata_id": "Q6049362",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_College_Portsmouth",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Inverness College",
+    "website": "https://www.inverness.uhi.ac.uk",
+    "wikidata_id": "Q6060232",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Inverness_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Ionad Chaluim Chille Ìle",
+    "website": "https://islaygaeliccentre.co.uk/",
+    "wikidata_id": "Q3776505",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ionad_Chaluim_Chille_%C3%8Cle",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Irish Baptist College",
+    "website": "https://www.irishbaptistcollege.co.uk/",
+    "wikidata_id": "Q6070523",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Irish_Baptist_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Kensington College of Business",
+    "website": "http://www.kensingtoncoll.ac.uk/",
+    "wikidata_id": "Q6391436",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kensington_College_of_Business",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "King's College",
+    "website": "https://www.abdn.ac.uk/about/campus/old-aberdeen/kings-college/",
+    "wikidata_id": "Q6410877",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King%27s_College,_Aberdeen",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Kingston Maurward College",
+    "website": "http://www.kmc.ac.uk/",
+    "wikidata_id": "Q6413557",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kingston_Maurward_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Kingston University",
+    "website": "https://www.kingston.ac.uk/",
+    "wikidata_id": "Q2503809",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kingston_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Kirklees College",
+    "website": "http://www.kirkleescollege.ac.uk",
+    "wikidata_id": "Q6415753",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kirklees_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Lakes College",
+    "website": "http://www.lcwc.ac.uk/",
+    "wikidata_id": "Q6478951",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lakes_College_(West_Cumbria)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Lambeth College",
+    "website": "http://www.lambethcollege.ac.uk",
+    "wikidata_id": "Q6481422",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_Bank_Colleges",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Lancaster and Morecambe College",
+    "website": "http://www.lmc.ac.uk/home/index.php",
+    "wikidata_id": "Q16995868",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lancaster_and_Morecambe_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Leeds Beckett University",
+    "website": "http://www.leedsbeckett.ac.uk/",
+    "wikidata_id": "Q2392351",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Leeds_Beckett_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Leeds Trinity University",
+    "website": "http://www.leedstrinity.ac.uk/",
+    "wikidata_id": "Q1849271",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Leeds_Trinity_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Leicester College",
+    "website": "http://www.leicestercollege.ac.uk/",
+    "wikidata_id": "Q6519168",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Leicester_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Lewisham College",
+    "website": "http://www.LSCollege.ac.uk/",
+    "wikidata_id": "Q6537301",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lewisham_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Liverpool Hope University",
+    "website": "http://www.hope.ac.uk/",
+    "wikidata_id": "Q1818020",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Liverpool_Hope_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Liverpool John Moores University",
+    "website": "http://www.ljmu.ac.uk/",
+    "wikidata_id": "Q1627967",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Liverpool_John_Moores_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Liverpool Media Academy",
+    "website": "https://www.lma.ac.uk",
+    "wikidata_id": "Q6658506",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Liverpool_Media_Academy",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "London College of Fashion",
+    "website": "http://arts.ac.uk/fashion",
+    "wikidata_id": "Q1627503",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/London_College_of_Fashion",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "London College of Music Examinations",
+    "website": "http://www.uwl.ac.uk/lcmexams",
+    "wikidata_id": "Q6670254",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/London_College_of_Music_Examinations",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "London Consortium",
+    "website": "http://www.londonconsortium.com/",
+    "wikidata_id": "Q16996858",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/London_Consortium",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "London Interdisciplinary School",
+    "website": "https://www.lis.ac.uk/",
+    "wikidata_id": "Q104862011",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/London_Interdisciplinary_School",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "London School of Commerce",
+    "website": "http://www.lsclondon.co.uk",
+    "wikidata_id": "Q6670738",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/London_School_of_Commerce",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "London South East Colleges",
+    "website": "http://www.lsec.ac.uk/",
+    "wikidata_id": "Q4973675",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/London_South_East_Colleges",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Loughborough College",
+    "website": "https://www.loucoll.ac.uk/",
+    "wikidata_id": "Q6686153",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Loughborough_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "MLA College",
+    "website": "https://www.mla.ac.uk",
+    "wikidata_id": "Q136995411",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/MLA_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Macclesfield College",
+    "website": "http://www.macclesfield.ac.uk/",
+    "wikidata_id": "Q6722921",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Macclesfield_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Magee College",
+    "website": "http://www.ulster.ac.uk/ulster-life/campuses/magee",
+    "wikidata_id": "Q6730059",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Magee_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Manchester Metropolitan University",
+    "website": "https://www.mmu.ac.uk/",
+    "wikidata_id": "Q1888771",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Manchester_Metropolitan_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Medway School of Pharmacy",
+    "website": "http://www.msp.ac.uk/",
+    "wikidata_id": "Q16951256",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Medway_School_of_Pharmacy",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Mid Cheshire College",
+    "website": "http://www.midchesh.ac.uk",
+    "wikidata_id": "Q6840937",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mid_Cheshire_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "MidKent College (Gillingham Campus)",
+    "website": "https://www.midkent.ac.uk/about-us/medway-campus",
+    "wikidata_id": "Q6840881",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/MidKent_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Middlesbrough College",
+    "website": "http://www.middlesbro.ac.uk/",
+    "wikidata_id": "Q6841844",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Middlesbrough_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Middlesex University",
+    "website": "https://www.mdx.ac.uk",
+    "wikidata_id": "Q1760791",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Middlesex_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Moorlands College",
+    "website": "https://www.moorlands.ac.uk/",
+    "wikidata_id": "Q6908430",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Moorlands_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Moulton College",
+    "website": "http://www.moulton.ac.uk/",
+    "wikidata_id": "Q6919048",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Moulton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Myerscough College",
+    "website": "http://www.myerscough.ac.uk",
+    "wikidata_id": "Q6947437",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Myerscough_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Neath Port Talbot College",
+    "website": "https://www.nptcgroup.ac.uk/en/",
+    "wikidata_id": "Q6984498",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Neath_Port_Talbot_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Nelson and Colne College",
+    "website": "http://www.nelson.ac.uk",
+    "wikidata_id": "Q6990788",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nelson_and_Colne_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "New College Durham",
+    "website": "http://www.newdur.ac.uk",
+    "wikidata_id": "Q15261971",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/New_College_Durham",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "New College Lanarkshire",
+    "website": "http://www.nclanarkshire.ac.uk/",
+    "wikidata_id": "Q20877209",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/New_College_Lanarkshire",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "New College, Swindon",
+    "website": "http://www.newcollege.co.uk/",
+    "wikidata_id": "Q7006607",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/New_College_Swindon",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Newcastle-under-Lyme College",
+    "website": "https://www.nulc.ac.uk/",
+    "wikidata_id": "Q7017320",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Newcastle-under-Lyme_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Newham College of Further Education",
+    "website": "http://www.newham.ac.uk",
+    "wikidata_id": "Q7018113",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Newham_College_of_Further_Education",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Newman College Ireland",
+    "website": "http://www.newmancollege.ie",
+    "wikidata_id": "Q17095391",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Newman_College_Ireland",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Newspeak House",
+    "website": "https://www.nwspk.com/",
+    "wikidata_id": "Q65048456",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Newton Gateway to Mathematics",
+    "website": "https://www.turing-gateway.cam.ac.uk/",
+    "wikidata_id": "Q28913043",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Newton_Gateway_to_Mathematics",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "North East Surrey College of Technology",
+    "website": "http://www.nescot.ac.uk/",
+    "wikidata_id": "Q15262510",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/North_East_Surrey_College_of_Technology",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "North Hertfordshire College",
+    "website": "http://www.nhc.ac.uk",
+    "wikidata_id": "Q7055590",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/North_Hertfordshire_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "North Highland College",
+    "website": "http://www.northhighland.uhi.ac.uk",
+    "wikidata_id": "Q18161637",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/North_Highland_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "North Kent College",
+    "website": "http://www.northkent.ac.uk/",
+    "wikidata_id": "Q7057266",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/North_Kent_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "North Warwickshire and South Leicestershire College",
+    "website": "http://www.nwhc.ac.uk/",
+    "wikidata_id": "Q15262543",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/North_Warwickshire_and_Hinckley_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Northampton College",
+    "website": "http://www.northamptoncollege.ac.uk",
+    "wikidata_id": "Q15262551",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northampton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Northeastern University London",
+    "website": "https://nulondon.ac.uk",
+    "wikidata_id": "Q1982481",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northeastern_University_%E2%80%93_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Northern College for Residential and Non-Residential Adult Education",
+    "website": "http://www.northern.ac.uk",
+    "wikidata_id": "Q7058242",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northern_College_(England)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Northern Regional College",
+    "website": "https://www.nrc.ac.uk/",
+    "wikidata_id": "Q15262574",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northern_Regional_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Norwich University of the Arts",
+    "website": "https://www.nua.ac.uk/",
+    "wikidata_id": "Q3695681",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Norwich_University_of_the_Arts",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Nottingham Trent University",
+    "website": "http://www.ntu.ac.uk/",
+    "wikidata_id": "Q2002619",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nottingham_Trent_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Oaklands College",
+    "website": "https://www.oaklands.ac.uk/",
+    "wikidata_id": "Q7074079",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Oaklands_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Oxford Brookes University",
+    "website": "https://www.brookes.ac.uk/",
+    "wikidata_id": "Q132478",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Oxford_Brookes_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Pearson College London",
+    "website": "https://www.pearsoncollege.ac.uk/",
+    "wikidata_id": "Q1496803",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pearson_College_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Peoples-uni",
+    "website": "http://www.peoples-uni.org/",
+    "wikidata_id": "Q17147180",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Peoples-uni",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Peterborough Regional College",
+    "website": "http://www.peterborough.ac.uk/",
+    "wikidata_id": "Q7178025",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Peterborough_Regional_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Plymouth Devon International College",
+    "website": "http://www.plymouth.ac.uk/pdic",
+    "wikidata_id": "Q7205798",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Plymouth_International_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Plymouth Marjon University",
+    "website": "http://www.marjon.ac.uk/",
+    "wikidata_id": "Q7894637",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Plymouth_Marjon_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Polish University Abroad",
+    "website": "https://puno.edu.pl",
+    "wikidata_id": "Q7209998",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polish_University_Abroad",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Preston College",
+    "website": "http://www.preston.ac.uk",
+    "wikidata_id": "Q7241864",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Preston_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Queen Alexandra College",
+    "website": "http://www.qac.ac.uk/",
+    "wikidata_id": "Q7270181",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Queen_Alexandra_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Queen Elizabeth College",
+    "website": "http://www.qeca.org.uk",
+    "wikidata_id": "Q991099",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Queen_Elizabeth_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Queen Margaret University",
+    "website": "http://www.qmu.ac.uk",
+    "wikidata_id": "Q915989",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Queen_Margaret_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Queen's University Belfast",
+    "website": "https://qub.ac.uk/",
+    "wikidata_id": "Q877925",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Queen%27s_University_Belfast",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Ravensbourne University London",
+    "website": "https://www.ravensbourne.ac.uk/",
+    "wikidata_id": "Q7296496",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ravensbourne_University_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Reaseheath College",
+    "website": "http://www.reaseheath.ac.uk/",
+    "wikidata_id": "Q7301469",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Reaseheath_College_%26_University_Centre",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Redcar & Cleveland College",
+    "website": "http://www.cleveland.ac.uk",
+    "wikidata_id": "Q7305532",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Redcar_%26_Cleveland_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Redcliffe College",
+    "website": "http://www.redcliffe.ac.uk/",
+    "wikidata_id": "Q7305558",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Redcliffe_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Regents Theological College",
+    "website": "http://www.regents-tc.ac.uk/",
+    "wikidata_id": "Q1774197",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Regents_Theological_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Richmond upon Thames College",
+    "website": "https://www.rutc.ac.uk/",
+    "wikidata_id": "Q7331062",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Richmond_upon_Thames_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Robert Gordon University",
+    "website": "http://www.rgu.ac.uk/",
+    "wikidata_id": "Q1788342",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Robert_Gordon_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Royal Academy of Music",
+    "website": "https://ram.ac.uk",
+    "wikidata_id": "Q1144673",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Royal_Academy_of_Music",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Royal Agricultural University",
+    "website": "http://www.rau.ac.uk",
+    "wikidata_id": "Q3445856",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Royal_Agricultural_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Royal Holloway, University of London",
+    "website": "https://royalholloway.ac.uk/",
+    "wikidata_id": "Q1202039",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Royal_Holloway,_University_of_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Runshaw College",
+    "website": "http://www.runshaw.ac.uk",
+    "wikidata_id": "Q7380113",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Runshaw_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Ruskin College",
+    "website": "http://www.ruskin.ac.uk/",
+    "wikidata_id": "Q1627864",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ruskin_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "SEEVIC College",
+    "website": "http://www.seevic-college.ac.uk/",
+    "wikidata_id": "Q7389660",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Sabhal Mòr Ostaig",
+    "website": "http://www.smo.uhi.ac.uk/",
+    "wikidata_id": "Q2748208",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sabhal_M%C3%B2r_Ostaig",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Sandwell College",
+    "website": "http://www.sandwell.ac.uk",
+    "wikidata_id": "Q7417039",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sandwell_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Sarum College",
+    "website": "https://www.sarum.ac.uk/",
+    "wikidata_id": "Q7424719",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sarum_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Scotland's Rural College",
+    "website": "http://www.sruc.ac.uk/",
+    "wikidata_id": "Q7435613",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Scotland%27s_Rural_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Scottish Baptist College",
+    "website": "http://scottishbaptistcollege.org/",
+    "wikidata_id": "Q48886687",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Sea Mammal Research Unit",
+    "website": "http://www.smru.st-andrews.ac.uk",
+    "wikidata_id": "Q7439950",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sea_Mammal_Research_Unit",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Selby College",
+    "website": "http://www.selby.ac.uk/",
+    "wikidata_id": "Q7447554",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Selby_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Shakespeare Institute",
+    "website": "http://www.shakespeare.bham.ac.uk/",
+    "wikidata_id": "Q7462802",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shakespeare_Institute",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Sheffield Hallam University",
+    "website": "http://www.shu.ac.uk/",
+    "wikidata_id": "Q1752117",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sheffield_Hallam_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Shetland UHI",
+    "website": "https://www.shetland.uhi.ac.uk/",
+    "wikidata_id": "Q118256269",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Sion College",
+    "website": "http://www.sioncollege.org",
+    "wikidata_id": "Q7525349",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sion_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Solihull College",
+    "website": "http://www.solihull.ac.uk",
+    "wikidata_id": "Q7558060",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Solihull_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Somerset College of Arts and Technology",
+    "website": "http://www.somerset.ac.uk/",
+    "wikidata_id": "Q7559836",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Somerset_College_of_Arts_and_Technology",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South & City College Birmingham",
+    "website": "http://www.sccb.ac.uk/",
+    "wikidata_id": "Q7565336",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_and_City_College_Birmingham",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South Devon College",
+    "website": "http://www.southdevon.ac.uk",
+    "wikidata_id": "Q7567040",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_Devon_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South Downs College",
+    "website": "http://www.southdowns.ac.uk",
+    "wikidata_id": "Q7567075",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Havant_and_South_Downs_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South Eastern Regional College",
+    "website": "http://www.serc.ac.uk/Pages/default.aspx",
+    "wikidata_id": "Q102523007",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_Eastern_Regional_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South Essex College",
+    "website": "http://www.southessex.ac.uk",
+    "wikidata_id": "Q7567197",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_Essex_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South Gloucestershire and Stroud College",
+    "website": "http://www.sgscol.ac.uk",
+    "wikidata_id": "Q7567367",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_Gloucestershire_and_Stroud_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South Staffordshire College",
+    "website": "http://www.southstaffs.ac.uk",
+    "wikidata_id": "Q7568534",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_Staffordshire_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "South West College",
+    "website": "http://www.swc.ac.uk/",
+    "wikidata_id": "Q7568841",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/South_West_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Southampton City College",
+    "website": "https://www.southampton-city.ac.uk",
+    "wikidata_id": "Q7569110",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southampton_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Southampton Solent University",
+    "website": "http://www.solent.ac.uk",
+    "wikidata_id": "Q2065695",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southampton_Solent_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Southern Regional College",
+    "website": "http://www.src.ac.uk/",
+    "wikidata_id": "Q7570388",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_Regional_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Southport College",
+    "website": "http://www.southport.ac.uk",
+    "wikidata_id": "Q7570957",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southport_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Sparsholt College",
+    "website": "http://www.sparsholt.ac.uk/",
+    "wikidata_id": "Q7573803",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sparsholt_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "St Helens College",
+    "website": "http://www.sthelens.ac.uk/",
+    "wikidata_id": "Q7593338",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St_Helens_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "St Leonard's College",
+    "website": "http://www.st-andrews.ac.uk/pgstudents/stleonards/",
+    "wikidata_id": "Q7593996",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St_Leonard%27s_College,_St_Andrews",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "St Patrick's College, London",
+    "website": "http://www.st-patricks.ac.uk",
+    "wikidata_id": "Q16900520",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St_Patrick%27s_College,_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "St Stephen's College, Clewer",
+    "website": "http://ststephensbroadstairs.org.uk",
+    "wikidata_id": "Q21474162",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St_Stephen%27s_College,_Broadstairs",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Stafford College",
+    "website": "http://www.staffordcoll.ac.uk/",
+    "wikidata_id": "Q7596608",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Stafford_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Stanmore College",
+    "website": "http://www.stanmore.ac.uk/",
+    "wikidata_id": "Q7600102",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Stanmore_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Stella Mann College of Performing Arts",
+    "website": "http://www.stellamanncollege.co.uk",
+    "wikidata_id": "Q7607085",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Stella_Mann_College_of_Performing_Arts",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Stockport College",
+    "website": "http://www.stockport.ac.uk",
+    "wikidata_id": "Q7618146",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Stockport_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Strode College",
+    "website": "http://www.strode-college.ac.uk/",
+    "wikidata_id": "Q7624231",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Strode_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Suffolk New College",
+    "website": "https://www.suffolk.ac.uk",
+    "wikidata_id": "Q7634576",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Suffolk_New_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Swansea University Medical School",
+    "website": "http://www.swansea.ac.uk/medicine/",
+    "wikidata_id": "Q7653715",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Swansea_University_Medical_School",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Swindon College",
+    "website": "http://www.swindon.ac.uk/",
+    "wikidata_id": "Q7658423",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Swindon_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Teesside University",
+    "website": "http://www.tees.ac.uk/",
+    "wikidata_id": "Q3695910",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Teesside_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Teikyo University of Japan in Durham",
+    "website": "http://www.teikyouniversitydurham.com",
+    "wikidata_id": "Q17055617",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Teikyo_University_of_Japan_in_Durham",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "The Condé Nast College of Fashion & Design",
+    "website": "https://www.condenastcollege.ac.uk/",
+    "wikidata_id": "Q22312854",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/The_Cond%C3%A9_Nast_College_of_Fashion_%26_Design",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "The Henley College",
+    "website": "http://www.henleycol.ac.uk",
+    "wikidata_id": "Q7739369",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/The_Henley_College_(Henley-on-Thames)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "The Manchester College",
+    "website": "http://www.themanchestercollege.ac.uk/",
+    "wikidata_id": "Q7750158",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/The_Manchester_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "The Oldham College",
+    "website": "http://www.oldham.ac.uk/",
+    "wikidata_id": "Q7085632",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Oldham_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "The Sixth Form College, Solihull",
+    "website": "https://www.solihullsfc.ac.uk/",
+    "wikidata_id": "Q7764578",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Solihull_Sixth_Form_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Thomas Young Centre",
+    "website": "http://www.thomasyoungcentre.org/",
+    "wikidata_id": "Q7795383",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Thomas_Young_Centre",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Trafford College",
+    "website": "http://www.trafford.ac.uk",
+    "wikidata_id": "Q7832539",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Trafford_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Trinity College",
+    "website": "https://www.trin.cam.ac.uk",
+    "wikidata_id": "Q332342",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Trinity_College,_Cambridge",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Trinity College, Glasgow",
+    "website": "http://www.gla.ac.uk/undergraduate/degrees/theologyreligiousstudies/trinitycollege-churchofscotland/",
+    "wikidata_id": "Q7842690",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Trinity_College,_Glasgow",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Trinity Hall",
+    "website": "http://www.trinhall.cam.ac.uk/",
+    "wikidata_id": "Q1244704",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Trinity_Hall,_Cambridge",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "UCL East",
+    "website": "https://www.ucl.ac.uk/ucl-east",
+    "wikidata_id": "Q123266314",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/UCL_East",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "UHI North, West and Hebrides",
+    "website": "https://www.nwh.uhi.ac.uk/en/",
+    "wikidata_id": "Q123468322",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/UHI_North,_West_and_Hebrides",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "UK Management College",
+    "website": "https://ukmc.ac.uk",
+    "wikidata_id": "Q139782530",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "UPSI",
+    "website": "http://www.upsi.org.uk/",
+    "wikidata_id": "Q7865529",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universities%27_Police_Science_Institute",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Union Theological College",
+    "website": "http://www.union.ac.uk",
+    "wikidata_id": "Q7886160",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Union_Theological_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Universities at Medway",
+    "website": "http://www.medway.ac.uk",
+    "wikidata_id": "Q7894464",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universities_at_Medway",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University Academy Holbeach",
+    "website": "http://www.universityacademyholbeach.org/",
+    "wikidata_id": "Q7894499",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_Academy_Holbeach",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University Centre Shrewsbury",
+    "website": "https://ucshrewsbury.ac.uk/",
+    "wikidata_id": "Q20731805",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_Centre_Shrewsbury",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University Centre Somerset",
+    "website": "https://www.somerset.ac.uk/",
+    "wikidata_id": "Q105399186",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University College Birmingham",
+    "website": "http://www.bcftcs.ac.uk",
+    "wikidata_id": "Q7894613",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_College_Birmingham",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University for the Creative Arts",
+    "website": "http://www.uca.ac.uk",
+    "wikidata_id": "Q2598272",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_for_the_Creative_Arts",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Abertay Dundee",
+    "website": "http://www.abertay.ac.uk/",
+    "wikidata_id": "Q1505925",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Abertay_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Bath",
+    "website": "https://www.bath.ac.uk/",
+    "wikidata_id": "Q1422458",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Bath",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Bedfordshire",
+    "website": "https://beds.ac.uk/",
+    "wikidata_id": "Q3047150",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Bedfordshire",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Bradford",
+    "website": "http://www.brad.ac.uk/",
+    "wikidata_id": "Q954035",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Bradford",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Brighton",
+    "website": "http://www.bton.ac.uk",
+    "wikidata_id": "Q3056813",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Brighton",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Chester",
+    "website": "https://www.chester.ac.uk/",
+    "wikidata_id": "Q762243",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Chester",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Chichester",
+    "website": "https://www.chi.ac.uk/",
+    "wikidata_id": "Q3551577",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Chichester",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Cumbria",
+    "website": "http://www.cumbria.ac.uk",
+    "wikidata_id": "Q1861974",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Cumbria",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Edinburgh College of Science and Engineering",
+    "website": "http://www.ed.ac.uk/science-engineering",
+    "wikidata_id": "Q7895359",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Science_and_Engineering,_University_of_Edinburgh",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Gibraltar",
+    "website": "http://www.unigib.edu.gi/",
+    "wikidata_id": "Q18357152",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Gibraltar",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Glamorgan",
+    "website": "https://glamorganuniversity.org",
+    "wikidata_id": "Q1143242",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Glamorgan",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Gloucestershire",
+    "website": "https://www.glos.ac.uk/",
+    "wikidata_id": "Q1816872",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Gloucestershire",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Greenwich",
+    "website": "https://www.gre.ac.uk/",
+    "wikidata_id": "Q1896148",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Greenwich",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Keele",
+    "website": "https://www.keele.ac.uk/",
+    "wikidata_id": "Q1737734",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Keele_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Kent - Tonbridge",
+    "website": "https://www.kent.ac.uk/tonbridge/",
+    "wikidata_id": "Q24678086",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Lancashire",
+    "website": "http://www.uclan.ac.uk/",
+    "wikidata_id": "Q1857773",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Lancashire",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Lancaster",
+    "website": "https://www.lancaster.ac.uk/",
+    "wikidata_id": "Q262854",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lancaster_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of London",
+    "website": "https://www.london.ac.uk/",
+    "wikidata_id": "Q170027",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of London Institute in Paris",
+    "website": "https://ulip.london.ac.uk/",
+    "wikidata_id": "Q3551353",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_London_Institute_in_Paris",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Manchester",
+    "website": "https://manchester.ac.uk",
+    "wikidata_id": "Q230899",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Manchester",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Manchester Institute of Science and Technology",
+    "website": "http://www.manchester.ac.uk/",
+    "wikidata_id": "Q4272498",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Manchester_Institute_of_Science_and_Technology",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Northampton",
+    "website": "http://www.nene.ac.uk/",
+    "wikidata_id": "Q3123462",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Northampton",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Reading",
+    "website": "https://www.reading.ac.uk/",
+    "wikidata_id": "Q1432632",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Reading",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Science, Arts and Technology",
+    "website": "http://usat.edu/",
+    "wikidata_id": "Q22088945",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Science,_Arts_and_Technology",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of South Wales",
+    "website": "http://www.southwales.ac.uk/",
+    "wikidata_id": "Q1971174",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_South_Wales",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Staffordshire",
+    "website": "http://www.staffs.ac.uk/",
+    "wikidata_id": "Q1534573",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Staffordshire",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Strathclyde Faculty of Engineering",
+    "website": "https://www.strath.ac.uk/engineering/",
+    "wikidata_id": "Q16258750",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Strathclyde_Faculty_of_Engineering",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Suffolk",
+    "website": "https://uos.ac.uk/",
+    "wikidata_id": "Q24661246",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Suffolk",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Sunderland",
+    "website": "http://www.sunderland.ac.uk/",
+    "wikidata_id": "Q1094742",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Sunderland",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Surrey",
+    "website": "https://www.surrey.ac.uk/",
+    "wikidata_id": "Q546976",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Surrey",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Wales",
+    "website": "https://www.wales.ac.uk/en/Home.aspx",
+    "wikidata_id": "Q1072029",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Wales",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Wales Trinity Saint David",
+    "website": "http://www.uwtsd.ac.uk/",
+    "wikidata_id": "Q3551774",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Wales_Trinity_Saint_David",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Wales Trinity Saint David - Lampeter Campus",
+    "website": "http://www.uwtsd.ac.uk",
+    "wikidata_id": "Q1816905",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Wales,_Lampeter",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Wales Trinity Saint David - Swansea Campus",
+    "website": "http://www.smu.ac.uk/",
+    "wikidata_id": "Q7653704",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Swansea_Metropolitan_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Wales, Newport",
+    "website": "http://www.newport.ac.uk/",
+    "wikidata_id": "Q935290",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Wales,_Newport",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of West London",
+    "website": "http://www.uwl.ac.uk/",
+    "wikidata_id": "Q2007778",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_West_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of West London, London School of Film, Media and Design",
+    "website": "https://www.uwl.ac.uk/study/film-media-design",
+    "wikidata_id": "Q110617147",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Westminster",
+    "website": "http://www.westminster.ac.uk",
+    "wikidata_id": "Q1247544",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Westminster",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of Wolverhampton",
+    "website": "https://www.wlv.ac.uk/",
+    "wikidata_id": "Q1816202",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Wolverhampton",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of the Arts London",
+    "website": "https://www.arts.ac.uk/",
+    "wikidata_id": "Q2065666",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Arts_London",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "University of the West of Scotland",
+    "website": "http://www.uws.ac.uk/",
+    "wikidata_id": "Q1296153",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_West_of_Scotland",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Walford and North Shropshire College",
+    "website": "http://www.nsc.ac.uk",
+    "wikidata_id": "Q7961864",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/North_Shropshire_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Walsall College",
+    "website": "https://www.walsallcollege.ac.uk/",
+    "wikidata_id": "Q7963767",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Walsall_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Warnborough College",
+    "website": "http://warnborough.ac.uk/",
+    "wikidata_id": "Q7969667",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Warnborough_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Warwickshire College",
+    "website": "https://www.warwickshire.ac.uk/",
+    "wikidata_id": "Q7971224",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/WCG_(college)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Wellcome Institute for the History of Medicine",
+    "website": "http://wihm.ucl.ac.uk/",
+    "wikidata_id": "Q19600144",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Wellcome_Institute_for_the_History_of_Medicine",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "West College Scotland",
+    "website": "http://www.westcollegescotland.ac.uk",
+    "wikidata_id": "Q16934820",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_College_Scotland",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "West Herts College",
+    "website": "http://www.westherts.ac.uk",
+    "wikidata_id": "Q7985352",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_Herts_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "West Lancashire College",
+    "website": "http://www.westlancs.ac.uk/",
+    "wikidata_id": "Q16250244",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_Lancashire_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "West London College",
+    "website": "http://www.westlondoncollege.com",
+    "wikidata_id": "Q7985786",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_London_College_(1977%E2%80%932017)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "West London College",
+    "website": "http://www.wlc.ac.uk/",
+    "wikidata_id": "Q5325466",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_London_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "West Suffolk College",
+    "website": "http://www.westsuffolkcollege.ac.uk/",
+    "wikidata_id": "Q7986605",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_Suffolk_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Westfield House",
+    "website": "https://www.westfield.cam.ac.uk",
+    "wikidata_id": "Q15990352",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Westfield_House",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Westminster Kingsway College",
+    "website": "http://www.capitalccg.ac.uk",
+    "wikidata_id": "Q7989175",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Westminster_Kingsway_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Weston College",
+    "website": "http://www.weston.ac.uk/",
+    "wikidata_id": "Q7989410",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Weston_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "William Booth Memorial Training College",
+    "website": "https://www.salvationarmy.org.uk/william-booth-college",
+    "wikidata_id": "Q8005708",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/William_Booth_Memorial_Training_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Windsor Forest Colleges Group",
+    "website": "http://www.eastberks.ac.uk",
+    "wikidata_id": "Q5327862",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Windsor_Forest_Colleges_Group",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Woodbrooke Quaker Study Centre",
+    "website": "http://www.woodbrooke.org.uk/",
+    "wikidata_id": "Q8032437",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Woodbrooke_Quaker_Study_Centre",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Wrexham University",
+    "website": "http://www.wrexham.ac.uk/",
+    "wikidata_id": "Q3400501",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Wrexham_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Writtle College",
+    "website": "http://www.writtle.ac.uk/",
+    "wikidata_id": "Q8038568",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Writtle_University_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Wrockwardine Wood Arts College, Telford",
+    "website": "http://www.taw.org.uk",
+    "wikidata_id": "Q104586714",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Yeovil College",
+    "website": "http://www.yeovil.ac.uk/",
+    "wikidata_id": "Q8052493",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yeovil_College",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "York College",
+    "website": "https://www.yorkcollege.ac.uk",
+    "wikidata_id": "Q8055404",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/York_College_(York)",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "York St John University",
+    "website": "http://www.yorksj.ac.uk/",
+    "wikidata_id": "Q8055565",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/York_St_John_University",
+    "country": "united-kingdom"
+  },
+  {
+    "name": "Your Look Hair and Beauty",
+    "website": "",
+    "wikidata_id": "Q70072090",
+    "wikipedia_url": "",
+    "country": "united-kingdom"
+  }
+]

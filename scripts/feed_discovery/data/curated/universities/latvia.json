@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCKgmcV09Nndqx4ycnYylgwQ",
+    "category": "Education",
+    "title": "Daugavpils University (YouTube)",
+    "genre": "University",
+    "source_page": "http://du.lv",
+    "national": true,
+    "national_reason": "universities/youtube/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

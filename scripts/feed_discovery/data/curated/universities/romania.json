@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrwZ-pjiKeBq-AbLVoujxsw",
+    "category": "Education",
+    "title": "University of Galați (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.ugal.ro/",
+    "national": true,
+    "national_reason": "universities/youtube/romania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

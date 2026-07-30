@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCnpFo8JuJu4DksPXKNA7SRg",
+    "category": "Education",
+    "title": "Korea Institute of Energy Technology (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.kentech.ac.kr/main.do",
+    "national": true,
+    "national_reason": "universities/youtube/south-korea",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwK3hT2ah8OA9Hzjmiq4TmQ",
+    "category": "Education",
+    "title": "Sun Moon University (YouTube)",
+    "genre": "University",
+    "source_page": "http://tulip.sunmoon.ac.kr/english/main.do",
+    "national": true,
+    "national_reason": "universities/youtube/south-korea",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

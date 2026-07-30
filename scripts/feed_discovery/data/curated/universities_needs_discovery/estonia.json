@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Estonian Academy of Arts",
+    "website": "http://www.artun.ee",
+    "wikidata_id": "Q1370318",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Estonian_Academy_of_Arts",
+    "country": "estonia"
+  },
+  {
+    "name": "Estonian Academy of Music and Theatre",
+    "website": "https://eamt.ee/",
+    "wikidata_id": "Q1370342",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Estonian_Academy_of_Music_and_Theatre",
+    "country": "estonia"
+  },
+  {
+    "name": "Estonian University of Life Sciences",
+    "website": "http://www.emu.ee/",
+    "wikidata_id": "Q655542",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Estonian_University_of_Life_Sciences",
+    "country": "estonia"
+  },
+  {
+    "name": "International University Audentes",
+    "website": "http://www.audentes.eu",
+    "wikidata_id": "Q1518505",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_University_Audentes",
+    "country": "estonia"
+  },
+  {
+    "name": "Tallinn University of Technology",
+    "website": "https://taltech.ee/",
+    "wikidata_id": "Q604487",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tallinn_University_of_Technology",
+    "country": "estonia"
+  },
+  {
+    "name": "University of Tartu",
+    "website": "https://ut.ee",
+    "wikidata_id": "Q204181",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Tartu",
+    "country": "estonia"
+  }
+]

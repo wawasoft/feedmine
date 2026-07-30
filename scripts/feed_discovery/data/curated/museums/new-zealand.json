@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCDo4HyAsT28SL9elBxtRyYQ",
+    "category": "YouTube",
+    "title": "Auckland War Memorial Museum Tāmaki Paenga Hira — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.aucklandmuseum.com/",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UChzpcDq9VcuDLMXaoJHklBQ",
+    "category": "YouTube",
+    "title": "Hocken Collections — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.otago.ac.nz/library/hocken/index.html",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCTyJyUcUTElGKPW41g3tf0g",
+    "category": "YouTube",
+    "title": "Mercury Bay Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://mercurybaymuseum.co.nz/",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6cnrd8SMMC2x9rud3RfqlA",
+    "category": "YouTube",
+    "title": "Museum of New Zealand Te Papa Tongarewa — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.tepapa.govt.nz",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbU150Xe6T6C3zKYxJ19-6A",
+    "category": "YouTube",
+    "title": "New Zealand Portrait Gallery — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.nzportraitgallery.org.nz",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCk8x-g8S1Sz4vlkwDbpVFvg",
+    "category": "YouTube",
+    "title": "Rotorua Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.rotoruamuseum.co.nz/",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCGgTi6vEs7nL9i612cWz9fQ",
+    "category": "YouTube",
+    "title": "Tairāwhiti Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.tairawhitimuseum.org.nz/",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLP608zUACk3bMct65fttVg",
+    "category": "YouTube",
+    "title": "Te Pātaka Toi Adam Art Gallery — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.adamartgallery.org.nz/",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB82x5QhCnObPLUg0QGDKuQ",
+    "category": "YouTube",
+    "title": "Toitū Otago Settlers Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.toituosm.com",
+    "national": true,
+    "national_reason": "museums/youtube/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

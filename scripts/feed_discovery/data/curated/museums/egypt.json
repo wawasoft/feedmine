@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4LhO98WZopFuQSTH7__n1g",
+    "category": "YouTube",
+    "title": "Center for Documentation of Cultural and Natural Heritage — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.cultnat.org/",
+    "national": true,
+    "national_reason": "museums/youtube/egypt",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSy8cjV5N2O93KlWEtSqaxw",
+    "category": "YouTube",
+    "title": "Mini Egypt Park — YouTube",
+    "genre": "Museum",
+    "source_page": "https://miniegyptpark.com/",
+    "national": true,
+    "national_reason": "museums/youtube/egypt",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSmBrnaDLCS4yncyAieG5rw",
+    "category": "YouTube",
+    "title": "Museum of Islamic Art — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.miaegypt.org/",
+    "national": true,
+    "national_reason": "museums/youtube/egypt",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgNlHKqoTF86baOI8xVl4eQ",
+    "category": "YouTube",
+    "title": "National Museum of Egyptian Civilization — YouTube",
+    "genre": "Museum",
+    "source_page": "https://nmec.gov.eg/ar/",
+    "national": true,
+    "national_reason": "museums/youtube/egypt",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

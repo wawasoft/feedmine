@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCeqmviAP_SXENDj3fzW1gJA",
+    "category": "Education",
+    "title": "Gazi University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.gazi.edu.tr/",
+    "national": true,
+    "national_reason": "universities/youtube/turkey",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

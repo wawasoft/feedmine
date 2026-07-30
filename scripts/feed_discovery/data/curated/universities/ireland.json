@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UClJpzbXeLYJ02pM2m6V9J8g",
+    "category": "Education",
+    "title": "Burren College of Art (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.burrencollege.ie",
+    "national": true,
+    "national_reason": "universities/youtube/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UChS5byG_IkiDm-QWiReThOw",
+    "category": "Education",
+    "title": "Coláiste na hÉireann/Gaelchultúr (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.gaelchultur.com",
+    "national": true,
+    "national_reason": "universities/youtube/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

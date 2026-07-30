@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCr5rEvayXIC0YnJxDAWuWtQ",
+    "category": "Education",
+    "title": "Federico Santa María Technical University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.usm.cl",
+    "national": true,
+    "national_reason": "universities/youtube/chile",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAfl9v22I3cD2SZB9z3kNMw",
+    "category": "Education",
+    "title": "Pontifical Catholic University of Chile (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uc.cl/",
+    "national": true,
+    "national_reason": "universities/youtube/chile",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

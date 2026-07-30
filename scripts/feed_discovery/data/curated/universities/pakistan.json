@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCfEKY-x10w0nMR1X1d6rfOw",
+    "category": "Education",
+    "title": "D. J. Science College (YouTube)",
+    "genre": "University",
+    "source_page": "https://en.wikipedia.org/wiki/D._J._Sindh_Government_Science_College",
+    "national": true,
+    "national_reason": "universities/youtube/pakistan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6ogNXFBwBO8A_F9kyiLnhg",
+    "category": "Education",
+    "title": "Jamia Qasim Ul Uloom (YouTube)",
+    "genre": "University",
+    "source_page": "https://qasimululoommultan.com/",
+    "national": true,
+    "national_reason": "universities/youtube/pakistan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCyEXEBDYhSWUPX2sr16dgeQ",
+    "category": "Education",
+    "title": "Jamia Tur Rasheed, Karachi (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.kulyatushariah.edu.pk/",
+    "national": true,
+    "national_reason": "universities/youtube/pakistan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC9GIyzZHr_Jb4omiL4EjL0g",
+    "category": "Education",
+    "title": "Sarhad University of Science and Information Technology (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.suit.edu.pk/",
+    "national": true,
+    "national_reason": "universities/youtube/pakistan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

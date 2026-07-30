@@ -1,0 +1,194 @@
+[
+  {
+    "url": "https://www.aproposdecriture.com/feed/",
+    "title": "Un écrivain doit il créer son blog ? - À propos décriture",
+    "source": "page:écrivain",
+    "country": "france"
+  },
+  {
+    "url": "https://www.ecrivain-e.com/feed/",
+    "title": "Blog - Écrivain-E",
+    "source": "page:écrivain",
+    "country": "france"
+  },
+  {
+    "url": "https://blog.sm.k12.tr/feed/",
+    "title": "écrivain – SM Blog",
+    "source": "page:écrivain",
+    "country": "france"
+  },
+  {
+    "url": "https://static.blog4ever.com/2015/12/812338/rss_articles.xml",
+    "title": "IRVING - écrivain canado-américain - UN VOYAGE DANS MES LIVRES",
+    "source": "page:écrivain",
+    "country": "france"
+  },
+  {
+    "url": "https://www.hostinger.com/nl/tutorials/feed/",
+    "title": "Wat is een blog? Blogs, bloggen en bloggers begrijpen (2026)",
+    "source": "page:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://renzoverwer.wordpress.com/feed/",
+    "title": "Renzo Verwer, auteur/blogger – Site van Renzo Verwer",
+    "source": "page:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://facemweb.com/feed/",
+    "title": "Flux RSS Yoast SEO, Comment ça marche ? Tutoriel | Facem Web",
+    "source": "page:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://www.actulligence.com/feed/",
+    "title": "Blogueur et auteur : où est le droit ? - Actulligence",
+    "source": "page:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://romancier7.wordpress.com/feed/",
+    "title": "Romancier7's Blog | Um blog ao encontro da literatura portuguesa",
+    "source": "page:romancier",
+    "country": "france"
+  },
+  {
+    "url": "https://www.dwds.de/api/feed/adt",
+    "title": "Romancier – Schreibung, Definition, Bedeutung, Etymologie... | DWDS",
+    "source": "page:romancier",
+    "country": "france"
+  },
+  {
+    "url": "https://ocastle.wordpress.com/feed/",
+    "title": "Articles traitant de Romancier écrits par Oliver Castle",
+    "source": "page:romancier",
+    "country": "france"
+  },
+  {
+    "url": "http://www.rosesteinmetz.com/?feed=rss2",
+    "title": "romancier",
+    "source": "page:romancier",
+    "country": "france"
+  },
+  {
+    "url": "https://passagealest.wordpress.com/2026/07/18/un-passage-a-lest-qui-dure-depuis-15-ans-wieslaw-mysliwski-lhorizon/feed",
+    "title": "[Un Passage à l’Est qui dure depuis 15 ans] Wiesław Myśliwski...",
+    "source": "wp:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://collectifpolar.wordpress.com/2026/07/29/mourir-deux-fois-maxime-girardeau/feed",
+    "title": "Mourir deux fois, Maxime Girardeau – Collectif polar : chronique de nuit",
+    "source": "wp:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://geudensherman.wordpress.com/2026/07/29/millet/feed",
+    "title": "Millet – À la française",
+    "source": "wp:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://clausuchronia.wordpress.com/tag/nouvelle-uchronie/feed",
+    "title": "Articles traitant de Nouvelle Uchronie écrits par clausmaster",
+    "source": "wp:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://christinerobledo.wordpress.com/2026/07/23/feed",
+    "title": "23/07/2026 – les chroniques mortes ou vives",
+    "source": "wp:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://blogactionjazz.wordpress.com/tag/jean-marie-morin/feed",
+    "title": "jean-marie morin « Le Blog d'Action Jazz",
+    "source": "wp:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://thomaspiketty.wordpress.com/2016/02/18/de-linegalite-en-amerique/feed",
+    "title": "De l’inégalité en Amérique – Thomas Piketty",
+    "source": "wp:auteur",
+    "country": "france"
+  },
+  {
+    "url": "https://animus-magazine.ghost.io/rss",
+    "title": "Queer Auteurism under Censorship: On George Cukor and Mitchell...",
+    "source": "platform:ghost.io",
+    "country": "france"
+  },
+  {
+    "url": "https://cultureframe.ghost.io/rss",
+    "title": "Movie Log: Blink Twice, Hold-Up, and LE SAMOURAÏ",
+    "source": "platform:ghost.io",
+    "country": "france"
+  },
+  {
+    "url": "https://buddakhiin.ghost.io/rss",
+    "title": "Emulation et Abandonware c'est légal ou pas ?",
+    "source": "platform:ghost.io",
+    "country": "france"
+  },
+  {
+    "url": "https://araucaria-de-chile.blogspot.com/feeds/posts/default",
+    "title": "Araucaria: DE BONNES NOUVELLES DE L'HORRIBLE ET...",
+    "source": "platform:blogspot.com",
+    "country": "france"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "Les Résultats PMU : Guide Complet Sur Le Gambling, Les Paris Et Les...",
+    "source": "platform:blogspot.com",
+    "country": "france"
+  },
+  {
+    "url": "https://bestworldproject.blogspot.com/feeds/posts/default",
+    "title": "[Antw] Un Monde meilleur.. (avec l'IA, ou sans) ?",
+    "source": "platform:blogspot.com",
+    "country": "france"
+  },
+  {
+    "url": "https://boris-victor.blogspot.com/feeds/posts/default",
+    "title": "Le journal de BORIS VICTOR : à la UNE du LE TEMPS - Mercredi 29...",
+    "source": "platform:blogspot.com",
+    "country": "france"
+  },
+  {
+    "url": "https://restaurationlivreatroo.blogspot.com/feeds/posts/default",
+    "title": "Reliure restauration librairie: juillet 2026",
+    "source": "platform:blogspot.com",
+    "country": "france"
+  },
+  {
+    "url": "https://conseilsdietetiques.blogspot.com/feeds/posts/default",
+    "title": "Conseils Diététiques",
+    "source": "platform:blogspot.com",
+    "country": "france"
+  },
+  {
+    "url": "https://lacinemathequedubis.blogspot.com/feeds/posts/default",
+    "title": "Les Aventures extraordinaires de Cervantes (1966) de Vincent...",
+    "source": "platform:blogspot.com",
+    "country": "france"
+  },
+  {
+    "url": "https://ecrivains-publics.fr/comments/feed/",
+    "title": "AEPF première association d'écrivains publics professionnels",
+    "source": "assoc:fr",
+    "country": "france"
+  },
+  {
+    "url": "https://ecrivainssportifs.fr/comments/feed/",
+    "title": "Association des Ecrivains Sportifs",
+    "source": "assoc:fr",
+    "country": "france"
+  },
+  {
+    "url": "https://www.afjet.fr/comments/feed/",
+    "title": "Afjet Association française des journalistes et des écrivains du...",
+    "source": "assoc:fr",
+    "country": "france"
+  }
+]

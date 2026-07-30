@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5sGaAaEVeQEr5Lxf7q9dFw",
+    "category": "YouTube",
+    "title": "Museum Q56693535 — YouTube",
+    "genre": "Museum",
+    "source_page": "http://hotelfazendaflorenca.com.br/",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5zrWiq1vCrYXcNw-F1Xakw",
+    "category": "YouTube",
+    "title": "Botanical Garden of Bauru — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.jardimbotanicobauru.com.br/",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCt5H6DFGPM5ZW3vZuOIhlTA",
+    "category": "YouTube",
+    "title": "Brazilian Academy of Letters — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.academia.org.br/",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCmi9w-n1Ur-qv7945a57WYA",
+    "category": "YouTube",
+    "title": "Football Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.museudofutebol.org.br/",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5Bh3Ljo71O9uML6paQVAfQ",
+    "category": "YouTube",
+    "title": "Instituto Butantan — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.butantan.gov.br",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwLOSkzEP0nR4EnmuSudPwQ",
+    "category": "YouTube",
+    "title": "Instituto Figueiredo Ferraz — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.institutofigueiredoferraz.com.br/",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC98l9dLKN5cyDPo4hE-A_tA",
+    "category": "YouTube",
+    "title": "Ipiranga Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://museudoipiranga.org.br",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCDHpERPhYywCuIcrhEiuQ1A",
+    "category": "YouTube",
+    "title": "Museum of the Amazon (MUSA) — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.museudaamazonia.org.br",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCu3lXGQC1YNcyTJWUtlP6IQ",
+    "category": "YouTube",
+    "title": "Oscar Niemeyer Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.museuoscarniemeyer.org.br/",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBjLmno30rL8nBXC11rl5-A",
+    "category": "YouTube",
+    "title": "São Paulo Museum of Image and Sound — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.mis-sp.org.br/",
+    "national": true,
+    "national_reason": "museums/youtube/brazil",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

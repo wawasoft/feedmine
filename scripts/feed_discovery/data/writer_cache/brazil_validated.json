@@ -1,0 +1,152 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "brazil"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "brazil"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "brazil"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "brazil"
+  },
+  {
+    "url": "https://www.bonashistorias.com.br/blog-feed.xml",
+    "title": "Livros: O Romancista Ingênuo e o Sentimental - O ensaio literário de...",
+    "source": "page:romancista",
+    "country": "brazil"
+  },
+  {
+    "url": "https://viaeditora.com.br/feed/",
+    "title": "O Romancista Aramis Ribeiro Costa por Cyro de Mattos – Via...",
+    "source": "page:romancista",
+    "country": "brazil"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "brazil"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "brazil"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "brazil"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "brazil"
+  },
+  {
+    "url": "https://musicaart.wordpress.com/2013/10/18/a-cancao-tocou-na-hora-errada-ana-carolina/feed",
+    "title": "A Canção Tocou na Hora Errada – Ana Carolina | Música e Arte!",
+    "source": "wp:escritor",
+    "country": "brazil"
+  },
+  {
+    "url": "https://honduprensa.wordpress.com/2014/11/05/feed",
+    "title": "12 entradas publicadas por honduprensa el November 5, 2014",
+    "source": "wp:escritor",
+    "country": "brazil"
+  },
+  {
+    "url": "https://oxfordenglishblog.wordpress.com/tag/mineria/feed",
+    "title": "Entradas sobre MINERÍA escritas por BUENOS DÍAS SEÑOR",
+    "source": "wp:escritor",
+    "country": "brazil"
+  },
+  {
+    "url": "https://marinasdasilva.blogspot.com/feeds/posts/default",
+    "title": "Blog marina da silva: brazil: namoro antes dos cinquenta tons de cinza!",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://besantanna.blogspot.com/feeds/posts/default",
+    "title": "besantanna blogspot",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://tralhasvarias.blogspot.com/feeds/posts/default",
+    "title": "Filmes Walt Disney: A Bela Adormecida (1959) | Tralhas Varias",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://blogdotataritaritata.blogspot.com/feeds/posts/default",
+    "title": "Tataritaritatá: drummond, dad squarisi, lenine & stella maris rezende",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://rogeriohenriquerocha.blogspot.com/feeds/posts/default",
+    "title": "ROGÉRIO ROCHA: O BLOG: viagens",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://hercolubuseofuturo.blogspot.com/feeds/posts/default",
+    "title": "HERCOLUBUS E O FUTURO: outubro 2013",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "Casinos Promociones Gratis: La Guía Completa para Apostar sin...",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "http://011-tutorial.blogspot.com/feeds/posts/default",
+    "title": "11tutorial",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://papermau.blogspot.com/feeds/posts/default",
+    "title": "PAPERMAU",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://notasbedefilas.blogspot.com/feeds/posts/default",
+    "title": "notas bedéfilas: As histórias de Todos os Milhões do Tio Patinhas",
+    "source": "platform:blogspot.com",
+    "country": "brazil"
+  },
+  {
+    "url": "https://salavirtualache.blogspot.com/feeds/posts/default",
+    "title": "Associação Chapecoense de Escritores",
+    "source": "assoc:pt",
+    "country": "brazil"
+  },
+  {
+    "url": "https://equipe-de-escritores.blogspot.com/feeds/posts/default",
+    "title": "Cabana de Escritores & Seres Iluminados",
+    "source": "assoc:pt",
+    "country": "brazil"
+  }
+]

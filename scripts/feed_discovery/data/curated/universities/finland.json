@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCVH_CVgBn-M88KNvuHSdL6g",
+    "category": "Education",
+    "title": "Lappeenranta-Lahti University of Technology LUT (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.lut.fi/en",
+    "national": true,
+    "national_reason": "universities/youtube/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,877 @@
+[
+  {
+    "name": "Ajou University",
+    "website": "http://www.ajou.ac.kr/",
+    "wikidata_id": "Q491082",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ajou_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Ansan University",
+    "website": "http://www.ansan.ac.kr",
+    "wikidata_id": "Q4770505",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ansan_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Asia LIFE University",
+    "website": "http://www.alu.ac.kr/index.html",
+    "wikidata_id": "Q18566699",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asia_LIFE_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Baekseok University",
+    "website": "http://www.bu.ac.kr/",
+    "wikidata_id": "Q625952",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Baekseok_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Bucheon University",
+    "website": "http://www.bc.ac.kr/",
+    "wikidata_id": "Q4982688",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bucheon_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Busan Institute of Science and Technology",
+    "website": "http://bithome.bit.ac.kr/",
+    "wikidata_id": "Q624332",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Busan_Institute_of_Science_and_Technology",
+    "country": "south-korea"
+  },
+  {
+    "name": "Busan Kyungsang College",
+    "website": "http://www.bsks.ac.kr/",
+    "wikidata_id": "Q5001267",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Busan_Kyungsang_College",
+    "country": "south-korea"
+  },
+  {
+    "name": "Busan Presbyterian University",
+    "website": "http://www.bjc.ac.kr/",
+    "wikidata_id": "Q5001270",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Busan_Presbyterian_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Catholic Kwandong University",
+    "website": "http://www.cku.ac.kr/",
+    "wikidata_id": "Q626458",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Catholic_Kwandong_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Changwon National University",
+    "website": "http://www.changwon.ac.kr/",
+    "wikidata_id": "Q483680",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Changwon_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Cheju Halla University",
+    "website": "https://www.chu.ac.kr/language/jp/main/index.php",
+    "wikidata_id": "Q5089726",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cheju_Halla_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Cheongju National University of Education",
+    "website": "https://www.cje.ac.kr",
+    "wikidata_id": "Q482677",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cheongju_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Cheongju University",
+    "website": "http://www.cju.ac.kr/",
+    "wikidata_id": "Q625945",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cheongju_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Chinju National University of Education",
+    "website": "http://www.cue.ac.kr/",
+    "wikidata_id": "Q482692",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chinju_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Chodang University",
+    "website": "http://www.chodang.ac.kr/",
+    "wikidata_id": "Q1075658",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chodang_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Chugye University for the Arts",
+    "website": "http://www.chugye.ac.kr/",
+    "wikidata_id": "Q5115985",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chugye_University_for_the_Arts",
+    "country": "south-korea"
+  },
+  {
+    "name": "Chuncheon National University of Education",
+    "website": "http://www.cnue.ac.kr/",
+    "wikidata_id": "Q484477",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chuncheon_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Chung Cheong University",
+    "website": "http://www.ok.ac.kr",
+    "wikidata_id": "Q5116276",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chung_Cheong_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Chungbuk National University",
+    "website": "https://www.cbnu.ac.kr/english/index.do",
+    "wikidata_id": "Q491714",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chungbuk_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Cyber University of Korea",
+    "website": "http://www.cuk.edu/",
+    "wikidata_id": "Q12584162",
+    "wikipedia_url": "",
+    "country": "south-korea"
+  },
+  {
+    "name": "Daegu Arts University",
+    "website": "http://www.dgau.ac.kr/",
+    "wikidata_id": "Q5208186",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Daegu_Arts_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Daegu Future College",
+    "website": "http://www.dfc.ac.kr",
+    "wikidata_id": "Q5208188",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Daegu_Future_College",
+    "country": "south-korea"
+  },
+  {
+    "name": "Daegu Haany University",
+    "website": "http://www.dhu.ac.kr",
+    "wikidata_id": "Q5208190",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Daegu_Haany_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Daegu National University of Education",
+    "website": "http://www.dnue.ac.kr/",
+    "wikidata_id": "Q482711",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Daegu_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Daegu Technical University",
+    "website": "https://www.funttc.com/contents/main/main.aspx",
+    "wikidata_id": "Q373311",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Daegu_Technical_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Daegu University",
+    "website": "http://daegu.ac.kr/",
+    "wikidata_id": "Q489708",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Daegu_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Daejeon University",
+    "website": "http://www.dju.ac.kr/",
+    "wikidata_id": "Q624072",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Daejeon_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Division of IT Convergence Engineering",
+    "website": "http://itce.postech.ac.kr/",
+    "wikidata_id": "Q5284536",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Division_of_IT_Convergence_Engineering",
+    "country": "south-korea"
+  },
+  {
+    "name": "Donga College of Health",
+    "website": "http://www.dongac.ac.kr",
+    "wikidata_id": "Q5295800",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Donga_College_of_Health",
+    "country": "south-korea"
+  },
+  {
+    "name": "Dongju College",
+    "website": "http://www.dongju.ac.kr/",
+    "wikidata_id": "Q5295950",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dongju_College",
+    "country": "south-korea"
+  },
+  {
+    "name": "Dongseo University",
+    "website": "http://uni.dongseo.ac.kr/eng/",
+    "wikidata_id": "Q493506",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dongseo_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Dongshin University",
+    "website": "http://www.dsu.ac.kr/cms/",
+    "wikidata_id": "Q5296030",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dongshin_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Dongyang University",
+    "website": "http://www.dyu.ac.kr/",
+    "wikidata_id": "Q5296069",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dongyang_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Eulji University",
+    "website": "http://www.eu.ac.kr",
+    "wikidata_id": "Q482658",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Eulji_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Gangdong University",
+    "website": "http://www.gangdong.ac.kr/",
+    "wikidata_id": "Q16093197",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gangdong_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Geumgang University",
+    "website": "https://www.ggu.ac.kr/japanese",
+    "wikidata_id": "Q5554847",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Geumgang_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Graduate Institute of Ferrous Technology",
+    "website": "http://gift.postech.ac.kr/",
+    "wikidata_id": "Q4373721",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graduate_Institute_of_Ferrous_Technology",
+    "country": "south-korea"
+  },
+  {
+    "name": "Graduate School of Design, Ewha Womans University",
+    "website": "http://gsd.ewha.ac.kr/",
+    "wikidata_id": "Q5592033",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graduate_School_of_Design,_Ewha_Womans_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Gwangju Catholic University",
+    "website": "http://www.gjcatholic.ac.kr/",
+    "wikidata_id": "Q5623305",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gwangju_Catholic_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Gwangju National University of Education",
+    "website": "http://eng.gnue.ac.kr/",
+    "wikidata_id": "Q484775",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gwangju_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Gwangju University",
+    "website": "http://www.gwangju.ac.kr",
+    "wikidata_id": "Q624374",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gwangju_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Gyeongguk National University",
+    "website": "http://www.andong.ac.kr/",
+    "wikidata_id": "Q494638",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Andong_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Gyeongin National University of Education",
+    "website": "http://www.ginue.ac.kr/",
+    "wikidata_id": "Q482661",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gyeongin_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Gyeongnam National University of Science and Technology",
+    "website": "http://www.gntech.ac.kr/",
+    "wikidata_id": "Q482674",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gyeongnam_National_University_of_Science_and_Technology",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hallym Polytechnic University",
+    "website": "http://www.hsc.ac.kr/site/hsc/main.do",
+    "wikidata_id": "Q5643247",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hallym_Sacred_Heart_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hallym University",
+    "website": "http://www.hallym.ac.kr",
+    "wikidata_id": "Q482724",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hallym_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hanbat National University",
+    "website": "http://www.hanbat.ac.kr/html/en/",
+    "wikidata_id": "Q482669",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanbat_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Handong Global University",
+    "website": "https://www.handong.edu/eng/",
+    "wikidata_id": "Q623604",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Handong_Global_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hankuk University of Foreign Studies",
+    "website": "https://www.hufs.ac.kr/",
+    "wikidata_id": "Q208736",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hankuk_University_of_Foreign_Studies",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hanlyo University",
+    "website": "http://www.hanlyo.ac.kr/hanlyo/",
+    "wikidata_id": "Q5648624",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanlyo_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hansei University",
+    "website": "http://www.hansei.ac.kr",
+    "wikidata_id": "Q626067",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hansei_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hanseo University",
+    "website": "http://www.hanseo.ac.kr",
+    "wikidata_id": "Q624295",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanseo_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hanshin University",
+    "website": "http://www.hs.ac.kr/",
+    "wikidata_id": "Q624561",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanshin_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hansung University Design campus",
+    "website": "http://edubank.hansung.ac.kr",
+    "wikidata_id": "Q624365",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hansung_University_Design_campus",
+    "country": "south-korea"
+  },
+  {
+    "name": "Hanyang Cyber University",
+    "website": "http://en.hycu.ac.kr/",
+    "wikidata_id": "Q5651452",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanyang_Cyber_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "ICT Polytech Institute of Korea",
+    "website": "http://www.ict.ac.kr/eng",
+    "wikidata_id": "Q16098734",
+    "wikipedia_url": "",
+    "country": "south-korea"
+  },
+  {
+    "name": "Incheon National University",
+    "website": "https://www.inu.ac.kr/",
+    "wikidata_id": "Q497488",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Incheon_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Induk University",
+    "website": "http://www.induk.ac.kr/en/index.asp",
+    "wikidata_id": "Q12613348",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Induk_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Information and Communications University",
+    "website": "http://www.icu.ac.kr/",
+    "wikidata_id": "Q491101",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Information_and_Communications_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Institute of Information Technology Advancement",
+    "website": "http://www.iita.re.kr/",
+    "wikidata_id": "Q6040432",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Information_Technology_Advancement",
+    "country": "south-korea"
+  },
+  {
+    "name": "International Design school for Advanced Studies, Hongik University",
+    "website": "http://www.idas.ac.kr",
+    "wikidata_id": "Q12625463",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_Design_School_for_Advanced_Studies",
+    "country": "south-korea"
+  },
+  {
+    "name": "Jeju National University",
+    "website": "http://www.jejunu.ac.kr/",
+    "wikidata_id": "Q487855",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jeju_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Jeonbuk National University",
+    "website": "http://www.jbnu.ac.kr/",
+    "wikidata_id": "Q623851",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jeonbuk_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Jeonju National University of Education",
+    "website": "http://www.jnue.ac.kr/tindex.do",
+    "wikidata_id": "Q482699",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jeonju_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "KDI School of Public Policy and Management",
+    "website": "http://www.kdischool.ac.kr/",
+    "wikidata_id": "Q625138",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/KDI_School_of_Public_Policy_and_Management",
+    "country": "south-korea"
+  },
+  {
+    "name": "KEISIE Graduate School of International Education",
+    "website": "http://www.koredinco.com",
+    "wikidata_id": "Q6328427",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/KEISIE_International_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kangnam University",
+    "website": "http://www.kangnam.ac.kr",
+    "wikidata_id": "Q486676",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kangnam_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kaywon University of Art and Design",
+    "website": "http://www.kaywon.ac.kr",
+    "wikidata_id": "Q12584021",
+    "wikipedia_url": "",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea Aerospace University",
+    "website": "http://www.kau.ac.kr/english",
+    "wikidata_id": "Q6431586",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_Aerospace_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea National Open University",
+    "website": "http://www.knou.ac.kr/",
+    "wikidata_id": "Q491597",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_National_Open_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea National University of Arts",
+    "website": "http://www.knua.ac.kr",
+    "wikidata_id": "Q489696",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_National_University_of_Arts",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea National University of Cultural Heritage",
+    "website": "https://www.knuh.ac.kr/",
+    "wikidata_id": "Q623817",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_National_University_of_Cultural_Heritage",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea National University of Transportation",
+    "website": "http://www.ut.ac.kr/",
+    "wikidata_id": "Q486999",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_National_University_of_Transportation",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea Nazarene University",
+    "website": "https://www.kornu.ac.kr",
+    "wikidata_id": "Q6431679",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_Nazarene_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea Polytechnic VI Daegu",
+    "website": "http://www.dgpc.ac.kr/",
+    "wikidata_id": "Q625496",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_Polytechnic_VI_Daegu",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University College of Education",
+    "website": "http://educa.korea.ac.kr/",
+    "wikidata_id": "Q6431731",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_College_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University College of Engineering",
+    "website": "http://eng1.korea.ac.kr/",
+    "wikidata_id": "Q6431732",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_College_of_Engineering",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University College of Life Sciences and Biotechnology",
+    "website": "http://lifesci.korea.ac.kr/",
+    "wikidata_id": "Q6431734",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_College_of_Life_Sciences_and_Biotechnology",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University College of Political Science and Economics",
+    "website": "http://hoan.korea.ac.kr/",
+    "wikidata_id": "Q6431735",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_College_of_Political_Science_and_Economics",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University Division of International Studies",
+    "website": "http://dis.korea.ac.kr",
+    "wikidata_id": "Q6431737",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_College_of_International_Studies",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University Graduate School",
+    "website": "http://graduate2.korea.ac.kr/main/main.jsp",
+    "wikidata_id": "Q6431738",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_Graduate_School",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University Graduate School of International Studies",
+    "website": "http://gsis.korea.ac.kr/",
+    "wikidata_id": "Q20010806",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_Graduate_School_of_International_Studies",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University Law School",
+    "website": "http://www.korealawschool.com/",
+    "wikidata_id": "Q6431741",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_School_of_Law",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University Sejong Campus",
+    "website": "https://sejong.korea.ac.kr/kr",
+    "wikidata_id": "Q6431747",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korea_University_Sejong_Campus",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korea University of Science and Technology",
+    "website": "https://www.ust.ac.kr/eng.do",
+    "wikidata_id": "Q626893",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Science_and_Technology,_Korea",
+    "country": "south-korea"
+  },
+  {
+    "name": "Korean National Police University",
+    "website": "https://www.police.ac.kr",
+    "wikidata_id": "Q626872",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Korean_National_Police_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kundong University",
+    "website": "http://www.kundong.ac.kr/",
+    "wikidata_id": "Q6444353",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kundong_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kunsan National University",
+    "website": "http://www.kunsan.ac.kr/",
+    "wikidata_id": "Q482688",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kunsan_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kwangshin University",
+    "website": "http://www.kwangshin.ac.kr/",
+    "wikidata_id": "Q16093043",
+    "wikipedia_url": "",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kyonggi University",
+    "website": "http://www.kyonggi.ac.kr/",
+    "wikidata_id": "Q483189",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kyonggi_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kyungpook National University",
+    "website": "http://www.knu.ac.kr/",
+    "wikidata_id": "Q487841",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kyungpook_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Kyungsung University",
+    "website": "http://ks.ac.kr/",
+    "wikidata_id": "Q482751",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kyungsung_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Linton School of Global Business",
+    "website": "http://lintonschool.hnu.ac.kr/kor/",
+    "wikidata_id": "Q17062839",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Linton_Global_College",
+    "country": "south-korea"
+  },
+  {
+    "name": "Mokpo Catholic University",
+    "website": "https://www.mcu.ac.kr",
+    "wikidata_id": "Q6895404",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mokpo_Catholic_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Mokpo National Maritime University",
+    "website": "http://www.mmu.ac.kr/g1/Default.aspx",
+    "wikidata_id": "Q623828",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mokpo_National_Maritime_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Mokpo National University",
+    "website": "http://www.mokpo.ac.kr/",
+    "wikidata_id": "Q482680",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mokpo_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Myongji College",
+    "website": "",
+    "wikidata_id": "Q12595226",
+    "wikipedia_url": "",
+    "country": "south-korea"
+  },
+  {
+    "name": "Pusan National University",
+    "website": "http://www.pusan.ac.kr/",
+    "wikidata_id": "Q53122",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pusan_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Pyeongtaek University",
+    "website": "http://www.ptu.ac.kr/",
+    "wikidata_id": "Q12621827",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pyeongtaek_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Sangju National University",
+    "website": "http://www.sangju.ac.kr/",
+    "wikidata_id": "Q11249576",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sangju_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Sangmyung University",
+    "website": "http://www.smu.ac.kr",
+    "wikidata_id": "Q482819",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sangmyung_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Seonam University",
+    "website": "http://www.seonam.ac.kr/",
+    "wikidata_id": "Q12600846",
+    "wikipedia_url": "",
+    "country": "south-korea"
+  },
+  {
+    "name": "Seoul Digital University",
+    "website": "http://www.sdu.ac.kr",
+    "wikidata_id": "Q12601220",
+    "wikipedia_url": "",
+    "country": "south-korea"
+  },
+  {
+    "name": "Seoul Institute of the Arts",
+    "website": "https://www.seoularts.ac.kr",
+    "wikidata_id": "Q482649",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Seoul_Institute_of_the_Arts",
+    "country": "south-korea"
+  },
+  {
+    "name": "Seoul National University of Education",
+    "website": "http://www.snue.ac.kr/",
+    "wikidata_id": "Q487613",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Seoul_National_University_of_Education",
+    "country": "south-korea"
+  },
+  {
+    "name": "Seoul National University of Science and Technology",
+    "website": "http://www.seoultech.ac.kr/",
+    "wikidata_id": "Q482678",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Seoul_National_University_of_Science_and_Technology",
+    "country": "south-korea"
+  },
+  {
+    "name": "Seoul Theological University",
+    "website": "http://www.stu.ac.kr/",
+    "wikidata_id": "Q11250404",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Seoul_Theological_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Shin Ansan University",
+    "website": "http://www.sau.ac.kr",
+    "wikidata_id": "Q7497159",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shin_Ansan_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Ship and Offshore Structural Mechanics Laboratory",
+    "website": "http://alps.ac",
+    "wikidata_id": "Q7497946",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ship_and_Offshore_Structural_Mechanics_Laboratory",
+    "country": "south-korea"
+  },
+  {
+    "name": "Sunchon National University",
+    "website": "http://www.sunchon.ac.kr/",
+    "wikidata_id": "Q482952",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sunchon_National_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Tech University of Korea",
+    "website": "https://www.tukorea.ac.kr/",
+    "wikidata_id": "Q12623236",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tech_University_of_Korea",
+    "country": "south-korea"
+  },
+  {
+    "name": "Tongwon College",
+    "website": "http://www.tw.ac.kr",
+    "wikidata_id": "Q7821207",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tongwon_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Torch Trinity Graduate University",
+    "website": "https://www.ttgu.ac.kr/",
+    "wikidata_id": "Q7825556",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Torch_Trinity_Graduate_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Ulsan College",
+    "website": "http://eng.uc.ac.kr/CmsHome/MainDefault.jsp",
+    "wikidata_id": "Q12189982",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ulsan_College",
+    "country": "south-korea"
+  },
+  {
+    "name": "Ulsan National Institute of Science and Technology",
+    "website": "http://www.unist.ac.kr/",
+    "wikidata_id": "Q484108",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ulsan_National_Institute_of_Science_and_Technology",
+    "country": "south-korea"
+  },
+  {
+    "name": "University of Seoul",
+    "website": "http://www.uos.ac.kr",
+    "wikidata_id": "Q488334",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Seoul",
+    "country": "south-korea"
+  },
+  {
+    "name": "University of Suwon",
+    "website": "http://www.suwon.ac.kr",
+    "wikidata_id": "Q482756",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Suwon",
+    "country": "south-korea"
+  },
+  {
+    "name": "University of Ulsan",
+    "website": "http://www.ulsan.ac.kr",
+    "wikidata_id": "Q491717",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Ulsan",
+    "country": "south-korea"
+  },
+  {
+    "name": "Woosong University",
+    "website": "http://www.wsu.ac.kr/",
+    "wikidata_id": "Q625421",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Woosong_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Woosuk University",
+    "website": "http://www.woosuk.ac.kr/WoosukEnglish.do",
+    "wikidata_id": "Q8034064",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Woosuk_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Yeungjin University",
+    "website": "http://www.yju.ac.kr/",
+    "wikidata_id": "Q623795",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yeungjin_College",
+    "country": "south-korea"
+  },
+  {
+    "name": "Yeungnam University",
+    "website": "http://www.yu.ac.kr/",
+    "wikidata_id": "Q56148",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yeungnam_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Yewon Arts University",
+    "website": "http://www.yewon.ac.kr/",
+    "wikidata_id": "Q497766",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yewon_Arts_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Yong In University",
+    "website": "http://www.yongin.ac.kr",
+    "wikidata_id": "Q482648",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yong_In_University",
+    "country": "south-korea"
+  },
+  {
+    "name": "Youngsan University",
+    "website": "http://www.ysu.ac.kr/",
+    "wikidata_id": "Q8058632",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Youngsan_University",
+    "country": "south-korea"
+  }
+]

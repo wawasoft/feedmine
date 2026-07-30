@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQWd6pKtkn7Q0gidu8cZQ0g",
+    "category": "Education",
+    "title": "Hong Kong College of Technology (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.hkct.edu.hk",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkio4asleKcQVRVEM8RnXlQ",
+    "category": "Education",
+    "title": "Hong Kong Polytechnic University (YouTube)",
+    "genre": "University",
+    "source_page": "https://polyu.edu.hk/tc/",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCOclOBUWGrhtNWC8Ydnhong",
+    "category": "Education",
+    "title": "Morningside College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.morningside.cuhk.edu.hk",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCeG0cjZClabYTnYZldpCNwQ",
+    "category": "Education",
+    "title": "The Chinese University of Hong Kong (YouTube)",
+    "genre": "University",
+    "source_page": "https://cuhk.edu.hk",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBQfynxNKHvKjGPOJXYQqzQ",
+    "category": "Education",
+    "title": "Tsinghua University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.tsinghua.edu.cn/en/",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLiZldyu7cFI31Z2b8l7kxg",
+    "category": "Education",
+    "title": "UOW College Hong Kong (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uowchk.edu.hk",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCCt6MzYI7rx7z2R8vhMcNzg",
+    "category": "Education",
+    "title": "United College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uc.cuhk.edu.hk",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCzhYeBPkMJ_mTIJwaan2zuw",
+    "category": "Education",
+    "title": "University of Macau (YouTube)",
+    "genre": "University",
+    "source_page": "https://um.edu.mo",
+    "national": true,
+    "national_reason": "universities/youtube/china",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]
