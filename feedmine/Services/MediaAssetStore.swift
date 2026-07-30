@@ -59,9 +59,26 @@ actor MediaAssetStore {
         return result
     }
 
-    /// Read raw image data from disk cache (exposed for coordinator decode step).
+    /// Read raw image data from disk cache.
     func diskData(for key: String) async -> Data? {
         await diskCache.data(for: key)
+    }
+
+    /// Return a downsampled UIImage for the given cache key. Checks memory
+    /// cache first (free), then disk + downsample. Never returns a
+    /// full-resolution UIImage — the decode step must not use UIImage(data:)
+    /// on raw disk bytes.
+    func decodedImage(for cacheKey: String) async -> UIImage? {
+        if let image = memoryCache.image(for: cacheKey) {
+            return image
+        }
+        guard let data = await diskCache.data(for: cacheKey) else { return nil }
+        guard let image = ImageCache.downsample(data: data, to: ImageCache.downsampleMaxDimension) else {
+            return nil
+        }
+        let cost = Int(image.size.width * image.scale * image.size.height * image.scale * 4)
+        memoryCache.setImage(image, for: cacheKey, cost: cost)
+        return image
     }
 
     /// Context change does NOT cancel or clear in-flight downloads. The
