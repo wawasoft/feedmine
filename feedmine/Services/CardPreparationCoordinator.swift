@@ -58,7 +58,14 @@ actor CardPreparationCoordinator {
         if let current = activeContext, context.epoch < current.epoch {
             return
         }
+        // cancelAll is intentionally a no-op — downloads are shared across
+        // contexts. But it's an actor call that creates a suspension point.
+        // Re-validate the epoch guard after resuming to prevent a race where
+        // a newer context was installed during the suspension.
         await mediaStore.cancelAll()
+        if let current = activeContext, context.epoch < current.epoch {
+            return
+        }
         orderedItems = items
         stateByID.removeAll()
         resolvedByID.removeAll()
@@ -102,7 +109,22 @@ actor CardPreparationCoordinator {
     /// from `nextPublishIndex`. Returns cards in editorial order.
     /// Published cards are removed from internal maps — the UI holds a strong
     /// reference to the UIImage, so the coordinator doesn't need to retain it.
+    ///
+    /// Prefer `peekRenderReadyPrefix` + `commitPublished` for callers that
+    /// need to validate cancellation/context before consuming cards.
     func takeRenderReadyPrefix(
+        maximumCount: Int,
+        context: FeedPresentationContext
+    ) -> [PreparedFeedCard] {
+        let cards = peekRenderReadyPrefix(maximumCount: maximumCount, context: context)
+        commitPublished(ids: cards.map(\.id))
+        return cards
+    }
+
+    /// Non-destructive peek at the contiguous render-ready prefix. Does NOT
+    /// advance nextPublishIndex or remove cards from maps. Useful for waiting
+    /// loops that need to check readiness without risking card loss on cancel.
+    func peekRenderReadyPrefix(
         maximumCount: Int,
         context: FeedPresentationContext
     ) -> [PreparedFeedCard] {
@@ -116,20 +138,23 @@ actor CardPreparationCoordinator {
                 ready.append(card)
                 idx += 1
             } else {
-                break  // Not contiguous — stop here
+                break
             }
         }
-
-        // Remove published cards from internal maps. The UI now owns the
-        // UIImage reference; keeping cards here inflates runway counters.
-        for card in ready {
-            renderReadyByID.removeValue(forKey: card.id)
-            resolvedByID.removeValue(forKey: card.id)
-            stateByID.removeValue(forKey: card.id)
-        }
-
-        nextPublishIndex = idx
         return ready
+    }
+
+    /// Commit previously peeked cards as published. Removes them from
+    /// internal maps and advances nextPublishIndex past them.
+    func commitPublished(ids: [String]) {
+        for id in ids {
+            renderReadyByID.removeValue(forKey: id)
+            resolvedByID.removeValue(forKey: id)
+            stateByID.removeValue(forKey: id)
+            if let idx = orderedItems.firstIndex(where: { $0.id == id }) {
+                nextPublishIndex = max(nextPublishIndex, idx + 1)
+            }
+        }
     }
 
     /// Discard all state for a context that's no longer active.
@@ -141,14 +166,24 @@ actor CardPreparationCoordinator {
     }
 
     func handleMemoryPressure() {
-        // Discard render-ready cards beyond the publish window
+        // Demote distant render-ready cards back to resolved (disk-level)
+        // instead of deleting them permanently. If they're deleted, the
+        // feed stops at the first missing card because fillRunway only
+        // advances nextPrepareIndex forward. Demotion allows re-decode
+        // when the user scrolls closer.
         let keepUpTo = nextPublishIndex + policy.publishedAheadTarget
-        let keysToRemove = renderReadyByID.keys.filter { id in
-            guard let idx = orderedItems.firstIndex(where: { $0.id == id }) else { return true }
-            return idx >= keepUpTo
-        }
-        for key in keysToRemove {
-            renderReadyByID.removeValue(forKey: key)
+        for (id, _) in renderReadyByID {
+            guard let idx = orderedItems.firstIndex(where: { $0.id == id }),
+                  idx >= keepUpTo else { continue }
+            // Demote: revert state to resolved so fillRunway can re-decode.
+            if let asset = resolvedByID[id] {
+                stateByID[id] = .resolved(asset)
+            }
+            renderReadyByID.removeValue(forKey: id)
+            // Reset nextPrepareIndex so fillRunway picks this item up again.
+            if idx < nextPrepareIndex {
+                nextPrepareIndex = idx
+            }
         }
         Task { await mediaStore.clearMemoryCache() }
     }
@@ -323,32 +358,28 @@ actor CardPreparationCoordinator {
 /// Race an async operation against a deadline. Returns the operation result
 /// if it completes before the deadline, or nil if the deadline expires first.
 ///
-/// Uses detached Tasks so the deadline doesn't wait for the operation to
-/// finish. The download inside MediaAssetStore is a non-structured Task that
-/// doesn't respond to cooperative cancellation — we abandon the wait without
-/// cancelling the shared download (which continues in the background and
-/// benefits future requests).
+/// The operation runs in a cancellable Task. When the deadline fires, the
+/// timeout cancels it. We await the operation's value — if cancelled, the
+/// `try?` converts the CancellationError to nil (which the coordinator
+/// converts to a terminal placeholder).
 private func raceWithDeadline<T: Sendable>(
     deadline: ContinuousClock.Instant,
     operation: @escaping @Sendable () async -> T?
 ) async -> T? {
-    await withCheckedContinuation { continuation in
-        let clock = ContinuousClock()
-        let task = Task.detached {
-            await operation()
-        }
-        let timeoutTask = Task.detached {
-            try? await Task.sleep(until: deadline, clock: clock)
-            // Deadline fired — resolve with nil. The operation Task
-            // continues running (shared download populates disk cache).
-            continuation.resume(returning: nil)
-            task.cancel()
-        }
-        Task {
-            let result = await task.value
-            // Operation completed first — resolve with its result.
-            continuation.resume(returning: result)
-            timeoutTask.cancel()
-        }
+    let clock = ContinuousClock()
+
+    let downloadTask = Task<T?, Error> {
+        try Task.checkCancellation()
+        return await operation()
     }
+
+    let timeoutTask = Task {
+        try? await Task.sleep(until: deadline, clock: clock)
+        downloadTask.cancel()
+    }
+
+    let result = try? await downloadTask.value
+    timeoutTask.cancel()
+    return result ?? nil
 }
+

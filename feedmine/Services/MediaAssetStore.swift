@@ -16,7 +16,8 @@ actor MediaAssetStore {
 
     /// In-flight resolution tasks keyed by ImageAssetKey.
     /// All consumers of the same key await the same Task — no polling.
-    private var inFlight: [ImageAssetKey: Task<ResolvedImageAsset?, Never>] = [:]
+    /// Uses Error failure type so cancellation propagates to awaiters.
+    private var inFlight: [ImageAssetKey: Task<ResolvedImageAsset?, Error>] = [:]
 
     /// Session for image downloads.
     private let session: URLSession = {
@@ -35,26 +36,34 @@ actor MediaAssetStore {
     // MARK: - Public API
 
     /// Resolve an image asset with single-flight deduplication.
-    /// Returns nil if the image cannot be resolved (transient or permanent).
+    /// Returns nil if the image cannot be resolved (transient or permanent),
+    /// or if the calling Task is cancelled.
+    ///
+    /// Single-flight uses a throwing Task so cancellation propagates properly:
+    /// when the caller's Task is cancelled, `await task.value` throws
+    /// CancellationError, which propagates up through the coordinator's
+    /// raceWithDeadline, which returns nil → terminal placeholder.
     func resolve(request: ImageResolutionRequest) async -> ResolvedImageAsset? {
         let key = request.key
 
-        // 1. Memory cache hit — if we have the image, return metadata from DB
+        // 1. Memory cache hit
         if let memKey = request.cacheKey, memoryCache.image(for: memKey) != nil {
             return await loadAssetMetadata(cacheKey: memKey)
         }
 
         // 2. Single-flight dedup: if this key is already in-flight, await it
         if let task = inFlight[key] {
-            return await task.value
+            return try? await task.value
         }
 
-        // 3. Create a shared task so concurrent callers await the same download
-        let task = Task<ResolvedImageAsset?, Never> { [weak self] in
-            await self?.performResolution(request)
+        // 3. Create a shared task so concurrent callers await the same download.
+        // Uses Task<..., Error> so cancellation propagates to awaiters.
+        let task = Task<ResolvedImageAsset?, Error> { [weak self] in
+            try Task.checkCancellation()
+            return await self?.performResolution(request)
         }
         inFlight[key] = task
-        let result = await task.value
+        let result = try? await task.value
         inFlight[key] = nil
         return result
     }
