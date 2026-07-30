@@ -788,7 +788,16 @@ actor RSSFetcher {
             // Skip obvious favicons and tiny site logos — they block article
             // image resolution. A missing image triggers ArticleImageResolver
             // which finds the actual article artwork.
-            if let image, Self.isLikelyFaviconOrLogo(image) { return nil }
+            //
+            // Exception: podcasts (audio sources). The channel-level image
+            // IS the correct podcast artwork. Rejecting it leaves the podcast
+            // card permanently without artwork since episode pages are audio
+            // links, not article pages with OG images.
+            if let image, Self.isLikelyFaviconOrLogo(image) {
+                if source.mediaKind != .audio { return nil }
+                // For podcasts, only reject truly tiny images, not artwork
+                if Self.isObviouslyTooSmall(image) { return nil }
+            }
             return image
         }()
 
@@ -1233,6 +1242,21 @@ actor RSSFetcher {
         // Site logos used as channel images (not article artwork)
         if lower.contains("/logo") || lower.contains("-logo") || lower.contains("_logo") {
             return true
+        }
+        return false
+    }
+
+    /// Returns true only if the URL clearly indicates a tiny image (< 150px).
+    /// Used as a secondary filter for podcast artwork — podcast covers that
+    /// happen to contain "logo" in the URL should not be blanket-rejected.
+    private static func isObviouslyTooSmall(_ url: String) -> Bool {
+        let lower = url.lowercased()
+        if let range = lower.range(of: #"[-.](\d{2,3})x(\d{2,3})"#, options: .regularExpression) {
+            let match = String(lower[range]).dropFirst()
+            let parts = match.split(separator: "x").compactMap { Int($0) }
+            if let w = parts.first, let h = parts.last, w <= 100 && h <= 100 {
+                return true
+            }
         }
         return false
     }
