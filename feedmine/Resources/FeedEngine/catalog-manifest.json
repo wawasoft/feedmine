@@ -4,7 +4,7 @@
   "file_count": 118,
   "invalid_source_count": 0,
   "node_count": 5715,
-  "output": "feedmine/Resources/FeedEngine/catalog.sqlite",
+  "output": "/Users/wagnermontes/Documents/GitHub/feedmine/build/feed-curation/catalog.sqlite",
   "placement_count": 37711,
   "size_bytes": 56201216,
   "source_count": 37705
