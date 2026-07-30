@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCGihRgF0OUX5uc4dCc0fGsA",
+    "category": "Education",
+    "title": "Corporación Unificada Nacional de Educación Superior (YouTube)",
+    "genre": "University",
+    "source_page": "https://cun.edu.co/",
+    "national": true,
+    "national_reason": "universities/youtube/colombia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCd3dDVx8Os9dKgxF9Fgmelw",
+    "category": "Education",
+    "title": "Corporación Universitaria del Caribe (YouTube)",
+    "genre": "University",
+    "source_page": "https://cecar.edu.co/",
+    "national": true,
+    "national_reason": "universities/youtube/colombia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbT3c1AE4cRiqK58CzA_dYQ",
+    "category": "Education",
+    "title": "National Open and Distance University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.unad.edu.co",
+    "national": true,
+    "national_reason": "universities/youtube/colombia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCmKxZ8dpbeiR8-B2cVF9K5w",
+    "category": "Education",
+    "title": "Tecnológico de Antioquia (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.tdea.edu.co",
+    "national": true,
+    "national_reason": "universities/youtube/colombia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

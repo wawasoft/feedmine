@@ -1,0 +1,2333 @@
+[
+  {
+    "name": "ACSI College",
+    "website": "http://www.acsi.edu.ph:80/",
+    "wikidata_id": "Q4650801",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/ACSI_College",
+    "country": "philippines"
+  },
+  {
+    "name": "ACSI College-Iloilo",
+    "website": "http://acsi.edu.ph/main",
+    "wikidata_id": "Q4650803",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/ACSI_College-Iloilo",
+    "country": "philippines"
+  },
+  {
+    "name": "AMA Computer University",
+    "website": "http://aravistahomes.weebly.com/",
+    "wikidata_id": "Q3551579",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/AMA_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Abra State Institute of Science and Technology",
+    "website": "http://www.asist.edu.ph",
+    "wikidata_id": "Q3578272",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Abra",
+    "country": "philippines"
+  },
+  {
+    "name": "Adamson University",
+    "website": "https://www.adamson.edu.ph",
+    "wikidata_id": "Q3244291",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adamson_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Adamson University College of Education",
+    "website": "http://www.adamson.edu.ph/",
+    "wikidata_id": "Q4680507",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adamson_University_College_of_Education",
+    "country": "philippines"
+  },
+  {
+    "name": "Adamson University College of Engineering",
+    "website": "http://www.adamson.edu.ph/",
+    "wikidata_id": "Q4680506",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adamson_University_College_of_Engineering",
+    "country": "philippines"
+  },
+  {
+    "name": "Adamson University College of Law",
+    "website": "http://www.adamson.edu.ph/",
+    "wikidata_id": "Q4680509",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adamson_University_College_of_Law",
+    "country": "philippines"
+  },
+  {
+    "name": "Adventist University of the Philippines",
+    "website": "http://www.aup.edu.ph",
+    "wikidata_id": "Q3547665",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adventist_University_of_the_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "Agusan del Sur College",
+    "website": "http://www.agusandelsurcollege.com/",
+    "wikidata_id": "Q4694610",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Agusan_del_Sur_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Aklan Catholic College",
+    "website": "http://www.acc.edu.ph/",
+    "wikidata_id": "Q4701428",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aklan_Catholic_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Aklan State University",
+    "website": "https://asu.edu.ph",
+    "wikidata_id": "Q420181",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aklan_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Andres Soriano College",
+    "website": "http://www.andressorianocollege.com",
+    "wikidata_id": "Q4756132",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Andres_Soriano_Colleges_of_Bislig",
+    "country": "philippines"
+  },
+  {
+    "name": "Angeles University Foundation",
+    "website": "http://www.auf.edu.ph/",
+    "wikidata_id": "Q3547576",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Angeles_University_Foundation",
+    "country": "philippines"
+  },
+  {
+    "name": "Angelicum College",
+    "website": "http://www.angelicum.edu.ph/",
+    "wikidata_id": "Q3547544",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/UST_Angelicum_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Angelicum School Iloilo",
+    "website": "http://www.angelicumiloilo.com",
+    "wikidata_id": "Q4762700",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Angelicum_School_Iloilo",
+    "country": "philippines"
+  },
+  {
+    "name": "Apayao State College",
+    "website": "http://asc.edu.ph",
+    "wikidata_id": "Q3656405",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Apayao_State_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Araullo University",
+    "website": "http://www.au.phinma.edu.ph",
+    "wikidata_id": "Q4784472",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Araullo_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Arellano University",
+    "website": "https://www.arellano.edu.ph",
+    "wikidata_id": "Q641084",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arellano_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Arellano University Institute of Allied Medical Services",
+    "website": "http://www.arellano.edu.ph/",
+    "wikidata_id": "Q4788785",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arellano_University_Institute_of_Allied_Medical_Services",
+    "country": "philippines"
+  },
+  {
+    "name": "Arellano University School of Law",
+    "website": "http://www.arellanolaw.edu/",
+    "wikidata_id": "Q4788790",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arellano_University_School_of_Law",
+    "country": "philippines"
+  },
+  {
+    "name": "Asia Pacific College",
+    "website": "https://www.apc.edu.ph",
+    "wikidata_id": "Q3547533",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asia_Pacific_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Asian College",
+    "website": "http://www.asiancollege.edu.ph/",
+    "wikidata_id": "Q25054271",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asian_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Asian College of Technology",
+    "website": "http://www.act.edu.ph/",
+    "wikidata_id": "Q4806604",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asian_College_of_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Asian Institute of Maritime Studies",
+    "website": "http://www.aims.edu.ph",
+    "wikidata_id": "Q4806669",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asian_Institute_of_Maritime_Studies",
+    "country": "philippines"
+  },
+  {
+    "name": "Asian Social Institute",
+    "website": "http://www.asinet-online.org/",
+    "wikidata_id": "Q4806742",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asian_Social_Institute",
+    "country": "philippines"
+  },
+  {
+    "name": "Assumption College San Lorenzo",
+    "website": "http://www.assumption.edu.ph/",
+    "wikidata_id": "Q3547675",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Assumption_College_San_Lorenzo",
+    "country": "philippines"
+  },
+  {
+    "name": "Assumption College of Davao",
+    "website": "http://www.assumptiondavao.edu.ph/",
+    "wikidata_id": "Q4810352",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Assumption_College_of_Davao",
+    "country": "philippines"
+  },
+  {
+    "name": "Ateneo de Naga University",
+    "website": "http://www.adnu.edu.ph",
+    "wikidata_id": "Q3360617",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ateneo_de_Naga_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Ateneo de Zamboanga University",
+    "website": "https://www.adzu.edu.ph/",
+    "wikidata_id": "Q3549829",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ateneo_de_Zamboanga_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Aurora State College of Technology",
+    "website": "http://ascot.edu.ph",
+    "wikidata_id": "Q4822613",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aurora_State_College_of_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Bacolod City College",
+    "website": "http://www.bacolodcity.gov.ph/bccpaad.htm",
+    "wikidata_id": "Q4839908",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bacolod_City_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Baguio Central University",
+    "website": "http://bcu.edu.ph/",
+    "wikidata_id": "Q4842154",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Baguio_Central_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Baliuag University",
+    "website": "http://www.baliuagu.edu.ph",
+    "wikidata_id": "Q4851032",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Baliuag_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Bataan Peninsula State University",
+    "website": "http://www.bpsu.edu.ph",
+    "wikidata_id": "Q3580764",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bataan_Peninsula_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Batangas State University Apolinario R. Apacible School of Fisheries",
+    "website": "http://www.bsu-arasof.edu.ph/",
+    "wikidata_id": "Q4868611",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Batangas_State_University_Apolinario_R._Apacible_School_of_Fisheries",
+    "country": "philippines"
+  },
+  {
+    "name": "Batangas State University Jose P. Laurel Polytechnic College",
+    "website": "http://www.batstate-u.edu.ph/",
+    "wikidata_id": "Q4868609",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jose_P._Laurel_Polytechnic_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Biliran Province State University",
+    "website": "http://www.nsu.edu.ph/",
+    "wikidata_id": "Q6981932",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Biliran_Province_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Bohol Island State University",
+    "website": "http://www.bisu.edu.ph/",
+    "wikidata_id": "Q4938195",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bohol_Island_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Bohol Northern Star Colleges",
+    "website": "http://boholnorthernstar.net/",
+    "wikidata_id": "Q18358926",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bohol_Northern_Star_Colleges",
+    "country": "philippines"
+  },
+  {
+    "name": "Bulacan State University",
+    "website": "https://www.bulsu.edu.ph/",
+    "wikidata_id": "Q1003463",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bulacan_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "CIIT College of Arts and Technology",
+    "website": "http://www.ciit.edu.ph",
+    "wikidata_id": "Q17002800",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/CIIT_College_of_Arts_and_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Cabalum Western College",
+    "website": "http://cwciloilo.yolasite.com/",
+    "wikidata_id": "Q5015217",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cabalum_Western_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Cagayan State University",
+    "website": "http://www.csu.edu.ph/",
+    "wikidata_id": "Q1025711",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cagayan_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Cagayan de Oro College – PHINMA Education Network",
+    "website": "http://www.coc.phinma.edu.ph/",
+    "wikidata_id": "Q5017301",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cagayan_de_Oro_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Camarines Norte State College",
+    "website": "http://www.cnsc.edu.ph/",
+    "wikidata_id": "Q5024963",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Camarines_Norte",
+    "country": "philippines"
+  },
+  {
+    "name": "Camiguin Polytechnic State College",
+    "website": "http://www.cpsc.edu.ph",
+    "wikidata_id": "Q5026520",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Camiguin_Polytechnic_State_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Canossa School of Santa Rosa",
+    "website": "http://canossastarosa.edu.ph/",
+    "wikidata_id": "Q16256440",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Canossa_School_of_Santa_Rosa,_Laguna",
+    "country": "philippines"
+  },
+  {
+    "name": "Capitol University",
+    "website": "http://www.cu.edu.ph",
+    "wikidata_id": "Q5035953",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Capitol_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Capiz State University",
+    "website": "http://www.capsu.edu.ph/",
+    "wikidata_id": "Q5036027",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Capiz_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Caraga State University",
+    "website": "https://www.carsu.edu.ph/",
+    "wikidata_id": "Q3547658",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Caraga_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Carlos Hilado Memorial State College",
+    "website": "http://www.chmsc.edu.ph/",
+    "wikidata_id": "Q5042180",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Carlos_Hilado_Memorial_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Casa Del Niño Schools System",
+    "website": "http://www.casans.edu.ph/",
+    "wikidata_id": "Q16256596",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Cavite State University",
+    "website": "http://www.cvsu.edu.ph/",
+    "wikidata_id": "Q423303",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cavite_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Cavite State University – CCAT Campus",
+    "website": "http://cvsu-rosario.edu.ph/",
+    "wikidata_id": "Q18344685",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cavite_State_University_%E2%80%93_CCAT_Campus",
+    "country": "philippines"
+  },
+  {
+    "name": "Cebu Institute of Technology – University",
+    "website": "http://www.cit.edu/",
+    "wikidata_id": "Q5055813",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cebu_Institute_of_Technology_%E2%80%93_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Cebu Normal University",
+    "website": "http://www.cnu.edu.ph/",
+    "wikidata_id": "Q5055814",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cebu_Normal_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Central Bicol State University of Agriculture",
+    "website": "http://cbsua.edu.ph/index.php/site/index",
+    "wikidata_id": "Q5060452",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_Bicol_State_University_of_Agriculture-Sipocot",
+    "country": "philippines"
+  },
+  {
+    "name": "Central Bicol State University of Agriculture",
+    "website": "http://www.cbsua.edu.ph",
+    "wikidata_id": "Q25663141",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_Bicol_State_University_of_Agriculture",
+    "country": "philippines"
+  },
+  {
+    "name": "Central Colleges of the Philippines",
+    "website": "http://www.ccp.edu.ph/",
+    "wikidata_id": "Q5060604",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_Colleges_of_the_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "Central Luzon State University",
+    "website": "http://www.clsu.edu.ph/",
+    "wikidata_id": "Q1053895",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_Luzon_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Central Mindanao Colleges",
+    "website": "http://www.cmc.edu.ph/",
+    "wikidata_id": "Q12968020",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Central Mindanao University",
+    "website": "http://www.cmu.edu.ph/",
+    "wikidata_id": "Q1053911",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_Mindanao_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Centro Escolar University",
+    "website": "http://www.ceu.edu.ph",
+    "wikidata_id": "Q3551545",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centro_Escolar_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Christ the King College",
+    "website": "http://www.cobauk.cwc.net/",
+    "wikidata_id": "Q5108972",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Christ_the_King_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Christ the King College, Gingoog City",
+    "website": "http://www.ckc.philcom.ph/",
+    "wikidata_id": "Q5108974",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "City College of Angeles",
+    "website": "https://www.cca.edu.ph/",
+    "wikidata_id": "Q105349358",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_College_of_Angeles",
+    "country": "philippines"
+  },
+  {
+    "name": "City University of Pasay",
+    "website": "http://www.plpconm.page.tl/",
+    "wikidata_id": "Q5123485",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_University_of_Pasay",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio San Agustin – Biñan",
+    "website": "http://www.csa-binan.edu.ph/",
+    "wikidata_id": "Q5142887",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_San_Agustin_%E2%80%93_Bi%C3%B1an",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio San Agustin–Bacolod",
+    "website": "http://www.csab.edu.ph",
+    "wikidata_id": "Q5142890",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_San_Agustin_%E2%80%93_Bacolod",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio de Dagupan",
+    "website": "http://www.cdd.edu.ph/",
+    "wikidata_id": "Q5142926",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_de_Dagupan",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio de Kidapawan",
+    "website": "http://www.cdk.edu.ph",
+    "wikidata_id": "Q5142927",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_de_Kidapawan",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio de San Juan de Letran",
+    "website": "http://www.letran.edu/",
+    "wikidata_id": "Q1108074",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_de_San_Juan_de_Letran",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio de San Lorenzo",
+    "website": "http://sanlo.edu.ph/",
+    "wikidata_id": "Q5142936",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_de_San_Lorenzo",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio de San Pascual Baylon",
+    "website": "http://www.cspb.edu.ph",
+    "wikidata_id": "Q5142941",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_de_San_Pascual_Baylon",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio de Santa Ana",
+    "website": "http://www.cdsa-taguig.blogspot.com/",
+    "wikidata_id": "Q5142938",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_de_Santa_Ana",
+    "country": "philippines"
+  },
+  {
+    "name": "Colegio de Santo Tomas – Recoletos",
+    "website": "http://www.cst-r.edu.ph/",
+    "wikidata_id": "Q5142940",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_de_Santo_Tomas_%E2%80%93_Recoletos",
+    "country": "philippines"
+  },
+  {
+    "name": "College of St. John-Roxas",
+    "website": "http://www.collegeofstjohnroxas.com",
+    "wikidata_id": "Q5146841",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_St._John%E2%80%93Roxas",
+    "country": "philippines"
+  },
+  {
+    "name": "College of Technological Sciences–Cebu",
+    "website": "http://www.cts.edu.ph",
+    "wikidata_id": "Q5146852",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Technological_Sciences%E2%80%93Cebu",
+    "country": "philippines"
+  },
+  {
+    "name": "College of the Holy Spirit Manila",
+    "website": "http://holyspirit.edu.ph",
+    "wikidata_id": "Q3551544",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_the_Holy_Spirit_Manila",
+    "country": "philippines"
+  },
+  {
+    "name": "College of the Immaculate Conception, Cabanatuan",
+    "website": "http://www.cic.edu.ph/",
+    "wikidata_id": "Q19894551",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_the_Immaculate_Conception_(Cabanatuan)",
+    "country": "philippines"
+  },
+  {
+    "name": "Columban College",
+    "website": "http://www.columban.edu.ph/",
+    "wikidata_id": "Q5149544",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Columban_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Concordia College",
+    "website": "http://www.concordia.dcphilippines.org",
+    "wikidata_id": "Q5142951",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Concordia_College_(Manila)",
+    "country": "philippines"
+  },
+  {
+    "name": "Cor Jesu College",
+    "website": "https://www.cjc.edu.ph/",
+    "wikidata_id": "Q5169375",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cor_Jesu_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Davao Doctors' College",
+    "website": "http://www.davaodoctors.edu.ph",
+    "wikidata_id": "Q5228148",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Davao_Doctors%27_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Davao Oriental State University",
+    "website": "http://www.doscst.edu.ph",
+    "wikidata_id": "Q5228153",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Davao_Oriental_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Davao de Oro State College",
+    "website": "https://ddosc.edu.ph/",
+    "wikidata_id": "Q122809735",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Davao_de_Oro_State_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Davao del Norte State College",
+    "website": "http://www.dnsc.edu.ph",
+    "wikidata_id": "Q3808846",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Davao_del_Norte_State_College",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle Araneta University",
+    "website": "http://www.dlsau.edu.ph",
+    "wikidata_id": "Q13565108",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/De_La_Salle_Araneta_University",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle Canlubang",
+    "website": "http://www.dlsc.edu.ph",
+    "wikidata_id": "Q5244501",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/De_La_Salle_Canlubang",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle John Bosco College",
+    "website": "http://www.dlsjbc.edu.ph/",
+    "wikidata_id": "Q5244530",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/De_La_Salle_John_Bosco_College",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle Lipa",
+    "website": "http://www.dlsl.edu.ph",
+    "wikidata_id": "Q5244531",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/De_La_Salle_Lipa",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle University College of Education",
+    "website": "http://www.dlsu.edu.ph/ced/",
+    "wikidata_id": "Q5244544",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Br._Andrew_Gonzalez_College_of_Education",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle University College of Law",
+    "website": "http://law.dlsu.edu.ph/",
+    "wikidata_id": "Q5244545",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ta%C3%B1ada-Diokno_School_of_Law",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle University College of Science",
+    "website": "http://www.dlsu.edu.ph/cos/",
+    "wikidata_id": "Q5244547",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/De_La_Salle_University_College_of_Science",
+    "country": "philippines"
+  },
+  {
+    "name": "De La Salle University – Dasmariñas",
+    "website": "http://www.dlsud.edu.ph/",
+    "wikidata_id": "Q5244550",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/De_La_Salle_University_%E2%80%93_Dasmari%C3%B1as",
+    "country": "philippines"
+  },
+  {
+    "name": "Divine Word College of Bangued",
+    "website": "http://dwcb.tk/",
+    "wikidata_id": "Q5284149",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Divine_Word_College_of_Bangued",
+    "country": "philippines"
+  },
+  {
+    "name": "Divine Word College of Calapan",
+    "website": "http://www.dwcc.edu.ph",
+    "wikidata_id": "Q5284147",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Divine_Word_College_of_Calapan",
+    "country": "philippines"
+  },
+  {
+    "name": "Divine Word College of Laoag",
+    "website": "http://www.dwcl.edu.ph",
+    "wikidata_id": "Q5284148",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Divine_Word_College_of_Laoag",
+    "country": "philippines"
+  },
+  {
+    "name": "Divine Word College of San Jose",
+    "website": "https://dwcsj.edu.ph",
+    "wikidata_id": "Q5284151",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Divine_Word_College_of_San_Jose",
+    "country": "philippines"
+  },
+  {
+    "name": "Divine Word College of Urdaneta",
+    "website": "http://dwcu99.ning.com/",
+    "wikidata_id": "Q5284153",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Divine_Word_College_of_Urdaneta",
+    "country": "philippines"
+  },
+  {
+    "name": "Dominican College of Tarlac",
+    "website": "http://www.dct.edu.ph/",
+    "wikidata_id": "Q5290739",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Don Bosco College, Canlubang",
+    "website": "http://hs.dbcanlubang.info/",
+    "wikidata_id": "Q5292257",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Don_Bosco_College,_Canlubang",
+    "country": "philippines"
+  },
+  {
+    "name": "Don Bosco Technical Institute, Tarlac",
+    "website": "http://dbtarlac.edu.ph/",
+    "wikidata_id": "Q5292294",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Don_Bosco_Technical_Institute_%E2%80%93_Tarlac",
+    "country": "philippines"
+  },
+  {
+    "name": "Don Mariano Marcos Memorial State University",
+    "website": "http://www.dmmmsu.org/",
+    "wikidata_id": "Q12972272",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Don_Mariano_Marcos_Memorial_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Dr. Emilio B. Espinosa Sr. Memorial State College of Agriculture and Technology",
+    "website": "http://debesmscat.edu.ph",
+    "wikidata_id": "Q17068553",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dr._Emilio_B._Espinosa_Sr._Memorial_State_College_of_Agriculture_and_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Dumaguete Academy for Culinary Arts",
+    "website": "http://www.daca-international.com",
+    "wikidata_id": "Q5313601",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dumaguete_Academy_for_Culinary_Arts",
+    "country": "philippines"
+  },
+  {
+    "name": "Eastern Samar State University",
+    "website": "http://www.essu.edu.ph/",
+    "wikidata_id": "Q5330431",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Eastern_Samar_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Eastern Visayas State University",
+    "website": "http://www.evsu.edu.ph/",
+    "wikidata_id": "Q5330560",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Eastern_Visayas_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Emilio Aguinaldo College",
+    "website": "https://www.eac.edu.ph/",
+    "wikidata_id": "Q2914269",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Emilio_Aguinaldo_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Escuela de Nuestra Señora de La Salette",
+    "website": "http://www.lasalette-online.net",
+    "wikidata_id": "Q5397483",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Escuela_de_Nuestra_Se%C3%B1ora_de_La_Salette",
+    "country": "philippines"
+  },
+  {
+    "name": "FEATI University",
+    "website": "http://www.featiu.edu.ph/",
+    "wikidata_id": "Q5425312",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/FEATI_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Far Eastern University - Institute of Architecture and Fine Arts",
+    "website": "http://www.feu.edu.ph/",
+    "wikidata_id": "Q5434563",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Far_Eastern_University_Institute_of_Architecture_and_Fine_Arts",
+    "country": "philippines"
+  },
+  {
+    "name": "Far Eastern University - Institute of Law",
+    "website": "http://www.feu.edu.ph/manila/index.php/academics/institute-of-law/",
+    "wikidata_id": "Q5434560",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Far_Eastern_University_Institute_of_Law",
+    "country": "philippines"
+  },
+  {
+    "name": "Far Eastern University – Institute of Technology",
+    "website": "http://www.fit.edu.ph/",
+    "wikidata_id": "Q5434566",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Far_Eastern_University_Institute_of_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Father Saturnino Urios University",
+    "website": "http://www.urios.edu.ph/",
+    "wikidata_id": "Q1662211",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Father_Saturnino_Urios_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Filamer Christian University",
+    "website": "http://www.filamer.edu.ph/",
+    "wikidata_id": "Q5448276",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Filamer_Christian_University",
+    "country": "philippines"
+  },
+  {
+    "name": "First Asia Institute of Technology and Humanities",
+    "website": "http://www.firstasia.edu.ph",
+    "wikidata_id": "Q3579375",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/First_Asia_Institute_of_Technology_and_Humanities",
+    "country": "philippines"
+  },
+  {
+    "name": "First City Providential College",
+    "website": "https://fcpc.edu.ph/",
+    "wikidata_id": "Q136358928",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Foundation University",
+    "website": "http://www.foundationu.com",
+    "wikidata_id": "Q5474366",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Foundation_University_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "Foursquare Bible College",
+    "website": "https://foursquarebiblecollege.com/",
+    "wikidata_id": "Q135271183",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Franciscan College of the Immaculate Conception",
+    "website": "http://www.fcic.net.ph",
+    "wikidata_id": "Q5482985",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Franciscan_College_of_the_Immaculate_Conception",
+    "country": "philippines"
+  },
+  {
+    "name": "General de Jesus College",
+    "website": "http://gendejesus.edu.ph/",
+    "wikidata_id": "Q5532333",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/General_de_Jesus_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Gokongwei College of Engineering",
+    "website": "http://www.dlsu.edu.ph/academics/colleges/coe/",
+    "wikidata_id": "Q5578080",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gokongwei_College_of_Engineering",
+    "country": "philippines"
+  },
+  {
+    "name": "Gordon College",
+    "website": "https://gordoncollege.edu.ph/w3/",
+    "wikidata_id": "Q5585008",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gordon_College_(Olongapo)",
+    "country": "philippines"
+  },
+  {
+    "name": "Guimaras State University",
+    "website": "http://www.gsc.edu.ph",
+    "wikidata_id": "Q3656374",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Guimaras_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Harris Memorial College",
+    "website": "https://www.harris.edu.ph/",
+    "wikidata_id": "Q12966691",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Holy Cross College of Sasa",
+    "website": "http://www.hccsi.org/",
+    "wikidata_id": "Q5885197",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Holy_Cross_College_of_Sasa",
+    "country": "philippines"
+  },
+  {
+    "name": "Holy Cross of Davao College",
+    "website": "http://www.hcdc.edu.ph",
+    "wikidata_id": "Q5885359",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Holy_Cross_of_Davao_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Holy Name University",
+    "website": "http://www.hnu.edu.ph",
+    "wikidata_id": "Q5885817",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Holy_Name_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Holy Trinity University",
+    "website": "http://www.htu.edu.ph/",
+    "wikidata_id": "Q12060475",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Holy_Trinity_University",
+    "country": "philippines"
+  },
+  {
+    "name": "ICCT Colleges Foundation Inc.",
+    "website": "http://www.icct.edu.ph/",
+    "wikidata_id": "Q17073316",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Ifugao State University",
+    "website": "http://www.ifsu.edu.ph",
+    "wikidata_id": "Q20580456",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ifugao_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "International Academy of Film and Television",
+    "website": "http://www.iaft.net/",
+    "wikidata_id": "Q2834435",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_Academy_of_Film_and_Television",
+    "country": "philippines"
+  },
+  {
+    "name": "John B. Lacson Colleges Foundation – Bacolod, Inc.",
+    "website": "http://www.jblcf-bacolod.edu.ph/",
+    "wikidata_id": "Q6220004",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/John_B._Lacson_Colleges_Foundation_%E2%80%93_Bacolod",
+    "country": "philippines"
+  },
+  {
+    "name": "John B. Lacson Foundation Maritime University",
+    "website": "http://www.jblfmu.edu.ph",
+    "wikidata_id": "Q427778",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/John_B._Lacson_Foundation_Maritime_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Joseph Marello Institute",
+    "website": "http://www.osjschools.edu.ph/index.php?option=com_frontpage&Itemid=1",
+    "wikidata_id": "Q6285290",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Joseph_Marello_Institute",
+    "country": "philippines"
+  },
+  {
+    "name": "Kalayaan College",
+    "website": "http://www.kalayaan.edu.ph",
+    "wikidata_id": "Q6351704",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kalayaan_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Kalinga State University",
+    "website": "https://ksu.edu.ph/",
+    "wikidata_id": "Q6352850",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kalinga_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "La Consolacion College Manila",
+    "website": "http://www.lccm.edu.ph",
+    "wikidata_id": "Q6461955",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Consolacion_College_Manila",
+    "country": "philippines"
+  },
+  {
+    "name": "La Consolacion College-Iriga City",
+    "website": "http://www.lcci.edu.ph/",
+    "wikidata_id": "Q6461954",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Consolacion_College_Iriga",
+    "country": "philippines"
+  },
+  {
+    "name": "La Consolacion College–Bacolod",
+    "website": "http://www.lcc.edu.ph/",
+    "wikidata_id": "Q6461962",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Consolacion_College_Bacolod",
+    "country": "philippines"
+  },
+  {
+    "name": "La Consolacion University Philippines",
+    "website": "https://www.lcup.edu.ph/",
+    "wikidata_id": "Q6461963",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Consolacion_University_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "La Fortuna College",
+    "website": "http://www.lafortunacollege.net/",
+    "wikidata_id": "Q6462612",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "La Salle Academy",
+    "website": "http://www.lasalleiligan.org",
+    "wikidata_id": "Q6465086",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Salle_Academy_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "La Salle College Antipolo",
+    "website": "http://www.lsca.edu.ph/",
+    "wikidata_id": "Q16147183",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Salle_College_Antipolo",
+    "country": "philippines"
+  },
+  {
+    "name": "La Salle University",
+    "website": "https://www.lsu.edu.ph/v2/index/",
+    "wikidata_id": "Q3579240",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/La_Salle_University_(Ozamiz)",
+    "country": "philippines"
+  },
+  {
+    "name": "Laguna College",
+    "website": "http://www.lagunacollege.edu.ph/lchome/",
+    "wikidata_id": "Q6472811",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Laguna_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Laguna State Polytechnic University",
+    "website": "http://www.lspu.edu.ph",
+    "wikidata_id": "Q6472950",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Laguna_State_Polytechnic_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Legazpi Junior College",
+    "website": "http://www.aq.edu.ph/",
+    "wikidata_id": "Q6517692",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Legazpi_Junior_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Liceo de Cagayan University",
+    "website": "http://www.liceo.edu.ph/",
+    "wikidata_id": "Q6543155",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Liceo_de_Cagayan_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Loyola Schools",
+    "website": "http://ls.ateneo.edu",
+    "wikidata_id": "Q6694601",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Loyola_Schools",
+    "country": "philippines"
+  },
+  {
+    "name": "Lyceum of the Philippines University",
+    "website": "http://www.lyceumphil.edu.ph/manila/",
+    "wikidata_id": "Q3547527",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lyceum_of_the_Philippines_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Lyceum of the Philippines University-Laguna",
+    "website": "http://www.lpulaguna.edu.ph/",
+    "wikidata_id": "Q16931592",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lyceum_of_the_Philippines_University_%E2%80%93_Laguna",
+    "country": "philippines"
+  },
+  {
+    "name": "Lyceum of the Philippines University–Batangas",
+    "website": "http://www.lpubatangas.edu.ph/",
+    "wikidata_id": "Q16931585",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lyceum_of_the_Philippines_University_%E2%80%93_Batangas",
+    "country": "philippines"
+  },
+  {
+    "name": "Lyceum-Northwestern University",
+    "website": "http://www.lyceum.edu.ph",
+    "wikidata_id": "Q6707236",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lyceum-Northwestern_University",
+    "country": "philippines"
+  },
+  {
+    "name": "MCL E.T. Yuchengco College of Business at Laguna",
+    "website": "http://www.mcl.edu.ph",
+    "wikidata_id": "Q6714923",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/MCL_E.T._Yuchengco_College_of_Business_at_Laguna",
+    "country": "philippines"
+  },
+  {
+    "name": "Mabalacat College",
+    "website": "http://www.mabalacatcollege.edu.ph",
+    "wikidata_id": "Q19572759",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mabalacat_City_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Malayan Colleges Laguna",
+    "website": "https://mcl.edu.ph",
+    "wikidata_id": "Q6741597",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Map%C3%BAa_Malayan_Colleges_Laguna",
+    "country": "philippines"
+  },
+  {
+    "name": "Manila Adventist Medical Center and Colleges",
+    "website": "http://www.adventistmedicalcentermanila.org",
+    "wikidata_id": "Q12967666",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Manila Central University",
+    "website": "http://www.mcu.edu.ph",
+    "wikidata_id": "Q3547492",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Manila_Central_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Manila Tytana Colleges",
+    "website": "http://www.mtc.edu.ph",
+    "wikidata_id": "Q3547605",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Manila_Tytana_Colleges",
+    "country": "philippines"
+  },
+  {
+    "name": "Manuel L. Quezon University",
+    "website": "https://www.mlqu.edu.ph",
+    "wikidata_id": "Q3547506",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Manuel_L._Quezon_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Manuel S. Enverga University Foundation",
+    "website": "http://www.mseuf.edu.ph/",
+    "wikidata_id": "Q3578221",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Manuel_S._Enverga_University_Foundation",
+    "country": "philippines"
+  },
+  {
+    "name": "Mariano Marcos State University",
+    "website": "https://www.mmsu.edu.ph/",
+    "wikidata_id": "Q3551574",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mariano_Marcos_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Marikina Polytechnic College",
+    "website": "https://mpc.edu.ph/",
+    "wikidata_id": "Q12969549",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Marikina_Polytechnic_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Marine Science Institute",
+    "website": "https://www.msi.upd.edu.ph/",
+    "wikidata_id": "Q6764215",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Marine_Science_Institute,_University_of_the_Philippines_Diliman",
+    "country": "philippines"
+  },
+  {
+    "name": "Medical Colleges of Northern Philippines",
+    "website": "http://mcnp-isap.com",
+    "wikidata_id": "Q17078651",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Medical_Colleges_of_Northern_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "Medina College-Ozamiz",
+    "website": "http://www.medinacollege-edu.com/",
+    "wikidata_id": "Q17078678",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Medina_College-Ozamiz",
+    "country": "philippines"
+  },
+  {
+    "name": "Metropolitan Hospital College of Nursing",
+    "website": "http://www.metro.edu.ph/",
+    "wikidata_id": "Q3547517",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Metropolitan_Hospital_College_of_Nursing",
+    "country": "philippines"
+  },
+  {
+    "name": "Mindanao Polytechnic College",
+    "website": "http://www.mpcgensan.edu.ph/",
+    "wikidata_id": "Q6863619",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mindanao_Polytechnic_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Mindanao Sanitarium and Hospital College",
+    "website": "http://www.mshcollege.com/",
+    "wikidata_id": "Q6863623",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adventist_Medical_Center_College_%E2%80%93_Iligan",
+    "country": "philippines"
+  },
+  {
+    "name": "Mindanao State University – General Santos",
+    "website": "http://www.msugensan.edu.ph/",
+    "wikidata_id": "Q17076471",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mindanao_State_University%E2%80%93General_Santos",
+    "country": "philippines"
+  },
+  {
+    "name": "Mindanao State University – Iligan Institute of Technology",
+    "website": "http://www.msuiit.edu.ph",
+    "wikidata_id": "Q6863627",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mindanao_State_University%E2%80%93Iligan_Institute_of_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Mindanao State University – Naawan",
+    "website": "https://www.msunaawan.edu.ph/",
+    "wikidata_id": "Q6863630",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mindanao_State_University_at_Naawan",
+    "country": "philippines"
+  },
+  {
+    "name": "Miriam College",
+    "website": "https://www.mc.edu.ph/",
+    "wikidata_id": "Q3547535",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Miriam_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Misamis University",
+    "website": "http://www.mu.edu.ph",
+    "wikidata_id": "Q6875122",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Misamis_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Mother of Divine Providence School",
+    "website": "http://www.mdps.edu.ph/",
+    "wikidata_id": "Q18391254",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mother_of_Divine_Providence_School",
+    "country": "philippines"
+  },
+  {
+    "name": "National College of Science and Technology",
+    "website": "http://ncst.edu.ph/",
+    "wikidata_id": "Q6971616",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_College_of_Science_and_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Negros State College of Agriculture",
+    "website": "http://www.cpsu.edu.ph",
+    "wikidata_id": "Q6987656",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_Philippines_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "New Era University",
+    "website": "http://www.neu.edu.ph/",
+    "wikidata_id": "Q3547613",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/New_Era_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Northern Negros State College of Science and Technology",
+    "website": "http://www.nonescost.edu.ph",
+    "wikidata_id": "Q7058768",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_University_of_Northern_Negros",
+    "country": "philippines"
+  },
+  {
+    "name": "Northwest Samar State University",
+    "website": "http://www.nwssu.edu.ph/",
+    "wikidata_id": "Q7060192",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northwest_Samar_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Northwestern University",
+    "website": "https://www.nwu.edu.ph/",
+    "wikidata_id": "Q13565107",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northwestern_University_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "Notre Dame Educational Association",
+    "website": "http://ndea.org.ph/",
+    "wikidata_id": "Q7063396",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Notre_Dame_Educational_Association",
+    "country": "philippines"
+  },
+  {
+    "name": "Notre Dame University",
+    "website": "https://www.ndu.edu.ph/",
+    "wikidata_id": "Q7063479",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Notre_Dame_University_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "Notre Dame of Dadiangas University",
+    "website": "http://www.nddu.edu.ph",
+    "wikidata_id": "Q11007435",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Notre_Dame_of_Dadiangas_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Notre Dame of Marbel University",
+    "website": "http://www.ndmu.edu.ph/",
+    "wikidata_id": "Q10965600",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Notre_Dame_of_Marbel_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Notre Dame of Midsayap College",
+    "website": "http://www.ndmc.edu.ph/",
+    "wikidata_id": "Q7063506",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Notre_Dame_of_Midsayap_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Nueva Ecija University of Science and Technology",
+    "website": "http://www.neust.edu.ph/",
+    "wikidata_id": "Q7068624",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nueva_Ecija_University_of_Science_and_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Nueva Vizcaya State University",
+    "website": "https://www.nvsu.edu.ph/",
+    "wikidata_id": "Q1452568",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nueva_Vizcaya_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Our Lady of Lourdes College Foundation",
+    "website": "http://www.ollcf.org",
+    "wikidata_id": "Q7110859",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "PGA-ASU School of Nursing",
+    "website": "http://www.asu.edu.ph/main/academics.jsp?num=1&department=3",
+    "wikidata_id": "Q18359233",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/PGA-ASU_School_of_Nursing",
+    "country": "philippines"
+  },
+  {
+    "name": "PLM College of Law",
+    "website": "http://www.plm.edu.ph/",
+    "wikidata_id": "Q7119646",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/PLM_College_of_Law",
+    "country": "philippines"
+  },
+  {
+    "name": "PLM Emeritus College",
+    "website": "https://www.plm.edu.ph/",
+    "wikidata_id": "Q7119644",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/PLM_Emeritus_College",
+    "country": "philippines"
+  },
+  {
+    "name": "PLM Graduate School of Law",
+    "website": "http://www.plm.edu.ph/",
+    "wikidata_id": "Q7119645",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/PLM_Graduate_School_of_Law",
+    "country": "philippines"
+  },
+  {
+    "name": "PNTC Colleges",
+    "website": "http://www.pntc.edu.ph",
+    "wikidata_id": "Q17085803",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/PNTC_Colleges",
+    "country": "philippines"
+  },
+  {
+    "name": "Palawan State University",
+    "website": "http://psu.palawan.edu.ph",
+    "wikidata_id": "Q1559172",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Palawan_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Palompon Institute of Technology",
+    "website": "http://pit.edu.ph",
+    "wikidata_id": "Q5358170",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Palompon_Institute_of_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Pamantasan ng Cabuyao",
+    "website": "http://www.pnc.edu.ph",
+    "wikidata_id": "Q7129041",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Cabuyao",
+    "country": "philippines"
+  },
+  {
+    "name": "Pamantasan ng Lungsod ng Marikina",
+    "website": "https://plmar.edu.ph/",
+    "wikidata_id": "Q7129039",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pamantasan_ng_Lungsod_ng_Marikina",
+    "country": "philippines"
+  },
+  {
+    "name": "Pamantasan ng Lungsod ng Muntinlupa",
+    "website": "https://plmun.edu.ph",
+    "wikidata_id": "Q7129045",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pamantasan_ng_Lungsod_ng_Muntinlupa",
+    "country": "philippines"
+  },
+  {
+    "name": "Pamantasan ng Montalban",
+    "website": "http://www.pnmconnection.multiply.com/",
+    "wikidata_id": "Q7129048",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Colegio_de_Montalban",
+    "country": "philippines"
+  },
+  {
+    "name": "Pangasinan State University",
+    "website": "http://www.psu.edu.ph",
+    "wikidata_id": "Q2049406",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pangasinan_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Philippine Christian University",
+    "website": "http://www.pcu.edu.ph",
+    "wikidata_id": "Q3547571",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Philippine_Christian_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Philippine College of Health Sciences",
+    "website": "http://pchsmanila.edu.ph/",
+    "wikidata_id": "Q7185023",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Philippine_College_of_Health_Sciences",
+    "country": "philippines"
+  },
+  {
+    "name": "Philippine Normal University",
+    "website": "http://www.pnu.edu.ph",
+    "wikidata_id": "Q1642421",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Philippine_Normal_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Philippine Public Safety College",
+    "website": "https://ppsc.gov.ph",
+    "wikidata_id": "Q19573677",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Philippine_Public_Safety_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Philippine Women's University",
+    "website": "http://www.pwu.edu.ph/",
+    "wikidata_id": "Q1814701",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Philippine_Women%27s_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Pilar College",
+    "website": "http://www.pczc.edu.ph",
+    "wikidata_id": "Q7193772",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pilar_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic State University of Bicol",
+    "website": "http://www.cspc.edu.ph",
+    "wikidata_id": "Q5024965",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Camarines_Sur_Polytechnic_Colleges",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines Open University",
+    "website": "http://www.pup.edu.ph/ou",
+    "wikidata_id": "Q7227075",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/PUP_Open_University_System",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Bataan",
+    "website": "http://www.pup.edu.ph/bataan",
+    "wikidata_id": "Q7227043",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Bataan",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Biñan",
+    "website": "https://www.pup.edu.ph/",
+    "wikidata_id": "Q7227044",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Bi%C3%B1an",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, General Luna",
+    "website": "http://www.pup.edu.ph/",
+    "wikidata_id": "Q7227048",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_General_Luna",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Lopez",
+    "website": "http://www.pup.edu.ph/",
+    "wikidata_id": "Q7227049",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Lopez",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Maragondon",
+    "website": "https://www.pup.edu.ph/",
+    "wikidata_id": "Q7227050",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Maragondon",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Mulanay",
+    "website": "http://www.pup.edu.ph/",
+    "wikidata_id": "Q7227051",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Mulanay",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, San Pedro",
+    "website": "http://www.pup.edu.ph",
+    "wikidata_id": "Q7227058",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_San_Pedro",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Santa Maria",
+    "website": "http://www.pup.edu.ph",
+    "wikidata_id": "Q7227059",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Santa_Maria",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Santa Rosa",
+    "website": "http://www.pup.edu.ph/",
+    "wikidata_id": "Q7227060",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Santa_Rosa",
+    "country": "philippines"
+  },
+  {
+    "name": "Polytechnic University of the Philippines, Taguig",
+    "website": "http://www.puptaguig.net",
+    "wikidata_id": "Q7227061",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_the_Philippines_Taguig",
+    "country": "philippines"
+  },
+  {
+    "name": "Quezon City University",
+    "website": "https://www.qcu.edu.ph/",
+    "wikidata_id": "Q7271602",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Quezon_City_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Quirino State College",
+    "website": "http://qsu.edu.ph/",
+    "wikidata_id": "Q7272581",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Quirino_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Ramon Magsaysay Technological University",
+    "website": "http://www.rmtu.edu.ph",
+    "wikidata_id": "Q7289848",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/President_Ramon_Magsaysay_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Recaredo Castillo College",
+    "website": "http://www.rcc-bislig.webs.com/",
+    "wikidata_id": "Q7302290",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Recaredo_Castillo_of_Bislig_City_High_School",
+    "country": "philippines"
+  },
+  {
+    "name": "Riverside College, Inc.",
+    "website": "http://www.riverside.edu.ph/",
+    "wikidata_id": "Q7338456",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Riverside_College_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "Rizal Technological University",
+    "website": "https://www.rtu.edu.ph/",
+    "wikidata_id": "Q3547651",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rizal_Technological_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Romblon State University",
+    "website": "http://www.rsu.edu.ph/",
+    "wikidata_id": "Q2165036",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Romblon_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Roosevelt College Quirino",
+    "website": "http://www.rooseveltcollege.edu.ph/",
+    "wikidata_id": "Q7366428",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "SBC Rizal",
+    "website": "http://www.sanbeda.edu.ph/",
+    "wikidata_id": "Q7388940",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/San_Beda_College,_Rizal",
+    "country": "philippines"
+  },
+  {
+    "name": "Sacred Heart College",
+    "website": "https://www.shc.edu.ph/",
+    "wikidata_id": "Q7397177",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sacred_Heart_College_of_Lucena_City",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Columban College",
+    "website": "https://www.sccpag.edu.ph/",
+    "wikidata_id": "Q7401140",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Columban_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Ferdinand College",
+    "website": "http://www.sfc.edu.ph/",
+    "wikidata_id": "Q12963173",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Ferdinand_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Joseph College of Maasin",
+    "website": "http://www.sjc.edu.ph",
+    "wikidata_id": "Q7401551",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Joseph_College_of_Maasin",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Louis University",
+    "website": "http://www.slu.edu.ph/",
+    "wikidata_id": "Q7401676",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Louis_University_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Mary's College of Quezon City",
+    "website": "http://www.smcqc.net",
+    "wikidata_id": "Q7401830",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Mary%27s_College_of_Quezon_City",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Mary's University",
+    "website": "https://smu.edu.ph/",
+    "wikidata_id": "Q1255772",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Mary%27s_University_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Michael's College of Laguna",
+    "website": "http://www.smcl.edu.ph/",
+    "wikidata_id": "Q7401906",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Michael%27s_College_of_Laguna",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Paul University Dumaguete",
+    "website": "http://www.spud.edu.ph",
+    "wikidata_id": "Q3578244",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Paul_University_Dumaguete",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Paul University Iloilo",
+    "website": "http://www.spuiloilo.edu.ph",
+    "wikidata_id": "Q3579379",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Paul_University_Iloilo",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Paul University Quezon City",
+    "website": "http://www.spuqc.edu.ph",
+    "wikidata_id": "Q7402055",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Paul_University_Quezon_City",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Paul University Surigao",
+    "website": "http://www.spusurigao.edu.ph",
+    "wikidata_id": "Q3578239",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Paul_University_Surigao",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Rita College",
+    "website": "http://srcm.augustinianrecollect.org.ph/",
+    "wikidata_id": "Q12963178",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Rita_College_(Manila)",
+    "country": "philippines"
+  },
+  {
+    "name": "Saint Theresa's College of Cebu City",
+    "website": "https://www.stccebu.edu.ph/",
+    "wikidata_id": "Q7402218",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saint_Theresa%27s_College_of_Cebu",
+    "country": "philippines"
+  },
+  {
+    "name": "Samar College",
+    "website": "https://www.samarcollege.edu.ph",
+    "wikidata_id": "Q104845113",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Samar_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Samar State University",
+    "website": "http://www.ssu.edu.ph",
+    "wikidata_id": "Q7408792",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Samar_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "San Beda University",
+    "website": "http://www.sanbeda.edu.ph/",
+    "wikidata_id": "Q3551584",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/San_Beda_University",
+    "country": "philippines"
+  },
+  {
+    "name": "San Juan De Dios Educational Foundation",
+    "website": "http://www.sanjuandedios.org/",
+    "wikidata_id": "Q7414573",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/San_Juan_de_Dios_Educational_Foundation",
+    "country": "philippines"
+  },
+  {
+    "name": "San Pedro College",
+    "website": "https://www.spcdavao.edu.ph/",
+    "wikidata_id": "Q7415103",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/San_Pedro_College",
+    "country": "philippines"
+  },
+  {
+    "name": "San Sebastian College – Recoletos de Cavite",
+    "website": "http://www.sscr.edu",
+    "wikidata_id": "Q7415297",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/San_Sebastian_College_%E2%80%93_Recoletos_Cavite",
+    "country": "philippines"
+  },
+  {
+    "name": "Santa Catalina College",
+    "website": "http://www.sccmanila.edu.ph/",
+    "wikidata_id": "Q12966661",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Santa_Catalina_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Silliman University College of Arts and Sciences",
+    "website": "http://www.su.edu.ph",
+    "wikidata_id": "Q7515382",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Silliman_University_College_of_Arts_and_Sciences",
+    "country": "philippines"
+  },
+  {
+    "name": "Silliman University College of Law",
+    "website": "http://www.su.edu.ph",
+    "wikidata_id": "Q17007811",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Silliman_University_College_of_Law",
+    "country": "philippines"
+  },
+  {
+    "name": "Siquijor State College",
+    "website": "http://www.siquijorstate.edu.ph",
+    "wikidata_id": "Q7525882",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Siquijor_State_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Skill Power Institute",
+    "website": "https://www.spi.edu.ph",
+    "wikidata_id": "Q12971447",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Sorsogon State University",
+    "website": "https://sorsu.edu.ph/",
+    "wikidata_id": "Q7563754",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sorsogon_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Southeast Asian University of Technology",
+    "website": "http://biscast.edu.ph",
+    "wikidata_id": "Q18162894",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southeast_Asian_University_of_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "Southern Leyte State University",
+    "website": "https://southernleytestateu.edu.ph",
+    "wikidata_id": "Q1368155",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_Leyte_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Southern Luzon State University",
+    "website": "http://www.slsu.edu.ph",
+    "wikidata_id": "Q3547647",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_Luzon_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Southern de Oro Philippines College",
+    "website": "http://www.southphilcollege.com/",
+    "wikidata_id": "Q7570664",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_de_Oro_Philippines_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Southwestern University",
+    "website": "http://www.swu.edu.ph",
+    "wikidata_id": "Q7571450",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southwestern_University_(Philippines)",
+    "country": "philippines"
+  },
+  {
+    "name": "St. Dominic College Of Asia",
+    "website": "http://stdominiccollege.edu.ph",
+    "wikidata_id": "Q7587757",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Dominic_College_of_Asia",
+    "country": "philippines"
+  },
+  {
+    "name": "St. Joseph College of Bulacan",
+    "website": "http://www.sjcb.info",
+    "wikidata_id": "Q7589301",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Joseph_College_of_Bulacan",
+    "country": "philippines"
+  },
+  {
+    "name": "St. Mary's College of Meycauayan",
+    "website": "http://www.smcm.edu.ph",
+    "wikidata_id": "Q7590250",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Mary%27s_College_of_Meycauayan",
+    "country": "philippines"
+  },
+  {
+    "name": "St. Michael's College, Iligan City",
+    "website": "http://www.smciligan.edu.ph/",
+    "wikidata_id": "Q7590681",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Michael%27s_College_(Iligan)",
+    "country": "philippines"
+  },
+  {
+    "name": "St. Paul University Manila",
+    "website": "http://www.spumanila.edu.ph",
+    "wikidata_id": "Q7591280",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Paul_University_Manila",
+    "country": "philippines"
+  },
+  {
+    "name": "St. Peter's College of Toril",
+    "website": "http://www.spctcollegealumni.com/",
+    "wikidata_id": "Q7591351",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._Peter%27s_College_of_Toril",
+    "country": "philippines"
+  },
+  {
+    "name": "Sultan Kudarat State University",
+    "website": "http://www.sksu.edu.ph",
+    "wikidata_id": "Q7636689",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sultan_Kudarat_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Surigao del Sur State University",
+    "website": "http://www.sdssu.edu.ph",
+    "wikidata_id": "Q2368551",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northeastern_Mindanao_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Taguig City University",
+    "website": "http://www.taguig.gov.ph",
+    "wikidata_id": "Q7675339",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taguig_City_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Tarlac College of Agriculture",
+    "website": "http://www.tca.edu.ph",
+    "wikidata_id": "Q7686308",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tarlac_Agricultural_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Tarlac State University",
+    "website": "http://www.tsu.edu.ph/",
+    "wikidata_id": "Q1368179",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tarlac_State_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Technological University of the Philippines-Taguig Campus",
+    "website": "https://www.tupt.edu.ph",
+    "wikidata_id": "Q17090327",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University_of_the_Philippines_%E2%80%93_Taguig",
+    "country": "philippines"
+  },
+  {
+    "name": "The Fisher Valley College",
+    "website": "http://www.fishervalleycollege.edu.ph/index.html",
+    "wikidata_id": "Q7734239",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Tomas del Rosario College",
+    "website": "http://www.trc.edu.ph/",
+    "wikidata_id": "Q7818344",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tomas_del_Rosario_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Trinity University of Asia",
+    "website": "http://www.tua.edu.ph/",
+    "wikidata_id": "Q3543973",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Trinity_University_of_Asia",
+    "country": "philippines"
+  },
+  {
+    "name": "UP Diliman Electrical and Electronics Engineering Institute",
+    "website": "http://www.eee.upd.edu.ph/about-eee/23",
+    "wikidata_id": "Q7865550",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/UP_Diliman_Electrical_and_Electronics_Engineering_Institute",
+    "country": "philippines"
+  },
+  {
+    "name": "UP Diliman Institute of Civil Engineering",
+    "website": "http://ice.upd.edu.ph/",
+    "wikidata_id": "Q7865552",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/UP_Diliman_Institute_of_Civil_Engineering",
+    "country": "philippines"
+  },
+  {
+    "name": "UP National College of Public Administration and Governance",
+    "website": "http://www.ncpag.upd.edu.ph",
+    "wikidata_id": "Q7865560",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/UP_National_College_of_Public_Administration_and_Governance",
+    "country": "philippines"
+  },
+  {
+    "name": "UV Gullas College",
+    "website": "http://uvgullas.com/",
+    "wikidata_id": "Q76246995",
+    "wikipedia_url": "",
+    "country": "philippines"
+  },
+  {
+    "name": "Union College of Laguna",
+    "website": "http://www.uclaguna.com",
+    "wikidata_id": "Q7885574",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Union_College_of_Laguna",
+    "country": "philippines"
+  },
+  {
+    "name": "Universal College",
+    "website": "http://www.ucp.edu.ph/",
+    "wikidata_id": "Q7893912",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universal_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Universidad de Sta. Isabel",
+    "website": "http://www.usi.edu.ph/",
+    "wikidata_id": "Q3547559",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_de_Sta._Isabel_de_Naga",
+    "country": "philippines"
+  },
+  {
+    "name": "Universidad de Zamboanga",
+    "website": "http://www.uz.edu.ph",
+    "wikidata_id": "Q3543934",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_de_Zamboanga",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Batangas",
+    "website": "http://www.ub.edu.ph/",
+    "wikidata_id": "Q3547629",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Batangas",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Bohol",
+    "website": "http://www.universityofbohol.com/",
+    "wikidata_id": "Q3543979",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Bohol",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Cagayan Valley",
+    "website": "http://www.ucv.edu.ph",
+    "wikidata_id": "Q25247777",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Cagayan_Valley",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Caloocan City",
+    "website": "http://ucc-caloocan.edu.ph/",
+    "wikidata_id": "Q3547539",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Caloocan_City",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Cebu",
+    "website": "http://www.uc.edu.ph/",
+    "wikidata_id": "Q3543958",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Cebu",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Eastern Philippines",
+    "website": "http://www.uep.edu.ph",
+    "wikidata_id": "Q3551552",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Eastern_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Iloilo",
+    "website": "http://www.ui.phinma.edu.ph/",
+    "wikidata_id": "Q7895543",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Iloilo",
+    "country": "philippines"
+  },
+  {
+    "name": "University of La Salette",
+    "website": "http://www.universityoflasalette.edu.ph/",
+    "wikidata_id": "Q7895615",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_La_Salette",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Luzon",
+    "website": "http://www.ul.edu.ph/",
+    "wikidata_id": "Q2485002",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Luzon",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Makati",
+    "website": "http://www.umak.edu.ph",
+    "wikidata_id": "Q7895659",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Makati",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Manila",
+    "website": "http://www.um.edu.ph/",
+    "wikidata_id": "Q658984",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Manila",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Mindanao",
+    "website": "http://umindanao.edu.ph",
+    "wikidata_id": "Q2485032",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Mindanao",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Negros Occidental – Recoletos",
+    "website": "http://www.uno-r.edu.ph/",
+    "wikidata_id": "Q7895893",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Negros_Occidental_%E2%80%93_Recoletos",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Northern Philippines",
+    "website": "http://www.unp.edu.ph",
+    "wikidata_id": "Q2485041",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Northern_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Northwestern Mindanao",
+    "website": "http://nmsc.edu.ph",
+    "wikidata_id": "Q7060346",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Northwestern_Mindanao",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Pangasinan",
+    "website": "http://www.up.phinma.edu.ph/",
+    "wikidata_id": "Q7896060",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Pangasinan",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Perpetual Help System DALTA",
+    "website": "http://perpetualdalta.edu.ph/",
+    "wikidata_id": "Q7896101",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perpetual_Help_System_DALTA",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Perpetual Help System DALTA – Calamba Campus",
+    "website": "http://www.perpetualdalta.edu.ph",
+    "wikidata_id": "Q7896103",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perpetual_Help_System_DALTA_%E2%80%93_Calamba_Campus",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Perpetual Help System DALTA – Molino Campus",
+    "website": "http://www.perpetualdalta.edu.ph",
+    "wikidata_id": "Q7896102",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perpetual_Help_System_DALTA_%E2%80%93_Molino_Campus",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Perpetual Help System JONELTA - GMA Campus",
+    "website": "http://uphsl.edu.ph/index.php",
+    "wikidata_id": "Q7896105",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perpetual_Help_System_JONELTA_%E2%80%93_GMA_Campus",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Perpetual Help System JONELTA – Isabela Campus",
+    "website": "http://uphsl.edu.ph/",
+    "wikidata_id": "Q7896106",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perpetual_Help_System_JONELTA_%E2%80%93_Isabela_Campus",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Perpetual Help System JONELTA – Pangasinan Campus",
+    "website": "https://uphsl.edu.ph/",
+    "wikidata_id": "Q7896108",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perpetual_Help_System_JONELTA_%E2%80%93_Pangasinan_Campus",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Perpetual Help System Laguna",
+    "website": "http://uphsl.edu.ph/index.htm",
+    "wikidata_id": "Q7896109",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Perpetual_Help_System_Laguna",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Rizal System",
+    "website": "http://www.urs.edu.ph/",
+    "wikidata_id": "Q7896214",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Rizal_System",
+    "country": "philippines"
+  },
+  {
+    "name": "University of San Agustin",
+    "website": "http://www.usa.edu.ph",
+    "wikidata_id": "Q7896230",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_San_Agustin",
+    "country": "philippines"
+  },
+  {
+    "name": "University of San Jose–Recoletos",
+    "website": "http://www.usjr.edu.ph",
+    "wikidata_id": "Q7896240",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_San_Jose%E2%80%93Recoletos",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Santo Tomas College of Science",
+    "website": "http://science.ust.edu.ph",
+    "wikidata_id": "Q7896252",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Santo_Tomas_College_of_Science",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Santo Tomas Faculty of Engineering",
+    "website": "http://engineering.ust.edu.ph",
+    "wikidata_id": "Q7896260",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Santo_Tomas_Faculty_of_Engineering",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Science and Technology of Southern Philippines",
+    "website": "https://www.ustp.edu.ph/",
+    "wikidata_id": "Q6863633",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Science_and_Technology_of_Southern_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Southeastern Philippines",
+    "website": "https://www.usep.edu.ph/",
+    "wikidata_id": "Q2485026",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Southeastern_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "University of Southern Philippines Foundation",
+    "website": "http://www.uspf.edu.ph/",
+    "wikidata_id": "Q7896345",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Southern_Philippines_Foundation",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the Assumption",
+    "website": "http://www.ua.edu.ph/main",
+    "wikidata_id": "Q7896691",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Assumption",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the Cordilleras",
+    "website": "http://www.uc-bcf.edu.ph/",
+    "wikidata_id": "Q3547580",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Cordilleras",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the East",
+    "website": "http://www.ue.edu.ph/",
+    "wikidata_id": "Q223037",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_East",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the East College of Computer Studies and System",
+    "website": "http://online.ue.edu.ph/manila/?page=colleges&link=ccss_front",
+    "wikidata_id": "Q7896700",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_East_College_of_Computer_Studies_and_Systems",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the East College of Dentistry",
+    "website": "http://online.ue.edu.ph/manila/?page=colleges&link=dent_mainpage",
+    "wikidata_id": "Q7896701",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_East_College_of_Dentistry",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the East Graduate School",
+    "website": "http://online.ue.edu.ph/manila/?page=colleges&link=gs_front",
+    "wikidata_id": "Q17105878",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_East_Graduate_School",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the Immaculate Conception",
+    "website": "http://www.uic.edu.ph/webroot/default.cfm",
+    "wikidata_id": "Q7896707",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Immaculate_Conception",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the Philippines Cebu",
+    "website": "http://upcebu.edu.ph/",
+    "wikidata_id": "Q7896720",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Philippines_Cebu",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the Philippines Film Institute",
+    "website": "",
+    "wikidata_id": "Q111956066",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Philippines_Film_Institute",
+    "country": "philippines"
+  },
+  {
+    "name": "University of the Visayas",
+    "website": "http://www.uv.edu.ph/",
+    "wikidata_id": "Q2485020",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Visayas",
+    "country": "philippines"
+  },
+  {
+    "name": "Urdaneta City University",
+    "website": "http://ucu.edu.ph/",
+    "wikidata_id": "Q7900308",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Urdaneta_City_University",
+    "country": "philippines"
+  },
+  {
+    "name": "VMA Global College",
+    "website": "http://www.vma.edu.ph",
+    "wikidata_id": "Q7907196",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/VMA_Global_College",
+    "country": "philippines"
+  },
+  {
+    "name": "Wesleyan University Philippines",
+    "website": "http://www.wesleyan.edu.ph",
+    "wikidata_id": "Q7984071",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Wesleyan_University_Philippines",
+    "country": "philippines"
+  },
+  {
+    "name": "West Negros University",
+    "website": "http://www.sti.edu/campuses.asp?campus_id=97",
+    "wikidata_id": "Q7986055",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/STI_West_Negros_University",
+    "country": "philippines"
+  },
+  {
+    "name": "Xavier University – Ateneo de Cagayan",
+    "website": "http://xu.edu.ph",
+    "wikidata_id": "Q43337",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Xavier_University_%E2%80%93_Ateneo_de_Cagayan",
+    "country": "philippines"
+  },
+  {
+    "name": "Zamboanga State College of Marine Sciences and Technology",
+    "website": "http://www.zscmst.edu.ph",
+    "wikidata_id": "Q8065736",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Zamboanga_State_College_of_Marine_Sciences_and_Technology",
+    "country": "philippines"
+  },
+  {
+    "name": "iAcademy",
+    "website": "http://www.iacademy.edu.ph",
+    "wikidata_id": "Q12964849",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/IAcademy",
+    "country": "philippines"
+  }
+]

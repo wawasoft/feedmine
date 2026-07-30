@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Chalmers Lindholmen University College",
+    "website": "http://www.chl.chalmers.se:80/",
+    "wikidata_id": "Q5069011",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chalmers_Lindholmen_University_College",
+    "country": "sweden"
+  },
+  {
+    "name": "Chalmers University of Technology",
+    "website": "http://chalmers.se",
+    "wikidata_id": "Q836805",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chalmers_University_of_Technology",
+    "country": "sweden"
+  },
+  {
+    "name": "IIIEE",
+    "website": "http://www.iiiee.lu.se",
+    "wikidata_id": "Q5971267",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/IIIEE",
+    "country": "sweden"
+  },
+  {
+    "name": "Karolinska Institutet",
+    "website": "https://ki.se",
+    "wikidata_id": "Q219564",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Karolinska_Institute",
+    "country": "sweden"
+  },
+  {
+    "name": "Linköping University",
+    "website": "https://liu.se",
+    "wikidata_id": "Q782600",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Link%C3%B6ping_University",
+    "country": "sweden"
+  },
+  {
+    "name": "Mid Sweden University",
+    "website": "https://www.miun.se/",
+    "wikidata_id": "Q1940803",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mid_Sweden_University",
+    "country": "sweden"
+  },
+  {
+    "name": "Royal Institute of Technology",
+    "website": "https://www.kth.se/en",
+    "wikidata_id": "Q854280",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/KTH_Royal_Institute_of_Technology",
+    "country": "sweden"
+  },
+  {
+    "name": "Swedish University of Agricultural Sciences",
+    "website": "https://www.slu.se",
+    "wikidata_id": "Q1312762",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Swedish_University_of_Agricultural_Sciences",
+    "country": "sweden"
+  },
+  {
+    "name": "University of Gothenburg",
+    "website": "https://www.gu.se/en",
+    "wikidata_id": "Q371522",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Gothenburg",
+    "country": "sweden"
+  },
+  {
+    "name": "Uppsala University",
+    "website": "https://www.uu.se",
+    "wikidata_id": "Q185246",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Uppsala_University",
+    "country": "sweden"
+  },
+  {
+    "name": "Växjö University",
+    "website": "http://www.vxu.se/",
+    "wikidata_id": "Q3279424",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/V%C3%A4xj%C3%B6_University",
+    "country": "sweden"
+  },
+  {
+    "name": "Örebro University",
+    "website": "http://www.oru.se/",
+    "wikidata_id": "Q2002420",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/%C3%96rebro_University",
+    "country": "sweden"
+  }
+]

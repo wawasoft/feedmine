@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4bRvIzROmDaTLOG1oENXXw",
+    "category": "Education",
+    "title": "Higher University of San Andrés (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.umsa.bo",
+    "national": true,
+    "national_reason": "universities/youtube/bolivia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCg7_S3COOpvKoMxnf7qKmBw",
+    "category": "Education",
+    "title": "Núr University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.nur.edu",
+    "national": true,
+    "national_reason": "universities/youtube/bolivia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

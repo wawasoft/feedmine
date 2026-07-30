@@ -17,8 +17,10 @@ GLOBAL_PROFILE = CountryProfile(
         "youtube_trending": SourceConfig(priority=4, params={}),
         # DDG web search for text/news feeds (existing, refactored)
         "ddg_text": SourceConfig(priority=5, params={}),
+        # Curated influencer data — YouTube creators, podcasters, bloggers per country
+        "influencers": SourceConfig(priority=6, params={}),
         # iTunes Search API (existing, refactored) -- Apple ecosystem only
-        "itunes": SourceConfig(priority=6, params={}),
+        "itunes": SourceConfig(priority=7, params={}),
         # Wikipedia most-subscribed YouTube channels (static data, no API calls)
         "youtube_top_subscribed": SourceConfig(priority=7, params={}),
         # Premium podcast search, 250 req/month free -- use sparingly

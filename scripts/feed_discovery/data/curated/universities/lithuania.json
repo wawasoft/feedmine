@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSmtDa6cVrRZbeVcfBT7Alg",
+    "category": "Education",
+    "title": "ISM University of Management and Economics (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.ism.lt/",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCTP1uMmTr3ujKkV7N7KLWDQ",
+    "category": "Education",
+    "title": "Klaipeda State University of Applied Sciences (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.kvk.lt/",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCsXvp5mLyc5wsMX0-SNlz1g",
+    "category": "Education",
+    "title": "Lithuania Business College (YouTube)",
+    "genre": "University",
+    "source_page": "https://ltvk.lt",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1omd5yTIINEA3s9IVua7tg",
+    "category": "Education",
+    "title": "Panevėžys College (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.panko.lt/",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCecoh-huJbi92kb4GKx3rrg",
+    "category": "Education",
+    "title": "Utenos kolegija Higher Education Institution (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.utenos-kolegija.lt/",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCxz4foB83bn0HmZKF_ZQKkg",
+    "category": "Education",
+    "title": "Vilnius College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.viko.lt/",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCW4UCKB80NlgnD7SBJZMAlQ",
+    "category": "Education",
+    "title": "Vilnius Gediminas Technical University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.vgtu.lt/",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSZjV2Qt7gvORZxOrwaox6Q",
+    "category": "Education",
+    "title": "Šiauliai State College (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.svako.lt/",
+    "national": true,
+    "national_reason": "universities/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

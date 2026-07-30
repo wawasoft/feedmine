@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCsJl6hES7cqrOBfj9LpNiYA",
+    "category": "Education",
+    "title": "Hassania School of Public Works (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ehtp.ac.ma/en/",
+    "national": true,
+    "national_reason": "universities/youtube/morocco",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1_nospknoY_LV27WZLWIDw",
+    "category": "Education",
+    "title": "Ibn Zohr University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.uiz.ac.ma/",
+    "national": true,
+    "national_reason": "universities/youtube/morocco",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UChh2MFWC59UCx0nWKJ_C-9w",
+    "category": "Education",
+    "title": "Mohammed V University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.um5.ac.ma",
+    "national": true,
+    "national_reason": "universities/youtube/morocco",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCS_VXy_yJSz9bi99HVSb_iQ",
+    "category": "Education",
+    "title": "Université Moulay-Ismaïl (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.umi.ac.ma/",
+    "national": true,
+    "national_reason": "universities/youtube/morocco",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

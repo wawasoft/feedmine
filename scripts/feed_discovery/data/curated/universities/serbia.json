@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCPCbpDdR2FjPUaMt1BWWngw",
+    "category": "Education",
+    "title": "University Business Academy (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.privrednaakademija.edu.rs/",
+    "national": true,
+    "national_reason": "universities/youtube/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

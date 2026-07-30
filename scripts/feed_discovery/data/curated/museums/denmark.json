@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCE-KVqNaWlz5xXotVapFn8A",
+    "category": "YouTube",
+    "title": "KØN - Gender Museum Denmark — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.kvindemuseet.dk",
+    "national": true,
+    "national_reason": "museums/youtube/denmark",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkB2xFSR7r8iu6nbUdP0EZQ",
+    "category": "YouTube",
+    "title": "Louisiana Museum of Modern Art — YouTube",
+    "genre": "Museum",
+    "source_page": "https://louisiana.dk/en/",
+    "national": true,
+    "national_reason": "museums/youtube/denmark",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC69zv9c-67-xGiTp3ibOt9w",
+    "category": "YouTube",
+    "title": "Statens Museum for Kunst — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.smk.dk",
+    "national": true,
+    "national_reason": "museums/youtube/denmark",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

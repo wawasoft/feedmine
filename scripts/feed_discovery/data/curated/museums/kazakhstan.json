@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCPeBdHpseJnNwVi_Sd9fwIA",
+    "category": "YouTube",
+    "title": "Museum of History of Kokshetau — YouTube",
+    "genre": "Museum",
+    "source_page": "https://museum-kokshetau.kz/ru/",
+    "national": true,
+    "national_reason": "museums/youtube/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6Z1EkjVJLlm91LKnDkQdMQ",
+    "category": "Education",
+    "title": "Yobe State University (YouTube)",
+    "genre": "University",
+    "source_page": "http://ysu.edu.ng:80/web/index.html",
+    "national": true,
+    "national_reason": "universities/youtube/nigeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

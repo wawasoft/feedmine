@@ -1,0 +1,278 @@
+[
+  {
+    "url": "https://123euros.substack.com/feed",
+    "title": "Este autor diz que a riqueza é o dinheiro que não gastaste no carro",
+    "source": "substack:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://medium.com/feed/tag/autor",
+    "title": "The most insightful stories about Autor - Medium",
+    "source": "medium:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://romancistaofc.wordpress.com/feed/",
+    "title": "Romancista",
+    "source": "page:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://viaeditora.com.br/feed/",
+    "title": "O Romancista Aramis Ribeiro Costa por Cyro de Mattos – Via...",
+    "source": "page:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://veja.abril.com.br/ideias/rss",
+    "title": "‘É vital resistir à tirania e à crueldade’, diz romancista britânica | VEJA",
+    "source": "page:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "portugal"
+  },
+  {
+    "url": "https://poeta.blog.hu/rss2",
+    "title": "POETA .blog.hu",
+    "source": "page:poeta",
+    "country": "portugal"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "portugal"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "portugal"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2010/06/23/jose-saramago/feed",
+    "title": "José Saramago – WordPress.com en Español",
+    "source": "wp:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://laslecturasdeguillermo.wordpress.com/tag/auge-y-caida-del-primer-imperio-del-mundo/feed",
+    "title": "Auge y caída del primer imperio del mundo | Las lecturas de Guillermo",
+    "source": "wp:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://delamarylosbarcos.wordpress.com/tag/sagres/feed",
+    "title": "Sagres | De la mar y los barcos",
+    "source": "wp:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://sabine77.wordpress.com/2026/07/28/notas-quotidianas-em-19/feed",
+    "title": "Visto de Leiria: Notas Quotidianas Junho-Julho 2026 – Insustentável...",
+    "source": "wp:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://60emais.wordpress.com/tag/reinaldo-ribeiro/feed",
+    "title": "Posts about Reinaldo Ribeiro written by 60emais",
+    "source": "wp:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://aldrysuzuki.wordpress.com/2018/05/29/redacao-xix-temas-de-vestibular-fuvestunicampunespcespepuc-spmackenzieitafundacao-getulio-vargas-ufscarunifest-e-unip-amo-voces/feed",
+    "title": "REDAÇÃO XIX- TEMAS DE VESTIBULAR: FUVEST... | Aldry Suzuki",
+    "source": "wp:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://sarauparatodos.wordpress.com/2016/04/11/bruno-latour-entrevista-revista-cult/feed",
+    "title": "BRUNO LATOUR – ENTREVISTA – REVISTA CULT – Sarau Para...",
+    "source": "wp:escritor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://literaciasite.wordpress.com/direitos-de-autor/feed",
+    "title": "Direitos de autor - Como realizar e apresentar trabalhos",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://nunopgpalma.wordpress.com/2016/03/14/em-com-os-holandeses-j-rentes-de-carvalho-errou/feed",
+    "title": "Em “Com os Holandeses”, J. Rentes de Carvalho errou",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://nunopeb.wordpress.com/autor/feed",
+    "title": "Autor | História de Portugal exposta por Nuno Manuel Martins Pereira",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://guerradarestauracao.wordpress.com/about/feed",
+    "title": "Sobre o autor - Guerra da Restauração - WordPress.com",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://toponimialisboa.wordpress.com/2014/04/11/a-avenida-do-autor-de-portugal-e-o-futuro-e-1o-presidente-da-republica-apos-o-25-de-abril/feed",
+    "title": "Portugal e o Futuro» e 1º Presidente da República após o 25 de Abril",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://espressoandstroopwafel.wordpress.com/2013/02/07/com-os-holandeses-a-critica-apaixonada/feed",
+    "title": "Com os holandeses: a crítica apaixonada a um Povo",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://becredecanedo.wordpress.com/autor-do-mes/feed",
+    "title": "AUTOR DO MÊS - Biblioteca Professor Adriano Santos",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://odireitodeautor.wordpress.com/licencas-spa-e-audiogest/feed",
+    "title": "Licenças SPA e AUDIOGEST - O Direito de Autor - WordPress.com",
+    "source": "wp:autor",
+    "country": "portugal"
+  },
+  {
+    "url": "https://kiminda.wordpress.com/2012/03/03/portugal-sugere-alteracoes-no-acordo-ortografico/feed",
+    "title": "Portugal sugere alterações no acordo ortográfico | @ N I L N E W S",
+    "source": "wp:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://ilustracaoportugueza.wordpress.com/tag/teatro/page/2/feed",
+    "title": "teatro | Ilustração Portugueza | Página 2",
+    "source": "wp:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://limianoliberal.wordpress.com/tag/jose-socrates/feed",
+    "title": "Posts about José Sócrates written by Ricardo Campelo de Magalhães",
+    "source": "wp:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://iilp.wordpress.com/2022/05/02/festival-literario-lisboa-5l-quer-ser-uma-referencia-na-lingua-portuguesa-2/feed",
+    "title": "FESTIVAL LITERÁRIO LISBOA 5L QUER SER... | Blogue do IILP",
+    "source": "wp:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://criancasatortoeadireitos.wordpress.com/tag/sindrome-do-x-fragil/feed",
+    "title": "Síndrome do X Frágil | Crianças a torto e a Direitos",
+    "source": "wp:romancista",
+    "country": "portugal"
+  },
+  {
+    "url": "https://de-siria-a-soria.ghost.io/rss",
+    "title": "Por qué no se hunden? | De Siria a Soria",
+    "source": "platform:ghost.io",
+    "country": "portugal"
+  },
+  {
+    "url": "https://ola-comoestas.blogspot.com/feeds/posts/default",
+    "title": "Olá! Como estás?: Pêndulo (E. M. de Melo e Castro)",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://oficina-de-teatro-2014-2015.blogspot.com/feeds/posts/default",
+    "title": "Em palco com o AUTO DA COMPADECIDA",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://eternamentebenficablogspot-com.blogspot.com/feeds/posts/default",
+    "title": "EternamenteBenfica: Mastantuono é sonho do Benfica",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://tralhasvarias.blogspot.com/feeds/posts/default",
+    "title": "Filmes Walt Disney: A Bela Adormecida (1959) | Tralhas Varias",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://lentesinversas.blogspot.com/feeds/posts/default",
+    "title": "Lentes Inversas",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://jornaloolho.blogspot.com/feeds/posts/default",
+    "title": "O OLHO: 13 de fev. de 2009",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "Bet365 Bonus 100 Withdrawal Bleeding: Guia Completa para...",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://eshijar.blogspot.com/feeds/posts/default",
+    "title": "LOS SABADOS POESIA : Enemigo intimo. Autor: Antonio Gala.",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://notasbedefilas.blogspot.com/feeds/posts/default",
+    "title": "notas bedéfilas: As histórias de Todos os Milhões do Tio Patinhas",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://bandadesenhada-pt.blogspot.com/feeds/posts/default",
+    "title": "Banda Desenhada: Heróis do Far-West - PT0072 - A Quadrilha dos...",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://geopedrados.blogspot.com/feeds/posts/default",
+    "title": "Geopedrados: Hoje é preciso ouvir Pink Floyd...",
+    "source": "platform:blogspot.com",
+    "country": "portugal"
+  },
+  {
+    "url": "https://triplov.pt/feed",
+    "title": "APE - Associação Portuguesa de Escritores",
+    "source": "assoc:pt",
+    "country": "portugal"
+  }
+]

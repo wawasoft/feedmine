@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCdIRHAqFtCb-LnyHQ1CkUvw",
+    "category": "Education",
+    "title": "CUUN (YouTube)",
+    "genre": "University",
+    "source_page": "https://cuun.unanleon.edu.ni/",
+    "national": true,
+    "national_reason": "universities/youtube/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC-Jhww9XPbavBsMDtG_Rv4A",
+    "category": "Education",
+    "title": "National Autonomous University of Nicaragua at León (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.unanleon.edu.ni/",
+    "national": true,
+    "national_reason": "universities/youtube/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

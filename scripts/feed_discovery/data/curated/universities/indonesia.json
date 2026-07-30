@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCg0DExOzOm9mjrwZDnOFBxw",
+    "category": "Education",
+    "title": "Adzkia University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.stkipadzkia.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCUYwloXmWyNZplsqg4MVERw",
+    "category": "Education",
+    "title": "Airlangga University (YouTube)",
+    "genre": "University",
+    "source_page": "https://unair.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCTZPomNvNr6vF3YTRpfmYlQ",
+    "category": "Education",
+    "title": "Atma Jaya Catholic University of Indonesia (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.atmajaya.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UChIlfDUOeFamFxX3GdaXTcQ",
+    "category": "Education",
+    "title": "International University Liaison Indonesia (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.iuli.ac.id/",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCJ3J6Ykq9H6E_DNatAtU0Ng",
+    "category": "Education",
+    "title": "Muhammadiyah University of Makassar (YouTube)",
+    "genre": "University",
+    "source_page": "https://unismuh.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAYa27djAPgdvDhHZvUSdRw",
+    "category": "Education",
+    "title": "Sumatra Institute of Technology (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.itera.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCKCJOB9lHSufRRtdmZ1rr1g",
+    "category": "Education",
+    "title": "Swiss German University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.sgu.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCuB6YvcI09wziMFTiDHBcgQ",
+    "category": "Education",
+    "title": "Universitas Logistik & Bisnis Internasional (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ulbi.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCoUPOCg0m4hGeHW_VP-q6QA",
+    "category": "Education",
+    "title": "Universitas Terbuka (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ut.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFfPBvdsP0ROarlekViw3Vw",
+    "category": "Education",
+    "title": "Yogyakarta State University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uny.ac.id",
+    "national": true,
+    "national_reason": "universities/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

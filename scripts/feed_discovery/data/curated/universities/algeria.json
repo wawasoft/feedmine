@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCeKITWzuHpeA8JRHaj9nIZg",
+    "category": "Education",
+    "title": "Mohamed Khider Biskra University (YouTube)",
+    "genre": "University",
+    "source_page": "http://univ-biskra.dz/",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCr_7ajpNU9Y9RlFrjY5RqnQ",
+    "category": "Education",
+    "title": "University of Algiers 1 (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.univ-alger.dz/",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXIh73FkOnY1I0frwszzX-g",
+    "category": "Education",
+    "title": "University of Constantine 1 (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.umc.edu.dz/",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrrGqUlBq3bbYcR-k_nLc3w",
+    "category": "Education",
+    "title": "University of Constantine 3 (YouTube)",
+    "genre": "University",
+    "source_page": "https://univ-constantine3.dz",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXeBvAzjwvTKZDaipz88BaQ",
+    "category": "Education",
+    "title": "University of Continuing Education (YouTube)",
+    "genre": "University",
+    "source_page": "https://ufc.dz/en/",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UClkpE_bg6wQTQz0Z1SssP7g",
+    "category": "Education",
+    "title": "University of Guelma (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.univ-guelma.dz/",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_33PpCOyB6uXDNq_8znLqg",
+    "category": "Education",
+    "title": "University of Ouargla (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.univ-ouargla.dz",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCb2KlF8Y2ENun6CZtgD8SXQ",
+    "category": "Education",
+    "title": "Université Djillali Liabes (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.univ-sba.dz/",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCs4CquOSH1-oJp-IMdRD2rA",
+    "category": "Education",
+    "title": "Université Larbi Ben M'hidi de Oum El Bouaghi (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.univ-oeb.dz/",
+    "national": true,
+    "national_reason": "universities/youtube/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

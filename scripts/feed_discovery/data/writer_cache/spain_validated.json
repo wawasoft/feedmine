@@ -1,0 +1,230 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "spain"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "spain"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://re21.wordpress.com/feed/",
+    "title": "Autor do Blog | Navego, logo existo",
+    "source": "page:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "spain"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/feed/",
+    "title": "andi novelista | a peek inside a wicked mind",
+    "source": "page:novelista",
+    "country": "spain"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "spain"
+  },
+  {
+    "url": "https://www.abigailyardimci.com/blog-feed.xml",
+    "title": "Abigail Yardimci Blog | Novelista Mum | Devon | Page 2 of 15",
+    "source": "page:novelista",
+    "country": "spain"
+  },
+  {
+    "url": "https://www.goodreads.com/review/list_rss/57889133",
+    "title": "Novelista Blogs (novelistablogs) - Austin, TX (103 books)",
+    "source": "page:novelista",
+    "country": "spain"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "spain"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "spain"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "spain"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "spain"
+  },
+  {
+    "url": "https://elquiciodelamancebia.wordpress.com/2026/07/25/250726-sabado/feed",
+    "title": "250726, sábado:¿Cuántos ardientes estivales de más nos esperan...",
+    "source": "wp:escritor",
+    "country": "spain"
+  },
+  {
+    "url": "https://oxfordenglishblog.wordpress.com/f565da88b470d92d9bc626f91326558f/feed",
+    "title": "f565da88b470d92d9bc626f91326558f | MURMUR",
+    "source": "wp:escritor",
+    "country": "spain"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2025/03/17/herramientas-de-analitica-digital-imprescindibles-para-agencias-en-2025/feed",
+    "title": "Herramientas de analítica digital imprescindibles para agencias en 2025",
+    "source": "wp:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://latunicadeneso.wordpress.com/tag/ser-mujer-en-roma/feed",
+    "title": "Entradas sobre Ser mujer en Roma escritas por Domingo Vallejo",
+    "source": "wp:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://qpem.wordpress.com/author/cobu84/feed",
+    "title": "Leer todas las entradas de cobu84 en Que Paren El Mundo",
+    "source": "wp:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://musicarberdi.wordpress.com/2009/10/20/feed",
+    "title": "20 | octubre | 2009 | TangoRBerdi - Tango y Otras",
+    "source": "wp:autor",
+    "country": "spain"
+  },
+  {
+    "url": "https://paleorama.wordpress.com/2011/09/15/testimonio-de-glenn-cooper-arqueologo-medico-y-novelista-superventas/feed",
+    "title": "Testimonio de Glenn Cooper. Arqueólogo, médico y novelista...",
+    "source": "wp:novelista",
+    "country": "spain"
+  },
+  {
+    "url": "https://39escalones.wordpress.com/tag/la-reina-de-africa/feed",
+    "title": "Entradas sobre La reina de África escritas por 39escalones",
+    "source": "wp:novelista",
+    "country": "spain"
+  },
+  {
+    "url": "http://xjpeake.blogspot.com/feeds/posts/default",
+    "title": "enero 2014 | Cuaderno de bitácora",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://littledogpilot.blogspot.com/feeds/posts/default",
+    "title": "Perrito piloto",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://sitiochalcodediazcovarrubias.blogspot.com/feeds/posts/default",
+    "title": "Español Écija: Sobre - pendine coches históricos , pendine",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://sitojimena-informaticacienciaficcion.blogspot.com/feeds/posts/default",
+    "title": "La Informática en la Ciencia Ficción",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://sentimientosdepasion.blogspot.com/feeds/posts/default",
+    "title": "Sentimientos De Pasion: noviembre 2012",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "Gambling Casino Games Online en Argentina: La Guía Completa para...",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://papermau.blogspot.com/feeds/posts/default",
+    "title": "PAPERMAU",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://retrorockroll.blogspot.com/feeds/posts/default",
+    "title": "My Book of Rock´n´Roll: Rick Wakeman-The Myths And Legends Of...",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://yurakuna.blogspot.com/feeds/posts/default",
+    "title": "Modelos arquitecturales (5): el modelo de Holttum | Crónicas de un...",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://alejandro-8.blogspot.com/feeds/posts/default",
+    "title": "Historia y tecnología militar: Rusia: análisis de ventas a Argentina",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://labandzi.blogspot.com/feeds/posts/default",
+    "title": "Łabandzi Śpiew: lipca 2026",
+    "source": "platform:blogspot.com",
+    "country": "spain"
+  },
+  {
+    "url": "https://acencs.blogspot.com/feeds/posts/default",
+    "title": "Asociación cultural de escritores/as noveles",
+    "source": "assoc:es",
+    "country": "spain"
+  },
+  {
+    "url": "https://ameliteraria.blogspot.com/feeds/posts/default",
+    "title": "AME Asociación Malagueña de Escritores",
+    "source": "assoc:es",
+    "country": "spain"
+  },
+  {
+    "url": "https://escritoresgalaroza.blogspot.com/feeds/posts/default",
+    "title": "Encuentro de Escritores de la Sierra. Galaroza (Huelva) Spain.",
+    "source": "assoc:es",
+    "country": "spain"
+  },
+  {
+    "url": "https://serescritor.blogspot.com/feeds/posts/default",
+    "title": "Ser Escritor - El Blog para Aprender a ser un buen Escritor",
+    "source": "assoc:es",
+    "country": "spain"
+  }
+]

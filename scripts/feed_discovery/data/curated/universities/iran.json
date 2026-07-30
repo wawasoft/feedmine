@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCJU05EZL1poJSAQTvqmlsEQ",
+    "category": "Education",
+    "title": "Zanjan University of Medical Sciences (YouTube)",
+    "genre": "University",
+    "source_page": "https://zums.ac.ir/index.php?slc_lang=en&sid=1",
+    "national": true,
+    "national_reason": "universities/youtube/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

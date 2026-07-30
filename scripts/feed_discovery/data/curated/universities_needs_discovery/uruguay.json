@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Learning Assessment System",
+    "website": "http://www.anep.edu.uy/anep/index.php/dspe-departamento-de-evaluacion-de-aprendizajes",
+    "wikidata_id": "Q17630306",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Learning_Assessment_System_(SEA_-_Uruguay)",
+    "country": "uruguay"
+  },
+  {
+    "name": "Military Institute of Advanced Studies",
+    "website": "https://www.imes.edu.uy/",
+    "wikidata_id": "Q138028768",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Military_Institute_of_Advanced_Studies",
+    "country": "uruguay"
+  },
+  {
+    "name": "Universidad ORT Uruguay",
+    "website": "https://www.ort.edu.uy/",
+    "wikidata_id": "Q3772943",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_ORT_Uruguay",
+    "country": "uruguay"
+  },
+  {
+    "name": "University Latin American Center for Human Economy",
+    "website": "https://universidad.claeh.edu.uy",
+    "wikidata_id": "Q1023818",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Latin_American_Center_for_Human_Economy",
+    "country": "uruguay"
+  }
+]

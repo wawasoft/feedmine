@@ -1766,33 +1766,43 @@ final class FeedStore {
         let clock = ContinuousClock()
         let maxWait: Duration = isAppend ? .seconds(3) : runwayPolicy.initialViewportDeadline
         let deadline = clock.now.advanced(by: maxWait)
-        // First paint: wait until the full initial page is ready.
+
+        // First paint: wait until the full initial page is ready (or fewer
+        // if the editorial sequence is shorter — a feed with only 5 items
+        // should show 5 cards, not wait 6s for 20).
         // Append: accept any non-empty contiguous prefix.
-        let minimumCount = isAppend ? 1 : runwayPolicy.initialPublishedCount
+        let editorialRemaining = await preparationCoordinator.editorialAheadCount
+        let minimumCount: Int
+        if isAppend {
+            minimumCount = 1
+        } else {
+            minimumCount = min(runwayPolicy.initialPublishedCount, editorialRemaining)
+        }
 
-        // Peek in the loop (non-destructive) so cards aren't lost if we're
-        // cancelled mid-wait. Only commit after validating cancellation and
-        // context — the coordinator's nextPublishIndex stays correct.
-        var accumulated: [PreparedFeedCard] = []
-        repeat {
-            let batch = await preparationCoordinator.peekRenderReadyPrefix(
-                maximumCount: maxCount - accumulated.count,
-                context: context
-            )
-            accumulated.append(contentsOf: batch)
-
-            if accumulated.count >= minimumCount { break }
-            guard clock.now < deadline else { break }
-            try? await Task.sleep(for: .milliseconds(300))
-        } while !Task.isCancelled
+        // Suspend until the contiguous prefix is ready, or the deadline
+        // fires, or the context changes. waitForContiguousPrefix is driven
+        // by storeRenderReady signals — no polling, no race window, no
+        // duplicate accumulation.
+        let candidate = await preparationCoordinator.waitForContiguousPrefix(
+            minimumCount: minimumCount,
+            maximumCount: maxCount,
+            deadline: deadline,
+            context: context
+        )
 
         guard !Task.isCancelled else { return }
-        guard !accumulated.isEmpty else { return }
+        guard !candidate.isEmpty else { return }
         guard context.epoch == presentationEpoch else { return }
 
         // All checks passed — commit the cards as published.
-        await preparationCoordinator.commitPublished(ids: accumulated.map(\.id))
-        ready = accumulated
+        // commitPublished validates that the context is still active and
+        // that the prefix hasn't changed since we peeked.
+        let committed = await preparationCoordinator.commitPublished(
+            expectedIDs: candidate.map(\.id),
+            context: context
+        )
+        guard committed else { return }
+        ready = candidate
 
         // Stamp read/bookmark state on each item BEFORE publishing.
         var stampedCards = ready

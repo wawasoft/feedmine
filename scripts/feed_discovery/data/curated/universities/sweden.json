@@ -1,0 +1,50 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCnog6pob0vMT6fBySA4rg0w",
+    "category": "Education",
+    "title": "Konstfack (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.konstfack.se",
+    "national": true,
+    "national_reason": "universities/youtube/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCcIoW9K_9TrBIASK_WV7rLw",
+    "category": "Education",
+    "title": "Luleå University of Technology (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ltu.se",
+    "national": true,
+    "national_reason": "universities/youtube/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCiKexEbkWRZ5jIhecKYZcyg",
+    "category": "Education",
+    "title": "Malmö University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.mau.se",
+    "national": true,
+    "national_reason": "universities/youtube/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQfY3nf75jTLlvhDwFnrKTA",
+    "category": "Education",
+    "title": "Umeå University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.umu.se/en/",
+    "national": true,
+    "national_reason": "universities/youtube/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

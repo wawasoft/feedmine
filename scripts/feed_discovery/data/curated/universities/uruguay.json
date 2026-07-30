@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC1piC7NP4oet_I6XwzzrB3w",
+    "category": "Education",
+    "title": "Universidad de la Empresa (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ude.edu.uy/",
+    "national": true,
+    "national_reason": "universities/youtube/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

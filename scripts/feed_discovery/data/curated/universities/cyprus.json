@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYgPdWWp7FZguifTCdukDJA",
+    "category": "Education",
+    "title": "Cyprus University of Technology (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.cut.ac.cy/en/",
+    "national": true,
+    "national_reason": "universities/youtube/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYjaifrKjMj0zZK_f6sKshA",
+    "category": "Education",
+    "title": "Open University of Cyprus (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ouc.ac.cy/",
+    "national": true,
+    "national_reason": "universities/youtube/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

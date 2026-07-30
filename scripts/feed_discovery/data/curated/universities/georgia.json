@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC-7MN8cMqK1LE249PwJLK1Q",
+    "category": "Education",
+    "title": "Central University of Europe (YouTube)",
+    "genre": "University",
+    "source_page": "https://cue.edu.ge/",
+    "national": true,
+    "national_reason": "universities/youtube/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC-vVya8FOwmT_yWgW1EjoSw",
+    "category": "Education",
+    "title": "European University (YouTube)",
+    "genre": "University",
+    "source_page": "https://eu.edu.ge/ge",
+    "national": true,
+    "national_reason": "universities/youtube/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

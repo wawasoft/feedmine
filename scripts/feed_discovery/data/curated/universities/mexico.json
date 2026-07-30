@@ -1,0 +1,74 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCK2xSUJuoTvmilOn3DFK3fw",
+    "category": "Education",
+    "title": "Autonomous University of Yucatán (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uady.mx/",
+    "national": true,
+    "national_reason": "universities/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCCebSC6UZ1x5vjXFSpZqKMg",
+    "category": "Education",
+    "title": "Centro de Capacitación Cinematográfica (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.elccc.com.mx/sitio/",
+    "national": true,
+    "national_reason": "universities/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCJXXFi8IkB1Thf8MKuJFMcA",
+    "category": "Education",
+    "title": "Higher School of Engineering and Architecture at Tecamachalco (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.esiatec.ipn.mx/",
+    "national": true,
+    "national_reason": "universities/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4P9yGnKvpAl6cdakCvLc2A",
+    "category": "Education",
+    "title": "Linda Vista University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.adventist.org/",
+    "national": true,
+    "national_reason": "universities/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC5p6qfmUMpy3xB1c_afImhg",
+    "category": "Education",
+    "title": "Universidad Autónoma Nuevo León (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uanl.mx/",
+    "national": true,
+    "national_reason": "universities/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC11rWYl7i5ii0MJCfrERcnA",
+    "category": "Education",
+    "title": "Universidad Marista de Mérida (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.marista.edu.mx",
+    "national": true,
+    "national_reason": "universities/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

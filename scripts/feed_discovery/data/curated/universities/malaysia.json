@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCminxQyYR5LjlZxlXGyzGyg",
+    "category": "Education",
+    "title": "International Islamic University Malaysia (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.iium.edu.my/",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXMTb6VrUS78BxV-KTIuFJQ",
+    "category": "Education",
+    "title": "Kedah Engineering Matriculation College (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.kmkk.matrik.edu.my/",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCMD5cOMbz8u9L69s8rgxDGA",
+    "category": "Education",
+    "title": "Limkokwing University of Creative Technology (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.limkokwing.net",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC0rOqGJsmTaBPMqG9pzufAA",
+    "category": "Education",
+    "title": "Malaysian College of Hospitality and Management (YouTube)",
+    "genre": "University",
+    "source_page": "http://mchm.edu.my/",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwpKVb5tSCMtOgaR99mwf_g",
+    "category": "Education",
+    "title": "Selangor Islamic University (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uis.edu.my/",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCqjsPpVnwjCRT5mgAgFo1ng",
+    "category": "Education",
+    "title": "Tunku Abdul Rahman University of Management and Technology (YouTube)",
+    "genre": "University",
+    "source_page": "https://tarc.edu.my",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCoObO28XEzA7ud_Z6trpa3w",
+    "category": "Education",
+    "title": "Universiti Malaya (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.um.edu.my/",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6gwaac0TaFl34zBmq6WHJQ",
+    "category": "Education",
+    "title": "Universiti Tunku Abdul Rahman (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.utar.edu.my/",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFOV46h5JqwaBD2gSzL8TJg",
+    "category": "Education",
+    "title": "University of Reading Malaysia (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.reading.edu.my/",
+    "national": true,
+    "national_reason": "universities/youtube/malaysia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCO-LNj37UI2zCDX9dVEK63g",
+    "category": "YouTube",
+    "title": "Bomas of Kenya — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.bomasofkenya.co.ke",
+    "national": true,
+    "national_reason": "museums/youtube/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

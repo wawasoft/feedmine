@@ -1,0 +1,870 @@
+[
+  {
+    "name": "Asia-Pacific International University",
+    "website": "http://www.apiu.edu/",
+    "wikidata_id": "Q726793",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asia-Pacific_International_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Asian Institute of Technology",
+    "website": "http://www.ait.asia/",
+    "wikidata_id": "Q727675",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asian_Institute_of_Technology",
+    "country": "thailand"
+  },
+  {
+    "name": "Asian University",
+    "website": "http://www.AsianU.ac.th",
+    "wikidata_id": "Q727768",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asian_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Assumption University",
+    "website": "https://www.au.edu/",
+    "wikidata_id": "Q745391",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Assumption_University_of_Thailand",
+    "country": "thailand"
+  },
+  {
+    "name": "Bangkokthonburi University",
+    "website": "http://bkkthon.ac.th/",
+    "wikidata_id": "Q4855238",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bangkokthonburi_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Bansomdejchaopraya Rajabhat University",
+    "website": "https://www.bsru.ac.th/en",
+    "wikidata_id": "Q16307033",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Boromarajonani College of Nursing Surat Thani",
+    "website": "http://www.bcnsurat.ac.th/",
+    "wikidata_id": "Q65280964",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Burapha University",
+    "website": "http://www.buu.ac.th/",
+    "wikidata_id": "Q458530",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Burapha_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Buriram Rajabhat University",
+    "website": "https://www.bru.ac.th/",
+    "wikidata_id": "Q13018774",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "CMKL University",
+    "website": "https://www.cmkl.ac.th",
+    "wikidata_id": "Q115818947",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/CMKL_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Center of Excellence in Nanotechnology at AIT",
+    "website": "http://www.nano.ait.asia",
+    "wikidata_id": "Q5059984",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Center_of_Excellence_in_Nanotechnology",
+    "country": "thailand"
+  },
+  {
+    "name": "Chaiyaphum Rajabhat University",
+    "website": "http://www.cpru.ac.th/",
+    "wikidata_id": "Q13018777",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Chandrakasem Rajabhat University",
+    "website": "http://www.chandra.ac.th",
+    "wikidata_id": "Q1132505",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chandrakasem_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Chaopraya University",
+    "website": "http://www.cpu.ac.th",
+    "wikidata_id": "Q845087",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chaopraya_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Chiang Mai Rajabhat University",
+    "website": "http://www.cmru.ac.th",
+    "wikidata_id": "Q1232267",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chiang_Mai_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Chiang Mai University",
+    "website": "http://www.cmu.ac.th/",
+    "wikidata_id": "Q1071609",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chiang_Mai_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Chiang Rai Rajabhat University",
+    "website": "http://www.crru.ac.th/",
+    "wikidata_id": "Q13018788",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "College of Internet Distance Education",
+    "website": "http://www.elearning.au.edu",
+    "wikidata_id": "Q5146740",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Internet_Distance_Education",
+    "country": "thailand"
+  },
+  {
+    "name": "College of Social Innovation",
+    "website": "http://www.csirsu.com",
+    "wikidata_id": "Q13021110",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Dhammakaya Open University",
+    "website": "http://www.dou.us/",
+    "wikidata_id": "Q5268842",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dhammakaya_Open_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Dhonburi Rajabhat University",
+    "website": "https://www.dru.ac.th/",
+    "wikidata_id": "Q13018775",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Dhurakij Pundit University",
+    "website": "http://www.dpu.ac.th/",
+    "wikidata_id": "Q1132082",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dhurakij_Pundit_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Dusit Thani College",
+    "website": "http://www.dtc.ac.th/",
+    "wikidata_id": "Q1267633",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dusit_Thani_College",
+    "country": "thailand"
+  },
+  {
+    "name": "E-sarn university",
+    "website": "http://www.esu.ac.th/",
+    "wikidata_id": "Q13018800",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Eastern Asia University",
+    "website": "http://www.eau.ac.th/",
+    "wikidata_id": "Q13018793",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Fatoni University",
+    "website": "http://www.ftu.ac.th/",
+    "wikidata_id": "Q13018797",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Hatyai University",
+    "website": "http://www.hu.ac.th/",
+    "wikidata_id": "Q4922775",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hatyai_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Huachiew Chalermprakiet University",
+    "website": "http://www.hcu.ac.th",
+    "wikidata_id": "Q1630653",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Huachiew_Chalermprakiet_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Joint Graduate School of Energy and Environment",
+    "website": "http://www.jgsee.kmutt.ac.th/v2/index2.php",
+    "wikidata_id": "Q1702536",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Joint_Graduate_School_of_Energy_and_Environment",
+    "country": "thailand"
+  },
+  {
+    "name": "Kalasin Rajabhat University",
+    "website": "http://www.web.ksu.ac.th/",
+    "wikidata_id": "Q2128631",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Kalasin University",
+    "website": "https://www.ksu.ac.th/th/",
+    "wikidata_id": "Q55615589",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kalasin_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Kamphaeng Phet Rajabhat University",
+    "website": "http://www.kpru.ac.th/",
+    "wikidata_id": "Q16307022",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Kanchanaburi Rajabhat University",
+    "website": "http://www.kru.ac.th/",
+    "wikidata_id": "Q2128647",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kanchanaburi_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Kasem Bundit University",
+    "website": "http://www.kbu.ac.th",
+    "wikidata_id": "Q1734895",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kasem_Bundit_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Kasetsart University",
+    "website": "http://www.ku.ac.th/",
+    "wikidata_id": "Q452406",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kasetsart_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Khon Kaen University",
+    "website": "http://www.kku.ac.th/",
+    "wikidata_id": "Q368329",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Khon_Kaen_University",
+    "country": "thailand"
+  },
+  {
+    "name": "King Mongkut's University of Technology North Bangkok",
+    "website": "http://www.kmutnb.ac.th",
+    "wikidata_id": "Q1742058",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Mongkut%27s_University_of_Technology_North_Bangkok",
+    "country": "thailand"
+  },
+  {
+    "name": "King Mongkut's University of Technology Thonburi",
+    "website": "https://www.kmutt.ac.th/",
+    "wikidata_id": "Q476521",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Mongkut%27s_University_of_Technology_Thonburi",
+    "country": "thailand"
+  },
+  {
+    "name": "King Prajadhipok's Institute",
+    "website": "http://www.kpi.ac.th/",
+    "wikidata_id": "Q16141577",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Krirk University",
+    "website": "http://www.krirk.ac.th/",
+    "wikidata_id": "Q4924325",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Krirk_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Kuakarun college of nursing",
+    "website": "http://www.kcn.ac.th",
+    "wikidata_id": "Q6440963",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kuakarun_Faculty_of_Nursing,_Navamindradhiraj_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Lampang Rajabhat University",
+    "website": "http://www.lpru.ac.th/index.php",
+    "wikidata_id": "Q1695599",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Loei Rajabhat University",
+    "website": "http://www.lru.ac.th/",
+    "wikidata_id": "Q2128645",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Lumnamping College",
+    "website": "https://www.northern.ac.th",
+    "wikidata_id": "Q1877281",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lumnamping_College",
+    "country": "thailand"
+  },
+  {
+    "name": "Mae Fah Luang University",
+    "website": "http://www.mfu.ac.th/",
+    "wikidata_id": "Q958942",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mae_Fah_Luang_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Maejo University",
+    "website": "http://www.mju.ac.th",
+    "wikidata_id": "Q846382",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Maejo_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Maha Sarakham Rajabhat University",
+    "website": "http://www.rmu.ac.th/enrmu/",
+    "wikidata_id": "Q2128646",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Mahachulalongkornrajavidyalaya University",
+    "website": "http://www.mcu.ac.th",
+    "wikidata_id": "Q1186786",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mahachulalongkornrajavidyalaya_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Mahamakut Buddhist University",
+    "website": "http://www.mbu.ac.th",
+    "wikidata_id": "Q206074",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mahamakut_Buddhist_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Mahanakorn University of Technology",
+    "website": "http://www.mut.ac.th/",
+    "wikidata_id": "Q2506557",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mahanakorn_University_of_Technology",
+    "country": "thailand"
+  },
+  {
+    "name": "Mahidol University",
+    "website": "https://mahidol.ac.th/th/",
+    "wikidata_id": "Q626804",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mahidol_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Muban Chombueng Rajabhat University",
+    "website": "http://www.mcru.ac.th/",
+    "wikidata_id": "Q175777",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Nakhon Pathom Rajabhat University",
+    "website": "http://www.npru.ac.th",
+    "wikidata_id": "Q1532301",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Nakhon Phanom University",
+    "website": "http://www.npu.ac.th/",
+    "wikidata_id": "Q846379",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nakhon_Phanom_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Nakhon Ratchasima Rajabhat University",
+    "website": "http://www.nrru.ac.th",
+    "wikidata_id": "Q264974",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Nakhon Sawan Rajabhat University",
+    "website": "http://www.nsru.ac.th/",
+    "wikidata_id": "Q2128656",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Nakhon Si Thammarat Rajabhat University",
+    "website": "http://www.nstru.ac.th/",
+    "wikidata_id": "Q16353838",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Naresuan University",
+    "website": "http://www.nu.ac.th",
+    "wikidata_id": "Q1311551",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Naresuan_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Nation University",
+    "website": "http://www.nation-u.com/",
+    "wikidata_id": "Q75419",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nation_University_(Thailand)",
+    "country": "thailand"
+  },
+  {
+    "name": "Navamindradhiraj University",
+    "website": "http://www.umpudh.com/",
+    "wikidata_id": "Q3808815",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Navamindradhiraj_University",
+    "country": "thailand"
+  },
+  {
+    "name": "North Bangkok University",
+    "website": "http://www.northbkk.ac.th",
+    "wikidata_id": "Q13018757",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "North Chiang Mai University",
+    "website": "http://www.northcm.ac.th/",
+    "wikidata_id": "Q6686727",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/North_Chiang_Mai_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Northeastern Technological College",
+    "website": "http://www.netc.ac.th/",
+    "wikidata_id": "Q26722727",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Pathumthani University",
+    "website": "http://www.ptu.ac.th",
+    "wikidata_id": "Q6583834",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pathumthani_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Pathumwan Institute of Technology",
+    "website": "http://www.pit.ac.th/",
+    "wikidata_id": "Q2056855",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pathumwan_Institute_of_Technology",
+    "country": "thailand"
+  },
+  {
+    "name": "Payap University",
+    "website": "http://www.payap.ac.th",
+    "wikidata_id": "Q1309558",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Payap_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Phetchabun Rajabhat University",
+    "website": "http://www.pcru.ac.th/",
+    "wikidata_id": "Q2128658",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Phetchaburi Rajabhat University",
+    "website": "https://www.pbru.ac.th",
+    "wikidata_id": "Q13018791",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Phranakhon Rajabhat University",
+    "website": "http://www.pnru.ac.th/#",
+    "wikidata_id": "Q13018770",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Phranakhon Si Ayutthaya Rajabhat University",
+    "website": "http://www.aru.ac.th/",
+    "wikidata_id": "Q16353832",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Phuket Rajabhat University",
+    "website": "http://www.pkru.ac.th/",
+    "wikidata_id": "Q13018776",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Phuket_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Pibulsongkram Rajabhat University",
+    "website": "http://www.psru.ac.th/",
+    "wikidata_id": "Q2128665",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pibulsongkram_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Pongsawadi Technological College",
+    "website": "http://pongsawadi.ac.th/",
+    "wikidata_id": "Q25338427",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Prince of Songkla University",
+    "website": "https://www.psu.ac.th/",
+    "wikidata_id": "Q1519696",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Prince_of_Songkla_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Princess of Naradhiwas University",
+    "website": "http://www.pnu.ac.th",
+    "wikidata_id": "Q179146",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Princess_of_Naradhiwas_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajabhat Rajanagarindra University",
+    "website": "http://www.rru.ac.th/",
+    "wikidata_id": "Q13018780",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Isan",
+    "website": "http://www.rmuti.ac.th/",
+    "wikidata_id": "Q13018828",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Krungthep",
+    "website": "http://www.rmutk.ac.th",
+    "wikidata_id": "Q13018823",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Lanna",
+    "website": "http://www.rmutl.ac.th",
+    "wikidata_id": "Q4361026",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rajamangala_University_of_Technology_Lanna",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Phra Nakhon",
+    "website": "http://www.rmutp.ac.th",
+    "wikidata_id": "Q13018812",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Rattanakosin",
+    "website": "https://www.rmutr.ac.th/",
+    "wikidata_id": "Q13018813",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Srivijaya",
+    "website": "https://www.rmutsv.ac.th/",
+    "wikidata_id": "Q6583864",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rajamangala_University_of_Technology_Srivijaya",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Suvarnabhumi",
+    "website": "http://www.rmutsb.ac.th/",
+    "wikidata_id": "Q13018826",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Tawan-ok",
+    "website": "http://www.rmutto.ac.th/",
+    "wikidata_id": "Q13018822",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Tawan-ok Chakrabongse Bhuwanat",
+    "website": "http://www.cpc.ac.th",
+    "wikidata_id": "Q13018814",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Rajamangala University of Technology Thanyaburi",
+    "website": "http://www.rmutt.ac.th",
+    "wikidata_id": "Q6583860",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rajamangala_University_of_Technology_Thanyaburi",
+    "country": "thailand"
+  },
+  {
+    "name": "Rambhai Barni Rajabhat University",
+    "website": "http://www.rbru.ac.th/",
+    "wikidata_id": "Q13018772",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Ramkhamhaeng University",
+    "website": "http://www.ru.ac.th",
+    "wikidata_id": "Q1185548",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ramkhamhaeng_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Rangsit University",
+    "website": "http://www.rsu.ac.th/",
+    "wikidata_id": "Q474969",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rangsit_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Roi Et Rajabhat University",
+    "website": "http://www.reru.ac.th/",
+    "wikidata_id": "Q13018778",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Sakon Nakhon Rajabhat University",
+    "website": "http://www.snru.ac.th",
+    "wikidata_id": "Q283204",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Shinawatra University",
+    "website": "http://www.siu.ac.th/en",
+    "wikidata_id": "Q1541277",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shinawatra_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Si Sa Ket College of Agriculture and Technology",
+    "website": "http://www.sskcat.ac.th/",
+    "wikidata_id": "Q28112662",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Siam University",
+    "website": "http://www.siam.edu",
+    "wikidata_id": "Q4381437",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Siam_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Silpakorn University",
+    "website": "http://www.su.ac.th",
+    "wikidata_id": "Q1209824",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Silpakorn_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Sisaket Rajabhat University",
+    "website": "http://www.sskru.ac.th/",
+    "wikidata_id": "Q2128652",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Songkhla Rajabhat University",
+    "website": "http://www.skru.ac.th/",
+    "wikidata_id": "Q251989",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Songkhla_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Srinakharinwirot University",
+    "website": "http://www.swu.ac.th/",
+    "wikidata_id": "Q1047745",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Srinakharinwirot_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Sripatum University",
+    "website": "http://www.spu.ac.th/",
+    "wikidata_id": "Q1627659",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sripatum_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Stamford International University",
+    "website": "http://www.stamford.edu",
+    "wikidata_id": "Q2329481",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Stamford_International_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Suan Dusit University",
+    "website": "http://www.dusit.ac.th/",
+    "wikidata_id": "Q13018784",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Suan Sunandha Rajabhat University",
+    "website": "https://ssru.ac.th/index.php",
+    "wikidata_id": "Q13018783",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Sukhothai Thammathirat Open University",
+    "website": "https://www.stou.ac.th/Eng/",
+    "wikidata_id": "Q2015579",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sukhothai_Thammathirat_Open_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Suranaree University of Technology",
+    "website": "http://www.sut.ac.th/",
+    "wikidata_id": "Q670307",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Suranaree_University_of_Technology",
+    "country": "thailand"
+  },
+  {
+    "name": "Suratthani College of Technology",
+    "website": "http://www.sit.ac.th/",
+    "wikidata_id": "Q28916358",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Suratthani Rajabhat University",
+    "website": "https://sru.ac.th/",
+    "wikidata_id": "Q13018787",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Surindra Rajabhat University",
+    "website": "http://www.srru.ac.th/",
+    "wikidata_id": "Q13018785",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Tapee University",
+    "website": "http://www.tapee.ac.th/",
+    "wikidata_id": "Q2393562",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tapee_College",
+    "country": "thailand"
+  },
+  {
+    "name": "Thaksin University",
+    "website": "http://www.tsu.ac.th",
+    "wikidata_id": "Q1519674",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Thaksin_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Thepsatri Rajabhat University",
+    "website": "http://www.tru.ac.th/",
+    "wikidata_id": "Q13018790",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Thonburi Commercial College",
+    "website": "http://www.panitthon.ac.th",
+    "wikidata_id": "Q31352105",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Thonburi University",
+    "website": "http://www.thonburi-u.ac.th/",
+    "wikidata_id": "Q18394263",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Thonburi_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Ubon Ratchathani Rajabhat University",
+    "website": "http://www.ubru.ac.th/",
+    "wikidata_id": "Q13018786",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Ubon Ratchathani University",
+    "website": "https://www.ubu.ac.th/",
+    "wikidata_id": "Q2496176",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ubon_Ratchathani_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Udon Thani Rajabhat University",
+    "website": "http://www.udru.ac.th/",
+    "wikidata_id": "Q22704858",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Udon_Thani_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "University of Phayao",
+    "website": "http://www.up.ac.th",
+    "wikidata_id": "Q13018768",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Phayao",
+    "country": "thailand"
+  },
+  {
+    "name": "University of the Thai Chamber of Commerce",
+    "website": "http://www.utcc.ac.th",
+    "wikidata_id": "Q1799929",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_the_Thai_Chamber_of_Commerce",
+    "country": "thailand"
+  },
+  {
+    "name": "Uttaradit Rajabhat University",
+    "website": "http://www.uru.ac.th/",
+    "wikidata_id": "Q2128674",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Uttaradit_Rajabhat_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Valaya Alongkorn Rajabhat University",
+    "website": "http://www.vru.ac.th/",
+    "wikidata_id": "Q13018781",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Vongchavalitkul University",
+    "website": "http://web.vu.ac.th/",
+    "wikidata_id": "Q4924344",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vongchavalitkul_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Walailak University",
+    "website": "http://www.wu.ac.th/",
+    "wikidata_id": "Q844581",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Walailak_University",
+    "country": "thailand"
+  },
+  {
+    "name": "Webster University Thailand",
+    "website": "http://www.webster.ac.th",
+    "wikidata_id": "Q6583865",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Webster_University_Thailand",
+    "country": "thailand"
+  },
+  {
+    "name": "Western University",
+    "website": "https://www.western.ac.th",
+    "wikidata_id": "Q132131743",
+    "wikipedia_url": "",
+    "country": "thailand"
+  },
+  {
+    "name": "Yala Technical College",
+    "website": "http://www.ytc.ac.th/",
+    "wikidata_id": "Q8047291",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yala_Technical_College",
+    "country": "thailand"
+  }
+]

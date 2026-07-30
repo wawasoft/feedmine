@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCxt_Ic4LdPkcxDllZrprd0Q",
+    "category": "Education",
+    "title": "Military Academy Commander in Chief Hugo Rafael Chávez Frías (YouTube)",
+    "genre": "University",
+    "source_page": "https://en.wikipedia.org/wiki/Military_Academy_of_Troop_Officers_Commander_in_Chief_Hugo_Rafael_Ch%C3%A1vez_Fr%C3%ADas",
+    "national": true,
+    "national_reason": "universities/youtube/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkoRw_UIiG1JNh3GfI7hH_g",
+    "category": "Education",
+    "title": "Universidad Internacional de las Comunicaciones (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.lauicom.com/",
+    "national": true,
+    "national_reason": "universities/youtube/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC3qq9JWPVkBdPTqsQkaDqpw",
+    "category": "Education",
+    "title": "Universidad Nacional Experimental de los Llanos Occidentales Ezequiel Zamora (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.unellez.edu.ve",
+    "national": true,
+    "national_reason": "universities/youtube/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

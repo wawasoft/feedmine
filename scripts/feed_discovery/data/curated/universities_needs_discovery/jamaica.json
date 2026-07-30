@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Caribbean Maritime University",
+    "website": "https://cmu.edu.jm/",
+    "wikidata_id": "Q127688694",
+    "wikipedia_url": "",
+    "country": "jamaica"
+  },
+  {
+    "name": "Mico University College",
+    "website": "https://www.themico.edu.jm",
+    "wikidata_id": "Q6838941",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mico_University_College",
+    "country": "jamaica"
+  },
+  {
+    "name": "Moneague College",
+    "website": "http://home.moneaguecollege.edu.jm/",
+    "wikidata_id": "Q6898852",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Moneague_College",
+    "country": "jamaica"
+  },
+  {
+    "name": "Northern Caribbean University",
+    "website": "http://www.ncu.edu.jm/",
+    "wikidata_id": "Q3551705",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northern_Caribbean_University",
+    "country": "jamaica"
+  },
+  {
+    "name": "University of Technology",
+    "website": "http://www.utech.edu.jm/",
+    "wikidata_id": "Q1584459",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Technology,_Jamaica",
+    "country": "jamaica"
+  },
+  {
+    "name": "University of the Commonwealth Caribbean",
+    "website": "http://www.ucc.edu.jm",
+    "wikidata_id": "Q7894663",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_College_of_The_Caribbean",
+    "country": "jamaica"
+  }
+]

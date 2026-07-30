@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC3TQxAKJTRngbX89sX_wcIg",
+    "category": "Education",
+    "title": "Duy Tan University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.duytan.edu.vn/",
+    "national": true,
+    "national_reason": "universities/youtube/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCfZ-SH4ShXWtUTvVCdsuO-A",
+    "category": "Education",
+    "title": "Ho Chi Minh City College of Stage Performance and Cinematics (YouTube)",
+    "genre": "University",
+    "source_page": "https://skdahcm.edu.vn/",
+    "national": true,
+    "national_reason": "universities/youtube/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCKNjegRmZvJPmco-DwMGspw",
+    "category": "Education",
+    "title": "SaigonTech (YouTube)",
+    "genre": "University",
+    "source_page": "https://caodangsaigon.edu.vn",
+    "national": true,
+    "national_reason": "universities/youtube/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

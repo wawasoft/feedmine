@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCGR_KoJSDF1Z0jaNSkWxClw",
+    "category": "Education",
+    "title": "Banaras Institute of Teacher's Education (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.bitevns.ac.in",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCzgjZ2uCmutCPG02m3-rM_w",
+    "category": "Education",
+    "title": "College of Community Science (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.ccsraubikaner.org/",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCRCgf6C570_wkT26frl-qNA",
+    "category": "Education",
+    "title": "Jyoti Nivas College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.jyotinivas.org/",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjAvs2XNqizUuhvhK8UQuAA",
+    "category": "Education",
+    "title": "Kakaraparthi BhavaNarayana College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.kbncollege.ac.in/",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCDuKWcPYC49iEAbyB5gX8Mg",
+    "category": "Education",
+    "title": "Lohia College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.lcc.ac.in/",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCOGTRfvA62OLDvIO3qChdrQ",
+    "category": "Education",
+    "title": "Regional College of Management, Bangalore (YouTube)",
+    "genre": "University",
+    "source_page": "https://rcmb.in/",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4Vp9laKZVyfSHp1cn4ggpQ",
+    "category": "Education",
+    "title": "Tapasya College of Commerce and Management (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.tapasyaedu.com/",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBp2MBg0o2_8J8niPjpoK4A",
+    "category": "Education",
+    "title": "Uttar Pradesh University of Medical Sciences (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.upums.ac.in",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCScm3XC5myV3QnoSUuPANSw",
+    "category": "Education",
+    "title": "XLRI- Xavier School of Management (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.xlri.ac.in/",
+    "national": true,
+    "national_reason": "universities/youtube/india",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

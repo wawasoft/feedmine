@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCL1hAKMKAJYt3yBy2jCRXXw",
+    "category": "Education",
+    "title": "Far Eastern University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.feu.edu.ph/",
+    "national": true,
+    "national_reason": "universities/youtube/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

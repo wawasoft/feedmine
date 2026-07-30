@@ -1,0 +1,128 @@
+[
+  {
+    "url": "https://spolok-slovenskych-spisovatelov.webnode.sk/rss/all.xml",
+    "title": "Zomrel slovenský spisovateľ Peter Gregor, básnik, aforista a autor...",
+    "source": "page:spisovateľ",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://duhovyrok.sk/feed/",
+    "title": "V Teplej vlne spisovateľ Jakub Spevák | Dúhový Rok",
+    "source": "page:spisovateľ",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://bubak.blog.pravda.sk/feed/",
+    "title": "Keď prehovorí básnik - Blog - Pravda",
+    "source": "page:básnik",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://davdva.sk/comments/feed/",
+    "title": "Horlivý básnik proletárov Ján Poničan, jeho knihy už aj v knižnici DAV...",
+    "source": "page:básnik",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://www.kurir.rs/rss",
+    "title": "ESEJISTA MILAN VLAJČIĆ: Vučić je ostao radikal do kraja | Kurir",
+    "source": "page:esejista",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://www.eduself.sk/rss.php",
+    "title": "esejista skloňovanie podstatné meno | gramatika slova",
+    "source": "page:esejista",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://www.glassrpske.com/lat/rss/najnovije",
+    "title": "Đorđe Matić, književnik, esejista i prevodilac, za... - Glas Srpske",
+    "source": "page:esejista",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://marker.sk/rss",
+    "title": "Odyseus. Sympózium o Homérovom diele a jeho odkaze | Marker.sk",
+    "source": "page:esejista",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://labandzi.blogspot.com/feeds/posts/default",
+    "title": "Łabandzi Śpiew: lipca 2026",
+    "source": "platform:blogspot.com",
+    "country": "slovakia"
+  },
+  {
+    "url": "http://011-tutorial.blogspot.com/feeds/posts/default",
+    "title": "11tutorial",
+    "source": "platform:blogspot.com",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://watchtelevision.blogspot.com/feeds/posts/default",
+    "title": "watchtv.de: Stephan Ring",
+    "source": "platform:blogspot.com",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://wordpress.com/blog/2010/07/01/support-the-first-amendment-with-1-for-all/feed",
+    "title": "Support the First Amendment with 1 for All – WordPress.com News",
+    "source": "en-fb-wp:writer",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://justthelinks.wordpress.com/2026/07/29/links-for-29-july-2026/feed",
+    "title": "Links for 29 July 2026 – Just the Links",
+    "source": "en-fb-wp:writer",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://christinerobledo.wordpress.com/2026/07/26/feed",
+    "title": "26/07/2026 – les chroniques mortes ou vives",
+    "source": "en-fb-wp:writer",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://gibbos92.wordpress.com/2020/08/19/keswick-fc-fitz-park/keswick_fitz_park-45/feed",
+    "title": "Keswick_Fitz_Park (45) – Gibbo's 92",
+    "source": "en-fb-wp:writer",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://danieljmitchell.wordpress.com/2026/07/26/revenge-of-the-laffer-curve-again/feed",
+    "title": "Revenge of the Laffer Curve…Again | International Liberty",
+    "source": "en-fb-wp:writer",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://montanarcc.substack.com/feed",
+    "title": "Slovakia: Suddenly the Most Important EU Country?",
+    "source": "en-fb:author",
+    "country": "slovakia"
+  },
+  {
+    "url": "https://01varvara.wordpress.com/tag/slovakia/feed",
+    "title": "Posts about Slovakia written by 01varvara",
+    "source": "en-fb-wp:poet",
+    "country": "slovakia"
+  }
+]

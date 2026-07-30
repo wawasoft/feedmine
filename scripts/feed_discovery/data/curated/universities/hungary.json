@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCghtsJBzsvCMCgnblfXAn5Q",
+    "category": "Education",
+    "title": "College of Szolnok (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.szolfportal.hu/",
+    "national": true,
+    "national_reason": "universities/youtube/hungary",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCp92YLL5NhyKs7V0ua-UX2g",
+    "category": "Education",
+    "title": "Corvinus University of Budapest (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uni-corvinus.hu/?lang=en",
+    "national": true,
+    "national_reason": "universities/youtube/hungary",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4oZgd324OjN3dYgFLCzVJg",
+    "category": "Education",
+    "title": "University of Pécs (YouTube)",
+    "genre": "University",
+    "source_page": "https://pte.hu/",
+    "national": true,
+    "national_reason": "universities/youtube/hungary",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

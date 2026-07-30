@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC7Vo5U5RcaplF93E5vG2rlw",
+    "category": "Education",
+    "title": "CUNEF Universidad (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.cunef.edu/",
+    "national": true,
+    "national_reason": "universities/youtube/spain",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCACwSHUI-BNihRg1brelwUg",
+    "category": "Education",
+    "title": "Institute of Arts Barcelona (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.iabarcelona.com/",
+    "national": true,
+    "national_reason": "universities/youtube/spain",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAQH04GK7-OfQC6nkzAucLw",
+    "category": "Education",
+    "title": "National University of Distance Education (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uned.es",
+    "national": true,
+    "national_reason": "universities/youtube/spain",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCm3FGJTmlb30B71183Pza4A",
+    "category": "Education",
+    "title": "Open University of Catalonia (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uoc.edu",
+    "national": true,
+    "national_reason": "universities/youtube/spain",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC8bnBbUtFYcJVnWhsTyCCgg",
+    "category": "Education",
+    "title": "Polytechnic University of Catalonia (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.upc.edu",
+    "national": true,
+    "national_reason": "universities/youtube/spain",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQzbB7dBBHXB41P8Hw_jb5A",
+    "category": "Education",
+    "title": "Universidad Carlos III de Madrid (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uc3m.es",
+    "national": true,
+    "national_reason": "universities/youtube/spain",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbSrZp81aYVpnjyqPStXaaA",
+    "category": "Education",
+    "title": "University of Zaragoza (YouTube)",
+    "genre": "University",
+    "source_page": "https://unizar.es/",
+    "national": true,
+    "national_reason": "universities/youtube/spain",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Aalto University School of Arts, Design and Architecture",
+    "website": "http://arts.aalto.fi/en/",
+    "wikidata_id": "Q2591673",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aalto_University_School_of_Arts,_Design_and_Architecture",
+    "country": "finland"
+  },
+  {
+    "name": "Aalto University School of Engineering",
+    "website": "http://eng.aalto.fi/en/",
+    "wikidata_id": "Q4661412",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aalto_University_School_of_Engineering",
+    "country": "finland"
+  },
+  {
+    "name": "Helsinki University of Technology",
+    "website": "http://www.hut.fi",
+    "wikidata_id": "Q1646874",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Helsinki_University_of_Technology",
+    "country": "finland"
+  },
+  {
+    "name": "Tampere University of Technology",
+    "website": "http://www.tut.fi/en/",
+    "wikidata_id": "Q277664",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tampere_University_of_Technology",
+    "country": "finland"
+  },
+  {
+    "name": "University of Joensuu",
+    "website": "http://www.joensuu.fi/joyindex.html",
+    "wikidata_id": "Q3238666",
+    "wikipedia_url": "",
+    "country": "finland"
+  },
+  {
+    "name": "University of Jyväskylä",
+    "website": "https://www.jyu.fi/",
+    "wikidata_id": "Q578326",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Jyv%C3%A4skyl%C3%A4",
+    "country": "finland"
+  },
+  {
+    "name": "University of Kuopio",
+    "website": "https://www.uef.fi/fi",
+    "wikidata_id": "Q9091642",
+    "wikipedia_url": "",
+    "country": "finland"
+  },
+  {
+    "name": "University of Lapland",
+    "website": "https://www.ulapland.fi",
+    "wikidata_id": "Q1742604",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Lapland",
+    "country": "finland"
+  }
+]

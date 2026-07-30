@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Auckland University of Technology",
+    "website": "https://www.aut.ac.nz/",
+    "wikidata_id": "Q758659",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Auckland_University_of_Technology",
+    "country": "new-zealand"
+  },
+  {
+    "name": "Freedom Wellbeing Institute",
+    "website": "https://www.freedom-ihe.ac.nz/",
+    "wikidata_id": "Q127272273",
+    "wikipedia_url": "",
+    "country": "new-zealand"
+  },
+  {
+    "name": "Institute of the Pacific United",
+    "website": "https://www.ipu.ac.nz/",
+    "wikidata_id": "Q6052301",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_the_Pacific_United",
+    "country": "new-zealand"
+  },
+  {
+    "name": "Massey University",
+    "website": "https://www.massey.ac.nz",
+    "wikidata_id": "Q1134606",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Massey_University",
+    "country": "new-zealand"
+  },
+  {
+    "name": "University of Canterbury",
+    "website": "https://www.canterbury.ac.nz",
+    "wikidata_id": "Q432475",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Canterbury",
+    "country": "new-zealand"
+  },
+  {
+    "name": "Whitecliffe College of Arts and Design",
+    "website": "https://www.whitecliffe.ac.nz/",
+    "wikidata_id": "Q60772018",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Whitecliffe_College_of_Arts_and_Design",
+    "country": "new-zealand"
+  }
+]

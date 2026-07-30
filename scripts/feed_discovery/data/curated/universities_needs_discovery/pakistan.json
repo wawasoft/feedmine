@@ -1,0 +1,1290 @@
+[
+  {
+    "name": "Abasyn University",
+    "website": "http://www.abasyn.edu.pk/",
+    "wikidata_id": "Q4663565",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Abasyn_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Abbottabad University of Science and Technology",
+    "website": "http://www.aust.edu.pk/",
+    "wikidata_id": "Q23020566",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Abbottabad_University_of_Science_and_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Abdul Wali Khan University Mardan",
+    "website": "http://www.awkum.edu.pk",
+    "wikidata_id": "Q16057940",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Abdul_Wali_Khan_University_Mardan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Aga Khan University",
+    "website": "http://www.aku.edu/",
+    "wikidata_id": "Q4690953",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aga_Khan_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Ahsan-Ul-Uloom",
+    "website": "http://www.ahsanululoom.com",
+    "wikidata_id": "Q4696343",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Air University",
+    "website": "https://au.edu.pk",
+    "wikidata_id": "Q4698242",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Air_University_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Al-Khair University",
+    "website": "http://www.alkhair.edu.pk",
+    "wikidata_id": "Q16250450",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Al-Khair_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Al-Qadir University",
+    "website": "https://alqadir.edu.pk/",
+    "wikidata_id": "Q96371650",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Al-Qadir_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Ali Institute of Education",
+    "website": "http://www.aie.edu.pk/",
+    "wikidata_id": "Q19599644",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Allama Iqbal Open University",
+    "website": "https://www.aiou.edu.pk/",
+    "wikidata_id": "Q3694529",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Allama_Iqbal_Open_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Applied Economics Research Centre",
+    "website": "http://www.aerc.edu.pk/",
+    "wikidata_id": "Q12052930",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Applied_Economics_Research_Centre",
+    "country": "pakistan"
+  },
+  {
+    "name": "Arabic Open University",
+    "website": "http://arabicopenuniversity.com/",
+    "wikidata_id": "Q96678439",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Arid Agriculture University",
+    "website": "http://uaar.edu.pk/",
+    "wikidata_id": "Q4790314",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pir_Mehr_Ali_Shah_Arid_Agriculture_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Army Public College of Management Sciences",
+    "website": "http://www.apcoms.edu.pk/",
+    "wikidata_id": "Q4794214",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Modern_Languages,_Rawalpindi",
+    "country": "pakistan"
+  },
+  {
+    "name": "Ayub School of Nursing",
+    "website": "http://www.ayubmed.edu.pk/",
+    "wikidata_id": "Q4831776",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/School_of_Nursing_at_Ayub_Teaching_Hospital",
+    "country": "pakistan"
+  },
+  {
+    "name": "Azad Jammu and Kashmir Medical College",
+    "website": "http://ajkmc.edu.pk/",
+    "wikidata_id": "Q18385303",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Azad_Jammu_and_Kashmir_Medical_College",
+    "country": "pakistan"
+  },
+  {
+    "name": "Bahauddin Zakariya University",
+    "website": "http://www.bzu.edu.pk",
+    "wikidata_id": "Q4842499",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bahauddin_Zakariya_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Balochistan Agriculture College",
+    "website": "http://www.bac.edu.pk/",
+    "wikidata_id": "Q4852450",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Balochistan_Agriculture_College",
+    "country": "pakistan"
+  },
+  {
+    "name": "Balochistan University of Engineering and Technology",
+    "website": "http://www.buetk.edu.pk/",
+    "wikidata_id": "Q4852460",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Balochistan_University_of_Engineering_and_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Balochistan University of Information Technology, Engineering and Management Sciences",
+    "website": "http://www.buitms.edu.pk",
+    "wikidata_id": "Q4852459",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Balochistan_University_of_Information_Technology,_Engineering_%26_Management_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "Baqai Medical University",
+    "website": "http://www.baqai.edu.pk/",
+    "wikidata_id": "Q4857766",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Baqai_Medical_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Bashir Uddin Adarsha School and College",
+    "website": "http://buasc.edu.bd",
+    "wikidata_id": "Q26258554",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Beaconhouse National University",
+    "website": "https://www.bnu.edu.pk/",
+    "wikidata_id": "Q4876011",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Beaconhouse_National_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Begum Nusrat Bhutto Women University",
+    "website": "https://bnbwu.edu.pk/",
+    "wikidata_id": "Q64876640",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Begum_Nusrat_Bhutto_Women_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Benazir Bhutto Shaheed University",
+    "website": "http://www.bbsul.edu.pk/",
+    "wikidata_id": "Q4886877",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Benazir_Bhutto_Shaheed_University_Lyari",
+    "country": "pakistan"
+  },
+  {
+    "name": "Benazir Bhutto Shaheed University of Technology and Skill Development",
+    "website": "https://bbsutsd.edu.pk",
+    "wikidata_id": "Q124115637",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Benazir_Bhutto_Shaheed_University_of_Technology_and_Skill_Development",
+    "country": "pakistan"
+  },
+  {
+    "name": "Bloomfield Hall Schools",
+    "website": "http://www.bloomfieldhall.com/",
+    "wikidata_id": "Q4928241",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "CECOS University of IT and Emerging Sciences",
+    "website": "https://www.cecos.edu.pk/",
+    "wikidata_id": "Q5010211",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/CECOS_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Cadet College Fateh Jang",
+    "website": "http://www.ccf.edu.pk/",
+    "wikidata_id": "Q5016403",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cadet_College_Fateh_Jang",
+    "country": "pakistan"
+  },
+  {
+    "name": "Centre for High Energy Physics",
+    "website": "http://www.chep-pu.edu.pk/",
+    "wikidata_id": "Q5062453",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Centre_for_High_Energy_Physics",
+    "country": "pakistan"
+  },
+  {
+    "name": "Chenab College Jhang",
+    "website": "http://www.chenab.edu.pk",
+    "wikidata_id": "Q5091022",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chenab_College_Jhang",
+    "country": "pakistan"
+  },
+  {
+    "name": "City University of Science and Information Technology, Peshawar",
+    "website": "http://www.cityuniversity.edu.pk/",
+    "wikidata_id": "Q15983181",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/City_University_of_Science_and_Information_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "College of Aeronautical Engineering",
+    "website": "http://www.nust.edu.pk/INSTITUTIONS/Colleges/CAE",
+    "wikidata_id": "Q5146611",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Aeronautical_Engineering",
+    "country": "pakistan"
+  },
+  {
+    "name": "College of Physicians & Surgeons Pakistan",
+    "website": "http://www.cpsp.edu.pk/",
+    "wikidata_id": "Q5146800",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/College_of_Physicians_and_Surgeons_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Edwardes College Peshawar",
+    "website": "http://www.edwardes.edu.pk/",
+    "wikidata_id": "Q5346065",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Edwardes_College_Peshawar",
+    "country": "pakistan"
+  },
+  {
+    "name": "Fatima Jinnah Medical College",
+    "website": "http://www.fjmu.edu.pk",
+    "wikidata_id": "Q5437847",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fatima_Jinnah_Medical_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Fatima Jinnah Women University",
+    "website": "http://fjwu.edu.pk/",
+    "wikidata_id": "Q5437851",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fatima_Jinnah_Women_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Fatima Jinnah Women University Sialkot Campus",
+    "website": "http://www.fjwu.edu.pk",
+    "wikidata_id": "Q5437846",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fatima_Jinnah_Women_University_Sialkot_Campus",
+    "country": "pakistan"
+  },
+  {
+    "name": "Federal Urdu University",
+    "website": "http://www.fuuast.edu.pk",
+    "wikidata_id": "Q1030191",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Federal_Urdu_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Forward Degree College",
+    "website": "http://forwarddegreecollege.tk/",
+    "wikidata_id": "Q5473183",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Forward_Degree_College",
+    "country": "pakistan"
+  },
+  {
+    "name": "Foundation University Islamabad",
+    "website": "http://www.fui.edu.pk/",
+    "wikidata_id": "Q5474367",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Foundation_University_Islamabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "GIFT University",
+    "website": "https://www.gift.edu.pk/",
+    "wikidata_id": "Q5513480",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/GIFT_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "GM College Faisalabad",
+    "website": "http://gmc.edu.pk/",
+    "wikidata_id": "Q5513841",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government College University Hyderabad",
+    "website": "http://gcuh.edu.pk",
+    "wikidata_id": "Q48733104",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_College_University_Hyderabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government College University, Faisalabad",
+    "website": "http://gcuf.edu.pk/",
+    "wikidata_id": "Q5588732",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_College_University_Faisalabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government College Women University (Faisalabad)",
+    "website": "https://gcwuf.edu.pk/",
+    "wikidata_id": "Q19892759",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_College_Women_University_Faisalabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government College Women University (Sialkot)",
+    "website": "http://www.gcwus.edu.pk",
+    "wikidata_id": "Q19892756",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_College_Women_University,_Sialkot",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government College for Men, Nazimabad",
+    "website": "http://www.gcmnk.edu.pk",
+    "wikidata_id": "Q5588728",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_College_for_Men_Nazimabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government College of Science, Lahore",
+    "website": "http://www.gcslahore.edu.pk/",
+    "wikidata_id": "Q5588758",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_College_of_Science",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government College of Technology, Rasul",
+    "website": "https://putrasul.edu.pk/",
+    "wikidata_id": "Q5588763",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Rasul",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government Degree College Jhelum",
+    "website": "https://pujc.edu.pk/",
+    "wikidata_id": "Q5588783",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_Degree_College_Jhelum",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government Khawaja Farid College",
+    "website": "http://kfgc.edu.pk/",
+    "wikidata_id": "Q17053835",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Khawaja_Fareed_Government_College",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government M.A.O College Lahore",
+    "website": "http://menn.tk/maolhr",
+    "wikidata_id": "Q5588964",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_M.A.O._College_Lahore",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government Post Graduate College Sahiwal",
+    "website": "http://gpgcs.edu.pk/",
+    "wikidata_id": "Q5589066",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_Graduate_College_Sahiwal",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government Post Graduate College, Swabi",
+    "website": "http://www.admission.hed.gkp.pk/college.php?college_id=37",
+    "wikidata_id": "Q5589062",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_Post_Graduate_College,_Swabi",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government Sadiq College Women University",
+    "website": "http://www.gscwu.edu.pk/",
+    "wikidata_id": "Q19892762",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_Sadiq_College_Women_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Government Zamindar PG College, Gujrat",
+    "website": "https://zamindarcollege.edu.pk/",
+    "wikidata_id": "Q85764192",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_Zamindar_College,_Gujrat",
+    "country": "pakistan"
+  },
+  {
+    "name": "Green International University",
+    "website": "https://giu.edu.pk",
+    "wikidata_id": "Q138587076",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Greenwich University",
+    "website": "http://greenwichuniversity.edu.pk/",
+    "wikidata_id": "Q5604896",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Greenwich_University,_Karachi",
+    "country": "pakistan"
+  },
+  {
+    "name": "HITEC University",
+    "website": "https://www.hitecuni.edu.pk/",
+    "wikidata_id": "Q5629800",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/HITEC_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Habib University",
+    "website": "http://www.habib.edu.pk/",
+    "wikidata_id": "Q18712303",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Habib_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Hajvery University",
+    "website": "http://www.hup.edu.pk/",
+    "wikidata_id": "Q5640282",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hajvery_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Hazara University",
+    "website": "http://hu.edu.pk/",
+    "wikidata_id": "Q3694582",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hazara_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Hyderabad Institute of Arts, Science and Technology",
+    "website": "http://www.hiast.edu.pk/",
+    "wikidata_id": "Q19891756",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hyderabad_Institute_of_Arts,_Science_and_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "ILMA University",
+    "website": "https://ilmauniversity.edu.pk/",
+    "wikidata_id": "Q4919440",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ilma_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "IMSciences",
+    "website": "http://www.imsciences.edu.pk/",
+    "wikidata_id": "Q15983147",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/IMSciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "Ibn. Imam Degree Science College",
+    "website": "http://www.isc.edu.pk/",
+    "wikidata_id": "Q5984333",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Imperial College of Business Studies",
+    "website": "http://www.imperial.edu.pk/",
+    "wikidata_id": "Q6006497",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Imperial_College_of_Business_Studies",
+    "country": "pakistan"
+  },
+  {
+    "name": "Indus University",
+    "website": "http://www.indus.edu.pk/",
+    "wikidata_id": "Q6027415",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Indus_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Institute of Bankers Pakistan",
+    "website": "http://www.ibp.org.pk/",
+    "wikidata_id": "Q6039913",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Bankers_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Institute of Corporate Secretaries of Pakistan",
+    "website": "http://www.icsp.org.pk/",
+    "wikidata_id": "Q6040152",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Corporate_Secretaries_of_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Institute of Engineering and Technology",
+    "website": "http://www.iet.edu.pk/",
+    "wikidata_id": "Q6040293",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Institute of Geographical Information Systems",
+    "website": "http://www.igis.nust.edu.pk/",
+    "wikidata_id": "Q17067857",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Geographical_Information_Systems",
+    "country": "pakistan"
+  },
+  {
+    "name": "Institute of Space Technology",
+    "website": "https://ist.edu.pk",
+    "wikidata_id": "Q13138872",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_of_Space_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Iqra University",
+    "website": "http://www.iqra.edu.pk/",
+    "wikidata_id": "Q1030866",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iqra_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Islamia College University",
+    "website": "https://www.icp.edu.pk/",
+    "wikidata_id": "Q3695156",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamia_College_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Islamia University of Bahawalpur",
+    "website": "https://www.iub.edu.pk/",
+    "wikidata_id": "Q15055136",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamia_University_of_Bahawalpur",
+    "country": "pakistan"
+  },
+  {
+    "name": "Isra University",
+    "website": "http://www.isra.edu.pk",
+    "wikidata_id": "Q17067952",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Isra_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Jamia Baitussalam",
+    "website": "http://jamiabaitussalam.edu.pk",
+    "wikidata_id": "Q65278353",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Jamia Islamia Imdadia",
+    "website": "http://www.imdadia.edu.pk/",
+    "wikidata_id": "Q6734177",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Jamia Siddiqia",
+    "website": "http://jamiasiddiqia.com/",
+    "wikidata_id": "Q6734362",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jamia_Siddiqia",
+    "country": "pakistan"
+  },
+  {
+    "name": "Jinnah University for Women",
+    "website": "http://www.juw.edu.pk/index.html",
+    "wikidata_id": "Q6202676",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jinnah_University_for_Women",
+    "country": "pakistan"
+  },
+  {
+    "name": "Johar College of Science and Commerce",
+    "website": "http://www.johar.edu.pk/",
+    "wikidata_id": "Q18712368",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "KIPS College",
+    "website": "http://kips.edu.pk/",
+    "wikidata_id": "Q67194812",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Karachi Institute of Economics and Technology",
+    "website": "http://pafkiet.edu.pk",
+    "wikidata_id": "Q6367760",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Karachi_Institute_of_Economics_and_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Karakoram International University",
+    "website": "https://www.kiu.edu.pk/",
+    "wikidata_id": "Q6368138",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Karakoram_International_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Khadim Ali Shah Bukhari Institute of Technology",
+    "website": "http://www.kasbit.edu.pk/",
+    "wikidata_id": "Q19892677",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Khadim_Ali_Shah_Bukhari_Institute_of_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Khwaja Fareed University of Engineering & Information Technology, Rahim Yar Khan",
+    "website": "https://kfueit.edu.pk/",
+    "wikidata_id": "Q18388023",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Khawaja_Fareed_University_of_Engineering_and_Information_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "King Edward Medical University",
+    "website": "http://www.kemu.edu.pk/",
+    "wikidata_id": "Q45312",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/King_Edward_Medical_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Kinnaird College for Women",
+    "website": "http://www.kinnaird.edu.pk/",
+    "wikidata_id": "Q125623",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kinnaird_College_for_Women",
+    "country": "pakistan"
+  },
+  {
+    "name": "Kohat University of Science and Technology",
+    "website": "http://www.kust.edu.pk",
+    "wikidata_id": "Q6425929",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kohat_University_of_Science_%26_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Lahore College for Women University",
+    "website": "http://www.lcwu.edu.pk/",
+    "wikidata_id": "Q6473351",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lahore_College_for_Women_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Lahore Garrison University",
+    "website": "http://lgu.edu.pk/",
+    "wikidata_id": "Q16911413",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lahore_Garrison_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Lahore Leads University",
+    "website": "http://leads.edu.pk",
+    "wikidata_id": "Q6473392",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Lahore University of Management Sciences",
+    "website": "http://lums.edu.pk/index.php",
+    "wikidata_id": "Q13139758",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lahore_University_of_Management_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "Lasbela University of Agriculture, Water and Marine Science",
+    "website": "http://www.luawms.edu.pk/",
+    "wikidata_id": "Q16959870",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lasbela_University_of_Agriculture,_Water_and_Marine_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "Liaquat University of Medical and Health Sciences",
+    "website": "http://www.lumhs.edu.pk/",
+    "wikidata_id": "Q6540200",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Liaquat_University_of_Medical_%26_Health_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "Mardan Institute of Management Studies",
+    "website": "http://www.mims.edu.pk/",
+    "wikidata_id": "Q6758615",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Mehran University of Engineering and Technology",
+    "website": "https://www.muet.edu.pk/",
+    "wikidata_id": "Q6809808",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mehran_University_of_Engineering_%26_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Minhaj International University",
+    "website": "http://mul.edu.pk",
+    "wikidata_id": "Q6810280",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Minhaj_University_Lahore",
+    "country": "pakistan"
+  },
+  {
+    "name": "Mirpur University of Science and Technology",
+    "website": "http://www.must.edu.pk/",
+    "wikidata_id": "Q6874487",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mirpur_University_of_Science_%26_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Mohammad Ali Jinnah University",
+    "website": "http://www.jinnah.edu/",
+    "wikidata_id": "Q1030079",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mohammad_Ali_Jinnah_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Mohi-ud-Din Islamic University",
+    "website": "http://www.miu.edu.pk/",
+    "wikidata_id": "Q6894141",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mohi-ud-Din_Islamic_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Muhammad Nawaz Sharif University of Engineering & Technology, Multan",
+    "website": "https://mnsuet.edu.pk",
+    "wikidata_id": "Q18378045",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Muhammad_Nawaz_Sharif_University_of_Engineering_%26_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "NED University of Engineering and Technology",
+    "website": "http://www.neduet.edu.pk/",
+    "wikidata_id": "Q15260719",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/NED_University_of_Engineering_and_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "NUST Institute of Civil Engineering",
+    "website": "http://nice.nust.edu.pk/",
+    "wikidata_id": "Q6955638",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/NUST_Institute_of_Civil_Engineering",
+    "country": "pakistan"
+  },
+  {
+    "name": "NUST School of Civil and Environmental Engineering",
+    "website": "http://scee.nust.edu.pk/",
+    "wikidata_id": "Q6955640",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/NUST_School_of_Civil_and_Environmental_Engineering",
+    "country": "pakistan"
+  },
+  {
+    "name": "NUST School of Mechanical and Manufacturing Engineering",
+    "website": "http://www.smme.nust.edu.pk",
+    "wikidata_id": "Q6955641",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/School_of_Mechanical_and_Manufacturing_Engineering",
+    "country": "pakistan"
+  },
+  {
+    "name": "Namal University Mianwali",
+    "website": "https://www.namal.edu.pk/",
+    "wikidata_id": "Q6961254",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Namal_Institute",
+    "country": "pakistan"
+  },
+  {
+    "name": "National College of Arts",
+    "website": "http://www.nca.edu.pk/",
+    "wikidata_id": "Q3249585",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_College_of_Arts",
+    "country": "pakistan"
+  },
+  {
+    "name": "National College of Arts, Rawalpindi",
+    "website": "https://nca.edu.pk/rawalpindi-campus/",
+    "wikidata_id": "Q116893656",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "National College of Business Administration and Economics",
+    "website": "http://www.ncbae.edu.pk/",
+    "wikidata_id": "Q6971599",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_College_of_Business_Administration_and_Economics",
+    "country": "pakistan"
+  },
+  {
+    "name": "National Institute of Banking and Finance",
+    "website": "http://www.nibaf.gov.pk",
+    "wikidata_id": "Q6973611",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Institute_of_Banking_%26_Finance",
+    "country": "pakistan"
+  },
+  {
+    "name": "National Skills University",
+    "website": "http://nsu.edu.pk/",
+    "wikidata_id": "Q107400003",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Skills_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "National Textile University",
+    "website": "http://www.ntu.edu.pk/",
+    "wikidata_id": "Q6978908",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Textile_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "National University of Computer and Emerging Sciences",
+    "website": "http://www.nu.edu.pk/",
+    "wikidata_id": "Q6979241",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Computer_and_Emerging_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "National University of Modern Languages",
+    "website": "https://www.numl.edu.pk/",
+    "wikidata_id": "Q1092544",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Modern_Languages",
+    "country": "pakistan"
+  },
+  {
+    "name": "National University of Pakistan",
+    "website": "http://nup.edu.pk/",
+    "wikidata_id": "Q121536439",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Nazeer Hussain University",
+    "website": "http://www.nhu.edu.pk/",
+    "wikidata_id": "Q19894718",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nazeer_Hussain_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Newports Institute of Communications and Economics",
+    "website": "http://www.newports.edu.pk/",
+    "wikidata_id": "Q18353115",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Newports_Institute_of_Communications_and_Economics",
+    "country": "pakistan"
+  },
+  {
+    "name": "Nishtar Medical University",
+    "website": "http://www.nmch.edu.pk",
+    "wikidata_id": "Q7040801",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nishtar_Medical_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Northern University, Nowshera",
+    "website": "http://www.northern.edu.pk/",
+    "wikidata_id": "Q17078286",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Northern_University,_Nowshera",
+    "country": "pakistan"
+  },
+  {
+    "name": "Pakistan Institute of Engineering and Applied Sciences",
+    "website": "http://www.pieas.edu.pk/",
+    "wikidata_id": "Q7125592",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pakistan_Institute_of_Engineering_and_Applied_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "Pakistan Institute of Public Finance Accountants",
+    "website": "http://www.pipfa.org.pk",
+    "wikidata_id": "Q17013413",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pakistan_Institute_of_Public_Finance_Accountants",
+    "country": "pakistan"
+  },
+  {
+    "name": "Pakistan Navy Engineering College",
+    "website": "http://www.pnec.nust.edu.pk/",
+    "wikidata_id": "Q7125652",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pakistan_Navy_Engineering_College",
+    "country": "pakistan"
+  },
+  {
+    "name": "People's University of Medical & Health Sciences for Women",
+    "website": "http://www.pumhs.edu.pk",
+    "wikidata_id": "Q19573661",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/People%27s_University_of_Medical_%26_Health_Sciences_for_Women",
+    "country": "pakistan"
+  },
+  {
+    "name": "Pharmacy Council of Pakistan",
+    "website": "http://www.pharmacycouncil.org.pk/",
+    "wikidata_id": "Q7180812",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pharmacy_Council_of_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Planwel University",
+    "website": "http://planwel.edu/",
+    "wikidata_id": "Q66808493",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Preston University, Pakistan",
+    "website": "http://www.preston.edu.pk/",
+    "wikidata_id": "Q7242006",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Preston_University_(Pakistan)",
+    "country": "pakistan"
+  },
+  {
+    "name": "Punjab Institute of Computer Science",
+    "website": "http://www.ucp.edu.pk/",
+    "wikidata_id": "Q7260264",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Punjab University College of Information Technology",
+    "website": "http://www.pucit.edu.pk/",
+    "wikidata_id": "Q7260306",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Punjab_University_College_of_Information_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Qarshi University",
+    "website": "https://www.qu.edu.pk/",
+    "wikidata_id": "Q7266880",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Qarshi_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Rana Liaquat Ali Khan Government College of Home Economics",
+    "website": "http://chek.edu.pk/",
+    "wikidata_id": "Q7290638",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ra%27ana_Liaquat_Ali_Khan_Government_College_of_Home_Economics",
+    "country": "pakistan"
+  },
+  {
+    "name": "Sardar Bahadur Khan Women's University",
+    "website": "http://www.sbkwu.edu.pk",
+    "wikidata_id": "Q7423682",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sardar_Bahadur_Khan_Women%27s_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shah Abdul Latif University",
+    "website": "http://www.salu.edu.pk",
+    "wikidata_id": "Q7461225",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shah_Abdul_Latif_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shaheed Benazir Bhutto City University",
+    "website": "http://www.sbbcu.edu.pk/",
+    "wikidata_id": "Q19898310",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shaheed_Benazir_Bhutto_City_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shaheed Benazir Bhutto University",
+    "website": "http://www.sbbusba.edu.pk/",
+    "wikidata_id": "Q19599885",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shaheed_Benazir_Bhutto_University,_Shaheed_Benazirabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shaheed Benazir Bhutto University of Veterinary and Animal Sciences",
+    "website": "http://www.sbbuvas.edu.pk/",
+    "wikidata_id": "Q19599888",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shaheed_Benazir_Bhutto_University_of_Veterinary_and_Animal_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shaheed Benazir Bhutto University, Sheringal",
+    "website": "http://www.sbbu.edu.pk",
+    "wikidata_id": "Q4886879",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shaheed_Benazir_Bhutto_University,_Sheringal",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shaheed Zulfikar Ali Bhutto Institute of Science and Technology",
+    "website": "http://szabist.edu.pk/",
+    "wikidata_id": "Q7461562",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/SZABIST_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shaheed Zulfiqar Ali Bhutto University of Law",
+    "website": "https://szabul.edu.pk",
+    "wikidata_id": "Q48728117",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shaheed_Zulfiqar_Ali_Bhutto_University_of_Law",
+    "country": "pakistan"
+  },
+  {
+    "name": "Shifa Tameer-e-Millat University",
+    "website": "http://www.stmu.edu.pk/",
+    "wikidata_id": "Q30314108",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shifa_Tameer-e-Millat_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Sindh Agriculture University",
+    "website": "https://sau.edu.pk/",
+    "wikidata_id": "Q7522140",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sindh_Agriculture_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "Sir Syed CASE Institute of Technology",
+    "website": "http://www.case.edu.pk/",
+    "wikidata_id": "Q5059475",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "Sir Syed Government Girls College",
+    "website": "http://www.ssggc.edu.pk/",
+    "wikidata_id": "Q7519959",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sir_Syed_Government_Girls_College",
+    "country": "pakistan"
+  },
+  {
+    "name": "Sir Syed University of Engineering and Technology",
+    "website": "http://www.ssuet.edu.pk/",
+    "wikidata_id": "Q7529005",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sir_Syed_University_of_Engineering_and_Technology",
+    "country": "pakistan"
+  },
+  {
+    "name": "Textile Institute of Pakistan",
+    "website": "http://www.tip.edu.pk",
+    "wikidata_id": "Q7708460",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Textile_Institute_of_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "The University Of Spoken English and Computer Science",
+    "website": "https://usecs.edu.pk/en/",
+    "wikidata_id": "Q109058224",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "University College Lahore",
+    "website": "http://www.ucl.edu.pk",
+    "wikidata_id": "Q7894626",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "University College of Islamabad",
+    "website": "http://www.uci.edu.pk/",
+    "wikidata_id": "Q7894655",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universal_College_Islamabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Agriculture Faisalabad",
+    "website": "http://www.uaf.edu.pk/",
+    "wikidata_id": "Q7895024",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Agriculture,_Faisalabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Agriculture, Peshawar",
+    "website": "http://www.aup.edu.pk/",
+    "wikidata_id": "Q4693940",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Agriculture,_Peshawar",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Azad Jammu and Kashmir",
+    "website": "http://www.ajku.edu.pk/",
+    "wikidata_id": "Q7895100",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Azad_Jammu_%26_Kashmir",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Balochistan",
+    "website": "http://www.uob.edu.pk",
+    "wikidata_id": "Q3306049",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Balochistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Biological and Applied Sciences",
+    "website": "https://ubas.edu.pk/",
+    "wikidata_id": "Q136655606",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lahore_University_of_Biological_%26_Applied_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Central Punjab",
+    "website": "http://www.ucp.edu.pk/",
+    "wikidata_id": "Q3695765",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Central_Punjab",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Child Health Sciences",
+    "website": "https://uchs.edu.pk",
+    "wikidata_id": "Q140442435",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Education",
+    "website": "http://ue.edu.pk/",
+    "wikidata_id": "Q7895374",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Education",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Engineering and Technology",
+    "website": "http://www.uet.edu.pk/",
+    "wikidata_id": "Q1961570",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Engineering_and_Technology,_Lahore",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Engineering and Technology Taxila",
+    "website": "http://www.uettaxila.edu.pk/index.asp/",
+    "wikidata_id": "Q7895379",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Engineering_and_Technology,_Taxila",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Engineering and Technology, Peshawar",
+    "website": "http://www.uetpeshawar.edu.pk/index.php",
+    "wikidata_id": "Q7895378",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Engineering_%26_Technology,_Peshawar",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of FATA",
+    "website": "http://fu.fata.gov.pk",
+    "wikidata_id": "Q19600083",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/FATA_University",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Faisalabad",
+    "website": "http://www.tuf.edu.pk",
+    "wikidata_id": "Q7895389",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Faisalabad",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Gujrat",
+    "website": "https://uog.edu.pk/main.php?l=en",
+    "wikidata_id": "Q7895477",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Gujrat",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Haripur",
+    "website": "http://uoh.edu.pk/",
+    "wikidata_id": "Q19345791",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Haripur",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Kotli",
+    "website": "https://www.uokajk.edu.pk/",
+    "wikidata_id": "Q19899072",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Kotli",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Malakand",
+    "website": "http://www.uom.edu.pk",
+    "wikidata_id": "Q7494756",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Malakand",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Management and Technology",
+    "website": "https://www.umt.edu.pk/",
+    "wikidata_id": "Q7895663",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Management_and_Technology_(Pakistan)",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Mianwali",
+    "website": "https://umw.edu.pk/",
+    "wikidata_id": "Q119981868",
+    "wikipedia_url": "",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Narowal",
+    "website": "https://uon.edu.pk",
+    "wikidata_id": "Q85812301",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Narowal",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Peshawar",
+    "website": "http://www.uop.edu.pk",
+    "wikidata_id": "Q3918532",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Peshawar",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Poonch",
+    "website": "http://www.upr.edu.pk",
+    "wikidata_id": "Q19600089",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Poonch",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Sargodha",
+    "website": "http://www.uos.edu.pk/",
+    "wikidata_id": "Q7896271",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Sargodha",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Sialkot",
+    "website": "",
+    "wikidata_id": "Q85812314",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Sialkot",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Swabi",
+    "website": "http://uoswabi.edu.pk/",
+    "wikidata_id": "Q19899075",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Swabi",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Swat",
+    "website": "https://www.uswat.edu.pk",
+    "wikidata_id": "Q7896372",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Swat",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Turbat",
+    "website": "http://uot.edu.pk/",
+    "wikidata_id": "Q19600100",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Turbat",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Veterinary and Animal Sciences",
+    "website": "http://www.uvas.edu.pk",
+    "wikidata_id": "Q7896529",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Veterinary_and_Animal_Sciences",
+    "country": "pakistan"
+  },
+  {
+    "name": "University of Wah",
+    "website": "http://www.uow.edu.pk/",
+    "wikidata_id": "Q7896548",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Wah",
+    "country": "pakistan"
+  },
+  {
+    "name": "Virtual University of Pakistan",
+    "website": "http://www.vu.edu.pk/",
+    "wikidata_id": "Q3696246",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Virtual_University_of_Pakistan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Wafaq ul Madaris Al-Arabia, Pakistan",
+    "website": "https://www.wifaqulmadaris.org/",
+    "wikidata_id": "Q6824754",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Wifaq-ul-Madaris_al-Arabia",
+    "country": "pakistan"
+  },
+  {
+    "name": "Women University Mardan",
+    "website": "http://www.wumardan.edu.pk/",
+    "wikidata_id": "Q28129491",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Women_University_Mardan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Women University Multan",
+    "website": "http://www.wum.edu.pk",
+    "wikidata_id": "Q19892772",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/The_Women_University_Multan",
+    "country": "pakistan"
+  },
+  {
+    "name": "Women's Institute of Science & Humanities",
+    "website": "http://www.wish.edu.pk/",
+    "wikidata_id": "Q8030934",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Women%27s_Institute_of_Science_%26_Humanities",
+    "country": "pakistan"
+  }
+]

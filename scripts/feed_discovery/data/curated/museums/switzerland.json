@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCuBo1anv-BBh6jSrF7C3AZw",
+    "category": "YouTube",
+    "title": "Aargau house of art — YouTube",
+    "genre": "Museum",
+    "source_page": "https://aargauerkunsthaus.ch/",
+    "national": true,
+    "national_reason": "museums/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCVKuxYFkse6gaNn0ri2Il0w",
+    "category": "YouTube",
+    "title": "Beyeler Foundation — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.fondationbeyeler.ch",
+    "national": true,
+    "national_reason": "museums/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAaFJuXfhBxr-rITBZKrpIQ",
+    "category": "YouTube",
+    "title": "Kunstmuseum Basel — YouTube",
+    "genre": "Museum",
+    "source_page": "https://kunstmuseumbasel.ch/",
+    "national": true,
+    "national_reason": "museums/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCH80ddVZYxzqUyGbZ_xaz1Q",
+    "category": "YouTube",
+    "title": "Museum Rietberg — YouTube",
+    "genre": "Museum",
+    "source_page": "https://rietberg.ch/fr/",
+    "national": true,
+    "national_reason": "museums/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCNfYXFE8N2ztG6_EGi1XtaA",
+    "category": "YouTube",
+    "title": "National Museum Zurich — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.landesmuseum.ch",
+    "national": true,
+    "national_reason": "museums/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCEjDLLmBzYsm6KGmC4c_A2Q",
+    "category": "YouTube",
+    "title": "St. George’s abbey museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.klostersanktgeorgen.ch/kstg/it/home.html",
+    "national": true,
+    "national_reason": "museums/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCKsmJBtMWA2khKaIu3K1DRQ",
+    "category": "YouTube",
+    "title": "WAGI Museum Schlieren — YouTube",
+    "genre": "Museum",
+    "source_page": "http://schlierengroup.com",
+    "national": true,
+    "national_reason": "museums/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

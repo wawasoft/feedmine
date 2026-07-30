@@ -1,0 +1,74 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCOjw1B6KHSoKLnvHgWrRzxw",
+    "category": "Education",
+    "title": "Management Development Institute of Singapore (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.mdis.edu.sg/",
+    "national": true,
+    "national_reason": "universities/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC7ggK2wDrW6pIbKmvOrA_Kw",
+    "category": "Education",
+    "title": "Nanyang Technological University (YouTube)",
+    "genre": "University",
+    "source_page": "https://ntu.edu.sg",
+    "national": true,
+    "national_reason": "universities/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCdLPuSCR3MwYejFFTO0eFJQ",
+    "category": "Education",
+    "title": "Republic Polytechnic (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.rp.edu.sg/",
+    "national": true,
+    "national_reason": "universities/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkv980lbtBCyZtRy3YiRFsA",
+    "category": "Education",
+    "title": "Singapore Management University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.smu.edu.sg",
+    "national": true,
+    "national_reason": "universities/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCy3SVjAzrJVtGy3f8Tj4t6g",
+    "category": "Education",
+    "title": "Singapore University of Social Sciences (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.suss.edu.sg",
+    "national": true,
+    "national_reason": "universities/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_bXdxk4qO2t5vReWTSRk2A",
+    "category": "Education",
+    "title": "Singapore University of Technology and Design (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.sutd.edu.sg/",
+    "national": true,
+    "national_reason": "universities/youtube/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

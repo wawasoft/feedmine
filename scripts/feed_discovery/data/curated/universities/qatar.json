@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFyKSNjrySq0KgyBZLUB68g",
+    "category": "Education",
+    "title": "Northwestern University in Qatar (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.qatar.northwestern.edu/ar/",
+    "national": true,
+    "national_reason": "universities/youtube/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

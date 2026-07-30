@@ -1,0 +1,65 @@
+[
+  {
+    "name": "Central American Technological University",
+    "website": "http://www.unitec.edu/",
+    "wikidata_id": "Q614124",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_American_Technological_University",
+    "country": "honduras"
+  },
+  {
+    "name": "Francisco Morazán National Pedagogical University",
+    "website": "https://www.upnfm.edu.hn/",
+    "wikidata_id": "Q6156613",
+    "wikipedia_url": "",
+    "country": "honduras"
+  },
+  {
+    "name": "National Autonomous University of Honduras",
+    "website": "https://unah.edu.hn",
+    "wikidata_id": "Q3616162",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_Nacional_Aut%C3%B3noma_de_Honduras",
+    "country": "honduras"
+  },
+  {
+    "name": "Universidad Cristiana de Honduras",
+    "website": "https://www.ucrish.edu.hn",
+    "wikidata_id": "Q16644459",
+    "wikipedia_url": "",
+    "country": "honduras"
+  },
+  {
+    "name": "Universidad José Cecilio del Valle",
+    "website": "http://www.ujcv.edu.hn",
+    "wikidata_id": "Q6156499",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_Jos%C3%A9_Cecilio_del_Valle",
+    "country": "honduras"
+  },
+  {
+    "name": "Universidad Metropolitana de Honduras",
+    "website": "http://www.unimetro.edu.hn/",
+    "wikidata_id": "Q16644485",
+    "wikipedia_url": "",
+    "country": "honduras"
+  },
+  {
+    "name": "Universidad Nacional de Agricultura",
+    "website": "http://www.unag.edu.hn/",
+    "wikidata_id": "Q26940179",
+    "wikipedia_url": "",
+    "country": "honduras"
+  },
+  {
+    "name": "Universidad Tecnológica de Honduras",
+    "website": "https://www.uth.hn/",
+    "wikidata_id": "Q7894315",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_Tecnol%C3%B3gica_de_Honduras",
+    "country": "honduras"
+  },
+  {
+    "name": "University of San Pedro Sula",
+    "website": "http://www.usap.edu/",
+    "wikidata_id": "Q7896241",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_San_Pedro_Sula",
+    "country": "honduras"
+  }
+]

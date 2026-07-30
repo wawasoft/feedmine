@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-07-29",
+  "pipeline_format": "Candidate (models.py)",
+  "production_feeds_scanned": 43476,
+  "groups": {
+    "artists": {
+      "candidates_loaded": 12372,
+      "after_intra_dedup": 12263,
+      "after_prod_dedup": 9600,
+      "countries": 101,
+      "outliers": {}
+    },
+    "influencers": {
+      "candidates_loaded": 21204,
+      "unique_channels": 617,
+      "after_intra_dedup": 20127,
+      "after_prod_dedup": 12827,
+      "countries": 101,
+      "outliers": {},
+      "note": "634 global YouTube channels, assigned to all countries. After cross-group dedup, reduced by overlap with artists/radio."
+    },
+    "radio": {
+      "candidates_loaded": 0,
+      "after_intra_dedup": 0,
+      "after_prod_dedup": 0,
+      "countries": 0,
+      "outliers": {}
+    },
+    "universities": {
+      "with_feeds_loaded": 964,
+      "after_prod_dedup": 963,
+      "needs_discovery": 24880,
+      "removed_stubs": 12922,
+      "countries_with_feeds": 71,
+      "countries_needs_discovery": 101,
+      "outliers": {
+        "peru": {
+          "count": 76,
+          "avg": 13.56338028169014,
+          "flag": "high_outlier"
+        },
+        "russia": {
+          "count": 141,
+          "avg": 13.56338028169014,
+          "flag": "high_outlier"
+        },
+        "usa": {
+          "count": 361,
+          "avg": 13.56338028169014,
+          "flag": "high_outlier"
+        }
+      },
+      "note": "Universities don't have feed URLs natively. Only YouTube channels converted to feeds. Websites saved separately for future discovery."
+    }
+  },
+  "combined": {
+    "total_candidates": 11017,
+    "countries": 101,
+    "dedup_priority": [
+      "artists",
+      "radio",
+      "influencers",
+      "universities"
+    ],
+    "cross_group_removals": {
+      "artists": 6,
+      "influencers": 19530,
+      "universities": 1
+    },
+    "production_removals": {
+      "artists": 2663,
+      "radio": 0,
+      "influencers": 7300,
+      "universities": 1
+    }
+  },
+  "missing_content": {
+    "universities_without_feeds": {
+      "total": 24880,
+      "description": "Universities with websites but no RSS/YouTube feed. Needs feed discovery pass.",
+      "top_countries": [
+        [
+          "india",
+          14918
+        ],
+        [
+          "usa",
+          1616
+        ],
+        [
+          "japan",
+          871
+        ],
+        [
+          "indonesia",
+          758
+        ],
+        [
+          "china",
+          685
+        ],
+        [
+          "nigeria",
+          433
+        ],
+        [
+          "united-kingdom",
+          343
+        ],
+        [
+          "philippines",
+          333
+        ],
+        [
+          "iran",
+          285
+        ],
+        [
+          "ukraine",
+          267
+        ]
+      ]
+    },
+    "universities_removed": {
+      "total": 12922,
+      "description": "Entries with no website, no social media, or Wikidata stubs with only a Q-ID."
+    },
+    "removed_feeds_total": 12922
+  },
+  "warnings": [
+    "University outlier: peru (76 feeds vs avg 14)",
+    "University outlier: russia (141 feeds vs avg 14)",
+    "University outlier: usa (361 feeds vs avg 14)",
+    "India universities: 24,327 entries loaded, but most were Wikidata stubs (removed). Original data dominated by affiliated colleges. Review remaining entries manually."
+  ]
+}

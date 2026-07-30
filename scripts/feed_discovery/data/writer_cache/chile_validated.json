@@ -1,0 +1,236 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "chile"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "chile"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/comments/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "chile"
+  },
+  {
+    "url": "https://borgestodoelanio.blogspot.com/feeds/posts/default",
+    "title": "Blogger - Borges todo el año",
+    "source": "page:novelista",
+    "country": "chile"
+  },
+  {
+    "url": "https://herenciasostenible.com/feed/",
+    "title": "Herencia Sostenible | Blog del Dr. Roberto Aguado: ing. químico ...",
+    "source": "page:novelista",
+    "country": "chile"
+  },
+  {
+    "url": "https://blogs.culturamas.es/feed/",
+    "title": "E. Fortún: Celia, novelista – Blogs de Culturamas",
+    "source": "page:novelista",
+    "country": "chile"
+  },
+  {
+    "url": "http://www.blogenriquevilamatas.com/?feed=rss2",
+    "title": "AYUDANTE DE VILNIUS | \"Vila-matas. That you just have to give yourself ...",
+    "source": "page:novelista",
+    "country": "chile"
+  },
+  {
+    "url": "https://elpais.com/arc/outboundfeeds/rss/author/gonzalo_torrente_ballester_a/?outputType=xml",
+    "title": "EL PAÍS",
+    "source": "direct:novelista",
+    "country": "chile"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "chile"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "chile"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/comments/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "chile"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default?alt=rss",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "chile"
+  },
+  {
+    "url": "https://fuegosagrado2017.wordpress.com/2017/09/19/el-loco-sarmiento-apuntes-sobre-el-hombre-que-escribia-con-la-espada-y-disparaba-con-la-pluma/feed",
+    "title": "El loco Sarmiento: apuntes sobre el hombre que escribía con la espada...",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://elsudacarenegau.wordpress.com/tag/alberto-montt/feed",
+    "title": "Entradas sobre Alberto Montt escritas por El Sudaca Renegau",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://sabine77.wordpress.com/2026/07/28/notas-quotidianas-em-19/feed",
+    "title": "Visto de Leiria: Notas Quotidianas Junho-Julho 2026 – Insustentável...",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://erikostark001.wordpress.com/category/reflexion/feed",
+    "title": "Entradas sobre reflexión escritas por Eriko Stark",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://oxfordenglishblog.wordpress.com/tag/argentina/feed",
+    "title": "Entradas sobre ARGENTINA escritas por BUENOS DÍAS SEÑOR",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://loiolaxxi.wordpress.com/2016/02/22/usa-excarcelado-despues-de-40-anos-de-prision/feed",
+    "title": "USA: excarcelado después de 40 años de prisión. | Loiola XXI",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://sarauparatodos.wordpress.com/2011/05/20/star-fk-radium-blue-siberia/feed",
+    "title": "Star FK Radium – \"Blue Siberia\" – Sarau Para Todos",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://pequenoscinerastas.wordpress.com/2009/03/21/un-feo-embrollo/feed",
+    "title": "Un Feo Embrollo | También Los Cinerastas Empezaron Pequeños",
+    "source": "wp:escritor",
+    "country": "chile"
+  },
+  {
+    "url": "https://nuevoordenmundialreptiliano.wordpress.com/2016/06/12/feed",
+    "title": "12 junio, 2016 – Contra el Nuevo Orden Mundial Reptiliano del Anticristo",
+    "source": "wp:autor",
+    "country": "chile"
+  },
+  {
+    "url": "https://salidaalmar.wordpress.com/2012/01/feed",
+    "title": "5 entradas publicadas por denapoli en January 2012",
+    "source": "wp:autor",
+    "country": "chile"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2016/05/06/happiness-engineers-argentina-spain/feed",
+    "title": "Hablas español? ¿Te gusta ayudar a la gente? Preséntate para...",
+    "source": "wp:autor",
+    "country": "chile"
+  },
+  {
+    "url": "https://historiadelamedicina.wordpress.com/author/fresquet/page/2/feed",
+    "title": "José L. Fresquet – Página 2 – Medicina, Historia y Sociedad",
+    "source": "wp:autor",
+    "country": "chile"
+  },
+  {
+    "url": "https://elrejunteil.wordpress.com/2006/08/25/en-defensa-de-la-libertad-marcelo-birmajer/feed",
+    "title": "En Defensa de la Libertad – Marcelo Birmajer | El Rejunte.il",
+    "source": "wp:novelista",
+    "country": "chile"
+  },
+  {
+    "url": "https://ajda.ghost.io/rss",
+    "title": "Beitar Jerusalem: racismo y política en el fútbol israeli",
+    "source": "platform:ghost.io",
+    "country": "chile"
+  },
+  {
+    "url": "https://garciamadero.blogspot.com/feeds/posts/default",
+    "title": "\"Yo me siento chileno\". Entrevista a Roberto Bolaño",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "http://huilliche.blogspot.com/feeds/posts/default",
+    "title": "Francisco Coloane, el escritor chilote-huilliche - Gente del Sur",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://clubdetraductoresliterariosdebaires.blogspot.com/feeds/posts/default",
+    "title": "Chinos en Chile: un encuentro en Santiago",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://culturaacompanada.blogspot.com/feeds/posts/default",
+    "title": "Alberto Fuguet vuelve a librerías con \"Ushuaia - Cultura acompañada",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "http://elcubildelciclope.blogspot.com/feeds/posts/default",
+    "title": "Literatura de terror chilena ochentera (primera parte).",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://genesdefamilia.blogspot.com/feeds/posts/default",
+    "title": "Genes de familia: SOBRE EL AUTOR / ABOUT THE AUTHOR",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://miruiztagledechile.blogspot.com/feeds/posts/default",
+    "title": "MI LICEO RUIZ TAGLE DE CHILE: EL AUTOR",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://historiadelaliteraturabasica.blogspot.com/feeds/posts/default",
+    "title": "Cristóbal Gaete - historiadelaliteraturabasica.blogspot.com",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://paginadeandresmorales.blogspot.com/feeds/posts/default",
+    "title": "POEMAS DE EUSEBIO LILLO, AUTOR DEL \"HIMNO NACIONAL DE CHILE\"",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://cancionesdemispadresyabuelos.blogspot.com/feeds/posts/default",
+    "title": "YO VENDO UNOS OJOS NEGROS. AUTOR: Pablo Ara Lucena. CANTA: Lucho Gatica ...",
+    "source": "platform:blogspot.com",
+    "country": "chile"
+  },
+  {
+    "url": "https://escueladeescritores.com/rss",
+    "title": "Escuela de Escritores | Mucho más que un taller literario",
+    "source": "assoc:es",
+    "country": "chile"
+  },
+  {
+    "url": "https://congresoaeex.blogspot.com/feeds/posts/default",
+    "title": "X Congreso de la asociación de escritores extremeños",
+    "source": "assoc:es",
+    "country": "chile"
+  }
+]

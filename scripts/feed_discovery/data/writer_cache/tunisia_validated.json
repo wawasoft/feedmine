@@ -1,0 +1,146 @@
+[
+  {
+    "url": "https://www.katib.org/?feed=rss2",
+    "title": "الأسئلة الشائعة – مدونات كاتب",
+    "source": "page:كاتب",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://www.itpiran.net/blog/ar/feed/",
+    "title": "إلاهي، مؤلف مدونة ITPiran",
+    "source": "page:مؤلف",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://dzlearning.blogspot.com/feeds/posts/default",
+    "title": "مدونة تعلم كل ماتحتاجه في المجال التكنولوجي",
+    "source": "page:مؤلف",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://mk-writings.blogspot.com/feeds/posts/default",
+    "title": "مدونة روائي فاشل.",
+    "source": "page:روائي",
+    "country": "tunisia"
+  },
+  {
+    "url": "http://riwaey.blogspot.com/feeds/posts/default",
+    "title": "روائي : أمين معلوف التائه صاحب الثنائيات المجهضة !",
+    "source": "page:روائي",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://mudawnatmumin.blogspot.com/feeds/posts/default",
+    "title": "مدونة مؤمن الوزان: اعترافات روائي ناشئ - أمبرتو إيكو.",
+    "source": "page:روائي",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://hasanmadani.blogspot.com/feeds/posts/default",
+    "title": "الكاتب اللبناني حسن محمد مدني (كاتب ومؤلف وناقد - روائي...)",
+    "source": "page:روائي",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://ibkofahi.blogspot.com/feeds/posts/default",
+    "title": "مدونة الشاعر إبراهيم الكوفحي: روائي",
+    "source": "page:روائي",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://almouslli.com/feed/",
+    "title": "المسودة الأولى: كواليس وتأملات \"مشروع روائي\" - مدونة م.طارق...",
+    "source": "page:روائي",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://ebda3sh3er.wordpress.com/feed/",
+    "title": "مدونة إبداع شاعر | مدونة شعريه تهتم بالشعراء الصغار",
+    "source": "page:شاعر",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://djamalmahmoud.wordpress.com/feed/",
+    "title": "Djamal Mahmoud جمال محمود هنداوي | Blogul unui poet مدونة شاعر",
+    "source": "page:شاعر",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://drtamimi.wordpress.com/feed/",
+    "title": "مدونة شاعر الأقصى الدكتور عبد الغني التميمي | “إذا لم يكن...”",
+    "source": "page:شاعر",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://69proeme.wordpress.com/feed/",
+    "title": "\" عرَقٌ ذهنيٌّ \" – [ مدوّنةُ \"شاعرٌ سابقٌ\" / يوسف خديم الله ...",
+    "source": "page:شاعر",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://fatimid-lover.blogspot.com/feeds/posts/default",
+    "title": "مدونة شاعر الحب مصطفى هلال ( العاشق الفاطمى )",
+    "source": "page:شاعر",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://poetry-nostalgia.blogspot.com/feeds/posts/default",
+    "title": "شاعر الحنين - Poet of nostalgia",
+    "source": "page:شاعر",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://mazouz-oujdi.blogspot.com/feeds/posts/default",
+    "title": "مدونة إسلامية وجدية: كتب مميزة للدكتور عبد الدائم كحيل",
+    "source": "assoc:ar",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://sarabic.ae/export/rss2/archive/index.xml",
+    "title": "سبوتنيك عربي – أخبار الدول العربية والعالم | آخر الأخبار",
+    "source": "assoc:ar",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://0815travelblog.wordpress.com/2022/07/23/from-tunisia-to-morocco/feed",
+    "title": "From Tunisia to Morocco – 0815travelblog",
+    "source": "en-fb-wp:writer",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://defendlawyers.wordpress.com/2026/07/28/russias-attack-on-crimean-solidarity-extends-repression-to-all-lawyers-defending-political-prisoners/feed",
+    "title": "Russia’s attack on Crimean Solidarity extends repression to all lawyers...",
+    "source": "en-fb-wp:writer",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://christinerobledo.wordpress.com/2026/07/26/feed",
+    "title": "26/07/2026 – les chroniques mortes ou vives",
+    "source": "en-fb-wp:writer",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://saccsiv.wordpress.com/2026/07/25/doua-modele-de-inteligenta-artificiala-openai-fara-acces-la-internet-au-scapat-de-sub-control-au-evadat-au-ajuns-pe-internet-si-au-atacat-una-dintre-cele-mai-importante-platforme-din-industria-ai/feed",
+    "title": "Două modele de Inteligenta Artificiala OpenAI, fără acces la internet...",
+    "source": "en-fb-wp:writer",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://saccsiv.wordpress.com/2026/07/27/chiropractica/feed",
+    "title": "Chiropractica | SACCSIV - blog ortodox",
+    "source": "en-fb-wp:author",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://adamsmith.wordpress.com/tag/nyogb/feed",
+    "title": "Posts about NYOGB written by adamsmith1922",
+    "source": "en-fb-wp:novelist",
+    "country": "tunisia"
+  },
+  {
+    "url": "https://adamsmith.wordpress.com/tag/classic-french-jazz/feed",
+    "title": "Posts about Classic French Jazz written by adamsmith1922",
+    "source": "en-fb-wp:poet",
+    "country": "tunisia"
+  }
+]

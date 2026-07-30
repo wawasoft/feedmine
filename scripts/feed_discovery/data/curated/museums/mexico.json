@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC8HdA2zQi3m1mbUCaJO_7lQ",
+    "category": "YouTube",
+    "title": "Amparo Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.museoamparo.com/",
+    "national": true,
+    "national_reason": "museums/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbjuFbqUqHY-Eu_eqTfRUcg",
+    "category": "YouTube",
+    "title": "Museo Nacional de Arte — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.munal.mx/en",
+    "national": true,
+    "national_reason": "museums/youtube/mexico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

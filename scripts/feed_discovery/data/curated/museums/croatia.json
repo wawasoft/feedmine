@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCR_Frin58Tvt1mmvW7_VVtg",
+    "category": "YouTube",
+    "title": "Croatian Natural History Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.hpm.hr/",
+    "national": true,
+    "national_reason": "museums/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC_F4lYPL5ORYZE-9Ti74p4g",
+    "category": "YouTube",
+    "title": "Ethnographic Museum of Zagreb — YouTube",
+    "genre": "Museum",
+    "source_page": "https://emz.hr/",
+    "national": true,
+    "national_reason": "museums/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC9mpwR5l7vonfSuCe8K3GRQ",
+    "category": "YouTube",
+    "title": "Međimurje County Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://mmc.hr/",
+    "national": true,
+    "national_reason": "museums/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC0bCWLvRUWfQUNcmoL5mQVg",
+    "category": "YouTube",
+    "title": "National Museum of Modern Art — YouTube",
+    "genre": "Museum",
+    "source_page": "https://nmmu.hr/",
+    "national": true,
+    "national_reason": "museums/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCWSP9yyTYYxXN9xGSDjBDZw",
+    "category": "YouTube",
+    "title": "Pakrac Town Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.muzej-pakrac.hr",
+    "national": true,
+    "national_reason": "museums/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

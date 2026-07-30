@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFOGIrrWJ_HTObJxzLAjAVA",
+    "category": "Education",
+    "title": "University of Zurich (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uzh.ch/",
+    "national": true,
+    "national_reason": "universities/youtube/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

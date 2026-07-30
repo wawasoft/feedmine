@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgVZuJZ9YbkObIxot8ol5eQ",
+    "category": "YouTube",
+    "title": "Europos Parkas — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.europosparkas.lt",
+    "national": true,
+    "national_reason": "museums/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFc1dQPrkkGRiKepaTgHeSw",
+    "category": "YouTube",
+    "title": "Kretinga Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.kretingosmuziejus.lt/",
+    "national": true,
+    "national_reason": "museums/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UChF0uJM93xo_bx4Cos2EUPA",
+    "category": "YouTube",
+    "title": "Lithuanian National Museum of Art — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.lndm.lt/",
+    "national": true,
+    "national_reason": "museums/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBIx5HV8srroNQKdmEpZ7KQ",
+    "category": "YouTube",
+    "title": "Lithuanian Theater, Music and Cinema Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://ltmkm.lt/",
+    "national": true,
+    "national_reason": "museums/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCJEAoQV6Gk75Wmt-2H6WO7w",
+    "category": "YouTube",
+    "title": "MO Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://mo.lt/",
+    "national": true,
+    "national_reason": "museums/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCEWue4eKB5o9pbIADbl1QFg",
+    "category": "YouTube",
+    "title": "Money Museum of the Bank of Lithuania — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.pinigumuziejus.lt/",
+    "national": true,
+    "national_reason": "museums/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrz8ynpLkM9AL4zzSB1SVJA",
+    "category": "YouTube",
+    "title": "Ukmergė Regional Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://ukmergesmuziejus.lt/",
+    "national": true,
+    "national_reason": "museums/youtube/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCjit77K3fWOIVE8qr1uucbg",
+    "category": "Education",
+    "title": "COMCAVE (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.comcave.de/",
+    "national": true,
+    "national_reason": "universities/youtube/germany",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXJ1F614FQ-CBdOpS_l8izg",
+    "category": "Education",
+    "title": "Folkwang University of the Arts (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.folkwang-uni.de/",
+    "national": true,
+    "national_reason": "universities/youtube/germany",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UClR-YEgtjMWlhAN7RDX7hAg",
+    "category": "Education",
+    "title": "Konrad Wolf Film University of Babelsberg (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.filmuniversitaet.de/",
+    "national": true,
+    "national_reason": "universities/youtube/germany",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCDm3o1Q8--TxD9JlWDz62Dg",
+    "category": "Education",
+    "title": "SRH Berlin University of Applied Sciences (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.srh-hochschule-berlin.de/",
+    "national": true,
+    "national_reason": "universities/youtube/germany",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCFCon-ZxbWGTm9UA6zDHusw",
+    "category": "Education",
+    "title": "Sigmund Freud Privatuniversität - Standort Berlin (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.sfu-berlin.de",
+    "national": true,
+    "national_reason": "universities/youtube/germany",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCK5TWH-olaLS8gIHAA6LmCQ",
+    "category": "Education",
+    "title": "University of Erfurt (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uni-erfurt.de/en/",
+    "national": true,
+    "national_reason": "universities/youtube/germany",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCIf4MKph9hdkB3--h969xmg",
+    "category": "Education",
+    "title": "University of Koblenz (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uni-koblenz.de/de",
+    "national": true,
+    "national_reason": "universities/youtube/germany",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

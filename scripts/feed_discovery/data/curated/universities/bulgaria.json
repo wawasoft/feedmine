@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCuxDf-d4nNaSUWWKIx4NUBA",
+    "category": "Education",
+    "title": "Veliko Tarnovo University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.uni-vt.bg/",
+    "national": true,
+    "national_reason": "universities/youtube/bulgaria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

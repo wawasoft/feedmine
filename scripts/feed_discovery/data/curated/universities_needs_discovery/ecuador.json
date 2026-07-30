@@ -1,0 +1,394 @@
+[
+  {
+    "name": "Q125768138",
+    "website": "https://www.unicepes.edu.mx",
+    "wikidata_id": "Q125768138",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Q136089651",
+    "website": "https://istriobamba.edu.ec/",
+    "wikidata_id": "Q136089651",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Q139994581",
+    "website": "https://itred.edu.ec",
+    "wikidata_id": "Q139994581",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Q140187541",
+    "website": "https://web.itslibertad.edu.ec/",
+    "wikidata_id": "Q140187541",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Q5395416",
+    "website": "http://www.uagraria.edu.ec/",
+    "wikidata_id": "Q5395416",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Q6156695",
+    "website": "http://www.uteg.edu.ec/",
+    "wikidata_id": "Q6156695",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Armed Forces University - ESPE",
+    "website": "http://www.espe.edu.ec",
+    "wikidata_id": "Q97574388",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Armed_Forces_University_%E2%80%93_ESPE",
+    "country": "ecuador"
+  },
+  {
+    "name": "Bolivar State University",
+    "website": "http://www.ueb.edu.ec/",
+    "wikidata_id": "Q21574121",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Central University of Ecuador",
+    "website": "https://www.uce.edu.ec/",
+    "wikidata_id": "Q1643758",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_University_of_Ecuador",
+    "country": "ecuador"
+  },
+  {
+    "name": "Estatal Amazonica University",
+    "website": "http://www.uea.edu.ec/",
+    "wikidata_id": "Q22045587",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Instituto de Altos Estudios Nacionales",
+    "website": "http://www.iaen.edu.ec",
+    "wikidata_id": "Q28813667",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "National University of Loja",
+    "website": "http://www.unl.edu.ec/",
+    "wikidata_id": "Q24170810",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Loja",
+    "country": "ecuador"
+  },
+  {
+    "name": "Politecnica Salesiana University",
+    "website": "https://www.ups.edu.ec/",
+    "wikidata_id": "Q7210143",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Politecnica_Salesiana_University",
+    "country": "ecuador"
+  },
+  {
+    "name": "Pontificia Universidad Católica del Ecuador",
+    "website": "http://www.puce.edu.ec",
+    "wikidata_id": "Q1537436",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pontifical_Catholic_University_of_Ecuador",
+    "country": "ecuador"
+  },
+  {
+    "name": "Quevedo State Technical University",
+    "website": "http://www.uteq.edu.ec/",
+    "wikidata_id": "Q7894316",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_T%C3%A9cnica_Estatal_de_Quevedo",
+    "country": "ecuador"
+  },
+  {
+    "name": "Regional College Amazon Ikiam",
+    "website": "http://www.ikiam.edu.ec",
+    "wikidata_id": "Q29386573",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "State University of Milagro",
+    "website": "https://www.unemi.edu.ec",
+    "wikidata_id": "Q85879073",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Technical University of Machala",
+    "website": "http://utmachala.edu.ec",
+    "wikidata_id": "Q111985520",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "UTE University",
+    "website": "https://www.ute.edu.ec/",
+    "wikidata_id": "Q2495708",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Andina Simón Bolívar",
+    "website": "http://uasb.edu.bo/",
+    "wikidata_id": "Q2495648",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Casa Grande",
+    "website": "http://www.casagrande.edu.ec/",
+    "wikidata_id": "Q27982784",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Católica de Cuenca",
+    "website": "http://www.ucacue.edu.ec",
+    "wikidata_id": "Q6156393",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Católica de Oriente",
+    "website": "http://www.uco.edu.co/",
+    "wikidata_id": "Q7894254",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_Cat%C3%B3lica_de_Oriente",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Católica de Santiago de Guayaquil",
+    "website": "https://www.ucsg.edu.ec/",
+    "wikidata_id": "Q661971",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_Cat%C3%B3lica_de_Santiago_de_Guayaquil",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Del Pacífico – Ecuador",
+    "website": "http://upacifico.edu.ec/web/",
+    "wikidata_id": "Q7894259",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Ecotec",
+    "website": "https://www.ecotec.edu.ec/",
+    "wikidata_id": "Q29051048",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Estatal Península de Santa Elena",
+    "website": "http://www.upse.edu.ec/",
+    "wikidata_id": "Q16644462",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_Estatal_Pen%C3%ADnsula_de_Santa_Elena",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Estatal de Milagro",
+    "website": "https://www.unemi.edu.ec",
+    "wikidata_id": "Q30294123",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Estatal del Sur de Manabí",
+    "website": "http://www.unesum.edu.ec/",
+    "wikidata_id": "Q22084795",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Intercultural de las Nacionalidades y Pueblos Indígenas",
+    "website": "https://uaw.edu.ec/",
+    "wikidata_id": "Q1443288",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Internacional SEK",
+    "website": "https://www.uisek.edu.ec/es",
+    "wikidata_id": "Q6156485",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_Internacional_SEK",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Internacional del Ecuador",
+    "website": "https://www.uide.edu.ec/",
+    "wikidata_id": "Q2495685",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Laica Eloy Alfaro de Manabí",
+    "website": "http://www.uleam.edu.ec/",
+    "wikidata_id": "Q19627405",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Laica Vicente Rocafuerte",
+    "website": "http://www.ulvr.edu.ec/",
+    "wikidata_id": "Q5393210",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Luis Vargas Torres",
+    "website": "http://www.utelvt.edu.ec/",
+    "wikidata_id": "Q6156721",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Metropolitana",
+    "website": "https://www.umet.edu.ec/",
+    "wikidata_id": "Q30294110",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Nacional de Chimborazo",
+    "website": "https://www.unach.edu.ec/",
+    "wikidata_id": "Q29051133",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Politécnica Estatal del Carchi",
+    "website": "http://www.upec.edu.ec/",
+    "wikidata_id": "Q6156626",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Regional Autónoma de los Andes - UNIANDES",
+    "website": "http://www.uniandesonline.edu.ec/",
+    "wikidata_id": "Q11049417",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad San Francisco de Quito",
+    "website": "http://www.usfq.edu.ec/",
+    "wikidata_id": "Q2495713",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_San_Francisco_de_Quito",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Tecnológica Indoamérica",
+    "website": "http://www.uti.edu.ec",
+    "wikidata_id": "Q6156697",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Técnica Particular de Loja",
+    "website": "https://www.utpl.edu.ec/",
+    "wikidata_id": "Q7894321",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_T%C3%A9cnica_Particular_de_Loja",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Técnica de Ambato",
+    "website": "http://www.uta.edu.ec/",
+    "wikidata_id": "Q6156723",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Técnica de Cotopaxi",
+    "website": "http://www.utc.edu.ec/",
+    "wikidata_id": "Q24306461",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Técnica de Machala",
+    "website": "http://www.utmachala.edu.ec/",
+    "wikidata_id": "Q24352128",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Técnica de Manabí",
+    "website": "http://www.utm.edu.ec/",
+    "wikidata_id": "Q18655712",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad Técnica del Norte",
+    "website": "https://www.utn.edu.ec/web/uniportal/",
+    "wikidata_id": "Q29051038",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad de Especialidades Espíritu Santo",
+    "website": "https://uees.edu.ec/",
+    "wikidata_id": "Q541927",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_de_Especialidades_Esp%C3%ADritu_Santo",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad de las Américas",
+    "website": "http://www.udla.edu.ec/",
+    "wikidata_id": "Q6156835",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad de las Artes",
+    "website": "http://www.uartes.edu.ec/",
+    "wikidata_id": "Q17632385",
+    "wikipedia_url": "",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad de las Fuerzas Armadas - ESPE",
+    "website": "https://www.espe.edu.ec",
+    "wikidata_id": "Q5397474",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Escuela_Polit%C3%A9cnica_del_Ej%C3%A9rcito",
+    "country": "ecuador"
+  },
+  {
+    "name": "Universidad del Azuay",
+    "website": "http://www.uazuay.edu.ec",
+    "wikidata_id": "Q6156840",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Universidad_del_Azuay",
+    "country": "ecuador"
+  },
+  {
+    "name": "University San Gregorio de Portoviejo",
+    "website": "http://www.sangregorio.edu.ec/",
+    "wikidata_id": "Q3728444",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_San_Gregorio_de_Portoviejo",
+    "country": "ecuador"
+  },
+  {
+    "name": "University of Cuenca",
+    "website": "http://www.ucuenca.edu.ec",
+    "wikidata_id": "Q7895315",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Cuenca",
+    "country": "ecuador"
+  },
+  {
+    "name": "University of Guayaquil",
+    "website": "http://www.ug.edu.ec/",
+    "wikidata_id": "Q7895474",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Guayaquil",
+    "country": "ecuador"
+  },
+  {
+    "name": "Yachay University for Experimental Technology and Research",
+    "website": "http://www.yachaytech.edu.ec",
+    "wikidata_id": "Q16320182",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yachay_University",
+    "country": "ecuador"
+  }
+]

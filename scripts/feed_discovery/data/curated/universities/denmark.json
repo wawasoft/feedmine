@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSOtV-lJEtzRSJt4l7QT4IQ",
+    "category": "Education",
+    "title": "Design School Kolding (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.designskolenkolding.dk/",
+    "national": true,
+    "national_reason": "universities/youtube/denmark",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCHltQkEaLxwloqDVsVmfwUw",
+    "category": "Education",
+    "title": "IT University of Copenhagen (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.itu.dk",
+    "national": true,
+    "national_reason": "universities/youtube/denmark",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC7wLl9ZAjQSisNuwBR7el8w",
+    "category": "Education",
+    "title": "University College Absalon (YouTube)",
+    "genre": "University",
+    "source_page": "https://phabsalon.dk",
+    "national": true,
+    "national_reason": "universities/youtube/denmark",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

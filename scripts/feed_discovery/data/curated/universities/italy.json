@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCfkuxclgDXKNTu8g-8sRJMQ",
+    "category": "Education",
+    "title": "Academy Vivarium Novum (YouTube)",
+    "genre": "University",
+    "source_page": "http://vivariumnovum.net/la",
+    "national": true,
+    "national_reason": "universities/youtube/italy",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSsscnFg3RnGlBQHetazjpg",
+    "category": "Education",
+    "title": "International School for Advanced Studies (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.sissa.it/",
+    "national": true,
+    "national_reason": "universities/youtube/italy",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCD-ezDxGo1Qgj7g7BUdqRvw",
+    "category": "Education",
+    "title": "Polytechnic University of the Marches (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.univpm.it/Entra/",
+    "national": true,
+    "national_reason": "universities/youtube/italy",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC2jT82EldruIYkbJPQDlwww",
+    "category": "Education",
+    "title": "Scuola Superiore Studi Pavia IUSS (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.iusspavia.it",
+    "national": true,
+    "national_reason": "universities/youtube/italy",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAhWCOPdrcvzXoguigEhiTg",
+    "category": "Education",
+    "title": "United World College of the Adriatic (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uwcad.it/",
+    "national": true,
+    "national_reason": "universities/youtube/italy",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbVwJ74-bJbiBB0uW65u4jw",
+    "category": "Education",
+    "title": "University of Catania (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.unict.it",
+    "national": true,
+    "national_reason": "universities/youtube/italy",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCkg071XryJmW15FNxNNtgsQ",
+    "category": "Education",
+    "title": "University of Urbino (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.uniurb.it",
+    "national": true,
+    "national_reason": "universities/youtube/italy",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

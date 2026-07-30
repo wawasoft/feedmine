@@ -1,0 +1,218 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://re21.wordpress.com/feed/",
+    "title": "Autor do Blog | Navego, logo existo",
+    "source": "page:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "argentina"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/feed/",
+    "title": "andi novelista | a peek inside a wicked mind",
+    "source": "page:novelista",
+    "country": "argentina"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "argentina"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "argentina"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "argentina"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "argentina"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "argentina"
+  },
+  {
+    "url": "https://ajedrezlatitudsur.wordpress.com/tag/eliascanetti/feed",
+    "title": "Entradas sobre #eliascanetti escritas por ajedrezlatitudsur",
+    "source": "wp:escritor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://llegoeltiempodedios.wordpress.com/2026/07/25/libro-jesucristo-el-cumplimiento-perfecto-de-las-profecias-mesianicas-capitulo-59/feed",
+    "title": "Libro: Jesucristo: El Cumplimiento Perfecto de las Profecías Mesiánicas.",
+    "source": "wp:escritor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://avcomics.wordpress.com/2009/05/01/el-tiro-del-final/feed",
+    "title": "El tiro del final | Cuadritos, periodismo de historieta",
+    "source": "wp:escritor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://elmundodrow.wordpress.com/tag/ursula-k-le-guin/feed",
+    "title": "Entradas sobre Ursula K. Le Guin escritas por Adhara Web",
+    "source": "wp:escritor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://milpluminesargentinos.wordpress.com/2012/06/02/altamirano/feed",
+    "title": "Altamirano | MIL plumines de la historieta argentina",
+    "source": "wp:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://larasolucionesopticas.wordpress.com/author/alalufsonido/feed",
+    "title": "Rodolfo Alaluf Fotógrafo – Realizador Audiovisual.",
+    "source": "wp:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2016/05/06/happiness-engineers-argentina-spain/feed",
+    "title": "Hablas español? ¿Te gusta ayudar a la gente? Preséntate para...",
+    "source": "wp:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://revistaelinterpretador.wordpress.com/2016/10/27/el-faro-de-guereno/feed",
+    "title": "El faro de Guereño – archivos de la revista el interpretador",
+    "source": "wp:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://llegoeltiempodedios.wordpress.com/2026/07/24/libro-jesucristo-el-cumplimiento-perfecto-de-las-profecias-mesianicas-capitulo-33/feed",
+    "title": "Libro: Jesucristo: El Cumplimiento Perfecto de las Profecías Mesiánicas.",
+    "source": "wp:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://musicarberdi.wordpress.com/2009/10/20/feed",
+    "title": "20 | octubre | 2009 | TangoRBerdi - Tango y Otras",
+    "source": "wp:autor",
+    "country": "argentina"
+  },
+  {
+    "url": "https://descarriada.ghost.io/rss",
+    "title": "Se ha vuelto tan común la destrucción | Jhafis Quintero",
+    "source": "platform:ghost.io",
+    "country": "argentina"
+  },
+  {
+    "url": "https://acao-amazonia.ghost.io/rss",
+    "title": "Monitor das ONGs: quem vigia os vigilantes?",
+    "source": "platform:ghost.io",
+    "country": "argentina"
+  },
+  {
+    "url": "https://jorgealiagacacho.blogspot.com/feeds/posts/default",
+    "title": "Jorge Aliaga Cacho: Lo que aturde.",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://oyeborges.blogspot.com/feeds/posts/default",
+    "title": "Oye Borges: Ricardo Darín y Julio Bocca, juntos: el actor grabó textos...",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://marioszichman.blogspot.com/feeds/posts/default",
+    "title": "MARIO SZICHMAN: La Trilogía del Mar Dulce. Un extraño en un país...",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://alejandro-8.blogspot.com/feeds/posts/default",
+    "title": "Historia y tecnología militar: Rusia: análisis de ventas a Argentina",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://bruce-lab.blogspot.com/feeds/posts/default",
+    "title": "Madero Poker Capitalist: Guía Completa para Apostadores en Argentina",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://golosinacanibal.blogspot.com/feeds/posts/default",
+    "title": "Golosina Caníbal: julio 2026",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://lasmusasdespiertas.blogspot.com/feeds/posts/default",
+    "title": "Entrevistas: Martha Velandia Gonzalez: \"No hay nada más satisfactorio...",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://mispoetascontemporaneos2.blogspot.com/feeds/posts/default",
+    "title": "Mispoetascontemporaneos2: Poema de Leonor Mauvecin",
+    "source": "platform:blogspot.com",
+    "country": "argentina"
+  },
+  {
+    "url": "https://escritores.wordpress.com/comments/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "assoc:es",
+    "country": "argentina"
+  },
+  {
+    "url": "https://sepaargentina.com/feed/",
+    "title": "Segunda Asociación de Escritores de Santa Fe de la Vera Cruz.",
+    "source": "assoc:es",
+    "country": "argentina"
+  },
+  {
+    "url": "https://www.dipublico.org/feed/",
+    "title": "Asociación de Escritores y Artistas",
+    "source": "assoc:es",
+    "country": "argentina"
+  }
+]

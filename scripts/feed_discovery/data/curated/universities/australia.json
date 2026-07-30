@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCF9LObuThf_u28W1NzJvy6g",
+    "category": "Education",
+    "title": "Adelaide University (YouTube)",
+    "genre": "University",
+    "source_page": "https://adelaide.edu.au/",
+    "national": true,
+    "national_reason": "universities/youtube/australia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UClGxatJPSJUZmSEzuVSXT1w",
+    "category": "Education",
+    "title": "Australian College of Rural and Remote Medicine (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.acrrm.org.au/",
+    "national": true,
+    "national_reason": "universities/youtube/australia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

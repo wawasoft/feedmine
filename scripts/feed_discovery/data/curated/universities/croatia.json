@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC37ArmUsdasXOeY5lylV_8g",
+    "category": "Education",
+    "title": "RIT Croatia (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.rit.edu/croatia/",
+    "national": true,
+    "national_reason": "universities/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UChMuIcRS-T9rLnhwzNflLww",
+    "category": "Education",
+    "title": "University of Pula (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.unipu.hr/",
+    "national": true,
+    "national_reason": "universities/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCLYkpu0U3jJUbDf_jeNnP8A",
+    "category": "Education",
+    "title": "University of Split (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.unist.hr/en",
+    "national": true,
+    "national_reason": "universities/youtube/croatia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

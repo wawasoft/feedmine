@@ -1,0 +1,800 @@
+[
+  {
+    "name": "Q10771896",
+    "website": "http://hocvienquany.vn/",
+    "wikidata_id": "Q10771896",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Q125375684",
+    "website": "https://vlvc.edu.vn/",
+    "wikidata_id": "Q125375684",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Q65172277",
+    "website": "http://www.vnad.edu.vn",
+    "wikidata_id": "Q65172277",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "An Giang University",
+    "website": "http://www.agu.edu.vn",
+    "wikidata_id": "Q4750013",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/An_Giang_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ba Ria - Vung Tau University",
+    "website": "http://www.bvu.edu.vn/",
+    "wikidata_id": "Q10829018",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Bac Ha International University",
+    "website": "http://www.bhiu.edu.vn",
+    "wikidata_id": "Q10829118",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bac_Ha_International_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Banking Academy of Vietnam",
+    "website": "https://en.hvnh.edu.vn/",
+    "wikidata_id": "Q10771894",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Campus of the University of Da Nang in Kon Tum",
+    "website": "http://www.kontum.udn.vn/",
+    "wikidata_id": "Q10805714",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Can Tho University",
+    "website": "https://www.ctu.edu.vn",
+    "wikidata_id": "Q5029090",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Can_Tho_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Cetana PSB International College-English Business Tourism Hospitality",
+    "website": "http://www.psbcollege.edu.vn",
+    "wikidata_id": "Q5065626",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Da Nang University of Science and Technology",
+    "website": "http://www.dut.edu.vn/en/",
+    "wikidata_id": "Q5207276",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Da_Nang_University_of_Science_and_Technology",
+    "country": "vietnam"
+  },
+  {
+    "name": "Dai Nam University",
+    "website": "https://dainam.edu.vn/",
+    "wikidata_id": "Q10829182",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Dalat University",
+    "website": "http://www.dlu.edu.vn/",
+    "wikidata_id": "Q3177493",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dalat_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Danang University of Medicine and Pharmacy Technology",
+    "website": "https://dhktyduocdn.edu.vn/",
+    "wikidata_id": "Q109435303",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Dong Nai University of Technology",
+    "website": "https://dntu.edu.vn/",
+    "wikidata_id": "Q101000030",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Dong Thap University",
+    "website": "http://www.dthu.edu.vn/",
+    "wikidata_id": "Q30263747",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dong_Thap_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Electric Power University",
+    "website": "http://www.epu.edu.vn",
+    "wikidata_id": "Q5357466",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Electric_Power_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "FPT University",
+    "website": "https://daihoc.fpt.edu.vn",
+    "wikidata_id": "Q610220",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/FPT_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Foreign Trade University",
+    "website": "https://www.ftu.edu.vn/",
+    "wikidata_id": "Q5468340",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Foreign_Trade_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ha Tinh University",
+    "website": "https://www.htu.edu.vn/",
+    "wikidata_id": "Q10829051",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hai Phong University",
+    "website": "http://www.dhhp.edu.vn/",
+    "wikidata_id": "Q5638944",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Haiphong_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hai Phong University of Management and Technology",
+    "website": "https://hpu.edu.vn/",
+    "wikidata_id": "Q10829035",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Haiphong Private University",
+    "website": "https://hpu.edu.vn/",
+    "wikidata_id": "Q101000053",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi Architectural University",
+    "website": "http://hau.edu.vn/",
+    "wikidata_id": "Q6131246",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_Architectural_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi College of Fine Arts",
+    "website": "http://mythuatvietnam.edu.vn/",
+    "wikidata_id": "Q3815307",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vietnam_University_of_Fine_Arts",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi College of Technology and Commerce",
+    "website": "http://www.congthuonghanoi.edu.vn",
+    "wikidata_id": "Q10828782",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi National University of Education",
+    "website": "https://hnue.edu.vn/",
+    "wikidata_id": "Q5649329",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_National_University_of_Education",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi Pedagogical University 2",
+    "website": "http://www.hpu2.edu.vn",
+    "wikidata_id": "Q50309576",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University",
+    "website": "http://www.hanu.vn/",
+    "wikidata_id": "Q10829049",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University Of Public Health",
+    "website": "https://huph.edu.vn/english/",
+    "wikidata_id": "Q5649327",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University_of_Public_Health",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University of Education and Sport",
+    "website": "http://dhsptdtthanoi.edu.vn/",
+    "wikidata_id": "Q10829134",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University of Industry",
+    "website": "http://www.haui.edu.vn/vn",
+    "wikidata_id": "Q16892082",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University_of_Industry",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University of Mining and Geology",
+    "website": "http://humg.edu.vn/Pages/home.aspx",
+    "wikidata_id": "Q10829093",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University_of_Mining_and_Geology",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University of Natural Resources and Environment",
+    "website": "http://hunre.edu.vn",
+    "wikidata_id": "Q18461615",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University_of_Natural_Resources_and_Environment",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University of Pharmacy",
+    "website": "http://www.hup.edu.vn",
+    "wikidata_id": "Q16944333",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University_of_Pharmacy",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hanoi University of Science and Technology",
+    "website": "http://www.hust.edu.vn",
+    "wikidata_id": "Q3075696",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University_of_Science_and_Technology",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City Architecture University",
+    "website": "https://ump.edu.vn/",
+    "wikidata_id": "Q3037890",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Architecture_Ho_Chi_Minh_City",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City Fine Arts University",
+    "website": "http://hcmufa.edu.vn/",
+    "wikidata_id": "Q877269",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Fine_Arts",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City International University",
+    "website": "http://www.hcmiu.edu.vn/",
+    "wikidata_id": "Q5873959",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_International_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City Open University",
+    "website": "http://www.ou.edu.vn/",
+    "wikidata_id": "Q10829094",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_Open_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City University of Economics and Law",
+    "website": "http://www.uel.edu.vn/",
+    "wikidata_id": "Q10829073",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Economics_and_Law",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City University of Foreign Languages and Information Technology",
+    "website": "http://www.huflit.edu.vn/",
+    "wikidata_id": "Q5873989",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Foreign_Languages_and_Information_Technology",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City University of Law",
+    "website": "http://www.hcmulaw.edu.vn/",
+    "wikidata_id": "Q5874003",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Law",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City University of Science",
+    "website": "http://www.hcmus.edu.vn/",
+    "wikidata_id": "Q5873997",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Science",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City University of Technology",
+    "website": "http://www.hcmut.edu.vn",
+    "wikidata_id": "Q3101701",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Technology",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City University of Technology and Engineering",
+    "website": "http://www.hcmute.edu.vn",
+    "wikidata_id": "Q10829131",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Technology_and_Engineering",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh City University of Transportation",
+    "website": "http://www.hcmutrans.edu.vn/",
+    "wikidata_id": "Q10829043",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Transport",
+    "country": "vietnam"
+  },
+  {
+    "name": "Ho Chi Minh National Academy of Politics",
+    "website": "https://hcma.vn/",
+    "wikidata_id": "Q10771879",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hue University",
+    "website": "http://www.hueuni.edu.vn/",
+    "wikidata_id": "Q1310048",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hu%E1%BA%BF_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hue University of Education",
+    "website": "http://www.dhsphue.edu.vn/",
+    "wikidata_id": "Q10829127",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hung Vuong University",
+    "website": "http://hvu.edu.vn",
+    "wikidata_id": "Q10829053",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hung_Vuong_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Hồng Đức University",
+    "website": "http://www.hdu.edu.vn/",
+    "wikidata_id": "Q10829017",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/H%E1%BB%93ng_%C4%90%E1%BB%A9c_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Industrial University of Ho Chi Minh City",
+    "website": "http://www.hui.edu.vn/",
+    "wikidata_id": "Q7895548",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Industrial_University_of_Ho_Chi_Minh_City",
+    "country": "vietnam"
+  },
+  {
+    "name": "Institut de la Francophonie pour l'Informatique",
+    "website": "http://www.ifi.auf.org",
+    "wikidata_id": "Q2496369",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institut_de_la_Francophonie_pour_l%27Informatique",
+    "country": "vietnam"
+  },
+  {
+    "name": "Kien Giang University",
+    "website": "https://www.vnkgu.edu.vn",
+    "wikidata_id": "Q65172352",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Lac Hong University",
+    "website": "http://lhu.edu.vn/",
+    "wikidata_id": "Q10829092",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/L%E1%BA%A1c_H%E1%BB%93ng_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Lang Son College of Education",
+    "website": "https://lce.edu.vn/",
+    "wikidata_id": "Q123425613",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Le Quy Don Technical University",
+    "website": "https://mta.edu.vn",
+    "wikidata_id": "Q4130078",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Le_Quy_Don_Technical_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "MICA Institute",
+    "website": "http://www.mica.edu.vn",
+    "wikidata_id": "Q17073291",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/MICA_Institute",
+    "country": "vietnam"
+  },
+  {
+    "name": "Mien Tay Construction University",
+    "website": "http://mtu.edu.vn/",
+    "wikidata_id": "Q61128838",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Mientrung University Of Civil Engineering",
+    "website": "http://muce.edu.vn/",
+    "wikidata_id": "Q10829166",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "National Economics University",
+    "website": "http://www.en.neu.edu.vn/",
+    "wikidata_id": "Q6972380",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Economics_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Nguyen Tat Thanh University",
+    "website": "https://ntt.edu.vn/",
+    "wikidata_id": "Q10829104",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Nha Trang University",
+    "website": "http://www.ntu.edu.vn/",
+    "wikidata_id": "Q2740474",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nha_Trang_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Nong Lam University",
+    "website": "http://www.hcmuaf.edu.vn/",
+    "wikidata_id": "Q5873976",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Agriculture_and_Forestry",
+    "country": "vietnam"
+  },
+  {
+    "name": "PetroVietnam University",
+    "website": "http://www.pvu.edu.vn/",
+    "wikidata_id": "Q10829040",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Pham Van Dong University",
+    "website": "http://www.pdu.edu.vn/",
+    "wikidata_id": "Q10829114",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Phu Xuan University",
+    "website": "http://www.phuxuan.edu.vn/",
+    "wikidata_id": "Q16481063",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Posts and Telecommunications Institute of Technology",
+    "website": "http://www.ptit.edu.vn/",
+    "wikidata_id": "Q10771881",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Quang Binh University",
+    "website": "http://www.quangbinhuni.edu.vn",
+    "wikidata_id": "Q2406422",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Qu%E1%BA%A3ng_B%C3%ACnh_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Quang Nam University",
+    "website": "http://qnamuni.edu.vn/",
+    "wikidata_id": "Q10829117",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "RMIT University Vietnam",
+    "website": "http://www.rmit.edu.vn",
+    "wikidata_id": "Q7277005",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Royal_Melbourne_Institute_of_Technology_Vietnam",
+    "country": "vietnam"
+  },
+  {
+    "name": "Saigon Technology University",
+    "website": "http://www.stu.edu.vn",
+    "wikidata_id": "Q7400087",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saigon_Technology_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Saigon University",
+    "website": "http://www.sgu.edu.vn",
+    "wikidata_id": "Q368923",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Saigon_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Tan Trao University",
+    "website": "https://daihoctantrao.edu.vn/",
+    "wikidata_id": "Q123724532",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Tay Nguyen University",
+    "website": "https://www.ttn.edu.vn/",
+    "wikidata_id": "Q16480583",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thai Binh Duong University",
+    "website": "https://tbd.edu.vn",
+    "wikidata_id": "Q10829139",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thai Nguyen University",
+    "website": "http://www.tnu.edu.vn/",
+    "wikidata_id": "Q10841229",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thai Nguyen University of Medicine and Pharmacy",
+    "website": "https://tump.edu.vn/",
+    "wikidata_id": "Q10829169",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thai Nguyen University of Technology",
+    "website": "http://www.tnut.edu.vn/",
+    "wikidata_id": "Q10829082",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thanh Do University",
+    "website": "https://thanhdo.edu.vn/",
+    "wikidata_id": "Q10829137",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thanh Hoa University of Culture, Sports and Tourism",
+    "website": "https://tucst.edu.vn",
+    "wikidata_id": "Q10829162",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thanh Tay University",
+    "website": "http://www.thanhtay.edu.vn/",
+    "wikidata_id": "Q10829136",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "The American University of Vietnam",
+    "website": "http://www.auv.edu.vn",
+    "wikidata_id": "Q7713573",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/American_University_in_Vietnam",
+    "country": "vietnam"
+  },
+  {
+    "name": "Thu Dau Mot University",
+    "website": "https://tdmu.edu.vn/",
+    "wikidata_id": "Q10829145",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Tra Vinh University",
+    "website": "http://www.tvu.edu.vn/",
+    "wikidata_id": "Q10829149",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tra_Vinh_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Trade Union University",
+    "website": "http://www.dhcd.edu.vn/",
+    "wikidata_id": "Q16480704",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Tân Tạo University",
+    "website": "http://ttu.edu.vn/",
+    "wikidata_id": "Q10829155",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/T%C3%A2n_T%E1%BA%A1o_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Tôn Đức Thắng University",
+    "website": "https://www.tdtu.edu.vn",
+    "wikidata_id": "Q1457082",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/T%C3%B4n_%C4%90%E1%BB%A9c_Th%E1%BA%AFng_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Civil Engineering of Vietnam",
+    "website": "http://nuce.edu.vn",
+    "wikidata_id": "Q6134439",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hanoi_University_of_Civil_Engineering",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Da Nang",
+    "website": "http://www.udn.vn/",
+    "wikidata_id": "Q945839",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Da_Nang",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Economics, Ho Chi Minh City",
+    "website": "http://www.ueh.edu.vn/",
+    "wikidata_id": "Q2562140",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Economics_Ho_Chi_Minh_City",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Finance - Marketing",
+    "website": "http://ufm.edu.vn/",
+    "wikidata_id": "Q10829152",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Fire Fighting and Prevention",
+    "website": "https://daihocpccc.edu.vn/",
+    "wikidata_id": "Q20026261",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Khanh Hoa",
+    "website": "http://ukh.edu.vn/",
+    "wikidata_id": "Q10828807",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Languages and International Studies",
+    "website": "http://www.ulis.vnu.edu.vn/",
+    "wikidata_id": "Q7895616",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/VNU_University_of_Languages_and_International_Studies",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Social Sciences and Humanities, VNU Hanoi",
+    "website": "http://ussh.vnu.edu.vn",
+    "wikidata_id": "Q10829064",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/VNU_University_of_Social_Sciences_and_Humanities",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Technology and Education",
+    "website": "http://www.utehy.edu.vn",
+    "wikidata_id": "Q7896405",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hung_Yen_University_of_Technology_and_Education",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Tran Dai Nghia",
+    "website": "http://tdnu.edu.vn/",
+    "wikidata_id": "Q10829151",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Transport Technology",
+    "website": "https://utt.edu.vn/",
+    "wikidata_id": "Q20025751",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "University of Transport and Communications",
+    "website": "https://www.utc.edu.vn/",
+    "wikidata_id": "Q10829041",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Transport_and_Communications",
+    "country": "vietnam"
+  },
+  {
+    "name": "Van Lang University",
+    "website": "http://www.vanlanguni.edu.vn",
+    "wikidata_id": "Q7913477",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/V%C4%83n_Lang_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Van Xuan University of Technology",
+    "website": "https://www.vxut.edu.vn/",
+    "wikidata_id": "Q7913787",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Van_Xuan_University_of_Technology",
+    "country": "vietnam"
+  },
+  {
+    "name": "Viet-Hung Industrial University",
+    "website": "https://viu.edu.vn/",
+    "wikidata_id": "Q16480995",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vietnam Aviation Academy",
+    "website": "https://vaa.edu.vn/",
+    "wikidata_id": "Q302448",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vietnam_Aviation_Academy",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vietnam National Academy of Music",
+    "website": "https://www.vnam.edu.vn/",
+    "wikidata_id": "Q5649320",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vietnam_National_Academy_of_Music",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vietnam National University",
+    "website": "http://www.vnuhcm.edu.vn/",
+    "wikidata_id": "Q943759",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vietnam_National_University,_Ho_Chi_Minh_City",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vietnam National University Ho Chi Minh City, University of Social Sciences and Humanities (VNUHCM-USSH)",
+    "website": "http://www.hcmussh.edu.vn/",
+    "wikidata_id": "Q5873999",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ho_Chi_Minh_City_University_of_Social_Sciences_and_Humanities",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vietnam National University of Forestry",
+    "website": "http://en.vnuf.edu.vn/home",
+    "wikidata_id": "Q10829090",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vietnam_National_University_of_Forestry",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vietnamese-German University",
+    "website": "http://www.vgu.edu.vn",
+    "wikidata_id": "Q835285",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vietnamese-German_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vietnamese-Japanese Foreign Language-Technology College",
+    "website": "http://cnc.edu.vn/?setLanguage=en",
+    "wikidata_id": "Q14655485",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vietnamese-Japanese_Foreign_Language-Technology_College",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vinh Long University of Technology and Education",
+    "website": "http://vlute.edu.vn/vi",
+    "wikidata_id": "Q108737605",
+    "wikipedia_url": "",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vinh University",
+    "website": "https://vinhuni.edu.vn/",
+    "wikidata_id": "Q20984308",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vinh_University",
+    "country": "vietnam"
+  },
+  {
+    "name": "Vinh medical university",
+    "website": "http://www.vmu.edu.vn",
+    "wikidata_id": "Q717262",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vinh_Medical_University",
+    "country": "vietnam"
+  }
+]

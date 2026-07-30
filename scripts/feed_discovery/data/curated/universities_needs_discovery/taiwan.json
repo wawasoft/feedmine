@@ -1,0 +1,758 @@
+[
+  {
+    "name": "Aletheia University",
+    "website": "http://www.au.edu.tw",
+    "wikidata_id": "Q4716513",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Aletheia_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Asia Eastern University of Science and Technology",
+    "website": "https://eng-rp.aeust.edu.tw/",
+    "wikidata_id": "Q10882754",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asia_Eastern_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Asia-Pacific Institute of Creativity",
+    "website": "http://www.apic.edu.tw/",
+    "wikidata_id": "Q303316",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Asia-Pacific_Institute_of_Creativity",
+    "country": "taiwan"
+  },
+  {
+    "name": "CTBC Business School",
+    "website": "http://www.ctbc.edu.tw/",
+    "wikidata_id": "Q11613368",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/CTBC_Business_School",
+    "country": "taiwan"
+  },
+  {
+    "name": "CTBC University of Technology",
+    "website": "https://www.feu.edu.tw/",
+    "wikidata_id": "Q5434553",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/CTBC_University_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Cardinal Tien College of Healthcare and Management",
+    "website": "http://www.ctcn.edu.tw/ctcnEnglish/ctcnindexEN.htm",
+    "wikidata_id": "Q15574199",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cardinal_Tien_College_of_Healthcare_and_Management",
+    "country": "taiwan"
+  },
+  {
+    "name": "Central Police University",
+    "website": "http://www.cpu.edu.tw/",
+    "wikidata_id": "Q10875117",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Central_Police_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Cheng Shiu University",
+    "website": "http://www.csu.edu.tw/",
+    "wikidata_id": "Q11123301",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Cheng_Shiu_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Chienkuo Technology University",
+    "website": "https://www.ctu.edu.tw/index.php?Lang=en",
+    "wikidata_id": "Q11065261",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chienkuo_Technology_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Chihlee University of Technology",
+    "website": "http://www.chihlee.edu.tw/",
+    "wikidata_id": "Q5097298",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chihlee_University_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Chung Hua University",
+    "website": "http://www.chu.edu.tw/",
+    "wikidata_id": "Q718352",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chung_Hua_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Chung Shan Medical University",
+    "website": "http://www.csmu.edu.tw/",
+    "wikidata_id": "Q5116334",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chung_Shan_Medical_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Chung Yuan Christian University",
+    "website": "http://www.cycu.edu.tw",
+    "wikidata_id": "Q5116360",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Chung_Yuan_Christian_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Chung-hwa Institute of Buddhist Studies",
+    "website": "http://www.chibs.edu.tw/",
+    "wikidata_id": "Q20962476",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "College of Earth Sciences, National Central University",
+    "website": "https://escollege.ncu.edu.tw/",
+    "wikidata_id": "Q16078431",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "College of International Affairs, NCCU",
+    "website": "https://ocia.nccu.edu.tw/eng/PageFront?fid=766",
+    "wikidata_id": "Q18652238",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "Dahan Institute of Technology",
+    "website": "http://www.dahan.edu.tw/",
+    "wikidata_id": "Q10936612",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dahan_Institute_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Deh Yu College of Nursing and Health",
+    "website": "http://www.cku.edu.tw/",
+    "wikidata_id": "Q11606404",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Deh_Yu_College_of_Nursing_and_Health",
+    "country": "taiwan"
+  },
+  {
+    "name": "Dharma Drum Institute of Liberal Arts",
+    "website": "https://en.bs.dila.edu.tw/",
+    "wikidata_id": "Q11143772",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "Fooyin University",
+    "website": "http://web.fy.edu.tw/",
+    "wikidata_id": "Q11637637",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fooyin_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Fortune Institute of Technology",
+    "website": "http://www.fotech.edu.tw/",
+    "wikidata_id": "Q10921575",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fortune_Institute_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Hsin Sheng College of Medical Care and Management",
+    "website": "http://www.hsc.edu.tw/",
+    "wikidata_id": "Q11083374",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hsin_Sheng_College_of_Medical_Care_and_Management",
+    "country": "taiwan"
+  },
+  {
+    "name": "Hsing Wu University",
+    "website": "https://en.hwu.edu.tw/",
+    "wikidata_id": "Q11644486",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hsing_Wu_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Hsiuping University of Science and Technology",
+    "website": "https://www.hust.edu.tw/eng/",
+    "wikidata_id": "Q10888084",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hsiuping_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Hsuan Chuang University",
+    "website": "http://www.hcu.edu.tw/",
+    "wikidata_id": "Q5924445",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hsuan_Chuang_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Huafan University",
+    "website": "http://www.HFU.edu.tw/",
+    "wikidata_id": "Q5925062",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Huafan_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Hungkuang University",
+    "website": "http://www.hk.edu.tw/main.php",
+    "wikidata_id": "Q11066366",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hungkuang_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Hwa Hsia Institute of Technology",
+    "website": "http://www.hwh.edu.tw",
+    "wikidata_id": "Q11620058",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hwa_Hsia_University_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "I-shou University",
+    "website": "http://www.isu.edu.tw/",
+    "wikidata_id": "Q2592553",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/I-Shou_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Jinwen University of Science and Technology",
+    "website": "http://www.just.edu.tw",
+    "wikidata_id": "Q11090053",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jinwen_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Kainan University",
+    "website": "http://www.knu.edu.tw/",
+    "wikidata_id": "Q11655183",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kainan_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Kao Fong College of Digital Contents",
+    "website": "http://www.kfcdc.edu.tw/",
+    "wikidata_id": "Q15633777",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kao_Fong_College_of_Digital_Contents",
+    "country": "taiwan"
+  },
+  {
+    "name": "Kaohsiung Medical University",
+    "website": "https://www.kmu.edu.tw/",
+    "wikidata_id": "Q700801",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kaohsiung_Medical_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Kun Shan University",
+    "website": "https://eng-www.ksu.edu.tw/",
+    "wikidata_id": "Q11053261",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kun_Shan_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Lee-Ming Institute of Technology",
+    "website": "http://www.lit.edu.tw/",
+    "wikidata_id": "Q11086700",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lee-Ming_Institute_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Ling Tung University",
+    "website": "http://www.ltu.edu.tw/bin/home.php",
+    "wikidata_id": "Q6553710",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ling_Tung_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Lunghwa University of Science and Technology",
+    "website": "http://www.lhu.edu.tw/",
+    "wikidata_id": "Q6704331",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lunghwa_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "MacKay Junior College of Medicine, Nursing and Management",
+    "website": "http://www.mkc.edu.tw",
+    "wikidata_id": "Q11667813",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "MacKay Medical University",
+    "website": "http://www.mmc.edu.tw",
+    "wikidata_id": "Q14469027",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/MacKay_Medical_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Min-Hwei College of Health Care Management",
+    "website": "http://www.mhchcm.edu.tw/bin/home.php",
+    "wikidata_id": "Q11079070",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "Ming Chi University of Technology",
+    "website": "http://www.mcut.edu.tw",
+    "wikidata_id": "Q11087869",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ming_Chi_University_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Mingdao University",
+    "website": "https://mdu.edu.tw/",
+    "wikidata_id": "Q11088217",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/MingDao_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Minth University of Science and Technology",
+    "website": "http://www.tust.edu.tw/bin/home.php",
+    "wikidata_id": "Q10937802",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ta_Hwa_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "NDHU College of Humanities and Social Sciences",
+    "website": "https://chass.ndhu.edu.tw",
+    "wikidata_id": "Q30950718",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/NDHU_College_of_Humanities_and_Social_Sciences",
+    "country": "taiwan"
+  },
+  {
+    "name": "NDHU College of Indigenous Studies",
+    "website": "https://cis.ndhu.edu.tw",
+    "wikidata_id": "Q86728197",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/NDHU_College_of_Indigenous_Studies",
+    "country": "taiwan"
+  },
+  {
+    "name": "NDHU College of Science and Engineering",
+    "website": "https://csae.ndhu.edu.tw",
+    "wikidata_id": "Q97348429",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/NDHU_College_of_Science_and_Engineering",
+    "country": "taiwan"
+  },
+  {
+    "name": "NDHU College of The Arts",
+    "website": "https://arts.ndhu.edu.tw",
+    "wikidata_id": "Q28418303",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Dong_Hwa_University_College_of_the_Arts",
+    "country": "taiwan"
+  },
+  {
+    "name": "NDHU Hua-Shih College of Education",
+    "website": "https://education.ndhu.edu.tw",
+    "wikidata_id": "Q107089592",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Dong_Hwa_University_Hua-Shih_College_of_Education",
+    "country": "taiwan"
+  },
+  {
+    "name": "Nan Jeon University of Science and Technology",
+    "website": "http://www.nju.edu.tw/",
+    "wikidata_id": "Q10908234",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nan_Jeon_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Nanya Institute of Technology",
+    "website": "https://web.nanya.edu.tw/english/style01/index.html",
+    "wikidata_id": "Q11111978",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Nanya_Institute_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Changhua University of Education",
+    "website": "https://www.ncue.edu.tw/",
+    "wikidata_id": "Q10739157",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Changhua_University_of_Education",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Chi Nan University",
+    "website": "https://www.ncnu.edu.tw/",
+    "wikidata_id": "Q707653",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Chi_Nan_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Chiayi University",
+    "website": "http://www.ncyu.edu.tw",
+    "wikidata_id": "Q6971460",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Chiayi_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Formosa University",
+    "website": "http://www.nfu.edu.tw/main.php",
+    "wikidata_id": "Q43402",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Formosa_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Ilan University",
+    "website": "http://niu-en.niu.edu.tw/",
+    "wikidata_id": "Q10927040",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Ilan_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Kaohsiung First University of Science and Technology",
+    "website": "http://www.nkfust.edu.tw/",
+    "wikidata_id": "Q707265",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Kaohsiung_First_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Kaohsiung Marine University",
+    "website": "http://www.nkmu.edu.tw/",
+    "wikidata_id": "Q6973904",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Kaohsiung_Marine_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Kaohsiung University of Applied Sciences",
+    "website": "http://www.kuas.edu.tw",
+    "wikidata_id": "Q6973907",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Kaohsiung_University_of_Applied_Sciences",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Kaohsiung University of Hospitality and Tourism",
+    "website": "http://www.nkuht.edu.tw/",
+    "wikidata_id": "Q6973910",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Kaohsiung_University_of_Hospitality_and_Tourism",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Open University",
+    "website": "http://www.nou.edu.tw/",
+    "wikidata_id": "Q6135045",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Open_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Penghu University of Science and Technology",
+    "website": "http://www.npu.edu.tw/",
+    "wikidata_id": "Q6974858",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Penghu_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Pingtung University",
+    "website": "http://www.nptu.edu.tw/",
+    "wikidata_id": "Q15900615",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Pingtung_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Pingtung University of Education",
+    "website": "http://b001.npue.edu.tw/front/bin/home.phtml",
+    "wikidata_id": "Q6974924",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Pingtung_University_of_Education",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Pingtung University of Science and Technology",
+    "website": "http://www.npust.edu.tw/",
+    "wikidata_id": "Q6974928",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Pingtung_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Quemoy University",
+    "website": "http://www.nqu.edu.tw/",
+    "wikidata_id": "Q6975161",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Quemoy_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taichung University of Science and Technology",
+    "website": "http://www.nutc.edu.tw",
+    "wikidata_id": "Q10927162",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taichung_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Tainan Institute of Nursing",
+    "website": "https://www2.ntin.edu.tw/English/IntroIndex.htm",
+    "wikidata_id": "Q10927180",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Tainan_Junior_College_of_Nursing",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taipei University",
+    "website": "http://www.ntpu.edu.tw",
+    "wikidata_id": "Q707456",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taipei_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taipei University of Business",
+    "website": "http://www.ntub.edu.tw/",
+    "wikidata_id": "Q6978823",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taipei_University_of_Business",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taipei University of Education",
+    "website": "http://www.ntue.edu.tw/",
+    "wikidata_id": "Q6978824",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taipei_University_of_Education",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taipei University of Nursing and Health Science",
+    "website": "https://www.ntunhs.edu.tw/",
+    "wikidata_id": "Q10927172",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taipei_University_of_Nursing_and_Health_Science",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taipei University of Technology",
+    "website": "http://www.ntut.edu.tw/",
+    "wikidata_id": "Q6978828",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taipei_University_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taitung Junior College",
+    "website": "http://www.ntc.edu.tw/web_edit/edit_show.asp?ClassID=351",
+    "wikidata_id": "Q10927189",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taitung_Junior_College",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taitung University",
+    "website": "http://www.nttu.edu.tw/",
+    "wikidata_id": "Q10927184",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taitung_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taiwan College of Performing Arts",
+    "website": "http://www.tcpa.edu.tw/",
+    "wikidata_id": "Q10927241",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taiwan_College_of_Performing_Arts",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taiwan University of Arts",
+    "website": "https://www.ntua.edu.tw",
+    "wikidata_id": "Q6978838",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taiwan_University_of_Arts",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Taiwan University of Science and Technology",
+    "website": "https://www.ntust.edu.tw/home.php?Lang=zh-tw",
+    "wikidata_id": "Q699543",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Taiwan_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "National United University",
+    "website": "http://www.nuu.edu.tw/",
+    "wikidata_id": "Q6145842",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_United_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "National University of Kaohsiung",
+    "website": "http://www.nuk.edu.tw/",
+    "wikidata_id": "Q697367",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Kaohsiung",
+    "country": "taiwan"
+  },
+  {
+    "name": "National Yang-Ming University",
+    "website": "https://www.ym.edu.tw",
+    "wikidata_id": "Q718328",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_Yang-Ming_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Open University of Kaohsiung",
+    "website": "http://www.ouk.edu.tw/",
+    "wikidata_id": "Q5926073",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Open_University_of_Kaohsiung",
+    "country": "taiwan"
+  },
+  {
+    "name": "Overseas Chinese University",
+    "website": "http://www.ocu.edu.tw",
+    "wikidata_id": "Q10889350",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Overseas_Chinese_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Shih Chien University",
+    "website": "http://www.usc.edu.tw/",
+    "wikidata_id": "Q642310",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shih_Chien_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Shih Hsin University",
+    "website": "http://www.shu.edu.tw/",
+    "wikidata_id": "Q7496457",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shih_Hsin_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Shu-Zen Junior College of Medicine and Management",
+    "website": "http://www.szmc.edu.tw/",
+    "wikidata_id": "Q11121762",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "Southern Taiwan University of Science and Technology",
+    "website": "https://www.stust.edu.tw/",
+    "wikidata_id": "Q7570538",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Southern_Taiwan_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "St. John's University",
+    "website": "http://www.sju.edu.tw/",
+    "wikidata_id": "Q7588852",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/St._John%27s_University_(Taiwan)",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tainan National University of the Arts",
+    "website": "https://www.tnnua.edu.tw/",
+    "wikidata_id": "Q7676198",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tainan_National_University_of_the_Arts",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tainan University of Technology",
+    "website": "http://www.tut.edu.tw/",
+    "wikidata_id": "Q7676204",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tainan_University_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Taipei City University of Science and Technology",
+    "website": "http://www.tpcu.edu.tw",
+    "wikidata_id": "Q6424882",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taipei_City_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Taipei Municipal University of Education",
+    "website": "http://w3.tmue.edu.tw/",
+    "wikidata_id": "Q11411904",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taipei_Municipal_University_of_Education",
+    "country": "taiwan"
+  },
+  {
+    "name": "Taipei National University of the Arts",
+    "website": "https://www.tnua.edu.tw/?lang=en",
+    "wikidata_id": "Q7676308",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taipei_National_University_of_the_Arts",
+    "country": "taiwan"
+  },
+  {
+    "name": "Taiwan Shoufu University",
+    "website": "https://web.tsu.edu.tw/",
+    "wikidata_id": "Q5955110",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taiwan_Shoufu_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tajen University",
+    "website": "http://www.tajen.edu.tw/",
+    "wikidata_id": "Q7676802",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tajen_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tatung Institute of Technology",
+    "website": "https://www.ttc.edu.tw/",
+    "wikidata_id": "Q7688518",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tatung_Institute_of_Commerce_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tatung University",
+    "website": "http://www.ttu.edu.tw/",
+    "wikidata_id": "Q7688520",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tatung_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "TransWorld University",
+    "website": "https://www.twu.edu.tw/",
+    "wikidata_id": "Q11574133",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/TransWorld_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tungnan University",
+    "website": "http://www.tnu.edu.tw/",
+    "wikidata_id": "Q11103146",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tungnan_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tzu Chi College of Technology",
+    "website": "http://www.tcust.edu.tw/",
+    "wikidata_id": "Q11074044",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tzu_Chi_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tzu Hui Institute of Technology",
+    "website": "http://www.tzuhui.edu.tw/",
+    "wikidata_id": "Q11074018",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tzu_Hui_Institute_of_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Tàiwan Steel University of Science and Technology",
+    "website": "https://www.tsust.edu.tw/app/index.php?Lang=en",
+    "wikidata_id": "Q11672753",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taiwan_Steel_University_of_Science_and_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "University of Kang Ning",
+    "website": "http://www.knjc.edu.tw/",
+    "wikidata_id": "Q11063789",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Kang_Ning",
+    "country": "taiwan"
+  },
+  {
+    "name": "Vanung University",
+    "website": "http://www.vnu.edu.tw",
+    "wikidata_id": "Q13577806",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Vanung_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Wenzao Ursuline University of Languages",
+    "website": "http://www.wzu.edu.tw/",
+    "wikidata_id": "Q706940",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Wenzao_Ursuline_University_of_Languages",
+    "country": "taiwan"
+  },
+  {
+    "name": "Yuan Ze University",
+    "website": "http://www.yzu.edu.tw",
+    "wikidata_id": "Q8060057",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yuan_Ze_University",
+    "country": "taiwan"
+  },
+  {
+    "name": "Yuanpei University of Medical Technology",
+    "website": "https://eng.ypu.edu.tw/",
+    "wikidata_id": "Q10889598",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yuanpei_University_of_Medical_Technology",
+    "country": "taiwan"
+  },
+  {
+    "name": "Yuh-Ing Junior College of Health Care and Management",
+    "website": "http://www.yuhing.edu.tw/",
+    "wikidata_id": "Q15930213",
+    "wikipedia_url": "",
+    "country": "taiwan"
+  },
+  {
+    "name": "Yung Ta Institute of Technology and Commerce",
+    "website": "http://www.ytit.edu.tw/",
+    "wikidata_id": "Q11132781",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yung_Ta_Institute_of_Technology_and_Commerce",
+    "country": "taiwan"
+  }
+]

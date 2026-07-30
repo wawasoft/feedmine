@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCUZXT0zEsNw2M9vR1Uk9lqA",
+    "category": "Education",
+    "title": "Mirpur Cantonment Public School & College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.mcpsc.edu.bd/",
+    "national": true,
+    "national_reason": "universities/youtube/bangladesh",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCRIv1S3qENJQHpxromLW6uw",
+    "category": "Education",
+    "title": "Rajshahi College (YouTube)",
+    "genre": "University",
+    "source_page": "http://rc.gov.bd",
+    "national": true,
+    "national_reason": "universities/youtube/bangladesh",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

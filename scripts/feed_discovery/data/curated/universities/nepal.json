@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCIsMG6H-Kl73_PXoJDJYleQ",
+    "category": "Education",
+    "title": "Aarambha College (YouTube)",
+    "genre": "University",
+    "source_page": "https://aarambhacollege.edu.np/",
+    "national": true,
+    "national_reason": "universities/youtube/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

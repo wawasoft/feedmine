@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC-uCVvyK2fjKCkXLbjFBsCQ",
+    "category": "Education",
+    "title": "Mahasarakham University (YouTube)",
+    "genre": "University",
+    "source_page": "https://inter.msu.ac.th/",
+    "national": true,
+    "national_reason": "universities/youtube/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

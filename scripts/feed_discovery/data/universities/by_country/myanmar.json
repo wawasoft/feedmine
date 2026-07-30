@@ -1,0 +1,758 @@
+[
+  {
+    "name": "Computer University, Loikaw",
+    "wikidata_id": "Q5157501",
+    "website": "http://www.ucsy.edu.mm/loikawcu/index.php",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Computer_University,_Loikaw"
+  },
+  {
+    "name": "Computer University, Monywa",
+    "wikidata_id": "Q5157505",
+    "website": "http://www.ucsy.edu.mm/monywacu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Computer_University,_Monywa"
+  },
+  {
+    "name": "Computer University, Pyay",
+    "wikidata_id": "Q5157509",
+    "website": "http://cupyay.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Computer_University,_Pyay"
+  },
+  {
+    "name": "Computer University, Sittwe",
+    "wikidata_id": "Q5157510",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Computer_University,_Sittwe"
+  },
+  {
+    "name": "Dagon University",
+    "wikidata_id": "Q5208638",
+    "website": "http://www.dagonuniversity.com/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dagon_University"
+  },
+  {
+    "name": "Dhammaduta Chekinda University",
+    "wikidata_id": "Q100418692",
+    "website": "https://www.dcumyanmar.com",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dhammaduta_Chekinda_University"
+  },
+  {
+    "name": "East Yangon University",
+    "wikidata_id": "Q7895354",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/East_Yangon_University"
+  },
+  {
+    "name": "Faith Baptist Bible College & Theological Seminary",
+    "wikidata_id": "Q19894945",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Faith_Baptist_Bible_College_%26_Theological_Seminary_(Myanmar)"
+  },
+  {
+    "name": "GTI Pyin Oo Lwin",
+    "wikidata_id": "Q135917614",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Government Technical Institute (Mawlamyine)",
+    "wikidata_id": "Q35998434",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Government_Technical_Institute_(Mawlamyine)"
+  },
+  {
+    "name": "Government Technical Institute (Thandwe)",
+    "wikidata_id": "Q65938426",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Hpa-An Education College",
+    "wikidata_id": "Q43736907",
+    "website": "http://www.kayinstate.gov.mm/photogallery/kayin-beautiful-places",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Hpa-An University",
+    "wikidata_id": "Q44609570",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Info Myanmar University",
+    "wikidata_id": "Q74480977",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Info_Myanmar_University"
+  },
+  {
+    "name": "International Theravāda Buddhist Missionary University",
+    "wikidata_id": "Q6053947",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_Therav%C4%81da_Buddhist_Missionary_University"
+  },
+  {
+    "name": "Karen Baptist Convention",
+    "wikidata_id": "Q6369505",
+    "website": "http://www.kbcm1913.org",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Karen_Baptist_Convention"
+  },
+  {
+    "name": "Lashio University",
+    "wikidata_id": "Q59821447",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lashio_University"
+  },
+  {
+    "name": "Mandalay Technological University",
+    "wikidata_id": "Q6747771",
+    "website": "http://mtu.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mandalay_Technological_University"
+  },
+  {
+    "name": "Mandalay University",
+    "wikidata_id": "Q6747773",
+    "website": "http://www.mu.edu.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mandalay_University"
+  },
+  {
+    "name": "Mawlamyine University",
+    "wikidata_id": "Q6794427",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mawlamyine_University"
+  },
+  {
+    "name": "McNeilus Maranatha Christian College",
+    "wikidata_id": "Q18209231",
+    "website": "https://www.facebook.com/groups/MMCCMyanmar/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/McNeilus_Maranatha_Christian_College"
+  },
+  {
+    "name": "Monywa Institute of Economics",
+    "wikidata_id": "Q6906986",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Monywa_University_of_Economics"
+  },
+  {
+    "name": "Myanmar Aerospace Engineering University",
+    "wikidata_id": "Q13072889",
+    "website": "http://www.most.gov.mm/maeu/index.php",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Myanmar_Aerospace_Engineering_University"
+  },
+  {
+    "name": "Myanmar Imperial University",
+    "wikidata_id": "Q114494446",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Myanmar_Imperial_University"
+  },
+  {
+    "name": "Myanmar Maritime University",
+    "wikidata_id": "Q6946749",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Myanmar_Maritime_University"
+  },
+  {
+    "name": "Myitkyina University",
+    "wikidata_id": "Q6947498",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Myitkyina_University"
+  },
+  {
+    "name": "National University of Arts and Culture",
+    "wikidata_id": "Q7895316",
+    "website": "http://www.culture.gov.mm/Universities/NUAC_YGN/default.asp",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/National_University_of_Arts_and_Culture,_Yangon"
+  },
+  {
+    "name": "Naypyitaw State Academy",
+    "wikidata_id": "Q117468481",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Naypyitaw_State_Academy"
+  },
+  {
+    "name": "Naypyitaw State Polytechnic University",
+    "wikidata_id": "Q134005760",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Paku Karen Baptist Association",
+    "wikidata_id": "Q7126071",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Paku_Karen_Baptist_Association"
+  },
+  {
+    "name": "Panglong University",
+    "wikidata_id": "Q20992045",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Panglong_University"
+  },
+  {
+    "name": "Pathein University",
+    "wikidata_id": "Q135451195",
+    "website": "http://www.patheinuniversity.edu.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Pyay Technological University",
+    "wikidata_id": "Q7262886",
+    "website": "http://www.most.gov.mm/ptu/index.php",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pyay_Technological_University"
+  },
+  {
+    "name": "Pyay University",
+    "wikidata_id": "Q39050516",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pyay_University"
+  },
+  {
+    "name": "Sagaing Institute of Education",
+    "wikidata_id": "Q7398940",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sagaing_Institute_of_Education"
+  },
+  {
+    "name": "Shan Community College",
+    "wikidata_id": "Q134776985",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Shwebo University",
+    "wikidata_id": "Q25100914",
+    "website": "http://shwebouni.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shwebo_University"
+  },
+  {
+    "name": "State Pariyatti Sasana University, Mandalay",
+    "wikidata_id": "Q57865983",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_Pariyatti_Sasana_University,_Mandalay"
+  },
+  {
+    "name": "State Pariyatti Sasana University, Yangon",
+    "wikidata_id": "Q57866749",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/State_Pariyatti_Sasana_University,_Yangon"
+  },
+  {
+    "name": "Taunggyi University",
+    "wikidata_id": "Q7688746",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taunggyi_University"
+  },
+  {
+    "name": "Taungoo Technological University",
+    "wikidata_id": "Q7688756",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Taungoo"
+  },
+  {
+    "name": "Taungoo University",
+    "wikidata_id": "Q7688758",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Taungoo_University"
+  },
+  {
+    "name": "Technological University Yamethin",
+    "wikidata_id": "Q28085929",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Yamethin"
+  },
+  {
+    "name": "Technological University(Hmawbi)",
+    "wikidata_id": "Q17069523",
+    "website": "http://www.most.gov.mm/hmawbitu/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Hmawbi"
+  },
+  {
+    "name": "Technological University, Bhamo",
+    "wikidata_id": "Q7692485",
+    "website": "http://tubanmaw.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Bhamo"
+  },
+  {
+    "name": "Technological University, Dawei",
+    "wikidata_id": "Q7692486",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Technological University, Hinthada",
+    "wikidata_id": "Q7692487",
+    "website": "http://tuhinthata.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Hinthada"
+  },
+  {
+    "name": "Technological University, Hpa-An",
+    "wikidata_id": "Q7692488",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Hpa-An"
+  },
+  {
+    "name": "Technological University, Kyaingtong",
+    "wikidata_id": "Q7692489",
+    "website": "http://tukyaingtong.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Kyaingtong"
+  },
+  {
+    "name": "Technological University, Kyaukse",
+    "wikidata_id": "Q7692491",
+    "website": "http://tukse.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Kyaukse"
+  },
+  {
+    "name": "Technological University, Lashio",
+    "wikidata_id": "Q25619375",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Lashio"
+  },
+  {
+    "name": "Technological University, Loikaw",
+    "wikidata_id": "Q7692493",
+    "website": "http://tuloikaw.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Loikaw"
+  },
+  {
+    "name": "Technological University, Magway",
+    "wikidata_id": "Q7692494",
+    "website": "http://tumgy.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Magway"
+  },
+  {
+    "name": "Technological University, Maubin",
+    "wikidata_id": "Q7692496",
+    "website": "http://tumaubin.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Maubin"
+  },
+  {
+    "name": "Technological University, Mawlamyaing",
+    "wikidata_id": "Q7692497",
+    "website": "http://www.most.gov.mm/mawlamyaingtu",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Mawlamyaing"
+  },
+  {
+    "name": "Technological University, Meiktila",
+    "wikidata_id": "Q7692498",
+    "website": "http://tumtla.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Meiktila"
+  },
+  {
+    "name": "Technological University, Monywa",
+    "wikidata_id": "Q7692499",
+    "website": "http://tumonywa.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Monywa"
+  },
+  {
+    "name": "Technological University, Myeik",
+    "wikidata_id": "Q7692500",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University,_Myeik"
+  },
+  {
+    "name": "Technological University, Myitkyina",
+    "wikidata_id": "Q16901375",
+    "website": "http://tumka.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Myitkyina"
+  },
+  {
+    "name": "Technological University, Pakokku",
+    "wikidata_id": "Q7692502",
+    "website": "http://tupku.moe-st.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Pakokku"
+  },
+  {
+    "name": "Technological University, Panglong",
+    "wikidata_id": "Q7692503",
+    "website": "http://tupln.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Panglong"
+  },
+  {
+    "name": "Technological University, Pathein",
+    "wikidata_id": "Q7692504",
+    "website": "http://patheintu.edu.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Pathein"
+  },
+  {
+    "name": "Technological University, Sagaing",
+    "wikidata_id": "Q28085949",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Sagaing"
+  },
+  {
+    "name": "Technological University, Sittwe",
+    "wikidata_id": "Q7692505",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Sittwe"
+  },
+  {
+    "name": "Technological University, Taunggyi",
+    "wikidata_id": "Q7692506",
+    "website": "http://tutgi.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Taunggyi"
+  },
+  {
+    "name": "Technological University, Thanlyin",
+    "wikidata_id": "Q7692507",
+    "website": "http://www.ttu.edu.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Technological_University,_Thanlyin"
+  },
+  {
+    "name": "University of Computer Studies",
+    "wikidata_id": "Q103021075",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Computer Studies, Hinthada",
+    "wikidata_id": "Q31757805",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "University of Computer Studies, Mandalay",
+    "wikidata_id": "Q7895292",
+    "website": "http://www.ucsm.edu.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "of_ucsm",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Computer_Studies,_Mandalay"
+  },
+  {
+    "name": "University of Computer Studies, Yangon",
+    "wikidata_id": "Q16959509",
+    "website": "http://www.ucsy.edu.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Computer_Studies,_Yangon"
+  },
+  {
+    "name": "University of Dental Medicine, Yangon",
+    "wikidata_id": "Q7895329",
+    "website": "http://www.udmyangon-edu.com",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Dental_Medicine,_Yangon"
+  },
+  {
+    "name": "University of Distance Education, Mandalay",
+    "wikidata_id": "Q7895341",
+    "website": "http://www.mude.edu.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Distance_Education,_Mandalay"
+  },
+  {
+    "name": "University of Distance Education, Yangon",
+    "wikidata_id": "Q7895342",
+    "website": "http://www.yude.edu.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Distance_Education,_Yangon"
+  },
+  {
+    "name": "University of Forestry",
+    "wikidata_id": "Q7895436",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Forestry_(Yezin)"
+  },
+  {
+    "name": "University of Medicine 1, Yangon",
+    "wikidata_id": "Q10963733",
+    "website": "http://www.um1ygn.edu.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Medicine_1,_Yangon"
+  },
+  {
+    "name": "University of Medicine 2",
+    "wikidata_id": "Q7895727",
+    "website": "http://www.um2ygn.gov.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Medicine_2,_Yangon"
+  },
+  {
+    "name": "University of Medicine, Mandalay",
+    "wikidata_id": "Q10532898",
+    "website": "http://www.ummdy.org/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Medicine,_Mandalay"
+  },
+  {
+    "name": "University of West Yangon",
+    "wikidata_id": "Q7896604",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_West_Yangon"
+  },
+  {
+    "name": "West Yangon Technological University",
+    "wikidata_id": "Q16977868",
+    "website": "http://wytu.moe-st.gov.mm/",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/West_Yangon_Technological_University"
+  },
+  {
+    "name": "Yadanabon University",
+    "wikidata_id": "Q8046517",
+    "website": "http://www.yadanabonuniversity.com",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yadanabon_University"
+  },
+  {
+    "name": "Yangon International Educare Center",
+    "wikidata_id": "Q8048623",
+    "website": "http://www.ismyanmar.com",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": ""
+  },
+  {
+    "name": "Yangon Technological University",
+    "wikidata_id": "Q8048626",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yangon_Technological_University"
+  },
+  {
+    "name": "Yangon University of Education",
+    "wikidata_id": "Q17070286",
+    "website": "http://yioe.edu.mm",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yangon_University_of_Education"
+  },
+  {
+    "name": "Yezin Agricultural University",
+    "wikidata_id": "Q8053355",
+    "website": "",
+    "youtube": "",
+    "instagram": "",
+    "twitter": "",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yezin_Agricultural_University"
+  }
+]

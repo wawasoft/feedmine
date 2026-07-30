@@ -1,0 +1,1997 @@
+[
+  {
+    "name": "Q136815201",
+    "website": "https://pu.ac.ir/",
+    "wikidata_id": "Q136815201",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "AJA University of Medical Sciences",
+    "website": "http://ajaums.ac.ir/",
+    "wikidata_id": "Q5913556",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/AJA_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Abadan University of Medical Sciences",
+    "website": "http://www.abadanums.ac.ir",
+    "wikidata_id": "Q30590249",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Abadan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Adiban Institute of Higher Education",
+    "website": "http://www.adiban.ac.ir/",
+    "wikidata_id": "Q15281629",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Adiban_Institute_of_Higher_Education",
+    "country": "iran"
+  },
+  {
+    "name": "Ahvaz Jundishapur University of Medical Sciences",
+    "website": "http://ajums.ac.ir/",
+    "wikidata_id": "Q4696433",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ahvaz_Jundishapur_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Al-Mustafa International University",
+    "website": "https://miu.ac.ir/",
+    "wikidata_id": "Q5941008",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Al-Mustafa_International_University",
+    "country": "iran"
+  },
+  {
+    "name": "Allameh Mohaddes Noori University",
+    "website": "http://www.mohaddes.ac.ir/",
+    "wikidata_id": "Q4730429",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Allameh_Mohaddes_Nouri_University",
+    "country": "iran"
+  },
+  {
+    "name": "Allameh Tabataba'i University",
+    "website": "http://www.atu.ac.ir/en",
+    "wikidata_id": "Q94902",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Allameh_Tabataba%27i_University",
+    "country": "iran"
+  },
+  {
+    "name": "Allameh Tabatabaei University (RA)",
+    "website": "http://www.abru.ac.ir/",
+    "wikidata_id": "Q5940567",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Alzahra University",
+    "website": "http://www.alzahra.ac.ir/",
+    "wikidata_id": "Q450587",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Alzahra_University",
+    "country": "iran"
+  },
+  {
+    "name": "Amin Police Academy",
+    "website": "https://apu.ac.ir/",
+    "wikidata_id": "Q20110174",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Amin_Police_Academy",
+    "country": "iran"
+  },
+  {
+    "name": "Amirkabir University of Technology, Garmsar branch",
+    "website": "http://garmsar.aut.ac.ir",
+    "wikidata_id": "Q16047108",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Amol University of Special Modern Technologies",
+    "website": "http://www.ausmt.ac.ir/",
+    "wikidata_id": "Q20110168",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Arak University of Medical Sciences",
+    "website": "http://www.arakmu.ac.ir",
+    "wikidata_id": "Q4783795",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arak_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Ardabil University of Medical Sciences",
+    "website": "https://arums.ac.ir",
+    "wikidata_id": "Q10854122",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ardabil_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Art University of Isfahan",
+    "website": "http://aui.ac.ir/",
+    "wikidata_id": "Q10291749",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Isfahan_University_of_Art",
+    "country": "iran"
+  },
+  {
+    "name": "Ashtian Islamic Azad University",
+    "website": "http://www.aiau.ac.ir",
+    "wikidata_id": "Q101002169",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Azad University Tehran medical Branch",
+    "website": "http://www.iautmu.ac.ir/index_en.asp",
+    "wikidata_id": "Q4832063",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Tehran_Medical_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Azad University at Qazvin",
+    "website": "http://www.qiau.ac.ir",
+    "wikidata_id": "Q7267335",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Qazvin_Islamic_Azad_University",
+    "country": "iran"
+  },
+  {
+    "name": "Azarbaijan Shahid Madani University",
+    "website": "http://www.azaruniv.edu",
+    "wikidata_id": "Q4832261",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Azarbaijan_Shahid_Madani_University",
+    "country": "iran"
+  },
+  {
+    "name": "Babol University of Medical Sciences",
+    "website": "http://www.mubabol.ac.ir/",
+    "wikidata_id": "Q4837979",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Babol_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Bahá'í Institute for Higher Education",
+    "website": "http://www.bihe.org",
+    "wikidata_id": "Q3803587",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bah%C3%A1%CA%BC%C3%AD_Institute_for_Higher_Education",
+    "country": "iran"
+  },
+  {
+    "name": "Baqiyatallah University of Medical Sciences",
+    "website": "http://www.bmsu.ac.ir",
+    "wikidata_id": "Q4857819",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Baqiyatallah_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Besat Institute of Higher Education of Kerman",
+    "website": "http://www.besat.ac.ir/",
+    "wikidata_id": "Q4896190",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Besat_Institute_of_Higher_Education_of_Kerman",
+    "country": "iran"
+  },
+  {
+    "name": "Birjand University of Medical Sciences",
+    "website": "http://www.bums.ac.ir",
+    "wikidata_id": "Q4916370",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Birjand_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Birjand University of Technology",
+    "website": "http://birjandut.ac.ir",
+    "wikidata_id": "Q5891865",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Bu-Ali Sina University",
+    "website": "http://www.basu.ac.ir/",
+    "wikidata_id": "Q4982044",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bu-Ali_Sina_University",
+    "country": "iran"
+  },
+  {
+    "name": "Bushehr University of Medical Sciences",
+    "website": "http://www.bpums.ac.ir/En/default.aspx",
+    "wikidata_id": "Q5001479",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Bushehr_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Damghan University",
+    "website": "http://www.du.ac.ir",
+    "wikidata_id": "Q5936995",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Damghan_University",
+    "country": "iran"
+  },
+  {
+    "name": "Dezful University of Medical Sciences",
+    "website": "http://www.dums.ac.ir",
+    "wikidata_id": "Q5925116",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Dezful_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Faculty of Agriculture of Islamic Azad university Roudehen Branch",
+    "website": "http://www.riau.ac.ir/Portal/Home/Default.aspx?CategoryID=4f374b0a-ea35-488c-92be-5bc2be0a6888",
+    "wikidata_id": "Q5428904",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Faculty of Agriculture of Islamic azad university Science and Research branch",
+    "website": "http://srbiau.ac.ir/en/",
+    "wikidata_id": "Q5428900",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Faculty_of_Agriculture_of_Islamic_azad_university_Science_and_Research_branch",
+    "country": "iran"
+  },
+  {
+    "name": "Faculty of Basic Sciences and Engineering, Bijar",
+    "website": "http://fseb.ir/",
+    "wikidata_id": "Q56649152",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Farhangian University of Ilam",
+    "website": "https://ilammodares.cfu.ac.ir/",
+    "wikidata_id": "Q83464926",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Fasa University",
+    "website": "http://www.fasau.ac.ir/",
+    "wikidata_id": "Q44176404",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Fasa_University",
+    "country": "iran"
+  },
+  {
+    "name": "Gerash University of Medical Sciences",
+    "website": "http://www.gerums.ac.ir",
+    "wikidata_id": "Q108123842",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Gilan University of Medical Sciences",
+    "website": "http://www.hic.gums.ac.ir/",
+    "wikidata_id": "Q5560714",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gilan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Golestan University",
+    "website": "http://www.gu.ac.ir",
+    "wikidata_id": "Q5946839",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Golestan_University",
+    "country": "iran"
+  },
+  {
+    "name": "Golestan University of Medical Sciences",
+    "website": "http://www.goums.ac.ir/index.php?slc_lang=en&sid=1",
+    "wikidata_id": "Q30253986",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Golestan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Golpayegan University of Engineering",
+    "website": "http://www.gut.ac.ir/",
+    "wikidata_id": "Q5580945",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Golpayegan_University_of_Engineering",
+    "country": "iran"
+  },
+  {
+    "name": "Gonabad University of Medical Sciences",
+    "website": "http://gmu.ac.ir",
+    "wikidata_id": "Q20831481",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gonabad_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Gonbad-e Kavus University",
+    "website": "http://www.gonbad.ac.ir/",
+    "wikidata_id": "Q30260814",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gonbad_Kavous_University",
+    "country": "iran"
+  },
+  {
+    "name": "Gorgan University",
+    "website": "http://www.gau.ac.ir/",
+    "wikidata_id": "Q5586226",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Gorgan_University",
+    "country": "iran"
+  },
+  {
+    "name": "Hakim Sabzevari University",
+    "website": "http://www.hsu.ac.ir/en/",
+    "wikidata_id": "Q2817327",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hakim_Sabzevari_University",
+    "country": "iran"
+  },
+  {
+    "name": "Hamadan University of Technology",
+    "website": "http://en.hut.ac.ir/",
+    "wikidata_id": "Q10854118",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Hormozgan University",
+    "website": "http://www.hormozgan.ac.ir/",
+    "wikidata_id": "Q5865542",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Hormozgan University of Medical Sciences",
+    "website": "http://hums.ac.ir",
+    "wikidata_id": "Q5943001",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Hormozgan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Ilam University",
+    "website": "http://www.ilam.ac.ir/",
+    "wikidata_id": "Q5940263",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ilam_University",
+    "country": "iran"
+  },
+  {
+    "name": "Imam Hossein University",
+    "website": "http://www.ihu.ac.ir",
+    "wikidata_id": "Q1165865",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Imam_Hossein_University",
+    "country": "iran"
+  },
+  {
+    "name": "Imam Khomeini International University",
+    "website": "http://www.ikiu.ac.ir",
+    "wikidata_id": "Q3086568",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Imam_Khomeini_International_University",
+    "country": "iran"
+  },
+  {
+    "name": "Imam Reza International University",
+    "website": "http://imamreza.ac.ir",
+    "wikidata_id": "Q5951836",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Institute for Advanced Studies in Basic Sciences",
+    "website": "http://www.iasbs.ac.ir/",
+    "wikidata_id": "Q10296988",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_for_Advanced_Studies_in_Basic_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Institute for Cognitive Science Studies",
+    "website": "https://icss.ac.ir",
+    "wikidata_id": "Q10860432",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_for_Cognitive_Science_Studies",
+    "country": "iran"
+  },
+  {
+    "name": "Institute for Humanities and Cultural Studies",
+    "website": "http://www.ihcs.ac.ir/",
+    "wikidata_id": "Q5962529",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Institute_for_Humanities_and_Cultural_Studies",
+    "country": "iran"
+  },
+  {
+    "name": "International University of Chabahar",
+    "website": "http://www.iuc.ac.ir/",
+    "wikidata_id": "Q6054158",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/International_University_of_Chabahar",
+    "country": "iran"
+  },
+  {
+    "name": "Iran University of Science and Technology",
+    "website": "http://www.iust.ac.ir/",
+    "wikidata_id": "Q4115110",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iran_University_of_Science_and_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Iranian Center for Translation Studies",
+    "website": "http://www.translationstudies.ir/",
+    "wikidata_id": "Q6067233",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iranian_Center_for_Translation_Studies",
+    "country": "iran"
+  },
+  {
+    "name": "Iranian Research Institute of Philosophy",
+    "website": "http://www.irip.ir",
+    "wikidata_id": "Q5960959",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iranian_Research_Institute_of_Philosophy",
+    "country": "iran"
+  },
+  {
+    "name": "Iranshahr University of Medical Sciences",
+    "website": "http://irshums.ac.ir",
+    "wikidata_id": "Q27063169",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iranshahr_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Isfahan University of Medical Sciences",
+    "website": "http://www.mui.ac.ir/",
+    "wikidata_id": "Q6079799",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Isfahan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Isfahan University of Technology",
+    "website": "https://iut.ac.ir",
+    "wikidata_id": "Q6079807",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Isfahan_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Ardestan Branch",
+    "website": "https://ardestan.iau.ir",
+    "wikidata_id": "Q101002168",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Bonab Branch",
+    "website": "http://www.bonabiau.ac.ir",
+    "wikidata_id": "Q101002178",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Bushehr Branch",
+    "website": "http://iaubushehr.ac.ir",
+    "wikidata_id": "Q16046830",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Central Tehran Branch",
+    "website": "http://www.iauctb.ac.ir/",
+    "wikidata_id": "Q10854039",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Central_Tehran_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Dental Branch of Tehran",
+    "website": "http://www.dentaliau.ac.ir/",
+    "wikidata_id": "Q6082234",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Tehran_Dental_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Islamshahr Branch",
+    "website": "http://iiau.ac.ir/",
+    "wikidata_id": "Q100956206",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Kurdistan Province",
+    "website": "http://www.iausdj.ac.ir/english/Pages/default.aspx",
+    "wikidata_id": "Q23043421",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Sanandaj_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University North Tehran Branch",
+    "website": "http://www.iau-tnb.ac.ir/",
+    "wikidata_id": "Q6082244",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_North_Tehran_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Of Urmia",
+    "website": "http://www.iaurmia.ac.ir/",
+    "wikidata_id": "Q30263838",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Science and Research Branch",
+    "website": "https://srb.iau.ir/",
+    "wikidata_id": "Q5306939",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Science_and_Research_Branch,_Tehran",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University Yasuj",
+    "website": "https://yasuj.iau.ir/",
+    "wikidata_id": "Q57979445",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University gives a unit",
+    "website": "http://www.maybodiau.ac.ir",
+    "wikidata_id": "Q5925357",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Ahar",
+    "website": "http://www.iau-ahar.ac.ir/",
+    "wikidata_id": "Q6082251",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Ahar_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Aliabad Katoul",
+    "website": "http://www.aliabadiau.ac.ir/",
+    "wikidata_id": "Q50296494",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Amol",
+    "website": "http://www.iauamol.ac.ir",
+    "wikidata_id": "Q5955959",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Anzali",
+    "website": "http://www.iaubanz.ac.ir/",
+    "wikidata_id": "Q6082260",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Arak",
+    "website": "http://arak.iau.ir/",
+    "wikidata_id": "Q6082263",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Ardabil",
+    "website": "http://www.iauardabil.ac.ir/en/index.aspx",
+    "wikidata_id": "Q5767065",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Arsanjan",
+    "website": "http://www.iaua.ac.ir",
+    "wikidata_id": "Q5907894",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Astara",
+    "website": "http://www.iau-astara.ac.ir/",
+    "wikidata_id": "Q5955365",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Astara_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Bandar Abbas",
+    "website": "https://bnd.iau.ir/",
+    "wikidata_id": "Q30266478",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Birjand",
+    "website": "http://www.iaubir.ac.ir",
+    "wikidata_id": "Q15627838",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Birjand_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Bojnord",
+    "website": "http://www.bojnourdiau.ac.ir/",
+    "wikidata_id": "Q6082261",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Bojnourd_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Borujerd",
+    "website": "http://www.iaub.ac.ir/English/Default.aspx",
+    "wikidata_id": "Q5947801",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Bostanabad",
+    "website": "http://www.iaubos.ac.ir/index.aspx",
+    "wikidata_id": "Q30266499",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Bukan",
+    "website": "http://iau-boukan.ac.ir/",
+    "wikidata_id": "Q20110163",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Dehaghan",
+    "website": "http://www.dehaghan.ac.ir/",
+    "wikidata_id": "Q30266483",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Dezful",
+    "website": "http://www.iaud.ac.ir/",
+    "wikidata_id": "Q5954200",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Falavarjan",
+    "website": "http://iaufala.ac.ir/index.aspx?lang=2&sub=0",
+    "wikidata_id": "Q20987842",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Farahan",
+    "website": "http://www.iau-farahan.ac.ir/",
+    "wikidata_id": "Q16938636",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Fasa",
+    "website": "http://iaufasa.ac.ir/homepage.aspx?site=DouranPortal&tabid=1&lang=fa-IR",
+    "wikidata_id": "Q30264382",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Firuzabad",
+    "website": "http://www.iauf.ac.ir",
+    "wikidata_id": "Q101002181",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Firuzkuh",
+    "website": "https://firuzkuh.iau.ir/",
+    "wikidata_id": "Q30273299",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Garmsar",
+    "website": "http://www.iau-garmsar.ac.ir/",
+    "wikidata_id": "Q6082270",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Garmsar_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Gorgan",
+    "website": "http://www.gorganiau.ir/",
+    "wikidata_id": "Q6082275",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Gorgan_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Hamadan",
+    "website": "http://www.iauh.ac.ir/english.html",
+    "wikidata_id": "Q5951130",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Jenah",
+    "website": "http://janahiau.ac.ir/",
+    "wikidata_id": "Q30266489",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Karaj",
+    "website": "http://www.karaj.iau.ir",
+    "wikidata_id": "Q6082280",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Karaj_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Kashan",
+    "website": "https://kashan.iau.ir/",
+    "wikidata_id": "Q10854054",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Kazerun",
+    "website": "https://kazerun.iau.ir/",
+    "wikidata_id": "Q30266491",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Kerman",
+    "website": "http://iauk.ac.ir/en/",
+    "wikidata_id": "Q6558556",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Kermanshah",
+    "website": "http://www.iauksh.ac.ir",
+    "wikidata_id": "Q6082287",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Khomein",
+    "website": "http://iaukhomein.ac.ir/",
+    "wikidata_id": "Q50295640",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Khomeynishahr",
+    "website": "http://www.iaukhsh.ac.ir/",
+    "wikidata_id": "Q6082293",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Khomeyni_Shahr_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Khorasgan",
+    "website": "http://www.khuisf.ac.ir/",
+    "wikidata_id": "Q5963217",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Isfahan_(Khorasgan)_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Kish",
+    "website": "https://kish.iau.ir/",
+    "wikidata_id": "Q109555126",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Komijan",
+    "website": "http://www.komijaniau.ac.ir/",
+    "wikidata_id": "Q10849139",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Komijan_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Lahijan",
+    "website": "http://www.liau.ac.ir/",
+    "wikidata_id": "Q3943854",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Lahijan_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Mahabad",
+    "website": "http://www.iau-mahabad.ac.ir/home.html",
+    "wikidata_id": "Q10854050",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Mahshahr",
+    "website": "http://www.mhriau.ac.ir",
+    "wikidata_id": "Q20110165",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Majlesi",
+    "website": "http://www.iaumajlesi.ac.ir",
+    "wikidata_id": "Q6082299",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Malard",
+    "website": "http://www.iaumalard.ac.ir",
+    "wikidata_id": "Q6082304",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Mashhad",
+    "website": "",
+    "wikidata_id": "Q6082307",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Mashhad_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Masjed Soleyman",
+    "website": "http://www.iaumis.ac.ir/",
+    "wikidata_id": "Q16046819",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Masjed_Soleyman_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Mehriz",
+    "website": "http://www.iaumehriz.ac.ir/",
+    "wikidata_id": "Q30266497",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Meybod",
+    "website": "http://en.maybodiau.ac.ir/",
+    "wikidata_id": "Q30266496",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Mobarakeh",
+    "website": "http://mau.ac.ir/Index.aspx?tempname=engmau&lang=2&sub=0",
+    "wikidata_id": "Q30266498",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Mohajeran",
+    "website": "http://mohaajeran.iau-arak.ac.ir/",
+    "wikidata_id": "Q16047007",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Najafabad",
+    "website": "http://www.iaun.ac.ir/",
+    "wikidata_id": "Q10296808",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Najafabad_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Natanz",
+    "website": "https://natanz.iau.ir",
+    "wikidata_id": "Q113446349",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Nishapur",
+    "website": "http://www.iau-neyshabur.ac.ir/",
+    "wikidata_id": "Q3797974",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University_Neyshabur_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Parand",
+    "website": "http://www.piau.ac.ir",
+    "wikidata_id": "Q6082320",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Qaem Shahr",
+    "website": "http://www.qaemiau.ac.ir/",
+    "wikidata_id": "Q30264130",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Qeshm",
+    "website": "https://qeshm.iau.ir/",
+    "wikidata_id": "Q109555125",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Qom",
+    "website": "http://qom-iau.ac.ir/",
+    "wikidata_id": "Q30266500",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Quchan",
+    "website": "http://www.iauq.ac.ir/en/home",
+    "wikidata_id": "Q30266501",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Rasht",
+    "website": "http://www.iaurasht.ac.ir",
+    "wikidata_id": "Q6082323",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Rasht_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Ray",
+    "website": "http://www.iausr.ac.ir",
+    "wikidata_id": "Q6082334",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Shahr-e-Rey_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Rudehen",
+    "website": "http://riau.ac.ir/en",
+    "wikidata_id": "Q5945012",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Roudehen_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Sabzevar",
+    "website": "http://www.iaus.ac.ir",
+    "wikidata_id": "Q10854043",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Sabzevar_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Sari",
+    "website": "https://sari.iau.ir/",
+    "wikidata_id": "Q5957303",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Saveh",
+    "website": "https://iau-saveh.ac.ir/",
+    "wikidata_id": "Q6565726",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Semnan",
+    "website": "http://www.semnaniau.ac.ir/en",
+    "wikidata_id": "Q5949096",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Shahrekord",
+    "website": "http://www.iaushk.ac.ir/",
+    "wikidata_id": "Q16046916",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Shahrud",
+    "website": "https://shahrood.iau.ir/en",
+    "wikidata_id": "Q5860278",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Shiraz",
+    "website": "https://shiraz.iau.ir/",
+    "wikidata_id": "Q6082336",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Shiraz_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Shirvan",
+    "website": "http://www.iau-shirvan.ac.ir/index.aspx?siteid=1&fkeyid=&siteid=1&pageid=1317",
+    "wikidata_id": "Q30266504",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Sirjan",
+    "website": "https://sirjan.iau.ir/",
+    "wikidata_id": "Q100956271",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Tafresh",
+    "website": "http://www.iautb.ac.ir/",
+    "wikidata_id": "Q6082338",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Tafresh_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Takestan",
+    "website": "http://tiau.ac.ir/",
+    "wikidata_id": "Q30263946",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Tonekabon",
+    "website": "http://toniau.ac.ir/main/",
+    "wikidata_id": "Q30262823",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Varamin-Pishva",
+    "website": "http://www.iauvaramin.ac.ir/",
+    "wikidata_id": "Q5948195",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Yazd",
+    "website": "http://www.iauyazd.ac.ir/",
+    "wikidata_id": "Q30263840",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of Zanjan",
+    "website": "http://www.iauz.ac.ir/",
+    "wikidata_id": "Q6082341",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Zanjan_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University of rafsanjan",
+    "website": "http://www.damavandiau.ac.ir/",
+    "wikidata_id": "Q1674115",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Damavand_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Abarkoh branch",
+    "website": "http://www.abarkouhiau.ac.ir",
+    "wikidata_id": "Q5914470",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Ahvaz",
+    "website": "http://iauahvaz.ac.ir/",
+    "wikidata_id": "Q64212487",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_Ahvaz_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Arak Science and Research Unit",
+    "website": "http://www.arak-ac.ir",
+    "wikidata_id": "Q16053573",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Babol branch",
+    "website": "http://www.baboliau.ac.ir",
+    "wikidata_id": "Q17174149",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Buin-Zahra",
+    "website": "http://buiniau.ac.ir/",
+    "wikidata_id": "Q57779710",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Fars Science and Research Branch",
+    "website": "http://www.fsriau.ac.ir/",
+    "wikidata_id": "Q6082233",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Firdous branch",
+    "website": "http://www.ferdowsiau.ac.ir",
+    "wikidata_id": "Q11238752",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Gonabad branch",
+    "website": "http://www.iau-gonabad.ac.ir",
+    "wikidata_id": "Q5961585",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Islamshahr branch",
+    "website": "http://www.iiau.ac.ir",
+    "wikidata_id": "Q5935107",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Jiroft Branch",
+    "website": "http://iauji.ac.ir/",
+    "wikidata_id": "Q17992238",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Khorramabad Branch",
+    "website": "http://khoiau.ac.ir/",
+    "wikidata_id": "Q100956208",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Khorramabad branch",
+    "website": "http://www.khoiau.ac.ir",
+    "wikidata_id": "Q5954937",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Khoy Branch",
+    "website": "http://www.iaukhoy.ac.ir/",
+    "wikidata_id": "Q100956256",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Langarud Branch",
+    "website": "http://www.iaul.ac.ir/",
+    "wikidata_id": "Q56605360",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Larestan Branch",
+    "website": "http://www.iaularestan.ac.ir/",
+    "wikidata_id": "Q100956257",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Malayer Branch",
+    "website": "http://www.iau-malayer.ac.ir/",
+    "wikidata_id": "Q10854048",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Marand",
+    "website": "http://marandiau.ac.ir/",
+    "wikidata_id": "Q50347604",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Marvdasht",
+    "website": "http://www.miau.ac.ir/",
+    "wikidata_id": "Q5956615",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Miyaneh Branch",
+    "website": "http://www.m-iau.ac.ir",
+    "wikidata_id": "Q26231494",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Naragh Branch",
+    "website": "http://www.iau-naragh.ac.ir/",
+    "wikidata_id": "Q77596549",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Nowshahr Branch",
+    "website": "http://en.iauns.ac.ir/",
+    "wikidata_id": "Q100956263",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Sanandaj branch",
+    "website": "http://www.iausdj.ac.ir",
+    "wikidata_id": "Q6412691",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Sarab branch",
+    "website": "http://www.iausa.ac.ir",
+    "wikidata_id": "Q5901776",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Saveh Science and Research Unit",
+    "website": "http://www.sav.srbiau.ac.ir",
+    "wikidata_id": "Q16053581",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Semnan Science and Research Unit",
+    "website": "http://smn.srbiau.ac.ir",
+    "wikidata_id": "Q5751951",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Shoushtar Branch",
+    "website": "http://www.iau-shoushtar.ac.ir/",
+    "wikidata_id": "Q5958774",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, South Tehran Branch",
+    "website": "http://azad.ac.ir/fa",
+    "wikidata_id": "Q6082249",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Islamic_Azad_University,_South_Tehran_Branch",
+    "country": "iran"
+  },
+  {
+    "name": "Islamic Azad University, Zahedan Branch",
+    "website": "http://iauzah.ac.ir/",
+    "wikidata_id": "Q100956214",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Jahrom University",
+    "website": "https://www.jahromu.ac.ir/",
+    "wikidata_id": "Q17991978",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jahrom_University",
+    "country": "iran"
+  },
+  {
+    "name": "Jiroft University",
+    "website": "https://ujiroft.ac.ir/FA",
+    "wikidata_id": "Q20110170",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jiroft_University",
+    "country": "iran"
+  },
+  {
+    "name": "Jundi-shapur University of Technology",
+    "website": "http://jsu.ac.ir/",
+    "wikidata_id": "Q24885130",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Jundi-shapur_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "K. N. Toosi University of Technology",
+    "website": "http://www.kntu.ac.ir",
+    "wikidata_id": "Q1333607",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/K._N._Toosi_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Kashan University of Medical Sciences",
+    "website": "http://www.kaums.ac.ir",
+    "wikidata_id": "Q6374203",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kashan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Kashmar Higher Education Center",
+    "website": "http://www.kashmar.ac.ir/",
+    "wikidata_id": "Q106224816",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Kerman Graduate University of Technology",
+    "website": "http://kgut.ac.ir/index.php?lang=en",
+    "wikidata_id": "Q15795762",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Graduate_University_of_Advanced_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Kerman Medical University",
+    "website": "http://www.kmu.ac.ir/",
+    "wikidata_id": "Q5950750",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kerman_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Khalkhal University of Medical Sciences",
+    "website": "https://khalums.ac.ir/",
+    "wikidata_id": "Q112085475",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Kharazmi University",
+    "website": "http://khu.ac.ir/",
+    "wikidata_id": "Q6400588",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kharazmi_University",
+    "country": "iran"
+  },
+  {
+    "name": "Khayyam Institute of Higher Education, Mashhad",
+    "website": "http://www.khayyam.ac.ir/",
+    "wikidata_id": "Q6401105",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Khayyam_Institute_of_Higher_Education,_Mashhad",
+    "country": "iran"
+  },
+  {
+    "name": "Khuzestan Institute of Higher Education",
+    "website": "http://mjdkh.ac.ir/",
+    "wikidata_id": "Q57956602",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Kurdistan University of Medical Sciences",
+    "website": "http://www.muk.ac.ir/",
+    "wikidata_id": "Q5947953",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Kurdistan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Larestan University of Medical Sciences",
+    "website": "http://www.larums.ac.ir",
+    "wikidata_id": "Q5948959",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Lorestan University",
+    "website": "http://www.lu.ac.ir/",
+    "wikidata_id": "Q5940846",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lorestan_University",
+    "country": "iran"
+  },
+  {
+    "name": "Lorestan University of Medical Sciences",
+    "website": "http://www.lums.ac.ir/",
+    "wikidata_id": "Q5710144",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Lorestan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Malayer University",
+    "website": "http://www.malayeru.ac.ir/",
+    "wikidata_id": "Q5957647",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Malek Ashtar University of Technology",
+    "website": "http://www.mut.ac.ir/",
+    "wikidata_id": "Q6743005",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Malek-Ashtar_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Mazandaran University of Medical Sciences",
+    "website": "http://www.mazums.ac.ir",
+    "wikidata_id": "Q6555497",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mazandaran_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Mazandaran University of Science and Technology",
+    "website": "http://en.ustmb.ac.ir",
+    "wikidata_id": "Q5935959",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mazandaran_University_of_Science_and_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Medical University of Ilam",
+    "website": "https://www.medilam.ac.ir/",
+    "wikidata_id": "Q5704726",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Ilam_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Mehr Alborz University",
+    "website": "https://mehralborz.ac.ir/",
+    "wikidata_id": "Q16047236",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Meybod University",
+    "website": "https://meybod.ac.ir",
+    "wikidata_id": "Q110967012",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Mofid University",
+    "website": "http://www.mofidu.ac.ir/",
+    "wikidata_id": "Q6890371",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Mofid_University",
+    "country": "iran"
+  },
+  {
+    "name": "Montazeri Technical University of Mashhad",
+    "website": "http://montazeri.tvu.ac.ir",
+    "wikidata_id": "Q10854020",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Montazeri_Technical_College_of_Mashhad",
+    "country": "iran"
+  },
+  {
+    "name": "Najand Institute of Higher Education",
+    "website": "http://www.nazhand.ac.ir/",
+    "wikidata_id": "Q17068782",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Najand_Institute_of_Higher_Education",
+    "country": "iran"
+  },
+  {
+    "name": "Payam Noor University of Shiraz",
+    "website": "http://www.spnu.ac.ir",
+    "wikidata_id": "Q5961221",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Payame Noor University",
+    "website": "http://www.pnu.ac.ir/",
+    "wikidata_id": "Q10296832",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Payame_Noor_University",
+    "country": "iran"
+  },
+  {
+    "name": "Payame Noor University of Bahnemir",
+    "website": "http://bah.mz.pnu.ac.ir/",
+    "wikidata_id": "Q107277409",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Payame Noor University of Bushehr",
+    "website": "http://bushehr.pnu.ac.ir/",
+    "wikidata_id": "Q111586942",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Payame Noor University, Khanj branch",
+    "website": "http://khonjpnu.blogfa.com",
+    "wikidata_id": "Q5941829",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Persian Gulf International Education Center",
+    "website": "http://www.iaupg.ir/",
+    "wikidata_id": "Q11984858",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Persian_Gulf_International_Education_Center",
+    "country": "iran"
+  },
+  {
+    "name": "Persian Gulf University",
+    "website": "http://www.pgu.ac.ir",
+    "wikidata_id": "Q4115735",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Persian_Gulf_University",
+    "country": "iran"
+  },
+  {
+    "name": "Petroleum University of Technology",
+    "website": "https://put.ac.ir",
+    "wikidata_id": "Q7178958",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Petroleum_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Power and Water University of Technology",
+    "website": "http://www.pwut.ac.ir",
+    "wikidata_id": "Q4116835",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Power_and_Water_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Qazvin University of Medical Sciences",
+    "website": "http://www.qums.ac.ir",
+    "wikidata_id": "Q5927506",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Qazvin_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Qeshm Institute of Higher Education",
+    "website": "http://www.qeshm.ac.ir/",
+    "wikidata_id": "Q7267494",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Qeshm_Institute_of_Higher_Education",
+    "country": "iran"
+  },
+  {
+    "name": "Qom University of Medical Sciences",
+    "website": "http://www.muq.ac.ir",
+    "wikidata_id": "Q6555694",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Qom_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Quchan University of Advanced Technologies Engineering",
+    "website": "http://www.qiet.ac.ir/",
+    "wikidata_id": "Q15218213",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Quchan_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Rafsanjan University of Medical Sciences",
+    "website": "http://www.rums.ac.ir",
+    "wikidata_id": "Q5946797",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Rafsanjan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Ramin University of Agriculture and Natural Resources",
+    "website": "http://www.ramin.ac.ir",
+    "wikidata_id": "Q6549314",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Research Institute of Petroleum Industry",
+    "website": "https://www.ripi.ir/",
+    "wikidata_id": "Q4543680",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Research_Institute_of_Petroleum_Industry",
+    "country": "iran"
+  },
+  {
+    "name": "Sabzevar University of Medical Sciences",
+    "website": "https://www.medsab.ac.ir/",
+    "wikidata_id": "Q10854127",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sabzevar_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Sabzevar University of New Technology",
+    "website": "http://newtech.hsu.ac.ir/",
+    "wikidata_id": "Q96404764",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sabzevar_University_of_New_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Sadjad University of Technology",
+    "website": "http://sadjad.ac.ir",
+    "wikidata_id": "Q5941610",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sadjad_University",
+    "country": "iran"
+  },
+  {
+    "name": "Sari Agricultural Sciences and Natural Resources University",
+    "website": "https://sanru.ac.ir/",
+    "wikidata_id": "Q5777922",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sari_Agricultural_Sciences_and_Natural_Resources_University",
+    "country": "iran"
+  },
+  {
+    "name": "Semnan University",
+    "website": "http://english.semnan.ac.ir",
+    "wikidata_id": "Q7449718",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Semnan_University",
+    "country": "iran"
+  },
+  {
+    "name": "Semnan University of Medical Sciences",
+    "website": "http://en.semums.ac.ir/",
+    "wikidata_id": "Q41568282",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Semnan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Semnan University of Medical Sciences and Health Services",
+    "website": "http://semums.ac.ir",
+    "wikidata_id": "Q5931490",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "Shahed University",
+    "website": "https://shahed.ac.ir/",
+    "wikidata_id": "Q7461521",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahed_University",
+    "country": "iran"
+  },
+  {
+    "name": "Shahid Bahonar University of Kerman",
+    "website": "http://www.uk.ac.ir/",
+    "wikidata_id": "Q7461650",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahid_Bahonar_University_of_Kerman",
+    "country": "iran"
+  },
+  {
+    "name": "Shahid Beheshti Teacher Training College",
+    "website": "http://www.tbm.ir",
+    "wikidata_id": "Q10326457",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahid_Beheshti_Teacher_Training_College",
+    "country": "iran"
+  },
+  {
+    "name": "Shahid Chamran University of Ahvaz",
+    "website": "http://www.scu.ac.ir/",
+    "wikidata_id": "Q3707072",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahid_Chamran_University_of_Ahvaz",
+    "country": "iran"
+  },
+  {
+    "name": "Shahid Motahari University",
+    "website": "https://motahari.ac.ir/fa",
+    "wikidata_id": "Q25423155",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahid_Motahari_University",
+    "country": "iran"
+  },
+  {
+    "name": "Shahid Sadoughi University of Medical Sciences",
+    "website": "https://web.ssu.ac.ir",
+    "wikidata_id": "Q17070306",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahid_Sadoughi_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Shahid Sattari University of Aeronautical Engineering",
+    "website": "http://ssau.ac.ir/",
+    "wikidata_id": "Q7461717",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahid_Sattari_Aeronautical_University",
+    "country": "iran"
+  },
+  {
+    "name": "Shahrekord University",
+    "website": "http://www.sku.ac.ir/",
+    "wikidata_id": "Q7462208",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahrekord_University",
+    "country": "iran"
+  },
+  {
+    "name": "Shahrekord University of Medical Sciences",
+    "website": "https://skums.ac.ir/",
+    "wikidata_id": "Q16053407",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahrekord_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Shahroud University of Medical Sciences",
+    "website": "http://www.shmu.ac.ir",
+    "wikidata_id": "Q20110175",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahroud_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Shahrud University of Technology",
+    "website": "http://www.shahroodut.ac.ir",
+    "wikidata_id": "Q10854113",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shahrood_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Shamsipour Technical College",
+    "website": "http://shamsipour.tvu.ac.ir/",
+    "wikidata_id": "Q18210224",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shamsipour_Technical_College",
+    "country": "iran"
+  },
+  {
+    "name": "Shariaty Technical College",
+    "website": "https://www.shariaty.ac.ir/fa",
+    "wikidata_id": "Q5957704",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shariaty_Technical_College",
+    "country": "iran"
+  },
+  {
+    "name": "Sharif University of Technology International Campus",
+    "website": "https://www.kish.sharif.ir/",
+    "wikidata_id": "Q7489671",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sharif_University_of_Technology_International_Campus_%E2%80%93_Kish_Island",
+    "country": "iran"
+  },
+  {
+    "name": "Sheikh Bahaei University",
+    "website": "http://www.shbu.ac.ir",
+    "wikidata_id": "Q7492906",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sheikh_Bahaei_University",
+    "country": "iran"
+  },
+  {
+    "name": "Shiraz Pasargad Higher Education Institute",
+    "website": "http://www.pasargad-ihe.ac.ir/",
+    "wikidata_id": "Q7498324",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shiraz_Pasargad_Higher_Education_Institute",
+    "country": "iran"
+  },
+  {
+    "name": "Shiraz University of Arts",
+    "website": "http://shirazartu.ac.ir",
+    "wikidata_id": "Q14796435",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shiraz_University_of_Arts",
+    "country": "iran"
+  },
+  {
+    "name": "Shiraz University of Technology",
+    "website": "http://www.sutech.ac.ir/",
+    "wikidata_id": "Q7498336",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shiraz_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Shomal University",
+    "website": "http://www.shomal.ac.ir/",
+    "wikidata_id": "Q7500288",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Shomal_University",
+    "country": "iran"
+  },
+  {
+    "name": "Sirjan University of Technology",
+    "website": "http://sirjantech.ac.ir",
+    "wikidata_id": "Q5956466",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sirjan_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Supreme National Defense University",
+    "website": "http://sndu.ac.ir/",
+    "wikidata_id": "Q20110171",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Supreme_National_Defense_University",
+    "country": "iran"
+  },
+  {
+    "name": "Tabarestan University",
+    "website": "http://tabarestan.ac.ir/",
+    "wikidata_id": "Q6525547",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tabarestan_University",
+    "country": "iran"
+  },
+  {
+    "name": "Tabriz Art University",
+    "website": "http://www.tabriziau.ac.ir",
+    "wikidata_id": "Q3551730",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tabriz_Islamic_Arts_University",
+    "country": "iran"
+  },
+  {
+    "name": "Tabriz University of Technology",
+    "website": "http://www.sut.ac.ir/",
+    "wikidata_id": "Q3875219",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Sahand_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Tafresh University",
+    "website": "http://tafreshu.ac.ir/",
+    "wikidata_id": "Q7674992",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tafresh_University",
+    "country": "iran"
+  },
+  {
+    "name": "Tarbiat Modares University",
+    "website": "https://www.modares.ac.ir",
+    "wikidata_id": "Q7685655",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Tarbiat_Modares_University",
+    "country": "iran"
+  },
+  {
+    "name": "Torbat Heydarieh University of Medical Sciences",
+    "website": "http://www.thums.ac.ir/",
+    "wikidata_id": "Q16047153",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Torbat_Heydarieh_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "University College of Azarabadegan",
+    "website": "http://www.uca.ac.ir",
+    "wikidata_id": "Q19600076",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_College_of_Azarabadegan",
+    "country": "iran"
+  },
+  {
+    "name": "University of Arak",
+    "website": "http://www.araku.ac.ir",
+    "wikidata_id": "Q495343",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Arak_University",
+    "country": "iran"
+  },
+  {
+    "name": "University of Birjand",
+    "website": "http://www.birjand.ac.ir/",
+    "wikidata_id": "Q7895119",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Birjand",
+    "country": "iran"
+  },
+  {
+    "name": "University of Bojnord",
+    "website": "http://ub.ac.ir",
+    "wikidata_id": "Q5947878",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Bojnord",
+    "country": "iran"
+  },
+  {
+    "name": "University of Bonab",
+    "website": "http://www.bonabu.ac.ir/",
+    "wikidata_id": "Q7895126",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Bonab",
+    "country": "iran"
+  },
+  {
+    "name": "University of Economic Sciences",
+    "website": "http://www.ues.ac.ir/",
+    "wikidata_id": "Q5960593",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "University of Gonabad",
+    "website": "http://gonabad.ac.ir",
+    "wikidata_id": "Q77574105",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "University of Guilan",
+    "website": "http://www.guilan.ac.ir/",
+    "wikidata_id": "Q7895461",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Guilan",
+    "country": "iran"
+  },
+  {
+    "name": "University of Iranians",
+    "website": "http://www.iiuac.ir/",
+    "wikidata_id": "Q5959631",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "University of Islamic Republic of Iran Broadcasting",
+    "website": "http://www.iribu.ac.ir",
+    "wikidata_id": "Q6066749",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iran_Broadcasting_University",
+    "country": "iran"
+  },
+  {
+    "name": "University of Judicial Sciences and Administrative Services",
+    "website": "http://www.fjs.ac.ir/",
+    "wikidata_id": "Q5766830",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Judicial_Sciences_and_Administrative_Services",
+    "country": "iran"
+  },
+  {
+    "name": "University of Kashan",
+    "website": "http://www.kashanu.ac.ir/",
+    "wikidata_id": "Q5962950",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Kashan",
+    "country": "iran"
+  },
+  {
+    "name": "University of Kurdistan",
+    "website": "http://www.uok.ac.ir/",
+    "wikidata_id": "Q42238",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Kurdistan_(Iran)",
+    "country": "iran"
+  },
+  {
+    "name": "University of Maragheh",
+    "website": "http://www.maragheh.ac.ir/",
+    "wikidata_id": "Q5945074",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Maragheh",
+    "country": "iran"
+  },
+  {
+    "name": "University of Mazandaran",
+    "website": "http://www.umz.ac.ir/",
+    "wikidata_id": "Q6672257",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Mazandaran",
+    "country": "iran"
+  },
+  {
+    "name": "University of Mohaghegh Ardabili",
+    "website": "http://www.uma.ac.ir/",
+    "wikidata_id": "Q7895848",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Mohaghegh_Ardabili",
+    "country": "iran"
+  },
+  {
+    "name": "University of Neyshabur",
+    "website": "http://www.Neyshabur.ac.ir/",
+    "wikidata_id": "Q3944322",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Neyshabur",
+    "country": "iran"
+  },
+  {
+    "name": "University of Qom",
+    "website": "http://Qom.ac.ir",
+    "wikidata_id": "Q4115886",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Qom",
+    "country": "iran"
+  },
+  {
+    "name": "University of Religions and Denominations",
+    "website": "http://www.urd.ac.ir/",
+    "wikidata_id": "Q7896209",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Religions_and_Denominations",
+    "country": "iran"
+  },
+  {
+    "name": "University of Science and Arts (Yazd)",
+    "website": "http://www.sau.ac.ir/",
+    "wikidata_id": "Q16047126",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "University of Sistan and Baluchestan",
+    "website": "http://www.usb.ac.ir",
+    "wikidata_id": "Q7896310",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Sistan_and_Baluchestan",
+    "country": "iran"
+  },
+  {
+    "name": "University of Social Welfare and Rehabilitation Sciences",
+    "website": "http://uswr.ac.ir/",
+    "wikidata_id": "Q5950693",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Social_Welfare_and_Rehabilitation_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "University of Torbat Heydarieh",
+    "website": "http://www.torbath.ac.ir/",
+    "wikidata_id": "Q94438686",
+    "wikipedia_url": "",
+    "country": "iran"
+  },
+  {
+    "name": "University of Yazd",
+    "website": "http://www.yazd.ac.ir/en",
+    "wikidata_id": "Q985091",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yazd_University",
+    "country": "iran"
+  },
+  {
+    "name": "University of Zabol",
+    "website": "http://www.uoz.ac.ir/",
+    "wikidata_id": "Q5958474",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Zabol_University",
+    "country": "iran"
+  },
+  {
+    "name": "University of Zanjan",
+    "website": "http://www.znu.ac.ir/",
+    "wikidata_id": "Q3875225",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/University_of_Zanjan",
+    "country": "iran"
+  },
+  {
+    "name": "Urmia University",
+    "website": "https://www.urmia.ac.ir/",
+    "wikidata_id": "Q3874128",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Urmia_University",
+    "country": "iran"
+  },
+  {
+    "name": "Urmia University of Technology",
+    "website": "http://www.uut.ac.ir/",
+    "wikidata_id": "Q5962542",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Urmia_University_of_Technology",
+    "country": "iran"
+  },
+  {
+    "name": "Yasuj University",
+    "website": "http://www.yu.ac.ir/",
+    "wikidata_id": "Q5950025",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yasouj_University",
+    "country": "iran"
+  },
+  {
+    "name": "Yasuj University of Medical Sciences",
+    "website": "http://www.yums.ac.ir/",
+    "wikidata_id": "Q30174776",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Yasuj_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Zabol Medical ScienceUnivers",
+    "website": "http://www.zbmu.ac.ir/",
+    "wikidata_id": "Q16904255",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Zabol_Medical_Science_University",
+    "country": "iran"
+  },
+  {
+    "name": "Zabol University of Medical Sciences",
+    "website": "http://zbmu.ac.ir/",
+    "wikidata_id": "Q16047173",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Zabol_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Zahedan University of Medical Sciences",
+    "website": "https://zaums.ac.ir",
+    "wikidata_id": "Q5920482",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Zahedan_University_of_Medical_Sciences",
+    "country": "iran"
+  },
+  {
+    "name": "Zand Institute of Higher Education",
+    "website": "http://www.zand-ihe.ac.ir",
+    "wikidata_id": "Q8066061",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Zand_Institute_of_Higher_Education",
+    "country": "iran"
+  },
+  {
+    "name": "sepehr art university",
+    "website": "http://www.sepehr.ac.ir/",
+    "wikidata_id": "Q29350820",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Isfahan_Sepehr_College",
+    "country": "iran"
+  }
+]

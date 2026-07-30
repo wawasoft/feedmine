@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC8QNR70KJ-ZwIcy_kD_eH7g",
+    "category": "YouTube",
+    "title": "Dirgantara Mandala Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://tni-au.mil.id/museum-pusat-tni-angkatan-udara-dirgantara-mandala/",
+    "national": true,
+    "national_reason": "museums/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCUEiXniNQvGGf7vf662QoHw",
+    "category": "YouTube",
+    "title": "Indonesian Islamic Art Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.indonesianislamicartmuseum.com",
+    "national": true,
+    "national_reason": "museums/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCS822O42YnQblWQV_nk2ZCw",
+    "category": "YouTube",
+    "title": "Roemah Martha Tilaar — YouTube",
+    "genre": "Museum",
+    "source_page": "https://roemahmarthatilaar.org/",
+    "national": true,
+    "national_reason": "museums/youtube/indonesia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,296 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/feed/",
+    "title": "andi novelista | a peek inside a wicked mind",
+    "source": "page:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://www.abigailyardimci.com/blog-feed.xml",
+    "title": "Abigail Yardimci Blog | Novelista Mum | Devon | Page 2 of 15",
+    "source": "page:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://www.goodreads.com/review/list_rss/57889133",
+    "title": "Novelista Blogs (novelistablogs) - Austin, TX (103 books)",
+    "source": "page:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://poeta.blog.hu/rss2",
+    "title": "POETA .blog.hu",
+    "source": "page:poeta",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://medium.com/feed/@mamadademoniaca90",
+    "title": "poeta solitário – Medium",
+    "source": "page:poeta",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://visionparticular.wordpress.com/2012/01/23/todo-tiempo-pasado-fue-mejor/feed",
+    "title": "Todo tiempo pasado fue mejor? | Visiones Particulares",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://delamarylosbarcos.wordpress.com/tag/sagres/feed",
+    "title": "Sagres | De la mar y los barcos",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://sabine77.wordpress.com/2026/07/28/notas-quotidianas-em-19/feed",
+    "title": "Visto de Leiria: Notas Quotidianas Junho-Julho 2026 – Insustentável...",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://visionuniversitaria.wordpress.com/2009/11/02/feed",
+    "title": "2 entradas publicadas por visionuniversitaria el November 2, 2009",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2023/06/22/gana-dinero-tengas-el-plan-que-tengas-incluso-con-el-plan-gratuito/feed",
+    "title": "Gana dinero tengas el plan que tengas. Incluso con el plan gratuito.",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://loiolaxxi.wordpress.com/2016/02/22/usa-excarcelado-despues-de-40-anos-de-prision/feed",
+    "title": "USA: excarcelado después de 40 años de prisión. | Loiola XXI",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://honduprensa.wordpress.com/2014/11/05/feed",
+    "title": "12 entradas publicadas por honduprensa el November 5, 2014",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://oxfordenglishblog.wordpress.com/tag/estado/feed",
+    "title": "Entradas sobre ESTADO escritas por BUENOS DÍAS SEÑOR",
+    "source": "wp:escritor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://xsamaeldarkx.wordpress.com/2007/12/29/venezuela-pais-mas-feliz/feed",
+    "title": "Venezuela: País Mas Feliz | Porque Puedo.",
+    "source": "wp:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://wordpress.com/es/blog/2010/09/27/bienvenidos-bloggers-de-windows-live-spaces/feed",
+    "title": "Bienvenidos Bloggers de Windows Live Spaces – WordPress.com en...",
+    "source": "wp:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://juangomezmireles.wordpress.com/tag/perales/feed",
+    "title": "perales – Promoción Gral Juan Gómez Mireles",
+    "source": "wp:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://baragua.wordpress.com/2026/07/23/quizas-los-movimientos-de-solidaridad-con-cuba-deberian-reinventarse/feed",
+    "title": "Quizás los movimientos de solidaridad con Cuba deberían reinventarse",
+    "source": "wp:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://blogbagatela.wordpress.com/2026/05/03/latam-en-la-nueva-geopolitica-entre-el-patio-trasero-y-la-oportunidad-estrategica/feed",
+    "title": "Latam en la nueva geopolítica: entre el “patio trasero” y la oportunidad...",
+    "source": "wp:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://elciervoherido.wordpress.com/2026/07/25/palantir-el-espionaje-sobre-todos-y-todo/feed",
+    "title": "Palantir, el espionaje sobre todos y todo | el ciervo...",
+    "source": "wp:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://lacasadelarcerojo.wordpress.com/page/2/feed",
+    "title": "La Casa del Arce Rojo | Un grupo de ciudadanos concienciados...",
+    "source": "wp:autor",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://carolachavez.wordpress.com/2011/02/05/aquel-pais-que-nunca-fuimos/feed",
+    "title": "Aquel país que nunca fuimos | Como te iba contando",
+    "source": "wp:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://excelencemanagement.wordpress.com/2026/07/27/emilia-pardo-bazan-el-legado-de-una-mujer-que-se-nego-a-pedir-permiso/feed",
+    "title": "Emilia Pardo Bazán: El legado de una mujer que se negó a pedir...",
+    "source": "wp:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://elrejunteil.wordpress.com/2006/08/25/en-defensa-de-la-libertad-marcelo-birmajer/feed",
+    "title": "En Defensa de la Libertad – Marcelo Birmajer | El Rejunte.il",
+    "source": "wp:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://la680.wordpress.com/category/sin-categoria/page/6/feed",
+    "title": "Sin categoría – Página 6 – La Mirada de la Medusa.",
+    "source": "wp:novelista",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://adam-isacson.ghost.io/rss",
+    "title": "Updates from Adam Isacson (January 29, 2024)",
+    "source": "platform:ghost.io",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://comitedelectura.ghost.io/rss",
+    "title": "José Jerí fue ayer al Congreso y negó haber cometido delitos",
+    "source": "platform:ghost.io",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://blogderamonfernandez.blogspot.com/feeds/posts/default",
+    "title": "Ramón Fernández Palmeral, ensayista y escritor: Almodóvar del Campo",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://jorgealiagacacho.blogspot.com/feeds/posts/default",
+    "title": "Jorge Aliaga Cacho: Como viento al alma",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://marioszichman.blogspot.com/feeds/posts/default",
+    "title": "MARIO SZICHMAN: Los bosques de Potemkin y la generación de la...",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://jennygonzalezmu-oz.blogspot.com/feeds/posts/default",
+    "title": "Palabras del desolvido",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "http://hermanoschangel27.blogspot.com/feeds/posts/default",
+    "title": "Arquitectura Hermanos Chang: Editorial: El otro Petare (The Petare...)",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://acoso-textual.blogspot.com/feeds/posts/default",
+    "title": "Acoso textual: Dos poemarios: «Ánimas» y «Selección natural»; y un...",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://revistasuroeste.blogspot.com/feeds/posts/default",
+    "title": "La Vie Charmant_SUROESTE: ÓPERA: ORQUESTA SINFÓNICA DE...",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "http://011-tutorial.blogspot.com/feeds/posts/default",
+    "title": "11tutorial",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://desarrolloydefensa.blogspot.com/feeds/posts/default",
+    "title": "Mesa de la carne: Macri pidió producir más y generar empleo",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://alejandro-8.blogspot.com/feeds/posts/default",
+    "title": "Historia y tecnología militar: Rusia: análisis de ventas a Argentina",
+    "source": "platform:blogspot.com",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://asoecritores.blogspot.com/feeds/posts/default",
+    "title": "Asociación de Escritores de Venezuela, Seccional Bolívar",
+    "source": "assoc:es",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://escritores.wordpress.com/comments/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "assoc:es",
+    "country": "venezuela"
+  },
+  {
+    "url": "https://ramonurdanetavenezuela.blogspot.com/feeds/posts/default",
+    "title": "La asociación de escritores de venezuela.",
+    "source": "assoc:es",
+    "country": "venezuela"
+  },
+  {
+    "url": "http://aemescritores.blogspot.com/feeds/posts/default",
+    "title": "Asociación de Escritores de Mérida",
+    "source": "assoc:es",
+    "country": "venezuela"
+  }
+]

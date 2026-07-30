@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Interamerican University of Puerto Rico",
+    "website": "http://www.inter.edu",
+    "wikidata_id": "Q4570802",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Interamerican_University_of_Puerto_Rico",
+    "country": "puerto-rico"
+  },
+  {
+    "name": "Polytechnic University of Puerto Rico",
+    "website": "http://www.pupr.edu/",
+    "wikidata_id": "Q1798894",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Polytechnic_University_of_Puerto_Rico",
+    "country": "puerto-rico"
+  },
+  {
+    "name": "Pontifical Catholic University of Puerto Rico",
+    "website": "http://www.pucpr.edu",
+    "wikidata_id": "Q1342151",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Pontifical_Catholic_University_of_Puerto_Rico",
+    "country": "puerto-rico"
+  },
+  {
+    "name": "Universidad Internacional Iberoamericana",
+    "website": "https://www.unib.org",
+    "wikidata_id": "Q117405688",
+    "wikipedia_url": "",
+    "country": "puerto-rico"
+  }
+]

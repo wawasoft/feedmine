@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCKZPVRehCH2no0zw6hxNZQg",
+    "category": "Education",
+    "title": "Ariel University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.ariel.ac.il/",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC08-ISrAC_9gm30qkgYXsaQ",
+    "category": "Education",
+    "title": "Givat Washington College (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.washington.ac.il/michlala/",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYGQGjMPuZkVk2vy9biZ-2w",
+    "category": "Education",
+    "title": "Hebrew University of Jerusalem (YouTube)",
+    "genre": "University",
+    "source_page": "https://international.huji.ac.il/chinese",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6Qbqb4HpDkvpLk-aovfRxw",
+    "category": "Education",
+    "title": "Jerusalem College of Technology (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.jct.ac.il/fr",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCy9RFySL4XNA-0uog3OcJeA",
+    "category": "Education",
+    "title": "Ono Academic College (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.ono.ac.il/?lang=en",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQgcKEYnhzboOeRZk_j2e5Q",
+    "category": "Education",
+    "title": "Ramat Gan College (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.rgc.co.il/",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCKHs6lgrcUmeVn57i6UNrzQ",
+    "category": "Education",
+    "title": "Schechter Institute of Jewish Studies (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.schechter.edu/",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC8DMOm9xDERvacfnHtrQEbQ",
+    "category": "Education",
+    "title": "Shenkar College of Engineering and Design (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.shenkar.ac.il/",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4_i7cYMdM0MkP-2ywVlhKQ",
+    "category": "Education",
+    "title": "Technion – Israel Institute of Technology (YouTube)",
+    "genre": "University",
+    "source_page": "https://technion.ac.il",
+    "national": true,
+    "national_reason": "universities/youtube/israel",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

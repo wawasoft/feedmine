@@ -1,0 +1,188 @@
+[
+  {
+    "url": "https://escritores.wordpress.com/feed/",
+    "title": "Escritores: Blog Escritores - Noticias literarias, Concursos literarios...",
+    "source": "page:escritor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://hippytodelsur.fullblog.com.ar/index.php?rss=1",
+    "title": "Feeds RSS - EL RINCON DEL HIPPYTO ESCRITOR",
+    "source": "page:escritor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://blog.tomaszdunia.pl/feed.xml",
+    "title": "#Outernet – RSS [ENG 🇬🇧] – Tomasz Dunia Blog",
+    "source": "page:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://marygerencia.com/feed/",
+    "title": "Autor del Blog | Mar y Gerencia",
+    "source": "page:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://www.logicamecatronica.com/feed/",
+    "title": "Autor do Blog - Lógica da Mecatrónica",
+    "source": "page:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://novelistablogs.wordpress.com/feed/",
+    "title": "Novelista – Novelista Blogs",
+    "source": "page:novelista",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://andinovelista.wordpress.com/feed/",
+    "title": "Blog | andi novelista",
+    "source": "page:novelista",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://iecastellano.blogspot.com/feeds/posts/default",
+    "title": "Novelista",
+    "source": "page:novelista",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://www.abigailyardimci.com/blog-feed.xml",
+    "title": "Abigail Yardimci Blog | Novelista Mum | Devon | Page 2 of 15",
+    "source": "page:novelista",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://www.goodreads.com/review/list_rss/57889133",
+    "title": "Novelista Blogs (novelistablogs) - Austin, TX (103 books)",
+    "source": "page:novelista",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://singleintheatx.wordpress.com/feed/",
+    "title": "Read all of the posts by Novelista blogs on Single Girl Diaries",
+    "source": "page:novelista",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://poeta.blog.pravda.sk/feed/",
+    "title": "Blog Poety - Blog - Pravda",
+    "source": "page:poeta",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://www.lerparaver.com/rss",
+    "title": "Blog de Marco Poeta | LERPARAVER",
+    "source": "page:poeta",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://diariodopoeta.wordpress.com/feed/",
+    "title": "Diário do poeta | Blog de entretenimento, diversão, cultura e causos...",
+    "source": "page:poeta",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://blogprofessorpoeta64.blogspot.com/feeds/posts/default",
+    "title": "Blog do Professor Poeta",
+    "source": "page:poeta",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://fuegosagrado2017.wordpress.com/2017/09/19/el-loco-sarmiento-apuntes-sobre-el-hombre-que-escribia-con-la-espada-y-disparaba-con-la-pluma/feed",
+    "title": "El loco Sarmiento: apuntes sobre el hombre que escribía con la espada...",
+    "source": "wp:escritor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://honduprensa.wordpress.com/tag/sistema-integral-hondureno-de-combate-a-la-impunidad-y-la-corrupcion/page/2/feed",
+    "title": "Sistema Integral Hondureño de Combate a la Impunidad y la Corrupción",
+    "source": "wp:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://wordpress.com/de/forums/topic/schrift-verandern-mit-typkit-fonts/feed",
+    "title": "Schrift verändern mit Typkit fonts | de.WordPress.com Forums",
+    "source": "wp:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://blogdelerolico.wordpress.com/2026/07/25/formacion-de-centroamerica-y-su-relacion-con-mexico/feed",
+    "title": "«Formación de Centroamérica y su relación con...» | Blog de Lerolico",
+    "source": "wp:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://blogbagatela.wordpress.com/2026/07/20/el-nino-impacta-en-la-region-forza-explica-como-fortalecer-la-infraestructura-electrica-y-mantener-la-continuidad-operativa-en-colombia/feed",
+    "title": "El Niño impacta en la región: Forza explica cómo fortalecer la...",
+    "source": "wp:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://loaizal59.wordpress.com/2013/07/09/noticiero-nacional/feed",
+    "title": "Noticiero nacional | Deporte de Antioquia y Colombia",
+    "source": "wp:autor",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://anotaciones-tamarit.blogspot.com/feeds/posts/default",
+    "title": "Anotaciones-Tamarit",
+    "source": "platform:blogspot.com",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://rubencaravaca.blogspot.com/feeds/posts/default",
+    "title": "Winnipeg, el cómic del barco que naufragó en la memoria del exilio...",
+    "source": "platform:blogspot.com",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://fdra-aereo.blogspot.com/feeds/posts/default",
+    "title": "FDRA - Fuerza Aérea: Avión de combate colaborativo (CCA) MQ-28...",
+    "source": "platform:blogspot.com",
+    "country": "paraguay"
+  },
+  {
+    "url": "http://011-tutorial.blogspot.com/feeds/posts/default",
+    "title": "11tutorial",
+    "source": "platform:blogspot.com",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://otra-educacion.blogspot.com/feeds/posts/default",
+    "title": "OTRAƎDUCACION: ¿Ecuador primero en Sudamérica en confianza en...",
+    "source": "platform:blogspot.com",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://catracho-vega1.blogspot.com/feeds/posts/default",
+    "title": "La realidad actual de honduras",
+    "source": "platform:blogspot.com",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://cabezademoog.blogspot.com/feeds/posts/default",
+    "title": "Rohmer - Rohemer (2008)",
+    "source": "platform:blogspot.com",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://seppyblog.blogspot.com/feeds/posts/default",
+    "title": "Sociedad de Escritores del Paraguay",
+    "source": "assoc:es",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://www.elciudadano.com/feed/",
+    "title": "Regalo: Aquí puedes descargar 362 libros gratis en PDF de escritores...",
+    "source": "assoc:es",
+    "country": "paraguay"
+  },
+  {
+    "url": "https://escritores.wordpress.com/comments/feed/",
+    "title": "Escritores paraguayos | Escritores: Blog Escritores - Noticias...",
+    "source": "assoc:es",
+    "country": "paraguay"
+  }
+]

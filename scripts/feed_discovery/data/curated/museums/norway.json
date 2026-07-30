@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC0Pl9bPglaTATAzgQj1Rigw",
+    "category": "YouTube",
+    "title": "Coastal heritage museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.kystensarv.no",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvxddecjoaWGidS3B0MwzyA",
+    "category": "YouTube",
+    "title": "Falstad Centre — YouTube",
+    "genre": "Museum",
+    "source_page": "http://falstadsenteret.no/",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQN-FIDUQEYIofUnkALJYug",
+    "category": "YouTube",
+    "title": "Helgeland Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://helgelandmuseum.no",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCgrOrxPTORTkpzsUuE9uItQ",
+    "category": "YouTube",
+    "title": "Kon-Tiki Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.kon-tiki.no/",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYXanH3p8xKJNNTjISfb31Q",
+    "category": "YouTube",
+    "title": "Kystmuseet i Øygarden — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.museumvest.no",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCrSj2IAehViMf_-bvla364w",
+    "category": "YouTube",
+    "title": "MiA – Museums in Akershus — YouTube",
+    "genre": "Museum",
+    "source_page": "https://mia.no",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC-fOD7h9oTlkVlBt40kZUow",
+    "category": "YouTube",
+    "title": "Orkla Industrimuseum — YouTube",
+    "genre": "Museum",
+    "source_page": "https://oi.no/en",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCpiHoSqjtp4fDyv9CLyV4tA",
+    "category": "YouTube",
+    "title": "Preus Museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://www.preusmuseum.no",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCD5bR-_7w7m0F5Ghp-lGgwQ",
+    "category": "YouTube",
+    "title": "Trondheim  art museum — YouTube",
+    "genre": "Museum",
+    "source_page": "http://trondheimkunstmuseum.no/",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCOPurCLhL4vMchX1SpR_zSg",
+    "category": "YouTube",
+    "title": "Østfoldmuseums — YouTube",
+    "genre": "Museum",
+    "source_page": "https://www.ostfoldmuseene.no",
+    "national": true,
+    "national_reason": "museums/youtube/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

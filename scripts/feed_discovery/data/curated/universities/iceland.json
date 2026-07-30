@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4XBz_DfRn-Xd6AS13rWOHA",
+    "category": "Education",
+    "title": "Bifröst University (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.bifrost.is/",
+    "national": true,
+    "national_reason": "universities/youtube/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCUcKVXbvfDGS7UhniXNgq1g",
+    "category": "Education",
+    "title": "University of Akureyri (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.unak.is/",
+    "national": true,
+    "national_reason": "universities/youtube/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

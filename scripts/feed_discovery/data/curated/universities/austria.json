@@ -1,0 +1,26 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYh7Gg_SpAJ6wsicLm4lDSA",
+    "category": "Education",
+    "title": "Karl Landsteiner University of Health Sciences (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.kl.ac.at/en/",
+    "national": true,
+    "national_reason": "universities/youtube/austria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCiCs9GwxFvm2HulOkQNEDaw",
+    "category": "Education",
+    "title": "University of Klagenfurt (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.aau.at/",
+    "national": true,
+    "national_reason": "universities/youtube/austria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

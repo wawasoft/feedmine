@@ -240,6 +240,9 @@ def _get_source_instance(name: str):
         elif name == "youtube_diamond":
             from .sources.youtube_diamond import YouTubeDiamondSource
             inst = YouTubeDiamondSource()
+        elif name == "influencers":
+            from .sources.influencers import InfluencersSource
+            inst = InfluencersSource()
         else:
             return None
         _source_cache[name] = inst

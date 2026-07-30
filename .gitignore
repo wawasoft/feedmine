@@ -52,4 +52,14 @@ feeds_corpus.duckdb
 feeds_corpus_merged_parts*/
 feeds_progress.json
 feeds_enrich_progress.json
+feeds_new_fetch_progress.json
 scripts/feed_discovery/data/results/
+
+# Backups (OPML injection/fetch safety copies)
+feedmine/Resources/Feeds.backup.*/
+*.tmp.parquet
+*.tmp
+
+# Mappings / dedup artifacts (generated)
+new_feeds_mapping.json
+dedup_result.json

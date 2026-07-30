@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCCIgsDn5jusFnQaf1cQrSNw",
+    "category": "Education",
+    "title": "HEC Management School – University of Liège (YouTube)",
+    "genre": "University",
+    "source_page": "http://www.hec.uliege.be",
+    "national": true,
+    "national_reason": "universities/youtube/belgium",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4NXpxEj3aEh9NGVJIrKQIQ",
+    "category": "Education",
+    "title": "Saint Ignatius University Centre, Antwerp (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ucsia.org",
+    "national": true,
+    "national_reason": "universities/youtube/belgium",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC3leA5MlC1SgQAbQj47fOvw",
+    "category": "Education",
+    "title": "Université libre de Bruxelles (YouTube)",
+    "genre": "University",
+    "source_page": "https://www.ulb.be/",
+    "national": true,
+    "national_reason": "universities/youtube/belgium",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

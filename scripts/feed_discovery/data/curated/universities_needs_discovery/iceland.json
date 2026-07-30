@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Agricultural University of Iceland",
+    "website": "http://www.lbhi.is/",
+    "wikidata_id": "Q3481997",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Agricultural_University_of_Iceland",
+    "country": "iceland"
+  },
+  {
+    "name": "Akureyri Junior College",
+    "website": "http://www.ma.is/english",
+    "wikidata_id": "Q4701979",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Akureyri_Junior_College",
+    "country": "iceland"
+  },
+  {
+    "name": "Hólar University College",
+    "website": "http://www.holar.is",
+    "wikidata_id": "Q1523183",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/H%C3%B3lar_University_College",
+    "country": "iceland"
+  },
+  {
+    "name": "Iceland University of the Arts",
+    "website": "http://www.lhi.is/",
+    "wikidata_id": "Q1134292",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iceland_University_of_the_Arts",
+    "country": "iceland"
+  },
+  {
+    "name": "Reykjavík University",
+    "website": "https://www.ru.is/",
+    "wikidata_id": "Q1542418",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Reykjav%C3%ADk_University",
+    "country": "iceland"
+  },
+  {
+    "name": "Technical University of Iceland",
+    "website": "https://www.thi.is/",
+    "wikidata_id": "Q16429196",
+    "wikipedia_url": "",
+    "country": "iceland"
+  },
+  {
+    "name": "University of Iceland -School of Education",
+    "website": "https://www.hi.is/menntavisindasvid",
+    "wikidata_id": "Q5985674",
+    "wikipedia_url": "https://en.wikipedia.org/wiki/Iceland_College_of_Education",
+    "country": "iceland"
+  }
+]
