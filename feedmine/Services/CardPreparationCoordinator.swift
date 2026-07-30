@@ -47,12 +47,17 @@ actor CardPreparationCoordinator {
 
     // MARK: - Public API
 
-    /// Replace the entire editorial sequence. Cancels all in-flight work
-    /// for any previous context.
+    /// Replace the entire editorial sequence. An older context (lower epoch)
+    /// can never replace a newer one — this prevents stale tasks from
+    /// resurrecting a discarded feed composition.
     func replaceEditorialSequence(
         _ items: [FeedItem],
         context: FeedPresentationContext
     ) async {
+        // Guard: never let an older epoch overwrite a newer one.
+        if let current = activeContext, context.epoch < current.epoch {
+            return
+        }
         await mediaStore.cancelAll()
         orderedItems = items
         stateByID.removeAll()
@@ -63,13 +68,18 @@ actor CardPreparationCoordinator {
         activeContext = context
     }
 
-    /// Append items to the end of the editorial sequence.
+    /// Append items to the end of the editorial sequence. Filters out
+    /// items whose IDs are already known (single source of truth for
+    /// deduplication — callers don't need to pre-filter).
     func appendEditorialSequence(
         _ items: [FeedItem],
         context: FeedPresentationContext
     ) async {
         guard context == activeContext else { return }
-        orderedItems.append(contentsOf: items)
+        let existingIDs = Set(orderedItems.map(\.id))
+        let newItems = items.filter { !existingIDs.contains($0.id) }
+        guard !newItems.isEmpty else { return }
+        orderedItems.append(contentsOf: newItems)
     }
 
     /// Fill the runway up to the specified target count of render-ready cards.
@@ -231,7 +241,7 @@ actor CardPreparationCoordinator {
     private func resolveImageAsset(
         for item: FeedItem,
         context: FeedPresentationContext,
-        deadline: Date
+        deadline: ContinuousClock.Instant
     ) async -> ResolvedImageAsset? {
         guard let imageURL = item.bestImageURL.flatMap(URL.init(string:)) else {
             return nil
@@ -262,8 +272,7 @@ actor CardPreparationCoordinator {
 
         switch asset {
         case .image(let resolvedAsset):
-            if let data = await mediaStore.diskData(for: resolvedAsset.cacheKey),
-               let image = UIImage(data: data) {
+            if let image = await mediaStore.decodedImage(for: resolvedAsset.cacheKey) {
                 let renderImage = RenderImage(cacheKey: resolvedAsset.cacheKey, image: image)
                 media = .image(renderImage)
                 layout = .hero
@@ -289,7 +298,7 @@ actor CardPreparationCoordinator {
         )
     }
 
-    private func deadlineForIndex(_ index: Int) -> Date {
+    private func deadlineForIndex(_ index: Int) -> ContinuousClock.Instant {
         let duration: Duration
         if index < policy.initialPublishedCount {
             duration = policy.initialViewportDeadline
@@ -298,7 +307,7 @@ actor CardPreparationCoordinator {
         } else {
             duration = policy.deepRunwayDeadline
         }
-        return Date().addingTimeInterval(TimeInterval(duration.components.seconds))
+        return ContinuousClock().now.advanced(by: duration)
     }
 
     private func placeholderKind(for item: FeedItem) -> PlaceholderKind {
@@ -311,27 +320,35 @@ actor CardPreparationCoordinator {
 
 // MARK: - Deadline Helper
 
-/// Race an async operation against a deadline. If the operation completes
-/// first, returns its result. If the deadline expires first, returns nil.
-/// The operation task is cancelled when the deadline fires.
+/// Race an async operation against a deadline. Returns the operation result
+/// if it completes before the deadline, or nil if the deadline expires first.
+///
+/// Uses detached Tasks so the deadline doesn't wait for the operation to
+/// finish. The download inside MediaAssetStore is a non-structured Task that
+/// doesn't respond to cooperative cancellation — we abandon the wait without
+/// cancelling the shared download (which continues in the background and
+/// benefits future requests).
 private func raceWithDeadline<T: Sendable>(
-    deadline: Date,
+    deadline: ContinuousClock.Instant,
     operation: @escaping @Sendable () async -> T?
 ) async -> T? {
-    await withTaskGroup(of: T?.self) { group in
-        group.addTask {
-            return await operation()
+    await withCheckedContinuation { continuation in
+        let clock = ContinuousClock()
+        let task = Task.detached {
+            await operation()
         }
-        group.addTask {
-            let remaining = deadline.timeIntervalSinceNow
-            if remaining > 0 {
-                try? await Task.sleep(for: .seconds(remaining))
-            }
-            return nil
+        let timeoutTask = Task.detached {
+            try? await Task.sleep(until: deadline, clock: clock)
+            // Deadline fired — resolve with nil. The operation Task
+            // continues running (shared download populates disk cache).
+            continuation.resume(returning: nil)
+            task.cancel()
         }
-        // Return the first result (operation wins) or nil (deadline wins)
-        let first = await group.next() ?? nil
-        group.cancelAll()
-        return first
+        Task {
+            let result = await task.value
+            // Operation completed first — resolve with its result.
+            continuation.resume(returning: result)
+            timeoutTask.cancel()
+        }
     }
 }
