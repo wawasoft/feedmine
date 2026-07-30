@@ -63,6 +63,11 @@ final class FeedStore {
     let searchEngine: SearchEngine
     let whatsNewManager: WhatsNewManager
 
+    // MARK: - Unified Selection Engine (Phase 1–3)
+    /// The selection bridge. Created when unifiedSelectionEngine feature flag is on.
+    /// Manages SelectionSessions and exposes unified state/counters to the UI.
+    var selectionBridge: FeedStoreSelectionBridge?
+
     // MARK: - Public state
     private(set) var visibleItems: [FeedItem] = []
     /// Pre-resolved card presentations for the main feed. Published alongside
@@ -1371,6 +1376,32 @@ final class FeedStore {
     func start() async {
         guard !hasStarted else { return }
         hasStarted = true
+
+        // --- Initialize unified selection engine (Phase 1–3) ---
+        // The catalog adapter wraps SourceRegistry + TaxonomyStore for the
+        // selection engine. Created early so shadow mode can compare results
+        // during startup.
+        initializeSelectionEngine(
+            catalog: SourceRegistryCatalogAdapter(registry: registry)
+        )
+        // If the main feed flag is on and no preset overrides the normal
+        // path, submit the initial request now. The bridge handles the rest.
+        if Settings.unifiedSelectionMainFeed,
+           let bridge = selectionBridge,
+           !activePreset.isSmartFeed,
+           !activePreset.isLastClicked,
+           activePreset.collectionID == nil {
+            bridge.activeLanguages = activeLanguages
+            bridge.activeContentType = activeContentType
+            bridge.contentFilterKeywords = ContentFilterStore.shared.isEnabled
+                ? Set(ContentFilterStore.shared.activeFilters.flatMap { $0.keywords })
+                : []
+            bridge.submitMainFeedRequest()
+            isPreparingInitialRunway = false
+            loadingState = .idle
+            return
+        }
+
         loadingState = .initial
         isPreparingInitialRunway = true
         startupFetchedSourceCount = 0
@@ -2027,6 +2058,12 @@ final class FeedStore {
     /// OPML, no restarting the network monitor, no re-hydrating SQLite, no
     /// baseline reset. Falls back to full startup if the store never started.
     func refreshNow() async {
+        // --- Unified Selection Engine path (Phase 3+) ---
+        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
+            submitUnifiedRefresh()
+            return
+        }
+        // --- Legacy path ---
         guard hasStarted else { await start(); return }
         if let smartFeedID = activePreset.smartFeedID {
             await refreshSmartFeed(id: smartFeedID)
@@ -2059,6 +2096,12 @@ final class FeedStore {
     }
 
     func loadMoreIfNeeded(currentItem: FeedItem) async {
+        // --- Unified Selection Engine path (Phase 3+) ---
+        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
+            submitUnifiedLoadMore()
+            return
+        }
+        // --- Legacy path ---
         guard !isSearching else { return }
         guard !isBookmarkFeed else { return }
         guard !activePreset.isSmartFeed else { return }
@@ -2234,6 +2277,35 @@ final class FeedStore {
     }
 
     func setFilter(region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType, mood: FeedLoader.MoodFilter = .all, languages: Set<String>? = nil) {
+        // --- Unified Selection Engine path (Phase 3+) ---
+        if Settings.unifiedSelectionMainFeed, let bridge = selectionBridge {
+            let langs = languages.map { Self.normalizedLanguageSet($0) } ?? activeLanguages
+            submitUnifiedFilter(region: region, nodeIDs: nodeIDs, type: type, mood: mood, languages: langs)
+            return
+        }
+
+        // --- Shadow mode (Phase 1): run unified compiler alongside legacy ---
+        if Settings.unifiedSelectionShadow, let bridge = selectionBridge {
+            let langs = languages.map { Self.normalizedLanguageSet($0) } ?? activeLanguages
+            let eligibleSourceCount = registry.enabledSources.count
+            // Compile the unified plan for comparison (does not affect UI)
+            Task { [weak self] in
+                guard let self else { return }
+                bridge.activeRegion = region
+                bridge.activeNodeIDs = nodeIDs
+                bridge.activeContentType = type
+                bridge.activeMood = mood
+                bridge.activeLanguages = langs
+                let request = bridge.adapter.makeResetRequest(
+                    preservingSourceLibrary: true,
+                    contentFilterKeywords: bridge.contentFilterKeywords
+                )
+                // Shadow trace — just log the plan, don't publish
+                await self.selectionBridge?.coordinator.submit(request)
+                Log.feed.info("[SelectionShadow] filter change compiled: eligible=\(eligibleSourceCount)")
+            }
+        }
+        // --- Legacy path ---
         // Increment generation BEFORE updating state — every async operation
         // captures this and discards results if a newer filter supersedes it.
         filterGeneration &+= 1
@@ -2469,6 +2541,12 @@ final class FeedStore {
     }
 
     func clearAllFilters() {
+        // --- Unified Selection Engine path (Phase 3+) ---
+        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
+            submitUnifiedReset()
+            return
+        }
+        // --- Legacy path ---
         filterGeneration &+= 1
         let generation = filterGeneration
 
@@ -3061,6 +3139,12 @@ final class FeedStore {
     /// "Open Collection Feed") and seeds the main feed with results.
     func setPreset(_ preset: PresetSelector) {
         guard preset != activePreset else { return }
+        // --- Unified Selection Engine path (Phase 3+) ---
+        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
+            submitUnifiedPreset(preset)
+            return
+        }
+        // --- Legacy path ---
         activePreset = preset
         Settings.activePreset = preset
         // Update presentation mode for the new preset
