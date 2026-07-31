@@ -162,14 +162,16 @@ final class SelectionExecutor {
 
     /// Query SQLite for items matching the plan's rules.
     private func queryCache(plan: ResolvedSelectionPlan) async throws -> [FeedItem] {
-        let (sql, _) = SQLItemRuleCompiler().compile(
+        // Recompile SQL fresh from the rule set so bindings are never stale (5.6)
+        let (sql, arguments) = SQLItemRuleCompiler().compile(
             plan.itemRules,
-            limit: plan.presentationPlan.initialPageSize,
-            offset: 0
+            limit: plan.cacheQuery.limit,
+            offset: plan.cacheQuery.offset
         )
 
         return try await db.read { db in
-            try FeedItemRecord.fetchAll(db, sql: sql).map { $0.toFeedItem() }
+            try FeedItemRecord.fetchAll(db, sql: sql, arguments: arguments)
+                .map { $0.toFeedItem() }
         }
     }
 
@@ -222,15 +224,16 @@ final class SelectionExecutor {
     ) async throws -> FeedSnapshot {
         let nextOffset = currentSnapshot.cards.count
 
-        // Query next page from cache
-        let (sql, _) = SQLItemRuleCompiler().compile(
+        // Query next page from cache (recompile fresh for correct bindings)
+        let (sql, arguments) = SQLItemRuleCompiler().compile(
             plan.itemRules,
             limit: plan.presentationPlan.loadMorePageSize,
             offset: nextOffset
         )
 
         let items = try await db.read { db in
-            try FeedItemRecord.fetchAll(db, sql: sql).map { $0.toFeedItem() }
+            try FeedItemRecord.fetchAll(db, sql: sql, arguments: arguments)
+                .map { $0.toFeedItem() }
         }
 
         guard !items.isEmpty else {
