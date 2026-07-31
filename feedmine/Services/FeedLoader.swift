@@ -93,7 +93,15 @@ final class FeedLoader {
         }
     }
     var activeSourceCount: Int {
-        store.presetSourceFilter?.count ?? activeSources.count
+        if let filter = store.presetSourceFilter { return filter.count }
+        let legacyCount = activeSources.count
+        // Use unified count when bridge has real data, fall back to legacy
+        if Settings.unifiedSelectionState,
+           let bridge = store.selectionBridge,
+           bridge.eligibleSourceCount > 0 {
+            return bridge.eligibleSourceCount
+        }
+        return legacyCount
     }
     var podcastSourceCount: Int { store.podcastSourceCount }
     var podcastItemCount: Int { store.podcastItemCount }
