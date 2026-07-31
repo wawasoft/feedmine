@@ -68,11 +68,15 @@ struct HistoryPolicy: Hashable, Sendable {
     )
 
     /// Default feed: exclude read/consumed, last 30 days.
-    static let defaultFeed = HistoryPolicy(
-        includeRead: false, includeConsumed: false, includeBookmarked: false,
-        excludeAlreadyLoaded: true, excludeSurfaced: false,
-        dateRange: Calendar.current.date(byAdding: .day, value: -30, to: Date())!...Date()
-    )
+    /// Bookmarks are NOT excluded — a saved article hasn't been consumed.
+    /// The date range is relative (computed each call), not fixed at init time.
+    static var defaultFeed: HistoryPolicy {
+        HistoryPolicy(
+            includeRead: false, includeConsumed: false, includeBookmarked: true,
+            excludeAlreadyLoaded: true, excludeSurfaced: false,
+            dateRange: Calendar.current.date(byAdding: .day, value: -30, to: Date())!...Date()
+        )
+    }
 }
 
 /// Signals that influence item ordering.
@@ -157,8 +161,8 @@ struct CompletionPolicy: Hashable, Sendable {
         minimumDistinctProviders: 3, maximumWait: .seconds(2)
     )
     static let sourceView = CompletionPolicy(
-        minimumCardCount: 1, minimumDistinctSources: 1,
-        minimumDistinctProviders: 1, maximumWait: .seconds(5)
+        minimumCardCount: 20, minimumDistinctSources: 1,
+        minimumDistinctProviders: 1, maximumWait: .seconds(8)
     )
     static let bookmarks = CompletionPolicy(
         minimumCardCount: 1, minimumDistinctSources: 0,

@@ -392,7 +392,14 @@ final class SelectionPipelineE2ETests: XCTestCase {
             contentFilterKeywords: []
         )
 
-        // The rule set derived from this criteria must be deterministic
+        // The rule set derived from this criteria must be deterministic.
+        // Use a fixed date range since defaultFeed uses Date() which changes per call.
+        let fixedHistory = HistoryPolicy(
+            includeRead: false, includeConsumed: false, includeBookmarked: true,
+            excludeAlreadyLoaded: true, excludeSurfaced: false,
+            dateRange: Date(timeIntervalSince1970: 0)...Date(timeIntervalSince1970: 1000000)
+        )
+
         let rules1 = ItemRuleSet(
             eligibleSourceIDs: [],
             regions: criteria.regions,
@@ -403,7 +410,7 @@ final class SelectionPipelineE2ETests: XCTestCase {
             searchExpression: criteria.searchExpression,
             excludedKeywords: criteria.excludedKeywords,
             contentExclusions: .disabled,
-            history: .defaultFeed
+            history: fixedHistory
         )
 
         let rules2 = ItemRuleSet(
@@ -416,7 +423,7 @@ final class SelectionPipelineE2ETests: XCTestCase {
             searchExpression: criteria.searchExpression,
             excludedKeywords: criteria.excludedKeywords,
             contentExclusions: .disabled,
-            history: .defaultFeed
+            history: fixedHistory
         )
 
         // Same criteria must produce same ruleDigest
@@ -541,7 +548,7 @@ final class SelectionPipelineE2ETests: XCTestCase {
 
     func test_completionPolicy_sourceView() {
         let policy = CompletionPolicy.sourceView
-        XCTAssertEqual(policy.minimumCardCount, 1)
+        XCTAssertEqual(policy.minimumCardCount, 20)
         XCTAssertEqual(policy.minimumDistinctSources, 1)
     }
 
