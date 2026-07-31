@@ -5799,6 +5799,41 @@ final class FeedStore {
     }
 
     private func loadSmartFeedFeed(id: Int64) async {
+        // --- Unified Selection Engine path (Phase 6B) ---
+        if Settings.unifiedSelectionSearchSmart, let bridge = selectionBridge {
+            do {
+                guard let smartFeed = try await smartFeedStore.smartFeed(id: id) else {
+                    activePreset = .everything
+                    return
+                }
+                let items = try await smartFeedStore.cachedItems(smartFeedID: id)
+                let allowlistSourceIDs = Set(items.compactMap {
+                    CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: $0.sourceURL))
+                })
+                submitUnifiedSmartFeed(
+                    smartFeedID: id,
+                    query: smartFeed.definition.query,
+                    region: smartFeed.definition.region,
+                    taxonomyNodeIDs: Set(smartFeed.definition.taxonomyNodeIDs),
+                    languages: Set(smartFeed.definition.languages),
+                    contentType: ContentType(rawValue: smartFeed.definition.contentType),
+                    mood: MoodFilter(rawValue: smartFeed.definition.mood) ?? .all,
+                    collectionMemberIDs: smartFeed.definition.sourceCollectionID.map { _ in [] },
+                    excludedKeywords: Set(smartFeed.definition.excludedKeywords),
+                    contentFilterKeywords: bridge.contentFilterKeywords,
+                    allowlistSourceIDs: allowlistSourceIDs,
+                    allowlistItemIDs: Set(items.map(\.id))
+                )
+                // Still show cached items immediately
+                setVisibleItems(items)
+                loadingState = .idle
+                return
+            } catch {
+                loadingState = .idle
+                return
+            }
+        }
+        // --- Legacy path ---
         do {
             guard let smartFeed = try await smartFeedStore.smartFeed(id: id) else {
                 activePreset = .everything
