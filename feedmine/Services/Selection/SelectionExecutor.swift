@@ -28,6 +28,16 @@ final class SelectionExecutor {
     let mixAllocator = MixAllocator()
     let inMemoryEvaluator = InMemoryItemRuleEvaluator()
 
+    // MARK: - Multiplier providers (P1-5)
+
+    /// Closure that returns SourceID → multiplier for editorial presets.
+    /// Set by the coordinator from PresetScorer data.
+    var presetMultiplierProvider: (() -> [SourceID: Double])?
+
+    /// Closure that returns SourceID → multiplier for curated profiles.
+    /// Set by the coordinator from CuratedPreferenceEngine data.
+    var curatedMultiplierProvider: (() -> [SourceID: Double])?
+
     // MARK: - State
 
     private var loadedItemIDs: Set<String> = []
@@ -68,10 +78,14 @@ final class SelectionExecutor {
         )
         let eligibleCount = eligibleCacheItems.count
 
-        // 3. Ranking
+        // 3. Ranking — pass real multipliers if available (P1-5)
+        let presetMults = presetMultiplierProvider?() ?? [:]
+        let curatedMults = curatedMultiplierProvider?() ?? [:]
         let scored = rankingEngine.score(
             items: eligibleCacheItems,
             plan: plan.rankingPlan,
+            presetMultipliers: presetMults,
+            curatedMultipliers: curatedMults,
             alreadySurfacedIDs: loadedItemIDs
         )
 
