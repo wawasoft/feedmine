@@ -1462,6 +1462,7 @@ private extension View {
 
 struct CompactFeedStatus: View {
     @Environment(FeedLoader.self) private var loader
+    @Environment(\.openURL) private var openURL
     @State private var engine = CircadianEngine.shared
     @State private var showReadyPulse = false
     @AppStorage("showDebugBar") private var showDebugBar = false
@@ -1503,6 +1504,14 @@ struct CompactFeedStatus: View {
                     .foregroundStyle(.secondary)
             }
         }
+        // Easter egg: single-tap Feedmine logo/name opens wawasoft.net/catalog
+        .simultaneousGesture(
+            TapGesture().onEnded {
+                if let url = URL(string: "https://wawasoft.net/catalog/") {
+                    openURL(url)
+                }
+            }
+        )
         // Secret gesture: triple-tap the feed status to toggle debug bar.
         // Not exposed in Settings — intentional, for development use only.
         .onTapGesture(count: 3) {
