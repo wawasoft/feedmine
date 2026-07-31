@@ -29,11 +29,20 @@ extension FeedStore {
     /// Initialize the selection bridge. Called after the catalog is ready.
     /// In Phase 1 (shadow mode), the bridge runs alongside the legacy path.
     /// In Phase 3 (main feed), the bridge replaces the legacy path.
-    func initializeSelectionEngine(catalog: any SelectionCatalogReading) {
+    func initializeSelectionEngine(
+        catalog: any SelectionCatalogReading,
+        snapshotBuilder: SelectionSnapshotBuilder? = nil,
+        executor: SelectionExecutor? = nil
+    ) {
         guard Settings.unifiedSelectionShadow || Settings.unifiedSelectionState
                 || Settings.unifiedSelectionMainFeed else { return }
         guard selectionBridge == nil else { return }
-        selectionBridge = FeedStoreSelectionBridge(catalog: catalog)
+        let bridge = FeedStoreSelectionBridge(catalog: catalog)
+        // Wire real snapshots so the compiler doesn't use .empty
+        bridge.coordinator.snapshotBuilder = snapshotBuilder
+        // Wire executor so sessions actually run the pipeline
+        bridge.coordinator.executor = executor
+        selectionBridge = bridge
     }
 
     // MARK: - Unified Filter Operations
