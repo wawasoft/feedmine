@@ -286,3 +286,154 @@ async def phase1_rss_extraction(
                 print(f"  Phase 1: {completed}/{len(tasks)} processed, {found} emails found")
 
     return results
+
+
+# ---------------------------------------------------------------------------
+# Phase 2: Site scraping (fallback)
+# ---------------------------------------------------------------------------
+
+CONTACT_PATHS = [
+    "/contact", "/about", "/contato", "/contacto", "/kontakt",
+    "/contact-us", "/sobre", "/nosotros", "/chi-siamo",
+    "/nous-contacter", "/uber-uns", "/impressum",
+]
+
+USER_AGENTS = [
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+]
+
+PERSON_NAME_RE = re.compile(
+    r'(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\s*(?:,?\s*(?:Editor|Publisher|Author|Producer|Host|Director|Founder|CEO|Manager|Journalist|Writer|Reporter|Correspondent))?',
+)
+
+
+def robots_allowed(url: str, user_agent: str, cache: dict[str, RobotFileParser]) -> bool:
+    """Check robots.txt for a URL. Cache parsers per domain."""
+    parsed = urlsplit(url)
+    domain = parsed.hostname or ""
+    if domain not in cache:
+        rp = RobotFileParser()
+        rp.set_url(f"{parsed.scheme}://{domain}/robots.txt")
+        try:
+            rp.read()
+        except Exception:
+            rp.allow_all = True
+        cache[domain] = rp
+    return cache[domain].can_fetch(user_agent, url)
+
+
+def classify_email_type(email: str, page_text: str) -> tuple[str | None, str]:
+    """Determine if an email is personal or generic, and extract name if present."""
+    local_part = email.split("@")[0].lower().strip()
+    for prefix in GENERIC_PREFIXES:
+        if local_part == prefix or local_part.startswith(f"{prefix}-") or local_part.startswith(f"{prefix}."):
+            return (None, "generic")
+    idx = page_text.lower().find(email.lower())
+    if idx >= 0:
+        context = page_text[max(0, idx - 200):idx + len(email) + 100]
+        name_match = PERSON_NAME_RE.search(context)
+        if name_match:
+            name = name_match.group(0).strip()
+            if len(name.split()) >= 2 and not name.isupper():
+                return (name, "personal")
+    return (None, "generic")
+
+
+async def scrape_site(
+    session: aiohttp.ClientSession,
+    source: SourceRecord,
+    semaphore: asyncio.Semaphore,
+    robots_cache: dict[str, RobotFileParser],
+) -> ContactResult:
+    """Try to extract contact email from a site's contact/about/homepage."""
+    result = ContactResult(source_id=source.source_id, db_id=source.db_id)
+    if not source.site_url:
+        result.contact_status = "not_found"
+        return result
+
+    base_url = source.site_url.rstrip("/")
+    user_agent = USER_AGENTS[hash(source.source_id) % len(USER_AGENTS)]
+    urls_to_try = [f"{base_url}{p}" for p in CONTACT_PATHS]
+    if base_url not in urls_to_try:
+        urls_to_try.append(base_url)
+
+    async with semaphore:
+        for url in urls_to_try:
+            if not robots_allowed(url, user_agent, robots_cache):
+                continue
+            try:
+                await asyncio.sleep(1.0)
+                async with session.get(
+                    url,
+                    headers={"User-Agent": user_agent},
+                    timeout=aiohttp.ClientTimeout(total=10),
+                    max_redirects=3,
+                ) as resp:
+                    if resp.status in (403, 429):
+                        result.contact_status = "site_blocked"
+                        return result
+                    if resp.status != 200:
+                        continue
+                    html = await resp.text(encoding="utf-8", errors="replace")
+            except (aiohttp.ClientError, asyncio.TimeoutError):
+                continue
+
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(html, "html.parser")
+            for tag in soup(["script", "style", "nav", "footer", "header"]):
+                tag.decompose()
+            visible_text = soup.get_text(separator=" ", strip=True)
+            emails = EMAIL_RE.findall(visible_text)
+            if not emails:
+                continue
+            for email in emails:
+                email_lower = email.lower().strip()
+                if "noreply" in email_lower or "no-reply" in email_lower:
+                    continue
+                name, etype = classify_email_type(email_lower, visible_text)
+                result.contact_email = email_lower
+                result.contact_name = name
+                result.contact_source = (
+                    "site_contact_page" if "/contact" in url or "/contato" in url or "/contacto" in url
+                    else "site_about_page" if "/about" in url or "/sobre" in url
+                    else "site_homepage"
+                )
+                result.contact_type = etype
+                result.contact_status = "found"
+                return result
+
+    result.contact_status = "not_found"
+    return result
+
+
+async def phase2_site_scraping(
+    sources: list[SourceRecord],
+    phase1_results: dict[str, ContactResult],
+    max_concurrency: int = 20,
+) -> dict[str, ContactResult]:
+    """Run Phase 2 on sources that didn't get an email from Phase 1."""
+    to_scrape = [
+        s for s in sources
+        if s.site_url and phase1_results.get(s.source_id, ContactResult(s.source_id, s.db_id)).contact_status != "found"
+    ]
+    print(f"  Phase 2: {len(to_scrape)} sources to scrape (no RSS email found)")
+
+    results: dict[str, ContactResult] = dict(phase1_results)
+    semaphore = asyncio.Semaphore(max_concurrency)
+    robots_cache: dict[str, RobotFileParser] = {}
+    connector = aiohttp.TCPConnector(limit=max_concurrency, limit_per_host=1)
+
+    async with aiohttp.ClientSession(connector=connector) as session:
+        tasks = [scrape_site(session, s, semaphore, robots_cache) for s in to_scrape]
+        completed = 0
+        for coro in asyncio.as_completed(tasks):
+            result = await coro
+            results[result.source_id] = result
+            completed += 1
+            if completed % 500 == 0:
+                found = sum(1 for r in results.values() if r.contact_status == "found")
+                print(f"  Phase 2: {completed}/{len(to_scrape)} processed, {found} total emails found")
+
+    return results
