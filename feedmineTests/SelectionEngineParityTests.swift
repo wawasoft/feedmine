@@ -473,7 +473,7 @@ final class SelectionEngineParityTests: XCTestCase {
             completion: .sourceView
         )
 
-        XCTAssertEqual(request.completion.minimumCardCount, 1)
+        XCTAssertEqual(request.completion.minimumCardCount, 20)
         if case .single(let id) = request.sourceUniverse {
             XCTAssertEqual(id, SourceID(rawValue: 5))
         } else {
