@@ -1515,6 +1515,8 @@ final class FeedStore {
             }
             return result
         }
+        // 5.2 note: sourceURLProvider available on catalogAdapter.sourceURLs(for:)
+        // Deferred until GRDB StatementArguments concat is resolved.
         initializeSelectionEngine(
             catalog: catalogAdapter,
             snapshotBuilder: snapshotBuilder,
