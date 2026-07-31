@@ -145,10 +145,12 @@ final class FeedStoreSelectionBridge {
 
         case .preparing(let progress):
             loadingState = hasPreviouslyLoadedContent ? .refreshing : .initial
+            // During preparing, metrics reflect the progress snapshot.
+            // catalogTotal/eligibleTotal are set from the plan once compiled.
             selectionMetrics = SelectionMetrics(
                 sources: SourceSelectionMetrics(
-                    catalogTotal: progress.sourcesEligible,
-                    enabledLibraryTotal: 0,
+                    catalogTotal: 0,           // set after plan compilation
+                    enabledLibraryTotal: 0,     // set after plan compilation
                     eligibleTotal: progress.sourcesEligible,
                     scheduledTotal: progress.sourcesScheduled,
                     checked: progress.sourcesChecked,
@@ -179,8 +181,11 @@ final class FeedStoreSelectionBridge {
             }
             visibleItemsGeneration &+= 1
             hasPreviouslyLoadedContent = true
+            // Metrics from the actual snapshot (authoritative).
             selectionMetrics = snapshot.metrics
-            reservoirCount = snapshot.metrics.sources.contributing
+            // Reservoir count in unified engine = items not yet published.
+            // contributing is a source count — different concept (B13).
+            reservoirCount = snapshot.metrics.itemsAfterMix - snapshot.metrics.publishedCards
 
         case .refreshing(let previous, let progress):
             loadingState = .refreshing
