@@ -20,6 +20,8 @@ struct SettingsSheetView: View {
     @State private var showPalettePicker = false
     @State private var showFontStylePicker = false
     @State private var showRestartAlert = false
+    @State private var shareImage: UIImage?
+    @State private var showShareSheet = false
 
     private var topCategory: String? {
         let readItems = loader.items.filter { loader.isRead($0.id) }
@@ -223,19 +225,14 @@ struct SettingsSheetView: View {
                 Section {
                     Button {
                         let topCat = topCategory ?? "None"
-                        if let image = renderStatsCard(
+                        shareImage = renderStatsCard(
                             readCount: loader.readItemIDs.count,
                             bookmarkCount: loader.bookmarkedIDs.count,
                             streakCount: Settings.sessionStreak,
                             topCategory: topCat,
                             sourceCount: loader.sourceCount
-                        ) {
-                            let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                               let root = windowScene.windows.first?.rootViewController {
-                                root.present(av, animated: true)
-                            }
-                        }
+                        )
+                        if shareImage != nil { showShareSheet = true }
                     } label: {
                         Label("Share My Stats", systemImage: "chart.bar.fill")
                     }
@@ -270,6 +267,11 @@ struct SettingsSheetView: View {
             }
             .sheet(isPresented: $showFontStylePicker) {
                 fontStylePickerSheet
+            }
+            .sheet(isPresented: $showShareSheet) {
+                if let image = shareImage {
+                    ShareSheet(activityItems: [image])
+                }
             }
             .alert(String(localized: "Restart Required", comment: "Language change alert title"),
                    isPresented: $showRestartAlert) {
@@ -407,6 +409,16 @@ struct SettingsSheetView: View {
         }
         .navigationTitle(String(localized: "Language", comment: "Language picker title"))
     }
+}
+
+// MARK: - Share Sheet wrapper
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+    }
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 // MARK: - Public helpers for font size
