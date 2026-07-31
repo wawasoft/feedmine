@@ -6,7 +6,7 @@ struct OPMLParser {
     /// Bump when the parse LOGIC or FeedSource shape changes (region derivation,
     /// mediaKind classification, dedup/normalize) so caches produced by the old
     /// logic are ignored even within the same app build.
-    private static let cacheFormatVersion = 8  // curated source metadata + default enablement
+    private static let cacheFormatVersion = 9  // + contact email fields
 
     /// Codable envelope persisted to Caches/.
     private struct CachedParse: Codable {
@@ -528,7 +528,11 @@ private final class OPMLDelegate: NSObject, XMLParserDelegate {
                 nature: attributeDict["feedmineNature"],
                 activity: attributeDict["feedmineActivity"],
                 qualityScore: qualityScore,
-                defaultEnabled: defaultEnabled
+                defaultEnabled: defaultEnabled,
+                contactEmail: attributeDict["feedmineContactEmail"],
+                contactName: attributeDict["feedmineContactName"],
+                contactSource: attributeDict["feedmineContactSource"],
+                contactType: attributeDict["feedmineContactType"]
             )
         )
     }
