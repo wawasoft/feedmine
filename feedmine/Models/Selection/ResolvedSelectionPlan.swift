@@ -158,11 +158,13 @@ struct ResolvedAcquisitionPlan: Hashable, Sendable {
 /// Resolved plan for card preparation.
 struct ResolvedPresentationPlan: Hashable, Sendable {
     let initialPageSize: Int
+    let loadMorePageSize: Int
     let requireTerminalPresentation: Bool
     let deadlineHierarchy: PresentationDeadlineHierarchy
 
     static let defaultPlan = ResolvedPresentationPlan(
         initialPageSize: 20,
+        loadMorePageSize: 20,
         requireTerminalPresentation: true,
         deadlineHierarchy: .standard
     )

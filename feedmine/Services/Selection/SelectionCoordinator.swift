@@ -53,6 +53,12 @@ final class SelectionCoordinator {
             traceLogger: traceLogger
         )
 
+        // Wire executor into session so start() actually runs the pipeline
+        session.executor = executor
+        session.presentationContext = FeedPresentationContext(
+            epoch: 1, mode: .main, filterGeneration: 0, presetGeneration: 0
+        )
+
         switch request.surface {
         case .main:
             mainSession = session
@@ -98,15 +104,36 @@ final class SelectionCoordinator {
         secondarySessions.removeAll()
     }
 
+    // MARK: - Snapshot builder (Etapa 4)
+
+    /// Builder for real enablement/taxonomy snapshots. Set after catalog is ready.
+    var snapshotBuilder: SelectionSnapshotBuilder?
+
+    // MARK: - Executor (Etapa 3)
+
+    /// The executor that runs the pipeline. Set when DB + fetcher are ready.
+    var executor: SelectionExecutor?
+
     // MARK: - Compiler factory
 
     private func makeCompiler() -> SelectionCompiler {
-        SelectionCompiler(
+        let taxonomy: TaxonomySnapshot
+        let userState: SourceEnablementSnapshot
+
+        if let builder = snapshotBuilder {
+            taxonomy = builder.buildActiveTaxonomySnapshot(activeNodeIDs: [])
+            userState = builder.buildEnablementSnapshot()
+        } else {
+            taxonomy = .empty
+            userState = .empty
+        }
+
+        return SelectionCompiler(
             catalog: catalog,
             scopeResolver: SourceScopeResolver(),
             sqlCompiler: SQLItemRuleCompiler(),
-            taxonomy: .empty,
-            userState: .empty
+            taxonomy: taxonomy,
+            userState: userState
         )
     }
 

@@ -206,6 +206,7 @@ struct SelectionCompiler: Sendable {
     ) -> ResolvedPresentationPlan {
         ResolvedPresentationPlan(
             initialPageSize: policy.initialPageSize,
+            loadMorePageSize: policy.loadMorePageSize,
             requireTerminalPresentation: policy.requireTerminalPresentation,
             deadlineHierarchy: .standard
         )
