@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsSheetView: View {
     @Environment(FeedLoader.self) private var loader
     @Environment(LocaleManager.self) private var localeManager
+    var onOpenInApp: ((String, String) -> Void)?  // url, title
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = true
     @AppStorage("prefetchImages") private var prefetchImages = true
     @AppStorage("nightMode") private var nightMode = false
@@ -249,14 +250,18 @@ struct SettingsSheetView: View {
 
                 // MARK: - About
                 Section("About") {
-                    Link(destination: URL(string: "https://wawasoft.net/about/")!) {
+                    Button {
+                        onOpenInApp?("https://wawasoft.net/about/", "About Feedmine")
+                    } label: {
                         Label("About this initiative", systemImage: "info.circle.fill")
                     }
                 }
 
                 // MARK: - Feedback
                 Section {
-                    Link(destination: URL(string: "https://wawasoft.net/contact/")!) {
+                    Button {
+                        onOpenInApp?("https://wawasoft.net/contact/", "Get in touch")
+                    } label: {
                         Label("Get in touch", systemImage: "envelope.fill")
                     }
                 } header: { Text("Feedback") } footer: {

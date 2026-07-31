@@ -227,7 +227,22 @@ struct FeedScreen: View {
         .sheet(item: $articleItem) { item in ArticleReaderView(item: item) }
         .sheet(item: $selectedSource) { SourceFeedView(source: $0) }
         .sheet(item: $sourceToCollect) { AddSourceToCollectionSheet(source: $0) }
-        .sheet(isPresented: $showSettings) { SettingsSheetView() }
+        .sheet(isPresented: $showSettings) {
+            SettingsSheetView(onOpenInApp: { url, title in
+                articleItem = FeedItem(
+                    id: "settings-link-\(url.hashValue)",
+                    sourceTitle: title,
+                    sourceURL: url,
+                    category: "Settings",
+                    title: title,
+                    excerpt: "",
+                    url: url,
+                    imageURL: nil,
+                    publishedAt: Date(),
+                    region: "global"
+                )
+            })
+        }
         .sheet(isPresented: $showSources) { SourceManagementView() }
         .sheet(isPresented: $showFilters) { FilterSheetView() }
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
