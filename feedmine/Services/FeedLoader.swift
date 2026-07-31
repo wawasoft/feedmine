@@ -27,12 +27,20 @@ final class FeedLoader {
 
     // MARK: - UI State (from store)
 
-    var items: [FeedItem] { store.visibleItems }
+    /// When unified state is active, read from the bridge (single authority).
+    /// Otherwise fall back to legacy FeedStore properties. (Etapa 6)
+    var items: [FeedItem] {
+        Settings.unifiedSelectionState ? (store.selectionBridge?.visibleItems ?? store.visibleItems) : store.visibleItems
+    }
     /// Pre-resolved card presentations. The main feed should render from these
     /// when available — images are already resolved. Nil/empty for search and
     /// paths that skip the pipeline (views fall back to CachedAsyncImage).
-    var cards: [FeedCardPresentation] { store.visibleCards }
-    var loadingState: FeedLoadingState { store.loadingState }
+    var cards: [FeedCardPresentation] {
+        Settings.unifiedSelectionState ? (store.selectionBridge?.visibleCards ?? store.visibleCards) : store.visibleCards
+    }
+    var loadingState: FeedLoadingState {
+        Settings.unifiedSelectionState ? (store.selectionBridge?.loadingState ?? store.loadingState) : store.loadingState
+    }
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
     var sourceCount: Int { store.registry.sourceCount }
