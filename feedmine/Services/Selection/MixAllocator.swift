@@ -31,6 +31,7 @@ struct MixAllocationResult: Sendable {
 private struct DiversityTracker {
     var providerHistory: [String: Int] = [:]  // last position each provider appeared
     var regionHistory: [String: Int] = [:]
+    var categoryHistory: [String: Int] = [:]  // last position each category appeared (B5)
     var mediaHistory: [ContentType: Int] = [:]
     var sourceCounts: [String: Int] = [:]  // items per source
 }
@@ -97,6 +98,16 @@ struct MixAllocator: Sendable {
                 continue
             }
 
+            // Category cooldown (B5)
+            let category = item.category
+            if let lastPos = tracker.categoryHistory[category],
+               position - lastPos < plan.categoryCooldown {
+                if discoveryCandidates.count < discoveryCount * 2 {
+                    discoveryCandidates.append(item)
+                }
+                continue
+            }
+
             // Media cooldown
             let mediaType = item.isYouTube ? ContentType.video
                 : item.isPodcast ? ContentType.audio : ContentType.text
@@ -120,6 +131,7 @@ struct MixAllocator: Sendable {
             usedIDs.insert(item.id)
             tracker.providerHistory[provider] = position
             tracker.regionHistory[region] = position
+            tracker.categoryHistory[category] = position
             tracker.mediaHistory[mediaType] = position
             tracker.sourceCounts[sourceURL] = sourceCount + 1
             position += 1
@@ -140,24 +152,43 @@ struct MixAllocator: Sendable {
             guard !usedIDs.contains(discItem.id) else { continue }
             guard output.count < targetCount else { break }
 
-            // Insert at staggered positions
-            let insertPos = min(output.count, output.count - (discoveryInserted * 2))
+            // Insert at staggered positions (B7: guard against negative index)
+            let rawPos = output.count - (discoveryInserted * 2)
+            let insertPos = max(0, min(output.count, rawPos))
             if insertPos < output.count {
                 output.insert(discItem.id, at: insertPos)
             } else {
                 output.append(discItem.id)
             }
             usedIDs.insert(discItem.id)
+
+            // B8: Update tracking metrics for discovery insertions
+            let discSourceURL = discItem.sourceURL
+            let discSourceCount = tracker.sourceCounts[discSourceURL] ?? 0
+            tracker.sourceCounts[discSourceURL] = discSourceCount + 1
+
+            // Track quota fills for discovery items
+            for quota in plan.quotas {
+                if matchesQuota(discItem, quota) {
+                    let key = quotaKey(quota)
+                    quotaFills[key] = (quotaFills[key] ?? 0) + 1
+                }
+            }
+
             discoveryInserted += 1
         }
 
-        // Check quota satisfaction
+        // Check quota satisfaction (B4: compare fraction, not absolute count)
         var allMet = true
+        let total = output.count
         for quota in plan.quotas {
             let key = quotaKey(quota)
             let filled = quotaFills[key] ?? 0
-            let targetRange = quotaTarget(quota, total: output.count)
-            if !targetRange.contains(Double(filled)) {
+            let targetRange = quotaTarget(quota, total: total)
+            // Quota target is a percentage range (0.40...0.80).
+            // Compare the fraction of items that match the quota.
+            let fraction = total > 0 ? Double(filled) / Double(total) : 0
+            if !targetRange.contains(fraction) {
                 allMet = false
             }
         }
