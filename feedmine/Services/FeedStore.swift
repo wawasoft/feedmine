@@ -6115,6 +6115,21 @@ final class FeedStore {
     /// grant every member extended retention, preventing large playlists from
     /// silently pinning an unbounded database.
     func loadSourceCollectionContent(collectionID: Int64) async throws -> SourceCollectionContentResult {
+        // --- Unified Selection Engine path (Phase 6A) ---
+        if Settings.unifiedSelectionSurfaces, let bridge = selectionBridge {
+            let members = try await sourceCollectionStore.members(collectionID: collectionID)
+            let memberIDs = Set(members.compactMap {
+                CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: $0.sourceURL))
+            })
+            submitUnifiedCollection(
+                collectionID: collectionID,
+                memberIDs: memberIDs,
+                languages: activeLanguages,
+                contentFilterKeywords: bridge.contentFilterKeywords
+            )
+            // Legacy: still fetch and return items directly for the existing view
+        }
+        // --- Legacy path ---
         let members = try await sourceCollectionStore.members(collectionID: collectionID)
         let sources = members.map { member in
             registry.source(forURL: member.sourceURL) ?? sourceReference(for: member).feedSource
