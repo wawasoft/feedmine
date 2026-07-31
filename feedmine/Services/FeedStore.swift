@@ -201,6 +201,19 @@ final class FeedStore {
     /// Load a fixed bookmark feed — all items from the box, ordered by save date.
     /// Pauses all background processes that would modify the screen.
     func loadBookmarkFeed(items: [FeedItem]) {
+        // --- Unified Selection Engine path (Phase 6A) ---
+        if Settings.unifiedSelectionSurfaces, selectionBridge != nil {
+            let sourceIDs = Set(items.compactMap {
+                CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: $0.sourceURL))
+            })
+            let itemIDs = Set(items.map(\.id))
+            submitUnifiedBookmarks(listID: selectedBookmarkListID, sourceIDs: sourceIDs, bookmarkedItemIDs: itemIDs)
+            // Legacy: still set visible items directly for immediate display
+            setVisibleItems(items)
+            isBookmarkFeed = true
+            return
+        }
+        // --- Legacy path ---
         isBookmarkFeed = true
         currentMode = .bookmarks(selectedBookmarkListID)
         pipelineTask?.cancel()
@@ -2618,6 +2631,16 @@ final class FeedStore {
 
     // MARK: - Search
     func search(_ query: String, includeSources: Bool = true, includeContents: Bool = true) {
+        // --- Unified Selection Engine path (Phase 6B) ---
+        if Settings.unifiedSelectionSearchSmart, let bridge = selectionBridge {
+            let expr = SearchExpression(legacyQuery: query)
+            let sourceScope: SourceUniversePolicy = activeNodeIDs.isEmpty && activeContentType == .all
+                ? .enabledLibrary
+                : .expandedCatalogRespectingExplicitOff
+            submitUnifiedSearch(expression: expr, sourceScope: sourceScope, languages: activeLanguages, contentFilterKeywords: bridge.contentFilterKeywords)
+            return
+        }
+        // --- Legacy path ---
         search(
             SearchExpression(legacyQuery: query),
             includeSources: includeSources,
@@ -5993,6 +6016,21 @@ final class FeedStore {
     /// It does not subscribe/enable the source. The endpoint's complete current
     /// payload is persisted and merged with any older local history.
     func loadSourceContent(_ source: SourceReference) async -> SourceContentResult {
+        // --- Unified Selection Engine path (Phase 6A) ---
+        if Settings.unifiedSelectionSurfaces, let bridge = selectionBridge {
+            let sourceID = CatalogIdentity.sourceID(
+                for: CatalogIdentity.sourceKey(for: source.feedURL)
+            )
+            submitUnifiedSourceView(sourceID: sourceID)
+            // Read from cache (unified engine will refresh in background)
+            let items = await sourceContentFromCache(source)
+            return SourceContentResult(
+                items: items,
+                fetchStatus: .success,
+                fetchedItemCount: items.count
+            )
+        }
+        // --- Legacy path ---
         await recordExplicitSourceAccess(source.feedURL)
         let resolved = registry.source(forURL: source.feedURL) ?? source.feedSource
         let fetchResult = await fetcher.fetch(resolved)
