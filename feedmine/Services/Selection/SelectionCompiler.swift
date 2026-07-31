@@ -56,15 +56,9 @@ struct SelectionCompiler: Sendable {
             history: request.history
         )
 
-        // 4. Compile cache query
-        let (cacheSQL, cacheArgs) = sqlCompiler.compile(
-            itemRules,
-            limit: request.presentation.initialPageSize,
-            offset: 0
-        )
+        // 4. Cache query spec — executor compiles SQL fresh at execution time
         let cacheQuery = CacheQuerySpecification(
-            sqlRuleFragment: cacheSQL,
-            sqlBindings: [:],  // StatementArguments will be applied at query time
+            ruleDigest: itemRules.ruleDigest,
             limit: request.presentation.initialPageSize,
             offset: 0,
             orderBy: .fetchedAtDescending

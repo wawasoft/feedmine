@@ -99,31 +99,19 @@ struct CompiledMixPlan: Hashable, Sendable {
 // MARK: - Cache Query
 
 /// Specification for querying the local cache.
+/// The executor recompiles the SQL fresh from the rule digest at execution time.
+/// This avoids the binding serialization problem (5.6) — StatementArguments
+/// values can't be stored in a Hashable struct.
 struct CacheQuerySpecification: Hashable, Sendable {
-    /// The item rule set converted to SQL.
-    let sqlRuleFragment: String
-    /// SQL bindings for the rule fragment.
-    let sqlBindings: [String: any Hashable & Sendable]
+    /// Digest of the ItemRuleSet. The executor uses this to validate
+    /// that the rules haven't changed since plan compilation.
+    let ruleDigest: UInt64
     /// Maximum number of items to return.
     let limit: Int
     /// Offset for pagination.
     let offset: Int
     /// Sort order for results.
     let orderBy: CacheQueryOrder
-
-    static func == (lhs: CacheQuerySpecification, rhs: CacheQuerySpecification) -> Bool {
-        lhs.sqlRuleFragment == rhs.sqlRuleFragment
-            && lhs.limit == rhs.limit
-            && lhs.offset == rhs.offset
-            && lhs.orderBy == rhs.orderBy
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(sqlRuleFragment)
-        hasher.combine(limit)
-        hasher.combine(offset)
-        hasher.combine(orderBy)
-    }
 }
 
 enum CacheQueryOrder: Hashable, Sendable {
