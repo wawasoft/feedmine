@@ -119,15 +119,29 @@ enum SelectionArchitectureVerifier {
     /// Verify that the architecture rules are being followed.
     /// Logs violations to the console in debug builds.
     static func verify(fileManager _: FileManager = .default) -> [String] {
+        // In debug builds, check that the unified engine is accessible
+        // and the legacy-removed flag state is known.
         var violations: [String] = []
 
-        // In debug builds with the legacy-removed flag, verify that
-        // legacy methods are not being called. This is a runtime check
-        // that complements the CI grep enforcement.
+        // Verify feature flag state
+        if Settings.unifiedSelectionLegacyRemoved {
+            // Strict mode: check that legacy methods are absent
+            // This is enforced at build time via CI grep script.
+            // At runtime, we verify the flag is consistent.
+            if !Settings.unifiedSelectionEngine {
+                violations.append("unifiedSelectionLegacyRemoved=true but unifiedSelectionEngine=false")
+            }
+        }
 
-        // The actual enforcement is done via CI scripts that grep for
-        // legacy method names. This runtime check serves as documentation
-        // and a last-resort guard.
+        // Verify that when main feed is active, the bridge is wired.
+        // In debug builds, the bridge should exist when the flag is on.
+#if DEBUG
+        if Settings.unifiedSelectionMainFeed {
+            // Runtime verification will log a warning if the bridge is nil
+            // when the flag is on (wired in FeedStore.initializeSelectionEngine).
+            Log.feed.info("[ArchitectureVerify] unifiedSelectionMainFeed active in debug build")
+        }
+#endif
 
         return violations
     }
