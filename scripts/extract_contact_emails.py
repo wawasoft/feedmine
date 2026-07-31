@@ -371,7 +371,7 @@ async def scrape_site(
             if not await robots_allowed(url, user_agent, robots_cache):
                 continue
             try:
-                await asyncio.sleep(1.0)
+                await asyncio.sleep(0.1)  # minimal politeness — limit_per_host handles rate
                 async with session.get(
                     url,
                     headers={"User-Agent": user_agent},
@@ -418,7 +418,7 @@ async def scrape_site(
 async def phase2_site_scraping(
     sources: list[SourceRecord],
     phase1_results: dict[str, ContactResult],
-    max_concurrency: int = 20,
+    max_concurrency: int = 30,
 ) -> dict[str, ContactResult]:
     """Run Phase 2 on sources that didn't get an email from Phase 1."""
     to_scrape = [
