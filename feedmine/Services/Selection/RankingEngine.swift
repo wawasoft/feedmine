@@ -102,19 +102,30 @@ struct RankingEngine: Sendable {
                 total += c.contribution
 
             case .presetMultiplier(let multipliers):
-                // Apply preset multipliers — these are typically source-level boosts
-                // In Phase 4, sourceID lookup needs the catalog adapter
-                if let presetMult = presetMultipliers.first(where: { _ in true }) {
-                    // Placeholder — full implementation requires SourceID resolution
+                // Use caller-provided multipliers if the operation dict is empty
+                // (empty dict = "resolve externally via PresetScorer")
+                let effectiveMultipliers = multipliers.isEmpty ? presetMultipliers : multipliers
+                let sourceBoost: Double
+                if let sid = sourceID(for: item), let mult = effectiveMultipliers[sid] {
+                    sourceBoost = min(max(mult, 0.42), 3.0)  // bounded per §4
+                } else {
+                    sourceBoost = 1.0  // baseline — source has no multiplier
                 }
-                let raw = 1.0  // baseline — actual multiplier applied by caller
-                let c = ScoreComponent.component(name: "Preset Boost", weight: 1.0, rawValue: raw)
+                let c = ScoreComponent.component(name: "Preset Boost", weight: 1.0, rawValue: sourceBoost)
                 components.append(c)
                 total += c.contribution
 
             case .curatedProfileMultiplier:
-                let raw = 1.0  // baseline — actual multiplier from CuratedPreferenceEngine
-                let c = ScoreComponent.component(name: "Curated Profile", weight: 1.0, rawValue: raw)
+                // Use caller-provided multipliers; fall back to 1.0 baseline
+                let curatedBoost: Double
+                if !curatedMultipliers.isEmpty,
+                   let sid = sourceID(for: item),
+                   let mult = curatedMultipliers[sid] {
+                    curatedBoost = min(max(mult, 0.42), 3.0)  // bounded per §4
+                } else {
+                    curatedBoost = 1.0
+                }
+                let c = ScoreComponent.component(name: "Curated Profile", weight: 1.0, rawValue: curatedBoost)
                 components.append(c)
                 total += c.contribution
 
@@ -140,6 +151,12 @@ struct RankingEngine: Sendable {
         }
 
         return CandidateScore(itemID: item.id, total: total, components: components)
+    }
+
+    // MARK: - Source identity helper
+
+    private func sourceID(for item: FeedItem) -> SourceID? {
+        CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: item.sourceURL))
     }
 
     // MARK: - Scoring helpers
