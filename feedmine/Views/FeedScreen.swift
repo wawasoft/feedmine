@@ -378,7 +378,7 @@ struct FeedScreen: View {
             Color.clear.frame(height: 0)
             CompactErrorBanner()
             HStack(spacing: 8) {
-                CompactFeedStatus()
+                CompactFeedStatus(onEasterEgg: { showCatalogExplore = true })
                 Spacer()
                 HStack(spacing: 4) {
                     Button {
@@ -1472,6 +1472,7 @@ struct CompactFeedStatus: View {
     @State private var engine = CircadianEngine.shared
     @State private var showReadyPulse = false
     @AppStorage("showDebugBar") private var showDebugBar = false
+    var onEasterEgg: (() -> Void)?
 
     private var isShowingStartupProgress: Bool {
         loader.isPreparingInitialRunway || showReadyPulse
@@ -1483,15 +1484,13 @@ struct CompactFeedStatus: View {
 
     var body: some View {
         HStack(spacing: 4) {
-            // Easter egg: single-tap logo opens wawasoft.net/catalog
+            // Easter egg: single-tap logo opens Catalog in-app (same as feeds)
             Image("Symbol-Gradient")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 16, height: 16)
                 .onTapGesture {
-                    if let url = URL(string: "https://wawasoft.net/catalog/") {
-                        openURL(url)
-                    }
+                    onEasterEgg?()
                 }
             Text("Feedmine").font(.caption).fontWeight(.bold)
             if isShowingStartupProgress {
