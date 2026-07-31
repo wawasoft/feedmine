@@ -492,7 +492,7 @@ def smtp_verify(email: str, timeout: int = 10) -> tuple[bool, str]:
     try:
         with smtplib.SMTP(mx_host, 25, timeout=timeout) as smtp:
             smtp.helo("feedmine.com")
-            smtp.mailfrom("verify@feedmine.com")
+            smtp.mail("verify@feedmine.com")
             code, message = smtp.rcpt(email)
             if code == 250:
                 return (True, "verified")
