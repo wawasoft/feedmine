@@ -55,7 +55,18 @@ struct SourceScopeResolver: Sendable {
 
         let scope = try await catalog.resolveSourceScope(spec)
 
-        // Apply user enablement rules to the resolved scope
+        // For large catalogs (>500), keep the handle lazy.
+        // Materializing 43K SourceIDs on every filter change would be wasteful
+        // and the resolver only needs a count, not the full set. (4.4)
+        if case .catalogQuery = scope.handle {
+            return ResolvedSourceScope(
+                handle: scope.handle,  // stays lazy — paginated access
+                totalCount: scope.totalCount,
+                previewMetadata: scope.previewMetadata
+            )
+        }
+
+        // For small scopes, apply enablement filtering and materialize
         let filteredIDs = applyEnablementRules(
             scopeHandle: scope.handle,
             policy: policy,
@@ -64,7 +75,7 @@ struct SourceScopeResolver: Sendable {
             criteria: criteria
         )
 
-        let metadata = Array(filteredIDs.prefix(100))  // First page metadata only
+        let metadata = Array(filteredIDs.prefix(100))
 
         return ResolvedSourceScope(
             handle: finalHandle(for: filteredIDs, original: scope.handle),
