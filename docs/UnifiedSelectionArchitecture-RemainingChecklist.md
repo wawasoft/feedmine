@@ -16,8 +16,8 @@
 
 - [ ] **2.1** Cadeia única de candidatos: memory → disk → item art → channel art → YouTube → OG → retry → placeholder
 - [ ] **2.2** `ImageCandidateResolver` como tipo injetável no `CardPreparationCoordinator`
-- [ ] **2.3** Source View e Collection usam a mesma cadeia (hoje usam `buildPresentations` com `ImageLoader` direto)
-- [ ] **2.4** Validação de dimensões sem depender de regex no URL (usar headers/metadata da imagem)
+- [x] **2.3** Source View e Collection usam a mesma cadeia — FeedItemView aceita `FeedCardPresentation?`, fallback CachedAsyncImage
+- [x] **2.4** Validação usa ImageIO (`CGImageSourceCreateWithData`), não magic bytes. Dimensões do cache hit vêm da UIImage.
 
 ## Etapa 3 — Tornar o Selection Engine executável
 
