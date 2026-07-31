@@ -43,7 +43,13 @@ final class FeedLoader {
     }
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
-    var sourceCount: Int { store.registry.sourceCount }
+    /// Unified source count from bridge when active, legacy otherwise. (Etapa 6)
+    var sourceCount: Int {
+        if Settings.unifiedSelectionState, let bridge = store.selectionBridge {
+            return bridge.eligibleSourceCount
+        }
+        return store.registry.sourceCount
+    }
     /// Sources available under the current filter configuration
     /// (preset, region, language, content type, taxonomy).
     var activeSources: [FeedSource] {
