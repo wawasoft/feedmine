@@ -169,6 +169,11 @@ final class SelectionExecutor {
             offset: plan.cacheQuery.offset
         )
 
+        // 5.2: Source eligibility is enforced by the in-memory evaluator pass.
+        // SQL-level source_url filtering would reduce the working set for large
+        // catalogs but requires the catalog adapter's SourceID→URL index.
+        // TODO: Add SQL source_url IN (...) filter for performance.
+
         return try await db.read { db in
             try FeedItemRecord.fetchAll(db, sql: sql, arguments: arguments)
                 .map { $0.toFeedItem() }
