@@ -119,16 +119,8 @@ struct FeedScreen: View {
             VStack(spacing: 0) {
                 compactHeader
                 if isSearching { searchBar.transition(.move(edge: .top).combined(with: .opacity)) }
-                if showDebugBar {
-                    CompactDebugInfo()
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(.ultraThinMaterial)
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                }
                 Spacer()
             }
-            .animation(.easeInOut(duration: 0.25), value: showDebugBar)
 
             // Shake detector
             ShakeDetector { loader.shakeToRefresh() }
@@ -495,19 +487,6 @@ struct FeedScreen: View {
                         }
                         Button { showSources = true } label: {
                             Label("Sources", systemImage: "antenna.radiowaves.left.and.right")
-                        }
-                        Button { showCatalogExplore = true } label: {
-                            Label("Explore Catalog", systemImage: "books.vertical")
-                        }
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.25)) {
-                                showDebugBar.toggle()
-                            }
-                        } label: {
-                            Label(
-                                showDebugBar ? "Hide Debug Info" : "Show Debug Info",
-                                systemImage: showDebugBar ? "eye.slash" : "eye"
-                            )
                         }
                         Button { showSettings = true } label: {
                             Label("Settings", systemImage: "gearshape")
