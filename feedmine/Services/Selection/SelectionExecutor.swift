@@ -38,6 +38,9 @@ final class SelectionExecutor {
     /// Set by the coordinator from CuratedPreferenceEngine data.
     var curatedMultiplierProvider: (() -> [SourceID: Double])?
 
+    /// Closure for SQL source_url filtering (5.2 — deferred optimization).
+    var sourceURLProvider: ((Set<SourceID>) -> Set<String>)?
+
     // MARK: - State
 
     private var loadedItemIDs: Set<String> = []
