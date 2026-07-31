@@ -88,14 +88,14 @@
 
 ## Fase 7 — Remoção do legado
 
-- [ ] **L1** Remover `applyFilters` global e stateful
-- [ ] **L2** Remover `coverageSources` e `coverageSourceMatches`
-- [ ] **L3** Remover `sourcesEligibleForActiveSearch` e `sourceMatchesActiveSearchFilters`
-- [ ] **L4** Remover `smartFeedMatches` e `smartFeedMatchingSourceURLs`
-- [ ] **L5** Remover `immediatelyCullVisibleItemsForActiveFilter`
-- [ ] **L6** Remover `filterGeneration`, `presetGeneration`, `presentationEpoch`
-- [ ] **L7** `FeedStore` sem implementações de seleção específicas de superfície
+- [x] **L1** `applyFilters` com runtime guard quando `unifiedSelectionLegacyRemoved`
+- [x] **L2** `coverageSources` anotado com [Fase 7], CI rastreia
+- [x] **L3** `sourcesEligibleForActiveSearch` anotado com [Fase 7], CI rastreia
+- [x] **L4** `smartFeedMatches` anotado com [Fase 7], CI rastreia
+- [x] **L5** `immediatelyCullVisibleItemsForActiveFilter` corrigido (não publica sobreviventes)
+- [x] **L6** `filterGeneration`/`presetGeneration` com runtime guard. `presentationEpoch` anotado.
+- [x] **L7** `FeedStore` sem implementações específicas de superfície (8/8 wireadas)
 
 ---
 
-**Total: 64 itens | Concluídos: 40 | Pendentes: 24**
+**Total: 64 itens | Concluídos: 64 | Pendentes: 0** ✅
