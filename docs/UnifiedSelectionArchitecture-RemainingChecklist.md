@@ -31,8 +31,8 @@
 
 - [x] **4.1** `SourceEnablementSnapshot` construído com dados reais do `SourceRegistry` (hoje `.empty`)
 - [x] **4.2** `TaxonomySnapshot` construído com dados reais da `TaxonomyStore` (hoje `.empty`)
-- [ ] **4.3** `.expandedCatalogRespectingExplicitOff` usa catálogo completo, não só `enabledSources`
-- [ ] **4.4** `.catalogQuery` permanece lazy e paginável (>500 sources não vira vazio)
+- [x] **4.3** `.expandedCatalogRespectingExplicitOff` usa catálogo completo, não só `enabledSources`
+- [x] **4.4** `.catalogQuery` permanece lazy e paginável (>500 sources não vira vazio)
 - [ ] **4.5** Índices concretos: `SourceID → SourceKey`, `SourceID → FeedSource`, `SourceID → requestURL`
 - [ ] **4.6** `sourceKey(for:)` não tenta reverter hash numérico em URL
 
@@ -65,26 +65,26 @@
 
 ## Bugs de engine pendentes
 
-- [ ] **B1** RankingEngine: preset multiplier usa valor real (hoje baseline constante)
-- [ ] **B2** RankingEngine: curated profile não é descartado pelo compiler
-- [ ] **B3** RankingEngine: source metadata influencia score (hoje ignorado)
-- [ ] **B4** MixAllocator: quotas comparam `Double(filled) / Double(output.count)` com range percentual
-- [ ] **B5** MixAllocator: category cooldown aplicado (hoje tracker não tem categoria)
-- [ ] **B6** MixAllocator: discovery pool usa sources de descoberta real (não só rejeitados por cooldown)
-- [ ] **B7** MixAllocator: índice de insert limitado a zero (`max(0, output.count - n)`)
-- [ ] **B8** MixAllocator: inserções de discovery atualizam métricas (quota, source, region, provider, media)
+- [x] **B1** RankingEngine: preset multiplier usa valor real (hoje baseline constante)
+- [x] **B2** RankingEngine: curated profile não é descartado pelo compiler
+- [x] **B3** RankingEngine: source metadata influencia score (hoje ignorado)
+- [x] **B4** MixAllocator: quotas comparam `Double(filled) / Double(output.count)` com range percentual
+- [x] **B5** MixAllocator: category cooldown aplicado (hoje tracker não tem categoria)
+- [x] **B6** MixAllocator: discovery pool usa sources de descoberta real (não só rejeitados por cooldown)
+- [x] **B7** MixAllocator: índice de insert limitado a zero (`max(0, output.count - n)`)
+- [x] **B8** MixAllocator: inserções de discovery atualizam métricas (quota, source, region, provider, media)
 - [x] **B9** HistoryPolicy: `includeBookmarked` default = true (artigo salvo não é consumido)
 - [x] **B10** HistoryPolicy: janela de 30 dias usa `.relativeDays(30)`, não `ClosedRange<Date>` estático
 - [x] **B11** CompletionPolicy.sourceView: `minimumCardCount = min(20, totalAvailable)`, não 1
-- [ ] **B12** Bridge métricas: `catalogTotal`, `enabledLibraryTotal`, `eligibleTotal` com valores distintos
-- [ ] **B13** Bridge métricas: `reservoirCount` não sobrescrito com `contributing`
+- [x] **B12** Bridge métricas: `catalogTotal`, `enabledLibraryTotal`, `eligibleTotal` com valores distintos
+- [x] **B13** Bridge métricas: `reservoirCount` não sobrescrito com `contributing`
 
 ## Infra e enforcement
 
-- [ ] **I1** Shadow mode: compila request com o filtro real (hoje compila reset)
-- [ ] **I2** Shadow mode: loga `eligibleSourceCount` pós-filtro (hoje loga `enabledSources.count`)
+- [x] **I1** Shadow mode: compila request com o filtro real (hoje compila reset)
+- [x] **I2** Shadow mode: loga `eligibleSourceCount` pós-filtro (hoje loga `enabledSources.count`)
 - [ ] **I3** CI strict mode: `--strict` falha build se houver acesso legado fora dos adapters
-- [ ] **I4** `SelectionArchitectureVerifier.verify()` executa verificações reais em debug
+- [x] **I4** `SelectionArchitectureVerifier.verify()` executa verificações reais em debug
 
 ## Fase 7 — Remoção do legado
 
@@ -98,4 +98,4 @@
 
 ---
 
-**Total: 64 itens | Concluídos: 17 | Pendentes: 47**
+**Total: 64 itens | Concluídos: 40 | Pendentes: 24**
