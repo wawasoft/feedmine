@@ -19,7 +19,18 @@ final class SourceRegistryCatalogAdapter: SelectionCatalogReading {
     func resolveSourceScope(
         _ specification: SourceScopeSpecification
     ) async throws -> ResolvedSourceScope {
-        let sources = await registry.enabledSources
+        // 4.3: .expandedCatalogRespectingExplicitOff uses ALL sources
+        // (bypassing inherited disables), not just enabledSources.
+        // The resolver applies explicit-off filtering downstream.
+        let allSources = await registry.sources
+        let enabledSources = await registry.enabledSources
+        let sources: [FeedSource]
+        switch specification.policy {
+        case .expandedCatalogRespectingExplicitOff:
+            sources = allSources  // full catalog — resolver handles explicit off
+        default:
+            sources = enabledSources  // user's library
+        }
         var filtered = sources
 
         // Filter by content type
