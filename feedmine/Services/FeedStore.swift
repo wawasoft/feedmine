@@ -3359,6 +3359,15 @@ final class FeedStore {
     /// Fixed history feed ordered by actual content taps, newest first.
     /// Visibility-only impressions never write `clicked_at`.
     private func loadLastClickedFeed() async {
+        // --- Unified Selection Engine path (Phase 6A) ---
+        if Settings.unifiedSelectionSurfaces, let bridge = selectionBridge {
+            // Submit a unified Last Clicked request (trace/logging only —
+            // the actual items come from cache via the legacy path below)
+            let clickedSourceIDs = Set(clickedItemIDs.compactMap { _ in nil as SourceID? })
+            submitUnifiedBookmarks(listID: nil, sourceIDs: clickedSourceIDs, bookmarkedItemIDs: clickedItemIDs)
+            // Fall through to legacy path for actual content display
+        }
+        // --- Legacy path ---
         let records: [FeedItemRecord] = (try? await db.read { db in
             try FeedItemRecord.fetchAll(db, sql: """
                 SELECT * FROM feed_item
