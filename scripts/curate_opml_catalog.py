@@ -86,6 +86,10 @@ class CuratedSource:
     media_kind: str
     country: str | None
     old_files: list[str]
+    contact_email: str | None = None
+    contact_name: str | None = None
+    contact_source: str | None = None
+    contact_type: str | None = None
 
     @property
     def primary_relative_path(self) -> Path:
@@ -662,6 +666,24 @@ def read_sources(path: Path, memberships_by_source: dict[str, list[Membership]],
     ).fetchall()
     connection.close()
 
+    # Try to load the contacts parquet if it exists. Its ``source_id`` column
+    # holds feed URLs (the catalog_source.key value), which is what
+    # CuratedSource.source_id carries in the rebuild path. Status is limited
+    # to verified/unverified so discarded contacts are never re-promoted.
+    contacts_path = path.parent / "feeds_corpus_contacts.parquet"
+    contacts_lookup: dict[str, dict] = {}
+    if contacts_path.exists():
+        import pyarrow.parquet as pq
+        ct = pq.read_table(contacts_path).to_pandas()
+        for _, row in ct.iterrows():
+            if row.get("contact_status") in ("verified", "unverified"):
+                contacts_lookup[str(row["source_id"])] = {
+                    "contact_email": str(row.get("contact_email", "") or ""),
+                    "contact_name": str(row.get("contact_name", "") or ""),
+                    "contact_source": str(row.get("contact_source", "") or ""),
+                    "contact_type": str(row.get("contact_type", "") or ""),
+                }
+
     production: list[CuratedSource] = []
     statuses: Counter[str] = Counter()
     for row in rows:
@@ -681,6 +703,7 @@ def read_sources(path: Path, memberships_by_source: dict[str, list[Membership]],
         activity, days_old = activity_for(latest, articles, now)
         language = normalize_language(row[6]) or next((m.language for m in memberships if m.language), None)
         xml_url = clean_text(row[2]) or clean_text(row[3])
+        contact = contacts_lookup.get(source_id, {})
         production.append(CuratedSource(
             source_id=source_id, title=title, xml_url=xml_url,
             site_url=clean_text(row[4]) or None, description=description,
@@ -693,6 +716,10 @@ def read_sources(path: Path, memberships_by_source: dict[str, list[Membership]],
             media_kind=media_kind_for(xml_url, tags, memberships),
             country=choose_country(memberships),
             old_files=sorted({m.opml_file for m in memberships if m.opml_file}),
+            contact_email=contact.get("contact_email") or None,
+            contact_name=contact.get("contact_name") or None,
+            contact_source=contact.get("contact_source") or None,
+            contact_type=contact.get("contact_type") or None,
         ))
     return deduplicate_runtime_identities(production), statuses
 
@@ -767,6 +794,14 @@ def add_source_outline(parent: ET.Element, source: CuratedSource) -> None:
         attributes["htmlUrl"] = source.site_url
     if source.latest_item_at:
         attributes["feedmineLatestItemAt"] = source.latest_item_at
+    if source.contact_email:
+        attributes["feedmineContactEmail"] = source.contact_email
+    if source.contact_name:
+        attributes["feedmineContactName"] = source.contact_name
+    if source.contact_source:
+        attributes["feedmineContactSource"] = source.contact_source
+    if source.contact_type:
+        attributes["feedmineContactType"] = source.contact_type
     ET.SubElement(parent, "outline", attributes)
 
 
