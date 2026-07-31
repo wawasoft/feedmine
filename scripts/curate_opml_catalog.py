@@ -279,6 +279,21 @@ def canonical_url(value: str) -> str:
     return urllib.parse.urlunsplit(("https", hostname + port, path, query, ""))
 
 
+def compute_source_id(url: str) -> str:
+    """SHA-256 of the canonical URL (mirrors the catalog identity function).
+
+    Same canonicalization as scripts/inject_enriched_metadata.py: lowercase
+    scheme and hostname, path and query kept, fragment dropped.
+    """
+    parsed = urllib.parse.urlsplit(url)
+    canonical = urllib.parse.urlunsplit(
+        (parsed.scheme.lower(),
+         parsed.hostname.lower() if parsed.hostname else "",
+         parsed.path, parsed.query, "")
+    )
+    return hashlib.sha256(canonical.encode()).hexdigest()
+
+
 def normalize_tag(value: str) -> str:
     value = ascii_fold(clean_text(value)).lower()
     value = re.sub(r"[&/]", " and ", value)
@@ -667,9 +682,11 @@ def read_sources(path: Path, memberships_by_source: dict[str, list[Membership]],
     connection.close()
 
     # Try to load the contacts parquet if it exists. Its ``source_id`` column
-    # holds feed URLs (the catalog_source.key value), which is what
-    # CuratedSource.source_id carries in the rebuild path. Status is limited
-    # to verified/unverified so discarded contacts are never re-promoted.
+    # holds feed URLs (the catalog_source.key value), not hex digests, while
+    # CuratedSource.source_id carries the SHA-256 digest from the corpus
+    # parquet — so hash each URL here to make the lookup key comparable.
+    # Status is limited to verified/unverified so discarded contacts are never
+    # re-promoted.
     contacts_path = path.parent / "feeds_corpus_contacts.parquet"
     contacts_lookup: dict[str, dict] = {}
     if contacts_path.exists():
@@ -677,7 +694,12 @@ def read_sources(path: Path, memberships_by_source: dict[str, list[Membership]],
         ct = pq.read_table(contacts_path).to_pandas()
         for _, row in ct.iterrows():
             if row.get("contact_status") in ("verified", "unverified"):
-                contacts_lookup[str(row["source_id"])] = {
+                raw_sid = str(row["source_id"])
+                # Hash URL-based source_id to digest for matching against
+                # CuratedSource.source_id (same canonicalizer as the rest of
+                # the file). Defensive: keep already-digested rows as-is.
+                hashed_sid = raw_sid if re.fullmatch(r"[0-9a-f]{64}", raw_sid) else compute_source_id(raw_sid)
+                contacts_lookup[hashed_sid] = {
                     "contact_email": str(row.get("contact_email", "") or ""),
                     "contact_name": str(row.get("contact_name", "") or ""),
                     "contact_source": str(row.get("contact_source", "") or ""),
