@@ -1491,6 +1491,30 @@ final class FeedStore {
             preparationCoordinator: preparationCoordinator!,
             runwayPolicy: runwayPolicy
         )
+        // Wire multiplier providers so editorial presets + curated profiles
+        // get real scoring boosts, not baseline 1.0 (P1-5)
+        executor.presetMultiplierProvider = { [weak self] in
+            guard let self else { return [:] }
+            var result: [SourceID: Double] = [:]
+            for (url, mult) in self.presetMultipliers {
+                let sid = CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: url))
+                result[sid] = mult
+            }
+            return result
+        }
+        executor.curatedMultiplierProvider = { [weak self] in
+            guard let self else { return [:] }
+            // Curated profile multipliers come from CuratedPreferenceEngine
+            // when a curated profile is active.
+            guard case .curatedFeed = self.activePreset else { return [:] }
+            var result: [SourceID: Double] = [:]
+            for source in self.registry.sources {
+                let sid = CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: source.url))
+                // Placeholder: actual curated multipliers require profile data
+                result[sid] = 1.0
+            }
+            return result
+        }
         initializeSelectionEngine(
             catalog: catalogAdapter,
             snapshotBuilder: snapshotBuilder,
