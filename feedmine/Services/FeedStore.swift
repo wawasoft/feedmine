@@ -3564,6 +3564,22 @@ final class FeedStore {
     /// Refresh What's New from the local DB. The network booster is reserved
     /// for startup so filter edits never cancel a write already in progress.
     func refreshWhatsNew(shouldBoost: Bool = false) {
+        // --- Unified Selection Engine path (Phase 6C) ---
+        if Settings.unifiedSelectionWhatsNew, let bridge = selectionBridge {
+            let criteria = ItemCriteria(
+                regions: activeRegion.map { [$0] } ?? [],
+                taxonomyNodeIDs: activeNodeIDs,
+                languages: activeLanguages,
+                contentTypes: activeContentType == .all ? [] : [activeContentType],
+                mood: activeMood,
+                searchExpression: nil,
+                excludedKeywords: [],
+                contentFilterKeywords: bridge.contentFilterKeywords
+            )
+            submitUnifiedWhatsNew(baseCriteria: criteria, fetchedAfter: whatsNewManager.whatsNewBaselineDate ?? Date().addingTimeInterval(-86400))
+            // Still run legacy path for immediate display
+        }
+        // --- Legacy path ---
         whatsNewManager.refreshWhatsNew(
             seedFromDB: { [self] in await seedWhatsNewFromDB() },
             booster: { [self] in
