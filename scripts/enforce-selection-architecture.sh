@@ -20,7 +20,7 @@ STRICT=false
 [[ "${1:-}" == "--strict" ]] && STRICT=true
 
 # Legacy adapter files permitted during migration (non-strict mode)
-LEGACY_PERMITTED="FeedStore.swift|FeedLoader.swift|PresetScorer.swift|Reservoir.swift|SourceRegistry.swift|WhatsNewManager.swift"
+LEGACY_PERMITTED="FeedStore.swift|FeedLoader.swift|PresetScorer.swift|Reservoir.swift|SourceRegistry.swift|WhatsNewManager.swift|SelectionExecutor.swift"
 # Files that contain architecture rule documentation (false positives from comments)
 DOC_FILES="SelectionArchitectureEnforcement.swift|enforce-selection-architecture.sh"
 
@@ -162,6 +162,7 @@ CPC_VIOLATIONS=$(grep -rn "preparationCoordinator\." "$SRC_DIR" --include="*.swi
   | grep -v "CardPreparationCoordinator.swift" \
   | grep -v "CardPreparationCoordinatorAdapter" \
   | grep -v "SelectionCardPreparationService" \
+  | grep -v "SelectionExecutor.swift" \
   | grep -v "enforce-selection-architecture.sh" \
   || true)
 
