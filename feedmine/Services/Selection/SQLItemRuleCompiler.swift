@@ -56,11 +56,17 @@ struct SQLItemRuleCompiler: Sendable {
             conditions.append("id NOT IN (SELECT item_id FROM bookmark_item)")
         }
 
-        // 4. Region
+        // 4. Region — exact match AND descendant match (e.g. "countries/brazil"
+        //    also matches "countries/brazil/sao-paulo"). Parity with in-memory.
         if !rules.regions.isEmpty {
-            let placeholders = rules.regions.map { _ in "?" }.joined(separator: ",")
-            conditions.append("region IN (\(placeholders))")
-            args.append(contentsOf: rules.regions.map { $0 as String })
+            let regionConditions = rules.regions.map { _ in
+                "(region = ? OR region LIKE (? || '/%'))"
+            }.joined(separator: " OR ")
+            conditions.append("(\(regionConditions))")
+            for region in rules.regions {
+                args.append(region as String)
+                args.append(region as String)
+            }
         }
 
         // 5. Language
