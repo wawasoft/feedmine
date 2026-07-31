@@ -182,10 +182,30 @@ final class FeedStore {
     /// of O(items x selectedNodes).
     private(set) var cachedTaxonomyFeedURLs: Set<String> = []
     private var cachedTaxonomyNodeIDs: Set<String> = []
-    /// [Fase 7 L6] Replaced by SelectionID. Remove when unifiedSelectionLegacyRemoved is on.
-    private var filterGeneration: Int64 = 0
-    /// [Fase 7 L6] Replaced by SelectionID. Remove when unifiedSelectionLegacyRemoved is on.
-    private var presetGeneration: Int64 = 0
+    /// [Fase 7 L6] Replaced by SelectionID.
+    private var _filterGeneration: Int64 = 0
+    private var filterGeneration: Int64 {
+        get { _filterGeneration }
+        set {
+            if Settings.unifiedSelectionLegacyRemoved {
+                Log.feed.error("[Fase7] filterGeneration set but legacy is removed. Use SelectionID.")
+                return
+            }
+            _filterGeneration = newValue
+        }
+    }
+    /// [Fase 7 L6] Replaced by SelectionID.
+    private var _presetGeneration: Int64 = 0
+    private var presetGeneration: Int64 {
+        get { _presetGeneration }
+        set {
+            if Settings.unifiedSelectionLegacyRemoved {
+                Log.feed.error("[Fase7] presetGeneration set but legacy is removed. Use SelectionID.")
+                return
+            }
+            _presetGeneration = newValue
+        }
+    }
     /// When set, the feed shows only items from this bookmark list.
     var selectedBookmarkListID: Int64?
     /// Preferred box for saving bookmarks. Defaults to the "Favorites" list.
@@ -522,8 +542,11 @@ final class FeedStore {
     private var contentFilterExcludeCache: [String: Bool] = [:]
 
     /// [Fase 7 L1] Replaced by InMemoryItemRuleEvaluator + ItemRuleSet.
-    /// Remove when unifiedSelectionLegacyRemoved is on.
     func applyFilters(_ items: [FeedItem], includeConsumed: Bool = true) -> [FeedItem] {
+        if Settings.unifiedSelectionLegacyRemoved {
+            Log.feed.error("[Fase7] applyFilters called but legacy is removed. Use ItemRuleSet.")
+            return items
+        }
         refreshCachedTaxonomyFeedURLsIfNeeded()
         let region = activeRegion
         let contentType = filterContentType
