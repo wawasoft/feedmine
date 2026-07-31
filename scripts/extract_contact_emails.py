@@ -437,3 +437,242 @@ async def phase2_site_scraping(
                 print(f"  Phase 2: {completed}/{len(to_scrape)} processed, {found} total emails found")
 
     return results
+
+
+# ---------------------------------------------------------------------------
+# Phase 3: Validation
+# ---------------------------------------------------------------------------
+
+def load_disposable_domains(data_path: Path) -> set[str]:
+    """Load the disposable email domain blocklist."""
+    domains = set()
+    if not data_path.exists():
+        print(f"  WARNING: disposable domains file not found at {data_path}")
+        return domains
+    with open(data_path) as f:
+        for line in f:
+            line = line.strip().lower()
+            if line and not line.startswith("#"):
+                domains.add(line)
+    return domains
+
+
+def has_mx_record(domain: str) -> bool:
+    """Check if a domain has MX records (can receive email)."""
+    try:
+        import dns.resolver
+        answers = dns.resolver.resolve(domain, 'MX', lifetime=5)
+        return len(list(answers)) > 0
+    except Exception:
+        try:
+            socket.getaddrinfo(domain, 25, socket.AF_INET, socket.SOCK_STREAM)
+            return True
+        except socket.gaierror:
+            return False
+
+
+def is_disposable(email: str, disposable_domains: set[str]) -> bool:
+    """Check if email domain is a known disposable provider."""
+    domain = email.split("@")[-1].lower().strip()
+    return domain in disposable_domains
+
+
+def smtp_verify(email: str, timeout: int = 10) -> tuple[bool, str]:
+    """Verify an email address exists via SMTP RCPT TO. Does NOT send DATA."""
+    domain = email.split("@")[-1]
+    try:
+        import dns.resolver
+        mx_records = [(int(r.preference), str(r.exchange).rstrip("."))
+                       for r in dns.resolver.resolve(domain, 'MX', lifetime=5)]
+        mx_records.sort()
+        mx_host = mx_records[0][1] if mx_records else domain
+    except Exception:
+        mx_host = domain
+
+    try:
+        with smtplib.SMTP(mx_host, 25, timeout=timeout) as smtp:
+            smtp.helo("feedmine.com")
+            smtp.mailfrom("verify@feedmine.com")
+            code, message = smtp.rcpt(email)
+            if code == 250:
+                return (True, "verified")
+            elif 400 <= code < 500:
+                return (False, f"greylisting_{code}")
+            else:
+                return (False, f"permanent_reject_{code}")
+    except (smtplib.SMTPException, OSError, TimeoutError) as e:
+        return (False, f"smtp_error_{type(e).__name__}")
+
+
+def validate_email(
+    email: str,
+    disposable_domains: set[str],
+    check_smtp: bool = True,
+) -> tuple[str, str | None]:
+    """Validate a single email. Returns (status, reason)."""
+    if not EMAIL_RE.fullmatch(email):
+        return ("invalid", "regex_fail")
+    local_part = email.split("@")[0]
+    domain = email.split("@")[-1]
+    if len(local_part) > 64 or len(domain) > 255:
+        return ("invalid", "length_exceeded")
+    if is_disposable(email, disposable_domains):
+        return ("invalid", "disposable_domain")
+    if not has_mx_record(domain):
+        return ("invalid", "no_mx_record")
+    if not check_smtp:
+        return ("unverified", "smtp_skipped")
+    is_valid, reason = smtp_verify(email)
+    if is_valid:
+        return ("verified", None)
+    elif reason.startswith("greylisting") or reason.startswith("smtp_error"):
+        return ("unverified", reason)
+    else:
+        return ("invalid", reason)
+
+
+def phase3_validation(
+    results: dict[str, ContactResult],
+    disposable_file: Path,
+    skip_smtp: bool = False,
+) -> dict[str, ContactResult]:
+    """Validate all found emails."""
+    disposable_domains = load_disposable_domains(disposable_file)
+    print(f"  Loaded {len(disposable_domains)} disposable domains")
+    to_validate = [
+        (sid, r) for sid, r in results.items()
+        if r.contact_status == "found" and r.contact_email
+    ]
+    print(f"  Phase 3: {len(to_validate)} emails to validate")
+    validated = 0
+    for sid, result in to_validate:
+        status, reason = validate_email(
+            result.contact_email,  # type: ignore[arg-type]
+            disposable_domains,
+            check_smtp=not skip_smtp,
+        )
+        result.contact_status = status
+        validated += 1
+        if validated % 500 == 0:
+            verified = sum(1 for r in results.values() if r.contact_status == "verified")
+            unverified = sum(1 for r in results.values() if r.contact_status == "unverified")
+            invalid = sum(1 for r in results.values() if r.contact_status == "invalid")
+            print(f"  Phase 3: {validated}/{len(to_validate)}, V:{verified} U:{unverified} I:{invalid}")
+        if not skip_smtp:
+            time.sleep(0.1)
+    return results
+
+
+# ---------------------------------------------------------------------------
+# Main orchestrator
+# ---------------------------------------------------------------------------
+
+def write_parquet(results: dict[str, ContactResult], output_path: Path):
+    """Write results to a parquet file."""
+    rows = []
+    for r in results.values():
+        rows.append({
+            "source_id": r.source_id,
+            "db_id": r.db_id,
+            "contact_email": r.contact_email,
+            "contact_name": r.contact_name,
+            "contact_source": r.contact_source,
+            "contact_type": r.contact_type,
+            "contact_status": r.contact_status,
+        })
+    table = pa.Table.from_pylist(rows)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    pq.write_table(table, output_path, compression="zstd")
+    print(f"\nWrote {len(rows)} rows to {output_path}")
+
+
+def print_summary(results: dict[str, ContactResult]):
+    """Print extraction summary statistics."""
+    total = len(results)
+    verified = sum(1 for r in results.values() if r.contact_status == "verified")
+    unverified = sum(1 for r in results.values() if r.contact_status == "unverified")
+    invalid = sum(1 for r in results.values() if r.contact_status == "invalid")
+    not_found = sum(1 for r in results.values() if r.contact_status == "not_found")
+    site_blocked = sum(1 for r in results.values() if r.contact_status == "site_blocked")
+    personal = sum(1 for r in results.values() if r.contact_type == "personal")
+    generic = sum(1 for r in results.values() if r.contact_type == "generic")
+    print(f"\n{'='*60}")
+    print(f"EXTRACTION SUMMARY:")
+    print(f"  Total sources:    {total}")
+    print(f"  Verified:         {verified} ({verified*100/total:.1f}%)" if total else "  Verified:         0")
+    print(f"  Unverified:       {unverified}")
+    print(f"  Invalid:          {invalid}")
+    print(f"  Not found:        {not_found}")
+    print(f"  Site blocked:     {site_blocked}")
+    print(f"  Personal emails:  {personal}")
+    print(f"  Generic emails:   {generic}")
+    print(f"{'='*60}")
+
+
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--catalog", type=Path, default=Path("feedmine/Resources/FeedEngine/catalog.sqlite"))
+    p.add_argument("--output", type=Path, default=Path("build/feeds_corpus_contacts.parquet"))
+    p.add_argument("--disposable-file", type=Path, default=Path("scripts/data/disposable_domains.txt"))
+    p.add_argument("--max-sources", type=int, default=0, help="Limit sources (0=all)")
+    p.add_argument("--skip-scraping", action="store_true", help="Skip Phase 2 site scraping")
+    p.add_argument("--skip-smtp", action="store_true", help="Skip SMTP verification")
+    p.add_argument("--rss-only", action="store_true", help="Phase 1 only (fastest)")
+    return p.parse_args()
+
+
+def main():
+    args = parse_args()
+    print("Contact Email Extraction Pipeline")
+    print(f"  Catalog: {args.catalog}")
+    print(f"  Output:  {args.output}")
+    sources = read_sources(args.catalog)
+    if args.max_sources > 0:
+        sources = sources[:args.max_sources]
+    print(f"  Sources: {len(sources)}")
+
+    results_raw = load_checkpoint()
+    results: dict[str, ContactResult] = {}
+    for sid, data in results_raw.items():
+        results[sid] = ContactResult(**{k: v for k, v in data.items() if k in ContactResult.__dataclass_fields__})
+    print(f"  Resumed:  {len(results)} existing results")
+
+    remaining = [s for s in sources if s.source_id not in results]
+
+    if remaining:
+        print(f"\n── Phase 1: RSS Metadata ({len(remaining)} sources) ──")
+        p1_results = asyncio.run(phase1_rss_extraction(remaining))
+        results.update(p1_results)
+        save_checkpoint(results)
+    else:
+        print("\n── Phase 1: All sources already processed ──")
+
+    if args.rss_only:
+        write_parquet(results, args.output)
+        print_summary(results)
+        return
+
+    if not args.skip_scraping:
+        remaining_for_p2 = [
+            s for s in sources
+            if results.get(s.source_id, ContactResult(s.source_id, s.db_id)).contact_status != "found"
+        ]
+        if remaining_for_p2:
+            print(f"\n── Phase 2: Site Scraping ({len(remaining_for_p2)} sources) ──")
+            results = asyncio.run(phase2_site_scraping(sources, results))
+            save_checkpoint(results)
+    else:
+        print("\n── Phase 2: Skipped (--skip-scraping) ──")
+
+    to_validate = sum(1 for r in results.values() if r.contact_status == "found" and r.contact_email)
+    if to_validate > 0:
+        print(f"\n── Phase 3: Validation ({to_validate} emails) ──")
+        results = phase3_validation(results, args.disposable_file, skip_smtp=args.skip_smtp)
+        save_checkpoint(results)
+
+    write_parquet(results, args.output)
+    print_summary(results)
+
+
+if __name__ == "__main__":
+    main()
