@@ -12,6 +12,7 @@ struct SettingsSheetView: View {
     @AppStorage("paletteFamily") private var paletteFamilyRaw = PaletteFamily.warmEarth.rawValue
     @AppStorage("circadianTypographyOn") private var circadianTypographyOn = true
     @AppStorage("fontStyle") private var fontStyleRaw = FontStyle.system.rawValue
+    @AppStorage("showDebugBar") private var showDebugBar = false
 
     @State private var showClearReadConfirmation = false
     @State private var showClearBookmarksConfirmation = false
@@ -240,29 +241,23 @@ struct SettingsSheetView: View {
                     }
                 } header: { Text("Share") }
 
+                // MARK: - Debug
+                Section("Debug") {
+                    Toggle("Show Debug Overlay", systemImage: "wrench.and.screwdriver.fill", isOn: $showDebugBar)
+                        .tint(.orange)
+                }
+
                 // MARK: - About
                 Section("About") {
-                    HStack {
-                        Text("Version"); Spacer()
-                        Text("1.0 (Prototype)").foregroundStyle(.secondary)
-                    }
-                    HStack {
-                        Text("Sources"); Spacer()
-                        Text("\(loader.sourceCount) feeds · \(loader.opmlFileCount) files").foregroundStyle(.secondary)
-                    }
-                    Button {
-                        hasSeenOnboarding = false
-                    } label: {
-                        Label("Re-watch Intro", systemImage: "sparkles")
+                    Link(destination: URL(string: "https://wawasoft.net/about/")!) {
+                        Label("About this initiative", systemImage: "info.circle.fill")
                     }
                 }
 
+                // MARK: - Feedback
                 Section {
-                    Link(destination: URL(string: "mailto:wmontes@gmail.com?subject=Feedmine%20Feedback")!) {
-                        Label("Send Feedback", systemImage: "envelope.fill")
-                    }
-                    Link(destination: URL(string: "https://github.com/nmdias/FeedKit")!) {
-                        Label("FeedKit on GitHub", systemImage: "link")
+                    Link(destination: URL(string: "https://wawasoft.net/contact/")!) {
+                        Label("Get in touch", systemImage: "envelope.fill")
                     }
                 } header: { Text("Feedback") } footer: {
                     Text("Feedmine is an independent, open-source RSS reader. No algorithms, no ads, no accounts — just stories from around the world, on your terms.")
