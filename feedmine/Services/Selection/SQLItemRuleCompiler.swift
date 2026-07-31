@@ -31,16 +31,16 @@ struct SQLItemRuleCompiler: Sendable {
             // prepends the source URL filter before this compiled SQL.
         }
 
-        // 2. Date range
+        // 2. Date range — use published_at to match in-memory evaluator (5.4 parity)
         if let dateRange = rules.history.dateRange {
-            conditions.append("fetched_at >= ?")
+            conditions.append("published_at >= ?")
             args.append(dateRange.lowerBound.timeIntervalSince1970)
-            conditions.append("fetched_at <= ?")
+            conditions.append("published_at <= ?")
             args.append(dateRange.upperBound.timeIntervalSince1970)
         } else {
             // Default: last 30 days
             let thirtyDaysAgo = Date().timeIntervalSince1970 - 2_592_000
-            conditions.append("fetched_at >= ?")
+            conditions.append("published_at >= ?")
             args.append(thirtyDaysAgo)
         }
 
