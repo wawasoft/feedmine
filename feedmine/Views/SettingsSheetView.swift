@@ -221,7 +221,9 @@ struct SettingsSheetView: View {
                     }
                 }
 
-                // MARK: - Share Stats
+                // MARK: - Share Stats (disabled — ImageRenderer issues)
+                // TODO: Fix ImageRenderer blank output and re-enable
+                /*
                 Section {
                     Button {
                         let topCat = topCategory ?? "None"
@@ -237,6 +239,7 @@ struct SettingsSheetView: View {
                         Label("Share My Stats", systemImage: "chart.bar.fill")
                     }
                 } header: { Text("Share") }
+                */
 
                 // MARK: - Debug
                 Section("Debug") {
