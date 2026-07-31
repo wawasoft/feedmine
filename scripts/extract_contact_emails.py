@@ -546,8 +546,20 @@ def phase3_validation(
         if r.contact_status == "found" and r.contact_email
     ]
     print(f"  Phase 3: {len(to_validate)} emails to validate")
+    # At most one SMTP RCPT TO per domain per second, so a batch of
+    # addresses on one MX server is throttled instead of hammering it.
+    last_smtp_time: dict[str, float] = {}
     validated = 0
     for sid, result in to_validate:
+        if not skip_smtp:
+            # Track last SMTP check time per domain
+            domain = result.contact_email.split("@")[-1]
+            now = time.time()
+            last = last_smtp_time.get(domain, 0)
+            elapsed = now - last
+            if elapsed < 1.0:
+                time.sleep(1.0 - elapsed)
+            last_smtp_time[domain] = time.time()
         status, reason = validate_email(
             result.contact_email,  # type: ignore[arg-type]
             disposable_domains,
@@ -561,8 +573,6 @@ def phase3_validation(
             invalid = sum(1 for r in results.values() if r.contact_status == "invalid")
             print(f"  Phase 3: {validated}/{len(to_validate)}, V:{verified} U:{unverified} I:{invalid}")
             save_checkpoint(results)
-        if not skip_smtp:
-            time.sleep(0.1)
     return results
 
 
