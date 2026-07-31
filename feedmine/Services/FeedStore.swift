@@ -2296,13 +2296,19 @@ final class FeedStore {
                 bridge.activeContentType = type
                 bridge.activeMood = mood
                 bridge.activeLanguages = langs
-                let request = bridge.adapter.makeResetRequest(
-                    preservingSourceLibrary: true,
-                    contentFilterKeywords: bridge.contentFilterKeywords
+                // Build the same request submitUnifiedFilter uses so the shadow
+                // comparison tests the actual filter, not a reset. (I1, I2)
+                let sourceUniverse: SourceUniversePolicy = nodeIDs.isEmpty && type == .all
+                    ? .enabledLibrary
+                    : .expandedCatalogRespectingExplicitOff
+                bridge.submitMainFeedRequest(
+                    sourceUniverse: sourceUniverse,
+                    taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs,
+                    contentTypes: type == .all ? nil : [type],
+                    region: region,
+                    mood: mood
                 )
-                // Shadow trace — just log the plan, don't publish
-                await self.selectionBridge?.coordinator.submit(request)
-                Log.feed.info("[SelectionShadow] filter change compiled: eligible=\(eligibleSourceCount)")
+                Log.feed.info("[SelectionShadow] filter compiled: legacyEligible=\(eligibleSourceCount)")
             }
         }
         // --- Legacy path ---
