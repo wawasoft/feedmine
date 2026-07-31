@@ -1400,29 +1400,33 @@ final class FeedStore {
         hasStarted = true
 
         // --- Initialize unified selection engine (Phase 1–3) ---
-        // The catalog adapter wraps SourceRegistry + TaxonomyStore for the
-        // selection engine. Created early so shadow mode can compare results
-        // during startup.
-        initializeSelectionEngine(
-            catalog: SourceRegistryCatalogAdapter(registry: registry)
+        // Wire the full pipeline: catalog adapter + real snapshots + executor.
+        // When unifiedSelectionMainFeed is on, the engine executes the real
+        // pipeline (cache → eligibility → ranking → mix → preparation → publish).
+        let catalogAdapter = SourceRegistryCatalogAdapter(registry: registry)
+        let snapshotBuilder = SelectionSnapshotBuilder(
+            registry: registry, taxonomyStore: TaxonomyStore.shared
         )
-        // If the main feed flag is on and no preset overrides the normal
-        // path, submit the initial request now. The bridge handles the rest.
-        if Settings.unifiedSelectionMainFeed,
-           let bridge = selectionBridge,
-           !activePreset.isSmartFeed,
-           !activePreset.isLastClicked,
-           activePreset.collectionID == nil {
-            bridge.activeLanguages = activeLanguages
-            bridge.activeContentType = activeContentType
-            bridge.contentFilterKeywords = ContentFilterStore.shared.isEnabled
-                ? Set(ContentFilterStore.shared.activeFilters.flatMap { $0.keywords })
-                : []
-            bridge.submitMainFeedRequest()
-            isPreparingInitialRunway = false
-            loadingState = .idle
-            return
-        }
+        let executor = SelectionExecutor(
+            db: db,
+            fetcher: fetcher,
+            scheduler: scheduler,
+            preparationCoordinator: preparationCoordinator!,
+            runwayPolicy: runwayPolicy
+        )
+        initializeSelectionEngine(
+            catalog: catalogAdapter,
+            snapshotBuilder: snapshotBuilder,
+            executor: executor
+        )
+        // If unified main feed is on, let the legacy startup finish
+        // (OPML, taxonomy, filter restore, network monitor) then submit
+        // through the unified engine instead of the legacy content path.
+        // The flag check at the end of start() routes accordingly.
+        let useUnifiedMainFeed = Settings.unifiedSelectionMainFeed
+            && !activePreset.isSmartFeed
+            && !activePreset.isLastClicked
+            && activePreset.collectionID == nil
 
         loadingState = .initial
         isPreparingInitialRunway = true
@@ -1564,6 +1568,18 @@ final class FeedStore {
             } catch {
                 Log.feed.error("collection preset cache hydration failed: \(error)")
             }
+        } else if useUnifiedMainFeed, let bridge = selectionBridge {
+            // Unified engine path: submit the main feed request after catalog
+            // is fully loaded. The engine handles cache→eligibility→ranking→
+            // mix→preparation→publish.
+            bridge.activeLanguages = activeLanguages
+            bridge.activeContentType = activeContentType
+            bridge.contentFilterKeywords = ContentFilterStore.shared.isEnabled
+                ? Set(ContentFilterStore.shared.activeFilters.flatMap { $0.keywords })
+                : []
+            bridge.submitMainFeedRequest()
+            isPreparingInitialRunway = false
+            loadingState = .idle
         } else if visibleItems.isEmpty {
             await reloadFromSQLite()
         } else {
