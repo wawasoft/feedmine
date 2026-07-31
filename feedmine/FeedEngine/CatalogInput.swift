@@ -34,6 +34,10 @@ struct CatalogSourceOccurrence: Equatable, Sendable {
     let latestItemAt: String?
     let qualityScore: Int?
     let defaultEnabled: Bool
+    let contactEmail: String?
+    let contactName: String?
+    let contactSource: String?
+    let contactType: String?
 
     init(
         title: String,
@@ -54,7 +58,11 @@ struct CatalogSourceOccurrence: Equatable, Sendable {
         activity: String? = nil,
         latestItemAt: String? = nil,
         qualityScore: Int? = nil,
-        defaultEnabled: Bool = true
+        defaultEnabled: Bool = true,
+        contactEmail: String? = nil,
+        contactName: String? = nil,
+        contactSource: String? = nil,
+        contactType: String? = nil
     ) {
         self.title = title
         self.declaredURL = declaredURL
@@ -75,6 +83,10 @@ struct CatalogSourceOccurrence: Equatable, Sendable {
         self.latestItemAt = latestItemAt
         self.qualityScore = qualityScore
         self.defaultEnabled = defaultEnabled
+        self.contactEmail = contactEmail
+        self.contactName = contactName
+        self.contactSource = contactSource
+        self.contactType = contactType
     }
 
     static func legacySource(_ source: FeedSource, sortOrder: Int) -> CatalogSourceOccurrence {
@@ -92,7 +104,11 @@ struct CatalogSourceOccurrence: Equatable, Sendable {
             nature: source.nature,
             activity: source.activity,
             qualityScore: source.qualityScore,
-            defaultEnabled: source.defaultEnabled
+            defaultEnabled: source.defaultEnabled,
+            contactEmail: source.contactEmail,
+            contactName: source.contactName,
+            contactSource: source.contactSource,
+            contactType: source.contactType
         )
     }
 
