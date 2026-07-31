@@ -21,13 +21,14 @@ struct SQLItemRuleCompiler: Sendable {
         var conditions: [String] = []
         var args: [any DatabaseValueConvertible] = []
 
-        // 1. Source eligibility — generate URL variants for HTTP/HTTPS, www, trailing slash
+        // 1. Source eligibility — requires source URLs from the plan's resolved scope.
+        // SourceIDs are hashes; SQL needs the actual source_url strings.
+        // The caller (SelectionExecutor) injects source URL filtering by passing
+        // eligibleSourceURLs which are expanded into HTTP/HTTPS/www variants.
         if !rules.eligibleSourceIDs.isEmpty {
-            // For SQL queries, source eligibility is handled by source_url matching.
-            // The eligibleSourceIDs are converted to their URL representations
-            // by the caller. Here we compose the WHERE clause for source URLs.
-            // In practice, this is applied as a JOIN or IN clause on source_url
-            // with URL variant expansion.
+            // Source eligibility is applied by the executor via source_url IN (...)
+            // with URL variant expansion. This block is a marker — the executor
+            // prepends the source URL filter before this compiled SQL.
         }
 
         // 2. Date range
@@ -48,10 +49,11 @@ struct SQLItemRuleCompiler: Sendable {
             conditions.append("is_read = 0")
         }
         if !rules.history.includeConsumed {
-            conditions.append("is_consumed = 0")
+            conditions.append("consumed_at IS NULL")
         }
         if !rules.history.includeBookmarked {
-            conditions.append("is_bookmarked = 0")
+            // Bookmarks live in bookmark_item table; exclude items that are bookmarked
+            conditions.append("id NOT IN (SELECT item_id FROM bookmark_item)")
         }
 
         // 4. Region
@@ -68,17 +70,28 @@ struct SQLItemRuleCompiler: Sendable {
             args.append(contentsOf: rules.languages.map { $0 as String })
         }
 
-        // 6. Content type
+        // 6. Content type — derived columns, not stored in DB.
+        // Video: source_url LIKE '%youtube%', Audio: audio_url IS NOT NULL,
+        // Text: audio_url IS NULL AND source_url NOT LIKE '%youtube%'
         if !rules.contentTypes.isEmpty {
-            let placeholders = rules.contentTypes.map { _ in "?" }.joined(separator: ",")
-            conditions.append("content_type IN (\(placeholders))")
-            args.append(contentsOf: rules.contentTypes.map { $0.rawValue as String })
+            var typeConditions: [String] = []
+            for ct in rules.contentTypes {
+                switch ct {
+                case .video: typeConditions.append("source_url LIKE '%youtube%'")
+                case .audio: typeConditions.append("audio_url IS NOT NULL")
+                case .text:  typeConditions.append("(audio_url IS NULL AND source_url NOT LIKE '%youtube%')")
+                default: break
+                }
+            }
+            if !typeConditions.isEmpty {
+                conditions.append("(\(typeConditions.joined(separator: " OR ")))")
+            }
         }
 
         // 7. Excluded keywords
         if !rules.excludedKeywords.isEmpty {
             let keywordConditions = rules.excludedKeywords.map { _ in
-                "(LOWER(title) NOT LIKE '%' || ? || '%' AND (item_description IS NULL OR LOWER(item_description) NOT LIKE '%' || ? || '%'))"
+                "(LOWER(title) NOT LIKE '%' || ? || '%' AND (excerpt IS NULL OR LOWER(excerpt) NOT LIKE '%' || ? || '%'))"
             }.joined(separator: " AND ")
             conditions.append("(\(keywordConditions))")
             for keyword in rules.excludedKeywords {
@@ -91,7 +104,7 @@ struct SQLItemRuleCompiler: Sendable {
         if rules.contentExclusions.isEnabled,
            !rules.contentExclusions.excludedKeywords.isEmpty {
             let filterConditions = rules.contentExclusions.excludedKeywords.map { _ in
-                "(LOWER(title) NOT LIKE '%' || ? || '%' AND (item_description IS NULL OR LOWER(item_description) NOT LIKE '%' || ? || '%'))"
+                "(LOWER(title) NOT LIKE '%' || ? || '%' AND (excerpt IS NULL OR LOWER(excerpt) NOT LIKE '%' || ? || '%'))"
             }.joined(separator: " AND ")
             conditions.append("(\(filterConditions))")
             for keyword in rules.contentExclusions.excludedKeywords {

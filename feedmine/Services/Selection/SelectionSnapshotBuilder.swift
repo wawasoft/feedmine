@@ -25,6 +25,10 @@ struct SelectionSnapshotBuilder {
         let lookupSnapshot = registry.lookupSnapshot()
         let sources = registry.sources
 
+        // Cache disabled keys once — read from UserDefaults ground truth
+        let disabledKeys = registry.allDisabledKeys
+        let overrideKeys = registry.allEnabledOverrideKeys
+
         // 1. Explicitly disabled: the url: keys present in registry.disabled
         let explicitlyDisabled: Set<SourceID> = Set(
             lookupSnapshot.explicitlyDisabledURLs.compactMap { normalizedURL in
@@ -44,7 +48,8 @@ struct SelectionSnapshotBuilder {
             )
 
             // Check each source against the full enablement logic
-            let isExplicitOff = registry.isSourceExplicitlyDisabled(source.url)
+            let sourceKey = SourceRegistry.sourceKey(OPMLParser.normalizeURL(source.url))
+            let isExplicitOff = disabledKeys.contains(sourceKey)
             let isEnabled = registry.isSourceEnabled(source.url)
 
             if isExplicitOff {
@@ -53,7 +58,7 @@ struct SelectionSnapshotBuilder {
             }
 
             // Check override
-            if registry.isSourceExplicitlyEnabled(source.url) {
+            if overrideKeys.contains(sourceKey) {
                 explicitlyEnabled.insert(sid)
             }
 
@@ -63,15 +68,27 @@ struct SelectionSnapshotBuilder {
             }
 
             // If source is not enabled but not explicitly off, it's disabled
-            // by region or category cascade. Find which one.
+            // by region or category cascade. Find which one (O(1) checks).
             if !isEnabled {
-                // Check region cascade
-                if registry.isRegionDisabled(source.region) {
+                // Check region cascade using cached disabled keys
+                let regionKey = SourceRegistry.regionKey(source.region)
+                if disabledKeys.contains(regionKey) {
                     regionDisabled.insert(sid)
+                }
+                // Check parent country
+                if source.region.hasPrefix("countries/") {
+                    let parts = source.region.split(separator: "/")
+                    if parts.count >= 2 {
+                        let countryKey = SourceRegistry.regionKey("countries/\(parts[1])")
+                        if disabledKeys.contains(countryKey) {
+                            regionDisabled.insert(sid)
+                        }
+                    }
                 }
 
                 // Check category cascade
-                if registry.isCategoryDisabled(source.category) {
+                let categoryKey = SourceRegistry.categoryKey(source.category)
+                if disabledKeys.contains(categoryKey) {
                     categoryDisabled.insert(sid)
                 }
             }
@@ -131,49 +148,25 @@ struct SelectionSnapshotBuilder {
     }
 }
 
-// MARK: - SourceRegistry public API helpers
+// MARK: - SourceRegistry extension for O(1) enablement classification
+//
+/// Reads disabled/enabled-override state from UserDefaults (ground truth
+/// that SourceRegistry.saveState() writes to). This avoids the O(n²)
+/// sources.filter() pattern used in the old heuristic methods.
 
-/// These wrap SourceRegistry queries that the snapshot builder needs.
-/// They use only the public API — no internal state access.
 extension SourceRegistry {
 
-    /// Check if a source is explicitly enabled (has an override).
-    func isSourceExplicitlyEnabled(_ sourceURL: String) -> Bool {
-        // A source is explicitly enabled if isSourceEnabled returns true
-        // AND the source is NOT default-enabled (meaning it needed the override).
-        // Actually, we check: if the source would be disabled by default/region/category
-        // but is currently enabled, it must have an override.
-        guard let source = source(forURL: sourceURL) else { return false }
-
-        // If default is false and it's enabled, override is active
-        if !source.defaultEnabled && isSourceEnabled(sourceURL) {
-            return true
-        }
-        // If region/category is disabled but source is still enabled, override is active
-        if (isRegionDisabled(source.region) || isCategoryDisabled(source.category))
-            && isSourceEnabled(sourceURL) && !isSourceExplicitlyDisabled(sourceURL) {
-            return true
-        }
-        return false
+    /// The full disabled set (url:, region:, cat: keys).
+    var allDisabledKeys: Set<String> {
+        let stored: [String: Bool] = UserDefaults.standard.dictionary(forKey: Keys.toggleDisabled)
+            as? [String: Bool] ?? [:]
+        return Set(stored.keys)
     }
 
-    /// Check if a region tree is disabled.
-    func isRegionDisabled(_ region: String) -> Bool {
-        let key = SourceRegistry.regionKey(region)
-        // We check the enabled status of sources in this region.
-        // If all are disabled and the region key is set, the region is disabled.
-        // Simplified: check a representative source.
-        let sourcesInRegion = sources.filter { $0.region == region || $0.region.hasPrefix(region + "/") }
-        guard let first = sourcesInRegion.first else { return false }
-        // If the first source in this region is not explicitly off but still disabled,
-        // the region cascade is active
-        return !isSourceExplicitlyDisabled(first.url) && !isSourceEnabled(first.url)
-    }
-
-    /// Check if a category is disabled.
-    func isCategoryDisabled(_ category: String) -> Bool {
-        let sourcesInCategory = sources.filter { $0.category == category }
-        guard let first = sourcesInCategory.first else { return false }
-        return !isSourceExplicitlyDisabled(first.url) && !isSourceEnabled(first.url)
+    /// The enabled overrides set (url: keys only).
+    var allEnabledOverrideKeys: Set<String> {
+        let stored: [String: Bool] = UserDefaults.standard.dictionary(forKey: Keys.toggleEnabledOverrides)
+            as? [String: Bool] ?? [:]
+        return Set(stored.keys)
     }
 }

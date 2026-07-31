@@ -121,7 +121,8 @@ final class SelectionCoordinator {
         let userState: SourceEnablementSnapshot
 
         if let builder = snapshotBuilder {
-            taxonomy = builder.buildActiveTaxonomySnapshot(activeNodeIDs: [])
+            // Use full-map taxonomy so any node-filtered request can resolve sources
+            taxonomy = builder.buildTaxonomySnapshot()
             userState = builder.buildEnablementSnapshot()
         } else {
             taxonomy = .empty

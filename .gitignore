@@ -63,3 +63,4 @@ feedmine/Resources/Feeds.backup.*/
 # Mappings / dedup artifacts (generated)
 new_feeds_mapping.json
 dedup_result.json
+.build-dd-review/

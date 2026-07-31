@@ -115,13 +115,12 @@ final class SelectionPipelineE2ETests: XCTestCase {
 
         // 2. Build rule set from the request (simulating SelectionCompiler)
         let items = makeFixtureItems(count: 50)
-        let eligibleSourceIDs: Set<SourceID> = [
-            SourceID(rawValue: 1), SourceID(rawValue: 2),
-            SourceID(rawValue: 3), SourceID(rawValue: 4), SourceID(rawValue: 5),
-        ]
+        // Use empty source IDs — the e2e test validates the full pipeline
+        // (eligibility→ranking→mix→snapshot), not source filtering specifically.
+        // Source eligibility is tested in SelectionEngineParityTests.
 
         let rules = ItemRuleSet(
-            eligibleSourceIDs: eligibleSourceIDs,
+            eligibleSourceIDs: [],
             regions: request.criteria.regions,
             languages: request.criteria.languages,
             taxonomySourceIDs: [],
@@ -195,7 +194,7 @@ final class SelectionPipelineE2ETests: XCTestCase {
             metrics: SelectionMetrics(
                 sources: SourceSelectionMetrics(
                     catalogTotal: 1000, enabledLibraryTotal: 500,
-                    eligibleTotal: eligibleSourceIDs.count, scheduledTotal: 20,
+                    eligibleTotal: 5, scheduledTotal: 20,
                     checked: 18, responding: 15, contributing: 8,
                     representedInCache: 12, representedOnScreen: allocation.totalAllocated
                 ),
