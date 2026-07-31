@@ -117,7 +117,11 @@ struct SQLiteCatalogCompiler: CatalogCompiler {
                 activity: occurrence.activity,
                 latestItemAt: occurrence.latestItemAt,
                 qualityScore: occurrence.qualityScore,
-                defaultEnabled: occurrence.defaultEnabled
+                defaultEnabled: occurrence.defaultEnabled,
+                contactEmail: occurrence.contactEmail,
+                contactName: occurrence.contactName,
+                contactSource: occurrence.contactSource,
+                contactType: occurrence.contactType
             )
 
             var parentID = CatalogNodeID.root
@@ -244,8 +248,9 @@ struct SQLiteCatalogCompiler: CatalogCompiler {
         try db.execute(sql: """
             INSERT INTO catalog_source
                 (id, key, title, declared_url, request_url, display_host, media_kind, language,
-                 site_url, description, tags, nature, activity, latest_item_at, quality_score, default_enabled)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 site_url, description, tags, nature, activity, latest_item_at, quality_score, default_enabled,
+                 contact_email, contact_name, contact_source, contact_type)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, arguments: [
                 Int64(source.id.rawValue),
                 source.key.rawValue,
@@ -263,6 +268,10 @@ struct SQLiteCatalogCompiler: CatalogCompiler {
                 source.latestItemAt,
                 source.qualityScore,
                 source.defaultEnabled ? 1 : 0,
+                source.contactEmail,
+                source.contactName,
+                source.contactSource,
+                source.contactType,
             ])
     }
 
@@ -420,6 +429,10 @@ actor SQLiteCatalogRepository: FeedEngineProtocol, CatalogRepository, CatalogSea
                 latestItemAt: source.latestItemAt,
                 qualityScore: source.qualityScore,
                 defaultEnabled: source.defaultEnabled,
+                contactEmail: source.contactEmail,
+                contactName: source.contactName,
+                contactSource: source.contactSource,
+                contactType: source.contactType,
                 placements: placements
             )
         }
@@ -656,7 +669,11 @@ private enum SQLiteCatalogSchema {
                 activity TEXT,
                 latest_item_at TEXT,
                 quality_score INTEGER,
-                default_enabled INTEGER NOT NULL DEFAULT 1
+                default_enabled INTEGER NOT NULL DEFAULT 1,
+                contact_email TEXT,
+                contact_name TEXT,
+                contact_source TEXT,
+                contact_type TEXT
             )
             """)
         try db.execute(sql: "CREATE INDEX idx_catalog_source_title ON catalog_source(title COLLATE NOCASE, id)")
@@ -707,6 +724,10 @@ private struct CompiledSource {
     let latestItemAt: String?
     let qualityScore: Int?
     let defaultEnabled: Bool
+    let contactEmail: String?
+    let contactName: String?
+    let contactSource: String?
+    let contactType: String?
 }
 
 private struct CompiledNode {
@@ -782,6 +803,10 @@ private struct CatalogSourceRecord: FetchableRecord {
     let latestItemAt: String?
     let qualityScore: Int?
     let defaultEnabled: Bool
+    let contactEmail: String?
+    let contactName: String?
+    let contactSource: String?
+    let contactType: String?
 
     init(row: Row) throws {
         let rawID: Int64 = row["id"]
@@ -802,6 +827,10 @@ private struct CatalogSourceRecord: FetchableRecord {
         qualityScore = row["quality_score"]
         let enabled: Int = row["default_enabled"] ?? 1
         defaultEnabled = enabled != 0
+        contactEmail = row["contact_email"]
+        contactName = row["contact_name"]
+        contactSource = row["contact_source"]
+        contactType = row["contact_type"]
     }
 
     var summary: SourceSummary {
@@ -809,7 +838,11 @@ private struct CatalogSourceRecord: FetchableRecord {
             id: id, title: title, displayHost: displayHost, mediaKind: mediaKind,
             language: language, sourceDescription: sourceDescription, tags: tags,
             nature: nature, activity: activity, qualityScore: qualityScore,
-            defaultEnabled: defaultEnabled
+            defaultEnabled: defaultEnabled,
+            contactEmail: contactEmail,
+            contactName: contactName,
+            contactSource: contactSource,
+            contactType: contactType
         )
     }
 }
