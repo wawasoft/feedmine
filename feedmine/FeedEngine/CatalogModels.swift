@@ -22,6 +22,10 @@ struct SourceSummary: Equatable, Identifiable, Sendable {
     let activity: String?
     let qualityScore: Int?
     let defaultEnabled: Bool
+    let contactEmail: String?
+    let contactName: String?
+    let contactSource: String?
+    let contactType: String?
 
     init(
         id: SourceID,
@@ -34,7 +38,11 @@ struct SourceSummary: Equatable, Identifiable, Sendable {
         nature: String? = nil,
         activity: String? = nil,
         qualityScore: Int? = nil,
-        defaultEnabled: Bool = true
+        defaultEnabled: Bool = true,
+        contactEmail: String? = nil,
+        contactName: String? = nil,
+        contactSource: String? = nil,
+        contactType: String? = nil
     ) {
         self.id = id
         self.title = title
@@ -47,6 +55,10 @@ struct SourceSummary: Equatable, Identifiable, Sendable {
         self.activity = activity
         self.qualityScore = qualityScore
         self.defaultEnabled = defaultEnabled
+        self.contactEmail = contactEmail
+        self.contactName = contactName
+        self.contactSource = contactSource
+        self.contactType = contactType
     }
 }
 
@@ -66,6 +78,10 @@ struct SourceDetails: Equatable, Identifiable, Sendable {
     let latestItemAt: String?
     let qualityScore: Int?
     let defaultEnabled: Bool
+    let contactEmail: String?
+    let contactName: String?
+    let contactSource: String?
+    let contactType: String?
     /// Every editorial placement of this source across OPML files.
     let placements: [SourcePlacementSummary]
 
@@ -84,6 +100,10 @@ struct SourceDetails: Equatable, Identifiable, Sendable {
         latestItemAt: String? = nil,
         qualityScore: Int? = nil,
         defaultEnabled: Bool = true,
+        contactEmail: String? = nil,
+        contactName: String? = nil,
+        contactSource: String? = nil,
+        contactType: String? = nil,
         placements: [SourcePlacementSummary]
     ) {
         self.id = id
@@ -100,6 +120,10 @@ struct SourceDetails: Equatable, Identifiable, Sendable {
         self.latestItemAt = latestItemAt
         self.qualityScore = qualityScore
         self.defaultEnabled = defaultEnabled
+        self.contactEmail = contactEmail
+        self.contactName = contactName
+        self.contactSource = contactSource
+        self.contactType = contactType
         self.placements = placements
     }
 }
