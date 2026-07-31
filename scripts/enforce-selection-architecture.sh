@@ -98,7 +98,9 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 4. Legacy deprecated methods (warn only in non-strict)
+# 4. Legacy deprecated methods
+#    Non-strict: warn only (permitted in legacy adapters)
+#    Strict: fail on any occurrence outside doc files
 # ---------------------------------------------------------------------------
 echo "--- Rule 4: Deprecated methods ---"
 DEPRECATED_METHODS=(

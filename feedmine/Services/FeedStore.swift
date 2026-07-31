@@ -68,6 +68,19 @@ final class FeedStore {
     /// Manages SelectionSessions and exposes unified state/counters to the UI.
     var selectionBridge: FeedStoreSelectionBridge?
 
+    /// Sync public observable state from the unified bridge.
+    /// Called internally after session state changes when unifiedSelectionState is active.
+    func syncPublicStateFromBridge() {
+        guard let bridge = selectionBridge,
+              Settings.unifiedSelectionState else { return }
+        visibleItems = bridge.visibleItems
+        visibleCards = bridge.visibleCards
+        visibleItemsGeneration = bridge.visibleItemsGeneration
+        loadingState = bridge.loadingState
+        hasPreviouslyLoadedContent = bridge.hasPreviouslyLoadedContent
+        reservoirCount = bridge.reservoirCount
+    }
+
     // MARK: - Public state
     private(set) var visibleItems: [FeedItem] = []
     /// Pre-resolved card presentations for the main feed. Published alongside
