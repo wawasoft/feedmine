@@ -21,16 +21,16 @@
 
 ## Etapa 3 — Tornar o Selection Engine executável
 
-- [ ] **3.1** Criar `SelectionExecutor` com pipeline completo: cache → eligibility → ranking → mix → acquisition → merge → preparation → snapshot
-- [ ] **3.2** `SelectionSession.start()` chama o executor (hoje só compila e traça)
-- [ ] **3.3** `SelectionSession.refresh()` executa novamente preservando snapshot anterior
-- [ ] **3.4** `SelectionSession.loadMore()` executa próxima página
-- [ ] **3.5** `FeedStoreSelectionBridge.observeSession()` usa `AsyncStream<SelectionState>` (hoje lê uma vez)
+- [x] **3.1** Criar `SelectionExecutor` com pipeline completo: cache → eligibility → ranking → mix → acquisition → merge → preparation → snapshot
+- [x] **3.2** `SelectionSession.start()` chama o executor (hoje só compila e traça)
+- [x] **3.3** `SelectionSession.refresh()` executa novamente preservando snapshot anterior
+- [x] **3.4** `SelectionSession.loadMore()` executa próxima página
+- [x] **3.5** `FeedStoreSelectionBridge.observeSession()` usa `AsyncStream<SelectionState>` (hoje lê uma vez)
 
 ## Etapa 4 — Corrigir source scope
 
-- [ ] **4.1** `SourceEnablementSnapshot` construído com dados reais do `SourceRegistry` (hoje `.empty`)
-- [ ] **4.2** `TaxonomySnapshot` construído com dados reais da `TaxonomyStore` (hoje `.empty`)
+- [x] **4.1** `SourceEnablementSnapshot` construído com dados reais do `SourceRegistry` (hoje `.empty`)
+- [x] **4.2** `TaxonomySnapshot` construído com dados reais da `TaxonomyStore` (hoje `.empty`)
 - [ ] **4.3** `.expandedCatalogRespectingExplicitOff` usa catálogo completo, não só `enabledSources`
 - [ ] **4.4** `.catalogQuery` permanece lazy e paginável (>500 sources não vira vazio)
 - [ ] **4.5** Índices concretos: `SourceID → SourceKey`, `SourceID → FeedSource`, `SourceID → requestURL`
@@ -98,4 +98,4 @@
 
 ---
 
-**Total: 64 itens | Concluídos: 6 | Pendentes: 58**
+**Total: 64 itens | Concluídos: 17 | Pendentes: 47**
