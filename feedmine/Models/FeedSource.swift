@@ -24,6 +24,13 @@ struct FeedSource: Codable, Identifiable, Sendable {
     /// Dormant current-sensitive sources remain discoverable, but are not
     /// fetched until the user explicitly enables or selects them.
     let defaultEnabled: Bool
+    /// Contact metadata extracted from curated OPML files: the email address,
+    /// the contact's name, where the contact info was found (provenance), and
+    /// what kind of contact it is (e.g. "author", "podcast-host").
+    let contactEmail: String?
+    let contactName: String?
+    let contactSource: String?
+    let contactType: String?
 
     /// YouTube RSS feeds follow this URL pattern — it's the standard endpoint.
     /// https://www.youtube.com/feeds/videos.xml?channel_id=...
@@ -46,7 +53,9 @@ struct FeedSource: Codable, Identifiable, Sendable {
          mediaKind: MediaKind = .text, language: String? = nil,
          sourceDescription: String? = nil, tags: [String] = [],
          nature: String? = nil, activity: String? = nil,
-         qualityScore: Int? = nil, defaultEnabled: Bool = true) {
+         qualityScore: Int? = nil, defaultEnabled: Bool = true,
+         contactEmail: String? = nil, contactName: String? = nil,
+         contactSource: String? = nil, contactType: String? = nil) {
         self.title = title
         self.url = url
         self.category = category
@@ -59,6 +68,10 @@ struct FeedSource: Codable, Identifiable, Sendable {
         self.activity = activity
         self.qualityScore = qualityScore
         self.defaultEnabled = defaultEnabled
+        self.contactEmail = contactEmail
+        self.contactName = contactName
+        self.contactSource = contactSource
+        self.contactType = contactType
     }
 
     enum CodingKeys: String, CodingKey {
@@ -67,6 +80,10 @@ struct FeedSource: Codable, Identifiable, Sendable {
         case tags, nature, activity
         case qualityScore = "quality_score"
         case defaultEnabled = "default_enabled"
+        case contactEmail = "contact_email"
+        case contactName = "contact_name"
+        case contactSource = "contact_source"
+        case contactType = "contact_type"
     }
 
     init(from decoder: Decoder) throws {
@@ -83,6 +100,10 @@ struct FeedSource: Codable, Identifiable, Sendable {
         activity = try? c.decode(String.self, forKey: .activity)
         qualityScore = try? c.decode(Int.self, forKey: .qualityScore)
         defaultEnabled = (try? c.decode(Bool.self, forKey: .defaultEnabled)) ?? true
+        contactEmail = try? c.decode(String.self, forKey: .contactEmail)
+        contactName = try? c.decode(String.self, forKey: .contactName)
+        contactSource = try? c.decode(String.self, forKey: .contactSource)
+        contactType = try? c.decode(String.self, forKey: .contactType)
     }
 }
 
@@ -108,6 +129,10 @@ struct SourceReference: Identifiable, Equatable, Sendable {
     let activity: String?
     let qualityScore: Int?
     let defaultEnabled: Bool
+    let contactEmail: String?
+    let contactName: String?
+    let contactSource: String?
+    let contactType: String?
 
     init(
         title: String,
@@ -123,7 +148,11 @@ struct SourceReference: Identifiable, Equatable, Sendable {
         nature: String? = nil,
         activity: String? = nil,
         qualityScore: Int? = nil,
-        defaultEnabled: Bool = true
+        defaultEnabled: Bool = true,
+        contactEmail: String? = nil,
+        contactName: String? = nil,
+        contactSource: String? = nil,
+        contactType: String? = nil
     ) {
         self.title = title
         self.feedURL = OPMLParser.normalizeURL(feedURL)
@@ -139,6 +168,10 @@ struct SourceReference: Identifiable, Equatable, Sendable {
         self.activity = activity
         self.qualityScore = qualityScore
         self.defaultEnabled = defaultEnabled
+        self.contactEmail = contactEmail
+        self.contactName = contactName
+        self.contactSource = contactSource
+        self.contactType = contactType
     }
 
     init(source: FeedSource, siteURL: String? = nil) {
@@ -155,7 +188,11 @@ struct SourceReference: Identifiable, Equatable, Sendable {
             nature: source.nature,
             activity: source.activity,
             qualityScore: source.qualityScore,
-            defaultEnabled: source.defaultEnabled
+            defaultEnabled: source.defaultEnabled,
+            contactEmail: source.contactEmail,
+            contactName: source.contactName,
+            contactSource: source.contactSource,
+            contactType: source.contactType
         )
     }
 
@@ -172,7 +209,11 @@ struct SourceReference: Identifiable, Equatable, Sendable {
             nature: nature,
             activity: activity,
             qualityScore: qualityScore,
-            defaultEnabled: defaultEnabled
+            defaultEnabled: defaultEnabled,
+            contactEmail: contactEmail,
+            contactName: contactName,
+            contactSource: contactSource,
+            contactType: contactType
         )
     }
 }
