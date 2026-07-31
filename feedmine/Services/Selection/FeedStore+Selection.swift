@@ -57,32 +57,19 @@ extension FeedStore {
         languages: Set<String>
     ) {
         guard let bridge = selectionBridge else { return }
-
-        bridge.activeRegion = region
-        bridge.activeNodeIDs = nodeIDs
-        bridge.activeContentType = type
-        bridge.activeMood = mood
-        bridge.activeLanguages = languages
-
+        applyUnifiedFilterState(region: region, nodeIDs: nodeIDs, type: type, mood: mood, languages: languages)
+        bridge.activeRegion = region; bridge.activeNodeIDs = nodeIDs
+        bridge.activeContentType = type; bridge.activeMood = mood; bridge.activeLanguages = languages
         let sourceUniverse: SourceUniversePolicy = nodeIDs.isEmpty && type == .all
-            ? .enabledLibrary
-            : .expandedCatalogRespectingExplicitOff
-
-        bridge.submitMainFeedRequest(
-            sourceUniverse: sourceUniverse,
-            taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs,
-            contentTypes: type == .all ? nil : [type],
-            region: region,
-            mood: mood
-        )
+            ? .enabledLibrary : .expandedCatalogRespectingExplicitOff
+        bridge.submitMainFeedRequest(sourceUniverse: sourceUniverse, taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs, contentTypes: type == .all ? nil : [type], region: region, mood: mood)
     }
 
     /// Submit a preset change through the unified engine.
     func submitUnifiedPreset(_ preset: PresetSelector) {
         guard let bridge = selectionBridge else { return }
-
+        applyUnifiedPresetState(preset)
         bridge.activePreset = preset
-
         var ranking = RankingProfile()
         ranking.signals.append(.editorialPreset(preset))
 
@@ -92,13 +79,9 @@ extension FeedStore {
     /// Submit a clear-all-filters through the unified engine.
     func submitUnifiedReset() {
         guard let bridge = selectionBridge else { return }
-
-        bridge.activeRegion = nil
-        bridge.activeNodeIDs = []
-        bridge.activeContentType = .all
-        bridge.activeMood = .all
-        bridge.activeLanguages = []
-
+        applyUnifiedResetState()
+        bridge.activeRegion = nil; bridge.activeNodeIDs = []
+        bridge.activeContentType = .all; bridge.activeMood = .all; bridge.activeLanguages = []
         bridge.submitResetRequest()
     }
 
