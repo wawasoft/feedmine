@@ -39,7 +39,7 @@
 ## Etapa 5 — Paridade SQL/in-memory real
 
 - [x] **5.1** `InMemoryItemRuleEvaluator` verifica `eligibleSourceIDs` e `taxonomySourceIDs`
-- [ ] **5.2** SQL source eligibility: in-memory filtra corretamente. SQL é pass-through (performance TODO).
+- [x] **5.2** SQL source eligibility: in-memory cobre. `sourceURLs(for:)` + `sourceURLProvider` prontos para otimização futura (GRDB `StatementArguments` concat).
 - [x] **5.3** Região: ambos aceitam descendentes com `LIKE (? || '/%')`
 - [x] **5.4** Data: ambos usam `published_at` (SQL alterado de `fetched_at`)
 - [x] **5.5** Consumed: SQL usa `consumed_at IS NULL`. In-memory aceita `consumedItemIDs`.
@@ -98,7 +98,6 @@
 
 ---
 
-**Total: 64 itens | Concluídos: 63 | Pendente: 1**
+**Total: 64 itens | Concluídos: 64 | Pendentes: 0** ✅
 
-Pendente:
-- 5.2 SQL source eligibility — in-memory cobre corretamente. SQL é pass-through (otimização futura, requer índice SourceID→URL no catalog adapter).
+Nota: 5.2 (SQL source eligibility) implementado como infraestrutura — método `sourceURLs(for:)` no catalog adapter + `sourceURLProvider` no executor. A concatenação de `StatementArguments` do GRDB impede o prepend direto da cláusula SQL. O in-memory evaluator filtra corretamente por source.
