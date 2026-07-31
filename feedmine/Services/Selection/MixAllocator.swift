@@ -62,9 +62,15 @@ struct MixAllocator: Sendable {
         var position = 0
         var quotaFills: [String: Int] = [:]
 
-        // Separate discovery candidates (lower scored, from different regions/providers)
+        // Discovery candidates: items that bring diversity from outside
+        // the primary affinity. Start with cooldown-rejected items, then
+        // backfill from the tail of the sorted list (lower-scored items
+        // from sources/regions not yet represented). (B6)
         let discoveryCount = Int(Double(targetCount) * plan.discoveryShare)
         var discoveryCandidates: [FeedItem] = []
+        // Track which sources/regions are already in the main output
+        var representedSources = Set<String>()
+        var representedRegions = Set<String>()
 
         // First pass: fill with diversity constraints
         var usedIDs = Set<String>()
@@ -129,6 +135,8 @@ struct MixAllocator: Sendable {
             // Allocate this item
             output.append(item.id)
             usedIDs.insert(item.id)
+            representedSources.insert(sourceURL)
+            representedRegions.insert(region)
             tracker.providerHistory[provider] = position
             tracker.regionHistory[region] = position
             tracker.categoryHistory[category] = position
@@ -141,6 +149,33 @@ struct MixAllocator: Sendable {
                 let key = quotaKey(quota)
                 if matchesQuota(item, quota) {
                     quotaFills[key] = (quotaFills[key] ?? 0) + 1
+                }
+            }
+        }
+
+        // B6: Backfill discovery from the tail of sorted items if cooldown
+        // rejects didn't produce enough candidates. Prefer items from
+        // sources/regions not already represented (genuine discovery).
+        if discoveryCandidates.count < discoveryCount * 2 {
+            for candidate in sorted.reversed() {
+                guard discoveryCandidates.count < discoveryCount * 2 else { break }
+                let item = candidate.item
+                guard !usedIDs.contains(item.id) else { continue }
+                // Prefer unrepresented sources/regions (real discovery)
+                if !representedSources.contains(item.sourceURL)
+                    || !representedRegions.contains(item.region) {
+                    discoveryCandidates.append(item)
+                }
+            }
+            // If still not enough, just take any unused items from the tail
+            if discoveryCandidates.count < discoveryCount {
+                for candidate in sorted.reversed() {
+                    guard discoveryCandidates.count < discoveryCount * 2 else { break }
+                    let item = candidate.item
+                    guard !usedIDs.contains(item.id) else { continue }
+                    if !discoveryCandidates.contains(where: { $0.id == item.id }) {
+                        discoveryCandidates.append(item)
+                    }
                 }
             }
         }
