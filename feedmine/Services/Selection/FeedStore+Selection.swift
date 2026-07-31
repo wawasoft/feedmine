@@ -288,7 +288,14 @@ extension FeedStore {
         )
         let _ = bridge.coordinator.submit(request)
     }
-}
 
-// MARK: - Private Storage
-// selectionBridge is now a direct property on FeedStore (see FeedStore.swift line ~65)
+    // MARK: - Bridge State Sync (Etapa 6)
+
+    /// Sync the bridge's state into FeedStore's observable properties.
+    /// Called after session state changes when unifiedSelectionState is active.
+    /// This makes the UI read from a single source of truth — the bridge
+    /// pushes state into FeedStore.visibleItems/visibleCards/loadingState.
+    func syncFromBridge() {
+        syncPublicStateFromBridge()
+    }
+}

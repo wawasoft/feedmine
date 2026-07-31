@@ -125,14 +125,19 @@ final class FeedStoreSelectionBridge {
 
     // MARK: - Session observation
 
-    /// Observe the session's state and mirror it into FeedStore-compatible properties.
-    /// In Phase 2 this is poll-based (willChange). In Phase 3 this becomes
-    /// a proper async sequence driven by the session's state machine.
+    /// Observe the session's AsyncStream and continuously mirror state
+    /// into FeedStore-compatible properties. (Etapa 6)
     private func observeSession(_ session: SelectionSession) {
-        // For now, the bridge reads session.state directly.
-        // Phase 3 will wire in the actual pipeline (cache → fetch → prepare → publish).
-        // Phase 2 just ensures state and counters flow correctly.
+        // Initial sync
         updateFromSession(session)
+
+        // Continuous observation via AsyncStream
+        Task { [weak self] in
+            for await newState in session.stateStream {
+                guard let self else { return }
+                updateFromSession(session)
+            }
+        }
     }
 
     /// Mirror session state into the legacy properties the UI reads.
