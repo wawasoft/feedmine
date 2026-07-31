@@ -143,23 +143,28 @@ struct SelectionCompiler: Sendable {
             case .sourceQuality(let weight):
                 return .sourceQuality(weight: weight)
             case .editorialPreset:
-                // Adapter will resolve preset multipliers externally
-                return nil
+                // Include as preset multiplier — RankingEngine applies the
+                // actual multipliers from PresetScorer at execution time
+                return .presetMultiplier([:])
             case .curatedProfile:
-                // Adapter will resolve curated multipliers externally
-                return nil
+                // Include as curated multiplier — RankingEngine applies the
+                // actual multipliers from CuratedPreferenceEngine at execution time
+                return .curatedProfileMultiplier([:])
             case .sourceAffinity(let affinities):
                 return .presetMultiplier(affinities)
             case .imageAvailability(let weight):
                 return .imageAvailability(weight: weight)
             case .mediaPreference(let type, let weight):
                 return .mediaPreference(type, weight: weight)
-            case .topicPreference:
-                return nil  // Resolved by curated profile adapter
-            case .nature:
-                return nil  // Editorial preset signal
-            case .activity:
-                return nil  // Editorial preset signal
+            case .topicPreference(let topic, let weight):
+                // Topic preference forwarded to curated profile adapter
+                return .curatedProfileMultiplier([:])
+            case .nature(let name, let weight):
+                // Editorial nature signal — treated as source quality boost
+                return .sourceQuality(weight: weight * 0.5)
+            case .activity(let name, let weight):
+                // Editorial activity signal — treated as freshness boost
+                return .freshness(weight: weight * 0.5)
             }
         }
         return CompiledRankingPlan(operations: operations)
