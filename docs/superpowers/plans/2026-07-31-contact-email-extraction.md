@@ -1,0 +1,1434 @@
+# Contact Email Extraction — Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Extract and validate contact emails for all 44,965 feed sources via RSS metadata → site scraping → SMTP validation, then inject results into OPML and propagate through the Swift catalog stack.
+
+**Architecture:** A Python pipeline reads `catalog.sqlite`, runs 3 extraction/validation phases, writes `feeds_corpus_contacts.parquet`, then an injection script patches OPML files in place (regex pattern matching `inject_enriched_metadata.py`). Swift side adds 4 optional fields (`contactEmail`, `contactName`, `contactSource`, `contactType`) across FeedSource, SourceReference, CatalogSourceOccurrence, SourceSummary, SourceDetails, and the SQLite catalog schema. No DeepSeek — message generation is a separate project.
+
+**Tech Stack:** Python 3.11+ (aiohttp, requests, BeautifulSoup4, smtplib, pyarrow, xml.etree), SQLite (catalog.sqlite), Swift 6 (GRDB, Foundation, XMLParser)
+
+## Global Constraints
+
+- SMTP verification uses RCPT TO only — never sends DATA (no actual email)
+- Max 1 request/second to same domain during scraping
+- Respects robots.txt (cached per domain, 1h TTL)
+- Never store emails that fail regex syntax validation
+- Disposable domains filtered before SMTP (static list of ~5000 domains)
+- Pipeline saves checkpoint every 500 sources, resumes from last checkpoint
+- OPML attribute names: `feedmineContactEmail`, `feedmineContactName`, `feedmineContactSource`, `feedmineContactType`
+- Parquet column names: `contact_email`, `contact_name`, `contact_source`, `contact_type`, `contact_status`
+- Swift property names: `contactEmail`, `contactName`, `contactSource`, `contactType` (String? for all)
+- Bump `OPMLParser.cacheFormatVersion` from 8 to 9
+
+---
+
+### Task 1: Disposable Domains Data File
+
+**Files:**
+- Create: `scripts/data/disposable_domains.txt`
+
+**Interfaces:**
+- Produces: text file with one domain per line, read by `extract_contact_emails.py` Phase 3
+
+- [ ] **Step 1: Create the file with curated domains**
+
+```text
+# Top disposable email domains — one per line, lowercase, no @
+# Source: public blocklists + manual curation for Feedmine
+# Update periodically via: curl -s https://raw.githubusercontent.com/disposable-email-domains/disposable-email-domains/master/disposable_email_blocklist.conf
+mailinator.com
+10minutemail.com
+guerrillamail.com
+tempmail.com
+yopmail.com
+throwaway.email
+trashmail.com
+sharklasers.com
+getnada.com
+temp-mail.org
+fakeinbox.com
+maildrop.cc
+mintemail.com
+dispostable.com
+mailcatch.com
+moakt.com
+spamgourmet.com
+33mail.com
+emailondeck.com
+spambox.us
+mailexpire.com
+temporary-mail.net
+guerrillamail.info
+guerrillamail.biz
+guerrillamail.org
+guerrillamail.net
+guerrillamail.de
+guerrillamail.com
+pokemail.net
+spam4.me
+wegwerfmail.de
+wegwerfmail.net
+wegwerfmail.org
+trash-mail.de
+trashmail.de
+einrot.com
+einrot.de
+spambog.com
+spambog.de
+spambog.ru
+discard.email
+discardmail.com
+discardmail.de
+mailnesia.com
+anonbox.net
+bum.net
+crazymailing.com
+dayrep.com
+deadaddress.com
+dodgit.com
+dodgeit.com
+emailtemporanea.com
+emailtemporanea.net
+emailtemporanea.org
+emailtemporar.ro
+emailthe.net
+ephemail.net
+fake-mail.cf
+fastacura.com
+filzmail.com
+getairmail.com
+ghosttexter.de
+mailquack.com
+mailsac.com
+mailtothis.com
+my10minutemail.com
+mytrashmail.com
+nwytg.com
+objectmail.com
+obobbo.com
+oneoffemail.com
+onewaymail.com
+owlymail.com
+pookmail.com
+recursor.net
+safe-mail.net
+sneakemail.com
+spamspot.com
+tempemail.net
+tempmail.de
+trash2009.com
+wh4f.org
+whyspam.me
+wuzup.net
+zippymail.info
+```
+
+- [ ] **Step 2: Add and commit**
+
+```bash
+git add scripts/data/disposable_domains.txt
+git commit -m "feat: add disposable email domain blocklist for contact extraction pipeline"
+```
+
+### Task 2: Contact Email Extraction Script (Phase 1 — RSS Metadata)
+
+**Files:**
+- Create: `scripts/extract_contact_emails.py`
+
+**Interfaces:**
+- Consumes: `catalog.sqlite` (reads `catalog_source.declared_url`, `catalog_source.site_url`, `catalog_source.id`, `catalog_source.title`, `catalog_source.media_kind`)
+- Produces: interim Python dict `results: dict[str, ContactResult]` keyed by source_id, with keys `contact_email`, `contact_name`, `contact_source`, `contact_type`, `contact_status`
+
+- [ ] **Step 1: Write the SQLite reader and data structures**
+
+```python
+#!/usr/bin/env python3
+"""Extract contact emails for all Feedmine catalog sources.
+
+Phase 1: RSS metadata (managingEditor, webMaster, itunes:owner)
+Phase 2: Site scraping (contact/about/homepage pages)
+Phase 3: Validation (regex -> DNS MX -> disposable filter -> SMTP RCPT TO)
+
+Usage:
+    python3 scripts/extract_contact_emails.py \
+      --catalog feedmine/Resources/FeedEngine/catalog.sqlite \
+      --output build/feeds_corpus_contacts.parquet \
+      --max-sources 0          # 0 = all
+      --skip-scraping           # Phase 1 only
+      --skip-smtp               # Skip SMTP verification (faster, less accurate)
+"""
+
+from __future__ import annotations
+
+import argparse
+import asyncio
+import hashlib
+import json
+import os
+import re
+import signal
+import smtplib
+import socket
+import sys
+import time
+import xml.etree.ElementTree as ET
+from dataclasses import dataclass, field
+from datetime import datetime, timezone
+from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
+from urllib.robotparser import RobotFileParser
+
+import aiohttp
+import pyarrow as pa
+import pyarrow.parquet as pq
+import sqlite3
+
+
+# ---------------------------------------------------------------------------
+# Data structures
+# ---------------------------------------------------------------------------
+
+@dataclass
+class SourceRecord:
+    """One row from catalog_source for extraction."""
+    source_id: str        # hex digest (feedmineSourceId)
+    db_id: int            # catalog_source.id
+    title: str
+    declared_url: str     # RSS/Atom feed URL
+    site_url: str | None  # Website URL
+    media_kind: str       # text, audio, video, forum
+
+
+@dataclass
+class ContactResult:
+    """Extraction result for one source."""
+    source_id: str
+    db_id: int
+    contact_email: str | None = None
+    contact_name: str | None = None
+    contact_source: str | None = None
+    contact_type: str | None = None      # "personal" | "generic"
+    contact_status: str = "pending"       # "found" | "not_found" | "verified" | "unverified" | "invalid"
+
+
+# Email regex — RFC 5322 simplified, good enough for HTML scraping
+EMAIL_RE = re.compile(
+    r'[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?'
+    r'(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*',
+    re.IGNORECASE
+)
+
+# Generic email prefixes that indicate a non-personal address
+GENERIC_PREFIXES = {
+    'info', 'contact', 'admin', 'support', 'hello', 'hi', 'help', 'sales',
+    'marketing', 'press', 'media', 'news', 'editor', 'webmaster', 'postmaster',
+    'noreply', 'no-reply', 'mail', 'email', 'office', 'team', 'redacao',
+    'redacción', 'redaction', 'kontakt', 'contacto', 'contato', 'geral',
+    'gerencia', 'direccion', 'direção', 'atendimento', 'faleconosco',
+    'comercial', 'vendas', 'imprensa', 'assessoria', 'comunicacao',
+}
+```
+
+- [ ] **Step 2: Write the database reader and checkpoint system**
+
+```python
+# ---------------------------------------------------------------------------
+# Database reader
+# ---------------------------------------------------------------------------
+
+def read_sources(catalog_path: Path) -> list[SourceRecord]:
+    """Read all source records from catalog.sqlite."""
+    conn = sqlite3.connect(str(catalog_path))
+    conn.row_factory = sqlite3.Row
+    rows = conn.execute("""
+        SELECT id, key, title, declared_url, site_url, media_kind
+        FROM catalog_source
+        ORDER BY id
+    """).fetchall()
+    conn.close()
+
+    sources = []
+    for r in rows:
+        site = r["site_url"]
+        if site and not site.startswith("http"):
+            site = None
+        sources.append(SourceRecord(
+            source_id=r["key"],
+            db_id=r["id"],
+            title=r["title"],
+            declared_url=r["declared_url"],
+            site_url=site,
+            media_kind=r["media_kind"],
+        ))
+    return sources
+
+
+# ---------------------------------------------------------------------------
+# Checkpoint / resume
+# ---------------------------------------------------------------------------
+
+CHECKPOINT_FILE = Path("build/contact_extraction_checkpoint.json")
+
+
+def load_checkpoint() -> dict[str, dict]:
+    """Load existing results so we can resume."""
+    if not CHECKPOINT_FILE.exists():
+        return {}
+    with open(CHECKPOINT_FILE) as f:
+        raw = json.load(f)
+    return {r["source_id"]: r for r in raw.get("results", [])}
+
+
+def save_checkpoint(results: dict[str, ContactResult]):
+    """Save incremental results. Called every 500 sources."""
+    CHECKPOINT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    data = {
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "total_processed": len(results),
+        "results": [
+            {
+                "source_id": r.source_id,
+                "db_id": r.db_id,
+                "contact_email": r.contact_email,
+                "contact_name": r.contact_name,
+                "contact_source": r.contact_source,
+                "contact_type": r.contact_type,
+                "contact_status": r.contact_status,
+            }
+            for r in results.values()
+        ],
+    }
+    tmp = CHECKPOINT_FILE.with_suffix(".tmp")
+    with open(tmp, "w") as f:
+        json.dump(data, f, indent=2)
+    os.replace(tmp, CHECKPOINT_FILE)
+```
+
+- [ ] **Step 3: Write Phase 1 — RSS metadata extraction**
+
+```python
+# ---------------------------------------------------------------------------
+# Phase 1: RSS/Atom feed metadata extraction
+# ---------------------------------------------------------------------------
+
+RSS_EMAIL_FIELDS = [
+    ("managingEditor", "rss_managing_editor"),
+    ("webMaster", "rss_web_master"),
+    ("{http://www.w3.org/2005/Atom}author/{http://www.w3.org/2005/Atom}email", "rss_author"),
+]
+
+ITUNES_NS = "http://www.itunes.com/dtds/podcast-1.0.dtd"
+ITUNES_OWNER_EMAIL = f"{{{ITUNES_NS}}}owner/{{{ITUNES_NS}}}email"
+
+
+def extract_name_from_email_string(raw: str) -> tuple[str | None, str | None]:
+    """Parse 'Name <email>' or 'email (Name)' into (name, email)."""
+    bracket_match = re.match(r'^([^<]+)\s*<([^>]+)>$', raw.strip())
+    if bracket_match:
+        name = bracket_match.group(1).strip()
+        email = bracket_match.group(2).strip()
+        email_match = EMAIL_RE.search(email)
+        return (name if name else None, email_match.group(0) if email_match else None)
+
+    paren_match = re.match(r'^([^(]+)\s*\(([^)]+)\)$', raw.strip())
+    if paren_match:
+        email_part = paren_match.group(1).strip()
+        name = paren_match.group(2).strip()
+        email_match = EMAIL_RE.search(email_part)
+        return (name if name else None, email_match.group(0) if email_match else None)
+
+    email_match = EMAIL_RE.search(raw)
+    return (None, email_match.group(0) if email_match else None)
+
+
+async def extract_rss_email(
+    session: aiohttp.ClientSession,
+    source: SourceRecord,
+    semaphore: asyncio.Semaphore,
+) -> ContactResult:
+    """Try to extract contact email from RSS/Atom feed metadata."""
+    result = ContactResult(source_id=source.source_id, db_id=source.db_id)
+
+    if not source.declared_url:
+        result.contact_status = "not_found"
+        return result
+
+    async with semaphore:
+        try:
+            async with session.get(
+                source.declared_url,
+                headers={"Range": "bytes=0-65536"},
+                timeout=aiohttp.ClientTimeout(total=10),
+                max_redirects=3,
+            ) as resp:
+                if resp.status != 200 and resp.status != 206:
+                    result.contact_status = "not_found"
+                    return result
+
+                body = await resp.text(encoding="utf-8", errors="replace")
+
+        except (aiohttp.ClientError, asyncio.TimeoutError, UnicodeDecodeError):
+            result.contact_status = "not_found"
+            return result
+
+    # Parse XML
+    try:
+        root = ET.fromstring(body)
+    except ET.ParseError:
+        # Try regex on raw text as fallback for malformed feeds
+        emails = EMAIL_RE.findall(body)
+        if emails:
+            result.contact_email = emails[0].lower()
+            result.contact_type = "generic"
+            result.contact_source = "rss_raw_text"
+            result.contact_status = "found"
+        else:
+            result.contact_status = "not_found"
+        return result
+
+    # Check standard RSS fields
+    for field, source_label in RSS_EMAIL_FIELDS:
+        el = root.find(f".//{field}")
+        if el is not None and el.text:
+            name, email = extract_name_from_email_string(el.text)
+            if email:
+                result.contact_email = email.lower()
+                result.contact_name = name
+                result.contact_source = source_label
+                result.contact_type = "personal" if name else "generic"
+                result.contact_status = "found"
+                return result
+
+    # Check iTunes owner email (podcasts)
+    itunes_el = root.find(f".//{ITUNES_OWNER_EMAIL}")
+    if itunes_el is not None and itunes_el.text:
+        _, email = extract_name_from_email_string(itunes_el.text)
+        if email:
+            result.contact_email = email.lower()
+            result.contact_source = "itunes_owner"
+            result.contact_type = "generic"
+            result.contact_status = "found"
+            return result
+
+    result.contact_status = "not_found"
+    return result
+
+
+async def phase1_rss_extraction(
+    sources: list[SourceRecord],
+    max_concurrency: int = 50,
+) -> dict[str, ContactResult]:
+    """Run Phase 1 across all sources with RSS URLs."""
+    results: dict[str, ContactResult] = {}
+    semaphore = asyncio.Semaphore(max_concurrency)
+
+    connector = aiohttp.TCPConnector(limit=max_concurrency, limit_per_host=5)
+    async with aiohttp.ClientSession(connector=connector) as session:
+        tasks = [extract_rss_email(session, s, semaphore) for s in sources if s.declared_url]
+
+        completed = 0
+        for coro in asyncio.as_completed(tasks):
+            result = await coro
+            results[result.source_id] = result
+            completed += 1
+            if completed % 500 == 0:
+                found = sum(1 for r in results.values() if r.contact_status == "found")
+                print(f"  Phase 1: {completed}/{len(tasks)} processed, {found} emails found")
+
+    return results
+```
+
+- [ ] **Step 4: Commit Phase 1 foundation**
+
+```bash
+git add scripts/extract_contact_emails.py
+git commit -m "feat: add contact email extraction script — Phase 1 (RSS metadata)"
+```
+
+### Task 3: Phase 2 — Site Scraping (Fallback)
+
+**Files:**
+- Modify: `scripts/extract_contact_emails.py` (append Phase 2 code)
+
+**Interfaces:**
+- Consumes: `results` dict from Phase 1, `SourceRecord` objects with `site_url`
+- Produces: Updated `results` dict with emails from site scraping
+
+- [ ] **Step 1: Write robots.txt cache, URL builder, and scraper**
+
+```python
+# ---------------------------------------------------------------------------
+# Phase 2: Site scraping (fallback)
+# ---------------------------------------------------------------------------
+
+CONTACT_PATHS = [
+    "/contact", "/about", "/contato", "/contacto", "/kontakt",
+    "/contact-us", "/sobre", "/nosotros", "/chi-siamo",
+    "/nous-contacter", "/uber-uns", "/impressum",
+]
+
+USER_AGENTS = [
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.2 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+]
+
+PERSON_NAME_RE = re.compile(
+    r'(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)\s*(?:,?\s*(?:Editor|Publisher|Author|Producer|Host|Director|Founder|CEO|Manager|Journalist|Writer|Reporter|Correspondent))?',
+)
+
+
+def robots_allowed(url: str, user_agent: str, cache: dict[str, RobotFileParser]) -> bool:
+    """Check robots.txt for a URL. Cache parsers per domain."""
+    parsed = urlsplit(url)
+    domain = parsed.hostname or ""
+    if domain not in cache:
+        rp = RobotFileParser()
+        rp.set_url(f"{parsed.scheme}://{domain}/robots.txt")
+        try:
+            rp.read()
+        except Exception:
+            rp.allow_all = True
+        cache[domain] = rp
+    return cache[domain].can_fetch(user_agent, url)
+
+
+def classify_email_type(email: str, page_text: str) -> tuple[str | None, str]:
+    """Determine if an email is personal or generic, and extract name if present."""
+    local_part = email.split("@")[0].lower().strip()
+    for prefix in GENERIC_PREFIXES:
+        if local_part == prefix or local_part.startswith(f"{prefix}-") or local_part.startswith(f"{prefix}."):
+            return (None, "generic")
+    idx = page_text.lower().find(email.lower())
+    if idx >= 0:
+        context = page_text[max(0, idx - 200):idx + len(email) + 100]
+        name_match = PERSON_NAME_RE.search(context)
+        if name_match:
+            name = name_match.group(0).strip()
+            if len(name.split()) >= 2 and not name.isupper():
+                return (name, "personal")
+    return (None, "generic")
+
+
+async def scrape_site(
+    session: aiohttp.ClientSession,
+    source: SourceRecord,
+    semaphore: asyncio.Semaphore,
+    robots_cache: dict[str, RobotFileParser],
+) -> ContactResult:
+    """Try to extract contact email from a site's contact/about/homepage."""
+    result = ContactResult(source_id=source.source_id, db_id=source.db_id)
+    if not source.site_url:
+        result.contact_status = "not_found"
+        return result
+
+    base_url = source.site_url.rstrip("/")
+    user_agent = USER_AGENTS[hash(source.source_id) % len(USER_AGENTS)]
+    urls_to_try = [f"{base_url}{p}" for p in CONTACT_PATHS]
+    if base_url not in urls_to_try:
+        urls_to_try.append(base_url)
+
+    async with semaphore:
+        for url in urls_to_try:
+            if not robots_allowed(url, user_agent, robots_cache):
+                continue
+            try:
+                await asyncio.sleep(1.0)
+                async with session.get(
+                    url,
+                    headers={"User-Agent": user_agent},
+                    timeout=aiohttp.ClientTimeout(total=10),
+                    max_redirects=3,
+                ) as resp:
+                    if resp.status in (403, 429):
+                        result.contact_status = "site_blocked"
+                        return result
+                    if resp.status != 200:
+                        continue
+                    html = await resp.text(encoding="utf-8", errors="replace")
+            except (aiohttp.ClientError, asyncio.TimeoutError):
+                continue
+
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(html, "html.parser")
+            for tag in soup(["script", "style", "nav", "footer", "header"]):
+                tag.decompose()
+            visible_text = soup.get_text(separator=" ", strip=True)
+            emails = EMAIL_RE.findall(visible_text)
+            if not emails:
+                continue
+            for email in emails:
+                email_lower = email.lower().strip()
+                if "noreply" in email_lower or "no-reply" in email_lower:
+                    continue
+                name, etype = classify_email_type(email_lower, visible_text)
+                result.contact_email = email_lower
+                result.contact_name = name
+                result.contact_source = (
+                    "site_contact_page" if "/contact" in url or "/contato" in url or "/contacto" in url
+                    else "site_about_page" if "/about" in url or "/sobre" in url
+                    else "site_homepage"
+                )
+                result.contact_type = etype
+                result.contact_status = "found"
+                return result
+
+    result.contact_status = "not_found"
+    return result
+
+
+async def phase2_site_scraping(
+    sources: list[SourceRecord],
+    phase1_results: dict[str, ContactResult],
+    max_concurrency: int = 20,
+) -> dict[str, ContactResult]:
+    """Run Phase 2 on sources that didn't get an email from Phase 1."""
+    to_scrape = [
+        s for s in sources
+        if s.site_url and phase1_results.get(s.source_id, ContactResult(s.source_id, s.db_id)).contact_status != "found"
+    ]
+    print(f"  Phase 2: {len(to_scrape)} sources to scrape (no RSS email found)")
+
+    results: dict[str, ContactResult] = dict(phase1_results)
+    semaphore = asyncio.Semaphore(max_concurrency)
+    robots_cache: dict[str, RobotFileParser] = {}
+    connector = aiohttp.TCPConnector(limit=max_concurrency, limit_per_host=1)
+
+    async with aiohttp.ClientSession(connector=connector) as session:
+        tasks = [scrape_site(session, s, semaphore, robots_cache) for s in to_scrape]
+        completed = 0
+        for coro in asyncio.as_completed(tasks):
+            result = await coro
+            results[result.source_id] = result
+            completed += 1
+            if completed % 500 == 0:
+                found = sum(1 for r in results.values() if r.contact_status == "found")
+                print(f"  Phase 2: {completed}/{len(to_scrape)} processed, {found} total emails found")
+
+    return results
+```
+
+- [ ] **Step 2: Commit Phase 2**
+
+```bash
+git add scripts/extract_contact_emails.py
+git commit -m "feat: add Phase 2 — site scraping fallback for contact email extraction"
+```
+
+### Task 4: Phase 3 — Validation + Main Orchestrator
+
+**Files:**
+- Modify: `scripts/extract_contact_emails.py` (append Phase 3 + main())
+
+**Interfaces:**
+- Consumes: `results` dict from Phase 2, `scripts/data/disposable_domains.txt`
+- Produces: Updated `results` dict + parquet output via `write_parquet()`
+
+- [ ] **Step 1: Write disposable loader, DNS MX, and SMTP verification**
+
+```python
+# ---------------------------------------------------------------------------
+# Phase 3: Validation
+# ---------------------------------------------------------------------------
+
+def load_disposable_domains(data_path: Path) -> set[str]:
+    """Load the disposable email domain blocklist."""
+    domains = set()
+    if not data_path.exists():
+        print(f"  WARNING: disposable domains file not found at {data_path}")
+        return domains
+    with open(data_path) as f:
+        for line in f:
+            line = line.strip().lower()
+            if line and not line.startswith("#"):
+                domains.add(line)
+    return domains
+
+
+def has_mx_record(domain: str) -> bool:
+    """Check if a domain has MX records (can receive email)."""
+    try:
+        import dns.resolver
+        answers = dns.resolver.resolve(domain, 'MX', lifetime=5)
+        return len(list(answers)) > 0
+    except Exception:
+        try:
+            socket.getaddrinfo(domain, 25, socket.AF_INET, socket.SOCK_STREAM)
+            return True
+        except socket.gaierror:
+            return False
+
+
+def is_disposable(email: str, disposable_domains: set[str]) -> bool:
+    """Check if email domain is a known disposable provider."""
+    domain = email.split("@")[-1].lower().strip()
+    return domain in disposable_domains
+
+
+def smtp_verify(email: str, timeout: int = 10) -> tuple[bool, str]:
+    """Verify an email address exists via SMTP RCPT TO. Does NOT send DATA."""
+    domain = email.split("@")[-1]
+    try:
+        import dns.resolver
+        mx_records = [(int(r.preference), str(r.exchange).rstrip("."))
+                       for r in dns.resolver.resolve(domain, 'MX', lifetime=5)]
+        mx_records.sort()
+        mx_host = mx_records[0][1] if mx_records else domain
+    except Exception:
+        mx_host = domain
+
+    try:
+        with smtplib.SMTP(mx_host, 25, timeout=timeout) as smtp:
+            smtp.helo("feedmine.com")
+            smtp.mailfrom("verify@feedmine.com")
+            code, message = smtp.rcpt(email)
+            if code == 250:
+                return (True, "verified")
+            elif 400 <= code < 500:
+                return (False, f"greylisting_{code}")
+            else:
+                return (False, f"permanent_reject_{code}")
+    except (smtplib.SMTPException, OSError, TimeoutError) as e:
+        return (False, f"smtp_error_{type(e).__name__}")
+
+
+def validate_email(
+    email: str,
+    disposable_domains: set[str],
+    check_smtp: bool = True,
+) -> tuple[str, str | None]:
+    """Validate a single email. Returns (status, reason)."""
+    if not EMAIL_RE.fullmatch(email):
+        return ("invalid", "regex_fail")
+    local_part = email.split("@")[0]
+    domain = email.split("@")[-1]
+    if len(local_part) > 64 or len(domain) > 255:
+        return ("invalid", "length_exceeded")
+    if is_disposable(email, disposable_domains):
+        return ("invalid", "disposable_domain")
+    if not has_mx_record(domain):
+        return ("invalid", "no_mx_record")
+    if not check_smtp:
+        return ("unverified", "smtp_skipped")
+    is_valid, reason = smtp_verify(email)
+    if is_valid:
+        return ("verified", None)
+    elif reason.startswith("greylisting") or reason.startswith("smtp_error"):
+        return ("unverified", reason)
+    else:
+        return ("invalid", reason)
+
+
+def phase3_validation(
+    results: dict[str, ContactResult],
+    disposable_file: Path,
+    skip_smtp: bool = False,
+) -> dict[str, ContactResult]:
+    """Validate all found emails."""
+    disposable_domains = load_disposable_domains(disposable_file)
+    print(f"  Loaded {len(disposable_domains)} disposable domains")
+    to_validate = [
+        (sid, r) for sid, r in results.items()
+        if r.contact_status == "found" and r.contact_email
+    ]
+    print(f"  Phase 3: {len(to_validate)} emails to validate")
+    validated = 0
+    for sid, result in to_validate:
+        status, reason = validate_email(
+            result.contact_email,  # type: ignore[arg-type]
+            disposable_domains,
+            check_smtp=not skip_smtp,
+        )
+        result.contact_status = status
+        validated += 1
+        if validated % 500 == 0:
+            verified = sum(1 for r in results.values() if r.contact_status == "verified")
+            unverified = sum(1 for r in results.values() if r.contact_status == "unverified")
+            invalid = sum(1 for r in results.values() if r.contact_status == "invalid")
+            print(f"  Phase 3: {validated}/{len(to_validate)}, V:{verified} U:{unverified} I:{invalid}")
+        if not skip_smtp:
+            time.sleep(0.1)
+    return results
+```
+
+- [ ] **Step 2: Write main() and parquet output**
+
+```python
+# ---------------------------------------------------------------------------
+# Main orchestrator
+# ---------------------------------------------------------------------------
+
+def write_parquet(results: dict[str, ContactResult], output_path: Path):
+    """Write results to a parquet file."""
+    rows = []
+    for r in results.values():
+        rows.append({
+            "source_id": r.source_id,
+            "db_id": r.db_id,
+            "contact_email": r.contact_email,
+            "contact_name": r.contact_name,
+            "contact_source": r.contact_source,
+            "contact_type": r.contact_type,
+            "contact_status": r.contact_status,
+        })
+    table = pa.Table.from_pylist(rows)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    pq.write_table(table, output_path, compression="zstd")
+    print(f"\nWrote {len(rows)} rows to {output_path}")
+
+
+def print_summary(results: dict[str, ContactResult]):
+    """Print extraction summary statistics."""
+    total = len(results)
+    verified = sum(1 for r in results.values() if r.contact_status == "verified")
+    unverified = sum(1 for r in results.values() if r.contact_status == "unverified")
+    invalid = sum(1 for r in results.values() if r.contact_status == "invalid")
+    not_found = sum(1 for r in results.values() if r.contact_status == "not_found")
+    site_blocked = sum(1 for r in results.values() if r.contact_status == "site_blocked")
+    personal = sum(1 for r in results.values() if r.contact_type == "personal")
+    generic = sum(1 for r in results.values() if r.contact_type == "generic")
+    print(f"\n{'='*60}")
+    print(f"EXTRACTION SUMMARY:")
+    print(f"  Total sources:    {total}")
+    print(f"  Verified:         {verified} ({verified*100/total:.1f}%)" if total else "  Verified:         0")
+    print(f"  Unverified:       {unverified}")
+    print(f"  Invalid:          {invalid}")
+    print(f"  Not found:        {not_found}")
+    print(f"  Site blocked:     {site_blocked}")
+    print(f"  Personal emails:  {personal}")
+    print(f"  Generic emails:   {generic}")
+    print(f"{'='*60}")
+
+
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--catalog", type=Path, default=Path("feedmine/Resources/FeedEngine/catalog.sqlite"))
+    p.add_argument("--output", type=Path, default=Path("build/feeds_corpus_contacts.parquet"))
+    p.add_argument("--disposable-file", type=Path, default=Path("scripts/data/disposable_domains.txt"))
+    p.add_argument("--max-sources", type=int, default=0, help="Limit sources (0=all)")
+    p.add_argument("--skip-scraping", action="store_true", help="Skip Phase 2 site scraping")
+    p.add_argument("--skip-smtp", action="store_true", help="Skip SMTP verification")
+    p.add_argument("--rss-only", action="store_true", help="Phase 1 only (fastest)")
+    return p.parse_args()
+
+
+def main():
+    args = parse_args()
+    print("Contact Email Extraction Pipeline")
+    print(f"  Catalog: {args.catalog}")
+    print(f"  Output:  {args.output}")
+    sources = read_sources(args.catalog)
+    if args.max_sources > 0:
+        sources = sources[:args.max_sources]
+    print(f"  Sources: {len(sources)}")
+
+    results_raw = load_checkpoint()
+    results: dict[str, ContactResult] = {}
+    for sid, data in results_raw.items():
+        results[sid] = ContactResult(**{k: v for k, v in data.items() if k in ContactResult.__dataclass_fields__})
+    print(f"  Resumed:  {len(results)} existing results")
+
+    remaining = [s for s in sources if s.source_id not in results]
+
+    if remaining:
+        print(f"\n── Phase 1: RSS Metadata ({len(remaining)} sources) ──")
+        p1_results = asyncio.run(phase1_rss_extraction(remaining))
+        results.update(p1_results)
+        save_checkpoint(results)
+    else:
+        print("\n── Phase 1: All sources already processed ──")
+
+    if args.rss_only:
+        write_parquet(results, args.output)
+        print_summary(results)
+        return
+
+    if not args.skip_scraping:
+        remaining_for_p2 = [
+            s for s in sources
+            if results.get(s.source_id, ContactResult(s.source_id, s.db_id)).contact_status != "found"
+        ]
+        if remaining_for_p2:
+            print(f"\n── Phase 2: Site Scraping ({len(remaining_for_p2)} sources) ──")
+            results = asyncio.run(phase2_site_scraping(sources, results))
+            save_checkpoint(results)
+    else:
+        print("\n── Phase 2: Skipped (--skip-scraping) ──")
+
+    to_validate = sum(1 for r in results.values() if r.contact_status == "found" and r.contact_email)
+    if to_validate > 0:
+        print(f"\n── Phase 3: Validation ({to_validate} emails) ──")
+        results = phase3_validation(results, args.disposable_file, skip_smtp=args.skip_smtp)
+        save_checkpoint(results)
+
+    write_parquet(results, args.output)
+    print_summary(results)
+
+
+if __name__ == "__main__":
+    main()
+```
+
+- [ ] **Step 3: Commit Phase 3 + main**
+
+```bash
+git add scripts/extract_contact_emails.py
+git commit -m "feat: add Phase 3 — SMTP validation + main orchestrator for contact extraction"
+```
+
+### Task 5: OPML Injection Script
+
+**Files:**
+- Create: `scripts/inject_contact_emails.py`
+
+**Interfaces:**
+- Consumes: `build/feeds_corpus_contacts.parquet`, `feedmine/Resources/Feeds/*.opml`
+- Produces: Modified OPML files with `feedmineContactEmail/Name/Source/Type` attributes
+- Pattern: Mirrors `scripts/inject_enriched_metadata.py` — regex-based `<outline />` patching
+
+- [ ] **Step 1: Write the injection script**
+
+```python
+#!/usr/bin/env python3
+"""Inject extracted contact emails from parquet into OPML outline elements.
+
+Matches sources by xmlUrl → source_id (SHA-256 of canonical URL), and patches
+feedmineContactEmail/Name/Source/Type attributes into each matching <outline />
+element in the production OPML tree.
+
+Usage:
+    python3 scripts/inject_contact_emails.py \
+      --parquet build/feeds_corpus_contacts.parquet \
+      --feeds-root feedmine/Resources/Feeds \
+      --min-status verified   # "verified" | "unverified" | "all"
+      --dry-run
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import re
+import shutil
+from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit
+
+import pyarrow.parquet as pq
+
+
+def compute_source_id(url: str) -> str:
+    """SHA-256 of canonical URL (mirrors catalog identity function)."""
+    parsed = urlsplit(url)
+    canonical = urlunsplit(
+        (parsed.scheme.lower(),
+         parsed.hostname.lower() if parsed.hostname else "",
+         parsed.path, parsed.query, "")
+    )
+    return hashlib.sha256(canonical.encode()).hexdigest()
+
+
+def _escape_xml(s: str) -> str:
+    """Escape special XML characters in attribute values."""
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+
+
+def inject(args: argparse.Namespace) -> dict:
+    parquet_path: Path = args.parquet
+    feeds_root: Path = args.feeds_root
+    min_status: str = args.min_status
+
+    if not parquet_path.exists():
+        raise FileNotFoundError(f"Parquet not found: {parquet_path}")
+    if not feeds_root.exists():
+        raise FileNotFoundError(f"Feeds root not found: {feeds_root}")
+
+    # ── 1. Read contacts parquet ───────────────────────────────────────
+    table = pq.read_table(parquet_path)
+    df = table.to_pandas()
+
+    if min_status == "verified":
+        df = df[df["contact_status"] == "verified"]
+    elif min_status == "unverified":
+        df = df[df["contact_status"].isin(["verified", "unverified"])]
+
+    print(f"Loaded {len(df)} contacts (min_status={min_status})")
+
+    # Build source_id → contact data lookup
+    contacts: dict[str, dict] = {}
+    for _, row in df.iterrows():
+        sid = str(row["source_id"])
+        email = row.get("contact_email")
+        if not email or (isinstance(email, float) and email != email):  # NaN check
+            continue
+        contacts[sid] = {
+            "email": str(email),
+            "name": str(row.get("contact_name", "") or ""),
+            "source": str(row.get("contact_source", "") or ""),
+            "type": str(row.get("contact_type", "") or ""),
+        }
+
+    # ── 2. Scan OPML files and inject ──────────────────────────────────
+    updated_count = 0
+    skipped_count = 0
+    files_touched = set()
+
+    backup_dir = feeds_root.parent / "Feeds.backup.contact_inject"
+    if not args.no_backup:
+        if backup_dir.exists():
+            shutil.rmtree(backup_dir)
+        shutil.copytree(feeds_root, backup_dir)
+        print(f"Backup: {backup_dir}")
+
+    for opml_path in sorted(feeds_root.rglob("*.opml")):
+        if not opml_path.is_file():
+            continue
+
+        content = opml_path.read_text(encoding="utf-8")
+        modified = False
+
+        def replace_outline(match):
+            nonlocal modified
+            element_str = match.group(0)
+            url_match = re.search(r'xmlUrl="([^"]*)"', element_str)
+            if not url_match:
+                return element_str
+            url = url_match.group(1)
+            source_id = compute_source_id(url)
+            contact = contacts.get(source_id)
+            if contact is None:
+                return element_str
+            if "feedmineContactEmail" in element_str:
+                nonlocal skipped_count
+                skipped_count += 1
+                return element_str
+
+            new_attrs = []
+            new_attrs.append(f'feedmineContactEmail="{_escape_xml(contact["email"])}"')
+            if contact["name"]:
+                new_attrs.append(f'feedmineContactName="{_escape_xml(contact["name"])}"')
+            if contact["source"]:
+                new_attrs.append(f'feedmineContactSource="{_escape_xml(contact["source"])}"')
+            if contact["type"]:
+                new_attrs.append(f'feedmineContactType="{_escape_xml(contact["type"])}"')
+
+            attr_str = element_str.rstrip("/>").rstrip()
+            existing_attr_names = set(re.findall(r'(\S+)="[^"]*"', element_str))
+            for attr in new_attrs:
+                attr_name = attr.split("=")[0]
+                if attr_name not in existing_attr_names:
+                    attr_str += " " + attr
+            attr_str += " />"
+            modified = True
+            nonlocal updated_count
+            updated_count += 1
+            return attr_str
+
+        new_content = re.sub(r'<outline[^>]+/>', replace_outline, content)
+        if modified:
+            opml_path.write_text(new_content, encoding="utf-8")
+            files_touched.add(str(opml_path.relative_to(feeds_root)))
+
+    print(f"\n{'='*60}")
+    print(f"INJECTION RESULTS:")
+    print(f"  Updated:       {updated_count}")
+    print(f"  Skipped:       {skipped_count}")
+    print(f"  Files touched: {len(files_touched)}")
+
+    if args.dry_run:
+        print("\n  DRY RUN — no files were modified")
+        if not args.no_backup and backup_dir.exists():
+            shutil.rmtree(feeds_root)
+            shutil.move(str(backup_dir), str(feeds_root))
+
+    return {"updated": updated_count, "skipped": skipped_count, "files_touched": len(files_touched)}
+
+
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--parquet", type=Path, required=True)
+    p.add_argument("--feeds-root", type=Path, default=Path("feedmine/Resources/Feeds"))
+    p.add_argument("--min-status", choices=["verified", "unverified", "all"], default="verified")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--no-backup", action="store_true")
+    return p.parse_args()
+
+
+if __name__ == "__main__":
+    result = inject(parse_args())
+    print(f"\nDone: {result}")
+```
+
+- [ ] **Step 2: Commit injection script**
+
+```bash
+git add scripts/inject_contact_emails.py
+git commit -m "feat: add OPML injection script for contact emails"
+```
+
+### Task 6: Update curate_opml_catalog.py (Rebuild Preservation)
+
+**Files:**
+- Modify: `scripts/curate_opml_catalog.py`
+
+**Interfaces:**
+- Adds `contact_email`, `contact_name`, `contact_source`, `contact_type` to `CuratedSource` dataclass
+- Reads from contacts parquet in `read_sources()`, writes as `feedmineContact*` in `add_source_outline()`
+
+- [ ] **Step 1: Add fields to CuratedSource and read from contacts parquet**
+
+In the `CuratedSource` dataclass (around line 67), add after existing fields:
+
+```python
+@dataclass
+class CuratedSource:
+    # ... existing fields ...
+    contact_email: str | None = None
+    contact_name: str | None = None
+    contact_source: str | None = None
+    contact_type: str | None = None
+```
+
+In `read_sources()` (around line 650), after loading the main source parquet, load contacts:
+
+```python
+# Try to load contacts parquet if it exists
+contacts_path = base_dir / "feeds_corpus_contacts.parquet"
+contacts_lookup: dict[str, dict] = {}
+if contacts_path.exists():
+    import pyarrow.parquet as pq
+    ct = pq.read_table(contacts_path).to_pandas()
+    for _, row in ct.iterrows():
+        if row.get("contact_status") in ("verified", "unverified"):
+            contacts_lookup[str(row["source_id"])] = {
+                "contact_email": str(row.get("contact_email", "") or ""),
+                "contact_name": str(row.get("contact_name", "") or ""),
+                "contact_source": str(row.get("contact_source", "") or ""),
+                "contact_type": str(row.get("contact_type", "") or ""),
+            }
+```
+
+Then when building each `CuratedSource` (where `source_id` is available):
+
+```python
+contact = contacts_lookup.get(source_id, {})
+curated = CuratedSource(
+    # ... existing fields ...
+    contact_email=contact.get("contact_email") or None,
+    contact_name=contact.get("contact_name") or None,
+    contact_source=contact.get("contact_source") or None,
+    contact_type=contact.get("contact_type") or None,
+)
+```
+
+- [ ] **Step 2: Add attributes to add_source_outline**
+
+In `add_source_outline()` (around line 747), add to the attributes dict:
+
+```python
+if source.contact_email:
+    attributes["feedmineContactEmail"] = source.contact_email
+if source.contact_name:
+    attributes["feedmineContactName"] = source.contact_name
+if source.contact_source:
+    attributes["feedmineContactSource"] = source.contact_source
+if source.contact_type:
+    attributes["feedmineContactType"] = source.contact_type
+```
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add scripts/curate_opml_catalog.py
+git commit -m "feat: preserve contact email fields through OPML catalog rebuild"
+```
+
+### Task 7: Swift — FeedSource and SourceReference Models
+
+**Files:**
+- Modify: `feedmine/Models/FeedSource.swift`
+
+**Interfaces:**
+- Adds 4 optional String properties to FeedSource (lines 10-87) and SourceReference (lines 94-178)
+- New CodingKeys, decode lines, init params, and SourceReference mirroring
+
+- [ ] **Step 1: Add to FeedSource**
+
+```swift
+// After defaultEnabled (line 26):
+let contactEmail: String?
+let contactName: String?
+let contactSource: String?
+let contactType: String?
+
+// In init (line 45), add params after defaultEnabled:
+contactEmail: String? = nil,
+contactName: String? = nil,
+contactSource: String? = nil,
+contactType: String? = nil,
+
+// In init body (after self.defaultEnabled = defaultEnabled):
+self.contactEmail = contactEmail
+self.contactName = contactName
+self.contactSource = contactSource
+self.contactType = contactType
+
+// In CodingKeys (line 64), add:
+case contactEmail = "contact_email"
+case contactName = "contact_name"
+case contactSource = "contact_source"
+case contactType = "contact_type"
+
+// In init(from decoder:) (after qualityScore line), add:
+contactEmail = try? c.decode(String.self, forKey: .contactEmail)
+contactName = try? c.decode(String.self, forKey: .contactName)
+contactSource = try? c.decode(String.self, forKey: .contactSource)
+contactType = try? c.decode(String.self, forKey: .contactType)
+```
+
+- [ ] **Step 2: Mirror in SourceReference**
+
+```swift
+// Add after defaultEnabled (line 110):
+let contactEmail: String?
+let contactName: String?
+let contactSource: String?
+let contactType: String?
+
+// In designated init — add params after defaultEnabled, then in body:
+self.contactEmail = contactEmail
+self.contactName = contactName
+self.contactSource = contactSource
+self.contactType = contactType
+
+// In init(source: FeedSource, siteURL:) — add:
+contactEmail: source.contactEmail,
+contactName: source.contactName,
+contactSource: source.contactSource,
+contactType: source.contactType,
+
+// In feedSource computed property — add:
+contactEmail: contactEmail,
+contactName: contactName,
+contactSource: contactSource,
+contactType: contactType,
+```
+
+- [ ] **Step 3: Build and commit**
+
+```bash
+xcodebuild -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | tail -5
+# Expected: BUILD SUCCEEDED
+
+git add feedmine/Models/FeedSource.swift
+git commit -m "feat: add contact email fields to FeedSource and SourceReference models"
+```
+
+### Task 8: Swift — OPMLParser (Parse New Attributes)
+
+**Files:**
+- Modify: `feedmine/Services/OPMLParser.swift`
+
+**Interfaces:**
+- Reads `feedmineContactEmail/Name/Source/Type` from OPML attributeDict, passes into FeedSource init
+- Bumps cacheFormatVersion from 8 to 9
+
+- [ ] **Step 1: Bump cache format version**
+
+```swift
+// Line 9: change 8 → 9
+private static let cacheFormatVersion = 9  // + contact email fields
+```
+
+- [ ] **Step 2: Read new attributes in OPMLDelegate.didStartElement**
+
+In the `FeedSource(...)` init call (lines 518-533), add after `defaultEnabled: defaultEnabled`:
+
+```swift
+contactEmail: attributeDict["feedmineContactEmail"],
+contactName: attributeDict["feedmineContactName"],
+contactSource: attributeDict["feedmineContactSource"],
+contactType: attributeDict["feedmineContactType"],
+```
+
+- [ ] **Step 3: Build and commit**
+
+```bash
+xcodebuild -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | tail -5
+
+git add feedmine/Services/OPMLParser.swift
+git commit -m "feat: parse feedmineContactEmail/Name/Source/Type from OPML outline attributes"
+```
+
+### Task 9: Swift — CatalogInput (Compiler Input Pipeline)
+
+**Files:**
+- Modify: `feedmine/FeedEngine/CatalogInput.swift`
+
+- [ ] **Step 1: Add fields to CatalogSourceOccurrence and legacySource**
+
+```swift
+// In CatalogSourceOccurrence (after defaultEnabled):
+let contactEmail: String?
+let contactName: String?
+let contactSource: String?
+let contactType: String?
+
+// In designated init — add params + body assignments
+// In legacySource(_:sortOrder:) — add after defaultEnabled:
+contactEmail: source.contactEmail,
+contactName: source.contactName,
+contactSource: source.contactSource,
+contactType: source.contactType,
+```
+
+- [ ] **Step 2: Build and commit**
+
+```bash
+xcodebuild -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | tail -5
+
+git add feedmine/FeedEngine/CatalogInput.swift
+git commit -m "feat: thread contact email fields through CatalogSourceOccurrence"
+```
+
+### Task 10: Swift — CatalogModels (SourceSummary + SourceDetails)
+
+**Files:**
+- Modify: `feedmine/FeedEngine/CatalogModels.swift`
+
+- [ ] **Step 1: Add fields to SourceSummary and SourceDetails**
+
+```swift
+// In SourceSummary (after defaultEnabled), add:
+let contactEmail: String?
+let contactName: String?
+let contactSource: String?
+let contactType: String?
+// Plus init params and body assignments
+
+// In SourceDetails (after defaultEnabled), add same 4 fields
+// Plus init params and body assignments
+```
+
+- [ ] **Step 2: Build and commit**
+
+```bash
+xcodebuild -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | tail -5
+
+git add feedmine/FeedEngine/CatalogModels.swift
+git commit -m "feat: add contact email fields to SourceSummary and SourceDetails"
+```
+
+### Task 11: Swift — SQLiteCatalogStore (Schema + Column Mappings)
+
+**Files:**
+- Modify: `feedmine/FeedEngine/SQLiteCatalogStore.swift`
+
+- [ ] **Step 1: Add columns to CREATE TABLE catalog_source (line 643-661)**
+
+```sql
+-- After default_enabled:
+contact_email TEXT,
+contact_name TEXT,
+contact_source TEXT,
+contact_type TEXT
+```
+
+- [ ] **Step 2: Add fields to CompiledSource struct (line 693-710)**
+
+```swift
+let contactEmail: String?
+let contactName: String?
+let contactSource: String?
+let contactType: String?
+```
+
+- [ ] **Step 3: Update writeCatalog mapping (around line 104-121)**
+
+Map `occurrence.contactEmail` etc. into `CompiledSource`.
+
+- [ ] **Step 4: Update insertSource (line 243-267)**
+
+Add 4 columns to INSERT column list, 4 arguments to values array:
+```swift
+source.contactEmail,
+source.contactName,
+source.contactSource,
+source.contactType,
+```
+
+- [ ] **Step 5: Update CatalogSourceRecord (line 769-815)**
+
+Add 4 properties + row reads:
+```swift
+let contactEmail: String?
+// ...
+contactEmail = row["contact_email"]
+// etc.
+```
+
+- [ ] **Step 6: Update summary computed property (line 807-814)**
+
+```swift
+contactEmail: contactEmail,
+contactName: contactName,
+contactSource: contactSource,
+contactType: contactType,
+```
+
+- [ ] **Step 7: Update loadSourceDetails (line 408-424)**
+
+```swift
+contactEmail: source.contactEmail,
+contactName: source.contactName,
+contactSource: source.contactSource,
+contactType: source.contactType,
+```
+
+- [ ] **Step 8: Build and commit**
+
+```bash
+xcodebuild -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | tail -5
+
+git add feedmine/FeedEngine/SQLiteCatalogStore.swift
+git commit -m "feat: add contact email columns to SQLite catalog schema and all read/write paths"
+```
+
+## Verification
+
+After all tasks, run this end-to-end check:
+
+- [ ] **1. Python pipeline on a small sample:**
+
+```bash
+python3 scripts/extract_contact_emails.py \
+  --catalog feedmine/Resources/FeedEngine/catalog.sqlite \
+  --output build/feeds_corpus_contacts.parquet \
+  --max-sources 50 --rss-only
+
+python3 -c "
+import pyarrow.parquet as pq
+t = pq.read_table('build/feeds_corpus_contacts.parquet')
+print(t.column_names)
+print(t.to_pandas()['contact_status'].value_counts())
+"
+```
+
+- [ ] **2. Injection dry-run:**
+
+```bash
+python3 scripts/inject_contact_emails.py \
+  --parquet build/feeds_corpus_contacts.parquet \
+  --feeds-root feedmine/Resources/Feeds \
+  --min-status all --dry-run
+```
+
+- [ ] **3. Swift build:**
+
+```bash
+xcodebuild -project feedmine.xcodeproj -scheme feedmine -destination 'platform=iOS Simulator,name=iPhone 16' build 2>&1 | grep -E 'BUILD|error:'
+# Expected: ** BUILD SUCCEEDED **
+```
+
+- [ ] **4. OPML round-trip:** Inject into a real OPML, verify `feedmineContactEmail` attribute survives in `<outline />`, rebuild catalog, confirm field in `catalog.sqlite`.
+
