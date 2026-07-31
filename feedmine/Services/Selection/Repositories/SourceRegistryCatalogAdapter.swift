@@ -12,13 +12,39 @@ import Foundation
 final class SourceRegistryCatalogAdapter: SelectionCatalogReading {
     private let registry: SourceRegistry
 
+    // 4.5: SourceID → SourceKey and SourceID → URL indices.
+    // Built lazily from registry.sources so sourceKey(for:) works correctly.
+    // nonisolated(unsafe): indices are built once under ensureIndices() guard
+    // and only read after construction.
+    private nonisolated(unsafe) var _sourceIDToKey: [SourceID: SourceKey] = [:]
+    private nonisolated(unsafe) var _sourceIDToURL: [SourceID: String] = [:]
+    private nonisolated(unsafe) var _indicesBuilt = false
+
     init(registry: SourceRegistry) {
         self.registry = registry
+    }
+
+    private func ensureIndices() async {
+        guard !_indicesBuilt else { return }
+        let sources = await registry.sources
+        guard !_indicesBuilt else { return }
+        for source in sources {
+            let key = CatalogIdentity.sourceKey(for: source.url)
+            let id = CatalogIdentity.sourceID(for: key)
+            _sourceIDToKey[id] = key
+            _sourceIDToURL[id] = source.url
+        }
+        _indicesBuilt = true
+    }
+
+    private func lookupKey(for id: SourceID) -> SourceKey? {
+        _sourceIDToKey[id]
     }
 
     func resolveSourceScope(
         _ specification: SourceScopeSpecification
     ) async throws -> ResolvedSourceScope {
+        await ensureIndices()
         // 4.3: .expandedCatalogRespectingExplicitOff uses ALL sources
         // (bypassing inherited disables), not just enabledSources.
         // The resolver applies explicit-off filtering downstream.
@@ -124,7 +150,8 @@ final class SourceRegistryCatalogAdapter: SelectionCatalogReading {
     }
 
     func sourceKey(for id: SourceID) -> SourceKey? {
-        CatalogIdentity.sourceKey(for: String(id.rawValue))
+        // 4.6: Use the concrete index, not hash reversal
+        lookupKey(for: id)
     }
 }
 
