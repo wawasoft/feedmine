@@ -310,7 +310,7 @@ PERSON_NAME_RE = re.compile(
 )
 
 
-def robots_allowed(url: str, user_agent: str, cache: dict[str, RobotFileParser]) -> bool:
+async def robots_allowed(url: str, user_agent: str, cache: dict[str, RobotFileParser]) -> bool:
     """Check robots.txt for a URL. Cache parsers per domain."""
     parsed = urlsplit(url)
     domain = parsed.hostname or ""
@@ -318,7 +318,13 @@ def robots_allowed(url: str, user_agent: str, cache: dict[str, RobotFileParser])
         rp = RobotFileParser()
         rp.set_url(f"{parsed.scheme}://{domain}/robots.txt")
         try:
-            rp.read()
+            import socket as _socket
+            _old_timeout = _socket.getdefaulttimeout()
+            _socket.setdefaulttimeout(10)
+            try:
+                await asyncio.to_thread(rp.read)
+            finally:
+                _socket.setdefaulttimeout(_old_timeout)
         except Exception:
             rp.allow_all = True
         cache[domain] = rp
@@ -362,7 +368,7 @@ async def scrape_site(
 
     async with semaphore:
         for url in urls_to_try:
-            if not robots_allowed(url, user_agent, robots_cache):
+            if not await robots_allowed(url, user_agent, robots_cache):
                 continue
             try:
                 await asyncio.sleep(1.0)
