@@ -119,8 +119,16 @@ struct FeedScreen: View {
             VStack(spacing: 0) {
                 compactHeader
                 if isSearching { searchBar.transition(.move(edge: .top).combined(with: .opacity)) }
+                if showDebugBar {
+                    CompactDebugInfo()
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(.ultraThinMaterial)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                }
                 Spacer()
             }
+            .animation(.easeInOut(duration: 0.25), value: showDebugBar)
 
             // Shake detector
             ShakeDetector { loader.shakeToRefresh() }
@@ -370,14 +378,8 @@ struct FeedScreen: View {
             Color.clear.frame(height: 0)
             CompactErrorBanner()
             HStack(spacing: 8) {
-                if showDebugBar {
-                    CompactDebugInfo()
-                } else {
-                    CompactFeedStatus()
-                }
-
+                CompactFeedStatus()
                 Spacer()
-
                 HStack(spacing: 4) {
                     Button {
                         if isSearching {
@@ -408,15 +410,6 @@ struct FeedScreen: View {
                         }
                     }
                     filterButton
-                    if showDebugBar {
-                        Button {
-                            showCatalogExplore = true
-                        } label: {
-                            Image(systemName: "books.vertical")
-                                .headerButtonStyle(accent: engine.accent)
-                        }
-                        .accessibilityLabel("Explore Catalog")
-                    }
                     Menu {
                         Button {
                             showCuratedOnboarding = true
@@ -488,6 +481,19 @@ struct FeedScreen: View {
                         }
                         Button { showSources = true } label: {
                             Label("Sources", systemImage: "antenna.radiowaves.left.and.right")
+                        }
+                        Button { showCatalogExplore = true } label: {
+                            Label("Explore Catalog", systemImage: "books.vertical")
+                        }
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.25)) {
+                                showDebugBar.toggle()
+                            }
+                        } label: {
+                            Label(
+                                showDebugBar ? "Hide Debug Info" : "Show Debug Info",
+                                systemImage: showDebugBar ? "eye.slash" : "eye"
+                            )
                         }
                         Button { showSettings = true } label: {
                             Label("Settings", systemImage: "gearshape")
@@ -1477,10 +1483,16 @@ struct CompactFeedStatus: View {
 
     var body: some View {
         HStack(spacing: 4) {
+            // Easter egg: single-tap logo opens wawasoft.net/catalog
             Image("Symbol-Gradient")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 16, height: 16)
+                .onTapGesture {
+                    if let url = URL(string: "https://wawasoft.net/catalog/") {
+                        openURL(url)
+                    }
+                }
             Text("Feedmine").font(.caption).fontWeight(.bold)
             if isShowingStartupProgress {
                 HStack(spacing: 3) {
@@ -1504,14 +1516,6 @@ struct CompactFeedStatus: View {
                     .foregroundStyle(.secondary)
             }
         }
-        // Easter egg: single-tap Feedmine logo/name opens wawasoft.net/catalog
-        .simultaneousGesture(
-            TapGesture().onEnded {
-                if let url = URL(string: "https://wawasoft.net/catalog/") {
-                    openURL(url)
-                }
-            }
-        )
         // Secret gesture: triple-tap the feed status to toggle debug bar.
         // Not exposed in Settings — intentional, for development use only.
         .onTapGesture(count: 3) {
