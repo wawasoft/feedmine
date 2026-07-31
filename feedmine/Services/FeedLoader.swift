@@ -46,8 +46,12 @@ final class FeedLoader {
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
     /// Unified source count from bridge when active, legacy otherwise. (Etapa 6)
+    /// Total source count. Uses unified bridge when it has data,
+    /// otherwise falls back to the registry. Prevents /0 display in debug.
     var sourceCount: Int {
-        if Settings.unifiedSelectionState, let bridge = store.selectionBridge {
+        if Settings.unifiedSelectionState,
+           let bridge = store.selectionBridge,
+           bridge.eligibleSourceCount > 0 {
             return bridge.eligibleSourceCount
         }
         return store.registry.sourceCount
