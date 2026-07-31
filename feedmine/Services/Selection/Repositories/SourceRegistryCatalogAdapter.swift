@@ -41,6 +41,18 @@ final class SourceRegistryCatalogAdapter: SelectionCatalogReading {
         _sourceIDToKey[id]
     }
 
+    /// Look up source URLs for a set of SourceIDs. Used by executor to build
+    /// SQL source_url IN (...) filters. (5.2)
+    func sourceURLs(for ids: Set<SourceID>) -> Set<String> {
+        var urls = Set<String>()
+        for id in ids {
+            if let url = _sourceIDToURL[id] {
+                urls.insert(url)
+            }
+        }
+        return urls
+    }
+
     func resolveSourceScope(
         _ specification: SourceScopeSpecification
     ) async throws -> ResolvedSourceScope {
