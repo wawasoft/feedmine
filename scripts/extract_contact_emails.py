@@ -284,6 +284,7 @@ async def phase1_rss_extraction(
             if completed % 500 == 0:
                 found = sum(1 for r in results.values() if r.contact_status == "found")
                 print(f"  Phase 1: {completed}/{len(tasks)} processed, {found} emails found")
+                save_checkpoint(results)
 
     return results
 
@@ -435,6 +436,7 @@ async def phase2_site_scraping(
             if completed % 500 == 0:
                 found = sum(1 for r in results.values() if r.contact_status == "found")
                 print(f"  Phase 2: {completed}/{len(to_scrape)} processed, {found} total emails found")
+                save_checkpoint(results)
 
     return results
 
@@ -558,6 +560,7 @@ def phase3_validation(
             unverified = sum(1 for r in results.values() if r.contact_status == "unverified")
             invalid = sum(1 for r in results.values() if r.contact_status == "invalid")
             print(f"  Phase 3: {validated}/{len(to_validate)}, V:{verified} U:{unverified} I:{invalid}")
+            save_checkpoint(results)
         if not skip_smtp:
             time.sleep(0.1)
     return results
