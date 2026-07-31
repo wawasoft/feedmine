@@ -5341,6 +5341,13 @@ final class FeedStore {
     /// The normal startup pipeline remains the only network writer; onboarding
     /// simply consumes its retained results and can retry as that pool grows.
     func curatedOnboardingItems(languages: Set<String>) async -> [FeedItem] {
+        // --- Unified Selection Engine path (Phase 5) ---
+        if Settings.unifiedSelectionOnboarding, let bridge = selectionBridge {
+            let adapter = OnboardingSelectionAdapter(idGenerator: bridge.coordinator.idGenerator)
+            let _ = adapter.makeComparisonRequest(languages: languages)
+            // Submit for tracing; legacy path below still returns the actual items
+        }
+        // --- Legacy path ---
         let requested = Set(languages.compactMap {
             CuratedPreferenceEngine.baseLanguage($0)
         })
