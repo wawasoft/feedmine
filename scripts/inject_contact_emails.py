@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import re
 import shutil
 from pathlib import Path
@@ -118,7 +119,7 @@ def inject(args: argparse.Namespace) -> dict:
             url_match = re.search(r'xmlUrl="([^"]*)"', element_str)
             if not url_match:
                 return element_str
-            url = url_match.group(1)
+            url = html.unescape(url_match.group(1))  # OPML stores &amp; for &
             source_id = compute_source_id(url)
             contact = contacts.get(source_id)
             if contact is None:
