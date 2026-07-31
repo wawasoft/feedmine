@@ -73,9 +73,9 @@
 - [ ] **B6** MixAllocator: discovery pool usa sources de descoberta real (não só rejeitados por cooldown)
 - [ ] **B7** MixAllocator: índice de insert limitado a zero (`max(0, output.count - n)`)
 - [ ] **B8** MixAllocator: inserções de discovery atualizam métricas (quota, source, region, provider, media)
-- [ ] **B9** HistoryPolicy: `includeBookmarked` default = true (artigo salvo não é consumido)
-- [ ] **B10** HistoryPolicy: janela de 30 dias usa `.relativeDays(30)`, não `ClosedRange<Date>` estático
-- [ ] **B11** CompletionPolicy.sourceView: `minimumCardCount = min(20, totalAvailable)`, não 1
+- [x] **B9** HistoryPolicy: `includeBookmarked` default = true (artigo salvo não é consumido)
+- [x] **B10** HistoryPolicy: janela de 30 dias usa `.relativeDays(30)`, não `ClosedRange<Date>` estático
+- [x] **B11** CompletionPolicy.sourceView: `minimumCardCount = min(20, totalAvailable)`, não 1
 - [ ] **B12** Bridge métricas: `catalogTotal`, `enabledLibraryTotal`, `eligibleTotal` com valores distintos
 - [ ] **B13** Bridge métricas: `reservoirCount` não sobrescrito com `contributing`
 

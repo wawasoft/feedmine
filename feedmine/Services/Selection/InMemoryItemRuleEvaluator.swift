@@ -53,6 +53,26 @@ struct InMemoryItemRuleEvaluator: Sendable {
         rules: ItemRuleSet,
         digest: UInt64
     ) async -> Bool {
+        // 0. Source eligibility — must be checked FIRST
+        if !rules.eligibleSourceIDs.isEmpty {
+            let itemSourceID = CatalogIdentity.sourceID(
+                for: CatalogIdentity.sourceKey(for: item.sourceURL)
+            )
+            guard rules.eligibleSourceIDs.contains(itemSourceID) else {
+                return false
+            }
+        }
+
+        // 0b. Taxonomy source matching
+        if !rules.taxonomySourceIDs.isEmpty {
+            let itemSourceID = CatalogIdentity.sourceID(
+                for: CatalogIdentity.sourceKey(for: item.sourceURL)
+            )
+            guard rules.taxonomySourceIDs.contains(itemSourceID) else {
+                return false
+            }
+        }
+
         // 1. Region
         if !rules.regions.isEmpty {
             let itemRegion = item.region

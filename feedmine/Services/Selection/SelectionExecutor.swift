@@ -145,7 +145,7 @@ final class SelectionExecutor {
             itemsAfterMix: allocation.totalAllocated,
             cardsPrepared: publishedCards.count,
             publishedCards: publishedCards.count,
-            hasMore: allocation.totalAllocated < eligibleCount,
+            hasMore: cachedCount >= plan.presentationPlan.initialPageSize,
             eligibleSourceHash: plan.itemRules.ruleDigest
         )
 
@@ -153,7 +153,7 @@ final class SelectionExecutor {
             selectionID: plan.selectionID,
             cards: publishedCards,
             metrics: metrics,
-            hasMore: allocation.totalAllocated < eligibleCount,
+            hasMore: cachedCount >= plan.presentationPlan.initialPageSize,
             createdAt: Date()
         )
     }
