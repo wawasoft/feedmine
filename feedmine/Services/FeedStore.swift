@@ -40,6 +40,7 @@ final class FeedStore {
         usesPersistentStorage && Settings.preparedFeedPipelineEnabled
     }
     /// Monotonic counter incremented on filter/preset/mode changes.
+    /// Replaced by SelectionID. Remove in Phase 7 (Fase 7 L6).
     private var presentationEpoch: UInt64 = 0
     /// Active context for the current feed composition.
     private var activePresentationContext = FeedPresentationContext(
@@ -181,16 +182,9 @@ final class FeedStore {
     /// of O(items x selectedNodes).
     private(set) var cachedTaxonomyFeedURLs: Set<String> = []
     private var cachedTaxonomyNodeIDs: Set<String> = []
-    /// Monotonic counter incremented on every filter change. Async operations
-    /// (urgent fetch, reloadFromSQLite pipeline) capture the generation at launch
-    /// and discard results if a newer filter has been applied in the meantime.
+    /// [Fase 7 L6] Replaced by SelectionID. Remove when unifiedSelectionLegacyRemoved is on.
     private var filterGeneration: Int64 = 0
-    /// Monotonic counter incremented on every preset change. Async operations
-    /// originated by a preset selection (rebuild, source-enablement refresh,
-    /// collection hydration, filter reloads) capture the generation at launch
-    /// and discard results if a newer preset has been selected in the meantime.
-    /// This prevents a stale editorial source-enablement flush from clearing
-    /// correctly-hydrated collection content.
+    /// [Fase 7 L6] Replaced by SelectionID. Remove when unifiedSelectionLegacyRemoved is on.
     private var presetGeneration: Int64 = 0
     /// When set, the feed shows only items from this bookmark list.
     var selectedBookmarkListID: Int64?
@@ -527,6 +521,8 @@ final class FeedStore {
     private var moodMatchCacheKey: String = ""
     private var contentFilterExcludeCache: [String: Bool] = [:]
 
+    /// [Fase 7 L1] Replaced by InMemoryItemRuleEvaluator + ItemRuleSet.
+    /// Remove when unifiedSelectionLegacyRemoved is on.
     func applyFilters(_ items: [FeedItem], includeConsumed: Bool = true) -> [FeedItem] {
         refreshCachedTaxonomyFeedURLsIfNeeded()
         let region = activeRegion
