@@ -127,14 +127,21 @@ final class FeedStoreSelectionBridge {
 
     /// Observe the session's AsyncStream and continuously mirror state
     /// into FeedStore-compatible properties. (Etapa 6)
+    private var observationTask: Task<Void, Never>?
+
     private func observeSession(_ session: SelectionSession) {
+        // Cancel previous observation to prevent stale-session overwrites (P0-7)
+        observationTask?.cancel()
         // Initial sync
         updateFromSession(session)
 
-        // Continuous observation via AsyncStream
-        Task { [weak self] in
-            for await newState in session.stateStream {
+        // Continuous observation via AsyncStream with session identity guard
+        let sessionID = session.id
+        observationTask = Task { [weak self] in
+            for await _ in session.stateStream {
                 guard let self else { return }
+                // Guard: only process if this is still the active session
+                guard self.activeSession?.id == sessionID else { return }
                 updateFromSession(session)
             }
         }

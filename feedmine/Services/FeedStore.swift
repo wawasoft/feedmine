@@ -82,6 +82,60 @@ final class FeedStore {
         reservoirCount = bridge.reservoirCount
     }
 
+    /// Apply unified filter state to store properties. Called from extension.
+    func applyUnifiedFilterState(
+        region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType,
+        mood: FeedLoader.MoodFilter, languages: Set<String>
+    ) {
+        activeRegion = region
+        activeNodeIDs = nodeIDs
+        activeContentType = type
+        activeMood = mood
+        activeLanguages = languages
+        Settings.filterRegion = region
+        Settings.filterTaxonomyNodes = Array(nodeIDs)
+        Settings.filterContentType = type.rawValue
+        Settings.filterMood = mood.rawValue
+        Settings.filterLanguages = Array(languages)
+        filterGeneration &+= 1
+        presentationEpoch &+= 1
+        // Clear screen immediately (Etapa 1.1-1.2)
+        if !visibleItems.isEmpty {
+            visibleItems = []
+            visibleCards = []
+            visibleItemsGeneration &+= 1
+            loadingState = .refreshing
+            cardPreparationTask?.cancel()
+            reservoir.clear()
+            reservoirCount = 0
+        }
+    }
+
+    /// Apply unified preset state to store properties.
+    func applyUnifiedPresetState(_ preset: PresetSelector) {
+        activePreset = preset
+        Settings.activePreset = preset
+        presetGeneration &+= 1
+        presentationEpoch &+= 1
+    }
+
+    /// Apply unified reset state to store properties.
+    func applyUnifiedResetState() {
+        activeRegion = nil
+        activeNodeIDs = []
+        activeContentType = .all
+        activeMood = .all
+        activeLanguages = []
+        hasUserClearedLanguageFilter = true
+        Settings.filterRegion = nil
+        Settings.filterTaxonomyNodes = []
+        Settings.filterContentType = "All"
+        Settings.filterMood = FeedLoader.MoodFilter.all.rawValue
+        Settings.filterLanguages = []
+        filterGeneration &+= 1
+        presentationEpoch &+= 1
+    }
+
     // MARK: - Public state
     private(set) var visibleItems: [FeedItem] = []
     /// Pre-resolved card presentations for the main feed. Published alongside
@@ -3398,8 +3452,12 @@ final class FeedStore {
         if Settings.unifiedSelectionSurfaces, let bridge = selectionBridge {
             // Submit a unified Last Clicked request (trace/logging only —
             // the actual items come from cache via the legacy path below)
-            let clickedSourceIDs = Set(clickedItemIDs.compactMap { _ in nil as SourceID? })
-            submitUnifiedBookmarks(listID: nil, sourceIDs: clickedSourceIDs, bookmarkedItemIDs: clickedItemIDs)
+            // Submit unified trace (LastClicked has no SourceID mapping — the items
+            // come from clickedItemIDs cache, not source resolution)
+            let _ = bridge.coordinator.submit(
+                LastClickedSelectionAdapter(idGenerator: bridge.coordinator.idGenerator)
+                    .makeRequest(clickedItemIDs: clickedItemIDs, clickedSourceIDs: [])
+            )
             // Fall through to legacy path for actual content display
         }
         // --- Legacy path ---

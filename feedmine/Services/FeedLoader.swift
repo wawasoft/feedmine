@@ -27,19 +27,21 @@ final class FeedLoader {
 
     // MARK: - UI State (from store)
 
-    /// When unified state is active, read from the bridge (single authority).
-    /// Otherwise fall back to legacy FeedStore properties. (Etapa 6)
-    var items: [FeedItem] {
-        Settings.unifiedSelectionState ? (store.selectionBridge?.visibleItems ?? store.visibleItems) : store.visibleItems
+    /// When unified state is active AND the bridge has published content,
+    /// read from the bridge. Otherwise fall back to legacy. (Etapa 6 + P0-2 fix)
+    private var useBridgeForUI: Bool {
+        Settings.unifiedSelectionState
+            && store.selectionBridge != nil
+            && store.selectionBridge!.visibleItemsGeneration > 0
     }
-    /// Pre-resolved card presentations. The main feed should render from these
-    /// when available — images are already resolved. Nil/empty for search and
-    /// paths that skip the pipeline (views fall back to CachedAsyncImage).
+    var items: [FeedItem] {
+        useBridgeForUI ? store.selectionBridge!.visibleItems : store.visibleItems
+    }
     var cards: [FeedCardPresentation] {
-        Settings.unifiedSelectionState ? (store.selectionBridge?.visibleCards ?? store.visibleCards) : store.visibleCards
+        useBridgeForUI ? store.selectionBridge!.visibleCards : store.visibleCards
     }
     var loadingState: FeedLoadingState {
-        Settings.unifiedSelectionState ? (store.selectionBridge?.loadingState ?? store.loadingState) : store.loadingState
+        useBridgeForUI ? store.selectionBridge!.loadingState : store.loadingState
     }
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
