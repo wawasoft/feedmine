@@ -1486,9 +1486,10 @@ struct CompactFeedStatus: View {
                     onEasterEgg?()
                 }
             Text("Feedmine").font(.caption).fontWeight(.bold)
+                .padding(.trailing, 4)
             if isShowingStartupProgress {
                 HStack(spacing: 3) {
-                    Text("· \(loader.startupFetchedSourceCount)/\(startupTotal)")
+                    Text("\(loader.startupFetchedSourceCount)/\(startupTotal)")
                         .contentTransition(.numericText())
                     if showReadyPulse {
                         Image(systemName: "checkmark.circle.fill")
@@ -1503,7 +1504,7 @@ struct CompactFeedStatus: View {
                     "\(loader.startupFetchedSourceCount) de \(startupTotal) fontes verificadas"
                 )
             } else {
-                Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")
+                Text("\(loader.activeSourceCount)/\(loader.sourceCount) sources")
                     .font(.caption2.monospacedDigit())
                     .foregroundStyle(.secondary)
             }
