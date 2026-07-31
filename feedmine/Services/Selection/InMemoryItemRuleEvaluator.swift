@@ -18,8 +18,14 @@ struct InMemoryItemRuleEvaluator: Sendable {
     /// the same selection session.
     let evaluationCache: ItemEvaluationCache
 
-    init(evaluationCache: ItemEvaluationCache = ItemEvaluationCache()) {
+    /// IDs of items the user has consumed. Passed from FeedStore.consumedItemIDs.
+    /// When nil, consumed checking is skipped (backward compatibility).
+    var consumedItemIDs: Set<String>?
+
+    init(evaluationCache: ItemEvaluationCache = ItemEvaluationCache(),
+         consumedItemIDs: Set<String>? = nil) {
         self.evaluationCache = evaluationCache
+        self.consumedItemIDs = consumedItemIDs
     }
 
     /// Filter an array of items, returning only those that pass all rules.
@@ -130,12 +136,17 @@ struct InMemoryItemRuleEvaluator: Sendable {
             }
         }
 
-        // 8. History — read/bookmarked (consumed state tracked externally)
+        // 8. History — read/bookmarked/consumed (5.5)
         if !rules.history.includeRead && item.isRead {
             return false
         }
         if !rules.history.includeBookmarked && item.isBookmarked {
             return false
+        }
+        if !rules.history.includeConsumed, let consumedIDs = consumedItemIDs {
+            if consumedIDs.contains(item.id) {
+                return false
+            }
         }
 
         // 9. Date range — use publishedAt
