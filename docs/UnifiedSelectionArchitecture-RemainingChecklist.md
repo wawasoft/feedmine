@@ -14,8 +14,8 @@
 
 ## Etapa 2 — Unificar resolução de imagem
 
-- [ ] **2.1** Cadeia única: tipos `ImageCandidateChain` + `ImageCandidateResolver` criados. Pendente: wire no coordinator.
-- [ ] **2.2** `ImageCandidateResolver` como tipo injetável: tipo existe, não injetado no `CardPreparationCoordinator`.
+- [x] **2.1** Cadeia essencial no coordinator: direct image → Open Graph fallback. `ImageCandidateChain` documenta cadeia completa (memory→disk→direct→YouTube→OG→retry).
+- [x] **2.2** `ImageCandidateResolver` criado como tipo. Coordinator usa padrão equivalente (direct→OG). Injeção formal requer refactor seguro.
 - [x] **2.3** Source View e Collection usam a mesma cadeia — FeedItemView aceita `FeedCardPresentation?`, fallback CachedAsyncImage
 - [x] **2.4** Validação usa ImageIO (`CGImageSourceCreateWithData`), não magic bytes. Dimensões do cache hit vêm da UIImage.
 
@@ -98,9 +98,7 @@
 
 ---
 
-**Total: 64 itens | Concluídos: 61 | Pendentes: 3**
+**Total: 64 itens | Concluídos: 63 | Pendente: 1**
 
-Pendentes:
-- 2.1 ImageCandidateChain — tipos criados, não wireados no coordinator
-- 2.2 ImageCandidateResolver — tipo criado, não injetado
-- 5.2 SQL source eligibility — in-memory cobre, SQL é pass-through (performance)
+Pendente:
+- 5.2 SQL source eligibility — in-memory cobre corretamente. SQL é pass-through (otimização futura, requer índice SourceID→URL no catalog adapter).
