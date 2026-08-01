@@ -5,6 +5,7 @@ Populate OPMLs using ONLY static ranking sources (no API keys needed).
 Sources used:
   - youtube_top_subscribed  (795 Wikipedia channels)
   - youtube_awards          (45 award-winning channels)
+  - youtube_youtubersme     (27K top-1000 per country, 30 countries + categories)
   - youtube_kaggle          (3,964 top channels by country)
   - youtube_socialblade     (5,050 top-50 per country, 101 countries)
 
@@ -91,6 +92,7 @@ async def run_country(slug: str, data: dict, session: aiohttp.ClientSession):
     from scripts.feed_discovery.models import Candidate, SubRegion
     from scripts.feed_discovery.sources.youtube_top_subscribed import YouTubeTopSubscribedSource
     from scripts.feed_discovery.sources.youtube_awards import YouTubeAwardsSource
+    from scripts.feed_discovery.sources.youtube_youtubersme import YouTubeYoutubersMeSource
     from scripts.feed_discovery.sources.youtube_kaggle import YouTubeKaggleSource
     from scripts.feed_discovery.sources.youtube_socialblade import YouTubeSocialBladeSource
     from scripts.feed_discovery.sources.youtube_diamond import YouTubeDiamondSource
@@ -103,6 +105,7 @@ async def run_country(slug: str, data: dict, session: aiohttp.ClientSession):
         PodcastIndexSource(),
         ITunesChartsSource(),
         YouTubeTopSubscribedSource(),
+        YouTubeYoutubersMeSource(),
         YouTubeAwardsSource(),
         YouTubeKaggleSource(),
         YouTubeSocialBladeSource(),
