@@ -129,7 +129,7 @@ async def run_country(slug: str, data: dict, session: aiohttp.ClientSession):
     for source in sources:
         if not source.enabled:
             continue
-        config = SourceConfig(priority=99, timeout=15, max_results=50)
+        config = SourceConfig(priority=99, timeout=15, max_results=1000)
 
         try:
             # Build query from country name — sources like podcast_index need it
