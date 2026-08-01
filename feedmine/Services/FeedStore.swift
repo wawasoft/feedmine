@@ -269,19 +269,10 @@ final class FeedStore {
     /// Load a fixed bookmark feed — all items from the box, ordered by save date.
     /// Pauses all background processes that would modify the screen.
     func loadBookmarkFeed(items: [FeedItem]) {
-        // --- Unified Selection Engine path (Phase 6A) ---
-        if Settings.unifiedSelectionSurfaces, selectionBridge != nil {
-            let sourceIDs = Set(items.compactMap {
-                CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: $0.sourceURL))
-            })
-            let itemIDs = Set(items.map(\.id))
-            submitUnifiedBookmarks(listID: selectedBookmarkListID, sourceIDs: sourceIDs, bookmarkedItemIDs: itemIDs)
-            // Legacy: still set visible items directly for immediate display
-            setVisibleItems(items)
-            isBookmarkFeed = true
-            return
-        }
-        // --- Legacy path ---
+        // The unified selection bridge only manages main-feed content.
+        // Bookmarks always render from legacy visibleItems (see FeedLoader.useBridgeForUI).
+        // submitUnifiedBookmarks exists as a placeholder for when the engine
+        // supports secondary surfaces with item-ID whitelisting.
         isBookmarkFeed = true
         currentMode = .bookmarks(selectedBookmarkListID)
         pipelineTask?.cancel()
@@ -1675,8 +1666,11 @@ final class FeedStore {
             // Unified engine path: submit the main feed request after catalog
             // is fully loaded. The engine handles cache→eligibility→ranking→
             // mix→preparation→publish.
+            bridge.activeRegion = activeRegion
+            bridge.activeNodeIDs = activeNodeIDs
             bridge.activeLanguages = activeLanguages
             bridge.activeContentType = activeContentType
+            bridge.activeMood = activeMood
             bridge.contentFilterKeywords = ContentFilterStore.shared.isEnabled
                 ? Set(ContentFilterStore.shared.activeFilters.flatMap { $0.keywords })
                 : []
@@ -2447,7 +2441,8 @@ final class FeedStore {
                     taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs,
                     contentTypes: type == .all ? nil : [type],
                     region: region,
-                    mood: mood
+                    mood: mood,
+                    observe: false  // Shadow mode — observe, don't hijack UI
                 )
                 Log.feed.info("[SelectionShadow] filter compiled: legacyEligible=\(eligibleSourceCount)")
             }

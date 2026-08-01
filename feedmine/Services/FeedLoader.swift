@@ -29,10 +29,16 @@ final class FeedLoader {
 
     /// When unified state is active AND the bridge has published content,
     /// read from the bridge. Otherwise fall back to legacy. (Etapa 6 + P0-2 fix)
+    ///
+    /// Surfaces other than the main feed (bookmarks, smart feeds, last clicked)
+    /// always use legacy state — the bridge only manages main-feed content.
     private var useBridgeForUI: Bool {
         Settings.unifiedSelectionState
             && store.selectionBridge != nil
             && store.selectionBridge!.visibleItemsGeneration > 0
+            && !store.isBookmarkFeed
+            && !store.activePreset.isSmartFeed
+            && !store.activePreset.isLastClicked
     }
     var items: [FeedItem] {
         useBridgeForUI ? store.selectionBridge!.visibleItems : store.visibleItems

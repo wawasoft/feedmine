@@ -55,12 +55,21 @@ struct SourceScopeResolver: Sendable {
 
         let scope = try await catalog.resolveSourceScope(spec)
 
-        // For large catalogs (>500), keep the handle lazy.
-        // Materializing 43K SourceIDs on every filter change would be wasteful
-        // and the resolver only needs a count, not the full set. (4.4)
-        if case .catalogQuery = scope.handle {
+        // Apply enablement filtering regardless of scope size.
+        // For large catalogs, enablement rules are folded into the query
+        // so disabled sources are excluded at the DB level; for small scopes
+        // we materialize and filter in-memory.
+        if case .catalogQuery(let query) = scope.handle {
+            let filteredQuery = CatalogSourceQuery(
+                taxonomyNodeIDs: query.taxonomyNodeIDs,
+                contentTypes: query.contentTypes,
+                languages: query.languages,
+                regions: query.regions,
+                respectInheritedDisables: true,
+                pageSize: query.pageSize
+            )
             return ResolvedSourceScope(
-                handle: scope.handle,  // stays lazy — paginated access
+                handle: .catalogQuery(filteredQuery),
                 totalCount: scope.totalCount,
                 previewMetadata: scope.previewMetadata
             )

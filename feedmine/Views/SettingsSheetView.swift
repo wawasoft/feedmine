@@ -243,10 +243,12 @@ struct SettingsSheetView: View {
                 */
 
                 // MARK: - Debug
+#if DEBUG
                 Section("Debug") {
                     Toggle("Show Debug Overlay", systemImage: "wrench.and.screwdriver.fill", isOn: $showDebugBar)
                         .tint(.orange)
                 }
+#endif
 
                 // MARK: - About
                 Section("About") {
