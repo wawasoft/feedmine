@@ -310,21 +310,27 @@ PERSON_NAME_RE = re.compile(
 )
 
 
-async def robots_allowed(url: str, user_agent: str, cache: dict[str, RobotFileParser]) -> bool:
-    """Check robots.txt for a URL. Cache parsers per domain."""
+async def robots_allowed(
+    url: str, user_agent: str, cache: dict[str, RobotFileParser],
+    session: aiohttp.ClientSession,
+) -> bool:
+    """Check robots.txt for a URL using async HTTP. Cache parsers per domain."""
     parsed = urlsplit(url)
     domain = parsed.hostname or ""
     if domain not in cache:
         rp = RobotFileParser()
         rp.set_url(f"{parsed.scheme}://{domain}/robots.txt")
         try:
-            import socket as _socket
-            _old_timeout = _socket.getdefaulttimeout()
-            _socket.setdefaulttimeout(10)
-            try:
-                await asyncio.to_thread(rp.read)
-            finally:
-                _socket.setdefaulttimeout(_old_timeout)
+            async with session.get(
+                f"{parsed.scheme}://{domain}/robots.txt",
+                headers={"User-Agent": user_agent},
+                timeout=aiohttp.ClientTimeout(total=10),
+            ) as resp:
+                if resp.status == 200:
+                    text = await resp.text()
+                    rp.parse(text.splitlines())
+                else:
+                    rp.allow_all = True
         except Exception:
             rp.allow_all = True
         cache[domain] = rp
@@ -368,7 +374,7 @@ async def scrape_site(
 
     async with semaphore:
         for url in urls_to_try:
-            if not await robots_allowed(url, user_agent, robots_cache):
+            if not await robots_allowed(url, user_agent, robots_cache, session):
                 continue
             try:
                 await asyncio.sleep(0.1)  # minimal politeness — limit_per_host handles rate
