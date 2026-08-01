@@ -849,7 +849,7 @@ enum CuratedPreferenceEngine {
         for source in sources {
             let multiplier = sourceMultiplier(for: source, profile: profile)
             if abs(multiplier - 1) > 0.001 {
-                result[source.url] = multiplier
+                result[OPMLParser.normalizeURL(source.url)] = multiplier
             }
         }
         return result
@@ -934,6 +934,7 @@ final class CuratedOnboardingSession {
 
     @ObservationIgnored private var usedItemIDs: Set<String> = []
     @ObservationIgnored private var usedPairIDs: Set<String> = []
+    @ObservationIgnored private var forceComplete = false
     @ObservationIgnored private var undoStack: [Snapshot] = []
 
     init(languages: Set<String>) {
@@ -962,7 +963,7 @@ final class CuratedOnboardingSession {
     /// Backward-compatible alias — existing code that checks targetAnswers
     /// now maps to the adaptive isReady check.
     var reachedTarget: Bool { isReady }
-    var isComplete: Bool { answerCount >= Self.maximumAnswers }
+    var isComplete: Bool { forceComplete || answerCount >= Self.maximumAnswers }
     var progress: Double {
         if answerCount < Self.minimumAnswers {
             return Double(answerCount) / Double(Self.minimumAnswers) * 0.5
@@ -1061,6 +1062,14 @@ final class CuratedOnboardingSession {
             usedItemIDs: usedItemIDs,
             usedPairIDs: usedPairIDs
         )
+        // When the candidate pool is exhausted but the user has answered
+        // enough to finish, allow early completion instead of stranding
+        // at a permanent spinner. The minimumAnswers gate keeps quality.
+        if currentPair == nil && canFinish {
+            forceComplete = true
+            self.currentPair = nil
+            self.pendingPair = nil
+        }
     }
 
     /// Computes the next pair but does NOT publish it to the UI.

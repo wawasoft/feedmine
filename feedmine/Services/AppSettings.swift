@@ -10,7 +10,6 @@ enum Keys {
     static let filterRegion = "filterRegion"
     static let filterTaxonomyNodes = "filterTaxonomyNodes"
     static let filterContentType = "filterContentType"
-    static let filterMood = "filterMood"
     static let filterSetAt = "filterSetAt"
     static let filterAutoExpire = "filterAutoExpire"
     static let filterLanguages = "filterLanguages"
@@ -100,10 +99,6 @@ enum Settings {
     static var filterLanguages: [String] {
         get { d.stringArray(forKey: Keys.filterLanguages) ?? [] }
         set { d.set(newValue, forKey: Keys.filterLanguages) }
-    }
-    static var filterMood: String {
-        get { d.string(forKey: Keys.filterMood) ?? FeedLoader.MoodFilter.all.rawValue }
-        set { d.set(newValue, forKey: Keys.filterMood) }
     }
     static var hasInitializedLanguageDefault: Bool {
         get { d.bool(forKey: Keys.hasInitializedLanguageDefault) }

@@ -40,7 +40,6 @@ struct ItemCriteria: Hashable, Sendable {
     var taxonomyNodeIDs: Set<String> = []
     var languages: Set<String> = []
     var contentTypes: Set<ContentType> = []
-    var mood: MoodFilter = .all
     var searchExpression: SearchExpression?
     var excludedKeywords: Set<String> = []
     /// User-defined content filter keywords (from ContentFilterStore).
@@ -193,4 +192,3 @@ struct ContentSelectionRequest: Hashable, Sendable {
 // these aliases become unnecessary.
 
 typealias ContentType = FeedLoader.ContentType
-typealias MoodFilter = FeedLoader.MoodFilter

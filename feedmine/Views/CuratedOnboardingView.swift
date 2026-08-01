@@ -21,6 +21,7 @@ struct CuratedOnboardingView: View {
     @State private var errorMessage: String?
     @State private var answerPulse = 0
     @State private var answerDelayTask: Task<Void, Never>?
+    @State private var isAnswering = false
     @State private var showInspector = false
 
     /// Snapshot of the global language filter before onboarding mutates it,
@@ -311,6 +312,16 @@ struct CuratedOnboardingView: View {
                     session.updateCandidates(candidates)
                 }
 
+                // If the pool is exhausted but the user has enough answers
+                // to finish, transition to review instead of retrying.
+                if session.isComplete {
+                    previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
+                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
+                        stage = .review
+                    }
+                    return
+                }
+
                 // Warm images for the current pair before showing cards.
                 // The "Finding a fair comparison" state now does real work.
                 if let pair = session.currentPair {
@@ -388,7 +399,8 @@ struct CuratedOnboardingView: View {
     }
 
     private func answer(_ outcome: CuratedChoiceOutcome) {
-        guard let session else { return }
+        guard !isAnswering, let session else { return }
+        isAnswering = true
 
         // Celebration feedback sequence
         withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
@@ -412,20 +424,27 @@ struct CuratedOnboardingView: View {
         if session.currentPair == nil && !session.isComplete {
             answerDelayTask = Task { @MainActor in
                 try? await Task.sleep(for: .milliseconds(350))
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled else { isAnswering = false; return }
                 refreshCandidatePool()
+                isAnswering = false
             }
+            return
         }
 
         if session.isComplete {
             answerDelayTask = Task { @MainActor in
                 try? await Task.sleep(for: .milliseconds(500))
-                guard !Task.isCancelled, session.isComplete else { return }
+                guard !Task.isCancelled, session.isComplete else { isAnswering = false; return }
+                previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
                 withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
                     stage = .review
                 }
+                isAnswering = false
             }
+            return
         }
+
+        isAnswering = false
     }
 
     private func save(_ session: CuratedOnboardingSession) async {
@@ -438,6 +457,11 @@ struct CuratedOnboardingView: View {
                 name: name,
                 definition: session.profile
             )
+            // Restore the global language filter that was mutated in startComparisons.
+            // The curated feed preset now owns the language selection.
+            if let previous = preOnboardingLanguages {
+                loader.applyCuratedLanguages(previous)
+            }
             loader.setActivePreset(.curatedFeed(
                 curatedFeedID: saved.id,
                 curatedFeedName: saved.name
@@ -457,8 +481,15 @@ struct CuratedOnboardingView: View {
                 candidateTask?.cancel()
                 stage = .languages
             case .review:
+                candidateTask?.cancel()
                 stage = session?.answerCount ?? 0 > 0 ? .comparisons : .languages
             }
+        }
+        // When returning to comparisons from a completed session, the pair
+        // was cleared and must be re-populated, otherwise the spinner runs
+        // forever. Only restart if we actually landed on .comparisons.
+        if stage == .comparisons, session?.currentPair == nil {
+            refreshCandidatePool()
         }
     }
 

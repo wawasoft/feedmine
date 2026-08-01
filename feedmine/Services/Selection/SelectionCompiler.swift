@@ -46,7 +46,6 @@ struct SelectionCompiler: Sendable {
                 request.criteria.taxonomyNodeIDs
             ),
             contentTypes: request.criteria.contentTypes,
-            mood: request.criteria.mood,
             searchExpression: request.criteria.searchExpression,
             excludedKeywords: request.criteria.excludedKeywords,
             contentExclusions: ContentExclusionPolicy(

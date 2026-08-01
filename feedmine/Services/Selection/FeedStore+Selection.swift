@@ -53,16 +53,15 @@ extension FeedStore {
         region: String?,
         nodeIDs: Set<String>,
         type: FeedLoader.ContentType,
-        mood: FeedLoader.MoodFilter,
         languages: Set<String>
     ) {
         guard let bridge = selectionBridge else { return }
-        applyUnifiedFilterState(region: region, nodeIDs: nodeIDs, type: type, mood: mood, languages: languages)
+        applyUnifiedFilterState(region: region, nodeIDs: nodeIDs, type: type, languages: languages)
         bridge.activeRegion = region; bridge.activeNodeIDs = nodeIDs
-        bridge.activeContentType = type; bridge.activeMood = mood; bridge.activeLanguages = languages
+        bridge.activeContentType = type; bridge.activeLanguages = languages
         let sourceUniverse: SourceUniversePolicy = nodeIDs.isEmpty && type == .all
             ? .enabledLibrary : .expandedCatalogRespectingExplicitOff
-        bridge.submitMainFeedRequest(sourceUniverse: sourceUniverse, taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs, contentTypes: type == .all ? nil : [type], region: region, mood: mood)
+        bridge.submitMainFeedRequest(sourceUniverse: sourceUniverse, taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs, contentTypes: type == .all ? nil : [type], region: region)
     }
 
     /// Submit a preset change through the unified engine.
@@ -81,7 +80,7 @@ extension FeedStore {
         guard let bridge = selectionBridge else { return }
         applyUnifiedResetState()
         bridge.activeRegion = nil; bridge.activeNodeIDs = []
-        bridge.activeContentType = .all; bridge.activeMood = .all; bridge.activeLanguages = []
+        bridge.activeContentType = .all; bridge.activeLanguages = []
         bridge.submitResetRequest()
     }
 
@@ -232,7 +231,6 @@ extension FeedStore {
         taxonomyNodeIDs: Set<String>,
         languages: Set<String>,
         contentType: ContentType?,
-        mood: MoodFilter,
         collectionMemberIDs: Set<SourceID>?,
         excludedKeywords: Set<String>,
         contentFilterKeywords: Set<String>,
@@ -248,7 +246,6 @@ extension FeedStore {
             taxonomyNodeIDs: taxonomyNodeIDs,
             languages: languages,
             contentType: contentType,
-            mood: mood,
             collectionMemberIDs: collectionMemberIDs,
             excludedKeywords: excludedKeywords,
             contentFilterKeywords: contentFilterKeywords,

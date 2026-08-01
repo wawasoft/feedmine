@@ -100,7 +100,6 @@ struct FeedmineApp: App {
         Settings.filterTaxonomyNodes = []
         Settings.filterContentType = FeedLoader.ContentType.all.rawValue
         Settings.filterLanguages = []
-        Settings.filterMood = FeedLoader.MoodFilter.all.rawValue
         Settings.filterSetAt = 0
         Settings.hasInitializedLanguageDefault = true
         TaxonomyStore.shared.clearSelection()

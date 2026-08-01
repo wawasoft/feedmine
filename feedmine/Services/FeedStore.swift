@@ -85,17 +85,15 @@ final class FeedStore {
     /// Apply unified filter state to store properties. Called from extension.
     func applyUnifiedFilterState(
         region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType,
-        mood: FeedLoader.MoodFilter, languages: Set<String>
+        languages: Set<String>
     ) {
         activeRegion = region
         activeNodeIDs = nodeIDs
         activeContentType = type
-        activeMood = mood
         activeLanguages = languages
         Settings.filterRegion = region
         Settings.filterTaxonomyNodes = Array(nodeIDs)
         Settings.filterContentType = type.rawValue
-        Settings.filterMood = mood.rawValue
         Settings.filterLanguages = Array(languages)
         filterGeneration &+= 1
         presentationEpoch &+= 1
@@ -124,13 +122,11 @@ final class FeedStore {
         activeRegion = nil
         activeNodeIDs = []
         activeContentType = .all
-        activeMood = .all
         activeLanguages = []
         hasUserClearedLanguageFilter = true
         Settings.filterRegion = nil
         Settings.filterTaxonomyNodes = []
         Settings.filterContentType = "All"
-        Settings.filterMood = FeedLoader.MoodFilter.all.rawValue
         Settings.filterLanguages = []
         filterGeneration &+= 1
         presentationEpoch &+= 1
@@ -190,7 +186,6 @@ final class FeedStore {
     var activeRegion: String?
     var activeNodeIDs: Set<String> = []
     var activeContentType: FeedLoader.ContentType = .all
-    var activeMood: FeedLoader.MoodFilter = .all
     var activeLanguages: Set<String> = []
     /// True when the user explicitly chose "all languages" (cleared filter).
     /// Reset when the user toggles a specific language. Not persisted — on
@@ -580,13 +575,10 @@ final class FeedStore {
     /// Hit recording is NOT performed here; it happens once at ingestion time
     /// in persistFetchedItems so each item is counted exactly once regardless
     /// of how many times applyFilters runs on the same items.
-    // Cache mood/content filter results per item ID to avoid O(k) string
+    // Cache content filter results per item ID to avoid O(k) string
     // scanning on every applyFilters call (called on each reservoir operation).
-    private var moodMatchCache: [String: Bool] = [:]
-    private var moodMatchCacheKey: String = ""
     private var contentFilterExcludeCache: [String: Bool] = [:]
-
-    /// [Fase 7 L1] Replaced by InMemoryItemRuleEvaluator + ItemRuleSet.
+    private var lastContentFilterIDs: Set<UUID> = []    /// [Fase 7 L1] Replaced by InMemoryItemRuleEvaluator + ItemRuleSet.
     func applyFilters(_ items: [FeedItem], includeConsumed: Bool = true) -> [FeedItem] {
         if Settings.unifiedSelectionLegacyRemoved {
             Log.feed.error("[Fase7] applyFilters called but legacy is removed. Use ItemRuleSet.")
@@ -596,7 +588,6 @@ final class FeedStore {
         let region = activeRegion
         let contentType = filterContentType
         let languages = activeLanguages
-        let mood = activeMood
         let contentFilters = ContentFilterStore.shared.isEnabled
             ? ContentFilterStore.shared.activeFilters : []
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
@@ -607,14 +598,10 @@ final class FeedStore {
         let smartFeedIDs = activeSmartFeedItemIDs
         let consumedIDs = consumedItemIDs
 
-        // Invalidate mood cache when mood changes (use rawValue as stable key)
-        let moodKey = mood.rawValue
-        if moodKey != moodMatchCacheKey {
-            moodMatchCache.removeAll()
-            moodMatchCacheKey = moodKey
-        }
-        if contentFilters.isEmpty {
+        let currentFilterIDs = Set(contentFilters.map(\.id))
+        if currentFilterIDs != lastContentFilterIDs {
             contentFilterExcludeCache.removeAll()
+            lastContentFilterIDs = currentFilterIDs
         }
 
         return items.filter { item in
@@ -629,16 +616,6 @@ final class FeedStore {
             guard cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(normalizedSourceURL) else { return false }
             guard Self.languageFilterMatchesNormalized(itemLanguage: item.language, selectedLanguages: languages, deviceLanguage: deviceLanguage) else { return false }
             guard contentType(item) else { return false }
-
-            // Mood check — cached per item ID (deterministic for a given mood)
-            if mood != .all {
-                if let cached = moodMatchCache[item.id] { guard cached else { return false } }
-                else {
-                    let match = mood.matches(item.title)
-                    moodMatchCache[item.id] = match
-                    guard match else { return false }
-                }
-            }
 
             // Content filter check — cached per item ID
             if !contentFilters.isEmpty {
@@ -1670,7 +1647,6 @@ final class FeedStore {
             bridge.activeNodeIDs = activeNodeIDs
             bridge.activeLanguages = activeLanguages
             bridge.activeContentType = activeContentType
-            bridge.activeMood = activeMood
             bridge.contentFilterKeywords = ContentFilterStore.shared.isEnabled
                 ? Set(ContentFilterStore.shared.activeFilters.flatMap { $0.keywords })
                 : []
@@ -1829,7 +1805,6 @@ final class FeedStore {
             region: activeRegion,
             nodeIDs: activeNodeIDs,
             type: activeContentType,
-            mood: activeMood,
             languages: activeLanguages
         )
         FeedMetrics.event(
@@ -2246,11 +2221,14 @@ final class FeedStore {
         // Cards appear in rapid succession during scroll; only the last one matters.
         let now = Date()
         if let last = lastLoadMoreAttempt, now.timeIntervalSince(last) < 0.3 { return }
-        lastLoadMoreAttempt = now
 
         guard let itemIndex = visibleItems.firstIndex(where: { $0.id == currentItem.id }) else { return }
         guard itemIndex >= visibleItems.count - Reservoir.loadMoreThreshold else { return }
         guard itemIndex != lastLoadedIndex else { return }
+        // Only arm the throttle AFTER confirming we actually need a load-more.
+        // Otherwise a mid-list card that fails the threshold guard still
+        // suppresses the legitimate bottom-edge trigger arriving < 300ms later.
+        lastLoadMoreAttempt = now
         lastLoadedIndex = itemIndex
 
         scheduler.recordConsumption()
@@ -2338,7 +2316,6 @@ final class FeedStore {
         Settings.filterTaxonomyNodes = Array(activeNodeIDs)
         Settings.filterContentType = activeContentType.rawValue
         Settings.filterLanguages = Array(activeLanguages)
-        Settings.filterMood = activeMood.rawValue
         Settings.filterSetAt = Date().timeIntervalSince1970
     }
 
@@ -2362,7 +2339,6 @@ final class FeedStore {
             || !Settings.filterTaxonomyNodes.isEmpty
             || (FeedLoader.ContentType(rawValue: Settings.filterContentType) ?? .all) != .all
             || !Settings.filterLanguages.isEmpty
-            || (FeedLoader.MoodFilter(rawValue: Settings.filterMood) ?? .all) != .all
 
         if hasActiveFilters && Settings.filterAutoExpire {
             let elapsed = Date().timeIntervalSince1970 - Settings.filterSetAt
@@ -2370,7 +2346,6 @@ final class FeedStore {
                 Settings.filterRegion = nil
                 Settings.filterTaxonomyNodes = []
                 Settings.filterContentType = "All"
-                Settings.filterMood = "all"
                 Settings.filterLanguages = []
                 Settings.filterSetAt = 0
                 return
@@ -2406,16 +2381,13 @@ final class FeedStore {
         if let type = FeedLoader.ContentType(rawValue: Settings.filterContentType) {
             activeContentType = type
         }
-        if let mood = FeedLoader.MoodFilter(rawValue: Settings.filterMood) {
-            activeMood = mood
-        }
     }
 
-    func setFilter(region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType, mood: FeedLoader.MoodFilter = .all, languages: Set<String>? = nil) {
+    func setFilter(region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType, languages: Set<String>? = nil) {
         // --- Unified Selection Engine path (Phase 3+) ---
         if Settings.unifiedSelectionMainFeed, let bridge = selectionBridge {
             let langs = languages.map { Self.normalizedLanguageSet($0) } ?? activeLanguages
-            submitUnifiedFilter(region: region, nodeIDs: nodeIDs, type: type, mood: mood, languages: langs)
+            submitUnifiedFilter(region: region, nodeIDs: nodeIDs, type: type, languages: langs)
             return
         }
 
@@ -2429,7 +2401,6 @@ final class FeedStore {
                 bridge.activeRegion = region
                 bridge.activeNodeIDs = nodeIDs
                 bridge.activeContentType = type
-                bridge.activeMood = mood
                 bridge.activeLanguages = langs
                 // Build the same request submitUnifiedFilter uses so the shadow
                 // comparison tests the actual filter, not a reset. (I1, I2)
@@ -2441,7 +2412,6 @@ final class FeedStore {
                     taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs,
                     contentTypes: type == .all ? nil : [type],
                     region: region,
-                    mood: mood,
                     observe: false  // Shadow mode — observe, don't hijack UI
                 )
                 Log.feed.info("[SelectionShadow] filter compiled: legacyEligible=\(eligibleSourceCount)")
@@ -2474,7 +2444,6 @@ final class FeedStore {
         activeRegion = region
         activeNodeIDs = nodeIDs
         activeContentType = type
-        activeMood = mood
         if let langs = languages {
             activeLanguages = Self.normalizedLanguageSet(langs)
         }
@@ -2515,7 +2484,6 @@ final class FeedStore {
         let region = activeRegion
         let languages = activeLanguages
         let contentType = filterContentType
-        let mood = activeMood
         let taxonomyURLs = cachedTaxonomyFeedURLs
         let contentFilters = ContentFilterStore.shared.isEnabled
             ? ContentFilterStore.shared.activeFilters : []
@@ -2523,15 +2491,10 @@ final class FeedStore {
             Locale.current.language.languageCode?.identifier
         )
 
-        // Invalidate mood cache when mood changes so the cull predicate
-        // re-evaluates mood matches rather than serving stale cache entries.
-        let moodKey = mood.rawValue
-        if moodKey != moodMatchCacheKey {
-            moodMatchCache.removeAll()
-            moodMatchCacheKey = moodKey
-        }
-        if contentFilters.isEmpty {
+        let currentFilterIDs = Set(contentFilters.map(\.id))
+        if currentFilterIDs != lastContentFilterIDs {
             contentFilterExcludeCache.removeAll()
+            lastContentFilterIDs = currentFilterIDs
         }
 
         let filterPredicate: (FeedItem) -> Bool = { [self] item in
@@ -2542,7 +2505,6 @@ final class FeedStore {
                 deviceLanguage: deviceLanguage
             )
             && contentType(item)
-            && (mood == .all || mood.matches(item.title))
             && (taxonomyURLs.isEmpty || taxonomyURLs.contains(OPMLParser.normalizeURL(item.sourceURL)))
             && (contentFilters.isEmpty || !contentFilterExcludes(item, filters: contentFilters))
         }
@@ -2715,7 +2677,6 @@ final class FeedStore {
         activeRegion = nil
         activeNodeIDs = []
         activeContentType = .all
-        activeMood = .all
         activeLanguages = []
         hasUserClearedLanguageFilter = true
         cachedTaxonomyNodeIDs = []
@@ -3685,7 +3646,6 @@ final class FeedStore {
                 taxonomyNodeIDs: activeNodeIDs,
                 languages: activeLanguages,
                 contentTypes: activeContentType == .all ? [] : [activeContentType],
-                mood: activeMood,
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: bridge.contentFilterKeywords
@@ -5606,7 +5566,6 @@ final class FeedStore {
             taxonomyNodeIDs: Array(activeNodeIDs),
             languages: Array(activeLanguages),
             contentType: activeContentType.rawValue,
-            mood: activeMood.rawValue,
             sourceCollectionID: activePreset.collectionID,
             excludedKeywords: ContentFilterStore.shared.activeFilters
                 .flatMap { $0.keywords }
@@ -5768,8 +5727,6 @@ final class FeedStore {
         }
         let contentType = FeedLoader.ContentType(rawValue: definition.contentType) ?? .all
         guard contentType.matches(item) else { return false }
-        let mood = FeedLoader.MoodFilter(rawValue: definition.mood) ?? .all
-        guard mood == .all || mood.matches(item.title) else { return false }
         if definition.excludedKeywords.contains(where: {
             item.searchableText.contains(Self.normalizedSmartFeedText($0))
         }) {
@@ -5963,7 +5920,6 @@ final class FeedStore {
                     taxonomyNodeIDs: Set(smartFeed.definition.taxonomyNodeIDs),
                     languages: Set(smartFeed.definition.languages),
                     contentType: ContentType(rawValue: smartFeed.definition.contentType),
-                    mood: MoodFilter(rawValue: smartFeed.definition.mood) ?? .all,
                     collectionMemberIDs: smartFeed.definition.sourceCollectionID.map { _ in [] },
                     excludedKeywords: Set(smartFeed.definition.excludedKeywords),
                     contentFilterKeywords: bridge.contentFilterKeywords,

@@ -152,7 +152,7 @@ struct SettingsSheetView: View {
                     Text("Reading")
                 } footer: {
                     if filterAutoExpire {
-                        Text("Category, mood, and content type filters reset after 4 hours away so you never open to an empty feed.")
+                        Text("Category and content type filters reset after 4 hours away so you never open to an empty feed.")
                     }
                 }
 
@@ -208,8 +208,10 @@ struct SettingsSheetView: View {
                             loader.clearAllBookmarks()
                             loader.resetAllSourceToggles()
                             UserDefaults.standard.removeObject(forKey: "hasSeenOnboarding")
-                            Settings.filterRegion = nil
-                            Settings.activePreset = .everything
+                            // Propagate through the store so the feed immediately
+                            // reflects the reset, rather than waiting for a restart.
+                            loader.clearAllFilters()
+                            loader.setActivePreset(.everything)
                         }
                     }
 

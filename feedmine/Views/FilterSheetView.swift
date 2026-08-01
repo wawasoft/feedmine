@@ -5,7 +5,6 @@ struct FilterSheetView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var draftContentType: FeedLoader.ContentType = .all
     @State private var draftLanguages: Set<String> = []
-    @State private var draftMood: FeedLoader.MoodFilter = .all
     @State private var draftPreset: PresetSelector = .everything
     @State private var presetIsDirty = false
     @State private var overlayFiltersAreDirty = false
@@ -16,7 +15,6 @@ struct FilterSheetView: View {
     private var hasDraftFilters: Bool {
         draftContentType != .all
             || !draftLanguages.isEmpty
-            || draftMood != .all
             || draftPreset != .everything
             || loader.hasRegionSelection
             || loader.hasTaxonomySelection
@@ -31,7 +29,6 @@ struct FilterSheetView: View {
                     Button(role: .destructive) {
                         draftContentType = .all
                         draftLanguages = []
-                        draftMood = .all
                         presetIsDirty = false
                         overlayFiltersAreDirty = false
                         // While composing a search, "Clear All Filters" clears
@@ -205,21 +202,6 @@ struct FilterSheetView: View {
                     }
                 }
 
-                Section("Mood") {
-                    ForEach(FeedLoader.MoodFilter.allCases) { mood in
-                        Button {
-                            draftMood = draftMood == mood ? .all : mood
-                            overlayFiltersAreDirty = true
-                            UISelectionFeedbackGenerator().selectionChanged()
-                        } label: {
-                            HStack {
-                                Label(mood.rawValue, systemImage: mood.icon)
-                                Spacer()
-                                if draftMood == mood { Image(systemName: "checkmark").foregroundStyle(.blue) }
-                            }
-                        }
-                    }
-                }
             }
             .navigationTitle("Filters")
             .navigationBarTitleDisplayMode(.inline)
@@ -238,7 +220,6 @@ struct FilterSheetView: View {
         .onAppear {
             draftContentType = loader.selectedContentType
             draftLanguages = loader.selectedLanguages
-            draftMood = loader.selectedMood
             draftPreset = loader.activePreset
             presetIsDirty = false
             overlayFiltersAreDirty = false
@@ -262,7 +243,6 @@ struct FilterSheetView: View {
             if overlayFiltersAreDirty {
                 loader.applyFilterDraft(
                     type: draftContentType,
-                    mood: draftMood,
                     languages: draftLanguages
                 )
             }

@@ -361,14 +361,15 @@ struct FeedScreen: View {
 
     private var filterLensSignature: String {
         guard hasFilterLensContent else { return "" }
-        // Cache against filter state to avoid string join on every scroll frame
-        let key = "\(loader.selectedRegion ?? ".")|\(loader.selectedContentType.rawValue)|\(loader.selectedMood.rawValue)|\(loader.searchQuery)"
+        // Cache against filter state to avoid string join on every scroll frame.
+        // Key must include every component that contributes to the signature,
+        // otherwise stale signatures are returned when omitted fields change.
+        let key = "\(loader.activePreset.displayName)|\(loader.selectedRegion ?? ".")|\(loader.selectedContentType.rawValue)|\(loader.selectedNodeIDs.sorted().joined(separator: ","))|\(loader.selectedLanguages.sorted().joined(separator: ","))|\(loader.searchQuery)"
         if key == _cachedFilterLensKey { return _cachedFilterLensSig }
         var parts: [String] = []
         parts.append(loader.activePreset.displayName)
         parts.append(loader.selectedRegion ?? "")
         parts.append(loader.selectedContentType.rawValue)
-        parts.append(loader.selectedMood.rawValue)
         parts.append(loader.selectedNodeIDs.sorted().joined(separator: ","))
         parts.append(loader.selectedLanguages.sorted().joined(separator: ","))
         parts.append(loader.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -1015,8 +1016,7 @@ struct FeedScreen: View {
             candidates.append(contentsOf: (results.savedItems + results.localItems).map {
                 loader.sourceReference(for: $0)
             })
-        } else if loader.activePreset.collectionID == nil,
-                  loader.selectedMood == .all {
+        } else if loader.activePreset.collectionID == nil {
             candidates.append(contentsOf: loader.activeSources.map {
                 SourceReference(source: $0)
             })
