@@ -386,19 +386,7 @@ struct FeedScreen: View {
             CompactErrorBanner()
             HStack(spacing: 8) {
                 CompactFeedStatus(onEasterEgg: {
-                    let syntheticItem = FeedItem(
-                        id: "easter-egg-catalog",
-                        sourceTitle: "Feedmine Catalog",
-                        sourceURL: "https://wawasoft.net",
-                        category: "Catalog",
-                        title: "Catalog",
-                        excerpt: "",
-                        url: "https://wawasoft.net/catalog/",
-                        imageURL: nil,
-                        publishedAt: Date(),
-                        region: "global"
-                    )
-                    articleItem = syntheticItem
+                    showCatalogExplore = true
                 })
                 Spacer()
                 HStack(spacing: 4) {

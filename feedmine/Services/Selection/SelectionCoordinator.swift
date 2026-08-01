@@ -26,6 +26,11 @@ final class SelectionCoordinator {
     /// Additional sessions (source view, search, etc.).
     private var secondarySessions: [SelectionSurface: SelectionSession] = [:]
 
+    /// Monotonically increasing epoch for FeedPresentationContext.
+    /// Each new session gets a higher epoch so CardPreparationCoordinator's
+    /// anti-stale guard can reject late completions from cancelled sessions.
+    private var presentationEpochCounter: UInt64 = 1
+
     // MARK: - Init
 
     init(
@@ -55,8 +60,9 @@ final class SelectionCoordinator {
 
         // Wire executor into session so start() actually runs the pipeline
         session.executor = executor
+        presentationEpochCounter &+= 1
         session.presentationContext = FeedPresentationContext(
-            epoch: 1, mode: .main, filterGeneration: 0, presetGeneration: 0
+            epoch: presentationEpochCounter, mode: .main, filterGeneration: 0, presetGeneration: 0
         )
 
         switch request.surface {

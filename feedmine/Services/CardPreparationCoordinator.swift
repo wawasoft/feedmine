@@ -378,7 +378,12 @@ actor CardPreparationCoordinator {
         // can have artwork on their episode/article page (Open Graph).
         // This is essential for podcasts — many RSS feeds have no
         // per-episode <itunes:image> but the episode page has artwork.
-        if item.canResolveArticleImage, let articleURL = URL(string: item.url) {
+        //
+        // Skip direct audio links (MP3/M4A/WAV/AAC) — downloading the full
+        // audio file as an "image" wastes bandwidth and always fails validation.
+        if item.canResolveArticleImage,
+           !item.isDirectAudioLink,
+           let articleURL = URL(string: item.url) {
             let cacheKey = ImageCacheKey.forURL(articleURL)
             let request = ImageResolutionRequest(
                 itemID: item.id,

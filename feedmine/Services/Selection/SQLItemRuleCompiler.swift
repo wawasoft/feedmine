@@ -37,12 +37,10 @@ struct SQLItemRuleCompiler: Sendable {
             args.append(dateRange.lowerBound.timeIntervalSince1970)
             conditions.append("published_at <= ?")
             args.append(dateRange.upperBound.timeIntervalSince1970)
-        } else {
-            // Default: last 30 days
-            let thirtyDaysAgo = Date().timeIntervalSince1970 - 2_592_000
-            conditions.append("published_at >= ?")
-            args.append(thirtyDaysAgo)
         }
+        // When dateRange is nil (includeAll), no date filter is applied.
+        // This maintains parity with InMemoryItemRuleEvaluator which also
+        // applies no default date cutoff.
 
         // 3. History — read/consumed
         if !rules.history.includeRead {
@@ -147,7 +145,7 @@ struct SQLItemRuleCompiler: Sendable {
         let sql = """
             SELECT * FROM feed_item
             WHERE \(whereClause)
-            ORDER BY fetched_at DESC
+            ORDER BY fetched_at DESC, rowid DESC
             LIMIT ? OFFSET ?
             """
 

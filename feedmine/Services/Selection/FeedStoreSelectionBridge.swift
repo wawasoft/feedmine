@@ -63,13 +63,16 @@ final class FeedStoreSelectionBridge {
     // MARK: - Request submission
 
     /// Submit a new main feed request. Called when filters/presets change.
+    /// - Parameter observe: When false, the session runs but does not update UI state.
+    ///   Used by shadow/DEBUG modes to compare engine output without hijacking the feed.
     func submitMainFeedRequest(
         sourceUniverse: SourceUniversePolicy = .enabledLibrary,
         taxonomyNodeIDs: Set<String>? = nil,
         contentTypes: Set<ContentType>? = nil,
         region: String? = nil,
         mood: MoodFilter? = nil,
-        ranking: RankingProfile? = nil
+        ranking: RankingProfile? = nil,
+        observe: Bool = true
     ) {
         let criteria = ItemCriteria(
             regions: region.map { [$0] } ?? [],
@@ -97,7 +100,7 @@ final class FeedStoreSelectionBridge {
 
         let session = coordinator.submit(request)
         activeSession = session
-        observeSession(session)
+        if observe { observeSession(session) }
     }
 
     /// Submit a reset request (clear all filters).
@@ -223,12 +226,14 @@ final class FeedStoreSelectionBridge {
                 )
             }
 
-        case .empty(let reason, let metrics):
+        case .empty(_, let metrics):
             loadingState = .idle
             selectionMetrics = metrics
+            visibleItems = []
+            visibleCards = []
             // Empty state reason available for UI via selectionState
 
-        case .failed(let previous, let failure):
+        case .failed(let previous, _):
             loadingState = .idle
             if let prev = previous {
                 visibleItems = prev.cards.map(\.item)
@@ -239,6 +244,9 @@ final class FeedStoreSelectionBridge {
                         isBookmarked: card.item.isBookmarked
                     )
                 }
+            } else {
+                visibleItems = []
+                visibleCards = []
             }
             // Error state available for UI via selectionState
 

@@ -44,6 +44,11 @@ final class SelectionExecutor {
     // MARK: - State
 
     private var loadedItemIDs: Set<String> = []
+    /// Cumulative count of rows fetched from the DB across all loadMore calls.
+    /// Used as the SQL OFFSET so that pagination counts rows consumed, not
+    /// cards published (eligibility/mix can drop items, making card count
+    /// smaller than row count and causing cross-page duplicates).
+    private var cumulativeRowsFetched: Int = 0
 
     // MARK: - Init
 
@@ -71,9 +76,13 @@ final class SelectionExecutor {
     ) async throws -> FeedSnapshot {
         let startedAt = Date()
 
+        // Reset pagination offset for the new session
+        cumulativeRowsFetched = 0
+
         // 1. Query cache (SQLite)
         let cachedItems = try await queryCache(plan: plan)
         let cachedCount = cachedItems.count
+        cumulativeRowsFetched = cachedCount  // initial page sets the offset baseline
 
         // 2. Apply in-memory eligibility to cached items
         let eligibleCacheItems = await inMemoryEvaluator.evaluate(
@@ -244,7 +253,7 @@ final class SelectionExecutor {
         currentSnapshot: FeedSnapshot,
         presentationContext: FeedPresentationContext
     ) async throws -> FeedSnapshot {
-        let nextOffset = currentSnapshot.cards.count
+        let nextOffset = cumulativeRowsFetched
 
         // Query next page from cache (recompile fresh for correct bindings)
         let (sql, arguments) = SQLItemRuleCompiler().compile(
@@ -257,6 +266,8 @@ final class SelectionExecutor {
             try FeedItemRecord.fetchAll(db, sql: sql, arguments: arguments)
                 .map { $0.toFeedItem() }
         }
+
+        cumulativeRowsFetched += items.count
 
         guard !items.isEmpty else {
             // No more items — return current snapshot with hasMore = false

@@ -78,11 +78,12 @@ final class SourceRegistryCatalogAdapter: SelectionCatalogReading {
             }
         }
 
-        // Filter by language
+        // Filter by language — normalize before comparing so "pt-BR" matches "pt"
         if !specification.languages.isEmpty {
             filtered = filtered.filter { source in
-                guard let lang = source.language else { return true }
-                return specification.languages.contains(lang)
+                guard let lang = source.language,
+                      let normalized = FeedStore.normalizedLanguageCode(lang) else { return false }
+                return specification.languages.contains(normalized)
             }
         }
 
@@ -172,10 +173,11 @@ final class SourceRegistryCatalogAdapter: SelectionCatalogReading {
 private extension ContentType {
     func matches(_ source: FeedSource) -> Bool {
         switch self {
-        case .video: return source.mediaKind == .video
+        case .video: return source.mediaKind == .video || source.isYouTube
         case .audio: return source.mediaKind == .audio
         case .text:  return source.mediaKind == .text
-        default: return true
+        case .forum: return source.mediaKind == .forum
+        case .all:   return true
         }
     }
 }
