@@ -1,1154 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<opml version="2.0">
-  <head>
-    <title>FeedMine Sub-Region Feeds</title>
-  </head>
-  <body>
-    <outline text="News">
-      <outline title="Google News — MOROCCO (en)" xmlUrl="https://news.google.com/rss?hl=en&amp;gl=MA&amp;ceid=MA:en" type="rss" />
-    </outline>
-    <outline text="YouTube">
-      <outline title="Saad Lamjarred | Ø³Ø¹Ø¯ ÙÙØ¬Ø±Ø¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9hJ5XcjHXYjwDOqrlQUuow" type="rss" />
-      <outline title="Oum Walid" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVXD2kNki3rfLMhF8uNIcBQ" type="rss" />
-      <outline title="SKIPPERS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCncEofBivOYrYcKZJxuHd2A" type="rss" />
-      <outline title="2MTV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClozwh5URilIQpDFeXch8qw" type="rss" />
-      <outline title="Chouftv - Ø´ÙÙ ØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcvHmUXWTd8aUB9R9ajFTLs" type="rss" />
-      <outline title="Ma3rifae" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz9h2whay0foijtjXX1p8uQ" type="rss" />
-      <outline title="YassPlays" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNB0aFuMdxq5O8VWRS7QsoA" type="rss" />
-      <outline title="ÙÙÙØ¹ Ø§ÙØ´ÙØ® Ø¹Ø¨Ø¯ Ø§ÙØ¨Ø§Ø³Ø· Ø¹Ø¨Ø¯ Ø§ÙØµÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCD41J9YzHSsADKGqLqZIymN" type="rss" />
-      <outline title="Fadil Jaidi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRHd1Uxi1F4vgbeFtYPMqh6" type="rss" />
-      <outline title="Misaha | ÙØ³Ø§Ø­Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAHfrKOebWz6_23eKKm9vqw" type="rss" />
-      <outline title="WHITE444 YT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI14hkaiRn8cJl-bSZGmSuw" type="rss" />
-      <outline title="French Montana" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-4mIX9ls8ROVk9ApfeYf5w" type="rss" />
-      <outline title="ProviSound" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCilzxuKGM1GzYdmOkTiN4SA" type="rss" />
-      <outline title="Ø³ÙÙÙØ© Soukaina" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIH4yr8k49cL67ctHSM-ALQ" type="rss" />
-      <outline title="la3zawi family Two" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-5_KlNZB24vRngk6fxxKSQ" type="rss" />
-      <outline title="ØµÙÙØ­Ø© - Safi7a" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQ2vAuMwNwKuGuxWaJIKvvQ" type="rss" />
-      <outline title="Ø§Ø³ØªÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkFYKn7RditA-BnWCTxJvMg" type="rss" />
-      <outline title="Ø§ÙØ·Ø±ÙÙ Ø¥ÙÙ Ø§ÙØ¬ÙØ© Road to Heaven" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyiOlgJIOwK_gSNB9R8ATFg" type="rss" />
-      <outline title="JuTOS tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6KlT7OyOB9PV_s76ceYIKw" type="rss" />
-      <outline title="BARDACH YT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCp4wWcD0LTiez0f19avq9SQ" type="rss" />
-      <outline title="halawiyat karamilla Ø­ÙÙÙØ§Øª ÙØ±Ø§ÙÙÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfhOpHNCA8nUq4_hQQr_QNQ" type="rss" />
-      <outline title="Jamal Alpha" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsqemzGBSJryRUmjp2M_jjQ" type="rss" />
-      <outline title="Hespress" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvyivffb2WwNKonKiLwVAEQ" type="rss" />
-      <outline title="ÙØ³ÙÙ ÙÙØ³Ù - Ø§ÙÙÙØ§Ø© 1 - Ø±Ø­ÙÙ ØªÙÙØ¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQwa-5AMdpjwdPLbBNErpdw" type="rss" />
-      <outline title="Fidi Wstafidi l ÙÙØ¯Ù Ù Ø§Ø³ØªÙÙØ¯Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCSiBGjdLs3fwol2YDJhqJdg" type="rss" />
-      <outline title="ÙÙØ§Ø© Ø§ÙÙØ­ØªØ±Ù | Almohtarif channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCO58fldVogtwlz7c2PTeWrg" type="rss" />
-      <outline title="Zina Daoudia | Ø²ÙÙØ© Ø§ÙØ¯Ø§ÙØ¯ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKrDS9GEtUFcni2frCzNtfg" type="rss" />
-      <outline title="ElGrandeToto" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVG705xosVltZb52R0hHr_g" type="rss" />
-      <outline title="Raou3ah" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCC4DoLOfzw1hYdFhiNXS6eg" type="rss" />
-      <outline title="HAKAI TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCA2YGdahVZCMX2q3uWDN02w" type="rss" />
-      <outline title="MARYA &amp; AMINE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCH1FOPC7QAueP2zd_D3cgIQ" type="rss" />
-      <outline title="ÙÙ ØªØ¹ÙÙØ Ø¹ÙÙÙ ÙØªÙÙÙÙÙØ¬ÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqTkFz1f2q2-nwpTekI0_UQ" type="rss" />
-      <outline title="HEROSHIMA YT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKbA2ZlS_vEDtuzZlbg1ypw" type="rss" />
-      <outline title="ÙØµÙØ§Øª ÙØ§ÙØ© ÙØ§Ø·ÙØ© Wasafat Lalla Fatima" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-UVfTCPQaYPowrDMWPe6ow" type="rss" />
-      <outline title="Muslim ÙØ³ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCorJO8dvFhfPLXsLfonUrTw" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø³Ø¹Ø§Ø¯ - Aalam souad" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZDhHfXV9uWso4tf7wC0oOk" type="rss" />
-      <outline title="7-TOUN" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2PRVeYNiJZ4LXLjRjufYig" type="rss" />
-      <outline title="ÙØ´Ø§Ù ÙÙØ·Ø¨Ø® hicham cook" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaqNC635RRx-DqkAtT28aPw" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø§ÙØ¥Ø¨Ø¯Ø§Ø¹" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGjQPZOXTgd__rHxWtJbHlw" type="rss" />
-      <outline title="cuisine Tima ÙØ·Ø¨Ø® ØªÙÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyhqIgshhPDSR-nYe8OHWBQ" type="rss" />
-      <outline title="Fayssal Vlog" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCH_XMDSC8K696kE6I0x5D8Q" type="rss" />
-      <outline title="Wasfa Net ÙØµÙØ© ÙÙØª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMSI6EOZ9WGIFdVt7HqoJDs" type="rss" />
-      <outline title="Al Aoula TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuSyI3P8JZOD1nPa_pqjutg" type="rss" />
-      <outline title="ÙØ±Ø´Ø© ÙØ­ÙØ¯ - Workshop" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEXfcqdHXGlbX6BQENujlN5" type="rss" />
-      <outline title="Zikir | Ø°ÙÙÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBN9NUto3-HXOh8YlQRjN6g" type="rss" />
-      <outline title="PMN Ø¨Ù Ø¥Ù Ø¥Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjhSKogQgxU4v5DzJe8_Z9w" type="rss" />
-      <outline title="Belmirs | Ø¨ÙÙÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKkU4JEJygoeFEBgOtyG_QT" type="rss" />
-      <outline title="WM PASSION" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoE46mpO1dddEpX88SrpMww" type="rss" />
-      <outline title="Abdljalil Asiro" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdPDJIvnqtFsTDuDBDTmiAg" type="rss" />
-      <outline title="MR CRAZY OFFICIAL" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvheXmI5oWFZoy9VrKCl51w" type="rss" />
-      <outline title="Hatim Ammor l Ø­Ø§ØªÙ Ø¹ÙÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCX_lLBpYS7FtqmSSFs3esig" type="rss" />
-      <outline title="Aymen BOUSSELHAM (â«Ø£ÙÙÙ Ø¨ÙØ³ÙÙØ§Ùâ¬â)" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLgmpj7900fMVT98JTQ-NGw" type="rss" />
-      <outline title="Said Naciri l Ø³Ø¹ÙØ¯ Ø§ÙÙØ§ØµØ±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCma4hB65kKimZzXKD0nUSUw" type="rss" />
-      <outline title="Maestro Ziikos" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTyCHvkYkexBlqyruEzT1UF" type="rss" />
-      <outline title="ÙØµÙØªÙ - Wasfati" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJSmj_P3Iqd_0pWkcV_V7cg" type="rss" />
-      <outline title="Ø£Ø³Ø±Ø§Ø± Ø¥ÙÙØ§Ù Ø§ÙØ·Ø¨ÙØ¹ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4iSpqYCK0-HNpO02lDuGJA" type="rss" />
-      <outline title="nouhailaait__" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCD194xS7X_Bv7p9F3KhXFMA" type="rss" />
-      <outline title="LFERDA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnMQbKtNPamGzvOMSzlw_jg" type="rss" />
-      <outline title="Pr. Rachid Eljay chaine officielle 1" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0IVIjkvC8jyj0BIu1fUodQ" type="rss" />
-      <outline title="oum yasser Ø£Ù ÙØ§Ø³Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXeqMgMSAElK-T9MpGaJjEw" type="rss" />
-      <outline title="LOKAS FF" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChpdUgdfxuQA4no1ksyNgiQ" type="rss" />
-      <outline title="MED SAI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXUHO2wixEvEXzj-RX5KbMA" type="rss" />
-      <outline title="Mohammed Nassib" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCC_3u0_EYHA09YVma4yDNkg" type="rss" />
-      <outline title="Gnawi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0k5ulMTxHlUzzJRnOtBRMA" type="rss" />
-      <outline title="REDA EL WAHABI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmsyZt6DsYqa6KEZSDRd83w" type="rss" />
-      <outline title="BLA BLA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRbIVBQ-FVm-2Z2Rce3SHyg" type="rss" />
-      <outline title="ÙÙØ§Ø© Ø§ÙØ´ÙÙÙØ® Ø³ÙØ¹ÙØ¯ Ø§ÙÙÙÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCASAOTD6fMPEg8jmO4nPblQ" type="rss" />
-      <outline title="Dr Faid Channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRRTxpE93o4qQFy3vZ_0SJA" type="rss" />
-      <outline title="Asmaa Beauty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIL8XFYutLQYG3cpqrgelmR" type="rss" />
-      <outline title="Hibapress" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8iF3lsanJr6kAvkQXUhwZQ" type="rss" />
-      <outline title="Mrstof Dik" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCe3dx9rgJXqiPetIq2HhnxD" type="rss" />
-      <outline title="Kifache tv | ÙÙÙØ§Ø´ ØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDnHrNrivT4AkwJdAgE8ZCw" type="rss" />
-      <outline title="Leader Of Lyrics" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChoW7BTthEyIj1FUqT9IquI" type="rss" />
-      <outline title="TFLOW" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyXIJavUj8PxxOyz6zASgFw" type="rss" />
-      <outline title="Hassan Gonzalez" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDNH4wJPR8hU7sqTs9mtHbU" type="rss" />
-      <outline title="Clic Cook ÙÙÙÙ ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrqY9F9Mz_-ofg2bn3M7S5A" type="rss" />
-      <outline title="Youssef Zenzouni" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCutpM3arN1QWHQdcfvj1_VA" type="rss" />
-      <outline title="MBC5" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVad7F4_ZuILXyBsBj-WEnQ" type="rss" />
-      <outline title="Ø´ÙÙÙØ§Øª Ø§Ù Ø­ÙØµØ© chhiwat om hafsa /" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCh0W8MQGiA6fuygnaFiOsud" type="rss" />
-      <outline title="BIMO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJCVxCW1dzEvFnzqDUU498g" type="rss" />
-      <outline title="oum walid 2" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCD-ByZcNyooteMjrtx5Jaig" type="rss" />
-      <outline title="bn nsns Ø¨Ù ÙØ³ÙØ§Ø³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFl1AWuMzoksQrjSDcN3SOw" type="rss" />
-      <outline title="Bronwin_aurora" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTbE9tq3cMENcR618IEQPAi" type="rss" />
-      <outline title="Khalid Lidlissi &amp; Dala" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeuMT3QEwuCdRE8Tg58RCqg" type="rss" />
-      <outline title="FixFun" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCk4LaqnKM3oZZuMHDn1RcJQ" type="rss" />
-      <outline title="3alamuki Ø¹Ø§ÙÙÙ Ø³ÙØ¯ØªÙ ÙØ¹ ÙØ±ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChwyet9tkjmH7rAH4gR1Rq7" type="rss" />
-      <outline title="Cuisine Amina ÙØ·Ø¨Ø® Ø¢ÙÙÙØ© Ø§ÙÙØ±Ø§ÙØ´ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClxPyr38alWyLHpa0C8oVmw" type="rss" />
-      <outline title="Abdelkader Kharraz" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCPQpi9U-iXFWlMSUg_nxTw" type="rss" />
-      <outline title="BS One" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyQEg_C6TTIf-Pg7vIljUrg" type="rss" />
-      <outline title="Farouk Life" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC53QHrFkX7VMWPb0a6B6RTl" type="rss" />
-      <outline title="zineb el morhir" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCF0qrUKoJt26nINyAbmYFGQ" type="rss" />
-      <outline title="Soltana - Ø³ÙØ·Ø§ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRDs06-t5cL9StAKy2-_axg" type="rss" />
-      <outline title="Amine Filali TV /ÙØ´ÙØ´" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCPYz2Fn9g8YdjD50GjYXpw" type="rss" />
-      <outline title="Ø§ÙØ¹ÙÙ Ø§ÙÙØºØ±Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC67nmHAaEmYiLHjQQm1SXdw" type="rss" />
-      <outline title="Manal l ÙÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCH3YK4ZP_w5GfxRm9S1TXZw" type="rss" />
-      <outline title="Ø¥ÙØ§Ø¯Ø© ÙÙ ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCX1v5fqYJ-N9iMoziAL1UXA" type="rss" />
-      <outline title="Salma Rachid I Ø³ÙÙÙ Ø±Ø´ÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5DiXAUQic0CRMFGBJCuVvQ" type="rss" />
-      <outline title="Chadidi | Ø´Ø¯ÙØ¯Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1w09ftobVWDISnFzCru-Cw" type="rss" />
-      <outline title="Ihab Amir | Ø¥ÙÙØ§Ø¨ Ø£ÙÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0ty7_kyGQ1FeveJMfYc0BA" type="rss" />
-      <outline title="Deep Story - Web" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChH0R8vlKdVDTRH2XhjjBzg" type="rss" />
-      <outline title="Kawtar Bamo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCH2ZMZN8X7WHDLnWEfP1jBg" type="rss" />
-      <outline title="Adil Taouil l Ø¹Ø§Ø¯Ù ØªØ§ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuvhvj28Vx9-eqDS0mScLhA" type="rss" />
-      <outline title="Home Gadgets Haven" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9N-qFSAb6_CRZ6qndNhI4Q" type="rss" />
-      <outline title="7Liwa" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTdY7Fw0YMHCJ09jKTGy9Xw" type="rss" />
-      <outline title="Younes Mesrar | ÙÙÙØ³ ÙØ³Ø±Ø§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9OMoDj1VIhUJVI1XX6UY6g" type="rss" />
-      <outline title="Salim Cravata" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbEQua8b0M5ScOPgYDxA6fg" type="rss" />
-      <outline title="YASR TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7XXkCJLwpe0dt0XzKgdXoA" type="rss" />
-      <outline title="ChoufTV  Live" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfnCCPHhYZS8SlWiUMI5LHg" type="rss" />
-      <outline title="Cook net ÙÙÙ ÙÙØª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDwLs1ikxilybFbyIJbVe4N" type="rss" />
-      <outline title="Simo Sedraty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWkmLEuhRrDGPzRFvEBC7dw" type="rss" />
-      <outline title="Elhadat24 - Ø§ÙØ­Ø¯Ø«24" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgSEgq68_QLSowMiP_w_uGQ" type="rss" />
-      <outline title="3anakib" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8CtJPb_xe2oEgxuBMs1GJw" type="rss" />
-      <outline title="Ø±ÙØ­Ø§ÙØ© ÙÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCSZCXMvv1p5kurtJmaxKikA" type="rss" />
-      <outline title="Zakaria Ghafouli | Ø²ÙØ±ÙØ§Ø¡ Ø§ÙØºØ§ÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFbYwg-5h6mMlWXFqB7_TIA" type="rss" />
-      <outline title="ÙØ±Ø¨ÙØ­Ø© Marbouha TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOhHFq20n5Crcg-13BM7v_w" type="rss" />
-      <outline title="simo labhaj" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCK2Uq-ueZ_50ZxLsTHe7pcw" type="rss" />
-      <outline title="Tayar | ØªÙØ§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeOY79nvirnR6EYqx3u512w" type="rss" />
-      <outline title="Ø·Ø¨Ø® ÙÙÙÙ tabkh leila" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyOhy4sH4Q6CR33ijy00Oks" type="rss" />
-      <outline title="Krimo iifar Officielle" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC98IU9MH03rso5PLNDYw4xQ" type="rss" />
-      <outline title="Ø³ÙØ¯Ø© Ø§ÙØ¯Ø§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCc5BEM2zueaAgEDz1HAU0KA" type="rss" />
-      <outline title="Fitwork Nation" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCO9LolGoqWPfwrp78IfYTmA" type="rss" />
-      <outline title="Houda Sedki officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwTuoi2zmZTVj5aOszOkTAA" type="rss" />
-      <outline title="MrPlays" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLZnZPIjwNQfkCR7Cf-9IRw" type="rss" />
-      <outline title="Yassine Khouira" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcVTwmc954dg_qUaNmggnEj" type="rss" />
-      <outline title="Yassine NÃ©ro" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOqCYDf744gv5i1Z2Uvum-g" type="rss" />
-      <outline title="Ismail El Mahi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmo-N3I1AWXP5MdES4eubmA" type="rss" />
-      <outline title="Mido Belahbib | ÙÙØ¯Ù Ø¨ÙØ­Ø¨ÙØ¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCDmkgHN3IxPMHuBSZZNvZg" type="rss" />
-      <outline title="ÙÙÙ Ø§ÙØ¨ÙÙ-Mol l'pile" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVgNG0h6R8Xw78leLNMD0yQ" type="rss" />
-      <outline title="Le360" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjEj1uYGI7DOR9t94hSd9AG" type="rss" />
-      <outline title="Black Moussiba" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGhuGD-LE45GLqSMaxN3Hsw" type="rss" />
-      <outline title="Oussama El Mekkaoui" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCWeSiOubmN88bwGsq32JWA" type="rss" />
-      <outline title="ÙØµÙØ§Øª Ø£Ù ÙÙØ«Ù wasafat oum haitam" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj56BllVAuxMJ9F2JpSqX2g" type="rss" />
-      <outline title="cuisine soumia Ø·Ø¨Ø® Ø³ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCvQ-JGryibylZm4OH-nmLA" type="rss" />
-      <outline title="Ø±Ø¬Ø§Ø¡ ÙÙ Ø§ÙØ¨ÙØª rajae at home" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCALzzrTv5WSNQ6MP3LmNgTA" type="rss" />
-      <outline title="Afechkou Brahim" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFiGMXXt2BIYyDR73Yzv4Nx" type="rss" />
-      <outline title="Nissrine Show" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtiRitTi4CbVF8DQ3TTnImQ" type="rss" />
-      <outline title="Niba Tbib" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqKabGih41Etz_duwkA7cqA" type="rss" />
-      <outline title="Aliotop" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyavZ4THKGNCizxRSq3bwfA" type="rss" />
-      <outline title="SOUMA Ø³ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEpuJ9fb4prwMwXkLhmbORx" type="rss" />
-      <outline title="Taliss | Ø·Ø§ÙÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrDBa3CrjwANpo99Qgu0i-Q" type="rss" />
-      <outline title="Diva Rebecca" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTtcPiMC4Xa9YQ3UtmOA1Zw" type="rss" />
-      <outline title="Wissada" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTjnJL1MXV7Q4YVA3t7pFVg" type="rss" />
-      <outline title="Feeding Street Cats" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC04R2FaX1JnTEpRR0hrc19J" type="rss" />
-      <outline title="HYPEX" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3_ASPgD-kYhRSoxAb79_Sw" type="rss" />
-      <outline title="ÙØµØ§Ø¦Ø­ ÙØ¥Ø±Ø´Ø§Ø¯Ø§Øª ÙØ¬Ø§ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqK0vaOSbXiX0fEcIiDYdWQ" type="rss" />
-      <outline title="H A M O Z A" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRnHYZDpBXriNKKMl48n70Q" type="rss" />
-      <outline title="Hassan El Fad | Ø­Ø³Ù Ø§ÙÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRgdtZbZKaYQ4MDWVQKiIIy" type="rss" />
-      <outline title="Ø§Ø³ØªÙØ¯ ÙÙ ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQBt1gkXqb11RRlQDxThi4A" type="rss" />
-      <outline title="ÙÙ ØªØ¹ÙÙØ Ø­ØµØ±ÙØ§Øª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNFMnrQNbiiI9Ktto9-n5IA" type="rss" />
-      <outline title="oujador tube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBQaHmHfBZNzXAEcg-TbDTw" type="rss" />
-      <outline title="NAJWA FAROUK OFFICIELLE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEnCO109JACS37f76YVYimQ" type="rss" />
-      <outline title="Habbat Abdelillah" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXzfGR0LDzOZGJ76z7hSJIP" type="rss" />
-      <outline title="LalaMoulati" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvYpXYB8Hask6EacuO1BU4A" type="rss" />
-      <outline title="Wissal &amp; Ali" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCMGC3xXUmBcOaIYVn0ZC8g" type="rss" />
-      <outline title="HK FAMILY1" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeYLTj8oVFvhdML4ik6x97B" type="rss" />
-      <outline title="LeSiteinfo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgf0euNZsUKiyPEBcg2zcL1" type="rss" />
-      <outline title="wasafat judia ÙØµÙØ§Øª Ø¬ÙØ¯ÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYA6fcRL8FcWxJ-u8iNgxgA" type="rss" />
-      <outline title="abdellah zarouk" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEsNqbwMdVFWmh1Thq13B4A" type="rss" />
-      <outline title="ÙØ¬ÙØ© Ø·Ø¨Ø§Ø®Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkqzAZFFy03yo54-3HtCGAg" type="rss" />
-      <outline title="Hussein Safieddine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_nOp3QT0i3GCetLNqb1k1g" type="rss" />
-      <outline title="Arryadia TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRN5ho3UGhUi7ZCBe2G2f2w" type="rss" />
-      <outline title="Ø´ÙÙÙØ§Øª Ø£Ù Ø§ÙØ¹Ø±Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5MiWvMjTE0gOmv2Dz3oEnw" type="rss" />
-      <outline title="Ø§ÙÙØ·Ø¨Ø® Ø§ÙÙØºØ±Ø¨Ù ÙØ¹ Ø­ÙÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIij2OSx9LfSZxLTMh9eCVQ" type="rss" />
-      <outline title="Febrayer TV | ÙØ¨Ø±Ø§ÙØ± ØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbCayPbm7dTpbyNOPuMsSfA" type="rss" />
-      <outline title="TOP10 ARAB" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7K6cNikKuGmcU8Z9UPE4fU" type="rss" />
-      <outline title="Chef Nadia Ø§ÙØ´ÙÙ ÙØ§Ø¯ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRxHSYSc7Nubs6XEZm0O3Aj" type="rss" />
-      <outline title="Ø­ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDTWs9IalpMZGPMWBSBcBCc" type="rss" />
-      <outline title="AYA MEDIA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdagKUs_dsLtOqNv8XdypnQ" type="rss" />
-      <outline title="Rawaa Beauty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBob6Y5eqKUUA87n-8pjupQ" type="rss" />
-      <outline title="Hiba Channel ÙÙØ§Ø© ÙØ¨Ø© ÙÙØ·Ø¨Ø® Ø§ÙÙØºØ±Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDxusNQSUK4XoDwL3lTiWqw" type="rss" />
-      <outline title="Oussama BL" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClSh66QSQuUw8oYGV9TMrCg" type="rss" />
-      <outline title="Aldar.ma Ø§ÙØ¯Ø§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCC1pl0Lv6dtncHSXH_P7CRw" type="rss" />
-      <outline title="Youssef Zerouali ÙÙØ³Ù Ø§ÙØ²Ø±ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTGpMPZSG3LRU0j4JnEV_yQ" type="rss" />
-      <outline title="Fakhr-din L'hamri" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBbzyfqcxSepDwli-iuCBcw" type="rss" />
-      <outline title="Ø£Ø±ÙØ¹ Ø§ÙÙÙØ§Ø·Ø¹ Ø§ÙØ¥Ø³ÙØ§ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsK6LdKTE82oN76uHRXfxEQ" type="rss" />
-      <outline title="Amin Sabry" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjXfrZi9TPCMQLJ6K_Bw3tw" type="rss" />
-      <outline title="COACH AMINA ÙÙØªØ´ Ø£ÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZquiUzGPNqEu0nTlaiUPyw" type="rss" />
-      <outline title="Ø§ÙÙØµÙØ§Øª Ø§ÙÙØ§Ø¬Ø­Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiZlNxiiKs7gOYCrWjWDwhQ" type="rss" />
-      <outline title="ELBAKALI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDgT7gSWvevz7xm81k6LoXw" type="rss" />
-      <outline title="Ø§ÙÙÙØ¯ÙÙ ÙØ¯ÙØ± ÙØ´Ø± Ø¨Ø¯ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZachh7w2XIr-N3UEPuaIrw" type="rss" />
-      <outline title="Ø¢Ø´ ÙØ§ÙØ¹ ØªÙÙÙ - Achewa9e3TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBblssVX8YzBSooIsTF_2Bw" type="rss" />
-      <outline title="Mocci" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQucSr36Vr3JqdiB1uUNi0w" type="rss" />
-      <outline title="ÙÙØ§Ø­ - kifaa7" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLqvZztxDGRPAyjR6xrDICw" type="rss" />
-      <outline title="ÙÙØª Ø§ÙØ®Ø¨Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgRPpGGAcmngTGunrzZVkNL" type="rss" />
-      <outline title="AlAyam24 Ø§ÙØ£ÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCi_zo9v8S7vzDvYQGhLEB0A" type="rss" />
-      <outline title="Groupe Lahlou" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCf6KzwI4rngYPks7VJUurtQ" type="rss" />
-      <outline title="Qisah | ÙØµÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuk6qD3fszoOZfilh1cvedw" type="rss" />
-      <outline title="Ibtissam La3zawi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoU4vEp-fmuQp2201PU0CFg" type="rss" />
-      <outline title="Hanan Barakat Ø­ÙØ§Ù Ø¨Ø±ÙØ§Øª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfat_gLakSdiF2bxBeTZnPg" type="rss" />
-      <outline title="Momo Bousfiha l ÙÙÙÙ Ø¨ÙØµÙÙØ­Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqJo3aYWTqAesLpXXU1VjGg" type="rss" />
-      <outline title="Adil el miloudi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkcr00nzJenAEmeIKWhaoOw" type="rss" />
-      <outline title="Hind Ziadi | ÙÙØ¯ Ø²ÙØ§Ø¯Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVaM_fI0AvsnOlAf7RnPX2Q" type="rss" />
-      <outline title="Mehdi Afechkou" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFibWKs83f7FOxQy16UtUVA" type="rss" />
-      <outline title="Ø£Ø³ØªÙØ¯ÙÙ ØºØ§Ø²Ù studio ghazi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_X1MAvE1qRBi8qCtmnopZA" type="rss" />
-      <outline title="Ø­ÙÙÙØ§Øª Ø§ÙÙØ®ÙÙ halawiyat nakhil" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBe8NaSIFdFpFZzRh7cYvsI" type="rss" />
-      <outline title="Crypto Bureau" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaV_ixDmPL1zF6gfRC1V4BQ" type="rss" />
-      <outline title="SANAE SLAAAY" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXagOfn_qdQbahjaX9dY_ug" type="rss" />
-      <outline title="Be Smart _ ÙÙ Ø°ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCbAIq6pa9r1DOMfqwvEnOd" type="rss" />
-      <outline title="KOUZ1" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC34Z3KmZ-qH8e0wtKSl016A" type="rss" />
-      <outline title="Hicham Mallouli ÙØ´Ø§Ù ÙÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwJPrDHYduytmUpH3pgTGYg" type="rss" />
-      <outline title="Ø§Ø¨ÙØ¹Ø¨Ø¯Ø§ÙØ¹Ø²ÙØ²Ø§ÙØ¹Ø´Ø§Ø¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjvlc8Y7Cl7ecFBPVSXCKrQ" type="rss" />
-      <outline title="rayhana Rachid" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGbL4XyIIz9yHDUKaiYiJKg" type="rss" />
-      <outline title="Abderrahim El Manar Esslimi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbOkKlisqgrXy3I_ixHsyYQ" type="rss" />
-      <outline title="Abdelhadi2K" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCk2cuf88hFNmq7_tArXXCiw" type="rss" />
-      <outline title="Ø­ÙÙÙØ§Øª Ø®Ø¯ÙØ¬Ø© halawiyat khadija" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz3RS2zNpspOIJPUrcNTjyx" type="rss" />
-      <outline title="With souad ÙØ¹ Ø³Ø¹Ø§Ø¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZuVGCy4aJpFmOJCdyJBSqK" type="rss" />
-      <outline title="BDM" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkbXSR_8mNz7C_QnHX_9R7Q" type="rss" />
-      <outline title="Ø§Ø³ÙØ§ÙÙØ§Øª hd" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTmW6Hg631v6uaQ0hjoHg8g" type="rss" />
-      <outline title="souad tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDzxqxi34YQXcxj9Poy9LAt" type="rss" />
-      <outline title="Ø­ÙÙ ÙØ£ÙÙØ§Ø± ÙØ¹ ÙØ¯ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4jtfb1SUebhWGiHCe-FYCQ" type="rss" />
-      <outline title="Ø§ÙØ´Ø§Ù Ø³ÙÙÙØ© chef souhaila" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJYMaXWzvVkeXNqsAHqOG1C" type="rss" />
-      <outline title="Zakaria Nani" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHW_T9Z0j8NS2C6vssfyPxA" type="rss" />
-      <outline title="Oussama Ãzil - Ø£Ø³Ø§ÙØ© Ø£ÙØ²ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYxG9fF4yOC9txhkbXrk_3A" type="rss" />
-      <outline title="amal jernane" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCA3gNsfRyRBPIR7BF-Z4JLw" type="rss" />
-      <outline title="chhiwat safae" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkzH-505gpRA5Pk_GFJIHNA" type="rss" />
-      <outline title="ÙØ¶ÙÙØ© | fadoma" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCv-lhBoFmBtvrsZt8sXCsmQ" type="rss" />
-      <outline title="FnaÃ¯re | ÙÙØ§ÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1wI_VBqmrD_R5Ae4yK8dUQ" type="rss" />
-      <outline title="HIT RADIO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkPqenZXyDkQS6m96DnNNT8" type="rss" />
-      <outline title="SNOR 91" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmqIH5s7Zfmf4c9nREtgnkw" type="rss" />
-      <outline title="AMINUX l Ø£ÙÙÙÙÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCw3EKaubTBL0Yj0S3-EKjTg" type="rss" />
-      <outline title="MA TODAY" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiR5ST2yw5zTXfbXmZ3ByqA" type="rss" />
-      <outline title="merzouki" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDoIlvdcgivagV1U3ikBGBo" type="rss" />
-      <outline title="Gameriss 200hp" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuFY3FGiTT5v68aezUBHwtD" type="rss" />
-      <outline title="Mehdi Sri (Medtana | ÙÙØ¯ØªØ§ÙØ§)" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDfaUfDk7R_GYUFaiLPsitw" type="rss" />
-      <outline title="Playzr l Ø¨ÙØ§ÙØ²Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFUHB1vAjSdU_WBppWdGY9Q" type="rss" />
-      <outline title="STORMY" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCheCWSphDnEwc3A29OVqelg" type="rss" />
-      <outline title="ÙØ­Ø¨ÙØ¨Ø© Mhboba tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1-lSF4PZX0MhSqhv9UIW2A" type="rss" />
-      <outline title="ChawkiOfficial" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCP3u0KjDS-jzj730y6ocogw" type="rss" />
-      <outline title="SATV - ØµÙØª Ø§ÙØ¹Ø¯Ø§ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChqMrfmNhv1CXZ_wNyCW4Fg" type="rss" />
-      <outline title="M Marocain" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsKX3RWuCfUffMeF6L98swF" type="rss" />
-      <outline title="Lassakri - ÙØ¹Ø³ÙØ±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4Obx0aFI3fNso1YaCVEmn8" type="rss" />
-      <outline title="Abir Kabbaj   Ø¹Ø¨ÙØ± ÙØ¨Ø§Ø¬" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjRA4-5z9q08yjeAni6X7kA" type="rss" />
-      <outline title="fikra color" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAcXEb_yE3rNULjsDWxV3XA" type="rss" />
-      <outline title="Maroki Rider" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzUjRjvwcx2wNvRsB5wAtel" type="rss" />
-      <outline title="ÙØµØµ Ø¨Ø§Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUNzn3fdb8Zjyx-e-n8FETA" type="rss" />
-      <outline title="ØµÙØµÙ Ø®ÙØ´Ø§ÙÙ safsaf khouchani" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvgLtcjz5gqEr06ZQakBc7A" type="rss" />
-      <outline title="LAZARO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfnrvl8n_u1hbunMXhH0sXA" type="rss" />
-      <outline title="Mustapha Swinga" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMPBiSwYY4fS1LYw4KkDZuw" type="rss" />
-      <outline title="Chaimae Ouarzazi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkYiE6YyuYYajcTi65EjJgA" type="rss" />
-      <outline title="Ø¢Ø®Ø± Ø§ÙØ£Ø®Ø¨Ø§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHYJUo7JeFFHJkLCWS34sSm" type="rss" />
-      <outline title="Ø£ÙÙØ§ÙÙÙ alwankoum" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyaDuI8K0Ln2vqgFHAovCDw" type="rss" />
-      <outline title="ÙØ§ÙØ³ Ø£Ø·ÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxtuPNQXlQugb_UG9z_F1Mg" type="rss" />
-      <outline title="Ghazal Channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC711KTcoH5XfGo0kJ1XE5Am" type="rss" />
-      <outline title="media live | ÙÙØ¯ÙØ§ ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0cfiEOVc7Lqt-FiiNbUIyg" type="rss" />
-      <outline title="Ali S Music" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCleEZCzx1VoeeXoot11gSyQ" type="rss" />
-      <outline title="Mambah Fit" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFqnvxz2f7J2cmTo_j0XMpA" type="rss" />
-      <outline title="7ARI á´¼á´¿á´µá´³á´µá´»á´¬á´¸" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFU4OkrG0C3XW8Um44nA7VQ" type="rss" />
-      <outline title="Abdellah Daoudi | Ø¹Ø¨Ø¯Ø§ÙÙÙ Ø§ÙØ¯Ø§ÙØ¯Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkRsCWjbDSIcW1YAxRCsFhQ" type="rss" />
-      <outline title="MeryamKadmiri" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIXuQTuZaf63etDf0oWM_dg" type="rss" />
-      <outline title="Hokage | ÙÙÙØ§Ø¬Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmd557dT2BEWlCwyEMMts0g" type="rss" />
-      <outline title="SnapReax" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1Ctmo_XSh4qAj8z38aeOOQ" type="rss" />
-      <outline title="Matbakh Dari | ÙØ·Ø¨Ø® Ø¯Ø§Ø±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCV1GM0PqP9waBJmHvavgixA" type="rss" />
-      <outline title="chhiwat oum shams/ Ø´ÙÙÙØ§Øª Ø£Ù Ø´ÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZR1cuqfBndbPO65lF8PkkA" type="rss" />
-      <outline title="Barock" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAwlZLKZKVzoRW-g_WSO9Tw" type="rss" />
-      <outline title="Mounim Slimani" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkGZFlHUFKToAYp2o9vy78Q" type="rss" />
-      <outline title="DÃ©lices de bassouma Ø´ÙÙÙØ§Øª Ø¨Ø³ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0RF8CWwvBZV7Ht7s9MFmAQ" type="rss" />
-      <outline title="Adil Assil | Ø¹Ø§Ø¯Ù Ø£ØµÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQfiQJHTxSo8LUKUF4mm9ow" type="rss" />
-      <outline title="Ø¨Ø°Ø±Ø© Tech" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCosJqieG9jJvQzSi3gYjovD" type="rss" />
-      <outline title="Mol L'pile-Disney Bdarija" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4aoYjltnJ9zBakoYezUDTg" type="rss" />
-      <outline title="Anas Zri9a" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9ZKQLR1Zg2xOYuFfUB5COw" type="rss" />
-      <outline title="With chaimaa" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCe9rjQNLAPtfCTsa-ox-WSQ" type="rss" />
-      <outline title="Oussama Ramzi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJ-F5Wc54hzQ-tgqJTgV5Eg" type="rss" />
-      <outline title="Ø±Ø­ÙØ© ØºÙØµ Diving trip" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCt1KnJ9BkH3nzb6h0bzSj8Q" type="rss" />
-      <outline title="Dija Guapas" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCltaYqWNJea7PI9OlIgSHYr" type="rss" />
-      <outline title="LWA3R" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCM3LExeLXXpGXTg7yBXGCqw" type="rss" />
-      <outline title="BASSOU" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJSxL6hQlGac3BPlhceiS2A" type="rss" />
-      <outline title="ELPATRON" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj4XT6MHdcKsYPlGrdn4KFw" type="rss" />
-      <outline title="Viral Story" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNSyZcDTp_K_fJbgfonTaEg" type="rss" />
-      <outline title="On-Side" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFZ8zeDtDz5YXgfuaZrppRA" type="rss" />
-      <outline title="Ø³ÙÙØ§Ù Ø§ÙØ¨Ø­Ø±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGnSrLWteUSBBLBDMaFyd5D" type="rss" />
-      <outline title="Recettes Amal Kantri" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCa9dLfGXs7tw9VzGZiBBTJA" type="rss" />
-      <outline title="mounir studio" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCd8Hjxd6a92Fv9QUyO8rghw" type="rss" />
-      <outline title="Ø³ØªÙØ±Ù ÙÙ - Story One" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeqlvHarerll6RU0tC19bUW" type="rss" />
-      <outline title="Ladies Beauty by ghizlane" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCt0U1RULOBaW1mw8tAYGwfQ" type="rss" />
-      <outline title="WINNERS 2005" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbyWrAbUv7dxGcZ1nDvjpQw" type="rss" />
-      <outline title="24h Plus" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsWwqSatDODT7ZU3kV5BlRN" type="rss" />
-      <outline title="Chhiwat Chef Jamila" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAUj4P3IWC8HYhF4agbWxxZ" type="rss" />
-      <outline title="Safaa Hanaa ØµÙØ§Ø¡ Ù ÙÙØ§Ø¡" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCk90R9rEL2JKXkwHxDagKxQ" type="rss" />
-      <outline title="MONS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvOUdBzr39OmTSsSqJ0Gh5A" type="rss" />
-      <outline title="ÙØ±ÙÙ ÙØ§ÙÙÙÙMaryam family" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-Ay3oXMzxO4MJdIq-ctNUg" type="rss" />
-      <outline title="Achno Tari" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOc9BmwljUJ42C85FIhMXOw" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø§ÙÙØ¹Ø±ÙØ© Ø§ÙØµØ­ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfAh6xn9Pu9cmvOcFBd6V5m" type="rss" />
-      <outline title="cuisine Fatine Ø­ÙÙÙØ§Øª ÙØ§ØªÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvn4YdZssn7FYlwPxvKxGBA" type="rss" />
-      <outline title="Ø§Ø®Ø¨Ø§Ø± Ø¨Ø§ÙØ¹Ø±Ø¨Ù Arab news" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC227PZaj0Kcn41lE09SRmxA" type="rss" />
-      <outline title="JAYLANN" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPSUUHsQE78m-PsalIG0FRQ" type="rss" />
-      <outline title="CHEF BRAHIM idouhmmicheã1ã" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpRpa3GiELvXEoKanWobZNX" type="rss" />
-      <outline title="Ø§ÙÙØ±Ø£Ø© Ø§ÙÙØºØ±Ø¨ÙØ© Ø§ÙÙÙØ§ÙØ­Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9dewN2h64YiRLLiPfAAKMA" type="rss" />
-      <outline title="AABBIR" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHKaEeqJklBz4MXOrEmBVUw" type="rss" />
-      <outline title="Soufiane&amp;Faiza officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzA6UHPjiIV_uMDuvvtF7BQ" type="rss" />
-      <outline title="Ayoub Africano" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQvddttWQ_5WtBJJV5_JlGA" type="rss" />
-      <outline title="Samira Said" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZCQ3c0NAT4CpUe2bXoCDxC" type="rss" />
-      <outline title="Akhbarona TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCS86-WPKGfg0nxcM1IG1Cqw" type="rss" />
-      <outline title="Sara Elfadili" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8Yo8qqN-mA5i_hGMUlLtjA" type="rss" />
-      <outline title="Assia Warrak TV Ø£Ø³ÙØ© Ø§ÙÙØ±Ø§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaGdcw56QBpulTw4SAaJ6LQ" type="rss" />
-      <outline title="SOKAR YT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAbPBbEmijZtV4czKsQChyc" type="rss" />
-      <outline title="Emmy Beauty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8R19eaUfJlhQsz2Ui5q7Jg" type="rss" />
-      <outline title="samia TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUSkM4uhounaWBgcXnCzfMA" type="rss" />
-      <outline title="Abdeelgha4" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0ow91samYPLSluJtz6ZeBA" type="rss" />
-      <outline title="Ø§ÙÙØ·Ø¨Ø® Ø§ÙÙØºØ±Ø¨Ù ÙØ¹ Ø±Ø¨ÙØ¹Ø© Cuisine Rabia" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjb89dQsihiwyNtwyDtTNPw" type="rss" />
-      <outline title="DÃ©lices de nany Ø´ÙÙÙØ§Øª ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRe94fWK2ChO96HcNSyKnow" type="rss" />
-      <outline title="tahadi ØªØ­Ø¯Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCs3rU2CLNnP6CNK44NbQ1-w" type="rss" />
-      <outline title="Ø®ÙØ§Ø·Ø© Ø§ÙØ±Ø§ÙØ¯Ø© Ø£Ù Ø¹ÙØ±Ø§Ù - Randa oum imran" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzDjXTH0IakEFdVu4aBZbZQ" type="rss" />
-      <outline title="Aljarida24.ma" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6kOqZI2nyriirPrb4YgO7Q" type="rss" />
-      <outline title="Ø­ÙÙÙØ§Øª Ù ÙÙÙØ­Ø§Øª halawiyat safae" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC72emfITtilk2pBexrTnDaQ" type="rss" />
-      <outline title="ÙÙ ÙÙÙ Ø§ÙØ´ÙØ¯Ø© HD Anachid" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzKh27VVFQijk9K2DuL5peg" type="rss" />
-      <outline title="ØªÙØ¸ÙÙ Ø§ÙØ¨ÙØª ÙØ¹ ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6B4juvkOidtCBWDbj7J3qA" type="rss" />
-      <outline title="T3ICH BLACK" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuOFAH4K8bkLw56beBI8WX3" type="rss" />
-      <outline title="Magharebnews I ÙØºØ§Ø±Ø¨ ÙÙÙØ² youssef press officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQal9dnImFwrgn3lLAdsABg" type="rss" />
-      <outline title="La Voce Della Magana" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiW9lYgN89MJzNzObpFP9ew" type="rss" />
-      <outline title="Asma Lmnawar | Ø£Ø³ÙØ§ ÙÙÙÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEtOQ2e5BJk01EYGJUQVH5j" type="rss" />
-      <outline title="Ayoub Anbaoui" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNz-bSPMWGo9s_np0Ao_ZMA" type="rss" />
-      <outline title="Ø¹Ø´Ø§Ù Ø§ÙÙØ·Ø· Ø­ÙÙ Ø§ÙØ¹Ø§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxiXagGoQLIvQhFidiBPAVg" type="rss" />
-      <outline title="ÙÙØ§Ø© Ø¹Ø¨Ø¯ Ø§ÙØ±Ø²Ø§Ù ÙØ±Ø§Ø¶ ÙØªØ¹ÙÙÙ Ø§ÙØ³ÙØ§ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCq3_BubM8YkPveJOkiXBCyA" type="rss" />
-      <outline title="TAYTMATERS- ØµÙÙÙØ§ ÙÙÙÙØ© Ø¹ÙØ´ÙØ´Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZPbzrDPnTSiLN1LFaegyxf" type="rss" />
-      <outline title="Anbae tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0LSK5A4a3pMz9t88bp4BbA" type="rss" />
-      <outline title="Youssef Secret" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWJnei6r_3H0lmwgAxX_nIg" type="rss" />
-      <outline title="Karim radouan construction work" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCictn4SPORD-5nQK-BfRQTQ" type="rss" />
-      <outline title="Aderdour Mustapha - Ø£Ø¶Ø±Ø¶ÙØ± ÙØµØ·ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCL-mC1yTDnh7zVuj7Upl7fg" type="rss" />
-      <outline title="A-M-M" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbOWARRbd1gen7HXCEfOwQQ" type="rss" />
-      <outline title="Brahim Irban (irbancanulars)" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCk38fiMXDxIdP6xW40rUpGA" type="rss" />
-      <outline title="Ø§ÙØ±Ø§ÙÙ Ø§ÙÙØºØ±Ø¨Ù ÙØ¹ÙÙ Ø±Ø¨ÙØ¹" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrmOYbxIF3UdtGaKNpku0uY" type="rss" />
-      <outline title="Bo9al" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz9VCY5bFyB_RcCnTRM9Y8A" type="rss" />
-      <outline title="Chef Amahri" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC42iFpIXD97_W9JKXW9_pFA" type="rss" />
-      <outline title="ÙØ±ÙÙ ØªÙÙÙ Meryem TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEtcBOSrOC-wagT13o4qXpg" type="rss" />
-      <outline title="Ø§ÙØ±Ø§ÙÙ Ø§ÙÙØºØ±Ø¨Ù Ø§Ø­ÙØ¯ ÙØ§ÙØ¹" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj86kQmnpl-m2PUZuPPNkGw" type="rss" />
-      <outline title="CHEDIID Ø§ÙØ´Ø¯ÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXnRnNLdC1Vo4sqU3gN3WGQ" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø§ÙÙØ³ØªØ¯ÙØ±Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvDiIe1ASb8ebTsX2crkugg" type="rss" />
-      <outline title="welovebuzz" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRb9ePdApcJ26L13tGQWptw" type="rss" />
-      <outline title="Aziz Lakbiche" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4FqiFi4YHUXINS0Z1kcjCg" type="rss" />
-      <outline title="MrVepz" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7SBwqDaDfU9nz8dQ64rhXg" type="rss" />
-      <outline title="Danas TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKRVCqQmGE3XiCs1qiO0sGw" type="rss" />
-      <outline title="BOTATO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiQTE1ixQjUOfvPIPB1W-4Q" type="rss" />
-      <outline title="Choumicha Chafay" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6gp7J28ytBm_u9rxXICDAA" type="rss" />
-      <outline title="Ø±Ø§Ø¦Ø¯ Ø³ÙØ±Ø§ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqNRMR6OypBuCA-SCKFah7w" type="rss" />
-      <outline title="Halima TV Ø­ÙÙÙØ© ØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrNQBCxAp70-YsWQ_iMd5mg" type="rss" />
-      <outline title="Anwar Post - Ø£ÙÙØ§Ø± Ø¨ÙØ³Øª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0bjgYdUghc2FW1Iz2uMLzQ" type="rss" />
-      <outline title="montakhab fans" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkax8bjMiSlC05JeXZSUKaQ" type="rss" />
-      <outline title="Sara Baknine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzU-KdVuh-Am6XowUeBccSQ" type="rss" />
-      <outline title="Oumkaltoum Channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVaPdeF0kMezB7V34nHFOiw" type="rss" />
-      <outline title="FAID TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXNjtXaSaE4Y-5RxbgLJo0w" type="rss" />
-      <outline title="Douja shahd" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIAxGpgRbpoB8mwRCUfcMyA" type="rss" />
-      <outline title="ÙØµÙØ§Øª ÙØ¬Ø±Ø¨Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9n5i8X2d35vUqSFa7SdYLw" type="rss" />
-      <outline title="Ø­ÙØ§Ø¦Ù ÙØ®ØªØµØ±Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC__1dPpZsMd5CHLBeL5A4Cw" type="rss" />
-      <outline title="STAR4" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjrEQDKCRuIhe0IWMtRy1bw" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ ÙØ±ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJEnVe_OfQJ3T5QPUjOQcIg" type="rss" />
-      <outline title="Almo9awil | Ø§ÙÙÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZCP8X9CMaeWMTGR-7EcsjQ" type="rss" />
-      <outline title="Thaqafae" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8McAjbw30fMqtoCqdTnKjt" type="rss" />
-      <outline title="Ø³ÙÙÙØ© ØµÙÙØ±ÙØ© sakina swiriya" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4trX8xmyhYsPRab7YsoEUP" type="rss" />
-      <outline title="Ø´ÙÙÙØ§Øª Ø³ÙÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgbBFzZ8ObQ0bJ4ACjD8A8x" type="rss" />
-      <outline title="l'Morphine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrxhKhYl9OTW_ARPvmqvnXQ" type="rss" />
-      <outline title="N.J Tube ÙØªØ¹Ø© Ø§ÙÙØ¹Ø±ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRHcr7pK8mGfyt9ihKUzdAA" type="rss" />
-      <outline title="imk1" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKVHuBSnlHmMvk_kwdvAh6Q" type="rss" />
-      <outline title="ÙÙØªØ¨Ø© Ø§ÙØ£Ø³Ø±Ø§Ø± Ø§ÙÙØ¯ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCosiXpmZqPijNvnNAXphAJN" type="rss" />
-      <outline title="Sanae Live | Ø³ÙØ§Ø¡ ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPm7T1w4sE-MUOwqyVfWHNQ" type="rss" />
-      <outline title="Radio Chada FM" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3ihvR89ATQs7zHDVMr69gT" type="rss" />
-      <outline title="Ø³ÙÙÙØ§Ù sockman" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzKmop8yMvat41LYRNPQTsX" type="rss" />
-      <outline title="LALLA FATEMA TV ÙØ§ÙØ© ÙØ§Ø·ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgJShJYlHW79y-ETvEqTI9w" type="rss" />
-      <outline title="! Ø·Ø±Ø§Ø¦Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI49Lz32I2Y_xETWzmOv4Xg" type="rss" />
-      <outline title="Ø´Ø§ÙÙØ© Ø§ÙÙØºØ±Ø¨ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqELTacOtlZnBdSE7EAhHWw" type="rss" />
-      <outline title="chhiwat nadia lfassia" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJUvRcuDpbQtDzy5Ms5XRgB" type="rss" />
-      <outline title="Chef Nourdine | Ø´ÙÙ ÙÙØ±Ø§ÙØ¯ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYHy25rJwhomggVSXkSRE1w" type="rss" />
-      <outline title="ÙØµÙØ© Ø²ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiKYVhOIbYwd_UcSLkkiLjA" type="rss" />
-      <outline title="Soufiane Kaskadour" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFJGNuLLhzXcPlxzZ8pnoTQ" type="rss" />
-      <outline title="Rania Vlogs" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdn6ZOG3jdeopsZUKcpFnfA" type="rss" />
-      <outline title="Larbi Imghrane | ÙØ¹Ø±Ø¨Ù Ø§ÙØºØ±Ø§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGqRpr77vcQ0S_2uLKfprLg" type="rss" />
-      <outline title="RYM" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4cQ8gxIFlkKbCGD1LEGgtQ" type="rss" />
-      <outline title="EVRI | Ø¥Ú¤Ø±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCejathNl3CbJL1WlwLJ40Hc" type="rss" />
-      <outline title="ÙØµÙØ§Øª Ø§ÙØ£Ù Ø§ÙÙØºØ±Ø¨ÙØ© oum" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqPk1ZqFtCIzvOUk5MZEawv" type="rss" />
-      <outline title="ÙØ§ÙØ© Ø­Ø§Ø¯Ø© | Lala hada" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1HqfoJh44K1IWfLth0JWQO" type="rss" />
-      <outline title="Nada hassi offciel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuAoRK6ARQQObgl4Y6m6oew" type="rss" />
-      <outline title="Ø­Ø³ÙØ§Ø¡ Ø§Ù ÙØ¨Ø© HasnaOumHiba" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrVZbGVYCeZqUKLo8SY-dbw" type="rss" />
-      <outline title="PRISS YOUTUBE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8HjauDRWn9Ww8i7KfbmvLl" type="rss" />
-      <outline title="Ø£ÙÙØ¨ Ø³ØªØ§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoQqHGO5yjwzU2FxV4jMSjI" type="rss" />
-      <outline title="Oumaima Essadiki" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqw9gtaOdTdsdeSfPJIru_A" type="rss" />
-      <outline title="ÙÙØ§Ù Ø³ØªØ§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0yU2Y5Q3NTRzdNWkxiTjls" type="rss" />
-      <outline title="Kenza Ghoumary" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZCOKboRr7LqxacnE1l-njA" type="rss" />
-      <outline title="ÙØ­ÙØ¯ Ø§ÙØ¨ÙØ¯Ø§ÙÙ Mohamed Boudali" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCppEDuaNja3XJ4mAkiGDOBQ" type="rss" />
-      <outline title="Ø´ÙÙÙØ§Øª ÙØ¯Ù ÙÙØ± /sabah beauty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPzIfT6XN00cmHX2OHzwztL" type="rss" />
-      <outline title="channel ÙÙÙØªÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCByUnjU30Cl43lhjoVemH7A" type="rss" />
-      <outline title="FIKRA DECOR" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1N8IBRH_JPh_ZqkPjQv48Q" type="rss" />
-      <outline title="Imad Bichri" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4Ruogmw8SBSUwWFjjcn9uQ" type="rss" />
-      <outline title="Ø£Ø¬Ù ÙØµÙØ¯Ù 2 Aji Nsaydo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCO80cT2MWuBKZtaX50FBUbQ" type="rss" />
-      <outline title="Chouaib Reviews" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeoc8caglbRDwFPo99IuxdM" type="rss" />
-      <outline title="Nationale Bedarija2-ÙØ§Ø´ÙÙÙØ§Ù Ø¨Ø§ÙØ¯Ø§Ø±Ø¬Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC--sV_rnu94eY4hXFwoVmSA" type="rss" />
-      <outline title="Asmae Queen ð" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1yZkJITDVqNjJsZVV6Nnh0" type="rss" />
-      <outline title="Smile You" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCurRCvgc6hbTRtOZTl6qeLQ" type="rss" />
-      <outline title="ÙØ·Ø¨Ø® ØµØ¨Ø§Ø­ Cuisine Sabah" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnKN6aDGeDk5C9wqfwQaMmw" type="rss" />
-      <outline title="NAJLAE MALKI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3NhDFtW48kDhkXWUGS31Xg" type="rss" />
-      <outline title="Youssef Boushaq" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMMVfEUF1FLQJ0YLStTlA4g" type="rss" />
-      <outline title="Ø«ÙØ§ÙØ© Ø¹Ø§ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkrn-CQqjPwEht_cdpYEFWQ" type="rss" />
-      <outline title="Elmircom" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxJs0oZQ9Hnk20KZEL79ObA" type="rss" />
-      <outline title="Ibtissam Tiskat | Ø§Ø¨ØªØ³Ø§Ù ØªØ³ÙØª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYW9N--xwnfaq71P-oTRL9g" type="rss" />
-      <outline title="Diib" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxwDDmuoyxNpi2zLVQa8iYP" type="rss" />
-      <outline title="ÙØ·Ø¨Ø® Ø®ÙØ®Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-1LknHyrjHLbFvfzuykYGQ" type="rss" />
-      <outline title="Younes SaheL TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQrsMjxow1Y5PnUoRzN3s4w" type="rss" />
-      <outline title="Ø§ÙÙØ¹ÙÙÙØ© ÙÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpsH_RTP5l4iBul7EZLBSAA" type="rss" />
-      <outline title="Samira cuisine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmDBN2TpAgSAwMc0RwDnrKY" type="rss" />
-      <outline title="i3lamtv - Ø¥Ø¹ÙØ§Ù ØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzDEWfomhnVwJBjpsmslL1Q" type="rss" />
-      <outline title="Bounejma" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDMm9sDQIgkU2QkANliYdFA" type="rss" />
-      <outline title="Secretofnet" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCD1C3pYLsmaAwn92iHPu0jV" type="rss" />
-      <outline title="ÙÙØ§Ø­ ÙØµØ±Ù falahmisri" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPmNY3sFr4zqjcHtyRN_W1w" type="rss" />
-      <outline title="CAP24 TV - ÙØ§Ø¨ 24 ØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVXl7tb_6IXDt3Gl1ZkjJ9A" type="rss" />
-      <outline title="LBAHJA TV Ø§ÙØ¨ÙØ¬Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5rilHXOmxh2jZOtZo7vjNg" type="rss" />
-      <outline title="MS20DG" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCingeMoncccENemJKv0Ja-Q" type="rss" />
-      <outline title="ily beauty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcRh4GLcX7fx9CxSz6WssXQ" type="rss" />
-      <outline title="Mohamed Reda Taoujni" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWVYlVT3eckMbozWoAeDXWw" type="rss" />
-      <outline title="X6YAH" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCl2x9uU5v7zGVBGU588Y8jI" type="rss" />
-      <outline title="â«ÙØ·Ø¨Ø® ÙØ§Ø³ÙÙÙØ© (âªmatbakh yasminaâ¬â)â¬â" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcv8-Agtpj0LofYbNaX6Mtw" type="rss" />
-      <outline title="Cheb FinAni - Ø§ÙØ´Ø§Ø¨ ÙÙÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCC-F2imhc6ZSPAVVDYEvdbA" type="rss" />
-      <outline title="Elbotola" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCib283dzmNpPPAZe7dEJCQ3" type="rss" />
-      <outline title="Aymane elk" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTBEVYN1OjVI58bUbZycfxQ" type="rss" />
-      <outline title="Azdin 7_ Ø¹Ø²Ø§ÙØ¯ÙÙ 7" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdQmEc0w6W681umsoNGk3ZN" type="rss" />
-      <outline title="TOFOFFICIEL" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkszji8cA00jCTymgS_SvIQ" type="rss" />
-      <outline title="Chouf Al khabar Ø´ÙÙ Ø§ÙØ®Ø¨Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqE-MEodNypIWJtQ7bC3ESA" type="rss" />
-      <outline title="ÙÙ ÙØ§ÙÙ ÙÙÙØ¯ col mahowa mofid" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-d3X265PbvmTnPYqjeLE5w" type="rss" />
-      <outline title="Raja Club Athletic" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFfmKY2mqofI8d6XcxkFATA" type="rss" />
-      <outline title="WILD SAGA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-jS2GNwJEU4WALPyjUP5tQ" type="rss" />
-      <outline title="ÙØµÙØ§Øª ÙØ¬ÙØ§ÙÙ Ø§Ù ÙØ¹Ø§Ø° wassafat lijamalik" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCm9CedI0z77T-CrjTvFbRJQ" type="rss" />
-      <outline title="Yahiamice LIVE!" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPjlEaKS5G4IO0XG-Sdb3mA" type="rss" />
-      <outline title="ÙÙØ§Ø© ÙØ±Ø³ÙÙ Ø§ÙØ·Ø¨Ø®" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWeftzkH1adw0h-MYDSX-ZQ" type="rss" />
-      <outline title="Prof Youssef Mchaar" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzwTYTm3y6Xob8fhbUHSBYA" type="rss" />
-      <outline title="mote" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkYIEwpq5TqgtOuSdTPrULn" type="rss" />
-      <outline title="C H E B . Ø§ÙØ´Ø§Ø¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvwc-WQGsmEXBCOY1o7Cgtg" type="rss" />
-      <outline title="Ø¯Ø±Ø§ÙØ§ ÙÙØ¯Ù ØªØ¬ÙØ¹ÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCS4CxT3_V3o_Yqy9pgrA9Ng" type="rss" />
-      <outline title="cycling around africa /Ø¹Ø¨Ø± Ø¥ÙØ±ÙÙÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeV5u94OdihK5FNbo01ffig" type="rss" />
-      <outline title="Dollypran" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDew5DsBBv5eXHsTkrjctSg" type="rss" />
-      <outline title="Ø£Ø³Ø±Ø§Ø± Ø±ÙØ­Ø§ÙÙØ© ÙØ¹ Ø±Ø¨ÙØ¹Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRwexDAM5Yqky3Aozn8mMqx" type="rss" />
-      <outline title="ÙÙÙØ¯Ù Ø§ÙØ´ÙÙØ¹Ø¨Ù Ø£ÙÙÙ ÙØ§ÙÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPM29SloAgilx9extWivtIc" type="rss" />
-      <outline title="Liamsi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRI5IOzqfAHkSpghQqJVG6Q" type="rss" />
-      <outline title="ily family Ø§ÙÙÙ ÙØ§ÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCN2nOA7hDvuoVzsGg4j-6AA" type="rss" />
-      <outline title="Anouar NACH" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCV_nFeknyeGhSliMbtMFqKA" type="rss" />
-      <outline title="ÙØ§ÙØ­ ÙØ­ÙÙ Malehwhlou" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiZ0QWHmx2XB19xgBIyhEpw" type="rss" />
-      <outline title="ÙØ¬ÙØ© Ø§ÙØ·Ø¨Ø® Ù Ø²ÙØ±Ø© Majalat Tabkh" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPEUhNSorR3dWhoXNza_r1A" type="rss" />
-      <outline title="cuisine siham jabrani ÙØ·Ø¨Ø® Ø³ÙØ§Ù Ø¬Ø¨Ø±Ø§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRbX97ub5gTz7K63K1VFJbA" type="rss" />
-      <outline title="Tari9Aty - Ø·Ø±ÙÙØªÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCejX3hEF8NHD2iGa8yZOo34" type="rss" />
-      <outline title="Amine officiel123" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCntR0uuMPZ-YMZQHR0cQOHA" type="rss" />
-      <outline title="Ø³ÙÙØ§Ø¯ÙØ± sokador" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8sPGpfupdHdHer7vvozAwk" type="rss" />
-      <outline title="ððððððð_ðððð¢ðð¢ðð¥" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRuwZvTuARUd4MtcVCc5N9Q" type="rss" />
-      <outline title="StudioYAart" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFzXd2AL3saVL37MfLZIEfa" type="rss" />
-      <outline title="Ø­ÙØ§ÙØ§Øª Ø³ÙØ§Ø¡ Hikayat Sanae" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0EwyLq4mTQt5G-cXEK66CQ" type="rss" />
-      <outline title="Awatif ferrassi | Ø¹ÙØ§Ø·Ù Ø§ÙÙØ±Ø§Ø³Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTIfiB9h0sHNsjxqu0xtqmF" type="rss" />
-      <outline title="Belpresse - Ø¨ÙØ¨Ø±ÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCR1WWrC8sKOjEk4XoCm0Tau" type="rss" />
-      <outline title="Bad Flow" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWVTdlHqx6ygR4ZgAzpWKgw" type="rss" />
-      <outline title="ÙÙÙØ¹ Ø§ÙÙØ§Ø¬ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOi7RujYKolNTbZUUTweexw" type="rss" />
-      <outline title="Ø§ÙØ¹ÙØ´ Ø§ÙØ­Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChm8nmV2eV6sCmeu4GG5HLW" type="rss" />
-      <outline title="7AMZA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCP-iULkXpOiOx_Bhv3eYiXg" type="rss" />
-      <outline title="Fati NÃ©ro" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCetBkcPGi8W8vbWw5p81sXd" type="rss" />
-      <outline title="cuisine youssra" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfKjxMnI9eu4b9WnJ7NN_Fw" type="rss" />
-      <outline title="ÙØ±ÙØ´Ø© Farfacha" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCox5ZAQ20acHjUEVj0lAKmz" type="rss" />
-      <outline title="Adil Piwi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-Ni3zFXdPxG4up8oPLnbDw" type="rss" />
-      <outline title="ÙÙØ§Ø© Ø§ÙÙÙÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_cfOlrYxmKM8MZpECVyqYw" type="rss" />
-      <outline title="ÙÙÙÙ ÙØ±ÙØ§Ø¶Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAO-2-ZFPBgIsTYVhzKUa_Q" type="rss" />
-      <outline title="Movie Clips" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3gNmTGu-TTbFPpfSs5kNkg" type="rss" />
-      <outline title="Ø¨Ø±ÙÙØ§Ù.ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRZf0mP_Y__iN6Wc8445Y6w" type="rss" />
-      <outline title="FESNEWS ÙØ§Ø³ ÙÙÙØ²" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzrkQy8w0N26tZystno1WLQ" type="rss" />
-      <outline title="Aji Nsewlek" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCG7a9dJYOYOGvDoUN6AtQXQ" type="rss" />
-      <outline title="Hassan &amp; Mohsine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCqz7tXJorm3Tfsot9_Lh6Q" type="rss" />
-      <outline title="Achra10" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCanZATF32fmyKaNO2jvCpMg" type="rss" />
-      <outline title="lhjaouj vlogs" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZ-1RmTgiZPKUV1LtSt9k0Q" type="rss" />
-      <outline title="Ø¹Ø§Ø¦ÙØ© Ø¨ÙØ´Ø¹ÙØ¨ ÙØ§ÙØ¶Ø§ÙÙØ© la famille de bouchaib &amp;dawya" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkbSLgiC5snNA9jhInFRSYQ" type="rss" />
-      <outline title="Mariage MaGhribii" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1I96FUQDDPi8G4okvLpN9y" type="rss" />
-      <outline title="anas jawhar TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyI7hOOEBNX1TZxWTl87lzw" type="rss" />
-      <outline title="Oumniya_achraf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBmTmpKE58VRpqSVUAzkH3g" type="rss" />
-      <outline title="Hesport" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7FGo_bQUVxVxVsiHAQxSOQ" type="rss" />
-      <outline title="cuisine amira ÙØ·Ø¨Ø® Ø§ÙÙØ±Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCklJoW7KZVxM-BHK6_hkRpA" type="rss" />
-      <outline title="Abdillah EL OUFIR" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKc-K5SKCq75_hV-I3GImJA" type="rss" />
-      <outline title="beauty by amina" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLn8zScf4TLXJ2oeMcF8oNA" type="rss" />
-      <outline title="Moroccan Vlogger" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmkV6CBa4kJqLPa4T3jSeFQ" type="rss" />
-      <outline title="ÙÙÙØ¨ Ø§ÙÙÙ planet Art" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1TRXJDVGF5akkzNWlTcThQ" type="rss" />
-      <outline title="Ø§ÙÙØ±Ø© Ø§ÙÙØºØ±Ø¨ÙØ© Ø¨Ø§ÙØ¯Ø§Ø±Ø¬Ø© TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8hA09pgCsY1I3TBu3H7gUf" type="rss" />
-      <outline title="ÙÙ ØªØ¹Ø±ÙØ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6uzssOgASe6yrK7lzWHcuh" type="rss" />
-      <outline title="FANS SARI COOL" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4hBkwfqi7FKP_Ld9ItHItw" type="rss" />
-      <outline title="Ø¯ÙØ§Ø¤ÙØ§ Ø¨ÙÙ Ø§ÙØ¯ÙÙØ§ 2" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC05dzREdVhFaXd1WUVzenNY" type="rss" />
-      <outline title="bepubg tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCc2EGjmO4TiRNQ8fh_AS9JA" type="rss" />
-      <outline title="Simo Bimari" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEcJlRB0xtCuKOxn49zqJAQ" type="rss" />
-      <outline title="ÙØµÙØ§Øª ÙØºØ±Ø¨ÙØ© ÙØ¬Ø±Ø¨Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUmhj31GlLms17qTxhy0qyA" type="rss" />
-      <outline title="Flipo - ÙÙÙØ¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuPPEF2yvLPpl2GQL41jGzA" type="rss" />
-      <outline title="ayouz vision" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOF8spehM4ClZUKyn9VNUbw" type="rss" />
-      <outline title="Recipes Arab" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC15UDJkeFg5TlV6WjZ1cEhV" type="rss" />
-      <outline title="Rachida Errassi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVGOCI6-T0hBY3NF_ZPz6Ug" type="rss" />
-      <outline title="Aliotop" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUoUYZzge-StTmYj16TqxGA" type="rss" />
-      <outline title="Hicham Panda" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UConNpoTlEic3FtPdwafprag" type="rss" />
-      <outline title="Ø³ÙÙØ±Ø© ÙØ±Ø¨ÙØ­Ø© Samira Marbouha Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGEFOZ2eRU8ZHn2cbi04lcQ" type="rss" />
-      <outline title="MFM Sport" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnDy06vggD-48O8ePrXMhAw" type="rss" />
-      <outline title="safae_ beauty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVSLfiq1xGO0u7mXAQgs5wQ" type="rss" />
-      <outline title="IBra Traveler" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMOn3NWpsE4Mc9ov5o_PeHw" type="rss" />
-      <outline title="Jazirat Al Kanz Officiel - Ø¬Ø²ÙØ±Ø© Ø§ÙÙÙØ² Ø§ÙÙÙØ§Ø© Ø§ÙØ±Ø³ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1SLdEYBzpoeXnwFSGhzaJQ" type="rss" />
-      <outline title="Badr Soultan" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCctDflzAqE2V4aOXrqBd8CA" type="rss" />
-      <outline title="Otmane El Atmani Reaction" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJdIPJrFvh2KbnbX4U9ILhA" type="rss" />
-      <outline title="ÙØ¬ÙØ© ÙØ§ÙØ© Ø§ÙØ¹Ø±ÙØ³Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCi4y5NNd6_ja0EvxJJF3yYA" type="rss" />
-      <outline title="Ø­Ø³Ø§ÙÙ Hassaki TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWCs95gB8B5pVtmUn5ZotGm" type="rss" />
-      <outline title="Profit Za3im" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRiAVmj1QlEhgHujkVJqglg" type="rss" />
-      <outline title="Ahmed Zidan" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKZVhIt9ZoLmzB2cewXHTNs" type="rss" />
-      <outline title="Eko Artiste" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsI5en2dCbpbVOZ1g_c0YBA" type="rss" />
-      <outline title="Hajar arssalanee" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKXwUOo3v2UZe-aISJyFEUA" type="rss" />
-      <outline title="Astuce With Mouna" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC00ri_nGWaZVBEvkTcmeaEg" type="rss" />
-      <outline title="ØªÙØ¸ÙÙ Ø§ÙØ¨ÙØª ÙØªØ¯Ø¨ÙØ± Ø§ÙÙØµØ±ÙÙ albaitasaid" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzzRvXLe-HCfzkUweMhidLQ" type="rss" />
-      <outline title="TheBlueWorld" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2KV11t22puXYRfYP3mdiNG" type="rss" />
-      <outline title="Electro momed" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyWJTq2r42YyxDU80CY4B4A" type="rss" />
-      <outline title="Ø£Ù Ø¹ÙØ±Ø§Ù ÙÙÙÙÙ Ø§ÙØ®ÙØ§Ø·Ø© - Oum imran" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQLmujiYaJ1xohgcrLVWQXA" type="rss" />
-      <outline title="DEMON 324" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVaVBXo6_w8N499hhnkxJ_A" type="rss" />
-      <outline title="DUC cooking virtue" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0sF1yzptxzVmqJEtfgqHGk" type="rss" />
-      <outline title="Amina TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWYvj4AasgzgNf9OyZYlVdQ" type="rss" />
-      <outline title="Auto Ãcole Boujida" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfOlIjLVfTHhsLARZksvCwQ" type="rss" />
-      <outline title="Ø´ÙÙÙØ§Øª Ø±Ø§Ø¶ÙØ© ÙØ±ÙØ´ chehiwat radia kriche" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnrxrXREY9I254gk34ngzHQ" type="rss" />
-      <outline title="Basma if" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9Z-zmiY4J3KGe_aNPATSeA" type="rss" />
-      <outline title="Duke Officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClAbH5V05PuIJMwOkW25xJw" type="rss" />
-      <outline title="ØºÙØ± Ø­ÙØ§ Ghir7na" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5jKD5khL1qGwQTehQo4NWA" type="rss" />
-      <outline title="Youssef Essbbab" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXAWzPR5jXAlVlolJ92VRFA" type="rss" />
-      <outline title="Jannat jawhara" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAH1f4xXJI0cfaP0WEw5Nzw" type="rss" />
-      <outline title="ÙÙÙÙ Ø§ÙØ¹ÙØ§ÙÙØ© Nawfal Alawamleh" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTIQ15HY80gH4WtBIYwdrUA" type="rss" />
-      <outline title="Abdo Manar TV Ø¹Ø¨Ø¯Ù ÙÙØ§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2d6aNRP9LVf07u8qJmES2n" type="rss" />
-      <outline title="MAESTRO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVyX6dqSaEXM4SYZY61hSVA" type="rss" />
-      <outline title="ANOUAR PRO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVQqF6PfUHWTQaSdA2ZGVPw" type="rss" />
-      <outline title="Youssef Ouzellal" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmNW2TnKlDSaodDBFuXT3fQ" type="rss" />
-      <outline title="ilham home" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNICf87VxTZdDBwc9nfqDvw" type="rss" />
-      <outline title="DMinfo 24" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCETgI0oomSDJhWzdeVOCWXQ" type="rss" />
-      <outline title="ayoub &amp; simo 2" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfEDOKTbUw9V7JqL2xa15nw" type="rss" />
-      <outline title="Ø¨Ø´Ø±Ù ÙÙ Ø§ÙØ¨ÙØª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCU_k4xR07cQ6Q4A0jXvmGqg" type="rss" />
-      <outline title="Scary Teacher Nick" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCV6fHJv7LVLkHz4HXgPY9US" type="rss" />
-      <outline title="King of maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6ndTEwLppf_QP3juz-uIOA" type="rss" />
-      <outline title="Bichri TV International - HD" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrtdAWf9y1D2by4ruhWbllA" type="rss" />
-      <outline title="Mouna Hm" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgVcAkZ8GwJ-U6xOYvyk0Bw" type="rss" />
-      <outline title="ibra Ø¯Ø±Ø¨ Ø³ÙØ·Ø§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxj31TNrdkR9s7BxE46QjSn" type="rss" />
-      <outline title="DJ TaJiou Official" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQ1wcyhhB415GLalCnFyXuA" type="rss" />
-      <outline title="Saph" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUgXrqDq53MzdDPUhoeAjcr" type="rss" />
-      <outline title="Youness Ninja Et AMINE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCptPNzYvdzjYXAlripwydT7" type="rss" />
-      <outline title="Vlog lhowat" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCP8eIhx3qgiQ7CPXS_eYPow" type="rss" />
-      <outline title="Ø§ÙØ±Ø§ÙÙ Ø§ÙÙØºØ±Ø¨Ù Ø¹Ø¨Ø¯ Ø§ÙØ¹Ø§ÙÙ Ø¨Ø§ÙØ­Ø¨ÙØ¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzVQLfvyvinrwl5I8WAZKh2" type="rss" />
-      <outline title="MOHAMED SBAY" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZkJ-qoouAzYTzq0NANnpnQ" type="rss" />
-      <outline title="Mohammed el maabdi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8rVJSEWSbKGjFxjjTwWOUA" type="rss" />
-      <outline title="Moon newss" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCamiTFjbMWobZmjAnv9Mddw" type="rss" />
-      <outline title="Phoenix Records" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFfF2wWWchWyWs52UDJDtLg" type="rss" />
-      <outline title="DADA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFSpCEUTY92hPA__ZPMIISA" type="rss" />
-      <outline title="hajar chrif" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxJKNI0Exa5lDPOKLG0R21Q" type="rss" />
-      <outline title="Mehdi Hilm" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCA3O2UzmCh-zcs8oFapB4VA" type="rss" />
-      <outline title="Yassinos | ÙØ§Ø³ÙÙÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCPV2UcxifsZ-1dG8MqJ-2w" type="rss" />
-      <outline title="HafiD HimMi | Ø­ÙÙØ¸ Ø­ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJhyMcdkC5ExNoYnUEwAWkB" type="rss" />
-      <outline title="rachid lagouaa" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCg7l8UiQcUWtpOHwBnf4tWg" type="rss" />
-      <outline title="Rare Vision" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnsmb1mI-WEJohu8guwphlg" type="rss" />
-      <outline title="radion" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKOsPk2Z-mICIuylsvqNJ0A" type="rss" />
-      <outline title="Musta Kaido" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5qVTjP85qEUUPVuV7iG8LA" type="rss" />
-      <outline title="Laya reaction" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmAQ-9YpiyhrH3x_GG9uU4A" type="rss" />
-      <outline title="Arab Barcelona" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPr3nepo9EC4DgDz0Oh3YG7" type="rss" />
-      <outline title="zaha diy 1" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHOXSsOH3VZSKykJx25o2_w" type="rss" />
-      <outline title="Imad Tarnani" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmIBMwNOYP-uA5WvI6MGyOw" type="rss" />
-      <outline title="Mars Sport 1" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCu7g4fquDwivLNyEna1d7Nw" type="rss" />
-      <outline title="animal_world259" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEDtEpuUiQHr7VXBACH8ZUA" type="rss" />
-      <outline title="Ø­ÙÙÙ ØµØ±Ø¯Ù sheep sardi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2ZuPkmfvYmC8mI0Mbd7UvC" type="rss" />
-      <outline title="M24TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxzxd8IK9u5WieWqRS7ULjw" type="rss" />
-      <outline title="Planeta Madridista" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLYZ9Q-Cas_PtYqfiL6Tqyg" type="rss" />
-      <outline title="Ø¹Ø«ÙØ§Ù Ø¨ÙØ¬ÙÙÙ Otman Benjelloun" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCy8VyQDtMqmPFO1Q9O3Jxzg" type="rss" />
-      <outline title="Mery amra Channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNorQV0Zgi1oDfBYPCC4_5w" type="rss" />
-      <outline title="cookingwithalia" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCB8yzUOYzM30kGjwc97_Fvw" type="rss" />
-      <outline title="ÙØ±ÙÙ Ø§ÙØ¨Ø¯ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQrDtfhZ16pWEK8FiI47Dcv" type="rss" />
-      <outline title="LOUJIHI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChNt5C1g2Y0Qwdby9Deb3pg" type="rss" />
-      <outline title="Ø¬ÙÙØ±Ø© ÙØºØ±Ø¨ÙØ© Jawhara Maghribia" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyIlHcQj-S_7ISF5xSshP7g" type="rss" />
-      <outline title="MedRadio Officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgEL_zmaQl_8FzOLscGIA-g" type="rss" />
-      <outline title="ChaHid Morocco" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPG-z-d9kqSiRJL8MgqsTMw" type="rss" />
-      <outline title="asmae channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1vUWtyczFZMWZBekZuank0" type="rss" />
-      <outline title="Ø§ÙÙØ¬ÙÙÙÙÙØ© Ø¨Ø±ÙÙÙØ³ - Jihawia Presse" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvWgJLjSpTvlcjO9txKySnQ" type="rss" />
-      <outline title="ÙØ·Ø¨Ø® Ø§ÙÙØ²Ø§Ø¨ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_vj2xTBE0e7W5pbeV9IUOQ" type="rss" />
-      <outline title="Noubal Media â ÙØ¨Ø§Ù ÙÙØ¯ÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNXS3Gcrrs02TWEZ29AZqpA" type="rss" />
-      <outline title="Komy | ÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIjKVd7PoLPvHonVQpktgFQ" type="rss" />
-      <outline title="mecha boy" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8q8YO8NprpYj9XIO7vYLrA" type="rss" />
-      <outline title="ÙØ´Ù Ø§ÙØ®Ø¨Ø± kachf el khabar" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7ocdTU9Gj99TgMUvlG0dmw" type="rss" />
-      <outline title="Ghalia l ØºØ§ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGjQypFnXvSA_WwUlouzxXA" type="rss" />
-      <outline title="Radio Aswat" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1qvMMpzeoZoogITNnIYtMA" type="rss" />
-      <outline title="Figoshin" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxb9juZrRN0itmmlUaOH_fw" type="rss" />
-      <outline title="D7AK M3ANA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTn3DLsfRED5EspC0d6W3Hl" type="rss" />
-      <outline title="Achraf Academy" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCk6IyxLtoYNLYQnB6EeyXhA" type="rss" />
-      <outline title="TopTivi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtK1Obxw4Hjp93WdkrSQvnD" type="rss" />
-      <outline title="Chhiwat om akram" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCU07NYyuwgdkJtUcX3CuKIT" type="rss" />
-      <outline title="Prof Abdou" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdV4tAVx3ssAvBZegQpEvtQ" type="rss" />
-      <outline title="safi goud (safigoud)" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJ0H2j1uq6_GxELR0aLFofQ" type="rss" />
-      <outline title="Bahae dine |  Ø¨ÙØ§Ø¡ Ø§ÙØ¯ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqFuUJ0F6UIX_-SRSAp2HFQ" type="rss" />
-      <outline title="Elazraq Mohamed" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjbWk9RgIxI5a-vf4qSMdXg" type="rss" />
-      <outline title="Sport videos" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHpFHZw357Os4HoshhjTaHu" type="rss" />
-      <outline title="Ø®Ø¯ÙØ¬Ø© Ø£Ù Ø´ÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPgmMkKymycezU1q9rQMHVA" type="rss" />
-      <outline title="Tanjaoui Ø·ÙØ¬Ø§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmDDGCBGhfukBNhvnDU58yp" type="rss" />
-      <outline title="CAPiTAN FF" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCx1huEBL4FPh6_e0yfcxh3Q" type="rss" />
-      <outline title="Benbaslec12" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBVIiTVZzEnp-wRd4QE2WVQ" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ ØºØ±ÙØ¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbQrc_CeNCOBtIPrOvZ-WEA" type="rss" />
-      <outline title="LAPRESSEION" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6bzYHsZC5YOEiQbYG7n3Z8" type="rss" />
-      <outline title="said el khribgui official" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqZ1AfG02oX_vPM_Dzxwq4w" type="rss" />
-      <outline title="Viralesco" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0AfytdrxgqOqGoxZd9YPSg" type="rss" />
-      <outline title="TanjaNews TV ÙØ¬ÙØ© Ø·ÙØ¬Ø© ÙÙÙØ²" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGGuph6pTXtfISQM771uWAS" type="rss" />
-      <outline title="AE98HD" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCygFKzM_5mj2ivfmK012APE" type="rss" />
-      <outline title="YOUNESS shoW" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_V9AxUTz-ukaP7OYJRPcdQ" type="rss" />
-      <outline title="Abdelaziz Ahouzar Official" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXzadN__wIdWaewMz_B3Tng" type="rss" />
-      <outline title="Abidat Rma | Ø¹Ø¨ÙØ¯Ø§Øª Ø§ÙØ±ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCATtTf33q_iQJtmpk1zjAmQ" type="rss" />
-      <outline title="Ø§ÙØ¨Ø±ÙØ© Ø§ÙØ¬Ø§ÙØ­Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGl7a2GENZOMCMSAM3qff_A" type="rss" />
-      <outline title="Ø§ÙÙÙØµØ© Tube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCctKZPR8Y89bjbxSSPnJH7A" type="rss" />
-      <outline title="Younes Boulmani | ÙÙÙØ³ Ø¨ÙÙÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtVHbZgpYPlOgoCzKmttZEQ" type="rss" />
-      <outline title="Louban vision I ÙÙØ¨Ø§Ù ÙÙØ²ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeAg2qkysTyMyBPa_FbF8ZQ" type="rss" />
-      <outline title="Ø¨ÙØª Ø§ÙØ¬ÙØ§Ø¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXehTs940gvwhbJH2VI59Iw" type="rss" />
-      <outline title="Omar Badreddine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFNz6RS4_5RzdljFuYJB0CA" type="rss" />
-      <outline title="SNRTnews" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvtQeUIfmelyvCDMbEPw9vw" type="rss" />
-      <outline title="ZIKOSANE||07" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCf3o8omMNtIKMF3on-pgBFw" type="rss" />
-      <outline title="Knitting loom eljammari | Ø§ÙÙÙÙ Ø§ÙÙØ³ØªØ·ÙÙ ÙØ§ÙØ¯Ø§Ø¦Ø±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCi73O92ssWSq7CCo_-sAZ-g" type="rss" />
-      <outline title="Kora x90 ÙÙØ±Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdjWZ3raXtOqQi5dOX1XiCQ" type="rss" />
-      <outline title="2MSYNERGY GROUP" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCe1Z6iuDKbRMhdHwtlX7AQO" type="rss" />
-      <outline title="Raid" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCSdwYI5ABLMRg2CuBAG586Q" type="rss" />
-      <outline title="REALITY" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7meNoWwn6zKG_WzC5cWOIg" type="rss" />
-      <outline title="Mijhar | ÙØ¬ÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNcX2Z7ET3jt1oy4XrXPpqA" type="rss" />
-      <outline title="Ø´Ø¨ÙØ© Ø§ÙÙØ­ÙØ·" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCO36BvjHw5LyGaaIotWOFlR" type="rss" />
-      <outline title="Ayoub El Mokh" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6IVq9vyR40O9Opk6Aj3RZj" type="rss" />
-      <outline title="Said Senhaji | Ø³Ø¹ÙØ¯ Ø§ÙØµÙÙØ§Ø¬Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6BXnu9CA25-ae4f7YdLF1g" type="rss" />
-      <outline title="jamila&amp;said officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiui6skPrCRyohXWNqnHSbg" type="rss" />
-      <outline title="Radio Plus" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCuwyrz0cZg7HOg3HTBbN7C" type="rss" />
-      <outline title="Morocco Forever" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3_N5eFRpGNhW9VnwQlvQWg" type="rss" />
-      <outline title="TAM MY CROCHET" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCADEGVe__tfRkWmnhnG0BHQ" type="rss" />
-      <outline title="ÙÙØ¯Ø¨Ø±ÙØ³ medpress" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCb6CXemEGjgNpmng7aZVtkQ" type="rss" />
-      <outline title="Flux de sagesse AI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-8UErX3YFGTy__aGl-f0aw" type="rss" />
-      <outline title="flan fertelan" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC15UEdKSUZHVUFyM3YwV2RG" type="rss" />
-      <outline title="Ø§ÙØ¨ÙØ§Ø¡ Hamid building" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVFszhU-UQ3g9nsGAb6490g" type="rss" />
-      <outline title="Amazing Gadgets" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5XD3F61sG-simgVPv_I2Og" type="rss" />
-      <outline title="ÙØµØ© Ø¨Ø·Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoCbGDcHhNlXT9yTBqTa5Ow" type="rss" />
-      <outline title="Anas otman" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkfO1K3eE9txjvl5j-5Mgbw" type="rss" />
-      <outline title="abo al bis _ Ø§Ø¨Ù Ø§ÙØ¨ÙØ³ Ø§ÙØ³ØªØ±Ø§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmjqtnpqrPvC4LAQjBUAr1g" type="rss" />
-      <outline title="mastafaroum 10" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBbB0aP6KKtaVkyd6EsjRlR" type="rss" />
-      <outline title="Maroc Telecom" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOn3LLXMTcDoPAOUIzy0Zjp" type="rss" />
-      <outline title="Jamal Alpha Shorts" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCICLxBvJ3OxEOwOQN4ffrtg" type="rss" />
-      <outline title="Cute maquillage" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-l-L106lmgaDFPXC66YQFw" type="rss" />
-      <outline title="á´á´ÊÊá´" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbkjhyMW-cyk8q7afVP4xCw" type="rss" />
-      <outline title="espace turquie" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCllLLadhAkESBAgzd5JhLRA" type="rss" />
-      <outline title="Madar21ÙØ¯Ø§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAtDSTJxS8ECR-Fo3cujV6Q" type="rss" />
-      <outline title="AHLAM BAKKALI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClwi8wG4UwaFLmj6GvniGLQ" type="rss" />
-      <outline title="Said Fer ForgÃ© Mâdiq" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCZAdxw3-DL3WwGhq2Wy1CQ" type="rss" />
-      <outline title="Maroc bdarija - ÙØ§Ø±ÙÙ Ø¨Ø§ÙØ¯Ø§Ø±Ø¬Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRe8pE4sKcc13a2hzd5ZGkI" type="rss" />
-      <outline title="SIMFLIX" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCx2rZC4MQzoKjQEDilHyl-g" type="rss" />
-      <outline title="brarab28" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJI2zNqMJXh5KW3w0TQRpWg" type="rss" />
-      <outline title="Nizar Idil | ÙØ²Ø§Ø± Ø¥Ø¯ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5rCMeXL3E5zpEqbcyaiSoF" type="rss" />
-      <outline title="Ø§ÙØ¯ÙØªÙØ± Ø¹Ø¨Ø¯ Ø§ÙÙØªØ§Ø­ ÙØ¹ÙÙ  dr.abdelfattah naoum" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1f0PIV3oOkqj_pxQMB9HSw" type="rss" />
-      <outline title="SIMO KOBI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4-HHfX-RJDaCRwlCw4vVKw" type="rss" />
-      <outline title="ISLAM SPORT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVFw-FgK-qtCIjbrd0yd79w" type="rss" />
-      <outline title="ÙØ§Ø´ØªØ§Ù Ø§ÙÙØºØ±Ø¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8o4pTlF9hLBSJB4MYqDfdO" type="rss" />
-      <outline title="fhamtona - ÙÙÙØªÙÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbxOjoie3BVRzVjzPJ5E2uQ" type="rss" />
-      <outline title="ÙØ²Ø§Ø±Ø© Ø§ÙØ£ÙÙØ§Ù Ù Ø§ÙØ´Ø¤ÙÙ Ø§ÙØ¥Ø³ÙØ§ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOkC45eGzFQh1HcXtzXiiWg" type="rss" />
-      <outline title="Ø¨ÙØªÙ ÙØ¹ Ø¥Ø¨ØªØ³Ø§Ù ibtissam's home" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYGCwH-zH7PCS5CQTRihPLA" type="rss" />
-      <outline title="Mero FC 24" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdZBHXEVeYmWwrx1Tv_iEVQ" type="rss" />
-      <outline title="Mohamed Adly | ÙØ­ÙØ¯ Ø¹Ø¯ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKLdeVR3ChM0yGrB2uAJfDg" type="rss" />
-      <outline title="farfacha02" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTriUwSrRLobuG_ZucZM4Kw" type="rss" />
-      <outline title="Ben Larbi Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCN7t_U6uAV0MYFi3SGlw9kA" type="rss" />
-      <outline title="FootyRanks" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFzQmdCtHkkZNJXO7av7pwe" type="rss" />
-      <outline title="Nabyla MAAN" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5aee8lDoRe1IDh0o0zHwCQ" type="rss" />
-      <outline title="NextWave" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOjvwgD5L1YTthiN7qGKYzk" type="rss" />
-      <outline title="Taoufik Bouachrine - ØªÙÙÙÙ Ø¨ÙØ¹Ø´Ø±ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGkOwLvkEKqQLXSZMx0F9my" type="rss" />
-      <outline title="Soso family two" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyNMKvvjHgm5pP-C5tD_BZQ" type="rss" />
-      <outline title="khoyi mwara" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_y6JTVfl_7D9zMCzHEG4vw" type="rss" />
-      <outline title="Ø³ÙØ¹ÙØ¯Ø©ÙÙÙØ±ÙØ© SouÃ­da et nouria" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjYSXsBrZ3JBf0pXhX9UFhP" type="rss" />
-      <outline title="Ø­ÙØ²Ø© Ø¨ÙØ³Øª - Hamza Post" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUKXayrgMm8_oBF8DnO0bBg" type="rss" />
-      <outline title="RA Production" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3tarA1sNBGwVZ__eA7UKr4" type="rss" />
-      <outline title="Next Lev" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCstuAIJ9q6ba94jz5oSqvlE" type="rss" />
-      <outline title="abarnous said Ø³Ø¹ÙØ¯ Ø£Ø¨Ø±ÙÙØµ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfDnd1HpDZlDeBigXwj7jiA" type="rss" />
-      <outline title="Adil El Medkouri Officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6pr0emKjq-18th4ntnB1Pw" type="rss" />
-      <outline title="Issam Kamal" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcQ_pGnffd67T5rBwLe7_Gw" type="rss" />
-      <outline title="Sawt Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCES2GEfuM268YhK4vbPzc-Q" type="rss" />
-      <outline title="KAiZO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLn9_yDf-VHtbjXacTH6bmw" type="rss" />
-      <outline title="Tv Fes" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoxsiz3Fns5fGtTqHAx2GXQ" type="rss" />
-      <outline title="Aziza tv Ø¹Ø²ÙØ²Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgoX29uOU2nBuSWG3SdfigA" type="rss" />
-      <outline title="Ø¨Ø´Ø±Ù Ø´Ø§ÙÙÙ Bouchra channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTu5kPoWWGb0kfbFexvMe2A" type="rss" />
-      <outline title="Appartement fes" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMNOe05uwjGWd2s1xmLG7sg" type="rss" />
-      <outline title="Ta Ha | Ø·Ù ÙÙØ±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUnYFvqwqb5ZWhYv2VPT1YQ" type="rss" />
-      <outline title="Ayoub moul Clachat" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUjiVkGZIJOoSYDlEBOy9z7" type="rss" />
-      <outline title="Ø¯. Ø¹Ø¨Ø¯Ø§ÙØ­Ù Ø§ÙØµÙØ§ÙØ¨Ù - Dr. Abdelhak Snaibi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJB_t4b4pURV0osOq6yex1g" type="rss" />
-      <outline title="Wardi XLarge" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaDZ13fvjBr_UHwMEHmrHpw" type="rss" />
-      <outline title="Ø§ÙÙØºØ±Ø¨ ÙØ°Ø§ Ø§ÙØ£Ø³Ø¨ÙØ¹ | Morocco this week" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6DF8T4hq6uF8JhpdKrTWVg" type="rss" />
-      <outline title="El Houcine Amrrakchi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCO8Fj1Jiiidw6vYXpP5AyqK" type="rss" />
-      <outline title="ÙÙØ³Ø© Ø®ÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGmSpdGVrgXPcSd6uSEjGZw" type="rss" />
-      <outline title="OLD HiT360" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4aQVYLF9vzIFQNs9X37_ow" type="rss" />
-      <outline title="MR_RABI_Ø§ÙØ³ÙØ¯ Ø±Ø§Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCctH6zqYRNC5hySJ5INJwRe" type="rss" />
-      <outline title="Mafiou tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPuQO3oODFGM2bnsAf1UTHw" type="rss" />
-      <outline title="Ø­ÙØ±ÙØ© houria TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKKPggAgllzm5oAa7MPH8yg" type="rss" />
-      <outline title="LMKRKS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCn2dOGFcRGkr6GKrFP5egVQ" type="rss" />
-      <outline title="Mohammed Karime" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuTrGCHgnHiokBaWs4K5wAw" type="rss" />
-      <outline title="Blablacasa" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAIVWZI51qOeSMtIWpdnWCQ" type="rss" />
-      <outline title="Karima Gouit" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZJPC6UopytQWtwS7EMWF-Q" type="rss" />
-      <outline title="Elite_Magic" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyBQVzZ4dISLx6hYA2tA_FA" type="rss" />
-      <outline title="Le SamouraÃ¯ ThÃ©a" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLtc8gGTaQzo__2_MBRbT2g" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø§ÙØªØ±ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7FkJzKMy5FTaJ94kTD51Iw" type="rss" />
-      <outline title="BAD Helmets" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCg87QSYtQqQHjZRBSysE-Lg" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø§ÙØ¥Ø¨Ø¯Ø§Ø¹" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCW54v2xgZpYmTyfOgariuyo" type="rss" />
-      <outline title="Ø­ÙØ§ØªÙ ÙØ¹ Ø§Ø¨ÙØ§Ø¡Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC58qm-NJvG_PeGjN7VH6ZKA" type="rss" />
-      <outline title="Machahir 'One Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8WjbcAgTtCdiwAaRIgya2Q" type="rss" />
-      <outline title="YAHYA ABADA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC21LQoo0U0NsOsfGtZ7wwng" type="rss" />
-      <outline title="3LACH TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUBZI9BY14TdfOmRcskm204" type="rss" />
-      <outline title="Abdo The Fisherman" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz0NXDQ9cepW4rVwMzMWzeQ" type="rss" />
-      <outline title="mahfouda tv ÙØ­ÙÙØ¸Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCc2BrDKpJlXltkx54C2kTSP" type="rss" />
-      <outline title="ÙØ¯Ø±Ø© ÙØ¹Ø§ÙÙ ÙÙØªØ© ÙØºØ±Ø¨ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UColabTUDtFjfCcU5As43cLg" type="rss" />
-      <outline title="emad fawaz - Ø¹ÙØ§Ø¯ ÙÙØ§Ø²" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJLxtBIsrcgPtdgzwUmRTRQ" type="rss" />
-      <outline title="Ø³ÙØ³ÙØ© ØªÙÙÙ - Soussia Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRjNWXMkoBq58sI8fve1HlX" type="rss" />
-      <outline title="Latifa Raafat" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdJSOL2y5QYEuaTd7uRS4zT" type="rss" />
-      <outline title="Kenza beauty Family" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0Af3FDYtYyu6jjH9xE6gvw" type="rss" />
-      <outline title="Youssef Zerouali 3 ÙÙØ³Ù Ø§ÙØ²Ø±ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNi1LpyCkU2hoRcptXrUs3Q" type="rss" />
-      <outline title="ibiwin shorts" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpHvD7eZ3uuAOWB71H8tjUA" type="rss" />
-      <outline title="Mohamed Rifai" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1893IywT-vQHw6DBE-Mrdg" type="rss" />
-      <outline title="Ø§ÙØ¥ÙØ¨Ø±Ø§Ø·ÙØ±ÙØ© Ø§ÙÙØºØ±Ø¨ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCK38vucELUdmD_kWlVsacHg" type="rss" />
-      <outline title="Ø³ÙØ´ÙØ§Ù ÙÙØ¯ÙØ§ Ø¨ÙÙØ² - SM BUZZ#" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCihgiV5l8rk5zQwex8FjSRA" type="rss" />
-      <outline title="Ø¬Ø±ÙØ¯Ø© Ø§ÙØµØ¨Ø§Ø­" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCU21C6gpAccQ4sIIuAGMD0K" type="rss" />
-      <outline title="Lalla Laaroussa Officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsFyjZq3zf_KXIq5iMs_6Zw" type="rss" />
-      <outline title="Hanan Channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHy9GXs-htfYLSUx3BgXR2Q" type="rss" />
-      <outline title="ÙÙÙ Ø§ÙØ´ÙÙØ¬Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCM1DoNEgK4KTERa61tGxB5w" type="rss" />
-      <outline title="Majid Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCG9OVo1REUcHcAagjp3SufQ" type="rss" />
-      <outline title="Ø§Ø¨ØªØ³Ø§Ù Ø­ÙÙØ¸ Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWO8ApEwp6xAmUIgJuDt732" type="rss" />
-      <outline title="souky's life" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGsOt0UelVmuJikvG8uLnxr" type="rss" />
-      <outline title="Maryama ÙØ±ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyRryJxpgPb4TC_BoRHtBoQ" type="rss" />
-      <outline title="Ø£ÙØªØ§Ø± ØºÙÙØ§ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9ApshQo7UlIytUS1v_GGNA" type="rss" />
-      <outline title="Kech24" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHCJSdpqtpKzSaOBJ87NmNw" type="rss" />
-      <outline title="Media Press ÙÙØ¯ÙØ§ Ø¨Ø±ÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCk56yDMt3KMyGD3Y35w86Og" type="rss" />
-      <outline title="FU SPORT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZuAhAuvmHs8zJhCuaujOYe" type="rss" />
-      <outline title="Excellence TIPS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPOu6Wr2CMJM2FMTin20xGH" type="rss" />
-      <outline title="Nidal news" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFMPf59sKZXxXkp8HoKvwGg" type="rss" />
-      <outline title="Cuddle Cats Tales" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuH3RRD5dTkqrlnip7F6BpQ" type="rss" />
-      <outline title="Maghribi Scoop" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcJJLHBP1wVKDk2sAIlYPSH" type="rss" />
-      <outline title="hamza zoberi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDzlURV9p6EqbSt7YA1yeMg" type="rss" />
-      <outline title="Ø®ÙØ§Ø·Ø± ÙØ±ÙØ³ÙØ© KHAWATER FARANCIA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQuHMZxyd1A0pSZpdwnal9g" type="rss" />
-      <outline title="ihiri sniper - Ø¥ÙÙØ±Ù Ø§ÙÙÙØ§Øµ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClVdToGd5uxQbpcDe-JFmCA" type="rss" />
-      <outline title="Press tetouan" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZ3YJNr96r8xxyMoAuw-CGw" type="rss" />
-      <outline title="Ø­ÙØ§ÙØ© Ø¨Ø·Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYRA0CydvAQbfxI_nxR76-g" type="rss" />
-      <outline title="Youssef Ellychany" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6sUkY0yY-6YUUb76j8fwdw" type="rss" />
-      <outline title="Amir 24 Ø£ÙÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfL53jlmW79fFXgSLiNw79g" type="rss" />
-      <outline title="marrakechalaan" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMcE2uEGTuG1m2BC1YMX5yq" type="rss" />
-      <outline title="yousra mode" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcZu1XR-r_HLXlOWCBsNB7A" type="rss" />
-      <outline title="Mouad Taoussi - ÙØ¹Ø§Ø° Ø§ÙØ·Ø§ÙØ³Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRS6mChVgpsnYO9k1MssVGN" type="rss" />
-      <outline title="ÙÙÙØ© ÙØºØ±Ø¨ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7dRYea9ic6zR6e_qyLtMig" type="rss" />
-      <outline title="Hatim Idar | Ø­Ø§ØªÙ Ø¥Ø¯Ø§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1Tw45WvQjlN_oqGiXn5oig" type="rss" />
-      <outline title="ÙÙÙØ¶" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAuutpzD7O5uFaEWIGEBaPM" type="rss" />
-      <outline title="Anass Office" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCm_AKrJPWilytAajP4HEl_A" type="rss" />
-      <outline title="bigfoot Morocco" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKCq1wXzY4oU8eV6ZyYDKIg" type="rss" />
-      <outline title="Loubna Yno ÙØ¨ÙÙ ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyeycQZa8rkL80puUh887Cu" type="rss" />
-      <outline title="Walid Rehmani offic | ÙÙÙØ¯ Ø§ÙØ±Ø­ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvlbm9c_4dGR_XdXvDjooeg" type="rss" />
-      <outline title="Street Performers" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBo5Ys3fYUzPPHZ2V0ImNyU" type="rss" />
-      <outline title="Jeje Art" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTQyRptv1Yi9NyJ4YGhSEkw" type="rss" />
-      <outline title="TAMAZIGHT TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZ97maPQK1vncXInrHeTEAg" type="rss" />
-      <outline title="CANAL13 Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4uXxIk2qt0sSQuio1F0G1w" type="rss" />
-      <outline title="Abdelahad Fennassi Ø´ÙØ±Ø© Ø¹Ø¨Ø¯ Ø§ÙØ£Ø­Ø¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRRl8JEynEkXbQt22hWD6gQ" type="rss" />
-      <outline title="Fadel Trainer" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCy9HwvR3jnagPp6Vsl9Tfwg" type="rss" />
-      <outline title="Soul A" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcElLrPPgHBAW4xIE8M8A3Q" type="rss" />
-      <outline title="UltrasArabe" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8TpMSAUW3rq997XW-dDJxA" type="rss" />
-      <outline title="7amadchahyd" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXbncHW0YDu47krJ6HMVZlA" type="rss" />
-      <outline title="FOOTSTARK" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKZJ6WUoLvZ-AoHuZhPdhNA" type="rss" />
-      <outline title="Benamrane Khawla" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWS8rg1BfWbkoun0ArvwDYQ" type="rss" />
-      <outline title="Ø­ÙØ±ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClMEdXyweoK-5kGIYairxbA" type="rss" />
-      <outline title="Ana Jit" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQdLifM0YRPUjKHYSBE5-rA" type="rss" />
-      <outline title="Salaheddine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCw_KajQbm1VWAAL45mryN0g" type="rss" />
-      <outline title="Fasel Amine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRL35vK6o4A4IRjVb8he2uk" type="rss" />
-      <outline title="Casawiya news" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3LpITy4IGvJDpwsDVSWhQQ" type="rss" />
-      <outline title="Mohachow" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsmcsf4_2wg-myj_342dPrw" type="rss" />
-      <outline title="ÙØ±ØªÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC59ucF6ItiwYPWYMUtJf5Pv" type="rss" />
-      <outline title="Ø¯ÙÙØ§ Ø±Ø­Ø§Ù Dima Rahhal" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzsleiDsXrnXx07UmAK4SVn" type="rss" />
-      <outline title="telexpresse ØªÙÙÙØ³Ø¨Ø±ÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxKsmwAfnhShoh7hEmYB3pa" type="rss" />
-      <outline title="Mouss Maher | ÙÙØ³ ÙØ§ÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTgrRWduZu3q3aDYNajUvuw" type="rss" />
-      <outline title="Chroniques de lâAtlas" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfGT-8pAVUxUbsmgwIsgJRw" type="rss" />
-      <outline title="Ø£ÙÙØ§Ù Ø§ÙÙØ­Ø´ Ø§ÙØ¯ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI-wywjYmU9c1CYWwtjA_Kg" type="rss" />
-      <outline title="Daft Spunky" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCP73YU7digakOVLwCzu6zsg" type="rss" />
-      <outline title="koora2" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEcMKY84nLalBndrOU7D2CA" type="rss" />
-      <outline title="Jarad TV - Ø§ÙØ¬Ø±Ø§Ø¯ ØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCp9SoMhs8oh95IdMuXrceiW" type="rss" />
-      <outline title="Hmida w Tamo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI1b-bMhogtNoBIJWdUxBvQ" type="rss" />
-      <outline title="Achtari 24 Ø£Ø´Ø·Ø§Ø±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwIdV3jclWhX4IF4oru2C1g" type="rss" />
-      <outline title="AHDATH INFO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDYTclNxZ-5LdRP_jIbmvag" type="rss" />
-      <outline title="Ø§ÙØªØ¬ÙØ¹ Ø§ÙÙØºØ±Ø¨Ù ÙØ¹ÙÙ Ø§ÙØ·ÙÙØ±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkTmM56RleYXAYMimG5dYwg" type="rss" />
-      <outline title="Nabil Manar officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBlQn2nm5iKzk9eVH0l8XWA" type="rss" />
-      <outline title="Ø¹ÙÙ ØµÙÙØ­Ù | Salouhi Ali" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcasHR7yDS9ywx1YlzBoR0O" type="rss" />
-      <outline title="Ø±ÙÙÙ Ø¨Ù ÙØ­ÙØ¯ Ø§ÙÙØºØ±Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC19Rl7v8ZFICfE5jyuWxY6A" type="rss" />
-      <outline title="Oussama Sport" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDWNPGh1IP631ft0NV5ZlIQ" type="rss" />
-      <outline title="Driss Boumia I Ø¯Ø±ÙØ³ Ø¨ÙÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNwmnM-3Yxtq35V5FZATG3w" type="rss" />
-      <outline title="Ø£Ø´Ø§ÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDMMZtgMp_valSQhwi07EEw" type="rss" />
-      <outline title="Hilal Prod" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwsPyKkwaJZnJXkmnBjXjWg" type="rss" />
-      <outline title="khalwa11" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClZJGl3mvyTMUZ62Hu6JqIa" type="rss" />
-      <outline title="Ø§ÙØ¬ÙØ´Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFPZBd8B3NJZ8SEGJKD_rlw" type="rss" />
-      <outline title="Jamal jamali / Ø¬ÙØ§Ù Ø¬ÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCG74tsy6jTYRwiOc9t-acpA" type="rss" />
-      <outline title="Coke Studio Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIbcUbYSNGZwVSgYE4E_s3g" type="rss" />
-      <outline title="LinamSolution" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEsHhzzE4r5HumxvsBgRAZQ" type="rss" />
-      <outline title="Ayoubi Vlogs" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkzF-vpEuUxoqn7z_o1Lmhg" type="rss" />
-      <outline title="PROBADOR" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1bFE0kTHU4zpar4z7Y7958" type="rss" />
-      <outline title="ZaioCity - Ø²Ø§ÙÙ Ø³ÙØªÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4_zDDjPtVlFohs-PlwCg_g" type="rss" />
-      <outline title="Zack Glad" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXYymG_QzFTZXbvEeNkmR9g" type="rss" />
-      <outline title="nayda kora" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj4a8vud_XqPQ_Hp2sQD3jQ" type="rss" />
-      <outline title="iMANE iMAD OFFiCiEL" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPqHPi67Tt8J46turDISvXQ" type="rss" />
-      <outline title="Lasyan Vlogs" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKQUKOIXcGSySpJijrFPSuK" type="rss" />
-      <outline title="Anfas press" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOhZEsGMKJ2PtxPmkoKQ9OQ" type="rss" />
-      <outline title="rass derb" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCfKP2rbNuK1ATmMk69TsXg" type="rss" />
-      <outline title="ODACCHI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwWXvBSNiqhCD_vEQTFE6vA" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø§ÙÙÙØ§Ø´Ù ÙÙØ¹Ø© Ø§ÙØ³Ø±Ø§ØºÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPYtHQcvEDSe1YEj9sN8GZQ" type="rss" />
-      <outline title="Anapresse / Ø£ÙØ§ Ø¨Ø±ÙØ³" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeJOT9aszf377r3RBs_6ZUA" type="rss" />
-      <outline title="MARTAWI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCX1zOP0O1g5HMdTsJ33DDZ5" type="rss" />
-      <outline title="KICK PLAYER" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9tt9S8yw1WvaIZEMZw4bnA" type="rss" />
-      <outline title="Ø£ÙÙØ§Ø± Ø§ÙØªØ§ÙØºÙ anouar tafghi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqm8XlYKWQpx2Rc26zVhnW1" type="rss" />
-      <outline title="Kooralife" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaTZxkqrY9qCx_Pe8Q8N0Sw" type="rss" />
-      <outline title="Fesnews Media ÙØ§Ø³ ÙÙÙØ² ÙÙØ¯ÙØ§" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0UsyTh4vt28scnPLEd_45A" type="rss" />
-      <outline title="Dog breeder" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7-ZFk_i0pkhi4erkuhKULw" type="rss" />
-      <outline title="GOOOAL PES" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyYqdkzRJbanry45mLa7kAj" type="rss" />
-      <outline title="Ultra Koora" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmjoQqkBa1kN7GHGX8nbu5w" type="rss" />
-      <outline title="ÙØ­ÙÙ Ø£Ù_" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsujNR0x1Jgy6_aYnG8FoYw" type="rss" />
-      <outline title="L3WER" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbrYXaRWw_npsftmPIns6Yg" type="rss" />
-      <outline title="Ø§Ø­ÙØ¯ Ø¥ÙØ³Ù- Ahmed Exo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyK_Uv4PvrMheqCuPBz2G9g" type="rss" />
-      <outline title="Marwan PaTotcho" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCF6dpX0u8g9xyD6rn7GUBlI" type="rss" />
-      <outline title="ahmed ktami officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5kIPEZqRPZFzOd7ftQ8Poq" type="rss" />
-      <outline title="KAKAROTOx7" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVl2ujreCnaUNEoEMCzuVGg" type="rss" />
-      <outline title="Imad Sghir" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCVQB6IrL-yCZT1WmNwv9XJQ" type="rss" />
-      <outline title="Rue20 Officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPtDCB90Z0WYsAtP_hfZwcw" type="rss" />
-      <outline title="Maze News" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXq8VCuMgC4lE_OVhrSmzeA" type="rss" />
-      <outline title="Ø§ÙÙØ§Ø± - Ideas" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCD8QviO8C9xuPqF8PuzT1eg" type="rss" />
-      <outline title="Segangan City" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnYLfRj-yKMkIbU5t__9QxA" type="rss" />
-      <outline title="elbachir L3aouni  Ø§ÙØ¨Ø´ÙØ± Ø§ÙØ¹ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcrM1za3zPCEB6-ndhNVT1A" type="rss" />
-      <outline title="Hicham agNostik" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZGq0eH09VyQ1bSzXlhZCWg" type="rss" />
-      <outline title="RIDACOMIC | Ø±Ø¶Ø§ ÙÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGDxWDbaUQODBvj6Q0n2S0Q" type="rss" />
-      <outline title="ÙØ´Ø§Ù Ø¨ÙØ§Ø±Ù hicham byari" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoe6B5Gth8dEMZw2rb63CSA" type="rss" />
-      <outline title="emad Fawaz &quot;Ø£ØµÙ Ø§ÙØ­ÙØ§ÙØ©&quot;" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2guDfhzNfvl04R6QMse8Eg" type="rss" />
-      <outline title="Et News Top" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLmZLlwKtiQ1qQ32jR42QEw" type="rss" />
-      <outline title="ÙÙØ±Ø© Ø¨Ø§ÙØ¹Ø±Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbWyPdL3MtXUE29v7gzy5dg" type="rss" />
-      <outline title="moroccan scoop" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCp5Mrpog7Qe5jMGDMvu3lVg" type="rss" />
-      <outline title="Ø·ÙØ¨ Ù ÙØ·Ù Ø§ÙÙØ±Ø¶ÙÙ taib w yato" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiowFXHuhJvBX_h4KgmrLtA" type="rss" />
-      <outline title="ÙØ¯ÙØ± ÙØµØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKVe_vr0ayMmVlJ38VSDIjQ" type="rss" />
-      <outline title="alalam24 - Ø§ÙØ¹Ø§ÙÙ24" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKLImy2qpWlHX8MYreNvTfw" type="rss" />
-      <outline title="Ø§ÙÙÙØ§Ø© Ø§ÙØ´Ø§ÙÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJCJxGMY3-gmOYu1Cocr5Fg" type="rss" />
-      <outline title="MCG24 Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7W_2sZZ-l16jjAblyYPGOA" type="rss" />
-      <outline title="ÙØµÙÙ ÙÙØ³Ù | leo messi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHkrCaGbuA2YAg0rO9pbkLk" type="rss" />
-      <outline title="Women's Football Highlights" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdJfRd1KqFBzVsJn9tC-JOA" type="rss" />
-      <outline title="VOICI L'ESPOIR _ ÙÙØ§ Ø§ÙØ£ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_3tIcC9Be67JDLaSC623mw" type="rss" />
-      <outline title="LKAYNE &amp; Ø§ÙÙØ§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCW5n4F82_FfLHKnqNkw266g" type="rss" />
-      <outline title="DimaDimaMaghreb" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkSXrmkMJjW-2r-gCXamKWA" type="rss" />
-      <outline title="Abo lamba" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMf641eNziSqdpo15i61bZQ" type="rss" />
-      <outline title="RACHID LARAIKI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1N05R7TJogjMjXEkhoSVwA" type="rss" />
-      <outline title="NARJISSA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgjRQerTD8BvWf0o4eSROVg" type="rss" />
-      <outline title="RenovaTime" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmTHOD1-eLuh6-tUbGif_dQ" type="rss" />
-      <outline title="SMINOX SPACE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1ZKzcItwBc2KEyZrMvn1pC" type="rss" />
-      <outline title="Ø§Ø®Ø¨Ø§Ø± Ø¨Ø§ÙØ¹Ø±Ø¨Ù Ø´ÙØ±Øª arab news" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBbbiUMa3czX4w5wxcGbwPA" type="rss" />
-      <outline title="ÙØ§ÙØ±Ø§Ø¦ÙØ§Øª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkuJC2eI8rm-_YWjBaCUCBQ" type="rss" />
-      <outline title="Tus animales" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaODm71gQmbHSXSpho3kAgC" type="rss" />
-      <outline title="Ø­ÙØ²Ø© Ø§ÙØ£Ø·Ø±Ø´ 37" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBg5RH3bcafOfHrX25HiuGg" type="rss" />
-      <outline title="Locos X FÃºtbol" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQNsKVtr343Isg52izWNnEL" type="rss" />
-      <outline title="Sandalicar" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzfd66IzHIKS06p5vPkai7n" type="rss" />
-      <outline title="Abdelali Tawnati" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7XgRa7il5Xyknm_Hmxvdng" type="rss" />
-      <outline title="Mazaganart - Tutorial Drawing" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1db173ZtVlf-mUpDJrggaQ" type="rss" />
-      <outline title="brain busters sports" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCx9GCq957bG3zTRgotQZ9UQ" type="rss" />
-      <outline title="Safircom - Ø³ÙÙØ±ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeeUHM7qNAcfnMAdGHe46MQ" type="rss" />
-      <outline title="ÙØ·Ø¨Ø® Ø­ÙØ§Ø© Ø§ÙØ±Ø¯Ø§Ø¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCg18utNcxQx40aprhQ_BgpA" type="rss" />
-      <outline title="Arabe Tube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPmzO79gLpFrR_yPrTjrv3g" type="rss" />
-      <outline title="CHASSEUR" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOP7lsqrHTU9RWD6Lnu_Qng" type="rss" />
-      <outline title="MoroccoTalksFootball" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6cU8PqRMe3MSjZqIYTayPS" type="rss" />
-      <outline title="ESCARGOT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9Rg-KPt6Hi9YmuETY7_3eg" type="rss" />
-      <outline title="simo nach" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCd4Stqd0q-KNpAXcQVR27Ng" type="rss" />
-      <outline title="Morocco canary" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8AVWclgfnX-egtpDyfPgpw" type="rss" />
-      <outline title="Polia" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCn1q6a9-ba6y7MOskXc7TRg" type="rss" />
-      <outline title="BloopaX" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCl6C42uKzP0MtwUbF39D9lQ" type="rss" />
-      <outline title="AYouB/ Fishing" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZcoYGOTDYxAls1HD7sExA5" type="rss" />
-      <outline title="Ayoub Zehhaf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyAmnH9PjKKf49fwUDvrm9r" type="rss" />
-      <outline title="mohamed bhd2" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdjPFqF8AFzkd1HlKg3ZmMg" type="rss" />
-      <outline title="omar8k Morocco" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfpwHUfvNW-EjVCtjJdeoUA" type="rss" />
-      <outline title="ØµØ¯Ù ÙØ³Ø§Ø¦Ù Ø§ÙØªÙØ§ØµÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCffUp0e6G29nkztpDTraL1H" type="rss" />
-      <outline title="soltane charjane Ø§ÙØ³ÙØ·Ø§Ù Ø§ÙØ´Ø§Ø±Ø¬Ø§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8FOpHVi07Em1DMN9hUXQpS" type="rss" />
-      <outline title="Blan" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCT2myVPeiXzFzGq9IdUWmNw" type="rss" />
-      <outline title="Ø£ÙÙØ§Ù Ø§ÙØ·Ø¨ÙØ¹Ø©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdMtaq1taZM1G6M0Dasir5g" type="rss" />
-      <outline title="IMAD TAKE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz6hS2ya8Z7U2NVQTgKNC3w" type="rss" />
-      <outline title="Bobby The Doggy" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLPmsHdqLRNzfyWsA3Lq8uw" type="rss" />
-      <outline title="Topnado" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKDBf6P85-QZsBfKAUVeHQQ" type="rss" />
-      <outline title="Maghreb Foot Officiel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI5Glbu7vK9vYmaVS6VmawQ" type="rss" />
-      <outline title="Ø¨ÙØ§Øª Ø§ÙØ§ÙØ§Ø±Ø§Øª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEnq70R9rcHG9XBTNr4JN9g" type="rss" />
-      <outline title="Ø³ÙØ§Ù ÙØºØ±Ø¨ÙØ© ð²ð¦" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWGxq53k21tVunKSsa7FeBg" type="rss" />
-      <outline title="Ø§ÙØ¬ÙÙÙØ© Ø¨Ø±ÙØ³ Ø§ÙØ±Ø³ÙÙØ© _jihawiapresse" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3gwy79fOLHa6hGMmVc2xCQ" type="rss" />
-      <outline title="mouad noukhal" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCawKixH18smL97TWR2GFHnA" type="rss" />
-      <outline title="OS SPORT TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCV0MqlOwKxv7eyzSZBY3ajA" type="rss" />
-      <outline title="Ø³Ø¨ÙØ±Øª ÙÙÙØ¯ÙØ§Ù Sport Mondial" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC04WsPD7OoIlBedDsULf0hw" type="rss" />
-      <outline title="ð¬ð¼ðððð²ð³ ððð²ð¿ð´ðð¶" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLfCBrg_h296G6Z-FQGjqyA" type="rss" />
-      <outline title="Saad Benmansour Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRuGklE2RqSXJj9M84QOgUP" type="rss" />
-      <outline title="Morocco Algeria Ø§ÙÙØºØ±Ø¨ Ø§ÙØ¬Ø²Ø§Ø¦Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5EyTYuEMrR_B9UBUfjWXBw" type="rss" />
-      <outline title="facepress live" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGgOFK1d2q17UGDxF06K3sA" type="rss" />
-      <outline title="Banque Populaire du Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOrSrjmPtk_z5ZByBSkubwA" type="rss" />
-      <outline title="3ami 3abdslam | Ø¹ÙÙ Ø¹Ø¨Ø¯ Ø§ÙØ³ÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8Px6uGmqE3YJccVStOiAsT" type="rss" />
-      <outline title="Chaimaa Vlogg /Ø´ÙÙØ§Ø¡ ÙÙÙØº" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQbWpAfxzT9_cMhJDkGkiRQ" type="rss" />
-      <outline title="Achraf nedday - Ø£Ø´Ø±Ù ÙØ¯Ø§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPNZO-y7VftcVU3kXEOPfMg" type="rss" />
-      <outline title="ITLALA - Ø¥Ø·ÙØ§ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbMctBFVo9wCQ5g7SWkn0VA" type="rss" />
-      <outline title="ÙØ§ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6lUbaxpKE8IhbHQHdfBrnw" type="rss" />
-      <outline title="Footballin" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCSWIdHpGcJhNXuPtdvxFj7A" type="rss" />
-      <outline title="Ø³ÙÙØ§Ø·Ù / SaT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC06ptBPuflX3R3QR08HRBKw" type="rss" />
-      <outline title="ÙØ¹ÙÙØ© Ø³ØªØ§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWd26Fz6itDZCuRhuTlJCpw" type="rss" />
-      <outline title="MATIN TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6qarrkWOyt0oXSkFw25KVw" type="rss" />
-      <outline title="TOP 10 MAROC" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMShDcdrDWRMVIiV4CM092c" type="rss" />
-      <outline title="alnahar 24 Ø§ÙÙÙØ§Ø±" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCycBwS_C-FYH-dtNjucrFag" type="rss" />
-      <outline title="Ø§Ù ÙÙØ³Ù Ø§ÙÙØ§Ø³ÙØ©" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkvQhB86hpBT4TQ9D7bpYAw" type="rss" />
-      <outline title="MrFouad" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUF06L9pIDq_ww0f8S_XXIQ" type="rss" />
-      <outline title="morocco" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIOj4rtmMj0-KcTn5Xdj18w" type="rss" />
-      <outline title="ÙÙØ£" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKMMsudNFMGvInOoWhe3TZj" type="rss" />
-      <outline title="Chibani &amp; Yasmine" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI17QqjhMMbNTeiIPf2u2Td" type="rss" />
-      <outline title="NOZHA TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQh_IwlCgEhEB_zSP3dgQsQ" type="rss" />
-      <outline title="Ø´ÙØ§ ÙØ§ ÙØªÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsn4cjptQGjcxWP6EoEDWng" type="rss" />
-      <outline title="Eper Oussama" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmhgEcNpGuGem5eeKfQNoOg" type="rss" />
-      <outline title="Coca-Cola Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCw7k-KlfuIdI0wRNYbHasiw" type="rss" />
-      <outline title="Secretos y Aventuras" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvhsNpvHxCBm5GparxeFETw" type="rss" />
-      <outline title="Im_Nb1 Ø£ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCK16a1sUUqribbZfyHAYeyg" type="rss" />
-      <outline title="Richspire" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHeSfVjdtkyPu28TnhUBW5w" type="rss" />
-      <outline title="Rachid  reaction" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCs3fJTJLA_hFelzHWrykmzg" type="rss" />
-      <outline title="Ayoub Logic" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBTSa9dVfnX1ZlagM3UkKpG" type="rss" />
-      <outline title="ysf_art" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAYERyfQXlrqzDqfnAM8t5g" type="rss" />
-      <outline title="Lala Sana" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_pUXKT_KfGVYHF9XZZf2FA" type="rss" />
-      <outline title="Scary Funny Pranks" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCV0CTY7miPSCwBk2706TmnQ" type="rss" />
-      <outline title="Othmane El Atmani Plus" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChcvCu-__HdUxVNUo3okScQ" type="rss" />
-      <outline title="RankVerse" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtrCsqxzsmbWEXKPUM1P4dg" type="rss" />
-      <outline title="Ø£Ø®Ø¨Ø§Ø± Ø§ÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5HVt1X1OpGPedAxfbTDjaQ" type="rss" />
-      <outline title="DAKKA RABAT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzZHi8fdhAcr7z6l79t65gw" type="rss" />
-      <outline title="YAHYA_ EDIT7" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQ19Ed09PXCQj7Zzcu7-O9Q" type="rss" />
-      <outline title="Azar sports" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKFMK3uFQAvo3caDfURINxg" type="rss" />
-      <outline title="Ø¹Ø§ÙÙÙ Ø¨ÙØºØªÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3M7oBKDojrzg33f4ZEpbdg" type="rss" />
-      <outline title="Tefwija Official" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyA4QmglPDSu5jSJKzb2vFy" type="rss" />
-      <outline title="Taoufik" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCR4zZUAqyJJbBn6ywUdyC1i" type="rss" />
-      <outline title="Assia rose Ø£Ø³ÙØ© ØºÙØ²" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrFxyQmctZxeHmL5d5EUuoE" type="rss" />
-      <outline title="naji ELHASSAN | ÙØ§Ø¬Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCq16uo14PhTmQJEAQcLn_SA" type="rss" />
-      <outline title="Super Vlogs Ø³ÙØ¨Ø± ÙÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCC1dWHx393GaWMnE1tqtiTy" type="rss" />
-      <outline title="FCiller" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqseDdBzZyCV6csQ5UxkHPb" type="rss" />
-      <outline title="lanjri tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgdl1OxPklc3998qiVRgS1g" type="rss" />
-      <outline title="Toufik Chakrane I ØªÙÙÙÙ Ø´ÙØ±Ø§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDkl9ukSxFOXQ00CVAMZtjT" type="rss" />
-      <outline title="Heydaoui - Ø­ÙØ¯Ø§ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCz1GtNbKrZEY0eBvBGhTHPL" type="rss" />
-      <outline title="Anify_MAR" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChLGFIupVjX5RKQJNAPUj9A" type="rss" />
-      <outline title="Dark Side" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCozYHU0CoO0AvB-5XA5Ayg" type="rss" />
-      <outline title="ÙÙØ¨ÙÙØ© 2 | MA9BOLA 2 TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGADft_i4N1U5nXlfr2424A" type="rss" />
-      <outline title="Cops Drama" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6_rXUBu5KXk40nnwjgpgpw" type="rss" />
-      <outline title="Amerbi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRlrB1htN8N5bSSsBxhWqmg" type="rss" />
-      <outline title="AN instru" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC36EsrAN9F93L32XxfRoe4w" type="rss" />
-      <outline title="Soft Whiskers World" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoGeN6AUqpbLY3SsVHsNrR7" type="rss" />
-      <outline title="ØªØ¯Ø¨ÙØ± Ø§ÙØ¨ÙØª ÙØ¹ ÙØ±ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaT3HEHN6frC6bJHTzDLblh" type="rss" />
-      <outline title="Khadija Om Lina" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOh7PMRTXZvMVjvYWMC0LIe" type="rss" />
-      <outline title="Truck Momo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7bSyX5GYentyzo58EeO1Cg" type="rss" />
-      <outline title="Tijani  Online" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoPr8YagidNnRmQzAXc6b6w" type="rss" />
-      <outline title="BILAL ESSEDRATY" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIrb7EylJcw8EPC6IlBpKoY" type="rss" />
-      <outline title="StarBuzz Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2I44_O13eTU44aYDq1ElDg" type="rss" />
-      <outline title="Ø¹ÙÙØ§Ù ÙÙÙÙalouane vlogs" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6mmzZfcVKxYcmBmLo8ppKQ" type="rss" />
-      <outline title="Lwa9i3 AI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqJ006m83Bg-6mQtFWkp9GA" type="rss" />
-      <outline title="tus fun" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCu2gkL7kToLlVDLq3yW0ATo" type="rss" />
-      <outline title="Mehdi souat-ÙÙØ¯ Ø³ÙØ§Ø·" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCziGrGwqXm5Zsji-m5T43YA" type="rss" />
-      <outline title="Habi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj0Qn78s0o64qUa4kty5QZF" type="rss" />
-      <outline title="Mohamed Lhanchi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCl9Eyo9cxg0Qushg4exvaMw" type="rss" />
-      <outline title="Ø¹Ø§ÙÙ Ø³ÙØ§Ù ÙÙØªÙØ¸ÙÙ ÙØ§ÙÙØµÙØ§Øª" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxS-USv4kUVsHWqdkUP857A" type="rss" />
-      <outline title="Jbala top tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC580GzqvKsQ10SprNrhu50Q" type="rss" />
-      <outline title="OssetoriÙÙØ§ÙØ¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7HjVXVwn62KzBJonaxxlog" type="rss" />
-      <outline title="Ellaa Asma" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfmWyuUzcKssVyZAJeYr8Ag" type="rss" />
-      <outline title="Mohamed Birds" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFr8BoqYMPG3rqwFShxXTZg" type="rss" />
-      <outline title="BOUKMAMA" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCMgcf3OHyWmErvEy_XPaJw" type="rss" />
-      <outline title="Moroccan Paparazzi II Ø¨Ø§Ø¨Ø§Ø±Ø§ØªØ²Ù Ø§ÙÙØºØ±Ø¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCX9V5G3Yz_yWwDqaXtFghkw" type="rss" />
-      <outline title="ØµØ§ÙØ¹ ÙØ­ØªÙÙ ÙØºØ±Ø¨Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZEPM1sRJT1cT2ZkmoQPBWw" type="rss" />
-      <outline title="yorozuya" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGE8vZhSJYhe6elanrv6A61" type="rss" />
-      <outline title="Fifth Or First" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvKWTG0X__RUSBIWiNrIClw" type="rss" />
-      <outline title="Grchal Analysis" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfefSG2QhSb35JWPoL4FNUd" type="rss" />
-      <outline title="Siham Era â¢ Ø³ÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpsnF2k71Z7Pi79MT9nFWEw" type="rss" />
-      <outline title="VortexLab" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCeg-kTHaH6mO59JjVoVxuNw" type="rss" />
-      <outline title="ÙØ­Ø¸Ø§Øª ÙØ§ ØªÙØ³Ù ÙÙ Ø¹Ø§ÙÙ ÙÙØ±Ø© Ø§ÙÙØ¯Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsjXGTPw4upII6hP9KCUhFg" type="rss" />
-      <outline title="Why Unlocked" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9mbD1E8dFg8DVQSbx1ZKYQ" type="rss" />
-      <outline title="Family Guy Shorts0" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmX2Jr603Sgo4BWscfE-bYA" type="rss" />
-      <outline title="shortsfeed" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMEuiQXR9CFaiRrkL50ruFI" type="rss" />
-      <outline title="Ø³ÙØ§Ø±Ø§Øª ÙØ³ØªØ¹ÙÙØ© ÙÙØ¨ÙØ¹ 2025" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC09l6ZJls0ddx9QUUlwD4WL" type="rss" />
-      <outline title="ÙÙÙØ³ Ø§ÙÙØ¯ÙÙØ±Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFm73-qdoFaNn4pmDu2ULDw" type="rss" />
-      <outline title="ÙÙØ§Ø·Ø¹_Ø¶Ø­Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCH3jvp4Fi5zRDwt8Pjwxtcg" type="rss" />
-      <outline title="Amine rÃ©action TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4eMIgYV8eD49GSzG29OZPg" type="rss" />
-      <outline title="Zakichan 24" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjO4zXBq-TWWpdCQZoiXIrw" type="rss" />
-      <outline title="ALL ABOUT ENGLISH" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWNpcbC6b7V4pRfa1vFvXAA" type="rss" />
-      <outline title="Dok raw" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI0B5CXgUh8PjlFZuZP3Yop" type="rss" />
-      <outline title="ÙØ­Ø¨Ù ÙÙØ«Ø± Ø´Ø§ÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzKqKAU1A4BgwR2iQGVpkMy" type="rss" />
-      <outline title="volkanito" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCq6XfD2Nw5Vwv8Lvee4ZWeQ" type="rss" />
-      <outline title="Horizons.H.Ø¢ÙØ§Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_8OyKsztfXXQl8Br6uuhaQ" type="rss" />
-      <outline title="ØªÙØªÙÙ ÙØ±Ø© Ø§ÙÙØ¯Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCscl_-V9PfQk54smuW5XkTQ" type="rss" />
-      <outline title="ÙÙØ§Ø© Ø§ÙÙØ·Ù ÙØ§ÙØ´Ø¹Ø¨" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfiKBXtQNNXz799yNkpeED3" type="rss" />
-      <outline title="Ø³Ø¹Ø¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7AxYWR8YPmsWkn7CpytvHg" type="rss" />
-      <outline title="ÙÙØ¯Ù ÙÙÙØ² Medo news" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJ0s4FtYZNym9NPbk2WdCsA" type="rss" />
-      <outline title="elmoumene abdelali" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqo6UVy8JFYCpISDj3mdSQc" type="rss" />
-      <outline title="Yaya" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNoelxvaag9jVx0VbuEf3hg" type="rss" />
-      <outline title="RÃ©actions&amp;Ø±ÙØ§ÙØ´Ù" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIf54lxFl4WBgqg1SNBovsg" type="rss" />
-      <outline title="OXI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCphq3vrW4yKzNOkF0477lPg" type="rss" />
-      <outline title="Night Vision X" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbH1Tg-7rUHpScseeg4bmxA" type="rss" />
-      <outline title="TurboTakes" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCChULbObd8oRJSUIKqR2437" type="rss" />
-      <outline title="9retes" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPU1kBoC9Y9E15XpHqB5CbS" type="rss" />
-      <outline title="Satisf" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcYjLglanTVVQudOyU9tUVj" type="rss" />
-      <outline title="0mar gahouam" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCu2iMwsUr0ZTxvEAYMalBSm" type="rss" />
-      <outline title="WrestleRanked" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCticTH1Th3-cMF-OJPFjsgw" type="rss" />
-      <outline title="Ø§ÙØ§Ø­Ø¯Ø§Øª Ø¯ÙØªÙÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJtfMKwI2uGZY2ExzHFLx4u" type="rss" />
-      <outline title="Mouhsine Sallam" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyJggIWLyKQDbxNwuhEZmWw" type="rss" />
-      <outline title="Yusuf_MHM" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuP9j7BHIMoDAYHMIf1SiTA" type="rss" />
-      <outline title="FaiStranger811" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC47lgmfOytybn3NizmesPfG" type="rss" />
-      <outline title="just laughing" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCkoBFjEaeS2naUPEoeiAjww" type="rss" />
-      <outline title="Montassir Allioui" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWiVvadKpp0wUnYSwyM4WXA" type="rss" />
-      <outline title="Morocco Techno Media" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCewOgtrUaAlle9fZA0YGEDA" type="rss" />
-      <outline title="oud91" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC5Sjvi82BwkAlZTHsGzfSr3" type="rss" />
-      <outline title="Tv Fes" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBazlWl2aOGBdmKbMuaccJQ" type="rss" />
-      <outline title="Yassmeed" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrpw92dVhs0NdVj_yT7tMpA" type="rss" />
-      <outline title="Ach khbarkum - Ø¢Ø´ Ø®Ø¨Ø§Ø±ÙÙ" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCyIHuaqPKpZyNp4dEJpgqQ" type="rss" />
-      <outline title="Hulk Tube" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClTa7o_6UggoHVacwiJskxw" type="rss" />
-      <outline title="Ø¬Ø¯ÙØ¯ Ø§ÙØ£Ø³ÙØ¯" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCTq1RRi6UHSTT9NUTUZOsz8" type="rss" />
-      <outline title="cozevi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiLC_7M2eqQ7UTz1QFZ7lEQ" type="rss" />
-      <outline title="Hyundai Maroc" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUeEq8e39ZEeVnV_ApPfx2w" type="rss" />
-      <outline title="Rankzi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJMbCChPAoMQ9uiBUM73naw" type="rss" />
-      <outline title="Junko Delivery" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCP6CUwYPwCFXC91iGnjmg0w" type="rss" />
-      <outline title="the world as" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyVnCQ97NbX9pBLK8Uc6e5z" type="rss" />
-      <outline title="Diva Rebecca" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9nIhsoCnAUJNCOC65UbiDg" type="rss" />
-      <outline title="ÙØ³Ø¹ÙØ¯Ø© Mas3oda Tv" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcxZrs55YZqAyt3DMbxtQRw" type="rss" />
-      <outline title="Doctor Mike" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0QHWhjbe5fGJEPz3sVb6nw" type="rss" />
-      <outline title="Philip DeFranco" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClFSU9_bUb4Rc6OYfTt5SPw" type="rss" />
-      <outline title="Franco Escamilla" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCUjrDJokSX8JavRwy5iUOkA" type="rss" />
-      <outline title="Veritasium" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHnyfMqiRRG1u-2MsSQLbXA" type="rss" />
-      <outline title="Danny Gonzalez" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCSUf5_EPEfl4zlBKZHkZdmw" type="rss" />
-      <outline title="ERB" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCMu5gPmKp5av0QCAajKTMhw" type="rss" />
-      <outline title="Lele Pons" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCi9cDo6239RAzPpBZO9y5SA" type="rss" />
-      <outline title="Tyler Oakley" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvVuqRzGVqRlmZYlTf99M_w" type="rss" />
-      <outline title="Niki and Gabi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuVHOs0H5hvAHGr8O4yIBNQ" type="rss" />
-      <outline title="emma chamberlain" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC78cxCAcp7JfQPgKxYdyGrg" type="rss" />
-      <outline title="JaidenAnimations" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGwu0nbY2wSkW8N-cghnLpA" type="rss" />
-      <outline title="Preston" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC70Dib4MvFfT1tU6MqeyHpQ" type="rss" />
-      <outline title="playz" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEw4oyJKvmYPoIpSa8cfr7A" type="rss" />
-      <outline title="Jay Shetty" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbV60AGIHKz2xIGvbk0LLvg" type="rss" />
-      <outline title="Crossover" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCsKDcxNw7TaJwyjd2iH0QWg" type="rss" />
-      <outline title="The Commentary Magazine Podcast" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCccUOsMDVKadNgq2cQeR-Dw" type="rss" />
-      <outline title="Kid President" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKqSuE8yStsbWU-hthq2q2w" type="rss" />
-      <outline title="Just For Laughs Gags" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpsSadsgX_Qk9i6i_bJoUwQ" type="rss" />
-      <outline title="ORIGINAL SONG - Topic" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCjN61NmwhA0IXoqIhMCyvDA" type="rss" />
-      <outline title="Learn German with Kanwalrukh" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCc41Yk9xrdwGok7Oip3atAw" type="rss" />
-      <outline title="Amanda Steele" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZ90tZPn-ue2BmRAcDD88tA" type="rss" />
-      <outline title="Simply Nailogical" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCGCVyTWogzQ4D170BLy2Arw" type="rss" />
-      <outline title="CaseyNeistat" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtinbF-Q-fVthA0qrFQTgXQ" type="rss" />
-      <outline title="Wisdom Kaye" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_gtN4lepSR1ebO2fKGd85g" type="rss" />
-      <outline title="stampylonghead" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCj5i58mCkAREDqFWlhaQbOw" type="rss" />
-      <outline title="SOKAR YT" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqZJbp4SkbuZhZTwlX9NMTg" type="rss" />
-      <outline title="21 Tach" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCuRUwXu-nynoDbbTmTrnCvQ" type="rss" />
-      <outline title="ISSAM MUSIC" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrYf0psCyPOHZ-snY2fvwRQ" type="rss" />
-      <outline title="Shobee" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClYY4H4k_LGXq6lTPtmG8Xg" type="rss" />
-      <outline title="مجربة Mojaraba TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCCvguzToWt3PYumFPRusUKg" type="rss" />
-      <outline title="Number Resource Society" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UChjl5LbkZ1q9JZudArEKJ1A" type="rss" />
-      <outline title="هل تعلم؟" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCa7lQu3RM6p88h4KOfTpqWA" type="rss" />
-      <outline title="Chouftv - شوف تيفي" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCI3ESb2GoE1w5MIKosbmutQ" type="rss" />
-      <outline title="Zouhair Bahaoui | زهير بهاوي" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzPpr_J4zgu6QKLJEBk31mw" type="rss" />
-      <outline title="cuisine Halima Filali شهيوات داري" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCg-N83OHoYpeA-cDb2VXodQ" type="rss" />
-      <outline title="Garena Free Fire Middle East and Africa - Arabic" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCHZArBtk2eda0AVR6HI4qMw" type="rss" />
-      <outline title="Aymane Serhani" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLGla5b4F1Y_qB74l3Fh8Vw" type="rss" />
-      <outline title="ثقف نفسك" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8JJ2en6OsyCwHhbwf8bxUw" type="rss" />
-      <outline title="English Language Academy" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC7HhSlh-QbL9626A_mM4DRg" type="rss" />
-      <outline title="Ramadan Al Aoula TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-do1UFNFVRhFA20k1izktQ" type="rss" />
-      <outline title="RECIPES FOR YOU" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCq6akguHzmPR6dqIqhuUIAA" type="rss" />
-      <outline title="الطبخ والبيت مع سوس" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC8D-EFUelMGFBWq9gLslP1w" type="rss" />
-      <outline title="Baraka lBaraka" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC68yhEwJBSFt8UcWy-dDA-g" type="rss" />
-      <outline title="MEDI1 TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfXlL8avQjg74WbRyksr9bQ" type="rss" />
-      <outline title="Hamida Shorts" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzZ0Ds0O6hPGc-BcPdLAluA" type="rss" />
-      <outline title="وصفة سحرية" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCKfcDAjw-xWzT3F9-RRzRWQ" type="rss" />
-      <outline title="عالم سعاد - Aalam souad" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAxQ1Vzj0UN98g4IxV3MFhQ" type="rss" />
-      <outline title="Wasfa Net وصفة نيت" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9095ZI_18ixFNvyQjPMiaA" type="rss" />
-      <outline title="رحلة العقل" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCDuYdyewXlP8O55CVRSAxpg" type="rss" />
-      <outline title="Belmirs | بلمير" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZ5tjhLSLd6L4Te0wnTG2FA" type="rss" />
-      <outline title="هاي سبورت" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCznXHSPIbc0P7paQQz0kBxg" type="rss" />
-      <outline title="Douzi دوزي" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCAptYoIT2v03gxBVcZ1Qa6Q" type="rss" />
-      <outline title="MrBeast" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCX6OQ3DkcsbYNE6H8uQQuVA" type="rss" />
-      <outline title="T-Series" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCq-Fj5jknLsUf-MWSy4_brA" type="rss" />
-      <outline title="Cocomelon - Nursery Rhymes" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbCmjCuTUZos6Inko4u57UQ" type="rss" />
-      <outline title="SET India" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCpEhnqL0y41EpW2TvWAHD7Q" type="rss" />
-      <outline title="Vlad and Niki" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvlE5gTbOvjiolFlEm-c_Ow" type="rss" />
-      <outline title="Stokes Twins" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbp9MyKCTEww4CxEzc_Tp0Q" type="rss" />
-      <outline title="Kids Diana Show" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCk8GzjMOrta8yxDcKfylJYw" type="rss" />
-      <outline title="김프로KIMPRO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiVs2pnGW5mLIc1jS2nxhjg" type="rss" />
-      <outline title="Like Nastya" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJplp5SjeGSdVdwsfb9Q7lQ" type="rss" />
-      <outline title="Zee Music Company" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCFFbwnve3yF62-tVXkTyHqg" type="rss" />
-      <outline title="Alejo Igoa" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZs0WwC0Dn_noiQE2BHSTKg" type="rss" />
-      <outline title="WWE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNSnSemXKDc9UEZ7m31wY9Q" type="rss" />
-      <outline title="PewDiePie" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQ4zIVlfhsmvds7WuKeL2Bw" type="rss" />
-      <outline title="Goldmines" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyoXW-Dse7fURq30EWl_CUA" type="rss" />
-      <outline title="Sony SAB" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6-F5tO8uklgE9Zy8IvbdFw" type="rss" />
-      <outline title="Blackpink" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOmHUn--16B90oW2L6FRR3A" type="rss" />
-      <outline title="Alan's Universe" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCIwFjwMjI0y7PDBVEO9-bkQ" type="rss" />
-      <outline title="Zee TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCppHT7SZKKvar4Oc9J4oljQ" type="rss" />
-      <outline title="ChuChu TV Nursery Rhymes &amp; Kids Songs" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCBnZ16ahKA2DZ_T5W0FPUXg" type="rss" />
-      <outline title="Topper Guild" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCPuEAY09CtdTzFNWuqVZgDw" type="rss" />
-      <outline title="A4" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC2tsySbe9TNrI-xh2lximHA" type="rss" />
-      <outline title="KL BRO Biju Rithvik" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCL5nlHWXVLeOsSjKH2fhmsg" type="rss" />
-      <outline title="BANGTANTV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCLkAepWjdylmXSltofFvsYQ" type="rss" />
-      <outline title="Baby Shark - Pinkfong Kids’ Songs &amp; Stories" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcdwLMPsaU2ezNSJU1nFoBQ" type="rss" />
-      <outline title="ZAMZAM BROTHERS OFFICIAL" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCrnQFuUabBHaw-BRhPo8xEA" type="rss" />
-      <outline title="Toys and Colors" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgFXm4TI8htWmCyJ6cVPG_A" type="rss" />
-      <outline title="T-Series Bhakti Sagar" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCaayLD9i5x4MmIoVZxXSv_g" type="rss" />
-      <outline title="Colors TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC55IWqFLDH1Xp7iu1_xknRA" type="rss" />
-      <outline title="UR · Cristiano" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCtxD0x6AuNNqdXO9Wp5GHew" type="rss" />
-      <outline title="Tips Official" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJrDMFOdv1I2k8n9oK_V21w" type="rss" />
-      <outline title="Hybe Labels" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3IZKseVpdzPSBaWxBxundA" type="rss" />
-      <outline title="5-Minute Crafts" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC295-Dw_tDNtZXFeAPAW6Aw" type="rss" />
-      <outline title="Mark Rober" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCY1kMZp36IQSyNx_9h4mpCg" type="rss" />
-      <outline title="Zhong" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyagEfIN1okQ-s996XAqCFQ" type="rss" />
-      <outline title="Fede Vigevani" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCoQm-PeHC-cbJclKJYJ8LzA" type="rss" />
-      <outline title="ISSEI / いっせい" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6QZ_ss3i_8qLV_RczPZBkw" type="rss" />
-      <outline title="Bispo Bruno Leonardo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgi6Wim7jdoW6luCXci83uw" type="rss" />
-      <outline title="Aaj Tak" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCt4t-jeY85JegMlZ-E5UWtA" type="rss" />
-      <outline title="Shemaroo Filmi Gaane" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCP6uH_XlsxrXwZQ4DlqbqPg" type="rss" />
-      <outline title="Anaya Kandhal" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4wEPe5mrHGAUjjTfXH_C-Q" type="rss" />
-      <outline title="HAR PAL GEO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCe9JSDmyqNgA_l2BzGHq1Ug" type="rss" />
-      <outline title="Infobells - Hindi" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1ciY6kR3yj3kaKZ6R7ewAg" type="rss" />
-      <outline title="YRF" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbTLwN10NoCU4WDzLf1JMOA" type="rss" />
-      <outline title="Sony Music India" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC56gTxNs4f9xZ7Pa2i5xNzg" type="rss" />
-      <outline title="El Reino Infantil" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCK1i2UviaXLUNrZlAFpw_jA" type="rss" />
-      <outline title="Wave Music" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC22nIfOTM7KLIQuFGMKzQbg" type="rss" />
-      <outline title="YOLO AVENTURAS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCOnIJiQuk1fDSp6p1GCZy3A" type="rss" />
-      <outline title="Canal KondZilla" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCffDXn7ycAzwL2LDlbyWOTw" type="rss" />
-      <outline title="ARY Digital HD" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC4JCksJF76g_MdzPVBJoC3Q" type="rss" />
-      <outline title="Eminem Music" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfM3zsQsOnfWNUppiycmBuw" type="rss" />
-      <outline title="Celine Dept" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC1a2ZCw7tugRZYRMnecNj3A" type="rss" />
-      <outline title="Dangal TV Channel" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCNzmmbXIbMzlqE8nD1PBXfg" type="rss" />
-      <outline title="Saregama Music" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC_A7K2dXFsTMAciGmnNxy-Q" type="rss" />
-      <outline title="Taylor Swift" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqECaJ8Gagnn7YCbPEzWH6g" type="rss" />
-      <outline title="PANDA BOI" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJbJuOSf-ec7jsPzvQBVC3w" type="rss" />
-      <outline title="Dude Perfect" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRijo3ddMTht_IHyNSNXpNQ" type="rss" />
-      <outline title="LooLoo Kids - Nursery Rhymes and Children's Songs" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9zs_bkRRTJa2kRsakFaFmw" type="rss" />
-      <outline title="Shemaroo" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCF1JIbMUs6uqoZEY1Haw0GQ" type="rss" />
-      <outline title="आचार्य प्रशान्त - Acharya Prashant" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmRZ4Xrzx1PKsg2UieOT6rA" type="rss" />
-      <outline title="Маша и Медведь[b]" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCfbugOkS8PkqhDfvehIDRBw" type="rss" />
-      <outline title="SonyMusicIndiaVEVO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC3MLnJtqc_phABBriLRhtgQ" type="rss" />
-      <outline title="Alfredo Larin" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCd5ApCORQsMOZZz5E9oVeFA" type="rss" />
-      <outline title="ToRung" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCXbYlU08sOTBktOtjVsvR6w" type="rss" />
-      <outline title="Ed Sheeran" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC0C-w0YjGpqDXGB8IHb662A" type="rss" />
-      <outline title="Marshmello" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEdvpU2pFRCVqU6yIPyTpMQ" type="rss" />
-      <outline title="Mikecrack" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCqJ5zFEED1hWs0KNQCQuYdQ" type="rss" />
-      <outline title="JioHotstar Kids" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCJg19noZp7-BYIGvypu_cow" type="rss" />
-      <outline title="Billie Eilish" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCiGm_E4ZwYSHV3bcW1pnSeQ" type="rss" />
-      <outline title="Billion Surprise Toys" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6sqpmfBwngFZQPPzFjDGTw" type="rss" />
-      <outline title="IShowSpeed" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCd09ztChTkJ9dlY6RLawSog" type="rss" />
-      <outline title="Ariana Grande" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC9CoOnJkIBMdeijd9qYoT_g" type="rss" />
-      <outline title="Get Movies" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UClZkHt2kNIgyrTTPnSQV3SA" type="rss" />
-      <outline title="StarPlus" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC-LPIU24bQXVljUXivKEeRQ" type="rss" />
-      <outline title="shfa" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwHE1kM1CPJd_pI9FQ0-4dg" type="rss" />
-      <outline title="JuegaGerman" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYiGq8XF7YQD00x7wAd62Zg" type="rss" />
-      <outline title="Juan de Dios Pantoja" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCzoUWqjCbcfWFdOMvoep8FA" type="rss" />
-      <outline title="Masha and the Bear" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCu59yAFE8fM0sVNTipR4edw" type="rss" />
-      <outline title="ABS-CBN Entertainment" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCstEtN0pgOmCf02EdXsGChw" type="rss" />
-      <outline title="HUM TV" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCEeEQxm6qc_qaTE7qTV5aLQ" type="rss" />
-      <outline title="Jess No Limit" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCvh1at6xpV1ytYOAzxmqUsA" type="rss" />
-      <outline title="shfa2 - شفا" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCQ7x25F6YXY9DvGeHFxLhRQ" type="rss" />
-      <outline title="Ishtar Music" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCopY0NAzASqmD6eVaRj2TFQ" type="rss" />
-      <outline title="LUCCAS NETO" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCxk7r8lH6fWkMuWeQn9Gi6g" type="rss" />
-      <outline title="Bad Bunny" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCmBA_wu8xGg1OfOkfW13Q0Q" type="rss" />
-      <outline title="Real fools shorts official" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCgKEvLp8DXCTMq4QY6wW7bw" type="rss" />
-      <outline title="Sierra &amp; Rhia FAM" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCe6n0z9UbsxYCS8P83f84tw" type="rss" />
-      <outline title="Techno Gamerz" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCl_vAxZpvbO-PFXdDu7EdHw" type="rss" />
-      <outline title="MR. INDIAN HACKER" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCWWeRmpeFuYY1FdAru58Afw" type="rss" />
-      <outline title="Shakira" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCYLNGLIzMhRTi6ZOLjAPSmw" type="rss" />
-      <outline title="Karla Bustillos" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCyI6QRxXArFsfWlMdvoG2hw" type="rss" />
-      <outline title="BETER BÖCÜK" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCnYP-Vc_kPNk--9h6MNI4rA" type="rss" />
-      <outline title="BeatboxJCOP" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCdX5KXiCTPYWYZscfphgQ4g" type="rss" />
-      <outline title="ABP NEWS" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCRWFSbif-RFENbBrSiez1DA" type="rss" />
-      <outline title="Ben Azelart" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCwVg9btOceLQuNCdoQk9CXg" type="rss" />
-      <outline title="BEN EAGLE" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbGPgvNunvclTypPtL3sa0w" type="rss" />
-    </outline>
-  </body>
-</opml>

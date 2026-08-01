@@ -306,6 +306,8 @@ def enrich_parquet(
         sid = df.at[idx, "source_id"]
         if isinstance(sid, float):
             sid = str(sid)
+        elif hasattr(sid, "item"):  # numpy int64 → Python int
+            sid = sid.item()
         if sid in progress and progress[sid].get("ai_description", "").strip():
             skipped_progress += 1
             # Sync progress data into dataframe in case parquet is stale

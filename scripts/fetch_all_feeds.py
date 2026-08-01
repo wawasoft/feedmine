@@ -163,8 +163,8 @@ def parse_opml(file_path: Path, rel_path: str, manifest_index: dict[str, dict]) 
 
     # --- Category & region ---
     parts = Path(rel_path).parts
-    if parts and parts[0] == "countries":
-        # e.g. countries/brazil/brazil.opml
+    if parts and parts[0] in ("countries", "90_countries", "_staging"):
+        # e.g. countries/brazil/brazil.opml or 90_countries/brazil/brazil.opml or _staging/brazil/brazil.opml
         category = "countries"
         country = parts[1] if len(parts) > 1 else None
     else:
