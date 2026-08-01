@@ -20,7 +20,7 @@ struct SearchSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: expression,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords

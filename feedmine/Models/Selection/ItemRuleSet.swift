@@ -34,9 +34,6 @@ struct ItemRuleSet: Hashable, Sendable {
     /// Content type filter. Empty = all types allowed.
     var contentTypes: Set<ContentType>
 
-    /// Mood filter (sentiment/emotional tone).
-    var mood: MoodFilter
-
     /// Active search expression, if any.
     var searchExpression: SearchExpression?
 
@@ -59,7 +56,6 @@ struct ItemRuleSet: Hashable, Sendable {
         hasher.combine(languages.hashValue)
         hasher.combine(taxonomySourceIDs.hashValue)
         hasher.combine(contentTypes.hashValue)
-        hasher.combine(mood)
         hasher.combine(searchExpression)
         hasher.combine(excludedKeywords.hashValue)
         hasher.combine(contentExclusions)
@@ -74,7 +70,6 @@ struct ItemRuleSet: Hashable, Sendable {
         languages: [],
         taxonomySourceIDs: [],
         contentTypes: [],
-        mood: .all,
         searchExpression: nil,
         excludedKeywords: [],
         contentExclusions: .disabled,
@@ -95,16 +90,7 @@ struct ItemEvaluationCacheKey: Hashable {
 /// Avoids re-evaluating regex/string matching on thousands of items
 /// when rules haven't changed.
 actor ItemEvaluationCache {
-    private var moodMatches: [ItemEvaluationCacheKey: Bool] = [:]
     private var contentFilterExclusions: [ItemEvaluationCacheKey: Bool] = [:]
-
-    func moodMatch(_ itemID: String, ruleDigest: UInt64) -> Bool? {
-        moodMatches[ItemEvaluationCacheKey(itemID: itemID, ruleDigest: ruleDigest)]
-    }
-
-    func setMoodMatch(_ itemID: String, ruleDigest: UInt64, match: Bool) {
-        moodMatches[ItemEvaluationCacheKey(itemID: itemID, ruleDigest: ruleDigest)] = match
-    }
 
     func contentFilterExcluded(_ itemID: String, ruleDigest: UInt64) -> Bool? {
         contentFilterExclusions[ItemEvaluationCacheKey(itemID: itemID, ruleDigest: ruleDigest)]
@@ -116,12 +102,11 @@ actor ItemEvaluationCache {
 
     /// Clear all cached evaluations. Called when memory pressure is high.
     func clearAll() {
-        moodMatches.removeAll()
         contentFilterExclusions.removeAll()
     }
 
     /// Estimated memory footprint in bytes.
     var estimatedSize: Int {
-        (moodMatches.count + contentFilterExclusions.count) * 128
+        contentFilterExclusions.count * 128
     }
 }

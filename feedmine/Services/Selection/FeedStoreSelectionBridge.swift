@@ -45,7 +45,6 @@ final class FeedStoreSelectionBridge {
     var activeRegion: String?
     var activeNodeIDs: Set<String> = []
     var activeContentType: FeedLoader.ContentType = .all
-    var activeMood: FeedLoader.MoodFilter = .all
     var activeLanguages: Set<String> = []
     var activePreset: PresetSelector = .everything
     var contentFilterKeywords: Set<String> = []
@@ -70,7 +69,6 @@ final class FeedStoreSelectionBridge {
         taxonomyNodeIDs: Set<String>? = nil,
         contentTypes: Set<ContentType>? = nil,
         region: String? = nil,
-        mood: MoodFilter? = nil,
         ranking: RankingProfile? = nil,
         observe: Bool = true
     ) {
@@ -79,7 +77,6 @@ final class FeedStoreSelectionBridge {
             taxonomyNodeIDs: taxonomyNodeIDs ?? activeNodeIDs,
             languages: activeLanguages,
             contentTypes: contentTypes ?? (activeContentType == .all ? [] : [activeContentType]),
-            mood: mood ?? activeMood,
             searchExpression: nil,
             excludedKeywords: [],
             contentFilterKeywords: contentFilterKeywords

@@ -53,7 +53,7 @@ struct CollectionSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords
@@ -145,7 +145,6 @@ struct SmartFeedSelectionAdapter: Sendable {
         taxonomyNodeIDs: Set<String>,
         languages: Set<String>,
         contentType: ContentType?,
-        mood: MoodFilter,
         collectionMemberIDs: Set<SourceID>?,
         excludedKeywords: Set<String>,
         contentFilterKeywords: Set<String>,
@@ -173,7 +172,6 @@ struct SmartFeedSelectionAdapter: Sendable {
                 taxonomyNodeIDs: taxonomyNodeIDs,
                 languages: languages,
                 contentTypes: contentType.map { [$0] } ?? [],
-                mood: mood,
                 searchExpression: searchExpr,
                 excludedKeywords: excludedKeywords,
                 contentFilterKeywords: contentFilterKeywords
@@ -212,7 +210,7 @@ struct OnboardingSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: []
@@ -256,7 +254,7 @@ struct OnboardingSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords

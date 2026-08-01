@@ -32,7 +32,7 @@ struct MainFeedSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords
@@ -62,7 +62,7 @@ struct MainFeedSelectionAdapter: Sendable {
                 taxonomyNodeIDs: nodeIDs,
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords
@@ -92,7 +92,7 @@ struct MainFeedSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: contentType == .all ? [] : [contentType],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords
@@ -125,7 +125,7 @@ struct MainFeedSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords
@@ -154,7 +154,7 @@ struct MainFeedSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: [],
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords
@@ -184,7 +184,7 @@ struct MainFeedSelectionAdapter: Sendable {
                 taxonomyNodeIDs: [],
                 languages: languages,
                 contentTypes: [],
-                mood: .all,
+
                 searchExpression: nil,
                 excludedKeywords: [],
                 contentFilterKeywords: contentFilterKeywords
@@ -198,33 +198,4 @@ struct MainFeedSelectionAdapter: Sendable {
         )
     }
 
-    // MARK: - Mood filter
-
-    func makeMoodRequest(
-        mood: MoodFilter,
-        languages: Set<String>,
-        contentFilterKeywords: Set<String>
-    ) -> ContentSelectionRequest {
-        ContentSelectionRequest(
-            id: idGenerator.nextID(),
-            surface: .main,
-            sourceUniverse: .enabledLibrary,
-            criteria: ItemCriteria(
-                regions: [],
-                taxonomyNodeIDs: [],
-                languages: languages,
-                contentTypes: [],
-                mood: mood,
-                searchExpression: nil,
-                excludedKeywords: [],
-                contentFilterKeywords: contentFilterKeywords
-            ),
-            ranking: .none,
-            mix: .defaultFeed,
-            history: .defaultFeed,
-            acquisition: .cacheThenNetwork,
-            presentation: .defaultFeed,
-            completion: .mainFeedWarm
-        )
-    }
 }

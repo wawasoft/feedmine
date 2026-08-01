@@ -10,7 +10,7 @@ import Foundation
 // Tests MUST verify that both interpreters produce the same IDs for the same fixtures.
 
 /// Evaluates item rules in-memory. Uses ItemEvaluationCache to avoid
-/// re-evaluating expensive checks (mood regex, content filter matching)
+/// re-evaluating expensive checks (content filter matching)
 /// when rules haven't changed.
 struct InMemoryItemRuleEvaluator: Sendable {
 
@@ -103,14 +103,7 @@ struct InMemoryItemRuleEvaluator: Sendable {
             }
         }
 
-        // 4. Mood (cached — expensive regex evaluation)
-        if rules.mood != .all {
-            guard await evaluateMood(item, mood: rules.mood, digest: digest) else {
-                return false
-            }
-        }
-
-        // 5. Search expression
+        // 4. Search expression
         if let search = rules.searchExpression {
             guard matchesSearch(item, expression: search) else {
                 return false
@@ -169,20 +162,6 @@ struct InMemoryItemRuleEvaluator: Sendable {
 
     // MARK: - Expensive checks (cached)
 
-    private func evaluateMood(
-        _ item: FeedItem,
-        mood: MoodFilter,
-        digest: UInt64
-    ) async -> Bool {
-        // Check cache first
-        if let cached = await evaluationCache.moodMatch(item.id, ruleDigest: digest) {
-            return cached
-        }
-        // Evaluate and cache
-        let result = mood.matches(item.title)
-        await evaluationCache.setMoodMatch(item.id, ruleDigest: digest, match: result)
-        return result
-    }
 
     private func evaluateContentFilterExclusion(
         _ item: FeedItem,

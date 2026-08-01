@@ -150,9 +150,28 @@ struct LanguageScene: View {
 
     // MARK: - Language options
 
+    /// If the source registry hasn't loaded yet, fall back to a shortlist of
+    /// common languages so the user can still select their reading language on
+    /// first launch instead of seeing an empty "Add another language" panel.
+    private static let fallbackLanguages: [FeedLoader.LanguageInfo] = [
+        .init(code: "en", name: "English", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "pt", name: "Portuguese", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "es", name: "Spanish", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "fr", name: "French", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "de", name: "German", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "it", name: "Italian", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "ja", name: "Japanese", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "zh", name: "Chinese", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "ar", name: "Arabic", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "hi", name: "Hindi", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "ru", name: "Russian", flag: "", feedCount: 0, totalFeedCount: 0),
+        .init(code: "ko", name: "Korean", flag: "", feedCount: 0, totalFeedCount: 0),
+    ]
+
     private var filteredOptions: [FeedLoader.LanguageInfo] {
         let query = languageSearch.trimmingCharacters(in: .whitespacesAndNewlines)
-        let unselected = availableLanguages.filter { !selectedLanguages.contains($0.code) }
+        let pool = availableLanguages.isEmpty ? Self.fallbackLanguages : availableLanguages
+        let unselected = pool.filter { !selectedLanguages.contains($0.code) }
         guard !query.isEmpty else { return unselected }
         return unselected.filter {
             $0.name.localizedCaseInsensitiveContains(query)

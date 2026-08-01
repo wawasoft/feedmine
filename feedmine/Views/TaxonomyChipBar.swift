@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// One compact row for every active feed lens: search, source region,
-/// content type, topics, languages and mood. The top bar owns only the
+/// content type, topics, and languages. The top bar owns only the
 /// filter button; this view owns the visible active state.
 struct FilterLensBar: View {
     @Environment(FeedLoader.self) private var loader
@@ -73,15 +73,6 @@ struct FilterLensBar: View {
                     }
                 }
 
-                if loader.selectedMood != .all {
-                    FilterLensChip(
-                        title: loader.selectedMood.rawValue,
-                        systemImage: loader.selectedMood.icon,
-                        tint: .orange
-                    ) {
-                        loader.selectMood(loader.selectedMood)
-                    }
-                }
                 }
             }
             .padding(.horizontal, 12)

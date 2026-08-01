@@ -134,7 +134,6 @@ struct SmartFeedDefinition: Codable, Sendable, Hashable {
     let taxonomyNodeIDs: [String]
     let languages: [String]
     let contentType: String
-    let mood: String
     let sourceCollectionID: Int64?
     let excludedKeywords: [String]
 
@@ -148,7 +147,6 @@ struct SmartFeedDefinition: Codable, Sendable, Hashable {
         taxonomyNodeIDs: [String] = [],
         languages: [String] = [],
         contentType: String = "All",
-        mood: String = "All",
         sourceCollectionID: Int64? = nil,
         excludedKeywords: [String] = []
     ) {
@@ -166,7 +164,6 @@ struct SmartFeedDefinition: Codable, Sendable, Hashable {
         self.taxonomyNodeIDs = taxonomyNodeIDs.sorted()
         self.languages = languages.sorted()
         self.contentType = contentType
-        self.mood = mood
         self.sourceCollectionID = sourceCollectionID
         self.excludedKeywords = excludedKeywords.sorted()
     }
@@ -188,7 +185,6 @@ struct SmartFeedDefinition: Codable, Sendable, Hashable {
         case taxonomyNodeIDs
         case languages
         case contentType
-        case mood
         case sourceCollectionID
         case excludedKeywords
     }
@@ -225,7 +221,6 @@ struct SmartFeedDefinition: Codable, Sendable, Hashable {
             String.self,
             forKey: .contentType
         ) ?? "All"
-        mood = try container.decodeIfPresent(String.self, forKey: .mood) ?? "All"
         sourceCollectionID = try container.decodeIfPresent(
             Int64.self,
             forKey: .sourceCollectionID
