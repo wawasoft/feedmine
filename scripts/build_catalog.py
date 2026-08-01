@@ -73,7 +73,7 @@ def display_name(raw: str) -> str:
 
 
 def semantic_path_name(raw: str) -> str:
-    return re.sub(r"^\d+[ _-]+", "", raw).lower()
+    return re.sub(r"^[\d_]+[ _-]+", "", raw).lower()
 
 
 def stable_uint32(raw: str, reserved_zero: bool = True) -> int:
@@ -146,7 +146,7 @@ def append_file_node(nodes: list[InputNode], file_name: str, kind: int) -> None:
 def folder_nodes(relative_path: str, file_name: str) -> list[InputNode]:
     parts = Path(relative_path).parts[:-1]
 
-    if parts and semantic_path_name(parts[0]) == "countries":
+    if parts and semantic_path_name(parts[0]) in ("countries", "staging"):
         nodes = [InputNode(key=parts[0], name="Countries", kind=NODE_TOPIC)]
         country_parts = list(parts[1:])
         for index, part in enumerate(country_parts):

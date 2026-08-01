@@ -10,6 +10,32 @@ enum FeedLoadingState {
     case loadingMore
 }
 
+/// The current phase of feed display. Decouples "what is on screen"
+/// from loading state so the UI can distinguish between "empty because
+/// we haven't finished preparing" and "empty because there's no content."
+enum FeedDisplayPhase: Equatable {
+    /// Feed composition is in progress — no content should be shown yet.
+    case preparing(contextID: UInt64, reason: PreparationReason)
+
+    /// Feed is fully ready with the published runway.
+    case ready(contextID: UInt64)
+
+    /// Preparation finished and confirmed zero results.
+    case empty(contextID: UInt64)
+
+    /// Preparation failed.
+    case failed(contextID: UInt64, message: String)
+}
+
+enum PreparationReason: Equatable {
+    case startup
+    case filterChange
+    case manualRefresh
+    case source
+    case collection
+    case presetChange
+}
+
 enum DeferredToggleState: Equatable {
     case none
     case enabled
@@ -27,28 +53,13 @@ final class FeedLoader {
 
     // MARK: - UI State (from store)
 
-    /// When unified state is active AND the bridge has published content,
-    /// read from the bridge. Otherwise fall back to legacy. (Etapa 6 + P0-2 fix)
-    ///
-    /// Surfaces other than the main feed (bookmarks, smart feeds, last clicked)
-    /// always use legacy state — the bridge only manages main-feed content.
-    private var useBridgeForUI: Bool {
-        Settings.unifiedSelectionState
-            && store.selectionBridge != nil
-            && store.selectionBridge!.visibleItemsGeneration > 0
-            && !store.isBookmarkFeed
-            && !store.activePreset.isSmartFeed
-            && !store.activePreset.isLastClicked
-    }
-    var items: [FeedItem] {
-        useBridgeForUI ? store.selectionBridge!.visibleItems : store.visibleItems
-    }
-    var cards: [FeedCardPresentation] {
-        useBridgeForUI ? store.selectionBridge!.visibleCards : store.visibleCards
-    }
-    var loadingState: FeedLoadingState {
-        useBridgeForUI ? store.selectionBridge!.loadingState : store.loadingState
-    }
+    var items: [FeedItem] { store.visibleItems }
+    /// Pre-resolved card presentations. The main feed should render from these
+    /// when available — images are already resolved. Nil/empty for search and
+    /// paths that skip the pipeline (views fall back to CachedAsyncImage).
+    var cards: [FeedCardPresentation] { store.visibleCards }
+    var loadingState: FeedLoadingState { store.loadingState }
+    var feedDisplayPhase: FeedDisplayPhase { store.feedDisplayPhase }
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
     /// Unified source count from bridge when active, legacy otherwise. (Etapa 6)
