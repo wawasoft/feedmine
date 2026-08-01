@@ -147,12 +147,13 @@ def inject(args: argparse.Namespace) -> dict:
     df = table.to_pandas()
     done = df[df["status"] == "done"].copy()
 
-    # Build lookup: canonical_xml_url → enriched data
+    # Build TWO lookups: by canonical source_id AND by raw xmlUrl
     enriched: dict[str, dict] = {}
+    enriched_by_url: dict[str, dict] = {}
     for _, row in done.iterrows():
         url = str(row.get("xml_url", "") or row.get("canonical_xml_url", ""))
-        key = compute_source_id(url)  # use source_id for matching
-        enriched[key] = {
+        key = compute_source_id(url)
+        data = {
             "description": str(row.get("ai_description", "") or ""),
             "tags": str(row.get("ai_tags", "") or ""),
             "articles_fetched": int(row.get("articles_fetched", 0) or 0),
@@ -161,6 +162,9 @@ def inject(args: argparse.Namespace) -> dict:
             "site_url": str(row.get("site_url", "") or ""),
             "xml_url": url,
         }
+        enriched[key] = data
+        # Also index by raw xmlUrl for feeds whose feedmineSourceId uses raw URL hash
+        enriched_by_url[url.strip().lower()] = data
 
     print(f"Loaded {len(enriched)} enriched sources from parquet")
 
@@ -198,13 +202,22 @@ def inject(args: argparse.Namespace) -> dict:
             url = url_match.group(1)
             source_id = compute_source_id(url)
 
-            if source_id not in enriched:
+            # Try matching by canonical source_id first, then by raw URL
+            data = enriched.get(source_id) or enriched_by_url.get(url.strip().lower())
+            if data is None:
                 return element_str
 
-            data = enriched[source_id]
-
-            # Check if already has description (skip if so)
-            if re.search(r'description="[^"]{10,}"', element_str):
+            # Skip if already has a substantial enriched description (not a generic placeholder)
+            desc_match = re.search(r'description="([^"]*)"', element_str)
+            existing_desc = desc_match.group(1) if desc_match else ""
+            # Generic placeholders that should be replaced
+            is_generic = (
+                existing_desc.startswith("Writer/author blog") or
+                existing_desc.startswith("Journalist blog") or
+                existing_desc.startswith("Artist blog") or
+                len(existing_desc) < 30
+            )
+            if not is_generic and existing_desc and len(existing_desc) >= 30:
                 nonlocal skipped_count
                 skipped_count += 1
                 return element_str
@@ -216,7 +229,8 @@ def inject(args: argparse.Namespace) -> dict:
             nature = classify_nature(topic, data["tags"])
             score = quality_score(data["description"], data["tags"], data["articles_fetched"], activity)
             enabled = "true" if default_enabled_for(nature, activity) else "false"
-            lang = language_label(data["language"] or re.search(r'language="([^"]*)"', element_str))
+            lang_match = re.search(r'language="([^"]*)"', element_str)
+            lang = language_label(data["language"] or (lang_match.group(1) if lang_match else ""))
 
             # Build new attributes
             new_attrs = []

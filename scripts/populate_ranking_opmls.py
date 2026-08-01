@@ -29,7 +29,7 @@ sys.path.insert(0, str(_project_root))
 import aiohttp
 
 PROJECT_ROOT = _project_root
-OPML_BASE = PROJECT_ROOT / "feedmine" / "Resources" / "Feeds" / "countries"
+OPML_BASE = PROJECT_ROOT / "feedmine" / "Resources" / "Feeds" / "90_countries"
 ENRICHED_PATH = PROJECT_ROOT / "scripts/feed_discovery/data" / "countries_enriched.json"
 
 # Load enriched country data
@@ -147,7 +147,9 @@ async def run_country(slug: str, data: dict, session: aiohttp.ClientSession):
             all_candidates.append(c)
 
     # Write to national OPML first (e.g., brazil/brazil.opml)
-    national_opml = OPML_BASE / slug / f"{slug}.opml"
+    # 90_countries uses underscores, enriched data uses hyphens — normalize
+    flat_slug = slug.replace("-", "_")
+    national_opml = OPML_BASE / flat_slug / f"{flat_slug}.opml"
     if all_candidates:
         try:
             existing_national = read_existing_feeds(national_opml) if national_opml.exists() else set()
@@ -163,15 +165,18 @@ async def run_country(slug: str, data: dict, session: aiohttp.ClientSession):
 
     # Cleanup: remove from sub-regions any feeds already in the national OPML
     # Rule: if it's in national AND sub-region, national wins — remove from sub-region
+    # Normalize subregion paths: countries/ → 90_countries/ (production directory)
     cleanup_total = 0
     for sd in subregions:
-        opml_path = Path(sd["opml_path"])
+        sub_path = sd["opml_path"].replace("/countries/", "/90_countries/")
+        opml_path = Path(sub_path)
         removed = remove_feeds_from_opml(opml_path, national_urls)
         cleanup_total += removed
 
     # Write new candidates to each sub-region — skip channels already in national
     for sd in subregions:
-        opml_path = Path(sd["opml_path"])
+        sub_path = sd["opml_path"].replace("/countries/", "/90_countries/")
+        opml_path = Path(sub_path)
         existing = read_existing_feeds(opml_path) if opml_path.exists() else set()
 
         sub_candidates = [

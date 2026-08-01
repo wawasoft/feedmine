@@ -427,7 +427,9 @@ def parse_opml(file_path: Path, rel_path: str, manifest_index: dict[str, dict]) 
     opml_title = clean_text(head.findtext("title")) if head is not None else None
     parts = Path(rel_path).parts
     collection = parts[0] if parts else "unknown"
-    country = parts[1] if collection == "countries" and len(parts) > 1 else None
+    # Directories that contain country-level OPMLs (staging → production pipeline)
+    _country_collections = {"countries", "90_countries", "_staging", "_archived_countries"}
+    country = parts[1] if collection in _country_collections and len(parts) > 1 else None
     topic = Path(rel_path).stem
     region = clean_text(manifest_index.get(rel_path, {}).get("region")) or "global"
     body = root.find("body")
