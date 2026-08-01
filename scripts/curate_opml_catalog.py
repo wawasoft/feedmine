@@ -668,12 +668,24 @@ def read_corpus_dispositions(
 
 def read_sources(path: Path, memberships_by_source: dict[str, list[Membership]], now: datetime) -> tuple[list[CuratedSource], Counter[str]]:
     connection = duckdb.connect()
+    # Probe schema: ai_description / ai_tags columns may not exist yet
+    # if the DeepSeek enrichment pass hasn't been run.
+    schema_df = connection.execute(
+        "DESCRIBE SELECT * FROM read_parquet(?)", [str(path)]
+    ).fetchdf()
+    schema_cols = set(schema_df.iloc[:, 0].tolist())  # first column = column_name
+    has_ai = "ai_description" in schema_cols
+    ai_cols = (
+        "ai_description, ai_tags"
+        if has_ai
+        else "NULL AS ai_description, NULL AS ai_tags"
+    )
     rows = connection.execute(
-        """
+        f"""
         SELECT source_id, source_title, xml_url, canonical_xml_url, site_url,
                feed_title, feed_reported_language, status,
                COALESCE(articles_fetched, 0), CAST(latest_item_at AS VARCHAR),
-               ai_description, ai_tags
+               {ai_cols}
         FROM read_parquet(?)
         ORDER BY source_id
         """,
@@ -1097,22 +1109,22 @@ def write_disposition_ledger(
             curated = production_by_identity.get(identity)
             candidate = candidates_by_identity.get(identity)
             record = corpus_by_identity.get(identity)
-            disposition = "production" if curated else candidate["disposition"]
+            disposition = "production" if curated else (candidate["disposition"] if candidate else "unattempted")
             counts[disposition] += 1
             writer.writerow([
                 identity,
                 disposition,
-                "production" if curated else candidate["candidate_kind"],
+                "production" if curated else (candidate["candidate_kind"] if candidate else ""),
                 record.status if record else "unattempted",
                 record.source_id if record else candidate.get("source_id", ""),
-                curated.title if curated else candidate["title"],
-                curated.xml_url if curated else candidate["xml_url"],
-                (curated.site_url or "") if curated else candidate.get("html_url", ""),
+                curated.title if curated else (candidate["title"] if candidate else ""),
+                curated.xml_url if curated else (candidate["xml_url"] if candidate else ""),
+                (curated.site_url or "") if curated else (candidate.get("html_url", "") if candidate else ""),
                 " | ".join(record.old_files) if record else "",
-                curated.primary_relative_path.as_posix() if curated else candidate["original_file"],
-                "" if curated else candidate.get("discovery_source", ""),
-                "" if curated else candidate.get("query_scope", ""),
-                "" if curated else candidate.get("query_language", ""),
+                curated.primary_relative_path.as_posix() if curated else (candidate["original_file"] if candidate else ""),
+                "" if curated else (candidate.get("discovery_source", "") if candidate else ""),
+                "" if curated else (candidate.get("query_scope", "") if candidate else ""),
+                "" if curated else (candidate.get("query_language", "") if candidate else ""),
                 record.attempt_count if record else 0,
                 record.http_status if record and record.http_status is not None else "",
                 record.content_type if record else "",
@@ -1258,9 +1270,13 @@ def build(args: argparse.Namespace) -> dict[str, object]:
     for source in sources:
         grouped[source.primary_relative_path].append(source)
     for relative_path, group in sorted(grouped.items(), key=lambda item: item[0].as_posix()):
-        is_country = relative_path.parts[0] == "90_countries"
+        is_country = relative_path.parts[0] in {"90_countries", "_staging", "_archived_countries", "countries"}
         title = group[0].country if is_country else group[0].topic_label
-        write_opml(args.output / relative_path, title or relative_path.stem, group, country=is_country)
+        # Rewrite staging paths → production directory (90_countries)
+        out_path = args.output / relative_path
+        if relative_path.parts[0] in ("_staging", "_archived_countries", "countries"):
+            out_path = args.output / "90_countries" / Path(*relative_path.parts[1:])
+        write_opml(out_path, title or relative_path.stem, group, country=is_country)
 
     known_urls = {canonical_url(source.xml_url) for source in sources}
     candidate_roots = [args.feeds_root]

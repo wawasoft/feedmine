@@ -145,6 +145,9 @@ final class FeedStore {
     private(set) var reservoirCount: Int = 0
     var lastToggleMessage: String?
     private(set) var loadingState: FeedLoadingState = .idle
+    /// Current display phase — governs what the feed UI shows (loading, ready, empty, failed).
+    /// Replaces the error-prone pattern of inferring state from items.isEmpty + loadingState.
+    private(set) var feedDisplayPhase: FeedDisplayPhase = .preparing(contextID: 0, reason: .startup)
     private(set) var lastRefreshDate: Date?
     private(set) var totalFetched = 0
     private(set) var fetchErrorCount = 0
@@ -1427,6 +1430,7 @@ final class FeedStore {
             if !self.visibleItems.isEmpty {
                 self.isPreparingInitialRunway = false
                 self.loadingState = .idle
+                self.feedDisplayPhase = .ready(contextID: self.presentationEpoch)
             }
             Log.feed.info(
                 "firstLaunchBootstrap published: sources=\(result.fetchedSourceCount) items=\(actualNew.count) visible=\(self.visibleItems.count) elapsed=\(Date().timeIntervalSince(startedAt), format: .fixed(precision: 3))s"
@@ -1534,6 +1538,7 @@ final class FeedStore {
                     if !visibleItems.isEmpty {
                         isPreparingInitialRunway = false
                         loadingState = .idle
+                        feedDisplayPhase = .ready(contextID: presentationEpoch)
                     }
                 } catch {
                     Log.feed.error("early collection preset cache hydration failed: \(error)")
@@ -1980,6 +1985,9 @@ final class FeedStore {
         visibleItemsGeneration &+= 1
         if loadingState == .initial {
             loadingState = .idle
+            feedDisplayPhase = visibleItems.isEmpty
+                ? .empty(contextID: presentationEpoch)
+                : .ready(contextID: presentationEpoch)
         }
 
         // After publishing a batch, let the runway controller re-evaluate
@@ -2057,6 +2065,9 @@ final class FeedStore {
                     self.startCoverageMining(generation: generation)
                 }
                 self.loadingState = .idle
+                self.feedDisplayPhase = self.visibleItems.isEmpty
+                    ? .empty(contextID: self.presentationEpoch)
+                    : .ready(contextID: self.presentationEpoch)
                 Log.feed.info("[TaxonomyTrace] flush gen=\(generation) complete visibleItems=\(self.visibleItems.count)")
             }
 
@@ -2119,6 +2130,12 @@ final class FeedStore {
                     self.enqueueFailedCardsForRetry(presMap: presMap, filtered: filtered)
                 }
                 self.reservoirCount = self.reservoir.reservoirCount
+                // Transition from preparing → ready/empty after filter reload completes.
+                if case .preparing = self.feedDisplayPhase {
+                    self.feedDisplayPhase = self.visibleItems.isEmpty
+                        ? .empty(contextID: self.presentationEpoch)
+                        : .ready(contextID: self.presentationEpoch)
+                }
                 Log.feed.info("[TaxonomyTrace] refresh gen=\(generation) visibleItems=\(self.visibleItems.count) (was \(oldCount))")
             }
 
@@ -2448,10 +2465,18 @@ final class FeedStore {
             activeLanguages = Self.normalizedLanguageSet(langs)
         }
 
-        // Never leave visibly incompatible cards on screen during the debounce.
-        // This is a bounded in-memory cull only; database reads, taxonomy
-        // expansion, rebalancing, and network work remain in the async pipeline.
-        immediatelyCullVisibleItemsForActiveFilter()
+        // Mark the feed as preparing and clear stale visible items immediately.
+        // A new filter composition starts from scratch — no partial subsets
+        // from the previous filter should flash on screen.
+        loadingState = .refreshing
+        feedDisplayPhase = .preparing(contextID: presentationEpoch, reason: .filterChange)
+        if !visibleItems.isEmpty {
+            setVisibleItems([])
+        }
+        // Cull What's New items for the new filter — those render above
+        // the main feed and must respect the new filter immediately.
+        refreshCachedTaxonomyFeedURLsIfNeeded()
+        cullWhatsNewForActiveFilter()
 
         Log.feed.info("[TaxonomyTrace] setFilter gen=\(generation) region=\(region ?? "nil") nodeIDs=\(self.activeNodeIDs)")
 
@@ -2534,6 +2559,53 @@ final class FeedStore {
         // The What's New carousel renders above the main feed. Its items were
         // collected under the previous filter and must be culled immediately
         // so an English card doesn't flash at the top after switching to Swedish.
+        if !whatsNewManager.whatsNewItems.isEmpty {
+            whatsNewManager.replaceItems(
+                whatsNewManager.whatsNewItems.filter(filterPredicate)
+            )
+        }
+    }
+
+    /// Culls only the What's New carousel items for the active filter,
+    /// without touching main feed visible items. Used during filter changes
+    /// where the main feed is cleared entirely (via feedDisplayPhase) but
+    /// the What's New surface still needs immediate filter alignment.
+    private func cullWhatsNewForActiveFilter() {
+        refreshCachedTaxonomyFeedURLsIfNeeded()
+
+        let region = activeRegion
+        let languages = activeLanguages
+        let contentType = filterContentType
+        let mood = activeMood
+        let taxonomyURLs = cachedTaxonomyFeedURLs
+        let contentFilters = ContentFilterStore.shared.isEnabled
+            ? ContentFilterStore.shared.activeFilters : []
+        let deviceLanguage = Self.normalizedLanguageCode(
+            Locale.current.language.languageCode?.identifier
+        )
+
+        let moodKey = mood.rawValue
+        if moodKey != moodMatchCacheKey {
+            moodMatchCache.removeAll()
+            moodMatchCacheKey = moodKey
+        }
+        if contentFilters.isEmpty {
+            contentFilterExcludeCache.removeAll()
+        }
+
+        let filterPredicate: (FeedItem) -> Bool = { [self] item in
+            (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
+            && Self.languageFilterMatchesNormalized(
+                itemLanguage: item.language,
+                selectedLanguages: languages,
+                deviceLanguage: deviceLanguage
+            )
+            && contentType(item)
+            && (mood == .all || mood.matches(item.title))
+            && (taxonomyURLs.isEmpty || taxonomyURLs.contains(OPMLParser.normalizeURL(item.sourceURL)))
+            && (contentFilters.isEmpty || !contentFilterExcludes(item, filters: contentFilters))
+        }
+
         if !whatsNewManager.whatsNewItems.isEmpty {
             whatsNewManager.replaceItems(
                 whatsNewManager.whatsNewItems.filter(filterPredicate)
@@ -6578,6 +6650,13 @@ final class FeedStore {
             }
             // Clear everything, then force-fetch NEW content. The SQLite reload
             // skips consumed items so only unseen content appears.
+            // Mark preparing state BEFORE flushing so the UI shows loading,
+            // not "No articles found" during the brief window before
+            // the pipeline publishes its first results.
+            loadingState = .refreshing
+            presentationEpoch &+= 1
+            feedDisplayPhase = .preparing(contextID: presentationEpoch, reason: .manualRefresh)
+
             resetWhatsNewBaseline()
             lastRefreshDate = nil
             refreshWhatsNew(shouldBoost: false)
