@@ -35,7 +35,7 @@ def write_subregion_opml(opml_path: Path, candidates: list[Candidate]) -> int:
     elements. Existing category groups are preserved; new ones are appended.
 
     Args:
-        opml_path: Path to the .opml file (must exist).
+        opml_path: Path to the .opml file (created if missing).
         candidates: List of Candidate objects to add.
 
     Returns:
@@ -43,11 +43,24 @@ def write_subregion_opml(opml_path: Path, candidates: list[Candidate]) -> int:
     """
     existing_urls = read_existing_feeds(opml_path)
 
-    # Parse existing OPML
+    # Parse existing OPML, or create a new one if missing
     try:
         tree = ET.parse(str(opml_path))
-    except ET.ParseError:
-        return 0
+    except (ET.ParseError, FileNotFoundError):
+        # Create a fresh OPML skeleton
+        root = ET.Element("opml")
+        root.set("version", "2.0")
+        head = ET.SubElement(root, "head")
+        ET.SubElement(head, "title").text = "FeedMine Sub-Region Feeds"
+        body = ET.SubElement(root, "body")
+        # Write the empty skeleton so we can parse it below
+        opml_path.parent.mkdir(parents=True, exist_ok=True)
+        raw = ET.tostring(root, encoding="unicode")
+        opml_path.write_text(
+            '<?xml version="1.0" encoding="UTF-8"?>\n' + raw,
+            encoding="utf-8",
+        )
+        tree = ET.parse(str(opml_path))
     root = tree.getroot()
     body = root.find("body")
     if body is None:
