@@ -72,18 +72,6 @@
     "is_new": true
   },
   {
-    "url": "https://bestwoodmancastings.wordpress.com/feed",
-    "category": "Music",
-    "title": "Best Woodman Castings",
-    "genre": "Artist Blogs",
-    "source_page": "",
-    "national": true,
-    "national_reason": "discovered for Hungary via found:ddg:wordpress",
-    "is_live": true,
-    "status_code": 200,
-    "is_new": true
-  },
-  {
     "url": "https://blikk.hu/rss-articles.xml",
     "category": "Music",
     "title": "Blikk",

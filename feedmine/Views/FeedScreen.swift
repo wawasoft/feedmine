@@ -101,18 +101,19 @@ struct FeedScreen: View {
 
             if isSearching && hasCommittedSearch {
                 unifiedSearchPanel
-            } else if loader.items.isEmpty
-                && (loader.isPreparingInitialRunway
-                    || loader.loadingState == .initial
-                    || ((loader.activePreset.collectionID != nil
-                        || loader.activePreset.isSmartFeed
-                        || loader.activePreset.isCuratedFeed)
-                        && loader.loadingState == .refreshing)) {
-                InitialFeedLoadingView()
-            } else if loader.items.isEmpty && loader.loadingState != .initial {
-                FeedEmptyStateView(mode: emptyMode)
             } else {
-                feedScrollView
+                switch loader.feedDisplayPhase {
+                case .preparing:
+                    InitialFeedLoadingView()
+                case .ready where loader.items.isEmpty:
+                    FeedEmptyStateView(mode: emptyMode)
+                case .ready:
+                    feedScrollView
+                case .empty:
+                    FeedEmptyStateView(mode: emptyMode)
+                case .failed:
+                    FeedEmptyStateView(mode: .generic)
+                }
             }
 
             // Floating compact header

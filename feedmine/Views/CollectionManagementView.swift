@@ -339,39 +339,62 @@ struct SourceFeedView: View {
     @Environment(\.dismiss) private var dismiss
     let source: SourceReference
     @State private var items: [FeedItem] = []
-    @State private var isLoading = true
+    /// Terminal card presentations keyed by item ID for O(1) lookup.
+    /// Built during load() so FeedItemCardView receives pre-resolved images
+    /// and layouts — same behavior as the main feed's cardsByID dictionary.
+    @State private var cards: [String: FeedCardPresentation] = [:]
+    @State private var displayPhase: SourceDisplayPhase = .preparing
     @State private var result: SourceContentResult?
     @State private var articleItem: FeedItem?
     @State private var sourceToCollect: SourceReference?
+    /// Tracks the in-flight preparation Task so it can be cancelled on dismiss.
+    @State private var preparationTask: Task<Void, Never>?
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 14) {
                     sourceHeader
-                    if isLoading {
+                    switch displayPhase {
+                    case .preparing:
                         HStack(spacing: 10) {
                             ProgressView()
-                            Text(items.isEmpty ? "Loading every post available from this source…" : "Checking the source for more posts…")
+                            Text("Preparing posts…")
                                 .foregroundStyle(.secondary)
                         }
                         .padding()
-                    }
-                    if !isLoading && items.isEmpty {
+                    case .ready where items.isEmpty:
                         ContentUnavailableView(
                             emptyTitle,
                             systemImage: result?.fetchStatus == .failed ? "wifi.exclamationmark" : "tray",
                             description: Text(emptyDescription)
                         )
                         .padding(.top, 30)
-                    }
-                    ForEach(items) { item in
-                        FeedItemView(
-                            item: item,
-                            onOpen: { articleItem = item },
-                            onAddSourceToCollection: { sourceToCollect = source }
-                        )
-                        .padding(.horizontal, 6)
+                    case .failed(let message):
+                        VStack(spacing: 16) {
+                            ContentUnavailableView(
+                                "Unable to load source",
+                                systemImage: "wifi.exclamationmark",
+                                description: Text(message)
+                            )
+                            Button {
+                                Task { await load() }
+                            } label: {
+                                Label("Try Again", systemImage: "arrow.clockwise")
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                        .padding(.top, 30)
+                    case .ready:
+                        ForEach(items) { item in
+                            FeedItemView(
+                                item: item,
+                                presentation: cards[item.id],
+                                onOpen: { articleItem = item },
+                                onAddSourceToCollection: { sourceToCollect = source }
+                            )
+                            .padding(.horizontal, 6)
+                        }
                     }
                 }
                 .padding(.vertical, 12)
@@ -392,6 +415,7 @@ struct SourceFeedView: View {
             }
         }
         .task(id: source.id) { await load() }
+        .onDisappear { preparationTask?.cancel() }
         .sheet(item: $articleItem) { ArticleReaderView(item: $0) }
         .sheet(item: $sourceToCollect) { AddSourceToCollectionSheet(source: $0) }
         .accessibilityIdentifier("source-feed-\(source.id)")
@@ -485,15 +509,206 @@ struct SourceFeedView: View {
         return "The feed endpoint returned no posts. Its website may still have an archive."
     }
 
+    // MARK: - Loading
+
+    /// Loads source content with a cache-first strategy:
+    /// 1. Show cached items immediately (if any) so the user never sees a dead-end.
+    /// 2. Fetch fresh content in the background, racing against a 15 s timeout.
+    /// 3. Prepare card presentations for the first page and publish atomically.
+    /// 4. Background-prepare remaining items with a longer deadline.
     private func load() async {
-        isLoading = true
+        preparationTask?.cancel()
+
+        // ── Phase 1: Cache-first ──────────────────────────────────────────
+        // Show cached items immediately so the screen always has content
+        // (matches the old behavior before the card-preparation refactor).
         let cached = await loader.sourceContentFromCache(source)
-        if !cached.isEmpty { items = cached }
-        let loaded = await loader.loadSourceContent(source)
+        if !cached.isEmpty {
+            items = cached
+            cards = placeholderCards(for: cached)
+            displayPhase = .ready
+        } else {
+            displayPhase = .preparing
+        }
+        result = nil
+
+        // ── Phase 2: Fetch fresh content with timeout ────────────────────
+        // Race the network fetch against a 15 s deadline so the UI never
+        // dead-ends on waitsForConnectivity or a hung server.
+        let loaded: SourceContentResult
+        if let fetched = await fetchWithTimeout() {
+            loaded = fetched
+        } else {
+            // Timeout fired — stay on cached content if available, otherwise
+            // show the failed state so the user has a clear retry path.
+            if cached.isEmpty {
+                displayPhase = .failed("The request timed out. Check your connection and try again.")
+            }
+            return
+        }
+
         result = loaded
-        items = loaded.items
-        isLoading = false
+        let allItems = loaded.items
+
+        guard !allItems.isEmpty else {
+            // Fresh fetch returned nothing. If we already showed cached items,
+            // leave them in place; otherwise show the empty state.
+            if cached.isEmpty {
+                items = []
+                cards = [:]
+                displayPhase = .ready
+            }
+            return
+        }
+
+        // ── Phase 3: Prepare card presentations ──────────────────────────
+        let pageSize = 20
+        let firstPage = Array(allItems.prefix(pageSize))
+        let rest = Array(allItems.dropFirst(pageSize))
+
+        let firstPresentations = await prepareBatch(firstPage, deadline: .seconds(6))
+        var allCards = Dictionary(uniqueKeysWithValues: firstPresentations.map { ($0.id, $0) })
+
+        // Fill remaining slots with terminal placeholders so every row has a
+        // presentation. The background task upgrades them as images arrive.
+        for item in rest {
+            if allCards[item.id] == nil {
+                allCards[item.id] = terminalPlaceholder(for: item)
+            }
+        }
+
+        // Publish atomically — items and cards land in the same MainActor
+        // transaction so the UI never sees a card without its presentation.
+        items = allItems
+        cards = allCards
+        displayPhase = .ready
+
+        // ── Phase 4: Background preparation of remaining items ────────────
+        if !rest.isEmpty {
+            let capturedRest = rest
+            preparationTask = Task { @MainActor in
+                let restPresentations = await prepareBatch(capturedRest, deadline: .seconds(30))
+                guard !Task.isCancelled else { return }
+                for pres in restPresentations {
+                    cards[pres.id] = pres
+                }
+            }
+        }
     }
+
+    /// Races `loadSourceContent` against a 15 s timeout.
+    /// Returns `nil` when the timeout fires first; the caller should fall back
+    /// to cached content or show a `.failed` state.
+    private func fetchWithTimeout() async -> SourceContentResult? {
+        await withTaskGroup(of: SourceContentResult?.self) { group in
+            group.addTask {
+                await loader.loadSourceContent(source)
+            }
+            group.addTask {
+                try? await Task.sleep(for: .seconds(15))
+                return nil  // timeout
+            }
+            // First to complete wins; cancel the other.
+            guard let result = await group.next() else { return nil }
+            group.cancelAll()
+            return result
+        }
+    }
+
+    /// Creates terminal placeholder cards for a set of cached items.
+    /// Used during cache-first display so every row has a presentation slot
+    /// even before image resolution begins.
+    private func placeholderCards(for items: [FeedItem]) -> [String: FeedCardPresentation] {
+        Dictionary(uniqueKeysWithValues: items.map { ($0.id, terminalPlaceholder(for: $0)) })
+    }
+
+    // MARK: - Batch preparation
+
+    /// Resolves a batch of items into terminal FeedCardPresentation values.
+    /// Each item races against `deadline` — if the deadline fires first the
+    /// item gets a terminal placeholder so the batch always completes.
+    /// nonisolated — called from Task.detached and TaskGroup closures.
+    private nonisolated func prepareBatch(_ items: [FeedItem], deadline: Duration) async -> [FeedCardPresentation] {
+        let deadlineInstant = ContinuousClock().now.advanced(by: deadline)
+        return await withTaskGroup(of: FeedCardPresentation.self) { group in
+            for item in items {
+                group.addTask {
+                    await resolveWithDeadline(item, deadline: deadlineInstant)
+                }
+            }
+            var results: [FeedCardPresentation] = []
+            for await result in group { results.append(result) }
+            return results
+        }
+    }
+
+    /// Races a single item's image resolution against a hard deadline.
+    /// Uses the same raceWithDeadline pattern as CardPreparationCoordinator:
+    /// if the deadline fires first the item gets a terminal placeholder —
+    /// the deadline is a hard guarantee, not cooperative cancellation.
+    /// nonisolated — called from TaskGroup closures off the main actor.
+    private nonisolated func resolveWithDeadline(
+        _ item: FeedItem,
+        deadline: ContinuousClock.Instant
+    ) async -> FeedCardPresentation {
+        await withTaskGroup(of: FeedCardPresentation.self) { group in
+            group.addTask {
+                let imageURL = item.bestImageURL.flatMap(URL.init(string:))
+                let articleURL = item.canResolveArticleImage ? URL(string: item.url) : nil
+
+                let media: ResolvedCardMedia
+                if let resolvedImage = await ImageLoader.resolveImage(
+                    url: imageURL, articleURL: articleURL
+                ) {
+                    media = .image(resolvedImage)
+                } else if item.hasPotentialImage {
+                    media = .placeholder
+                } else {
+                    media = .none
+                }
+
+                let layout: FeedCardLayout = media == .none ? .textOnly : .hero
+
+                return FeedCardPresentation(
+                    item: item,
+                    media: media,
+                    layout: layout,
+                    isRead: item.isRead,
+                    isBookmarked: item.isBookmarked
+                )
+            }
+            group.addTask {
+                try? await Task.sleep(until: deadline, clock: .continuous)
+                return terminalPlaceholder(for: item)
+            }
+            // First to complete wins; cancel the other.
+            let result = await group.next()!
+            group.cancelAll()
+            return result
+        }
+    }
+
+    /// Creates a terminal placeholder presentation for items whose images
+    /// haven't been resolved yet. Uses hasPotentialImage (which checks
+    /// bestImageURL + canResolveArticleImage) for consistency with the
+    /// main feed's CardPreparationCoordinator.
+    /// nonisolated — called from TaskGroup closures off the main actor.
+    private nonisolated func terminalPlaceholder(for item: FeedItem) -> FeedCardPresentation {
+        let hasImageSlot = item.hasPotentialImage
+        return FeedCardPresentation(
+            item: item,
+            media: hasImageSlot ? .placeholder : .none,
+            layout: hasImageSlot ? .hero : .textOnly,
+            isRead: item.isRead,
+            isBookmarked: item.isBookmarked
+        )
+    }
+}
+
+private enum SourceDisplayPhase {
+    case preparing
+    case ready
+    case failed(String)
 }
 
 private struct SourceCollectionFeedView: View {
