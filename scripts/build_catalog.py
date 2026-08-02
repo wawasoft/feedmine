@@ -58,6 +58,7 @@ class Occurrence:
     latest_item_at: str | None
     quality_score: int | None
     default_enabled: bool
+    feed_type: str | None = None
 
 
 def slug(raw: str) -> str:
@@ -275,6 +276,7 @@ def iter_outline_occurrences(
             latest_item_at=(element.attrib.get("feedmineLatestItemAt") or "").strip() or None,
             quality_score=int(element.attrib["feedmineQualityScore"]) if element.attrib.get("feedmineQualityScore", "").isdigit() else None,
             default_enabled=element.attrib.get("feedmineDefaultEnabled", "true").lower() != "false",
+            feed_type=(element.attrib.get("type") or "").strip() or None,
         )
         order[0] += 1
         return
@@ -378,7 +380,8 @@ def create_schema(db: sqlite3.Connection) -> None:
         activity TEXT,
         latest_item_at TEXT,
         quality_score INTEGER,
-        default_enabled INTEGER NOT NULL DEFAULT 1
+        default_enabled INTEGER NOT NULL DEFAULT 1,
+        type TEXT
     );
     CREATE INDEX idx_catalog_source_title
         ON catalog_source(title COLLATE NOCASE, id);
@@ -451,6 +454,7 @@ def compile_catalog(occurrences: list[Occurrence], output: Path, file_count: int
             "latest_item_at": occurrence.latest_item_at,
             "quality_score": occurrence.quality_score,
             "default_enabled": 1 if occurrence.default_enabled else 0,
+            "type": occurrence.feed_type,
         })
 
         parent_id = 0
@@ -521,9 +525,9 @@ def compile_catalog(occurrences: list[Occurrence], output: Path, file_count: int
             db.executemany("""
                 INSERT INTO catalog_source
                     (id, key, title, declared_url, request_url, display_host, media_kind, language,
-                     site_url, description, tags, nature, activity, latest_item_at, quality_score, default_enabled)
+                     site_url, description, tags, nature, activity, latest_item_at, quality_score, default_enabled, type)
                 VALUES (:id, :key, :title, :declared_url, :request_url, :display_host, :media_kind, :language,
-                        :site_url, :description, :tags, :nature, :activity, :latest_item_at, :quality_score, :default_enabled)
+                        :site_url, :description, :tags, :nature, :activity, :latest_item_at, :quality_score, :default_enabled, :type)
             """, sorted(sources.values(), key=lambda source: int(source["id"])))
             db.executemany("""
                 INSERT INTO catalog_node
