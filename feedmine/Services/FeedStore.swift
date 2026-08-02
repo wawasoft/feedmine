@@ -1599,17 +1599,37 @@ final class FeedStore {
             // owns first paint. Otherwise keep collecting distinct providers;
             // never fall through to the normal progressive path with a thin
             // four- or five-source sample.
+            //
+            // Deadline (30 s) prevents the cold start from blocking first paint
+            // indefinitely when network conditions can't satisfy the 100-source
+            // gate. A search-in-progress no-ops fetchNextBatch without burning
+            // a real attempt via the short-circuit backoff below.
             var coldStartAttempts = 0
+            let coldStartDeadline = Date().addingTimeInterval(30)
             while self.visibleItems.isEmpty,
                   self.reservoir.reservoirCount == 0,
-                  coldStartAttempts < 3 {
+                  coldStartAttempts < 3,
+                  Date() < coldStartDeadline {
                 coldStartAttempts += 1
                 await self.fetchNextBatch()
+                // fetchNextBatch returns immediately when searching;
+                // only count real network attempts against the limit.
+                if self.isSearching { coldStartAttempts -= 1 }
+            }
+            // Progressive fallback: persist whatever the cold start gathered
+            // so the user sees *something* instead of a dead loading screen.
+            if self.visibleItems.isEmpty,
+               self.reservoir.reservoirCount == 0,
+               !self.coldStartPendingItems.isEmpty {
+                let partial = Array(self.coldStartPendingItems.prefix(20))
+                _ = await self.persistFetchedItems(partial)
+                self.coldStartPendingItems.removeAll()
+                Log.feed.info("cold start published partial: items=\(partial.count)")
             }
             guard !self.visibleItems.isEmpty || self.reservoir.reservoirCount > 0 else {
                 self.isPreparingInitialRunway = false
                 self.loadingState = .idle
-                Log.feed.info("cold start still withheld after \(coldStartAttempts) registry attempts")
+                Log.feed.info("cold start still withheld after \(coldStartAttempts) real attempts (30 s deadline expired)")
                 return
             }
             // Bulk-fill only when the local runway is genuinely shallow. A
@@ -3729,7 +3749,14 @@ final class FeedStore {
     }
 
     private func fetchNextBatch() async {
-        guard !isSearching else { return }
+        // When the user is searching, the feed surface is hidden behind the
+        // search UI. Don't waste network fetches that won't be visible, but
+        // also don't spin — yield briefly so the cold-start loop's deadline
+        // can progress without burning a real attempt.
+        guard !isSearching else {
+            try? await Task.sleep(nanoseconds: 800_000_000)
+            return
+        }
         let needsStarter = visibleItems.isEmpty && reservoir.reservoirCount == 0
         // The 100-source runway protects the first impression on a fresh app.
         // An empty result after a user changes filters is a different state: it

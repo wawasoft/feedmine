@@ -101,18 +101,19 @@ struct FeedScreen: View {
 
             if isSearching && hasCommittedSearch {
                 unifiedSearchPanel
-            } else if loader.items.isEmpty
-                && (loader.isPreparingInitialRunway
-                    || loader.loadingState == .initial
-                    || ((loader.activePreset.collectionID != nil
-                        || loader.activePreset.isSmartFeed
-                        || loader.activePreset.isCuratedFeed)
-                        && loader.loadingState == .refreshing)) {
-                InitialFeedLoadingView()
-            } else if loader.items.isEmpty && loader.loadingState != .initial {
-                FeedEmptyStateView(mode: emptyMode)
             } else {
-                feedScrollView
+                switch loader.feedDisplayPhase {
+                case .preparing:
+                    InitialFeedLoadingView()
+                case .ready where loader.items.isEmpty:
+                    FeedEmptyStateView(mode: emptyMode)
+                case .ready:
+                    feedScrollView
+                case .empty:
+                    FeedEmptyStateView(mode: emptyMode)
+                case .failed:
+                    FeedEmptyStateView(mode: .generic)
+                }
             }
 
             // Floating compact header
@@ -206,6 +207,19 @@ struct FeedScreen: View {
                 toastMessage = msg; toastIcon = "plus.circle.fill"
                 withAnimation { showToast = true }
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .openSourceView)) { notification in
+            guard let feedURL = notification.userInfo?["feedURL"] as? String,
+                  !feedURL.isEmpty else { return }
+            let normalized = OPMLParser.normalizeURL(feedURL)
+            let ref = SourceReference(
+                title: "Source",
+                feedURL: normalized,
+                category: "",
+                region: "global",
+                mediaKind: .text
+            )
+            selectedSource = ref
         }
         .onChange(of: player.lastPlaybackError) { _, error in
             if let error {
@@ -1718,9 +1732,13 @@ struct InitialFeedLoadingView: View {
     }
 
     private var loadingTitle: String {
-        loader.hasPreviouslyLoadedContent
-            ? String(localized: "Loading your feed...")
-            : String(localized: "Loading articles")
+        if loader.startupFetchedSourceCount > 0 {
+            return String(localized: "Loading \(loader.startupFetchedSourceCount) sources...")
+        } else if loader.hasPreviouslyLoadedContent {
+            return String(localized: "Loading your feed...")
+        } else {
+            return String(localized: "Preparing your feed...")
+        }
     }
 
     var body: some View {

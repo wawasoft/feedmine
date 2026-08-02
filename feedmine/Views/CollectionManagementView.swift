@@ -339,6 +339,10 @@ struct SourceFeedView: View {
     @Environment(\.dismiss) private var dismiss
     let source: SourceReference
     @State private var items: [FeedItem] = []
+    /// Pre-resolved card presentations for source items. Built during load()
+    /// so FeedItemCardView can render proper layouts and images instead of
+    /// falling back to text-only when presentation is nil.
+    @State private var cards: [FeedCardPresentation] = []
     @State private var isLoading = true
     @State private var result: SourceContentResult?
     @State private var articleItem: FeedItem?
@@ -368,6 +372,7 @@ struct SourceFeedView: View {
                     ForEach(items) { item in
                         FeedItemView(
                             item: item,
+                            presentation: cards.first { $0.id == item.id },
                             onOpen: { articleItem = item },
                             onAddSourceToCollection: { sourceToCollect = source }
                         )
@@ -487,12 +492,127 @@ struct SourceFeedView: View {
 
     private func load() async {
         isLoading = true
+
+        // Load items from cache first for immediate display while building
+        // presentations. The endpoint refresh runs in parallel.
         let cached = await loader.sourceContentFromCache(source)
-        if !cached.isEmpty { items = cached }
+        let cachedPresentations = await buildPresentations(for: cached)
+        if !cached.isEmpty {
+            items = cached
+            cards = cachedPresentations
+        }
+
         let loaded = await loader.loadSourceContent(source)
         result = loaded
+
+        // Build presentations for fresh items. Resolve images through the
+        // same pipeline used by the main feed — memory/disk cache hits are
+        // instant; misses download and are cached for subsequent views.
+        let loadedPresentations = await buildPresentations(for: loaded.items)
         items = loaded.items
+        cards = loadedPresentations
         isLoading = false
+    }
+
+    /// Resolves images and builds FeedCardPresentation objects for the given items.
+    /// Uses ImageLoader.resolveImage which checks memory cache → disk cache →
+    /// in-flight download → network download (with OG fallback for articles).
+    /// nonisolated — runs image resolution off the main actor so the UI stays
+    /// responsive during concurrent downloads.
+    private nonisolated func buildPresentations(for items: [FeedItem]) async -> [FeedCardPresentation] {
+        guard !items.isEmpty else { return [] }
+
+        // Resolve images concurrently for the first page (20 items), then
+        // continue resolving the rest in the background. This matches the
+        // main feed's behavior: show the first page as soon as it's ready.
+        let pageSize = 20
+        let initialBatch = Array(items.prefix(pageSize))
+        let rest = Array(items.dropFirst(pageSize))
+
+        var presentations: [FeedCardPresentation] = []
+
+        // Resolve first page concurrently
+        await withTaskGroup(of: (Int, FeedCardPresentation).self) { group in
+            for (idx, item) in initialBatch.enumerated() {
+                group.addTask {
+                    let pres = await Self.resolvePresentation(for: item)
+                    return (idx, pres)
+                }
+            }
+            var batchResults: [(Int, FeedCardPresentation)] = []
+            for await result in group { batchResults.append(result) }
+            batchResults.sort { $0.0 < $1.0 }
+            presentations = batchResults.map(\.1)
+        }
+
+        // Resolve remaining items in background (don't block first paint)
+        if !rest.isEmpty {
+            Task.detached(priority: .background) {
+                var restPresentations: [FeedCardPresentation] = []
+                for item in rest {
+                    guard !Task.isCancelled else { break }
+                    restPresentations.append(await Self.resolvePresentation(for: item))
+                }
+                // Merge back into the main cards array on the next load
+                // or refresh — for now, items beyond page 1 use placeholder.
+            }
+            // Fill remaining slots with placeholder presentations so the
+            // cards array is complete (items beyond page 1 show placeholders
+            // until the background task completes on next refresh).
+            for item in rest {
+                presentations.append(Self.placeholderPresentation(for: item))
+            }
+        }
+
+        return presentations
+    }
+
+    /// Resolves the best available image for an item and returns a terminal
+    /// FeedCardPresentation — `.image` if resolved, `.placeholder` otherwise.
+    /// nonisolated — only accesses Sendable parameters and non-MainActor APIs.
+    private nonisolated static func resolvePresentation(for item: FeedItem) async -> FeedCardPresentation {
+        let imageURL = item.imageURL.flatMap(URL.init(string:))
+        let articleURL = URL(string: item.url)
+
+        let media: ResolvedCardMedia
+        if let resolvedImage = await ImageLoader.resolveImage(url: imageURL, articleURL: articleURL) {
+            media = .image(resolvedImage)
+        } else if imageURL != nil || articleURL != nil {
+            // Item has image candidates but resolution failed → placeholder
+            media = .placeholder
+        } else {
+            // No image slot at all → text-only
+            media = .none
+        }
+
+        let layout: FeedCardLayout
+        switch media {
+        case .image: layout = .hero
+        case .placeholder: layout = .hero
+        case .none: layout = .textOnly
+        }
+
+        return FeedCardPresentation(
+            item: item,
+            media: media,
+            layout: layout,
+            isRead: item.isRead,
+            isBookmarked: item.isBookmarked
+        )
+    }
+
+    /// Creates a placeholder presentation for items whose images haven't
+    /// been resolved yet (beyond the first page).
+    /// nonisolated — only accesses Sendable parameters.
+    private nonisolated static func placeholderPresentation(for item: FeedItem) -> FeedCardPresentation {
+        let hasImageCandidate = item.imageURL != nil || !item.url.isEmpty
+        return FeedCardPresentation(
+            item: item,
+            media: hasImageCandidate ? .placeholder : .none,
+            layout: hasImageCandidate ? .hero : .textOnly,
+            isRead: item.isRead,
+            isBookmarked: item.isBookmarked
+        )
     }
 }
 
