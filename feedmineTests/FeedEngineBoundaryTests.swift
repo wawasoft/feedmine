@@ -476,6 +476,54 @@ final class RSSFetcherTextSanitizerTests: XCTestCase {
 
         XCTAssertEqual(text, "一条完整的中文标题")
     }
+
+    // MARK: - Accented Named Entities
+
+    func testSanitizedHTMLTextDecodesAcuteAccentedNamedEntities() {
+        let text = RSSFetcher.sanitizedHTMLText("caf&eacute; &amp; r&eacute;sum&eacute;")
+        XCTAssertEqual(text, "caf\u{00E9} & r\u{00E9}sum\u{00E9}")
+    }
+
+    func testSanitizedHTMLTextDecodesGraveAccentedNamedEntities() {
+        let text = RSSFetcher.sanitizedHTMLText("&Agrave; la carte &egrave; vero")
+        XCTAssertEqual(text, "\u{00C0} la carte \u{00E8} vero")
+    }
+
+    func testSanitizedHTMLTextDecodesCircumflexAccentedNamedEntities() {
+        let text = RSSFetcher.sanitizedHTMLText("h&ocirc;tel & f&ecirc;te")
+        XCTAssertEqual(text, "h\u{00F4}tel & f\u{00EA}te")
+    }
+
+    func testSanitizedHTMLTextDecodesTildeAndCedillaNamedEntities() {
+        let text = RSSFetcher.sanitizedHTMLText("ma&ntilde;ana &amp; a&ccedil;a&iacute;")
+        XCTAssertEqual(text, "ma\u{00F1}ana & a\u{00E7}a\u{00ED}")
+    }
+
+    func testSanitizedHTMLTextDecodesUmlautNamedEntities() {
+        let text = RSSFetcher.sanitizedHTMLText("M&uuml;nchen &amp; F&ouml;hr")
+        XCTAssertEqual(text, "M\u{00FC}nchen & F\u{00F6}hr")
+    }
+
+    func testSanitizedHTMLTextDecodesScandinavianNamedEntities() {
+        let text = RSSFetcher.sanitizedHTMLText("&Aring;rhus &amp; sm&oslash;rrebr&oslash;d")
+        XCTAssertEqual(text, "\u{00C5}rhus & sm\u{00F8}rrebr\u{00F8}d")
+    }
+
+    func testSanitizedHTMLTextDecodesMixedLatinNamedEntities() {
+        // Portuguese: "Açaí é ótimo"
+        let text = RSSFetcher.sanitizedHTMLText("A&ccedil;a&iacute; &eacute; &oacute;timo")
+        XCTAssertEqual(text, "A\u{00E7}a\u{00ED} \u{00E9} \u{00F3}timo")
+    }
+
+    func testSanitizedHTMLTextDecodesGermanSharpS() {
+        let text = RSSFetcher.sanitizedHTMLText("Stra&szlig;e")
+        XCTAssertEqual(text, "Stra\u{00DF}e")
+    }
+
+    func testSanitizedHTMLTextDecodesInvertedExclamationAndQuestion() {
+        let text = RSSFetcher.sanitizedHTMLText("&iexcl;Hola! &iquest;Qu&eacute; tal?")
+        XCTAssertEqual(text, "\u{00A1}Hola! \u{00BF}Qu\u{00E9} tal?")
+    }
 }
 
 final class RSSFetcherImageExtractionTests: XCTestCase {
