@@ -1,0 +1,136 @@
+/Users/wagnermontes/Documents/GitHub/feedmine/scripts/extract_contact_emails.py:397: XMLParsedAsHTMLWarning: It looks like you're using an HTML parser to parse an XML document.
+
+Assuming this really is an XML document, what you're doing might work, but you should know that using an XML parser will be more reliable. To parse this document as XML, make sure you have the Python package 'lxml' installed, and pass the keyword argument `features="xml"` into the BeautifulSoup constructor.
+
+If you want or need to use an HTML parser on this document, you can make this warning go away by filtering it. To do that, run this code before calling the BeautifulSoup constructor:
+
+    from bs4 import XMLParsedAsHTMLWarning
+    import warnings
+
+    warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
+
+  soup = BeautifulSoup(html, "html.parser")
+Contact Email Extraction Pipeline
+  Catalog: feedmine/Resources/FeedEngine/catalog.sqlite
+  Output:  build/feeds_corpus_contacts.parquet
+  Sources: 44965
+  Resumed:  44965 existing results
+
+── Phase 1: All sources already processed ──
+
+── Phase 2: Site Scraping (19758 sources) ──
+  Phase 2: 19613 sources to scrape (no RSS email found)
+  Phase 2: 500/19613 processed, 25310 total emails found
+  Phase 2: 1000/19613 processed, 25419 total emails found
+  Phase 2: 1500/19613 processed, 25519 total emails found
+  Phase 2: 2000/19613 processed, 25609 total emails found
+  Phase 2: 2500/19613 processed, 25710 total emails found
+  Phase 2: 3000/19613 processed, 25806 total emails found
+  Phase 2: 3500/19613 processed, 25897 total emails found
+  Phase 2: 4000/19613 processed, 25999 total emails found
+  Phase 2: 4500/19613 processed, 26087 total emails found
+  Phase 2: 5000/19613 processed, 26170 total emails found
+  Phase 2: 5500/19613 processed, 26259 total emails found
+  Phase 2: 6000/19613 processed, 26358 total emails found
+  Phase 2: 6500/19613 processed, 26453 total emails found
+  Phase 2: 7000/19613 processed, 26542 total emails found
+  Phase 2: 7500/19613 processed, 26631 total emails found
+  Phase 2: 8000/19613 processed, 26737 total emails found
+  Phase 2: 8500/19613 processed, 26831 total emails found
+  Phase 2: 9000/19613 processed, 26911 total emails found
+  Phase 2: 9500/19613 processed, 26996 total emails found
+  Phase 2: 10000/19613 processed, 27096 total emails found
+  Phase 2: 10500/19613 processed, 27194 total emails found
+  Phase 2: 11000/19613 processed, 27288 total emails found
+  Phase 2: 11500/19613 processed, 27380 total emails found
+  Phase 2: 12000/19613 processed, 27484 total emails found
+  Phase 2: 12500/19613 processed, 27582 total emails found
+  Phase 2: 13000/19613 processed, 27686 total emails found
+  Phase 2: 13500/19613 processed, 27756 total emails found
+  Phase 2: 14000/19613 processed, 27863 total emails found
+  Phase 2: 14500/19613 processed, 27956 total emails found
+  Phase 2: 15000/19613 processed, 28065 total emails found
+  Phase 2: 15500/19613 processed, 28154 total emails found
+  Phase 2: 16000/19613 processed, 28243 total emails found
+  Phase 2: 16500/19613 processed, 28361 total emails found
+  Phase 2: 17000/19613 processed, 28469 total emails found
+  Phase 2: 17500/19613 processed, 28567 total emails found
+  Phase 2: 18000/19613 processed, 28655 total emails found
+  Phase 2: 18500/19613 processed, 28750 total emails found
+  Phase 2: 19000/19613 processed, 28838 total emails found
+  Phase 2: 19500/19613 processed, 28951 total emails found
+
+── Phase 3: Validation (28964 emails) ──
+  Loaded 84 disposable domains
+  Phase 3: 28964 emails to validate
+  Phase 3: 500/28964, V:0 U:489 I:11
+  Phase 3: 1000/28964, V:0 U:977 I:23
+  Phase 3: 1500/28964, V:0 U:1459 I:41
+  Phase 3: 2000/28964, V:0 U:1949 I:51
+  Phase 3: 2500/28964, V:0 U:2438 I:62
+  Phase 3: 3000/28964, V:0 U:2928 I:72
+  Phase 3: 3500/28964, V:0 U:3417 I:83
+  Phase 3: 4000/28964, V:0 U:3903 I:97
+  Phase 3: 4500/28964, V:0 U:4382 I:118
+  Phase 3: 5000/28964, V:0 U:4867 I:133
+  Phase 3: 5500/28964, V:0 U:5356 I:144
+  Phase 3: 6000/28964, V:0 U:5837 I:163
+  Phase 3: 6500/28964, V:0 U:6326 I:174
+  Phase 3: 7000/28964, V:0 U:6812 I:188
+  Phase 3: 7500/28964, V:0 U:7301 I:199
+  Phase 3: 8000/28964, V:0 U:7789 I:211
+  Phase 3: 8500/28964, V:0 U:8276 I:224
+  Phase 3: 9000/28964, V:0 U:8763 I:237
+  Phase 3: 9500/28964, V:0 U:9254 I:246
+  Phase 3: 10000/28964, V:0 U:9738 I:262
+  Phase 3: 10500/28964, V:0 U:10226 I:274
+  Phase 3: 11000/28964, V:0 U:10711 I:289
+  Phase 3: 11500/28964, V:0 U:11202 I:298
+  Phase 3: 12000/28964, V:0 U:11692 I:308
+  Phase 3: 12500/28964, V:0 U:12179 I:321
+  Phase 3: 13000/28964, V:0 U:12666 I:334
+  Phase 3: 13500/28964, V:0 U:13157 I:343
+  Phase 3: 14000/28964, V:0 U:13639 I:361
+  Phase 3: 14500/28964, V:0 U:14126 I:374
+  Phase 3: 15000/28964, V:0 U:14615 I:385
+  Phase 3: 15500/28964, V:0 U:15104 I:396
+  Phase 3: 16000/28964, V:0 U:15588 I:412
+  Phase 3: 16500/28964, V:0 U:16068 I:432
+  Phase 3: 17000/28964, V:0 U:16558 I:442
+  Phase 3: 17500/28964, V:0 U:17040 I:460
+  Phase 3: 18000/28964, V:0 U:17525 I:475
+  Phase 3: 18500/28964, V:0 U:18006 I:494
+  Phase 3: 19000/28964, V:0 U:18495 I:505
+  Phase 3: 19500/28964, V:0 U:18974 I:526
+  Phase 3: 20000/28964, V:0 U:19458 I:542
+  Phase 3: 20500/28964, V:0 U:19941 I:559
+  Phase 3: 21000/28964, V:0 U:20426 I:574
+  Phase 3: 21500/28964, V:0 U:20917 I:583
+  Phase 3: 22000/28964, V:0 U:21408 I:592
+  Phase 3: 22500/28964, V:0 U:21900 I:600
+  Phase 3: 23000/28964, V:0 U:22393 I:607
+  Phase 3: 23500/28964, V:0 U:22882 I:618
+  Phase 3: 24000/28964, V:0 U:23374 I:626
+  Phase 3: 24500/28964, V:0 U:23864 I:636
+  Phase 3: 25000/28964, V:0 U:24348 I:652
+  Phase 3: 25500/28964, V:0 U:24835 I:665
+  Phase 3: 26000/28964, V:0 U:25324 I:676
+  Phase 3: 26500/28964, V:0 U:25814 I:686
+  Phase 3: 27000/28964, V:0 U:26300 I:700
+  Phase 3: 27500/28964, V:0 U:26786 I:714
+  Phase 3: 28000/28964, V:0 U:27273 I:727
+  Phase 3: 28500/28964, V:0 U:27760 I:740
+
+Wrote 44965 rows to build/feeds_corpus_contacts.parquet
+
+============================================================
+EXTRACTION SUMMARY:
+  Total sources:    44965
+  Verified:         0 (0.0%)
+  Unverified:       28212
+  Invalid:          752
+  Not found:        15516
+  Site blocked:     485
+  Personal emails:  4829
+  Generic emails:   24135
+============================================================
