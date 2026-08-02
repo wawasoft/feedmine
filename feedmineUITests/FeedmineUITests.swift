@@ -27,6 +27,22 @@ final class FeedmineUITests: XCTestCase {
         XCTAssertTrue(start.waitForExistence(timeout: 40), "Curated onboarding must appear")
         start.tap()
 
+        // Intent screen — pick "Stay informed"
+        let intentChip = app.buttons["intent-stayInformed"]
+        XCTAssertTrue(intentChip.waitForExistence(timeout: 30), "Intent screen must appear")
+        intentChip.tap()
+        let intentContinue = app.buttons["intent-continue"]
+        XCTAssertTrue(intentContinue.waitForExistence(timeout: 5))
+        intentContinue.tap()
+
+        // Topics screen — pick "Technology & Science"
+        let topicChip = app.buttons["topic-technology-science"]
+        XCTAssertTrue(topicChip.waitForExistence(timeout: 30), "Topics screen must appear")
+        topicChip.tap()
+        let topicsContinue = app.buttons["topics-continue"]
+        XCTAssertTrue(topicsContinue.waitForExistence(timeout: 5))
+        topicsContinue.tap()
+
         // English is pre-selected by device language; no need to find/tap it
         let continueBtn = app.buttons["language-continue"]
         XCTAssertTrue(continueBtn.waitForExistence(timeout: 30))
@@ -555,5 +571,190 @@ final class FeedmineUITests: XCTestCase {
             usleep(100_000)
         } while Date() < deadline
         return []
+    }
+
+    /// Captura a tela atual para inspeção do contador de sources no header.
+    func testCaptureHeaderScreenshot() {
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "header-counter"
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+    }
+
+    // MARK: - Interactive Persona Script Harness
+
+    /// Reads /tmp/feedmine-script.json, executes each action, saves screenshots.
+    /// Actions: tap(id), tapLabel(text), swipeUp, swipeDown, typeText(id,text),
+    ///          screenshot(id), wait(seconds), press(id,duration), relaunch
+    func testExecuteInteractiveScript() {
+        let scriptPath = "/tmp/feedmine-script.json"
+        let screenshotDir = "/tmp/feedmine-interactive"
+
+        // Ensure screenshot directory exists
+        let fm = FileManager.default
+        if !fm.fileExists(atPath: screenshotDir) {
+            try? fm.createDirectory(atPath: screenshotDir, withIntermediateDirectories: true)
+        }
+
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: scriptPath)),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let actions = json["actions"] as? [[String: Any]] else {
+            print("❌ Failed to read script from \(scriptPath)")
+            return
+        }
+
+        print("📜 Executing \(actions.count) interactive actions...")
+
+        for (index, action) in actions.enumerated() {
+            let type = action["type"] as? String ?? ""
+            print("  [\(index + 1)/\(actions.count)] \(type): \(action["id"] as? String ?? action["text"] as? String ?? "")")
+
+            switch type {
+            case "tap":
+                if let targetId = action["id"] as? String {
+                    let element = app.buttons[targetId].firstMatch
+                    if element.waitForExistence(timeout: 5) {
+                        element.tap()
+                    } else {
+                        // Try as any element type
+                        let anyElement = app.descendants(matching: .any)[targetId].firstMatch
+                        if anyElement.waitForExistence(timeout: 3) {
+                            anyElement.tap()
+                        } else {
+                            print("    ⚠️ Element '\(targetId)' not found")
+                        }
+                    }
+                }
+
+            case "tapLabel":
+                if let label = action["text"] as? String {
+                    let predicate = NSPredicate(format: "label CONTAINS[c] %@", label)
+                    let element = app.buttons.matching(predicate).firstMatch
+                    if !element.exists {
+                        // Try static texts
+                        let textElement = app.staticTexts.matching(predicate).firstMatch
+                        if textElement.waitForExistence(timeout: 3) {
+                            textElement.tap()
+                        } else {
+                            print("    ⚠️ Label '\(label)' not found")
+                        }
+                    } else if element.waitForExistence(timeout: 3) {
+                        element.tap()
+                    } else {
+                        print("    ⚠️ Label '\(label)' not found")
+                    }
+                }
+
+            case "tapFirst":
+                // Tap the first element matching a prefix
+                if let prefix = action["id"] as? String {
+                    let predicate = NSPredicate(format: "identifier BEGINSWITH %@", prefix)
+                    let element = app.descendants(matching: .any).matching(predicate).firstMatch
+                    if element.waitForExistence(timeout: 5) {
+                        element.tap()
+                    } else {
+                        print("    ⚠️ No element with prefix '\(prefix)'")
+                    }
+                }
+
+            case "typeText":
+                if let fieldId = action["id"] as? String,
+                   let text = action["text"] as? String {
+                    let field = app.textFields[fieldId].firstMatch
+                    if field.waitForExistence(timeout: 5) {
+                        field.tap()
+                        usleep(300_000)
+                        field.typeText(text)
+                        usleep(200_000)
+                    } else {
+                        // Try search fields
+                        let searchField = app.searchFields[fieldId].firstMatch
+                        if searchField.waitForExistence(timeout: 3) {
+                            searchField.tap()
+                            usleep(300_000)
+                            searchField.typeText(text)
+                            usleep(200_000)
+                        } else {
+                            print("    ⚠️ Text field '\(fieldId)' not found")
+                        }
+                    }
+                }
+
+            case "swipeUp":
+                app.swipeUp()
+                usleep(500_000)
+
+            case "swipeDown":
+                app.swipeDown()
+                usleep(500_000)
+
+            case "press":
+                if let targetId = action["id"] as? String {
+                    let duration = action["duration"] as? Double ?? 1.0
+                    let element = app.descendants(matching: .any)[targetId].firstMatch
+                    if element.waitForExistence(timeout: 5) {
+                        element.press(forDuration: duration)
+                    }
+                }
+
+            case "scrollTo":
+                // Scroll until element is visible, then tap
+                if let targetId = action["id"] as? String {
+                    for _ in 0..<8 {
+                        let element = app.buttons[targetId].firstMatch
+                        if element.exists && element.isHittable {
+                            element.tap()
+                            break
+                        }
+                        app.swipeUp()
+                        usleep(300_000)
+                    }
+                }
+
+            case "wait":
+                let seconds = action["seconds"] as? Double ?? 2.0
+                usleep(UInt32(seconds * 1_000_000))
+
+            case "relaunch":
+                app.terminate()
+                usleep(1_000_000)
+                app.launchArguments = [
+                    "-AppleLanguages", "(en)",
+                    "-UITestResetFilters", "-UITestSkipOnboarding",
+                ]
+                app.launch()
+                // Wait for app to settle
+                _ = app.buttons["filter-button"].waitForExistence(timeout: 45)
+                usleep(3_000_000)
+
+            case "dismiss":
+                // Try common dismiss patterns
+                if app.buttons["filter-done"].exists { app.buttons["filter-done"].tap() }
+                else if app.buttons["Done"].exists { app.buttons["Done"].tap() }
+                else if app.buttons["done-button"].exists { app.buttons["done-button"].tap() }
+                else { app.buttons.firstMatch.tap() }
+                usleep(500_000)
+
+            case "screenshot":
+                let shotName = action["id"] as? String ?? "step-\(index)"
+                let screenshot = app.screenshot()
+                let png = screenshot.pngRepresentation
+                let path = "\(screenshotDir)/\(shotName).png"
+                try? png.write(to: URL(fileURLWithPath: path))
+                print("    📸 Saved: \(shotName).png")
+
+            default:
+                print("    ⚠️ Unknown action type: \(type)")
+            }
+        }
+
+        // Final screenshot always
+        let finalShot = app.screenshot()
+        let png2 = finalShot.pngRepresentation
+        let path2 = "\(screenshotDir)/final.png"
+        try? png2.write(to: URL(fileURLWithPath: path2))
+        print("    📸 Final screenshot saved")
+
+        print("✅ Script complete — \(actions.count) actions executed")
     }
 }

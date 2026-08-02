@@ -4,6 +4,8 @@ import UIKit
 struct CuratedOnboardingView: View {
     enum Stage: Int {
         case welcome
+        case intent
+        case topics
         case languages
         case comparisons
         case review
@@ -12,6 +14,7 @@ struct CuratedOnboardingView: View {
     @Environment(FeedLoader.self) private var loader
     @State private var engine = CircadianEngine.shared
     @State private var stage: Stage = .welcome
+    @State private var seed = OnboardingSeed()
     @State private var selectedLanguages: Set<String> = []
     @State private var session: CuratedOnboardingSession?
     @State private var feedName = "My Feed"
@@ -64,10 +67,36 @@ struct CuratedOnboardingView: View {
                             accent: engine.accent,
                             onStart: {
                                 withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                                    stage = .languages
+                                    stage = .intent
                                 }
                             },
                             onSkip: cancelOnboarding
+                        )
+                    case .intent:
+                        IntentScene(
+                            selectedIntent: Binding(
+                                get: { seed.intent },
+                                set: { seed.intent = $0 }
+                            ),
+                            accent: engine.accent,
+                            onContinue: {
+                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                    stage = .topics
+                                }
+                            }
+                        )
+                    case .topics:
+                        TopicsScene(
+                            selectedTopics: Binding(
+                                get: { seed.topicIDs },
+                                set: { seed.topicIDs = $0 }
+                            ),
+                            accent: engine.accent,
+                            onContinue: {
+                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                    stage = .languages
+                                }
+                            }
                         )
                     case .languages:
                         LanguageScene(
@@ -284,7 +313,10 @@ struct CuratedOnboardingView: View {
             preOnboardingLanguages = loader.selectedLanguages
         }
         loader.applyCuratedLanguages(selectedLanguages)
-        let newSession = CuratedOnboardingSession(languages: selectedLanguages)
+        let newSession = CuratedOnboardingSession(
+            languages: selectedLanguages,
+            seed: seed
+        )
         session = newSession
         candidateAttempts = 0
         withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
@@ -452,7 +484,9 @@ struct CuratedOnboardingView: View {
         withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
             switch stage {
             case .welcome: break
-            case .languages: stage = .welcome
+            case .intent: stage = .welcome
+            case .topics: stage = .intent
+            case .languages: stage = .topics
             case .comparisons:
                 candidateTask?.cancel()
                 stage = .languages

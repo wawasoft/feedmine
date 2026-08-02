@@ -936,8 +936,22 @@ final class CuratedOnboardingSession {
     @ObservationIgnored private var usedPairIDs: Set<String> = []
     @ObservationIgnored private var undoStack: [Snapshot] = []
 
-    init(languages: Set<String>) {
-        profile = CuratedProfileDefinition(languages: Array(languages))
+    init(languages: Set<String>, seed: OnboardingSeed = OnboardingSeed()) {
+        var profile = CuratedProfileDefinition(languages: Array(languages))
+
+        // Apply topic seeds — boost each selected topic to +1.5 so the
+        // candidate pool naturally favors matching content from the start.
+        for topicID in seed.topicIDs {
+            profile.weights[topicID] = 1.5
+            profile.evidenceCounts[topicID] = 2
+        }
+
+        // Apply intent-driven discovery level
+        if let intent = seed.intent {
+            profile.discoveryLevel = intent.impliedDiscoveryLevel
+        }
+
+        self.profile = profile
     }
 
     var answerCount: Int { profile.responseCount }

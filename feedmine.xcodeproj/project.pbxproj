@@ -190,6 +190,9 @@
 		FD848C250B3421AB0D93DF78 /* CardPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CC7C2DE66C058ED154C0A47 /* CardPresentationTests.swift */; };
 		FEC66A286E1A0BBBD85318B2 /* LanguageScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E643BD4F47321E0FA4107F5 /* LanguageScene.swift */; };
 		FFE217951022C72BFF79B68E /* ro.json in Resources */ = {isa = PBXBuildFile; fileRef = 9584476DFFCB8587E082CAAF /* ro.json */; };
+		5EFDE22F383F5418B72ACE7B /* TopicsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E048DE9031CA544594D0656B /* TopicsScene.swift */; };
+		3F659885BEE05099B6A771C8 /* OnboardingSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80CDC64FC2175D2DB370A504 /* OnboardingSeed.swift */; };
+		407D2EE8D220516B8F12EF74 /* IntentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCADA7FFCFA597999BE2A60 /* IntentScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -397,6 +400,9 @@
 		FCDDC3174C82B39C1ED9A1FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FDCAD69EEAB8FAB8FB974935 /* FeedFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFetchResult.swift; sourceTree = "<group>"; };
 		FDD68AC45197062E556EAB8F /* DatabasePerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabasePerformanceTests.swift; sourceTree = "<group>"; };
+		E048DE9031CA544594D0656B /* TopicsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsScene.swift; sourceTree = "<group>"; };
+		80CDC64FC2175D2DB370A504 /* OnboardingSeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSeed.swift; sourceTree = "<group>"; };
+		3FCADA7FFCFA597999BE2A60 /* IntentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -509,6 +515,8 @@
 				2B21BD4019AC8B7C56CDF289 /* StoryDuelCard.swift */,
 				AD2D987B1AC96F0FFDDE9ECD /* StoryDuelScene.swift */,
 				401FB5C28605401C96AD02BB /* WelcomeScene.swift */,
+				3FCADA7FFCFA597999BE2A60 /* IntentScene.swift */,
+				E048DE9031CA544594D0656B /* TopicsScene.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -583,6 +591,7 @@
 				1864085E2902D6DCD4CFDD00 /* ContentFilter.swift */,
 				5F08DCDC7CAEAF98BEFD0654 /* Country.swift */,
 				6407D3B3343F05CE22260378 /* CuratedFeed.swift */,
+				80CDC64FC2175D2DB370A504 /* OnboardingSeed.swift */,
 				1595D303FD10CB2456A989DC /* FeedFetchBatch.swift */,
 				FDCAD69EEAB8FAB8FB974935 /* FeedFetchResult.swift */,
 				5B17523EA785A32CBF906D42 /* FeedItem.swift */,
@@ -965,6 +974,7 @@
 				C45B317AFADC404026F51D49 /* Country.swift in Sources */,
 				D38D54D8947B48111A20C2F1 /* CountryDetailScreen.swift in Sources */,
 				6736C9EE19A891DD013E51E6 /* CuratedFeed.swift in Sources */,
+				3F659885BEE05099B6A771C8 /* OnboardingSeed.swift in Sources */,
 				AAADD16F35DC7940363EC905 /* CuratedFeedInspectorView.swift in Sources */,
 				613AC87799CE8F4BFB57AE39 /* CuratedOnboardingView.swift in Sources */,
 				63235766884D89C66C3DF6EA /* CuratedPreferenceEngine.swift in Sources */,
@@ -995,7 +1005,8 @@
 				4264B303EEFA1A6CCA309F13 /* ImagePrefetcher.swift in Sources */,
 				A6CC23D83A3B257531C5DDCA /* ImportPipeline.swift in Sources */,
 				E5A3540B2D76BDB78494BEF8 /* InputParser.swift in Sources */,
-				FEC66A286E1A0BBBD85318B2 /* LanguageScene.swift in Sources */,
+								407D2EE8D220516B8F12EF74 /* IntentScene.swift in Sources */,
+FEC66A286E1A0BBBD85318B2 /* LanguageScene.swift in Sources */,
 				B6AE9E0F8C29F1AC810114C6 /* LocaleManager.swift in Sources */,
 				E3063D7469C9B67BE8DC1032 /* Log.swift in Sources */,
 				23C4092BA7D62055C738AC74 /* MiniPlayerBar.swift in Sources */,
@@ -1022,6 +1033,7 @@
 				353857A2FD121D82D9343CE2 /* StatsShareCard.swift in Sources */,
 				F58E67BE14B956A25AC2D151 /* StoryDuelCard.swift in Sources */,
 				C6A1310480D42D2AA0A4C29A /* StoryDuelScene.swift in Sources */,
+				5EFDE22F383F5418B72ACE7B /* TopicsScene.swift in Sources */,
 				B47E86B718779DE4E43AA2A5 /* TaxonomyBrowseView.swift in Sources */,
 				47E097F4F315F6609206F2BC /* TaxonomyChipBar.swift in Sources */,
 				1DC3BAAE2DE827CDF0825914 /* TaxonomyNode.swift in Sources */,
