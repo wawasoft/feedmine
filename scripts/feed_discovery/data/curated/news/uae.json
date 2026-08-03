@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.wam.ae/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "WAM (Emirates News Agency)",
+    "genre": "news, uae, state news agency, arabic, english",
+    "source_page": "https://www.wam.ae/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thenationalnews.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The National",
+    "genre": "news, uae, newspaper, english, reference",
+    "source_page": "https://www.thenationalnews.com/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://gulfnews.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Gulf News",
+    "genre": "news, uae, newspaper, english, popular",
+    "source_page": "https://gulfnews.com/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.khaleejtimes.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Khaleej Times",
+    "genre": "news, uae, newspaper, english",
+    "source_page": "https://www.khaleejtimes.com/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.arabianbusiness.com/rss/",
+    "category": "Business & Industry",
+    "title": "Arabian Business",
+    "genre": "economy, business, uae, portal, english",
+    "source_page": "https://www.arabianbusiness.com/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.zawya.com/rss/",
+    "category": "Business & Industry",
+    "title": "Zawya",
+    "genre": "economy, business, uae, middle east, portal, english",
+    "source_page": "https://www.zawya.com/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.albayan.ae/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Bayan",
+    "genre": "news, uae, newspaper, arabic",
+    "source_page": "https://www.albayan.ae/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.emirates247.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Emirates 24/7",
+    "genre": "news, uae, portal, english",
+    "source_page": "https://www.emirates247.com/",
+    "national": true,
+    "national_reason": "news_curated/uae",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

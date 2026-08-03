@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.bangkokpost.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Bangkok Post",
+    "genre": "news, thailand, newspaper, english, reference",
+    "source_page": "https://www.bangkokpost.com/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.nationthailand.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Nation",
+    "genre": "news, thailand, newspaper, english",
+    "source_page": "https://www.nationthailand.com/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.khaosodenglish.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Khaosod English",
+    "genre": "news, thailand, portal, english",
+    "source_page": "https://www.khaosodenglish.com/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thaipbsworld.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Thai PBS World",
+    "genre": "news, thailand, public broadcaster, english",
+    "source_page": "https://www.thaipbsworld.com/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.prachatai.com/english/rss/",
+    "category": "News & Current Affairs",
+    "title": "Prachatai English",
+    "genre": "news, thailand, portal, english, independent",
+    "source_page": "https://prachataienglish.com/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.bangkokbiznews.com/rss/",
+    "category": "Business & Industry",
+    "title": "Bangkok Biz News",
+    "genre": "economy, business, thailand, newspaper, thai",
+    "source_page": "https://www.bangkokbiznews.com/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thairath.co.th/rss/",
+    "category": "News & Current Affairs",
+    "title": "Thai Rath",
+    "genre": "news, thailand, newspaper, thai, highest circulation",
+    "source_page": "https://www.thairath.co.th/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dailynews.co.th/rss/",
+    "category": "News & Current Affairs",
+    "title": "Daily News (Thailand)",
+    "genre": "news, thailand, newspaper, thai, popular",
+    "source_page": "https://www.dailynews.co.th/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.matichon.co.th/rss/",
+    "category": "News & Current Affairs",
+    "title": "Matichon",
+    "genre": "news, thailand, newspaper, thai, reference",
+    "source_page": "https://www.matichon.co.th/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mcot.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "MCOT",
+    "genre": "news, thailand, tv, journalism, thai",
+    "source_page": "https://www.mcot.net/",
+    "national": true,
+    "national_reason": "news_curated/thailand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

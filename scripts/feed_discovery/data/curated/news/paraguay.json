@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.abc.com.py/rss/",
+    "category": "News & Current Affairs",
+    "title": "ABC Color",
+    "genre": "news, paraguay, newspaper, spanish, reference, highest circulation",
+    "source_page": "https://www.abc.com.py/",
+    "national": true,
+    "national_reason": "news_curated/paraguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ultimahora.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Última Hora",
+    "genre": "news, paraguay, newspaper, spanish, popular",
+    "source_page": "https://www.ultimahora.com/",
+    "national": true,
+    "national_reason": "news_curated/paraguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.lanacion.com.py/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Nación",
+    "genre": "news, paraguay, newspaper, spanish",
+    "source_page": "https://www.lanacion.com.py/",
+    "national": true,
+    "national_reason": "news_curated/paraguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.hoy.com.py/rss/",
+    "category": "News & Current Affairs",
+    "title": "Hoy",
+    "genre": "news, paraguay, portal, spanish",
+    "source_page": "https://www.hoy.com.py/",
+    "national": true,
+    "national_reason": "news_curated/paraguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.5dias.com.py/rss/",
+    "category": "Business & Industry",
+    "title": "5 Días",
+    "genre": "economy, business, paraguay, newspaper, spanish",
+    "source_page": "https://www.5dias.com.py/",
+    "national": true,
+    "national_reason": "news_curated/paraguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.paraguay.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Paraguay.com",
+    "genre": "news, paraguay, portal, spanish",
+    "source_page": "https://www.paraguay.com/",
+    "national": true,
+    "national_reason": "news_curated/paraguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.npy.com.py/rss/",
+    "category": "News & Current Affairs",
+    "title": "Noticias Paraguay (NPY)",
+    "genre": "news, paraguay, tv, journalism, spanish",
+    "source_page": "https://www.npy.com.py/",
+    "national": true,
+    "national_reason": "news_curated/paraguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

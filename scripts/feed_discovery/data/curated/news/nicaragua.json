@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.laprensa.com.ni/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Prensa",
+    "genre": "news, nicaragua, newspaper, spanish, independent, reference",
+    "source_page": "https://www.laprensa.com.ni/",
+    "national": true,
+    "national_reason": "news_curated/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elnuevodiario.com.ni/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Nuevo Diario",
+    "genre": "news, nicaragua, newspaper, spanish",
+    "source_page": "https://www.elnuevodiario.com.ni/",
+    "national": true,
+    "national_reason": "news_curated/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.el19digital.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "El 19 Digital",
+    "genre": "news, nicaragua, portal, spanish, state-run",
+    "source_page": "https://www.el19digital.com/",
+    "national": true,
+    "national_reason": "news_curated/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://confidencial.digital/feed/",
+    "category": "News & Current Affairs",
+    "title": "Confidencial",
+    "genre": "news, nicaragua, portal, spanish, investigative journalism",
+    "source_page": "https://confidencial.digital/",
+    "national": true,
+    "national_reason": "news_curated/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.articulo66.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Artículo 66",
+    "genre": "news, nicaragua, portal, spanish, independent",
+    "source_page": "https://www.articulo66.com/",
+    "national": true,
+    "national_reason": "news_curated/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.canal2tv.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Canal 2",
+    "genre": "news, nicaragua, tv, journalism, spanish",
+    "source_page": "https://www.canal2tv.com/",
+    "national": true,
+    "national_reason": "news_curated/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.vostv.com.ni/feed/",
+    "category": "News & Current Affairs",
+    "title": "Vos TV",
+    "genre": "news, nicaragua, tv, journalism, spanish",
+    "source_page": "https://www.vostv.com.ni/",
+    "national": true,
+    "national_reason": "news_curated/nicaragua",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

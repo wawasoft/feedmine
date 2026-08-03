@@ -1,0 +1,74 @@
+[
+  {
+    "url": "https://sudantribune.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Sudan Tribune",
+    "genre": "news, sudan, portal, english, arabic, independent",
+    "source_page": "https://sudantribune.com/",
+    "national": true,
+    "national_reason": "news_curated/sudan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dabangasudan.org/rss/",
+    "category": "News & Current Affairs",
+    "title": "Dabanga Sudan",
+    "genre": "news, sudan, radio, portal, arabic, english, independent",
+    "source_page": "https://www.dabangasudan.org/",
+    "national": true,
+    "national_reason": "news_curated/sudan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.suna-sd.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "SUNA (Sudan News Agency)",
+    "genre": "news, sudan, state news agency, arabic, english",
+    "source_page": "https://www.suna-sd.net/",
+    "national": true,
+    "national_reason": "news_curated/sudan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.altaghyeer.info/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Taghyeer",
+    "genre": "news, sudan, portal, arabic, independent",
+    "source_page": "https://www.altaghyeer.info/",
+    "national": true,
+    "national_reason": "news_curated/sudan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.radiotamazuj.org/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "Radio Tamazuj",
+    "genre": "news, sudan, south sudan, radio, english, arabic, independent",
+    "source_page": "https://www.radiotamazuj.org/",
+    "national": true,
+    "national_reason": "news_curated/sudan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.alarabiya.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Arabiya (Sudan coverage)",
+    "genre": "news, sudan, middle east, tv, arabic",
+    "source_page": "https://www.alarabiya.net/",
+    "national": true,
+    "national_reason": "news_curated/sudan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

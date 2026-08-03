@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.tap.info.tn/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "TAP (Tunis Afrique Presse)",
+    "genre": "news, tunisia, state news agency, arabic, french, english",
+    "source_page": "https://www.tap.info.tn/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.leconomistemaghrebin.com/feed/",
+    "category": "Business & Industry",
+    "title": "L'Économiste Maghrébin",
+    "genre": "economy, business, tunisia, newspaper, french",
+    "source_page": "https://www.leconomistemaghrebin.com/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.webdo.tn/feed/",
+    "category": "News & Current Affairs",
+    "title": "Webdo",
+    "genre": "news, tunisia, portal, french",
+    "source_page": "https://www.webdo.tn/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.businessnews.com.tn/rss/",
+    "category": "Business & Industry",
+    "title": "Business News",
+    "genre": "economy, business, tunisia, portal, french",
+    "source_page": "https://www.businessnews.com.tn/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.realites.com.tn/feed/",
+    "category": "News & Current Affairs",
+    "title": "Réalités",
+    "genre": "news, tunisia, weekly magazine, french",
+    "source_page": "https://www.realites.com.tn/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.lapresse.tn/feed/",
+    "category": "News & Current Affairs",
+    "title": "La Presse de Tunisie",
+    "genre": "news, tunisia, newspaper, french, state-run",
+    "source_page": "https://www.lapresse.tn/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.jawharafm.net/feed/",
+    "category": "News & Current Affairs",
+    "title": "Jawhara FM",
+    "genre": "news, tunisia, radio, portal, arabic, french",
+    "source_page": "https://www.jawharafm.net/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mosaiquefm.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Mosaïque FM",
+    "genre": "news, tunisia, radio, portal, arabic, french, popular",
+    "source_page": "https://www.mosaiquefm.net/",
+    "national": true,
+    "national_reason": "news_curated/tunisia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

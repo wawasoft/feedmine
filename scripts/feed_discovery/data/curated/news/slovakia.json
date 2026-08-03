@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://spravy.pravda.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "Pravda",
+    "genre": "news, slovakia, newspaper, slovak, reference",
+    "source_page": "https://spravy.pravda.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.sme.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "SME",
+    "genre": "news, slovakia, newspaper, slovak, popular",
+    "source_page": "https://www.sme.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aktuality.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "Aktuality.sk",
+    "genre": "news, slovakia, portal, slovak, popular",
+    "source_page": "https://www.aktuality.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dennikn.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "Denník N",
+    "genre": "news, slovakia, newspaper, slovak, independent, investigative",
+    "source_page": "https://www.dennikn.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.teraz.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "TASR (News Agency of the Slovak Republic)",
+    "genre": "news, slovakia, state news agency, slovak",
+    "source_page": "https://www.teraz.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://spravy.rtvs.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "RTVS (Radio and Television of Slovakia)",
+    "genre": "news, slovakia, public broadcaster, tv, radio, slovak",
+    "source_page": "https://spravy.rtvs.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.topky.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "Topky.sk",
+    "genre": "news, slovakia, portal, slovak, tabloid",
+    "source_page": "https://www.topky.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://spectator.sme.sk/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Slovak Spectator",
+    "genre": "news, slovakia, newspaper, english",
+    "source_page": "https://spectator.sme.sk/",
+    "national": true,
+    "national_reason": "news_curated/slovakia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

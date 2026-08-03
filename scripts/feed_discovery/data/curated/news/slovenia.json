@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.rtvslo.si/rss/",
+    "category": "News & Current Affairs",
+    "title": "RTV Slovenija",
+    "genre": "news, slovenia, public broadcaster, tv, radio, slovenian",
+    "source_page": "https://www.rtvslo.si/",
+    "national": true,
+    "national_reason": "news_curated/slovenia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.delo.si/rss/",
+    "category": "News & Current Affairs",
+    "title": "Delo",
+    "genre": "news, slovenia, newspaper, slovenian, reference",
+    "source_page": "https://www.delo.si/",
+    "national": true,
+    "national_reason": "news_curated/slovenia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dnevnik.si/rss/",
+    "category": "News & Current Affairs",
+    "title": "Dnevnik",
+    "genre": "news, slovenia, newspaper, slovenian",
+    "source_page": "https://www.dnevnik.si/",
+    "national": true,
+    "national_reason": "news_curated/slovenia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.24ur.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "24ur",
+    "genre": "news, slovenia, portal, slovenian, popular",
+    "source_page": "https://www.24ur.com/",
+    "national": true,
+    "national_reason": "news_curated/slovenia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://siol.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Siol.net",
+    "genre": "news, slovenia, portal, slovenian",
+    "source_page": "https://siol.net/",
+    "national": true,
+    "national_reason": "news_curated/slovenia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.sta.si/rss/",
+    "category": "News & Current Affairs",
+    "title": "STA (Slovenian Press Agency)",
+    "genre": "news, slovenia, news agency, slovenian, english",
+    "source_page": "https://www.sta.si/",
+    "national": true,
+    "national_reason": "news_curated/slovenia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.vecer.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Večer",
+    "genre": "news, slovenia, newspaper, slovenian",
+    "source_page": "https://www.vecer.com/",
+    "national": true,
+    "national_reason": "news_curated/slovenia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

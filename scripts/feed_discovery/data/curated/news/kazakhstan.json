@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.inform.kz/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "Kazinform",
+    "genre": "news, kazakhstan, state news agency, english, kazakh, russian",
+    "source_page": "https://www.inform.kz/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://astanatimes.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Astana Times",
+    "genre": "news, kazakhstan, newspaper, english, state-run",
+    "source_page": "https://astanatimes.com/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://tengrinews.kz/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tengrinews",
+    "genre": "news, kazakhstan, portal, kazakh, russian, popular",
+    "source_page": "https://tengrinews.kz/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.nur.kz/rss/",
+    "category": "News & Current Affairs",
+    "title": "Nur.kz",
+    "genre": "news, kazakhstan, portal, kazakh, russian",
+    "source_page": "https://www.nur.kz/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://khabar.kz/ru/rss/",
+    "category": "News & Current Affairs",
+    "title": "Khabar Agency",
+    "genre": "news, kazakhstan, tv, state-run, kazakh, russian",
+    "source_page": "https://khabar.kz/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.zakon.kz/rss/",
+    "category": "News & Current Affairs",
+    "title": "Zakon.kz",
+    "genre": "news, kazakhstan, portal, russian",
+    "source_page": "https://www.zakon.kz/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rferl.org/rss/",
+    "category": "News & Current Affairs",
+    "title": "Radio Free Europe / Radio Liberty",
+    "genre": "news, kazakhstan, radio, russian, kazakh, independent",
+    "source_page": "https://www.rferl.org/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://kaztag.kz/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "KazTAG",
+    "genre": "news, kazakhstan, news agency, english, russian",
+    "source_page": "https://kaztag.kz/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://vlast.kz/rss/",
+    "category": "News & Current Affairs",
+    "title": "Vlast.kz",
+    "genre": "news, kazakhstan, portal, russian, independent, analysis",
+    "source_page": "https://vlast.kz/",
+    "national": true,
+    "national_reason": "news_curated/kazakhstan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

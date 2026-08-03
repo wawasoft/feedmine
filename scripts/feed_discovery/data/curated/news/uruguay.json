@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.elpais.com.uy/rss/",
+    "category": "News & Current Affairs",
+    "title": "El País (Uruguay)",
+    "genre": "news, uruguay, newspaper, spanish, reference",
+    "source_page": "https://www.elpais.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elobservador.com.uy/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Observador",
+    "genre": "news, uruguay, newspaper, spanish",
+    "source_page": "https://www.elobservador.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.montevideo.com.uy/rss/",
+    "category": "News & Current Affairs",
+    "title": "Montevideo Portal",
+    "genre": "news, uruguay, portal, spanish, popular",
+    "source_page": "https://www.montevideo.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.subrayado.com.uy/rss/",
+    "category": "News & Current Affairs",
+    "title": "Subrayado",
+    "genre": "news, uruguay, tv, journalism, spanish",
+    "source_page": "https://www.subrayado.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.telenoche.com.uy/rss/",
+    "category": "News & Current Affairs",
+    "title": "Telenoche",
+    "genre": "news, uruguay, tv, journalism, spanish",
+    "source_page": "https://www.telenoche.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ladiaria.com.uy/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Diaria",
+    "genre": "news, uruguay, newspaper, spanish, independent",
+    "source_page": "https://ladiaria.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.busqueda.com.uy/rss/",
+    "category": "News & Current Affairs",
+    "title": "Búsqueda",
+    "genre": "news, uruguay, weekly newspaper, spanish",
+    "source_page": "https://www.busqueda.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.carasycaretas.com.uy/feed/",
+    "category": "News & Current Affairs",
+    "title": "Caras y Caretas",
+    "genre": "news, uruguay, weekly magazine, spanish",
+    "source_page": "https://www.carasycaretas.com.uy/",
+    "national": true,
+    "national_reason": "news_curated/uruguay",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

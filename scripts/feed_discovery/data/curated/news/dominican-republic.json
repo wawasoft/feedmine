@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://listindiario.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Listín Diario",
+    "genre": "news, dominican republic, santo domingo, newspaper, highest circulation",
+    "source_page": "https://listindiario.com/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.diariolibre.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Diario Libre",
+    "genre": "news, dominican republic, newspaper, politics",
+    "source_page": "https://www.diariolibre.com/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://elnacional.com.do/feed/",
+    "category": "News & Current Affairs",
+    "title": "El Nacional",
+    "genre": "news, dominican republic, newspaper, politics",
+    "source_page": "https://elnacional.com.do/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://hoy.com.do/feed/",
+    "category": "News & Current Affairs",
+    "title": "Hoy",
+    "genre": "news, dominican republic, newspaper",
+    "source_page": "https://hoy.com.do/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elcaribe.com.do/feed/",
+    "category": "News & Current Affairs",
+    "title": "El Caribe",
+    "genre": "news, dominican republic, newspaper, historic",
+    "source_page": "https://www.elcaribe.com.do/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://acento.com.do/feed/",
+    "category": "News & Current Affairs",
+    "title": "Acento",
+    "genre": "news, dominican republic, portal, politics, analysis",
+    "source_page": "https://acento.com.do/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://noticiassin.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Noticias SIN",
+    "genre": "news, dominican republic, tv, journalism",
+    "source_page": "https://noticiassin.com/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://cdn.com.do/feed/",
+    "category": "News & Current Affairs",
+    "title": "CDN",
+    "genre": "news, dominican republic, tv, journalism",
+    "source_page": "https://cdn.com.do/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://elnuevodiario.com.do/feed/",
+    "category": "News & Current Affairs",
+    "title": "El Nuevo Diario",
+    "genre": "news, dominican republic, newspaper",
+    "source_page": "https://elnuevodiario.com.do/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://z101digital.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Z101 Digital",
+    "genre": "news, dominican republic, radio, portal",
+    "source_page": "https://z101digital.com/",
+    "national": true,
+    "national_reason": "news_curated/dominican-republic",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

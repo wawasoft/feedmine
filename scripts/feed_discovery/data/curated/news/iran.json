@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.irna.ir/rss/",
+    "category": "News & Current Affairs",
+    "title": "IRNA (Islamic Republic News Agency)",
+    "genre": "news, iran, state news agency, persian, english",
+    "source_page": "https://www.irna.ir/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mehrnews.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Mehr News Agency",
+    "genre": "news, iran, news agency, persian, english",
+    "source_page": "https://www.mehrnews.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tasnimnews.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tasnim News Agency",
+    "genre": "news, iran, news agency, persian, conservative",
+    "source_page": "https://www.tasnimnews.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.presstv.ir/rss/",
+    "category": "News & Current Affairs",
+    "title": "Press TV",
+    "genre": "news, iran, tv, state-run, english, international",
+    "source_page": "https://www.presstv.ir/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tehrantimes.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tehran Times",
+    "genre": "news, iran, newspaper, english, state-run",
+    "source_page": "https://www.tehrantimes.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://financialtribune.com/rss/",
+    "category": "Business & Industry",
+    "title": "Financial Tribune",
+    "genre": "economy, business, finance, iran, newspaper, english",
+    "source_page": "https://financialtribune.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://en.radiofarda.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Radio Farda (RFE/RL Iran)",
+    "genre": "news, iran, radio, persian, independent, diaspora",
+    "source_page": "https://en.radiofarda.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://iranwire.com/en/feed/",
+    "category": "News & Current Affairs",
+    "title": "IranWire",
+    "genre": "news, iran, portal, english, independent, diaspora",
+    "source_page": "https://iranwire.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.iranintl.com/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "Iran International",
+    "genre": "news, iran, tv, english, persian, diaspora",
+    "source_page": "https://www.iranintl.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.al-monitor.com/feeds/rss/iran/content.rss",
+    "category": "News & Current Affairs",
+    "title": "Al-Monitor (Iran coverage)",
+    "genre": "news, iran, middle east, portal, english, analysis",
+    "source_page": "https://www.al-monitor.com/",
+    "national": true,
+    "national_reason": "news_curated/iran",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

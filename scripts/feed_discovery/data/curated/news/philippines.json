@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.philstar.com/rss/headlines",
+    "category": "News & Current Affairs",
+    "title": "The Philippine Star",
+    "genre": "news, philippines, newspaper, english, popular",
+    "source_page": "https://www.philstar.com/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://newsinfo.inquirer.net/feed/",
+    "category": "News & Current Affairs",
+    "title": "Philippine Daily Inquirer",
+    "genre": "news, philippines, newspaper, english, reference",
+    "source_page": "https://www.inquirer.net/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.manilatimes.net/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Manila Times",
+    "genre": "news, philippines, newspaper, english, historic",
+    "source_page": "https://www.manilatimes.net/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://mb.com.ph/feed/",
+    "category": "News & Current Affairs",
+    "title": "Manila Bulletin",
+    "genre": "news, philippines, newspaper, english, historic",
+    "source_page": "https://mb.com.ph/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rappler.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Rappler",
+    "genre": "news, philippines, portal, english, independent, investigative journalism",
+    "source_page": "https://www.rappler.com/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.gmanetwork.com/news/rss/",
+    "category": "News & Current Affairs",
+    "title": "GMA News",
+    "genre": "news, philippines, tv, journalism, english, tagalog",
+    "source_page": "https://www.gmanetwork.com/news/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://news.abs-cbn.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "ABS-CBN News",
+    "genre": "news, philippines, tv, journalism, english, tagalog",
+    "source_page": "https://news.abs-cbn.com/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://cnnphilippines.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "CNN Philippines",
+    "genre": "news, philippines, tv, journalism, english",
+    "source_page": "https://cnnphilippines.com/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.pna.gov.ph/rss/",
+    "category": "News & Current Affairs",
+    "title": "PNA (Philippine News Agency)",
+    "genre": "news, philippines, state news agency, english",
+    "source_page": "https://www.pna.gov.ph/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.bworldonline.com/feed/",
+    "category": "Business & Industry",
+    "title": "BusinessWorld",
+    "genre": "economy, business, philippines, newspaper, english",
+    "source_page": "https://www.bworldonline.com/",
+    "national": true,
+    "national_reason": "news_curated/philippines",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

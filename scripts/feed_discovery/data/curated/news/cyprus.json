@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.cna.org.cy/rss/",
+    "category": "News & Current Affairs",
+    "title": "Cyprus News Agency",
+    "genre": "news, cyprus, state news agency",
+    "source_page": "https://www.cna.org.cy/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://cyprus-mail.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Cyprus Mail",
+    "genre": "news, cyprus, newspaper, english, politics",
+    "source_page": "https://cyprus-mail.com/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://in-cyprus.philenews.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "In-Cyprus (Phileleftheros Group)",
+    "genre": "news, cyprus, portal, english",
+    "source_page": "https://in-cyprus.philenews.com/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.philenews.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Phileleftheros",
+    "genre": "news, cyprus, newspaper, greek, highest circulation",
+    "source_page": "https://www.philenews.com/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://politis.com.cy/feed/",
+    "category": "News & Current Affairs",
+    "title": "Politis",
+    "genre": "news, cyprus, newspaper, greek",
+    "source_page": "https://politis.com.cy/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.sigmalive.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Sigmalive",
+    "genre": "news, cyprus, portal, tv, greek",
+    "source_page": "https://www.sigmalive.com/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.stockwatch.com.cy/rss/",
+    "category": "Business & Industry",
+    "title": "Stockwatch",
+    "genre": "economy, finance, business, cyprus",
+    "source_page": "https://www.stockwatch.com.cy/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://knews.kathimerini.com.cy/feed/",
+    "category": "News & Current Affairs",
+    "title": "KNews (Kathimerini Cyprus)",
+    "genre": "news, cyprus, portal, english",
+    "source_page": "https://knews.kathimerini.com.cy/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.kibrispostasi.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Kıbrıs Postası",
+    "genre": "news, cyprus, turkish, portal, northern cyprus",
+    "source_page": "https://www.kibrispostasi.com/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.yeniduzen.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Yenidüzen",
+    "genre": "news, cyprus, turkish, newspaper, northern cyprus",
+    "source_page": "https://www.yeniduzen.com/",
+    "national": true,
+    "national_reason": "news_curated/cyprus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

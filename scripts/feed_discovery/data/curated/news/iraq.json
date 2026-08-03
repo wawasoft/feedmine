@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.ina.iq/rss/",
+    "category": "News & Current Affairs",
+    "title": "INA (Iraqi News Agency)",
+    "genre": "news, iraq, state news agency, arabic",
+    "source_page": "https://www.ina.iq/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aljazeera.net/feed/",
+    "category": "News & Current Affairs",
+    "title": "Al Jazeera Arabic (Iraq coverage)",
+    "genre": "news, iraq, middle east, tv, arabic, international",
+    "source_page": "https://www.aljazeera.net/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rudaw.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Rudaw",
+    "genre": "news, iraq, kurdistan, portal, kurdish, english, arabic",
+    "source_page": "https://www.rudaw.net/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ninanews.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "NINA (National Iraqi News Agency)",
+    "genre": "news, iraq, news agency, arabic",
+    "source_page": "https://www.ninanews.com/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.alsumaria.tv/rss/",
+    "category": "News & Current Affairs",
+    "title": "Alsumaria TV",
+    "genre": "news, iraq, tv, arabic, journalism",
+    "source_page": "https://www.alsumaria.tv/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.alzawraapaper.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al-Zawraa",
+    "genre": "news, iraq, newspaper, arabic",
+    "source_page": "https://www.alzawraapaper.com/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.alsabaah.iq/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al-Sabaah",
+    "genre": "news, iraq, newspaper, arabic, state-run",
+    "source_page": "https://www.alsabaah.iq/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.iraqinews.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Iraqi News",
+    "genre": "news, iraq, portal, english",
+    "source_page": "https://www.iraqinews.com/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.shafaq.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Shafaq News",
+    "genre": "news, iraq, portal, arabic, english",
+    "source_page": "https://www.shafaq.com/",
+    "national": true,
+    "national_reason": "news_curated/iraq",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

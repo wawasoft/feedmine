@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.irishtimes.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Irish Times",
+    "genre": "news, ireland, newspaper, english, reference, politics",
+    "source_page": "https://www.irishtimes.com/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.independent.ie/rss/",
+    "category": "News & Current Affairs",
+    "title": "Irish Independent",
+    "genre": "news, ireland, newspaper, english, popular",
+    "source_page": "https://www.independent.ie/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rte.ie/rss/",
+    "category": "News & Current Affairs",
+    "title": "RTÉ News",
+    "genre": "news, ireland, public broadcaster, tv, radio, english",
+    "source_page": "https://www.rte.ie/news/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thejournal.ie/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Journal",
+    "genre": "news, ireland, portal, english, digital",
+    "source_page": "https://www.thejournal.ie/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.irishexaminer.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Irish Examiner",
+    "genre": "news, ireland, cork, newspaper, english",
+    "source_page": "https://www.irishexaminer.com/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.breakingnews.ie/rss/",
+    "category": "News & Current Affairs",
+    "title": "BreakingNews.ie",
+    "genre": "news, ireland, portal, english",
+    "source_page": "https://www.breakingnews.ie/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.newstalk.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Newstalk",
+    "genre": "news, ireland, radio, talk radio, english",
+    "source_page": "https://www.newstalk.com/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.businesspost.ie/feed/",
+    "category": "Business & Industry",
+    "title": "Business Post",
+    "genre": "economy, business, ireland, newspaper, english",
+    "source_page": "https://www.businesspost.ie/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thesun.ie/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Irish Sun",
+    "genre": "news, ireland, newspaper, tabloid, english",
+    "source_page": "https://www.thesun.ie/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.siliconrepublic.com/feed/",
+    "category": "Technology & Science",
+    "title": "Silicon Republic",
+    "genre": "technology, ireland, startups, english",
+    "source_page": "https://www.siliconrepublic.com/",
+    "national": true,
+    "national_reason": "news_curated/ireland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

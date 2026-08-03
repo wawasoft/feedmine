@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.svt.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "SVT Nyheter",
+    "genre": "news, sweden, public broadcaster, tv, swedish",
+    "source_page": "https://www.svt.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.sr.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "Sveriges Radio",
+    "genre": "news, sweden, public broadcaster, radio, swedish",
+    "source_page": "https://sverigesradio.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dn.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "Dagens Nyheter",
+    "genre": "news, sweden, newspaper, swedish, reference, independent",
+    "source_page": "https://www.dn.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.svd.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "Svenska Dagbladet",
+    "genre": "news, sweden, newspaper, swedish, conservative, reference",
+    "source_page": "https://www.svd.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aftonbladet.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "Aftonbladet",
+    "genre": "news, sweden, newspaper, swedish, tabloid, popular",
+    "source_page": "https://www.aftonbladet.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.expressen.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "Expressen",
+    "genre": "news, sweden, newspaper, swedish, tabloid",
+    "source_page": "https://www.expressen.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.di.se/rss/",
+    "category": "Business & Industry",
+    "title": "Dagens Industri",
+    "genre": "economy, business, sweden, newspaper, swedish",
+    "source_page": "https://www.di.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tv4.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "TV4 Nyheterna",
+    "genre": "news, sweden, tv, journalism, swedish",
+    "source_page": "https://www.tv4.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thelocal.se/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Local Sweden",
+    "genre": "news, sweden, portal, english, expat",
+    "source_page": "https://www.thelocal.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://sverigesradio.se/rss/",
+    "category": "News & Current Affairs",
+    "title": "Radio Sweden (English)",
+    "genre": "news, sweden, public broadcaster, radio, english",
+    "source_page": "https://sverigesradio.se/",
+    "national": true,
+    "national_reason": "news_curated/sweden",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.graphic.com.gh/rss/",
+    "category": "News & Current Affairs",
+    "title": "Daily Graphic",
+    "genre": "news, ghana, newspaper, highest circulation, english",
+    "source_page": "https://www.graphic.com.gh/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ghanaweb.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "GhanaWeb",
+    "genre": "news, ghana, portal, english, popular",
+    "source_page": "https://www.ghanaweb.com/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://citinewsroom.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Citi Newsroom",
+    "genre": "news, ghana, radio, portal, english",
+    "source_page": "https://citinewsroom.com/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.myjoyonline.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "MyJoyOnline",
+    "genre": "news, ghana, portal, radio, english",
+    "source_page": "https://www.myjoyonline.com/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ghanaiantimes.com.gh/feed/",
+    "category": "News & Current Affairs",
+    "title": "Ghanaian Times",
+    "genre": "news, ghana, newspaper, state-run, english",
+    "source_page": "https://www.ghanaiantimes.com.gh/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.modernghana.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Modern Ghana",
+    "genre": "news, ghana, portal, english, aggregator",
+    "source_page": "https://www.modernghana.com/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.peacefmonline.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Peace FM Online",
+    "genre": "news, ghana, radio, portal, english",
+    "source_page": "https://www.peacefmonline.com/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.pulse.com.gh/feed/",
+    "category": "News & Current Affairs",
+    "title": "Pulse Ghana",
+    "genre": "news, ghana, portal, entertainment, youth",
+    "source_page": "https://www.pulse.com.gh/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://thebftonline.com/feed/",
+    "category": "Business & Industry",
+    "title": "Business & Financial Times",
+    "genre": "economy, business, finance, ghana, newspaper",
+    "source_page": "https://thebftonline.com/",
+    "national": true,
+    "national_reason": "news_curated/ghana",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

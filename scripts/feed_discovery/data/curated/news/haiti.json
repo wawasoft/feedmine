@@ -1,0 +1,74 @@
+[
+  {
+    "url": "https://lenouvelliste.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Le Nouvelliste",
+    "genre": "news, haiti, newspaper, french, highest circulation",
+    "source_page": "https://lenouvelliste.com/",
+    "national": true,
+    "national_reason": "news_curated/haiti",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.haitilibre.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Haiti Libre",
+    "genre": "news, haiti, portal, french, english",
+    "source_page": "https://www.haitilibre.com/",
+    "national": true,
+    "national_reason": "news_curated/haiti",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.alterpresse.org/rss/",
+    "category": "News & Current Affairs",
+    "title": "AlterPresse",
+    "genre": "news, haiti, news agency, independent, french",
+    "source_page": "https://www.alterpresse.org/",
+    "national": true,
+    "national_reason": "news_curated/haiti",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://ayibopost.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "AyiboPost",
+    "genre": "news, haiti, portal, digital, investigative",
+    "source_page": "https://ayibopost.com/",
+    "national": true,
+    "national_reason": "news_curated/haiti",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.loophaiti.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Loop Haiti",
+    "genre": "news, haiti, portal, french",
+    "source_page": "https://www.loophaiti.com/",
+    "national": true,
+    "national_reason": "news_curated/haiti",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://juno7.ht/feed/",
+    "category": "News & Current Affairs",
+    "title": "Juno7",
+    "genre": "news, haiti, portal, french",
+    "source_page": "https://juno7.ht/",
+    "national": true,
+    "national_reason": "news_curated/haiti",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.prensa.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Prensa",
+    "genre": "news, panama, newspaper, spanish, reference",
+    "source_page": "https://www.prensa.com/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.laestrella.com.pa/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Estrella de Panamá",
+    "genre": "news, panama, newspaper, spanish, historic",
+    "source_page": "https://www.laestrella.com.pa/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.metrolibre.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Metro Libre",
+    "genre": "news, panama, newspaper, spanish, free",
+    "source_page": "https://www.metrolibre.com/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tvn-2.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "TVN Noticias",
+    "genre": "news, panama, tv, journalism, spanish",
+    "source_page": "https://www.tvn-2.com/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.telemetro.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Telemetro",
+    "genre": "news, panama, tv, journalism, spanish",
+    "source_page": "https://www.telemetro.com/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ecotvpanama.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "ECO TV",
+    "genre": "news, panama, tv, journalism, spanish",
+    "source_page": "https://www.ecotvpanama.com/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.midiario.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Mi Diario",
+    "genre": "news, panama, newspaper, spanish, popular",
+    "source_page": "https://www.midiario.com/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elcapitalfinanciero.com/rss/",
+    "category": "Business & Industry",
+    "title": "El Capital Financiero",
+    "genre": "economy, finance, business, panama, newspaper, spanish",
+    "source_page": "https://www.elcapitalfinanciero.com/",
+    "national": true,
+    "national_reason": "news_curated/panama",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

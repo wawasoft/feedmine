@@ -12,11 +12,50 @@ Usage:
 
 from __future__ import annotations
 
-import argparse, hashlib, os, re, shutil, signal, sys, time
+import argparse, hashlib, locale, os, re, shutil, signal, sys, time
 from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 from xml.etree import ElementTree as ET
+
+# ── Date parsing (handles non-English locale dates like French "ven, 31 Juil 2026") ──
+_FRENCH_MONTHS = {
+    "janv": "Jan", "févr": "Feb", "fév": "Feb", "mars": "Mar",
+    "avr": "Apr", "mai": "May", "juin": "Jun",
+    "juil": "Jul", "août": "Aug", "aout": "Aug",
+    "sept": "Sep", "oct": "Oct", "nov": "Nov", "déc": "Dec", "dec": "Dec",
+}
+_FRENCH_DAYS = {"lun": "Mon", "mar": "Tue", "mer": "Wed", "jeu": "Thu",
+                "ven": "Fri", "sam": "Sat", "dim": "Sun"}
+
+def _normalize_date(raw: str) -> str:
+    """Try to normalize a date string from an RSS/Atom feed to ISO 8601."""
+    if not raw or not raw.strip():
+        return ""
+    raw = raw.strip()
+    # Try standard RFC 2822 first (handles English locale)
+    try:
+        return parsedate_to_datetime(raw).isoformat()
+    except Exception:
+        pass
+    # Try French locale
+    try:
+        cleaned = raw
+        for fr, en in _FRENCH_DAYS.items():
+            cleaned = re.sub(rf"\b{fr}\b", en, cleaned, flags=re.IGNORECASE)
+        for fr, en in _FRENCH_MONTHS.items():
+            cleaned = re.sub(rf"\b{fr}\b", en, cleaned, flags=re.IGNORECASE)
+        return parsedate_to_datetime(cleaned).isoformat()
+    except Exception:
+        pass
+    # Try ISO 8601 directly
+    try:
+        return datetime.fromisoformat(raw.replace("Z", "+00:00")).isoformat()
+    except Exception:
+        pass
+    # Give up — return empty
+    return ""
 
 import pyarrow as pa
 import pyarrow.parquet as pq
@@ -31,7 +70,7 @@ PROGRESS_PATH = ROOT / "feeds_new_fetch_progress.json"
 
 TIMEOUT = 30
 MAX_ARTICLES = 15
-CONCURRENCY = 8
+CONCURRENCY = 20
 FLUSH_EVERY = 100
 
 # ── Helpers ──
@@ -86,8 +125,9 @@ def parse_feed(xml_bytes: bytes, xml_url: str) -> dict:
         latest = ""
         for item in items:
             pub = item.findtext("pubDate", "")
-            if pub and (not latest or pub > latest):
-                latest = pub
+            pub_iso = _normalize_date(pub)
+            if pub_iso and (not latest or pub_iso > latest):
+                latest = pub_iso
         result["articles_fetched"] = len(items)
         result["latest_item_at"] = latest
         return result
@@ -126,7 +166,7 @@ def parse_feed(xml_bytes: bytes, xml_url: str) -> dict:
         for entry in entries:
             updated = entry.findtext("atom:updated", "", ns) or entry.findtext("updated", "")
             published = entry.findtext("atom:published", "", ns) or entry.findtext("published", "")
-            ts = updated or published
+            ts = _normalize_date(updated or published)
             if ts and (not latest or ts > latest):
                 latest = ts
         result["articles_fetched"] = len(entries)

@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.elnuevodia.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Nuevo Día",
+    "genre": "news, puerto rico, newspaper, spanish, highest circulation",
+    "source_page": "https://www.elnuevodia.com/",
+    "national": true,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.primerahora.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Primera Hora",
+    "genre": "news, puerto rico, newspaper, spanish, popular",
+    "source_page": "https://www.primerahora.com/",
+    "national": true,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.metro.pr/rss/",
+    "category": "News & Current Affairs",
+    "title": "Metro Puerto Rico",
+    "genre": "news, puerto rico, newspaper, spanish, free",
+    "source_page": "https://www.metro.pr/",
+    "national": true,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.wapa.tv/rss/",
+    "category": "News & Current Affairs",
+    "title": "WAPA-TV (Noticentro)",
+    "genre": "news, puerto rico, tv, journalism, spanish",
+    "source_page": "https://www.wapa.tv/",
+    "national": true,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.telemundopr.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Telemundo Puerto Rico",
+    "genre": "news, puerto rico, tv, journalism, spanish",
+    "source_page": "https://www.telemundopr.com/",
+    "national": true,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.noticel.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "NotiCel",
+    "genre": "news, puerto rico, portal, spanish, digital",
+    "source_page": "https://www.noticel.com/",
+    "national": true,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elvocero.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Vocero",
+    "genre": "news, puerto rico, newspaper, spanish",
+    "source_page": "https://www.elvocero.com/",
+    "national": true,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.periodicolaperla.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Perla del Sur",
+    "genre": "news, puerto rico, newspaper, spanish, regional",
+    "source_page": "https://www.periodicolaperla.com/",
+    "national": false,
+    "national_reason": "news_curated/puerto-rico",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

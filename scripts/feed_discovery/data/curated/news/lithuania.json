@@ -1,0 +1,74 @@
+[
+  {
+    "url": "https://www.lrt.lt/rss/",
+    "category": "News & Current Affairs",
+    "title": "LRT (Lithuanian Radio and Television)",
+    "genre": "news, lithuania, public broadcaster, tv, radio, lithuanian",
+    "source_page": "https://www.lrt.lt/",
+    "national": true,
+    "national_reason": "news_curated/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.delfi.lt/rss/",
+    "category": "News & Current Affairs",
+    "title": "Delfi",
+    "genre": "news, lithuania, portal, lithuanian, popular",
+    "source_page": "https://www.delfi.lt/",
+    "national": true,
+    "national_reason": "news_curated/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.15min.lt/rss/",
+    "category": "News & Current Affairs",
+    "title": "15min",
+    "genre": "news, lithuania, portal, lithuanian, popular",
+    "source_page": "https://www.15min.lt/",
+    "national": true,
+    "national_reason": "news_curated/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.lrytas.lt/rss/",
+    "category": "News & Current Affairs",
+    "title": "Lietuvos Rytas",
+    "genre": "news, lithuania, newspaper, lithuanian",
+    "source_page": "https://www.lrytas.lt/",
+    "national": true,
+    "national_reason": "news_curated/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.vz.lt/rss/",
+    "category": "Business & Industry",
+    "title": "Verslo Žinios",
+    "genre": "economy, business, lithuania, newspaper, lithuanian",
+    "source_page": "https://www.vz.lt/",
+    "national": true,
+    "national_reason": "news_curated/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.lrt.lt/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "LRT (English)",
+    "genre": "news, lithuania, public broadcaster, english",
+    "source_page": "https://www.lrt.lt/en/",
+    "national": true,
+    "national_reason": "news_curated/lithuania",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

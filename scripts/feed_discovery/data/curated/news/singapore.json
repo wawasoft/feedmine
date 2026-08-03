@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.straitstimes.com/rss.xml",
+    "category": "News & Current Affairs",
+    "title": "The Straits Times",
+    "genre": "news, singapore, newspaper, english, reference, highest circulation",
+    "source_page": "https://www.straitstimes.com/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.channelnewsasia.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "CNA (Channel NewsAsia)",
+    "genre": "news, singapore, tv, journalism, english, international",
+    "source_page": "https://www.channelnewsasia.com/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.todayonline.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "TODAY",
+    "genre": "news, singapore, newspaper, english, free",
+    "source_page": "https://www.todayonline.com/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.businesstimes.com.sg/rss/",
+    "category": "Business & Industry",
+    "title": "The Business Times",
+    "genre": "economy, business, finance, singapore, newspaper, english",
+    "source_page": "https://www.businesstimes.com.sg/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.zaobao.com.sg/rss/",
+    "category": "News & Current Affairs",
+    "title": "Lianhe Zaobao",
+    "genre": "news, singapore, newspaper, chinese, high circulation",
+    "source_page": "https://www.zaobao.com.sg/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.beritaharian.sg/rss/",
+    "category": "News & Current Affairs",
+    "title": "Berita Harian (Singapore)",
+    "genre": "news, singapore, newspaper, malay",
+    "source_page": "https://www.beritaharian.sg/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mothership.sg/feed/",
+    "category": "News & Current Affairs",
+    "title": "Mothership",
+    "genre": "news, singapore, portal, english, digital",
+    "source_page": "https://mothership.sg/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ricemedia.co/feed/",
+    "category": "News & Current Affairs",
+    "title": "Rice Media",
+    "genre": "news, singapore, portal, english, independent, youth",
+    "source_page": "https://www.ricemedia.co/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.asiaone.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "AsiaOne",
+    "genre": "news, singapore, portal, english",
+    "source_page": "https://www.asiaone.com/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://vulcanpost.com/feed/",
+    "category": "Technology & Science",
+    "title": "Vulcan Post",
+    "genre": "technology, singapore, startups, business",
+    "source_page": "https://vulcanpost.com/",
+    "national": true,
+    "national_reason": "news_curated/singapore",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

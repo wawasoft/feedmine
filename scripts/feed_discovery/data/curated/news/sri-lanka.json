@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.dailymirror.lk/rss/",
+    "category": "News & Current Affairs",
+    "title": "Daily Mirror",
+    "genre": "news, sri lanka, newspaper, english, popular",
+    "source_page": "https://www.dailymirror.lk/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ft.lk/rss/",
+    "category": "Business & Industry",
+    "title": "Daily FT",
+    "genre": "economy, business, sri lanka, newspaper, english",
+    "source_page": "https://www.ft.lk/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.sundaytimes.lk/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Sunday Times",
+    "genre": "news, sri lanka, weekly newspaper, english",
+    "source_page": "https://www.sundaytimes.lk/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dailynews.lk/rss/",
+    "category": "News & Current Affairs",
+    "title": "Daily News",
+    "genre": "news, sri lanka, newspaper, english, state-run",
+    "source_page": "https://www.dailynews.lk/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://island.lk/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Island",
+    "genre": "news, sri lanka, newspaper, english",
+    "source_page": "https://island.lk/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.adaderana.lk/rss/",
+    "category": "News & Current Affairs",
+    "title": "Ada Derana",
+    "genre": "news, sri lanka, portal, sinhala, english",
+    "source_page": "https://www.adaderana.lk/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.newsfirst.lk/rss/",
+    "category": "News & Current Affairs",
+    "title": "News First",
+    "genre": "news, sri lanka, tv, journalism",
+    "source_page": "https://www.newsfirst.lk/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://economynext.com/feed/",
+    "category": "Business & Industry",
+    "title": "EconomyNext",
+    "genre": "economy, business, sri lanka, portal, english",
+    "source_page": "https://economynext.com/",
+    "national": true,
+    "national_reason": "news_curated/sri-lanka",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

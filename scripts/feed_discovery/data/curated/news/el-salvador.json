@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.elsalvador.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Diario de Hoy (elsalvador.com)",
+    "genre": "news, el salvador, san salvador, newspaper, highest circulation",
+    "source_page": "https://www.elsalvador.com/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.laprensagrafica.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Prensa Gráfica",
+    "genre": "news, el salvador, newspaper, politics",
+    "source_page": "https://www.laprensagrafica.com/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://diarioelmundo.sv/feed/",
+    "category": "News & Current Affairs",
+    "title": "Diario El Mundo",
+    "genre": "news, el salvador, newspaper",
+    "source_page": "https://diarioelmundo.sv/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.lapagina.com.sv/feed/",
+    "category": "News & Current Affairs",
+    "title": "La Página",
+    "genre": "news, el salvador, portal, politics",
+    "source_page": "https://www.lapagina.com.sv/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://elfaro.net/es/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Faro",
+    "genre": "investigative journalism, el salvador, politics, latin american reference",
+    "source_page": "https://elfaro.net/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.revistafactum.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Revista Factum",
+    "genre": "journalism, el salvador, magazine, politics, investigative",
+    "source_page": "https://www.revistafactum.com/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://gatoencerrado.news/feed/",
+    "category": "News & Current Affairs",
+    "title": "Gato Encerrado",
+    "genre": "journalism, el salvador, portal, politics, investigative",
+    "source_page": "https://gatoencerrado.news/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://diario1.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Diario1",
+    "genre": "news, el salvador, portal, digital",
+    "source_page": "https://diario1.com/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tcsnoticias.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Noticias TCS",
+    "genre": "news, el salvador, tv, journalism",
+    "source_page": "https://www.tcsnoticias.com/",
+    "national": true,
+    "national_reason": "news_curated/el-salvador",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

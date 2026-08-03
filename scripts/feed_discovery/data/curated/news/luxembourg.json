@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.wort.lu/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "Luxemburger Wort",
+    "genre": "news, luxembourg, newspaper, german, french, english",
+    "source_page": "https://www.wort.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tageblatt.lu/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tageblatt",
+    "genre": "news, luxembourg, newspaper, german",
+    "source_page": "https://www.tageblatt.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.lessentiel.lu/de/rss/",
+    "category": "News & Current Affairs",
+    "title": "L'essentiel",
+    "genre": "news, luxembourg, newspaper, french, german, free",
+    "source_page": "https://www.lessentiel.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.lequotidien.lu/rss/",
+    "category": "News & Current Affairs",
+    "title": "Le Quotidien",
+    "genre": "news, luxembourg, newspaper, french",
+    "source_page": "https://www.lequotidien.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://chronicle.lu/feed/",
+    "category": "News & Current Affairs",
+    "title": "Chronicle.lu",
+    "genre": "news, luxembourg, portal, english",
+    "source_page": "https://chronicle.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rtl.lu/rss/",
+    "category": "News & Current Affairs",
+    "title": "RTL Luxembourg",
+    "genre": "news, luxembourg, tv, radio, french, luxembourgish",
+    "source_page": "https://www.rtl.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://delano.lu/feed/",
+    "category": "Business & Industry",
+    "title": "Delano",
+    "genre": "economy, business, finance, luxembourg, english",
+    "source_page": "https://delano.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://paperjam.lu/feed/",
+    "category": "Business & Industry",
+    "title": "Paperjam",
+    "genre": "economy, business, luxembourg, french",
+    "source_page": "https://paperjam.lu/",
+    "national": true,
+    "national_reason": "news_curated/luxembourg",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

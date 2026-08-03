@@ -1,0 +1,122 @@
+[
+  {
+    "url": "http://www.granma.cu/feed/",
+    "category": "News & Current Affairs",
+    "title": "Granma",
+    "genre": "news, cuba, newspaper, state-run, communist party",
+    "source_page": "http://www.granma.cu/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.prensa-latina.cu/rss/",
+    "category": "News & Current Affairs",
+    "title": "Prensa Latina",
+    "genre": "news, cuba, state news agency, international",
+    "source_page": "https://www.prensa-latina.cu/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "http://www.cubadebate.cu/feed/",
+    "category": "News & Current Affairs",
+    "title": "Cubadebate",
+    "genre": "news, cuba, portal, state-run, politics",
+    "source_page": "http://www.cubadebate.cu/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "http://www.acn.cu/rss/",
+    "category": "News & Current Affairs",
+    "title": "Agencia Cubana de Noticias (ACN)",
+    "genre": "news, cuba, state news agency",
+    "source_page": "http://www.acn.cu/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "http://www.juventudrebelde.cu/rss/",
+    "category": "News & Current Affairs",
+    "title": "Juventud Rebelde",
+    "genre": "news, cuba, newspaper, youth, state-run",
+    "source_page": "http://www.juventudrebelde.cu/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.14ymedio.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "14ymedio",
+    "genre": "news, cuba, portal, independent, politics",
+    "source_page": "https://www.14ymedio.com/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.cibercuba.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "CiberCuba",
+    "genre": "news, cuba, portal, diaspora, miami-based",
+    "source_page": "https://www.cibercuba.com/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://diariodecuba.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Diario de Cuba",
+    "genre": "news, cuba, portal, diaspora, independent, spain-based",
+    "source_page": "https://diariodecuba.com/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.radiohc.cu/rss/",
+    "category": "News & Current Affairs",
+    "title": "Radio Habana Cuba",
+    "genre": "news, cuba, radio, international, state-run",
+    "source_page": "https://www.radiohc.cu/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://adncuba.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "ADN Cuba",
+    "genre": "news, cuba, portal, diaspora, independent",
+    "source_page": "https://adncuba.com/",
+    "national": true,
+    "national_reason": "news_curated/cuba",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.moi.gov.mm/rss/",
+    "category": "News & Current Affairs",
+    "title": "Myanmar News Agency (MOI)",
+    "genre": "news, myanmar, state news agency, burmese",
+    "source_page": "https://www.moi.gov.mm/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mmtimes.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Myanmar Times",
+    "genre": "news, myanmar, newspaper, english, independent",
+    "source_page": "https://www.mmtimes.com/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.irrawaddy.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Irrawaddy",
+    "genre": "news, myanmar, portal, english, burmese, independent, diaspora",
+    "source_page": "https://www.irrawaddy.com/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mizzima.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Mizzima",
+    "genre": "news, myanmar, portal, english, burmese, independent, diaspora",
+    "source_page": "https://www.mizzima.com/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://myanmar-now.org/en/feed/",
+    "category": "News & Current Affairs",
+    "title": "Myanmar Now",
+    "genre": "news, myanmar, portal, english, burmese, independent",
+    "source_page": "https://myanmar-now.org/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rfa.org/english/rss.xml",
+    "category": "News & Current Affairs",
+    "title": "Radio Free Asia (Myanmar coverage)",
+    "genre": "news, myanmar, radio, burmese, independent",
+    "source_page": "https://www.rfa.org/english/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.myanmaritv.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Myanmar International TV",
+    "genre": "news, myanmar, tv, state-run, english",
+    "source_page": "https://www.myanmaritv.com/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.bnionline.net/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "Burma News International",
+    "genre": "news, myanmar, news agency, burmese, independent, ethnic",
+    "source_page": "https://www.bnionline.net/",
+    "national": true,
+    "national_reason": "news_curated/myanmar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

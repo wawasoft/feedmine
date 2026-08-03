@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.pravda.com.ua/rss/",
+    "category": "News & Current Affairs",
+    "title": "Ukrainska Pravda",
+    "genre": "news, ukraine, portal, ukrainian, english, independent, reference",
+    "source_page": "https://www.pravda.com.ua/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ukrinform.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Ukrinform",
+    "genre": "news, ukraine, state news agency, ukrainian, english",
+    "source_page": "https://www.ukrinform.net/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.kyivpost.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Kyiv Post",
+    "genre": "news, ukraine, newspaper, english, independent",
+    "source_page": "https://www.kyivpost.com/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.pravda.com.ua/eng/rss/",
+    "category": "News & Current Affairs",
+    "title": "Ukrainska Pravda (English)",
+    "genre": "news, ukraine, portal, english, independent",
+    "source_page": "https://www.pravda.com.ua/eng/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.unian.info/rss/",
+    "category": "News & Current Affairs",
+    "title": "UNIAN",
+    "genre": "news, ukraine, news agency, ukrainian, english",
+    "source_page": "https://www.unian.info/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://suspilne.media/rss/",
+    "category": "News & Current Affairs",
+    "title": "Suspilne (Public Broadcaster)",
+    "genre": "news, ukraine, public broadcaster, tv, radio, ukrainian",
+    "source_page": "https://suspilne.media/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.kyivindependent.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Kyiv Independent",
+    "genre": "news, ukraine, portal, english, independent",
+    "source_page": "https://kyivindependent.com/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://en.hromadske.ua/feed/",
+    "category": "News & Current Affairs",
+    "title": "Hromadske (English)",
+    "genre": "news, ukraine, tv, portal, english, independent",
+    "source_page": "https://hromadske.ua/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.epravda.com.ua/rss/",
+    "category": "Business & Industry",
+    "title": "Ekonomichna Pravda",
+    "genre": "economy, business, ukraine, portal, ukrainian",
+    "source_page": "https://www.epravda.com.ua/",
+    "national": true,
+    "national_reason": "news_curated/ukraine",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.b92.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "B92",
+    "genre": "news, serbia, portal, serbian, popular",
+    "source_page": "https://www.b92.net/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rts.rs/rss/",
+    "category": "News & Current Affairs",
+    "title": "RTS (Radio Television of Serbia)",
+    "genre": "news, serbia, public broadcaster, tv, radio, serbian",
+    "source_page": "https://www.rts.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.danas.rs/rss/",
+    "category": "News & Current Affairs",
+    "title": "Danas",
+    "genre": "news, serbia, newspaper, serbian, independent",
+    "source_page": "https://www.danas.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.politika.rs/rss/",
+    "category": "News & Current Affairs",
+    "title": "Politika",
+    "genre": "news, serbia, newspaper, serbian, historic, reference",
+    "source_page": "https://www.politika.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.novosti.rs/rss/",
+    "category": "News & Current Affairs",
+    "title": "Večernje Novosti",
+    "genre": "news, serbia, newspaper, serbian, popular",
+    "source_page": "https://www.novosti.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.blic.rs/rss/",
+    "category": "News & Current Affairs",
+    "title": "Blic",
+    "genre": "news, serbia, newspaper, serbian, tabloid",
+    "source_page": "https://www.blic.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://n1info.rs/feed/",
+    "category": "News & Current Affairs",
+    "title": "N1 Serbia",
+    "genre": "news, serbia, cable tv, journalism, serbian",
+    "source_page": "https://n1info.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://nova.rs/rss/",
+    "category": "News & Current Affairs",
+    "title": "Nova",
+    "genre": "news, serbia, portal, serbian, independent",
+    "source_page": "https://nova.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tanjug.rs/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tanjug",
+    "genre": "news, serbia, state news agency, serbian",
+    "source_page": "https://www.tanjug.rs/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://insajder.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Insajder",
+    "genre": "news, serbia, portal, serbian, investigative journalism",
+    "source_page": "https://insajder.net/",
+    "national": true,
+    "national_reason": "news_curated/serbia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

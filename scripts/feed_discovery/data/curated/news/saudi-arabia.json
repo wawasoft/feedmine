@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.spa.gov.sa/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "SPA (Saudi Press Agency)",
+    "genre": "news, saudi arabia, state news agency, arabic, english",
+    "source_page": "https://www.spa.gov.sa/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.arabnews.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Arab News",
+    "genre": "news, saudi arabia, newspaper, english, reference",
+    "source_page": "https://www.arabnews.com/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://saudigazette.com.sa/rss/",
+    "category": "News & Current Affairs",
+    "title": "Saudi Gazette",
+    "genre": "news, saudi arabia, newspaper, english",
+    "source_page": "https://saudigazette.com.sa/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aljazeera.com/xml/rss/all.xml",
+    "category": "News & Current Affairs",
+    "title": "Al Jazeera (Saudi coverage)",
+    "genre": "news, saudi arabia, middle east, international, arabic, english",
+    "source_page": "https://www.aljazeera.com/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.alarabiya.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Arabiya",
+    "genre": "news, saudi arabia, tv, arabic, english",
+    "source_page": "https://www.alarabiya.net/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.okaz.com.sa/rss/",
+    "category": "News & Current Affairs",
+    "title": "Okaz",
+    "genre": "news, saudi arabia, newspaper, arabic",
+    "source_page": "https://www.okaz.com.sa/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.alriyadh.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Riyadh",
+    "genre": "news, saudi arabia, newspaper, arabic",
+    "source_page": "https://www.alriyadh.com/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.al-madina.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Madina",
+    "genre": "news, saudi arabia, newspaper, arabic",
+    "source_page": "https://www.al-madina.com/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.argaam.com/en/rss/",
+    "category": "Business & Industry",
+    "title": "Argaam",
+    "genre": "economy, finance, business, saudi arabia, portal, arabic, english",
+    "source_page": "https://www.argaam.com/",
+    "national": true,
+    "national_reason": "news_curated/saudi-arabia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

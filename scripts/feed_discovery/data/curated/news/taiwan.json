@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://focustaiwan.tw/rss/",
+    "category": "News & Current Affairs",
+    "title": "Focus Taiwan (CNA)",
+    "genre": "news, taiwan, news agency, english, chinese",
+    "source_page": "https://focustaiwan.tw/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.taipeitimes.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Taipei Times",
+    "genre": "news, taiwan, newspaper, english, reference",
+    "source_page": "https://www.taipeitimes.com/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.taiwannews.com.tw/rss/",
+    "category": "News & Current Affairs",
+    "title": "Taiwan News",
+    "genre": "news, taiwan, portal, english",
+    "source_page": "https://www.taiwannews.com.tw/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.udn.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "United Daily News (UDN)",
+    "genre": "news, taiwan, newspaper, chinese, popular",
+    "source_page": "https://www.udn.com/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.chinatimes.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "China Times",
+    "genre": "news, taiwan, newspaper, chinese, popular",
+    "source_page": "https://www.chinatimes.com/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ltn.com.tw/rss/",
+    "category": "News & Current Affairs",
+    "title": "Liberty Times",
+    "genre": "news, taiwan, newspaper, chinese, popular",
+    "source_page": "https://www.ltn.com.tw/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.appledaily.com.tw/rss/",
+    "category": "News & Current Affairs",
+    "title": "Apple Daily Taiwan",
+    "genre": "news, taiwan, newspaper, chinese, tabloid",
+    "source_page": "https://tw.appledaily.com/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://news.pts.org.tw/rss/",
+    "category": "News & Current Affairs",
+    "title": "PTS News (Public Television Service)",
+    "genre": "news, taiwan, public broadcaster, tv, chinese",
+    "source_page": "https://news.pts.org.tw/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.setn.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "SET News",
+    "genre": "news, taiwan, tv, journalism, chinese",
+    "source_page": "https://www.setn.com/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tvbs.com.tw/rss/",
+    "category": "News & Current Affairs",
+    "title": "TVBS",
+    "genre": "news, taiwan, tv, journalism, chinese",
+    "source_page": "https://www.tvbs.com.tw/",
+    "national": true,
+    "national_reason": "news_curated/taiwan",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

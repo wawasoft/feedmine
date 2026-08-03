@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.ruv.is/rss/",
+    "category": "News & Current Affairs",
+    "title": "RÚV",
+    "genre": "news, iceland, public broadcaster, tv, radio, icelandic",
+    "source_page": "https://www.ruv.is/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.visir.is/rss/",
+    "category": "News & Current Affairs",
+    "title": "Vísir",
+    "genre": "news, iceland, portal, newspaper, icelandic, popular",
+    "source_page": "https://www.visir.is/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mbl.is/rss/",
+    "category": "News & Current Affairs",
+    "title": "Morgunblaðið",
+    "genre": "news, iceland, newspaper, conservative, icelandic",
+    "source_page": "https://www.mbl.is/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.stundin.is/feed/",
+    "category": "News & Current Affairs",
+    "title": "Stundin",
+    "genre": "news, iceland, newspaper, investigative, icelandic",
+    "source_page": "https://www.stundin.is/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.heimildin.is/feed/",
+    "category": "News & Current Affairs",
+    "title": "Heimildin",
+    "genre": "news, iceland, newspaper, investigative, icelandic",
+    "source_page": "https://www.heimildin.is/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://icelandmonitor.mbl.is/rss/",
+    "category": "News & Current Affairs",
+    "title": "Iceland Monitor",
+    "genre": "news, iceland, portal, english",
+    "source_page": "https://icelandmonitor.mbl.is/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.icelandreview.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Iceland Review",
+    "genre": "news, iceland, magazine, english",
+    "source_page": "https://www.icelandreview.com/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.reykjavikgrapevine.is/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Reykjavík Grapevine",
+    "genre": "news, iceland, magazine, english, culture",
+    "source_page": "https://www.reykjavikgrapevine.is/",
+    "national": true,
+    "national_reason": "news_curated/iceland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

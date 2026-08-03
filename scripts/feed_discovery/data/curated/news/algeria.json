@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.aps.dz/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "APS (Algeria Press Service)",
+    "genre": "news, algeria, state news agency, arabic, french, english",
+    "source_page": "https://www.aps.dz/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elwatan.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "El Watan",
+    "genre": "news, algeria, newspaper, french, independent",
+    "source_page": "https://www.elwatan.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.liberte-algerie.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Liberté",
+    "genre": "news, algeria, newspaper, french",
+    "source_page": "https://www.liberte-algerie.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elmoudjahid.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Moudjahid",
+    "genre": "news, algeria, newspaper, french, state-run",
+    "source_page": "https://www.elmoudjahid.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ennaharonline.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Ennahar",
+    "genre": "news, algeria, newspaper, arabic",
+    "source_page": "https://www.ennaharonline.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.echoroukonline.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Echorouk",
+    "genre": "news, algeria, newspaper, arabic, popular",
+    "source_page": "https://www.echoroukonline.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.algerie360.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Algérie 360",
+    "genre": "news, algeria, portal, french",
+    "source_page": "https://www.algerie360.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tsa-algerie.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "TSA (Tout Sur l'Algérie)",
+    "genre": "news, algeria, portal, french, independent",
+    "source_page": "https://www.tsa-algerie.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.algerie-eco.com/feed/",
+    "category": "Business & Industry",
+    "title": "Algérie Eco",
+    "genre": "economy, business, algeria, portal, french",
+    "source_page": "https://www.algerie-eco.com/",
+    "national": true,
+    "national_reason": "news_curated/algeria",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

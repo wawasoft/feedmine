@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.lsm.lv/rss/",
+    "category": "News & Current Affairs",
+    "title": "LSM (Latvijas Sabiedriskais Medijs)",
+    "genre": "news, latvia, public broadcaster, tv, radio, latvian, english",
+    "source_page": "https://www.lsm.lv/",
+    "national": true,
+    "national_reason": "news_curated/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.delfi.lv/rss/",
+    "category": "News & Current Affairs",
+    "title": "Delfi",
+    "genre": "news, latvia, portal, latvian, russian, popular",
+    "source_page": "https://www.delfi.lv/",
+    "national": true,
+    "national_reason": "news_curated/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tvnet.lv/rss/",
+    "category": "News & Current Affairs",
+    "title": "TVNET",
+    "genre": "news, latvia, portal, latvian, russian",
+    "source_page": "https://www.tvnet.lv/",
+    "national": true,
+    "national_reason": "news_curated/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.apollo.lv/rss/",
+    "category": "News & Current Affairs",
+    "title": "Apollo",
+    "genre": "news, latvia, portal, latvian",
+    "source_page": "https://www.apollo.lv/",
+    "national": true,
+    "national_reason": "news_curated/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.diena.lv/rss/",
+    "category": "News & Current Affairs",
+    "title": "Diena",
+    "genre": "news, latvia, newspaper, latvian",
+    "source_page": "https://www.diena.lv/",
+    "national": true,
+    "national_reason": "news_curated/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.la.lv/rss/",
+    "category": "News & Current Affairs",
+    "title": "Latvijas Avīze",
+    "genre": "news, latvia, newspaper, latvian",
+    "source_page": "https://www.la.lv/",
+    "national": true,
+    "national_reason": "news_curated/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://eng.lsm.lv/rss/",
+    "category": "News & Current Affairs",
+    "title": "LSM (English)",
+    "genre": "news, latvia, public broadcaster, english",
+    "source_page": "https://eng.lsm.lv/",
+    "national": true,
+    "national_reason": "news_curated/latvia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

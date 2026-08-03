@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.qna.org.qa/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "QNA (Qatar News Agency)",
+    "genre": "news, qatar, state news agency, arabic, english",
+    "source_page": "https://www.qna.org.qa/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aljazeera.com/xml/rss/all.xml",
+    "category": "News & Current Affairs",
+    "title": "Al Jazeera",
+    "genre": "news, qatar, international broadcaster, arabic, english, reference",
+    "source_page": "https://www.aljazeera.com/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.gulf-times.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Gulf Times",
+    "genre": "news, qatar, newspaper, english",
+    "source_page": "https://www.gulf-times.com/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://thepeninsulaqatar.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Peninsula",
+    "genre": "news, qatar, newspaper, english",
+    "source_page": "https://thepeninsulaqatar.com/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://dohanews.co/feed/",
+    "category": "News & Current Affairs",
+    "title": "Doha News",
+    "genre": "news, qatar, portal, english, independent",
+    "source_page": "https://dohanews.co/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.qatarday.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Qatar Day",
+    "genre": "news, qatar, portal, english",
+    "source_page": "https://www.qatarday.com/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.al-sharq.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Sharq",
+    "genre": "news, qatar, newspaper, arabic",
+    "source_page": "https://www.al-sharq.com/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.raya.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Al Raya",
+    "genre": "news, qatar, newspaper, arabic",
+    "source_page": "https://www.raya.com/",
+    "national": true,
+    "national_reason": "news_curated/qatar",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

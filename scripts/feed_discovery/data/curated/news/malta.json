@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://timesofmalta.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Times of Malta",
+    "genre": "news, malta, newspaper, english, reference, historic",
+    "source_page": "https://timesofmalta.com/",
+    "national": true,
+    "national_reason": "news_curated/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.maltatoday.com.mt/rss/",
+    "category": "News & Current Affairs",
+    "title": "Malta Today",
+    "genre": "news, malta, portal, english",
+    "source_page": "https://www.maltatoday.com.mt/",
+    "national": true,
+    "national_reason": "news_curated/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.independent.com.mt/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Malta Independent",
+    "genre": "news, malta, newspaper, english",
+    "source_page": "https://www.independent.com.mt/",
+    "national": true,
+    "national_reason": "news_curated/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://tvmnews.mt/rss/",
+    "category": "News & Current Affairs",
+    "title": "TVM News",
+    "genre": "news, malta, public broadcaster, tv, maltese, english",
+    "source_page": "https://tvmnews.mt/",
+    "national": true,
+    "national_reason": "news_curated/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://lovinmalta.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Lovin Malta",
+    "genre": "news, malta, portal, english, digital",
+    "source_page": "https://lovinmalta.com/",
+    "national": true,
+    "national_reason": "news_curated/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.newsbook.com.mt/rss/",
+    "category": "News & Current Affairs",
+    "title": "Newsbook",
+    "genre": "news, malta, portal, maltese, english",
+    "source_page": "https://www.newsbook.com.mt/",
+    "national": true,
+    "national_reason": "news_curated/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.maltawinds.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Malta Winds",
+    "genre": "news, malta, portal, english",
+    "source_page": "https://www.maltawinds.com/",
+    "national": true,
+    "national_reason": "news_curated/malta",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

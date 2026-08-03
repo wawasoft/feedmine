@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.el-nacional.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Nacional",
+    "genre": "news, venezuela, newspaper, spanish, reference",
+    "source_page": "https://www.el-nacional.com/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.eluniversal.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Universal (Venezuela)",
+    "genre": "news, venezuela, newspaper, spanish",
+    "source_page": "https://www.eluniversal.com/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://efectococuyo.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Efecto Cocuyo",
+    "genre": "news, venezuela, portal, spanish, independent, investigative",
+    "source_page": "https://efectococuyo.com/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elnacional.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "El Nacional",
+    "genre": "news, venezuela, newspaper, spanish, reference",
+    "source_page": "https://www.elnacional.com/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ntn24.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "NTN24",
+    "genre": "news, venezuela, tv, journalism, spanish, international",
+    "source_page": "https://www.ntn24.com/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.talcualdigital.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Tal Cual",
+    "genre": "news, venezuela, portal, spanish, independent",
+    "source_page": "https://talcualdigital.com/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://runrun.es/feed/",
+    "category": "News & Current Affairs",
+    "title": "Runrunes",
+    "genre": "news, venezuela, portal, spanish, investigative",
+    "source_page": "https://runrun.es/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://elpitazo.net/feed/",
+    "category": "News & Current Affairs",
+    "title": "El Pitazo",
+    "genre": "news, venezuela, portal, spanish, independent",
+    "source_page": "https://elpitazo.net/",
+    "national": true,
+    "national_reason": "news_curated/venezuela",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

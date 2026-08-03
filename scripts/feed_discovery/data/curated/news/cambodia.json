@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://akp.gov.kh/rss/",
+    "category": "News & Current Affairs",
+    "title": "AKP (Agence Kampuchea Presse)",
+    "genre": "news, cambodia, state news agency",
+    "source_page": "https://akp.gov.kh/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.phnompenhpost.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Phnom Penh Post",
+    "genre": "news, cambodia, newspaper, english, politics",
+    "source_page": "https://www.phnompenhpost.com/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.khmertimeskh.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Khmer Times",
+    "genre": "news, cambodia, newspaper, english, politics",
+    "source_page": "https://www.khmertimeskh.com/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://cambodiadaily.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Cambodia Daily",
+    "genre": "news, cambodia, newspaper, english, independent",
+    "source_page": "https://cambodiadaily.com/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.vodkh.news/feed/",
+    "category": "News & Current Affairs",
+    "title": "VOD (Voice of Democracy)",
+    "genre": "news, cambodia, portal, khmer, independent",
+    "source_page": "https://www.vodkh.news/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://cambodianess.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Cambodianess",
+    "genre": "news, cambodia, portal, english",
+    "source_page": "https://cambodianess.com/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rfa.org/khmer/rss.xml",
+    "category": "News & Current Affairs",
+    "title": "Radio Free Asia Khmer",
+    "genre": "news, cambodia, radio, khmer, independent",
+    "source_page": "https://www.rfa.org/khmer/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://thmeythmey.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Thmey Thmey",
+    "genre": "news, cambodia, portal, khmer, digital",
+    "source_page": "https://thmeythmey.com/",
+    "national": true,
+    "national_reason": "news_curated/cambodia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.laprensa.hn/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Prensa",
+    "genre": "news, honduras, san pedro sula, newspaper, highest circulation",
+    "source_page": "https://www.laprensa.hn/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.elheraldo.hn/rss/",
+    "category": "News & Current Affairs",
+    "title": "El Heraldo",
+    "genre": "news, honduras, tegucigalpa, newspaper, politics",
+    "source_page": "https://www.elheraldo.hn/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://proceso.hn/feed/",
+    "category": "News & Current Affairs",
+    "title": "Proceso Digital",
+    "genre": "news, honduras, portal, politics",
+    "source_page": "https://proceso.hn/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://criterio.hn/feed/",
+    "category": "News & Current Affairs",
+    "title": "Criterio",
+    "genre": "news, honduras, portal, politics",
+    "source_page": "https://criterio.hn/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.latribuna.hn/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Tribuna",
+    "genre": "news, honduras, newspaper, politics",
+    "source_page": "https://www.latribuna.hn/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tiempo.hn/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tiempo",
+    "genre": "news, honduras, newspaper",
+    "source_page": "https://www.tiempo.hn/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://hondudiario.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "HonduDiario",
+    "genre": "news, honduras, portal, digital",
+    "source_page": "https://hondudiario.com/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.radiohrn.hn/feed/",
+    "category": "News & Current Affairs",
+    "title": "Radio HRN",
+    "genre": "news, honduras, radio",
+    "source_page": "https://www.radiohrn.hn/",
+    "national": true,
+    "national_reason": "news_curated/honduras",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

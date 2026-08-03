@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://kathmandupost.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Kathmandu Post",
+    "genre": "news, nepal, newspaper, english, reference",
+    "source_page": "https://kathmandupost.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://thehimalayantimes.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Himalayan Times",
+    "genre": "news, nepal, newspaper, english",
+    "source_page": "https://thehimalayantimes.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://myrepublica.nagariknetwork.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "My Republica",
+    "genre": "news, nepal, portal, english",
+    "source_page": "https://myrepublica.nagariknetwork.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://nagariknews.nagariknetwork.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Nagarik",
+    "genre": "news, nepal, newspaper, nepali",
+    "source_page": "https://nagariknews.nagariknetwork.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://ekantipur.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Kantipur",
+    "genre": "news, nepal, newspaper, nepali, highest circulation",
+    "source_page": "https://ekantipur.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.onlinekhabar.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Online Khabar",
+    "genre": "news, nepal, portal, nepali, popular",
+    "source_page": "https://www.onlinekhabar.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://theannapurnaexpress.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Annapurna Express",
+    "genre": "news, nepal, newspaper, english",
+    "source_page": "https://theannapurnaexpress.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://risingnepaldaily.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Rising Nepal",
+    "genre": "news, nepal, newspaper, english, state-run",
+    "source_page": "https://risingnepaldaily.com/",
+    "national": true,
+    "national_reason": "news_curated/nepal",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

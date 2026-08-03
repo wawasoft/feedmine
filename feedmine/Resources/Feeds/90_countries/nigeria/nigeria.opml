@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <opml version="2.0">
   <head>
     <title>nigeria</title>
@@ -512,6 +512,9 @@
       </outline>
       <outline text="Law &amp; Ideas" title="Law &amp; Ideas">
         <outline text="IPSERIESWITHESMERALDOESQ" title="IPSERIESWITHESMERALDOESQ" type="rss" xmlUrl="https://feed.jamit.app/lisk-0x52ada8739B2C215ff878DDEbbcc1f06C1D1b1c88/rss" description="A podcast series exploring intellectual property law, covering landmark cases and emerging issues in copyright, patents, trademarks, and more." language="en" category="intellectual property,copyright,trademark,patent,law" feedmineSourceId="d12d91ea6d504e729ebe97f82608da1a86d1ccd0d302367268f2f07aca1020e7" feedmineTopic="Education &amp; Knowledge" feedmineSubcategory="Law &amp; Ideas" feedmineNature="periodic" feedmineActivity="active" feedmineArticlesFetched="30" feedmineQualityScore="88" feedmineDefaultEnabled="true" feedmineMediaKind="audio" htmlUrl="https://jamit.app/podcast/ipserieswithesmeraldoesq" feedmineLatestItemAt="2026-06-02 01:00:00-07" />
+      </outline>
+      <outline text="Universities" title="Universities">
+        <outline text="Yobe State University (YouTube)" title="Yobe State University (YouTube)" type="rss" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UC6Z1EkjVJLlm91LKnDkQdMQ" description="University from Nigeria." language="" category="Education" feedmineSourceId="d14c54a8044cb35ec52e8c3c7effaf2281f5ea90348d09a15f0a92251e2d6aa3" feedmineTopic="Education &amp; Knowledge" feedmineSubcategory="Universities" feedmineNature="evergreen" feedmineActivity="quiet" feedmineArticlesFetched="0" feedmineQualityScore="55" feedmineDefaultEnabled="true" feedmineMediaKind="video" htmlUrl="http://ysu.edu.ng:80/web/index.html" />
       </outline>
     </outline>
     <outline text="Society &amp; Identity">

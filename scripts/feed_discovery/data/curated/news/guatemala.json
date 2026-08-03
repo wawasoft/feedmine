@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.prensalibre.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Prensa Libre",
+    "genre": "news, guatemala, newspaper, highest circulation, politics",
+    "source_page": "https://www.prensalibre.com/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.soy502.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Soy502",
+    "genre": "news, guatemala, portal, popular",
+    "source_page": "https://www.soy502.com/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://elperiodico.com.gt/feed/",
+    "category": "News & Current Affairs",
+    "title": "El Periódico",
+    "genre": "news, guatemala, newspaper, politics, investigative",
+    "source_page": "https://elperiodico.com.gt/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.publinews.gt/rss/",
+    "category": "News & Current Affairs",
+    "title": "Publinews",
+    "genre": "news, guatemala, portal",
+    "source_page": "https://www.publinews.gt/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.guatemala.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Guatemala.com",
+    "genre": "news, guatemala, portal, entertainment",
+    "source_page": "https://www.guatemala.com/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://agn.gt/feed/",
+    "category": "News & Current Affairs",
+    "title": "AGN (Agencia Guatemalteca de Noticias)",
+    "genre": "news, guatemala, state news agency",
+    "source_page": "https://agn.gt/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://lahora.gt/feed/",
+    "category": "News & Current Affairs",
+    "title": "La Hora",
+    "genre": "news, guatemala, newspaper, politics",
+    "source_page": "https://lahora.gt/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.plazapublica.com.gt/rss/",
+    "category": "News & Current Affairs",
+    "title": "Plaza Pública",
+    "genre": "investigative journalism, guatemala, politics",
+    "source_page": "https://www.plazapublica.com.gt/",
+    "national": true,
+    "national_reason": "news_curated/guatemala",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

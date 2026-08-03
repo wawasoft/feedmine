@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://vnexpress.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "VNExpress",
+    "genre": "news, vietnam, portal, vietnamese, english, popular",
+    "source_page": "https://vnexpress.net/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://tuoitre.vn/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tuổi Trẻ",
+    "genre": "news, vietnam, newspaper, vietnamese, popular",
+    "source_page": "https://tuoitre.vn/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://thanhnien.vn/rss/",
+    "category": "News & Current Affairs",
+    "title": "Thanh Niên",
+    "genre": "news, vietnam, newspaper, vietnamese, popular",
+    "source_page": "https://thanhnien.vn/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://nhandan.vn/rss/",
+    "category": "News & Current Affairs",
+    "title": "Nhân Dân",
+    "genre": "news, vietnam, newspaper, vietnamese, communist party, state-run",
+    "source_page": "https://nhandan.vn/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://vietnamnews.vn/rss/",
+    "category": "News & Current Affairs",
+    "title": "Việt Nam News",
+    "genre": "news, vietnam, newspaper, english, state-run",
+    "source_page": "https://vietnamnews.vn/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://vov.vn/rss/",
+    "category": "News & Current Affairs",
+    "title": "VOV (Voice of Vietnam)",
+    "genre": "news, vietnam, radio, state-run, vietnamese, english",
+    "source_page": "https://vov.vn/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://vtv.vn/rss/",
+    "category": "News & Current Affairs",
+    "title": "VTV News",
+    "genre": "news, vietnam, tv, state-run, vietnamese",
+    "source_page": "https://vtv.vn/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://vietnamnet.vn/rss/",
+    "category": "News & Current Affairs",
+    "title": "VietNamNet",
+    "genre": "news, vietnam, portal, vietnamese",
+    "source_page": "https://vietnamnet.vn/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://e.vnexpress.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "VNExpress International",
+    "genre": "news, vietnam, portal, english",
+    "source_page": "https://e.vnexpress.net/",
+    "national": true,
+    "national_reason": "news_curated/vietnam",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.nrk.no/rss/",
+    "category": "News & Current Affairs",
+    "title": "NRK",
+    "genre": "news, norway, public broadcaster, tv, radio, norwegian",
+    "source_page": "https://www.nrk.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.vg.no/rss/",
+    "category": "News & Current Affairs",
+    "title": "VG (Verdens Gang)",
+    "genre": "news, norway, newspaper, norwegian, tabloid, popular",
+    "source_page": "https://www.vg.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dagbladet.no/rss/",
+    "category": "News & Current Affairs",
+    "title": "Dagbladet",
+    "genre": "news, norway, newspaper, norwegian, tabloid",
+    "source_page": "https://www.dagbladet.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aftenposten.no/rss/",
+    "category": "News & Current Affairs",
+    "title": "Aftenposten",
+    "genre": "news, norway, newspaper, norwegian, reference",
+    "source_page": "https://www.aftenposten.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tv2.no/rss/",
+    "category": "News & Current Affairs",
+    "title": "TV 2",
+    "genre": "news, norway, tv, journalism, norwegian",
+    "source_page": "https://www.tv2.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.dn.no/rss/",
+    "category": "Business & Industry",
+    "title": "Dagens Næringsliv",
+    "genre": "economy, business, norway, newspaper, norwegian",
+    "source_page": "https://www.dn.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.newsinenglish.no/feed/",
+    "category": "News & Current Affairs",
+    "title": "News in English",
+    "genre": "news, norway, portal, english",
+    "source_page": "https://www.newsinenglish.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thelocal.no/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Local Norway",
+    "genre": "news, norway, portal, english, expat",
+    "source_page": "https://www.thelocal.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://e24.no/rss/",
+    "category": "Business & Industry",
+    "title": "E24",
+    "genre": "economy, finance, business, norway, portal, norwegian",
+    "source_page": "https://e24.no/",
+    "national": true,
+    "national_reason": "news_curated/norway",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

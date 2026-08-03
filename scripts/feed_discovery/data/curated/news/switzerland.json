@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.nzz.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "Neue Zürcher Zeitung (NZZ)",
+    "genre": "news, switzerland, newspaper, german, reference, conservative",
+    "source_page": "https://www.nzz.ch/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tagesanzeiger.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tages-Anzeiger",
+    "genre": "news, switzerland, zurich, newspaper, german, popular",
+    "source_page": "https://www.tagesanzeiger.ch/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.letemps.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "Le Temps",
+    "genre": "news, switzerland, newspaper, french, reference",
+    "source_page": "https://www.letemps.ch/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.24heures.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "24 heures",
+    "genre": "news, switzerland, lausanne, newspaper, french",
+    "source_page": "https://www.24heures.ch/",
+    "national": false,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tdg.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "Tribune de Genève",
+    "genre": "news, switzerland, geneva, newspaper, french",
+    "source_page": "https://www.tdg.ch/",
+    "national": false,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.blick.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "Blick",
+    "genre": "news, switzerland, newspaper, german, tabloid, popular",
+    "source_page": "https://www.blick.ch/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.srf.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "SRF News",
+    "genre": "news, switzerland, public broadcaster, tv, radio, german",
+    "source_page": "https://www.srf.ch/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rts.ch/rss/",
+    "category": "News & Current Affairs",
+    "title": "RTS Info",
+    "genre": "news, switzerland, public broadcaster, tv, radio, french",
+    "source_page": "https://www.rts.ch/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.swissinfo.ch/eng/rss/",
+    "category": "News & Current Affairs",
+    "title": "SWI swissinfo.ch",
+    "genre": "news, switzerland, public broadcaster, english, international",
+    "source_page": "https://www.swissinfo.ch/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.nzz.ch/wirtschaft/rss/",
+    "category": "Business & Industry",
+    "title": "NZZ Wirtschaft",
+    "genre": "economy, business, switzerland, newspaper, german",
+    "source_page": "https://www.nzz.ch/wirtschaft/",
+    "national": true,
+    "national_reason": "news_curated/switzerland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

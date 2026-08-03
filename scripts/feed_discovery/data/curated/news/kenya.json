@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.nation.africa/kenya/rss",
+    "category": "News & Current Affairs",
+    "title": "Daily Nation",
+    "genre": "news, kenya, newspaper, english, highest circulation, reference",
+    "source_page": "https://www.nation.africa/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.standardmedia.co.ke/rss/",
+    "category": "News & Current Affairs",
+    "title": "The Standard",
+    "genre": "news, kenya, newspaper, english, popular",
+    "source_page": "https://www.standardmedia.co.ke/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.the-star.co.ke/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Star",
+    "genre": "news, kenya, newspaper, english",
+    "source_page": "https://www.the-star.co.ke/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://citizentv.co.ke/feed/",
+    "category": "News & Current Affairs",
+    "title": "Citizen TV",
+    "genre": "news, kenya, tv, journalism, english, swahili",
+    "source_page": "https://citizentv.co.ke/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.kenyans.co.ke/feed/",
+    "category": "News & Current Affairs",
+    "title": "Kenyans.co.ke",
+    "genre": "news, kenya, portal, english",
+    "source_page": "https://www.kenyans.co.ke/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tuko.co.ke/feed/",
+    "category": "News & Current Affairs",
+    "title": "Tuko",
+    "genre": "news, kenya, portal, english, popular",
+    "source_page": "https://www.tuko.co.ke/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.businessdailyafrica.com/rss",
+    "category": "Business & Industry",
+    "title": "Business Daily",
+    "genre": "economy, business, kenya, newspaper, english",
+    "source_page": "https://www.businessdailyafrica.com/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.capitalfm.co.ke/news/feed/",
+    "category": "News & Current Affairs",
+    "title": "Capital News",
+    "genre": "news, kenya, radio, portal, english",
+    "source_page": "https://www.capitalfm.co.ke/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.kbc.co.ke/feed/",
+    "category": "News & Current Affairs",
+    "title": "KBC (Kenya Broadcasting Corporation)",
+    "genre": "news, kenya, public broadcaster, tv, radio",
+    "source_page": "https://www.kbc.co.ke/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://techweez.com/feed/",
+    "category": "Technology & Science",
+    "title": "TechWeez",
+    "genre": "technology, kenya, portal, english",
+    "source_page": "https://techweez.com/",
+    "national": true,
+    "national_reason": "news_curated/kenya",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

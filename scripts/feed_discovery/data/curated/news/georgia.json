@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://agenda.ge/en/rss.xml",
+    "category": "News & Current Affairs",
+    "title": "Agenda.ge",
+    "genre": "news, georgia, portal, english",
+    "source_page": "https://agenda.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://civil.ge/feed/",
+    "category": "News & Current Affairs",
+    "title": "Civil Georgia",
+    "genre": "news, georgia, portal, english, politics",
+    "source_page": "https://civil.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.interpressnews.ge/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "InterPressNews",
+    "genre": "news, georgia, news agency, georgian, english",
+    "source_page": "https://www.interpressnews.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://1tv.ge/rss/",
+    "category": "News & Current Affairs",
+    "title": "Georgian Public Broadcaster (1TV)",
+    "genre": "news, georgia, public broadcaster, tv, georgian",
+    "source_page": "https://1tv.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.radiotavisupleba.ge/rss/",
+    "category": "News & Current Affairs",
+    "title": "Radio Tavisupleba (RFE/RL Georgia)",
+    "genre": "news, georgia, radio, georgian, politics",
+    "source_page": "https://www.radiotavisupleba.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://netgazeti.ge/feed/",
+    "category": "News & Current Affairs",
+    "title": "Netgazeti",
+    "genre": "news, georgia, portal, georgian, politics",
+    "source_page": "https://netgazeti.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://oc-media.org/feed/",
+    "category": "News & Current Affairs",
+    "title": "OC Media",
+    "genre": "news, georgia, caucasus, english, independent",
+    "source_page": "https://oc-media.org/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://georgiatoday.ge/feed/",
+    "category": "News & Current Affairs",
+    "title": "Georgia Today",
+    "genre": "news, georgia, newspaper, english",
+    "source_page": "https://georgiatoday.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://bm.ge/en/feed/",
+    "category": "Business & Industry",
+    "title": "Business Media Georgia",
+    "genre": "economy, business, georgia, portal",
+    "source_page": "https://bm.ge/",
+    "national": true,
+    "national_reason": "news_curated/georgia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

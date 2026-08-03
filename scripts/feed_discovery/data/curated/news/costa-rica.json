@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.nacion.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "La Nación",
+    "genre": "news, costa rica, san josé, newspaper, highest circulation",
+    "source_page": "https://www.nacion.com/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.larepublica.net/rss/",
+    "category": "Business & Industry",
+    "title": "La República (Costa Rica)",
+    "genre": "economy, business, finance, costa rica, newspaper",
+    "source_page": "https://www.larepublica.net/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.crhoy.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "CRHoy",
+    "genre": "news, costa rica, portal, digital",
+    "source_page": "https://www.crhoy.com/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.teletica.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Teletica",
+    "genre": "news, costa rica, tv, journalism",
+    "source_page": "https://www.teletica.com/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.repretel.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Repretel",
+    "genre": "news, costa rica, tv, journalism",
+    "source_page": "https://www.repretel.com/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ameliarueda.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Amelia Rueda",
+    "genre": "news, costa rica, portal, politics, journalism",
+    "source_page": "https://www.ameliarueda.com/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://delfino.cr/feed/",
+    "category": "News & Current Affairs",
+    "title": "Delfino.cr",
+    "genre": "news, costa rica, portal, politics, digital",
+    "source_page": "https://delfino.cr/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://semanariouniversidad.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Semanario Universidad",
+    "genre": "news, costa rica, newspaper, university, politics",
+    "source_page": "https://semanariouniversidad.com/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.monumental.co.cr/feed/",
+    "category": "News & Current Affairs",
+    "title": "Monumental",
+    "genre": "news, costa rica, radio, politics",
+    "source_page": "https://www.monumental.co.cr/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.columbia.co.cr/feed/",
+    "category": "News & Current Affairs",
+    "title": "Columbia",
+    "genre": "news, costa rica, radio, politics",
+    "source_page": "https://www.columbia.co.cr/",
+    "national": true,
+    "national_reason": "news_curated/costa-rica",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

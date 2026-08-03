@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.fratmat.info/feed/",
+    "category": "News & Current Affairs",
+    "title": "Fraternité Matin",
+    "genre": "news, ivory coast, newspaper, french, state-run, highest circulation",
+    "source_page": "https://www.fratmat.info/",
+    "national": true,
+    "national_reason": "news_curated/ivory-coast",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://news.abidjan.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Abidjan.net",
+    "genre": "news, ivory coast, portal, french",
+    "source_page": "https://news.abidjan.net/",
+    "national": true,
+    "national_reason": "news_curated/ivory-coast",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.koaci.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "Koaci",
+    "genre": "news, ivory coast, portal, french",
+    "source_page": "https://www.koaci.com/",
+    "national": true,
+    "national_reason": "news_curated/ivory-coast",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aip.ci/feed/",
+    "category": "News & Current Affairs",
+    "title": "AIP (Agence Ivoirienne de Presse)",
+    "genre": "news, ivory coast, state news agency, french",
+    "source_page": "https://www.aip.ci/",
+    "national": true,
+    "national_reason": "news_curated/ivory-coast",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rti.ci/feed/",
+    "category": "News & Current Affairs",
+    "title": "RTI (Radiodiffusion Télévision Ivoirienne)",
+    "genre": "news, ivory coast, public broadcaster, tv, radio, french",
+    "source_page": "https://www.rti.ci/",
+    "national": true,
+    "national_reason": "news_curated/ivory-coast",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.jeuneafrique.com/pays/cote-divoire/feed/",
+    "category": "News & Current Affairs",
+    "title": "Jeune Afrique (Côte d'Ivoire)",
+    "genre": "news, ivory coast, africa, magazine, french",
+    "source_page": "https://www.jeuneafrique.com/",
+    "national": true,
+    "national_reason": "news_curated/ivory-coast",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.linfodrome.com/rss/",
+    "category": "News & Current Affairs",
+    "title": "L'Infodrome",
+    "genre": "news, ivory coast, portal, french",
+    "source_page": "https://www.linfodrome.com/",
+    "national": true,
+    "national_reason": "news_curated/ivory-coast",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

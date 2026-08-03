@@ -1,0 +1,86 @@
+[
+  {
+    "url": "https://www.err.ee/rss/",
+    "category": "News & Current Affairs",
+    "title": "ERR",
+    "genre": "news, estonia, public broadcaster, tv, radio, estonian",
+    "source_page": "https://www.err.ee/",
+    "national": true,
+    "national_reason": "news_curated/estonia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://news.err.ee/rss",
+    "category": "News & Current Affairs",
+    "title": "ERR News",
+    "genre": "news, estonia, public broadcaster, english",
+    "source_page": "https://news.err.ee/",
+    "national": true,
+    "national_reason": "news_curated/estonia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.postimees.ee/rss/",
+    "category": "News & Current Affairs",
+    "title": "Postimees",
+    "genre": "news, estonia, newspaper, estonian, highest circulation",
+    "source_page": "https://www.postimees.ee/",
+    "national": true,
+    "national_reason": "news_curated/estonia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.delfi.ee/rss/",
+    "category": "News & Current Affairs",
+    "title": "Delfi",
+    "genre": "news, estonia, portal, estonian, popular",
+    "source_page": "https://www.delfi.ee/",
+    "national": true,
+    "national_reason": "news_curated/estonia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.ohtuleht.ee/rss/",
+    "category": "News & Current Affairs",
+    "title": "Õhtuleht",
+    "genre": "news, estonia, newspaper, tabloid, estonian",
+    "source_page": "https://www.ohtuleht.ee/",
+    "national": true,
+    "national_reason": "news_curated/estonia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.aripaev.ee/rss/",
+    "category": "Business & Industry",
+    "title": "Äripäev",
+    "genre": "economy, business, estonia, newspaper, estonian",
+    "source_page": "https://www.aripaev.ee/",
+    "national": true,
+    "national_reason": "news_curated/estonia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://news.postimees.ee/feed/",
+    "category": "News & Current Affairs",
+    "title": "Postimees (English)",
+    "genre": "news, estonia, newspaper, english",
+    "source_page": "https://news.postimees.ee/",
+    "national": true,
+    "national_reason": "news_curated/estonia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

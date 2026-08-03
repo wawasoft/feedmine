@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://yle.fi/uutiset/rss/",
+    "category": "News & Current Affairs",
+    "title": "YLE News",
+    "genre": "news, finland, public broadcaster, tv, radio, finnish",
+    "source_page": "https://yle.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://yle.fi/news/rss",
+    "category": "News & Current Affairs",
+    "title": "YLE News (English)",
+    "genre": "news, finland, public broadcaster, english",
+    "source_page": "https://yle.fi/news",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.hs.fi/rss/",
+    "category": "News & Current Affairs",
+    "title": "Helsingin Sanomat",
+    "genre": "news, finland, newspaper, highest circulation, finnish",
+    "source_page": "https://www.hs.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.is.fi/rss/",
+    "category": "News & Current Affairs",
+    "title": "Ilta-Sanomat",
+    "genre": "news, finland, newspaper, tabloid, finnish",
+    "source_page": "https://www.is.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.iltalehti.fi/rss/",
+    "category": "News & Current Affairs",
+    "title": "Iltalehti",
+    "genre": "news, finland, newspaper, tabloid, finnish",
+    "source_page": "https://www.iltalehti.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.mtvuutiset.fi/rss/",
+    "category": "News & Current Affairs",
+    "title": "MTV Uutiset",
+    "genre": "news, finland, tv, journalism, finnish",
+    "source_page": "https://www.mtvuutiset.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.kauppalehti.fi/rss/",
+    "category": "Business & Industry",
+    "title": "Kauppalehti",
+    "genre": "economy, business, finland, newspaper, finnish",
+    "source_page": "https://www.kauppalehti.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.hbl.fi/rss/",
+    "category": "News & Current Affairs",
+    "title": "Hufvudstadsbladet",
+    "genre": "news, finland, newspaper, swedish, helsinki",
+    "source_page": "https://www.hbl.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.helsinkitimes.fi/feed/",
+    "category": "News & Current Affairs",
+    "title": "Helsinki Times",
+    "genre": "news, finland, newspaper, english",
+    "source_page": "https://www.helsinkitimes.fi/",
+    "national": true,
+    "national_reason": "news_curated/finland",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

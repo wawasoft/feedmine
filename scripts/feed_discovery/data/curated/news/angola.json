@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://www.angop.ao/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "ANGOP (Angola Press Agency)",
+    "genre": "news, angola, state news agency, portuguese, english",
+    "source_page": "https://www.angop.ao/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.jornaldeangola.ao/rss/",
+    "category": "News & Current Affairs",
+    "title": "Jornal de Angola",
+    "genre": "news, angola, newspaper, portuguese, state-run",
+    "source_page": "https://www.jornaldeangola.ao/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.novojornal.co.ao/rss/",
+    "category": "News & Current Affairs",
+    "title": "Novo Jornal",
+    "genre": "news, angola, newspaper, portuguese, independent",
+    "source_page": "https://www.novojornal.co.ao/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.expansao.co.ao/rss/",
+    "category": "Business & Industry",
+    "title": "Expansão",
+    "genre": "economy, business, angola, newspaper, portuguese",
+    "source_page": "https://www.expansao.co.ao/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.verangola.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Ver Angola",
+    "genre": "news, angola, portal, portuguese",
+    "source_page": "https://www.verangola.net/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.club-k.net/rss/",
+    "category": "News & Current Affairs",
+    "title": "Club-K",
+    "genre": "news, angola, portal, portuguese, independent",
+    "source_page": "https://www.club-k.net/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rna.ao/rss/",
+    "category": "News & Current Affairs",
+    "title": "RNA (Rádio Nacional de Angola)",
+    "genre": "news, angola, public broadcaster, radio, portuguese",
+    "source_page": "https://www.rna.ao/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tpa.ao/rss/",
+    "category": "News & Current Affairs",
+    "title": "TPA (Televisão Pública de Angola)",
+    "genre": "news, angola, public broadcaster, tv, portuguese",
+    "source_page": "https://www.tpa.ao/",
+    "national": true,
+    "national_reason": "news_curated/angola",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

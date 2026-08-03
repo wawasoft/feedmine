@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://www.ena.et/feed/",
+    "category": "News & Current Affairs",
+    "title": "ENA (Ethiopian News Agency)",
+    "genre": "news, ethiopia, state news agency, amharic, english",
+    "source_page": "https://www.ena.et/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.press.et/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Ethiopian Herald",
+    "genre": "news, ethiopia, newspaper, english, state-run",
+    "source_page": "https://www.press.et/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://addisstandard.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Addis Standard",
+    "genre": "news, ethiopia, portal, english, independent, politics",
+    "source_page": "https://addisstandard.com/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.thereporterethiopia.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Reporter Ethiopia",
+    "genre": "news, ethiopia, newspaper, english, independent, politics",
+    "source_page": "https://www.thereporterethiopia.com/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.capitalethiopia.com/feed/",
+    "category": "Business & Industry",
+    "title": "Capital Ethiopia",
+    "genre": "economy, business, ethiopia, newspaper, english",
+    "source_page": "https://www.capitalethiopia.com/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://addisfortune.news/feed/",
+    "category": "Business & Industry",
+    "title": "Addis Fortune",
+    "genre": "economy, business, ethiopia, newspaper, english",
+    "source_page": "https://addisfortune.news/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.fanabc.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Fana Broadcasting Corporate",
+    "genre": "news, ethiopia, tv, radio, amharic",
+    "source_page": "https://www.fanabc.com/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://borkena.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Borkena",
+    "genre": "news, ethiopia, portal, amharic, english, independent",
+    "source_page": "https://borkena.com/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://ethiopiaobserver.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Ethiopia Observer",
+    "genre": "news, ethiopia, portal, english, analysis",
+    "source_page": "https://ethiopiaobserver.com/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.waltainfo.com/feed/",
+    "category": "News & Current Affairs",
+    "title": "Walta TV",
+    "genre": "news, ethiopia, tv, amharic",
+    "source_page": "https://www.waltainfo.com/",
+    "national": true,
+    "national_reason": "news_curated/ethiopia",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "url": "https://eng.belta.by/rss/",
+    "category": "News & Current Affairs",
+    "title": "BelTA",
+    "genre": "news, belarus, state news agency, politics",
+    "source_page": "https://eng.belta.by/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.sb.by/rss/",
+    "category": "News & Current Affairs",
+    "title": "SB.by (Belarus Segodnya)",
+    "genre": "news, belarus, newspaper, state-run",
+    "source_page": "https://www.sb.by/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.svaboda.org/rss/",
+    "category": "News & Current Affairs",
+    "title": "Radio Svaboda (RFE/RL Belarus)",
+    "genre": "news, belarus, radio, politics, independent",
+    "source_page": "https://www.svaboda.org/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://belsat.eu/en/feed/",
+    "category": "News & Current Affairs",
+    "title": "Belsat TV",
+    "genre": "news, belarus, tv, politics, independent, poland-based",
+    "source_page": "https://belsat.eu/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://charter97.org/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "Charter 97",
+    "genre": "news, belarus, portal, opposition, human rights",
+    "source_page": "https://charter97.org/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://nashaniva.com/en/rss/",
+    "category": "News & Current Affairs",
+    "title": "Nasha Niva",
+    "genre": "news, belarus, newspaper, independent, culture",
+    "source_page": "https://nashaniva.com/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://euroradio.fm/en/rss",
+    "category": "News & Current Affairs",
+    "title": "Euroradio",
+    "genre": "news, belarus, radio, independent",
+    "source_page": "https://euroradio.fm/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://sputnik.by/rss/",
+    "category": "News & Current Affairs",
+    "title": "Sputnik Belarus",
+    "genre": "news, belarus, news agency, state-run, rússia",
+    "source_page": "https://sputnik.by/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://minsknews.by/feed/",
+    "category": "News & Current Affairs",
+    "title": "Minsk News",
+    "genre": "news, belarus, minsk, newspaper, local",
+    "source_page": "https://minsknews.by/",
+    "national": false,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tvr.by/eng/rss/",
+    "category": "News & Current Affairs",
+    "title": "Belarus 1 (Belteleradio)",
+    "genre": "news, belarus, tv, state-run",
+    "source_page": "https://www.tvr.by/",
+    "national": true,
+    "national_reason": "news_curated/belarus",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]

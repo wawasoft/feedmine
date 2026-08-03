@@ -1,0 +1,110 @@
+[
+  {
+    "url": "https://www.nzherald.co.nz/rss/",
+    "category": "News & Current Affairs",
+    "title": "New Zealand Herald",
+    "genre": "news, new zealand, newspaper, english, highest circulation",
+    "source_page": "https://www.nzherald.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.stuff.co.nz/rss/",
+    "category": "News & Current Affairs",
+    "title": "Stuff",
+    "genre": "news, new zealand, portal, english, popular",
+    "source_page": "https://www.stuff.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.rnz.co.nz/rss/",
+    "category": "News & Current Affairs",
+    "title": "RNZ (Radio New Zealand)",
+    "genre": "news, new zealand, public broadcaster, radio, english",
+    "source_page": "https://www.rnz.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.tvnz.co.nz/one-news/rss/",
+    "category": "News & Current Affairs",
+    "title": "1 News (TVNZ)",
+    "genre": "news, new zealand, tv, journalism, english",
+    "source_page": "https://www.tvnz.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.newshub.co.nz/rss/",
+    "category": "News & Current Affairs",
+    "title": "Newshub",
+    "genre": "news, new zealand, tv, journalism, english",
+    "source_page": "https://www.newshub.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://thespinoff.co.nz/feed/",
+    "category": "News & Current Affairs",
+    "title": "The Spinoff",
+    "genre": "news, new zealand, portal, english, independent, culture",
+    "source_page": "https://thespinoff.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.newsroom.co.nz/feed/",
+    "category": "News & Current Affairs",
+    "title": "Newsroom",
+    "genre": "news, new zealand, portal, english, investigative journalism",
+    "source_page": "https://www.newsroom.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.nbr.co.nz/rss/",
+    "category": "Business & Industry",
+    "title": "National Business Review",
+    "genre": "economy, business, new zealand, newspaper, english",
+    "source_page": "https://www.nbr.co.nz/",
+    "national": true,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  },
+  {
+    "url": "https://www.odt.co.nz/rss/",
+    "category": "News & Current Affairs",
+    "title": "Otago Daily Times",
+    "genre": "news, new zealand, dunedin, newspaper, english, historic",
+    "source_page": "https://www.odt.co.nz/",
+    "national": false,
+    "national_reason": "news_curated/new-zealand",
+    "is_live": false,
+    "status_code": 0,
+    "is_new": true
+  }
+]
