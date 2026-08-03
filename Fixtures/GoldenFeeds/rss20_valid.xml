@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Golden RSS 2.0 Feed</title>
+    <link>https://golden-rss.example.com</link>
+    <description>A valid RSS 2.0 feed for testing</description>
+    <language>en</language>
+    <item>
+      <title>First Article</title>
+      <link>https://golden-rss.example.com/article-1</link>
+      <guid isPermaLink="true">https://golden-rss.example.com/article-1</guid>
+      <pubDate>Mon, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <description>This is the first article description with some content.</description>
+      <author>test@example.com (Test Author)</author>
+      <category>Technology</category>
+    </item>
+    <item>
+      <title>Second Article with Image</title>
+      <link>https://golden-rss.example.com/article-2</link>
+      <guid isPermaLink="true">https://golden-rss.example.com/article-2</guid>
+      <pubDate>Mon, 01 Aug 2026 10:00:00 GMT</pubDate>
+      <description>Second article with an enclosure image.</description>
+      <enclosure url="https://golden-rss.example.com/image-2.jpg" length="12345" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>Third Article with Audio</title>
+      <link>https://golden-rss.example.com/article-3</link>
+      <guid isPermaLink="true">https://golden-rss.example.com/article-3</guid>
+      <pubDate>Mon, 01 Aug 2026 08:00:00 GMT</pubDate>
+      <description>Third article with podcast enclosure.</description>
+      <enclosure url="https://golden-rss.example.com/episode-3.mp3" length="56789012" type="audio/mpeg"/>
+    </item>
+  </channel>
+</rss>

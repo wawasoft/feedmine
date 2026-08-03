@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "defaultConfigurationValues" : {
+        "TESTPLAN_DISABLE_SCREENSHOTS" : "NO"
+      },
+      "id" : "B8F2C671-AE45-4D23-9F01-234567890DEF",
+      "name" : "Default"
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "defaultTestExecutionTimeAllowance" : 120,
+    "maximumTestExecutionTimeAllowance" : 600,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:feedmine.xcodeproj",
+      "identifier" : "com.feedmine.app",
+      "name" : "feedmine"
+    }
+  },
+  "testTargets" : [
+    {
+      "enabled" : true,
+      "target" : {
+        "containerPath" : "container:feedmine.xcodeproj",
+        "identifier" : "com.feedmine.uitests",
+        "name" : "feedmineUITests"
+      }
+    }
+  ],
+  "testPlanFormatVersion" : 3
+}

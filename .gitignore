@@ -63,4 +63,13 @@ feedmine/Resources/Feeds.backup.*/
 # Mappings / dedup artifacts (generated)
 new_feeds_mapping.json
 dedup_result.json
-.build-dd-review/
+
+# Feed staging / archived (generated, subsets of production)
+feedmine/Resources/Feeds/_staging/
+feedmine/Resources/Feeds/_archived_countries/
+
+# Discovery cache (duplicated path safety)
+scripts/scripts/
+
+# Stale progress files
+feeds_corpus_sources.enrich-progress.json

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Duplicate GUID Feed</title>
+    <link>https://dup-guids.example.com</link>
+    <description>Multiple items with the same GUID</description>
+    <item>
+      <title>Original Article</title>
+      <link>https://dup-guids.example.com/article</link>
+      <guid>https://dup-guids.example.com/article</guid>
+      <pubDate>Mon, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <description>This is the original article.</description>
+    </item>
+    <item>
+      <title>Duplicate Article</title>
+      <link>https://dup-guids.example.com/article</link>
+      <guid>https://dup-guids.example.com/article</guid>
+      <pubDate>Mon, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <description>This article shares the same GUID.</description>
+    </item>
+    <item>
+      <title>Third Copy</title>
+      <link>https://dup-guids.example.com/article</link>
+      <guid>https://dup-guids.example.com/article</guid>
+      <pubDate>Mon, 01 Aug 2026 12:00:00 GMT</pubDate>
+      <description>Yet another copy with the same GUID.</description>
+    </item>
+  </channel>
+</rss>
