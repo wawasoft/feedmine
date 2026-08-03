@@ -20,15 +20,17 @@ struct WelcomeScene: View {
 
                 // Headline
                 Text("A feed you can see through.")
-                    .font(.system(size: 34, weight: .bold))
+                    .font(.largeTitle.weight(.bold))
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.7)
                     .padding(.horizontal, 24)
+                    .accessibilityAddTraits(.isHeader)
                     .opacity(appeared ? 1 : 0)
                     .offset(y: appeared ? 0 : 20)
 
                 // Body
                 Text("Choose a few real stories. Feedmine will build a mix you can inspect and change anytime.")
-                    .font(.system(size: 16))
+                    .font(.body)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
                     .lineSpacing(5)

@@ -174,17 +174,20 @@ private struct FilterLensChip: View {
         } label: {
             HStack(spacing: 5) {
                 Image(systemName: systemImage)
-                    .font(.system(size: 10, weight: .semibold))
+                    .font(.caption2.weight(.semibold))
                     .imageScale(.small)
                 Text(title)
                     .font(.caption)
                     .fontWeight(.medium)
                     .lineLimit(1)
+                    .minimumScaleFactor(0.8)
                 Image(systemName: "xmark")
-                    .font(.system(size: 8, weight: .bold))
-                    .foregroundStyle(tint.opacity(0.7))
+                    .font(.caption2.weight(.bold))
+                    // Darken the tint so chip text/glyphs hold WCAG AA on the
+                    // 12%-tint background (system orange/green/cyan fail).
+                    .foregroundStyle(tint.darkened(untilContrast: 3.0, against: .white))
             }
-            .foregroundStyle(tint)
+            .foregroundStyle(tint.darkened(untilContrast: DesignTokens.minTextContrast, against: .white))
             .padding(.horizontal, 9)
             .padding(.vertical, 5)
             .background(
@@ -192,6 +195,7 @@ private struct FilterLensChip: View {
                     .fill(tint.opacity(0.12))
             )
             .contentShape(Capsule())
+            .frame(minHeight: 44)
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Remove \(title)")

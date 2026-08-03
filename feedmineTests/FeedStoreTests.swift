@@ -1474,12 +1474,18 @@ final class FeedStoreTests: XCTestCase {
             }
         }
 
+        // Volume without breadth: 100 items from 5 sources (5 < minViableSources=10).
         XCTAssertFalse(FeedStore.coldStartRunwayIsUseful(items(sourceCount: 5, itemsPerSource: 20)))
-        XCTAssertFalse(FeedStore.coldStartRunwayIsUseful(items(sourceCount: 99, itemsPerSource: 2)))
-        XCTAssertTrue(FeedStore.coldStartRunwayIsUseful(items(sourceCount: 100, itemsPerSource: 1)))
+        // Breadth with barely enough volume: 15 sources × 1 item = 15 items
+        // (15 >= 15 minViableItems with default target=100 → passes).
+        XCTAssertTrue(FeedStore.coldStartRunwayIsUseful(items(sourceCount: 15, itemsPerSource: 1)))
+        // Bare breadth but not enough items: 10 sources × 1 = 10 items < 15 min.
+        XCTAssertFalse(FeedStore.coldStartRunwayIsUseful(items(sourceCount: 10, itemsPerSource: 1)))
+        // Small curated pool: target=5 → thresholds 5 sources / 5 items.
+        // 5 sources × 3 items = 15 >= 5 items, 5 >= 5 sources → passes.
         XCTAssertTrue(FeedStore.coldStartRunwayIsUseful(
-            items(sourceCount: 25, itemsPerSource: 1),
-            targetSourceCount: 25
+            items(sourceCount: 5, itemsPerSource: 3),
+            targetSourceCount: 5
         ))
     }
 

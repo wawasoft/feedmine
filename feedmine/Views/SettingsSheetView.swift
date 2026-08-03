@@ -36,21 +36,35 @@ struct SettingsSheetView: View {
         FontStyle(rawValue: fontStyleRaw) ?? .system
     }
 
+    private var fontSizedPicker: some View {
+        Picker("Font Size", selection: $fontSize) {
+            Text("Small").tag(FontSize.small.rawValue)
+            Text("Medium").tag(FontSize.medium.rawValue)
+            Text("Large").tag(FontSize.large.rawValue)
+        }
+        .pickerStyle(.segmented)
+        .accessibilityLabel("Font Size")
+    }
+
     var body: some View {
         NavigationStack {
             Form {
                 // MARK: - Appearance
                 Section("Appearance") {
-                    HStack {
-                        Text("Font Size")
-                        Spacer()
-                        Picker("", selection: $fontSize) {
-                            Text("Small").tag(FontSize.small.rawValue)
-                            Text("Medium").tag(FontSize.medium.rawValue)
-                            Text("Large").tag(FontSize.large.rawValue)
+                    // Falls back to a stacked layout at large Dynamic Type
+                    // sizes so the segmented picker never clips its labels.
+                    ViewThatFits(in: .horizontal) {
+                        HStack {
+                            Text("Font Size")
+                            Spacer()
+                            fontSizedPicker
+                                .frame(width: 200)
                         }
-                        .pickerStyle(.segmented)
-                        .frame(width: 200)
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Font Size")
+                            fontSizedPicker
+                                .frame(maxWidth: .infinity)
+                        }
                     }
                 }
 
@@ -115,7 +129,7 @@ struct SettingsSheetView: View {
                     if circadianPaletteOn {
                         Text("Colors and typography shift subtly with the time of day. ")
                             + Text("\(CircadianEngine.shared.period.emoji) \(CircadianEngine.shared.period.label) now")
-                            .foregroundStyle(CircadianEngine.shared.accent)
+                            .foregroundStyle(CircadianEngine.shared.accentText)
                     }
                 }
 
@@ -315,7 +329,7 @@ struct SettingsSheetView: View {
                             Spacer()
                             if family == selectedPalette {
                                 Image(systemName: "checkmark")
-                                    .foregroundStyle(CircadianEngine.shared.accent)
+                                    .foregroundStyle(CircadianEngine.shared.accentText)
                             }
                         }
                     }
@@ -346,10 +360,10 @@ struct SettingsSheetView: View {
                             VStack(alignment: .leading) {
                                 Text(style.label)
                                     .font(style == .newYork
-                                        ? .custom("New York", size: 17)
+                                        ? .custom("New York", size: 17, relativeTo: .body)
                                         : style == .sfMono
-                                            ? .system(size: 17, design: .monospaced)
-                                            : .system(size: 17))
+                                            ? .system(.body, design: .monospaced)
+                                            : .body)
                                     .foregroundStyle(.primary)
                                 Text(styleDescription(style))
                                     .font(.caption)
@@ -358,7 +372,7 @@ struct SettingsSheetView: View {
                             Spacer()
                             if style == selectedFontStyle {
                                 Image(systemName: "checkmark")
-                                    .foregroundStyle(CircadianEngine.shared.accent)
+                                    .foregroundStyle(CircadianEngine.shared.accentText)
                             }
                         }
                     }

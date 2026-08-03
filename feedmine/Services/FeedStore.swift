@@ -849,7 +849,102 @@ final class FeedStore {
         ) { _ in
             Task { await prepCoordinator?.handleMemoryPressure() }
         }
+
+        // Fixture injection is deferred to start() — TestConfiguration.active
+        // is not yet set when FeedStore.init runs (App.init body sets it after
+        // @State properties are initialized).
     }
+
+    #if DEBUG
+    /// Inject deterministic fixture data for UI and performance testing.
+    /// Called during DEBUG builds when TestConfiguration.active.fixtureProfile is set.
+    @MainActor
+    private func injectFixture(profile: String, seed: Int) async {
+        let count: Int
+        switch profile {
+        case "empty":            count = 0
+        case "smoke":            count = 500
+        case "typical":          count = 5_000       // matches test expectations
+        case "heavy":            count = 25_000
+        case "extreme":          count = 100_000
+        case "migration":        count = 2_000       // large enough to exercise migrations
+        case "golden-bad-data":  count = 500         // corrupted/edge-case dataset
+        default:                 count = 1_000
+        }
+        guard count > 0 else { return }
+        let items = FeedStore.generateFixtureItems(count: count, seed: seed)
+        let persisted = await persistFetchedItems(items)
+        guard !persisted.isEmpty else { return }
+
+        // Publish items to the reservoir so they become visible.
+        // Without this, the feed stays in .preparing state forever.
+        throttledReservoirAppend(persisted)
+        await flushPendingReservoirForTesting()
+
+        if !self.visibleItems.isEmpty {
+            self.isPreparingInitialRunway = false
+            self.loadingState = .idle
+            self.feedDisplayPhase = .ready(contextID: self.presentationEpoch)
+        }
+        Log.db.info("Injected \(persisted.count) fixture items (profile=\(profile), seed=\(seed)), visible=\(self.visibleItems.count)")
+    }
+
+    /// Deterministic fixture item generator. Similar to the test-side
+    /// `makeFixtureItems` but with a simpler PRNG (multiplicative vs xoshiro256+),
+    /// different source count (30 vs 20), and audio cadence (12.5% vs 10%).
+    /// Duplicated here because test target utilities are not linked into the app.
+    /// When updating, keep both generators' key contracts (ID prefix, audio %,
+    /// source count) aligned so pre-generated fixtures remain reproducible.
+    private static func generateFixtureItems(count: Int, seed: Int) -> [FeedItem] {
+        var rng = FixturePRNG(seed: UInt64(bitPattern: Int64(seed)))
+        let categories = ["Technology", "News & Current Affairs", "Sports", "Entertainment",
+                          "Science", "Business", "Health", "Arts & Culture"]
+        let languages = ["en", "pt-BR", "ja", "ar", "fr"]
+        let sourceCount = min(count, 30)
+        var items: [FeedItem] = []
+        let baseDate = ISO8601DateFormatter().date(from: "2026-08-01T12:00:00Z")!
+
+        for i in 0..<count {
+            let srcIdx = i % sourceCount
+            let offset = Double(rng.next() % (7 * 86400))
+            let pubDate = baseDate.addingTimeInterval(-offset)
+            let item = FeedItem(
+                id: "fixture-\(seed)-\(i)",
+                sourceTitle: "Fixture Source \(srcIdx)",
+                sourceURL: "https://fixture-source-\(srcIdx).example/feed",
+                category: categories[srcIdx % categories.count],
+                title: "Fixture Story \(i): \(categories[srcIdx % categories.count]) Update",
+                excerpt: "Deterministic fixture content for performance testing. Seed \(seed), item \(i).",
+                url: "https://fixture-source-\(srcIdx).example/article-\(i)",
+                imageURL: i % 3 == 0 ? nil : "https://fixture-source-\(srcIdx).example/img-\(i).jpg",
+                publishedAt: pubDate,
+                audioURL: i % 8 == 0 ? "https://fixture-source-\(srcIdx).example/audio-\(i).mp3" : nil,
+                duration: i % 8 == 0 ? Double((rng.next() % 3600) + 60) : nil,
+                region: i % 5 == 0 ? "global" : "countries/XX",
+                language: languages[i % languages.count]
+            )
+            items.append(item)
+        }
+        return items
+    }
+
+    /// Minimal PRNG for deterministic fixture generation in the app target.
+    private struct FixturePRNG {
+        private var state: UInt64
+        init(seed: UInt64) {
+            var z = seed &+ 0x9e3779b97f4a7c15
+            z = (z ^ (z >> 30)) &* 0xbf58476d1ce4e5b9
+            z = (z ^ (z >> 27)) &* 0x94d049bb133111eb
+            z = z ^ (z >> 31)
+            state = z &+ 0x9e3779b97f4a7c15
+            for _ in 0..<8 { _ = next() }
+        }
+        mutating func next() -> UInt64 {
+            state = state &* 0x9e3779b97f4a7c15 &+ 1
+            return state
+        }
+    }
+    #endif
 
     /// Last-resort fallback: creates an in-memory store. Uses try! because if
     /// even an in-memory SQLite database cannot be created, the device is in a
@@ -1199,8 +1294,16 @@ final class FeedStore {
         _ items: [FeedItem],
         targetSourceCount: Int = coldStartMinimumSourceCount
     ) -> Bool {
-        let target = max(1, min(coldStartMinimumSourceCount, targetSourceCount))
-        return items.count >= target && Set(items.map(\.sourceURL)).count >= target
+        // Show content as soon as we have a meaningful slice of sources.
+        // Scale the threshold down for small catalogues (e.g. a curated
+        // collection of 8 sources should publish immediately, not stall
+        // for 30 s waiting for a 10-source bar it can never clear).
+        // Never require more than 10 distinct sources or 15 items, but
+        // drop proportionally when the pool itself is smaller.
+        let minimumViableSources = max(1, min(10, targetSourceCount))
+        let minimumViableItems   = max(5, min(15, targetSourceCount))
+        return items.count >= minimumViableItems
+            && Set(items.map(\.sourceURL)).count >= minimumViableSources
     }
 
     nonisolated private static func activeCatalogSourceCount() -> Int {
@@ -1359,6 +1462,7 @@ final class FeedStore {
                 self.isPreparingInitialRunway = false
                 self.loadingState = .idle
                 self.feedDisplayPhase = .ready(contextID: self.presentationEpoch)
+                self.startupRunwayReady = true
             }
             Log.feed.info(
                 "firstLaunchBootstrap published: sources=\(result.fetchedSourceCount) items=\(actualNew.count) visible=\(self.visibleItems.count) elapsed=\(Date().timeIntervalSince(startedAt), format: .fixed(precision: 3))s"
@@ -1375,6 +1479,17 @@ final class FeedStore {
     func start() async {
         guard !hasStarted else { return }
         hasStarted = true
+
+        // Fixture injection: seed the store with deterministic data for
+        // UI/performance tests. Runs here (not in init) because
+        // TestConfiguration.active is set in App.init, which executes after
+        // @State property initialization — init-time reads always see nil.
+        #if DEBUG
+        if let config = TestConfiguration.active, let profile = config.fixtureProfile {
+            await injectFixture(profile: profile, seed: config.fixtureSeed ?? 42)
+        }
+        #endif
+
         loadingState = .initial
         isPreparingInitialRunway = true
         startupFetchedSourceCount = 0
@@ -1629,6 +1744,7 @@ final class FeedStore {
             guard !self.visibleItems.isEmpty || self.reservoir.reservoirCount > 0 else {
                 self.isPreparingInitialRunway = false
                 self.loadingState = .idle
+                self.feedDisplayPhase = .ready(contextID: self.presentationEpoch)
                 Log.feed.info("cold start still withheld after \(coldStartAttempts) real attempts (30 s deadline expired)")
                 return
             }

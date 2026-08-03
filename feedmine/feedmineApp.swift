@@ -77,16 +77,26 @@ struct FeedmineApp: App {
     @State private var contentFilters = ContentFilterStore.shared
 
     init() {
-        if ProcessInfo.processInfo.arguments.contains("-UITestResetFilters") {
+        let config = TestConfiguration.parse()
+
+        if config.resetFilters || config.resetTestState {
             resetFiltersForUITestLaunch()
         }
-        if ProcessInfo.processInfo.arguments.contains("-UITestShowOnboarding") {
+        if config.resetTestState {
+            // Wipe persisted state for clean test isolation between methods.
+            clearPersistedStateForTesting()
+        }
+        if config.showOnboarding {
             UserDefaults.standard.set(false, forKey: Keys.hasSeenOnboarding)
-        } else if ProcessInfo.processInfo.arguments.contains("-UITestSkipOnboarding") {
+        } else if config.skipOnboarding {
             UserDefaults.standard.set(true, forKey: Keys.hasSeenOnboarding)
         }
-        if ProcessInfo.processInfo.arguments.contains("-PreparedFeedPipeline") {
+        if config.preparedFeedPipeline {
             UserDefaults.standard.set(true, forKey: Keys.preparedFeedPipelineEnabled)
+        }
+        // Persist configuration for services that need it before DI is wired.
+        if config.isUITesting || config.isPerformanceTesting {
+            TestConfiguration.active = config
         }
         SmartFeedBackgroundScheduler.shared.register()
         FeedMetrics.event("Process.started")
@@ -104,6 +114,14 @@ struct FeedmineApp: App {
         Settings.filterSetAt = 0
         Settings.hasInitializedLanguageDefault = true
         TaxonomyStore.shared.clearSelection()
+        UserDefaults.standard.synchronize()
+    }
+
+    /// Remove all persisted app state so each UI test method starts fresh.
+    /// Only invoked when the test harness passes `-reset-test-state`.
+    private func clearPersistedStateForTesting() {
+        guard let domain = Bundle.main.bundleIdentifier else { return }
+        UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
     }
 

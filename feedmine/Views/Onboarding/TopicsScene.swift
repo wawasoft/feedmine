@@ -37,9 +37,11 @@ struct TopicsScene: View {
                     .foregroundStyle(.secondary)
 
                 Text("What fascinates you?")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.title.weight(.bold))
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.7)
                     .padding(.horizontal, 24)
+                    .accessibilityAddTraits(.isHeader)
 
                 Text("Pick up to \(maxSelection) — this helps us find stories you'll love.")
                     .font(.subheadline)
@@ -129,17 +131,24 @@ private struct TopicChip: View {
     let accent: Color
     let action: () -> Void
 
+    /// Fill for the selected state: accent darkened so white label text
+    /// holds WCAG AA (4.5:1) instead of ~2:1 on the raw accent.
+    private var selectedFill: Color {
+        accent.darkened(untilContrast: DesignTokens.minTextContrast, against: .white)
+    }
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 6) {
                 Image(systemName: topic.icon)
-                    .font(.system(size: 13))
+                    .font(.caption)
                     .foregroundStyle(isSelected ? .white : accent)
 
                 Text(topic.shortName)
-                    .font(.system(size: 14, weight: isSelected ? .semibold : .regular))
+                    .font(.caption.weight(isSelected ? .semibold : .regular))
                     .foregroundStyle(isSelected ? .white : .primary)
-                    .lineLimit(1)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.8)
 
                 Spacer(minLength: 0)
             }
@@ -167,5 +176,8 @@ private struct TopicChip: View {
         .opacity(isDisabled ? 0.35 : 1)
         .animation(.easeInOut(duration: 0.2), value: isDisabled)
         .accessibilityIdentifier("topic-\(topic.rawValue)")
+        .accessibilityLabel(topic.shortName)
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
+        .accessibilityHint(isDisabled ? "Maximum 5 topics selected" : "Tap to select or deselect topic")
     }
 }

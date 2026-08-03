@@ -20,11 +20,14 @@ struct IntentScene: View {
                 Text("Before we start")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .accessibilityLabel("Before we start — question label")
 
                 Text("What brings you to Feedmine?")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.title.weight(.bold))
                     .multilineTextAlignment(.center)
+                    .minimumScaleFactor(0.7)
                     .padding(.horizontal, 24)
+                    .accessibilityAddTraits(.isHeader)
             }
             .opacity(appeared ? 1 : 0)
             .offset(y: appeared ? 0 : 16)
@@ -81,29 +84,35 @@ private struct IntentChip: View {
     let accent: Color
     let action: () -> Void
 
+    /// Fill for the selected state: accent darkened so white label text
+    /// holds WCAG AA (4.5:1) instead of ~2:1 on the raw accent.
+    private var selectedFill: Color {
+        accent.darkened(untilContrast: DesignTokens.minTextContrast, against: .white)
+    }
+
     var body: some View {
         Button(action: action) {
             HStack(spacing: 12) {
                 Image(systemName: intent.icon)
-                    .font(.system(size: 18))
+                    .font(.title3)
                     .foregroundStyle(isSelected ? .white : accent)
                     .frame(width: 28)
 
                 VStack(alignment: .leading, spacing: 2) {
                     Text(intent.displayName)
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.body.weight(.medium))
                         .foregroundStyle(isSelected ? .white : .primary)
                     Text(intent.subtitle)
-                        .font(.system(size: 13))
+                        .font(.caption)
                         .foregroundStyle(isSelected ? .white.opacity(0.8) : .secondary)
-                        .lineLimit(1)
+                        .lineLimit(2)
                 }
 
                 Spacer()
 
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 20))
+                        .font(.title3)
                         .foregroundStyle(.white)
                 }
             }
@@ -111,7 +120,7 @@ private struct IntentChip: View {
             .padding(.vertical, 13)
             .background(
                 RoundedRectangle(cornerRadius: 14)
-                    .fill(isSelected ? accent : Color.clear)
+                    .fill(isSelected ? selectedFill : Color.clear)
             )
             .background(
                 RoundedRectangle(cornerRadius: 14)
@@ -128,5 +137,7 @@ private struct IntentChip: View {
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("intent-\(intent.rawValue)")
+        .accessibilityLabel("\(intent.displayName): \(intent.subtitle)")
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }

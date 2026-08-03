@@ -211,13 +211,13 @@ struct CuratedOnboardingView: View {
             if stage != .welcome {
                 Button { goBack() } label: {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 15, weight: .semibold))
-                        .frame(width: 36, height: 36)
+                        .font(.subheadline.weight(.semibold))
+                        .frame(width: 44, height: 44)
                         .background(.thinMaterial, in: Circle())
                 }
                 .accessibilityLabel("Back")
             } else {
-                Color.clear.frame(width: 36, height: 36)
+                Color.clear.frame(width: 44, height: 44)
             }
 
             Spacer()
@@ -234,8 +234,8 @@ struct CuratedOnboardingView: View {
 
             Button { cancelOnboarding() } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 13, weight: .semibold))
-                    .frame(width: 36, height: 36)
+                    .font(.footnote.weight(.semibold))
+                    .frame(width: 44, height: 44)
                     .background(.thinMaterial, in: Circle())
             }
             .accessibilityLabel(isFirstRun ? "Start with everything" : "Close")
@@ -396,7 +396,7 @@ struct CuratedOnboardingView: View {
                         .opacity(0.3 + 0.7 * abs(sin(Double(i) * 0.8)))
                 }
                 Image(systemName: "point.3.connected.trianglepath.dotted")
-                    .font(.system(size: 38, weight: .light))
+                    .font(.largeTitle.weight(.light))
                     .foregroundStyle(engine.accent)
                     .symbolEffect(.pulse, options: .repeating.speed(0.8))
             }
@@ -713,7 +713,7 @@ private struct CuratedStoryChoiceCard: View {
                 VStack(alignment: .leading, spacing: 6) {
                     HStack(spacing: 6) {
                         Text(marker)
-                            .font(.system(size: 11, weight: .black))
+                            .font(.caption2.weight(.black))
                             .foregroundStyle(accent)
                             .frame(width: 20, height: 20)
                             .background(accent.opacity(0.12), in: Circle())
@@ -722,17 +722,18 @@ private struct CuratedStoryChoiceCard: View {
                             .fontWeight(.semibold)
                             .foregroundStyle(accent)
                             .lineLimit(1)
+                            .minimumScaleFactor(0.75)
                         Spacer(minLength: 4)
                         Label(
                             candidate.editorial.style.shortName,
                             systemImage: candidate.editorial.style.icon
                         )
-                        .font(.system(size: 9, weight: .bold))
+                        .font(.caption2.weight(.bold))
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                     }
                     Text(candidate.item.title)
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(.subheadline.weight(.semibold))
                         .foregroundStyle(.primary)
                         .lineLimit(3)
                         .multilineTextAlignment(.leading)
@@ -777,7 +778,7 @@ private struct CuratedStoryChoiceCard: View {
                     endPoint: .bottomTrailing
                 )
                 Image(systemName: candidate.topic.icon)
-                    .font(.system(size: 36, weight: .light))
+                    .font(.largeTitle.weight(.light))
                     .foregroundStyle(.white.opacity(0.82))
 
                 if candidate.item.hasPotentialImage, !imageFailed {
@@ -919,11 +920,12 @@ private struct CuratedOpenHoodGraphic: View {
 
                 ZStack {
                     Circle()
-                        .fill(accent)
+                        // Darkened accent so the white glyph holds 3:1 contrast.
+                        .fill(accent.darkened(untilContrast: DesignTokens.minTextContrast, against: .white))
                         .frame(width: 76, height: 76)
                         .shadow(color: accent.opacity(0.28), radius: 18, y: 7)
                     Image(systemName: "slider.horizontal.3")
-                        .font(.system(size: 30, weight: .semibold))
+                        .font(.title2.weight(.semibold))
                         .foregroundStyle(.white)
                 }
                 .position(x: width * 0.5, y: height * 0.49)
@@ -939,7 +941,7 @@ private struct CuratedOpenHoodGraphic: View {
         height: Double
     ) -> some View {
         Image(systemName: symbol)
-            .font(.system(size: 18, weight: .medium))
+            .font(.headline.weight(.medium))
             .foregroundStyle(accent)
             .frame(width: 45, height: 45)
             .background(.regularMaterial, in: Circle())

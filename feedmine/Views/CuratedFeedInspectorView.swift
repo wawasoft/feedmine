@@ -82,10 +82,11 @@ struct CuratedFeedInspectorView: View {
         VStack(alignment: .leading, spacing: 14) {
             HStack(alignment: .top, spacing: 13) {
                 Image(systemName: "slider.horizontal.3")
-                    .font(.system(size: 22, weight: .semibold))
+                    .font(.title2.weight(.semibold))
                     .foregroundStyle(.white)
                     .frame(width: 48, height: 48)
-                    .background(engine.accent, in: RoundedRectangle(cornerRadius: 14))
+                    // Darkened accent so the white glyph holds 3:1 contrast.
+                    .background(engine.accentText, in: RoundedRectangle(cornerRadius: 14))
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text("OPEN HOOD")

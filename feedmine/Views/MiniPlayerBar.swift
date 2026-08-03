@@ -46,9 +46,11 @@ struct MiniPlayerBar: View {
                             .font(.subheadline)
                             .fontWeight(.medium)
                             .lineLimit(1)
+                            .minimumScaleFactor(0.75)
                         Text(item.sourceTitle)
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                            .lineLimit(1)
                     }
 
                     Spacer()
@@ -67,8 +69,10 @@ struct MiniPlayerBar: View {
                     } label: {
                         Image(systemName: player.isPlaying ? "pause.fill" : "play.fill")
                             .font(.title3)
-                            .frame(width: 36, height: 36)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
                     }
+                    .accessibilityLabel(player.isPlaying ? "Pause" : "Play")
 
                     // Close
                     Button {
@@ -79,7 +83,10 @@ struct MiniPlayerBar: View {
                         Image(systemName: "xmark.circle.fill")
                             .font(.title3)
                             .foregroundStyle(.secondary)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
                     }
+                    .accessibilityLabel("Stop and close player")
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
@@ -215,8 +222,10 @@ struct FullPlayerView: View {
                         Image(systemName: "ellipsis")
                             .font(.title3)
                             .foregroundStyle(.secondary)
-                            .frame(width: 32, height: 32)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
                     }
+                    .accessibilityLabel("More options")
                 }
 
                 Spacer()

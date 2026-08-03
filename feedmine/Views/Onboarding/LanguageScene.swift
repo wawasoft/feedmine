@@ -16,7 +16,9 @@ struct LanguageScene: View {
         VStack(spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("What do you read?")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.title.weight(.bold))
+                    .minimumScaleFactor(0.7)
+                    .accessibilityAddTraits(.isHeader)
                 Text("Feedmine will show stories in these languages.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
@@ -137,7 +139,10 @@ struct LanguageScene: View {
                         } label: {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundStyle(.secondary)
+                                .frame(minWidth: 44, minHeight: 44)
+                                .contentShape(Rectangle())
                         }
+                        .accessibilityLabel("Remove \(lang.name)")
                     }
                     .padding(.horizontal, 14)
                     .frame(height: 48)

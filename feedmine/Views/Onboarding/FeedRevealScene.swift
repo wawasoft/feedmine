@@ -17,7 +17,8 @@ struct FeedRevealScene: View {
                 // Headline
                 VStack(spacing: 8) {
                     Text("Here's your first mix.")
-                        .font(.system(size: 29, weight: .bold))
+                        .font(.title.weight(.bold))
+                        .minimumScaleFactor(0.7)
                     Text("Built and stored on this device. Editable anytime.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -94,5 +95,6 @@ struct FeedRevealScene: View {
             }
         }
         .scrollIndicators(.hidden)
+        .dynamicTypeSize(...DynamicTypeSize.accessibility3)
     }
 }

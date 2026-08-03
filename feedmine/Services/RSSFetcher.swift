@@ -68,6 +68,51 @@ actor RSSFetcher {
             return FeedFetchResult(source: source, items: [], outcome: .failed(CancellationError()))
         }
 
+        // Network simulation for testing: when a network profile is active,
+        // override real networking with deterministic behavior.
+        #if DEBUG
+        if let profile = TestConfiguration.active?.networkProfile {
+            switch profile {
+            case "offline":
+                return FeedFetchResult(
+                    source: source, items: [],
+                    outcome: .failed(NSError(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet, userInfo: [
+                        NSLocalizedDescriptionKey: "Simulated offline (TestConfiguration.networkProfile=offline)"
+                    ]))
+                )
+            case "timeout":
+                return FeedFetchResult(
+                    source: source, items: [],
+                    outcome: .failed(NSError(domain: NSURLErrorDomain, code: NSURLErrorTimedOut, userInfo: [
+                        NSLocalizedDescriptionKey: "Simulated timeout (TestConfiguration.networkProfile=timeout)"
+                    ]))
+                )
+            case "slow":
+                // Simulate network latency. Task.sleep throws CancellationError
+                // when cancelled — must not silently swallow cancellation because
+                // a cancelled fetch that falls through to the real transport
+                // defeats the deadline.
+                try? await Task.sleep(nanoseconds: 3_000_000_000)
+                guard !Task.isCancelled else {
+                    return FeedFetchResult(source: source, items: [], outcome: .failed(CancellationError()))
+                }
+            case "partial-failure":
+                // Deterministic selection: use a stable hash so the same
+                // ~1/3 of sources fail on every run. String.hashValue is
+                // randomly seeded per process — would make tests flaky.
+                if source.url.utf8.reduce(0, { $0 &+ UInt64($1) }) % 3 == 0 {
+                    return FeedFetchResult(
+                        source: source, items: [],
+                        outcome: .failed(NSError(domain: NSURLErrorDomain, code: NSURLErrorCannotConnectToHost, userInfo: [
+                            NSLocalizedDescriptionKey: "Simulated partial failure (TestConfiguration.networkProfile=partial-failure)"
+                        ]))
+                    )
+                }
+            default: break // "fast" — no override, proceed normally
+            }
+        }
+        #endif
+
         let transport = httpSync ?? self.httpSync
         let httpResult = await transport.fetch(source, validators: validators)
 

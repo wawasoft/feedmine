@@ -22,18 +22,20 @@ struct FeedEmptyStateView: View {
                 ProgressView()
                     .tint(engine.accent)
                     .scaleEffect(1.2)
+                    .accessibilityLabel("Refreshing feed content")
             }
 
-            // Icon
+            // Icon (decorative — no accessibility needed)
             ZStack {
                 Circle()
                     .fill(engine.accent.opacity(0.1))
                     .frame(width: 100, height: 100)
 
                 Image(systemName: iconName)
-                    .font(.system(size: 40))
+                    .font(.largeTitle)
                     .foregroundStyle(engine.accent)
             }
+            .accessibilityHidden(true)
 
             // Title
             Text(title)
@@ -44,6 +46,7 @@ struct FeedEmptyStateView: View {
                 .minimumScaleFactor(0.82)
                 .frame(maxWidth: 360)
                 .padding(.horizontal, 24)
+                .accessibilityAddTraits(.isHeader)
 
             // Description
             Text(description)
@@ -53,6 +56,7 @@ struct FeedEmptyStateView: View {
                 .lineLimit(4)
                 .minimumScaleFactor(0.9)
                 .padding(.horizontal, 32)
+                .accessibilityLabel(description)
 
             // Fetching progress
             if case .fetching(_, let fetched, let total) = mode {
@@ -64,6 +68,7 @@ struct FeedEmptyStateView: View {
                         .foregroundStyle(.secondary)
                 }
                 .padding(.top, 8)
+                .accessibilityLabel("Fetching progress: \(fetched) of \(total) sources completed")
             }
 
             // Action buttons
@@ -116,6 +121,9 @@ struct FeedEmptyStateView: View {
             Spacer()
         }
         .padding(.top, 40)
+        .accessibilityIdentifier("state.empty")
+        .accessibilityLabel("\(title): \(description)")
+        .accessibilityElement(children: .contain)
         .sheet(isPresented: $showFilters) {
             FilterSheetView()
         }

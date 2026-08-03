@@ -51,9 +51,9 @@ struct FeedItemCardView: View, Equatable {
 
     private var bodyFont: Font {
         switch fontSize {
-        case "small": return .system(size: 12)
-        case "large": return .system(size: 15)
-        default: return .system(size: 13)
+        case "small": return .caption
+        case "large": return .body
+        default: return .footnote
         }
     }
 
@@ -138,6 +138,7 @@ struct FeedItemCardView: View, Equatable {
                 .font(titleFont)
                 .fontWeight(engine.activeFontWeight ?? .semibold)
                 .lineLimit(2)
+                .minimumScaleFactor(0.85)
                 .foregroundStyle(isRead ? .secondary : .primary)
                 .padding(.horizontal, 12)
                 .padding(.top, hasImage ? 10 : 6)
@@ -147,6 +148,7 @@ struct FeedItemCardView: View, Equatable {
                 .font(bodyFont)
                 .foregroundStyle(.secondary)
                 .lineLimit(3)
+                .minimumScaleFactor(0.85)
                 .padding(.horizontal, 12)
                 .padding(.top, 6)
 
@@ -177,6 +179,9 @@ struct FeedItemCardView: View, Equatable {
                 .padding(.leading, 1)
         }
         .contextMenu { cardContextMenu }
+        .accessibilityIdentifier("timeline.card.\(item.id)")
+        .accessibilityLabel("\(item.sourceTitle): \(item.title)")
+        .accessibilityElement(children: .contain)
     }
 
     // MARK: - Landscape Card
@@ -228,7 +233,7 @@ struct FeedItemCardView: View, Equatable {
                     .padding(.top, 4)
 
                 Text(item.excerpt)
-                    .font(.system(size: 11))
+                    .font(.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(2)
                     .padding(.top, 3)
@@ -258,6 +263,9 @@ struct FeedItemCardView: View, Equatable {
                 .padding(.leading, 1)
         }
         .contextMenu { cardContextMenu }
+        .accessibilityIdentifier("timeline.card.\(item.id)")
+        .accessibilityLabel("\(item.sourceTitle): \(item.title)")
+        .accessibilityElement(children: .contain)
     }
 
     /// Placeholder shown when an article/video/forum image fails to load.
@@ -332,6 +340,7 @@ struct FeedItemCardView: View, Equatable {
                 .fontWeight(.medium)
                 .foregroundStyle(.primary)
                 .lineLimit(1)
+                .minimumScaleFactor(0.75)
 
             if item.isPodcast {
                 mediaBadge("Podcast", color: .purple)
@@ -361,9 +370,10 @@ struct FeedItemCardView: View, Equatable {
                     } label: {
                         Image(systemName: "bookmark.fill")
                             .font(.caption)
-                            .foregroundStyle(.yellow)
+                            .foregroundStyle(ComponentToken.bookmarkGlyph)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel("Remove from bookmarks")
                 } else {
                     Button {
                         let impact = UIImpactFeedbackGenerator(style: .light)
@@ -372,10 +382,13 @@ struct FeedItemCardView: View, Equatable {
                     } label: {
                         Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
                             .font(.caption)
-                            .foregroundStyle(isBookmarked ? .yellow : .secondary)
+                            .foregroundStyle(isBookmarked ? ComponentToken.bookmarkGlyph : .secondary)
                             .contentTransition(.symbolEffect(.replace))
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(isBookmarked ? "Remove bookmark" : "Bookmark this article")
+                    .frame(minWidth: 44, minHeight: 44)
+                    .contentShape(Rectangle())
                     .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isBookmarked)
                 }
             }
@@ -398,13 +411,13 @@ struct FeedItemCardView: View, Equatable {
             } label: {
                 Image(systemName: "bookmark.fill")
                     .font(.title3)
-                    .foregroundStyle(.yellow)
-                    .frame(width: 36, height: 36)
+                    .foregroundStyle(ComponentToken.bookmarkGlyph)
+                    .frame(width: 44, height: 44)
                     .background(.ultraThinMaterial, in: Circle())
                     .shadow(color: .black.opacity(0.15), radius: 4)
-                    .padding(12)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Remove from bookmarks")
         } else {
             Button {
                 let impact = UIImpactFeedbackGenerator(style: .light)
@@ -413,14 +426,14 @@ struct FeedItemCardView: View, Equatable {
             } label: {
                 Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
                     .font(.title3)
-                    .foregroundStyle(isBookmarked ? .yellow : .white)
-                    .frame(width: 36, height: 36)
+                    .foregroundStyle(isBookmarked ? ComponentToken.bookmarkGlyph : .white)
+                    .frame(width: 44, height: 44)
                     .background(.ultraThinMaterial, in: Circle())
                     .shadow(color: .black.opacity(0.15), radius: 4)
-                    .padding(12)
                     .contentTransition(.symbolEffect(.replace))
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(isBookmarked ? "Remove bookmark" : "Bookmark this article")
             .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isBookmarked)
         }
     }
@@ -445,7 +458,8 @@ struct FeedItemCardView: View, Equatable {
     private func mediaBadge(_ text: String, color: Color) -> some View {
         Text(text)
             .font(.caption2).fontWeight(.heavy)
-            .foregroundStyle(color)
+            // Darken the tint so the badge text holds WCAG AA on light cards.
+            .foregroundStyle(ComponentToken.badgeTextColor(color))
             .padding(.horizontal, 5).padding(.vertical, 1)
             .background(color.opacity(0.1))
             .clipShape(Capsule())

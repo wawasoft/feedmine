@@ -408,6 +408,7 @@ struct FeedScreen: View {
                             .contentTransition(.symbolEffect(.replace))
                     }
                     .accessibilityIdentifier("search-button")
+                    .accessibilityLabel(isSearching ? "Close search" : "Search")
                     Button {
                         let impact = UIImpactFeedbackGenerator(style: .light)
                         impact.impactOccurred()
@@ -416,6 +417,7 @@ struct FeedScreen: View {
                         Image(systemName: loader.selectedBookmarkListID != nil ? "bookmark.fill" : "bookmark")
                             .headerButtonStyle(accent: engine.accent)
                     }
+                    .accessibilityLabel("Bookmarks")
                     .overlay(alignment: .topTrailing) {
                         if loader.selectedBookmarkListID != nil {
                             Circle().fill(engine.accent).frame(width: 6, height: 6)
@@ -511,6 +513,7 @@ struct FeedScreen: View {
                             .headerButtonStyle(accent: engine.accent)
                     }
                     .accessibilityIdentifier("more-menu")
+                    .accessibilityLabel("More options")
                 }
             }
             .padding(.horizontal, 12)
@@ -545,14 +548,16 @@ struct FeedScreen: View {
                         commitSearchDraft()
                     } label: {
                         Image(systemName: "plus.circle.fill")
-                            .foregroundStyle(engine.accent)
+                            .foregroundStyle(engine.accentText)
                     }
                     .accessibilityLabel("Add search term")
+                    .frame(minWidth: 44, minHeight: 44)
                 }
                 Button("Cancel") {
                     closeSearch()
                 }
-                .font(.caption).foregroundStyle(engine.accent)
+                .font(.caption).foregroundStyle(engine.accentText)
+                .frame(minHeight: 44)
             }
 
             if !searchTerms.isEmpty {
@@ -599,6 +604,7 @@ struct FeedScreen: View {
                 .font(.caption2)
             Text(term.displayText)
                 .lineLimit(1)
+                .minimumScaleFactor(0.85)
             Button {
                 removeSearchTerm(term)
             } label: {
@@ -606,9 +612,11 @@ struct FeedScreen: View {
                     .font(.caption2.weight(.bold))
             }
             .accessibilityLabel("Remove \(term.displayText)")
+            .frame(minWidth: 44, minHeight: 44)
+            .contentShape(Rectangle())
         }
         .font(.caption.weight(.medium))
-        .foregroundStyle(term.isExcluded ? Color.red : engine.accent)
+        .foregroundStyle(term.isExcluded ? SemanticColor.fgError : engine.accentText)
         .padding(.horizontal, 9)
         .padding(.vertical, 5)
         .background(
@@ -626,7 +634,7 @@ struct FeedScreen: View {
         } else if searchIncludesContents && loader.isSearchScanning {
             HStack(spacing: 7) {
                 Image(systemName: "network")
-                    .foregroundStyle(engine.accent)
+                    .foregroundStyle(engine.accentText)
                 Text("\(loader.searchScannedSourceCount) sources checked")
                 if loader.searchDiscoveredItemCount > 0 {
                     Text("· \(loader.searchDiscoveredItemCount) new cached")
@@ -636,7 +644,7 @@ struct FeedScreen: View {
         } else if searchIncludesContents && loader.searchScanCompleted {
             HStack(spacing: 7) {
                 Image(systemName: "checkmark.circle")
-                    .foregroundStyle(.green)
+                    .foregroundStyle(SemanticColor.fgSuccess)
                 Text("\(loader.searchScannedSourceCount) sources checked")
                 if loader.searchDiscoveredItemCount > 0 {
                     Text("· \(loader.searchDiscoveredItemCount) new cached")
@@ -661,9 +669,12 @@ struct FeedScreen: View {
                 title,
                 systemImage: isOn.wrappedValue ? "checkmark.square.fill" : "square"
             )
-            .foregroundStyle(isOn.wrappedValue ? engine.accent : Color.secondary)
+            .foregroundStyle(isOn.wrappedValue ? engine.accentText : Color.secondary)
+            .lineLimit(1)
+            .minimumScaleFactor(0.85)
         }
         .buttonStyle(.plain)
+        .frame(minHeight: 44)
         .accessibilityIdentifier(accessibilityID)
         .accessibilityValue(isOn.wrappedValue ? "selected" : "not selected")
     }
@@ -751,7 +762,7 @@ struct FeedScreen: View {
                 .foregroundStyle(.secondary)
         }
         .font(.subheadline)
-        .foregroundStyle(engine.accent)
+        .foregroundStyle(engine.accentText)
         .padding(.top, 8)
     }
 
@@ -798,15 +809,16 @@ struct FeedScreen: View {
                     .headerButtonStyle(accent: engine.accent)
                 if activeCount > 0 {
                     Text("\(activeCount)")
-                        .font(.system(size: 9, weight: .bold))
+                        .font(.caption2.weight(.bold))
                         .foregroundStyle(.white)
                         .frame(width: 14, height: 14)
-                        .background(Circle().fill(engine.accent))
+                        .background(Circle().fill(engine.accentText))
                         .offset(x: 2, y: -2)
                 }
             }
         }
         .accessibilityIdentifier("filter-button")
+        .accessibilityLabel("Filter")
         .accessibilityValue("\(activeCount)")
     }
 
@@ -822,7 +834,7 @@ struct FeedScreen: View {
                         if loader.selectedBookmarkListID != nil {
                             HStack {
                                 Image(systemName: "bookmark.fill")
-                                    .foregroundStyle(engine.accent)
+                                    .foregroundStyle(engine.accentText)
                                 Text(loader.selectedBookmarkListName ?? "Bookmarks")
                                     .font(.headline)
                                     .fontWeight(.semibold)
@@ -949,7 +961,7 @@ struct FeedScreen: View {
                 showScrollButton = false
             } label: {
                 Image(systemName: "arrow.up")
-                    .frame(width: 36, height: 36)
+                    .frame(width: 44, height: 44)
                     .background(engine.accent.opacity(0.12))
                     .clipShape(Circle())
             }
@@ -1494,7 +1506,11 @@ struct CompactFeedStatus: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 16, height: 16)
-            Text("Feedmine").font(.caption).fontWeight(.bold)
+            Text("Feedmine")
+                .font(.caption)
+                .fontWeight(.bold)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
             if isShowingStartupProgress {
                 HStack(spacing: 3) {
                     Text("· \(loader.startupFetchedSourceCount)/\(startupTotal)")
@@ -1515,8 +1531,11 @@ struct CompactFeedStatus: View {
                 Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")
                     .font(.caption2.monospacedDigit())
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
             }
         }
+        .accessibilityLabel("Feed status")
         // Secret gesture: triple-tap the feed status to toggle debug bar.
         // Not exposed in Settings — intentional, for development use only.
         .onTapGesture(count: 3) {
@@ -1579,7 +1598,7 @@ private struct SourceSearchRow: View {
                         .lineLimit(2)
                     if !source.defaultEnabled {
                         Text("DORMANT")
-                            .font(.system(size: 9, weight: .bold))
+                            .font(.caption2.weight(.bold))
                             .padding(.horizontal, 5)
                             .padding(.vertical, 2)
                             .background(Color.secondary.opacity(0.13), in: Capsule())
@@ -1872,8 +1891,10 @@ struct EmptyFilterView: View {
 // MARK: - Header Button Style
 
 extension View {
+    /// Header icon buttons — 44×44 minimum touch target (HIG 44pt rule),
+    /// with the tinted circular backdrop as the visible size.
     func headerButtonStyle(accent: Color) -> some View {
-        self.frame(width: 36, height: 36)
+        self.frame(width: 44, height: 44)
             .background(accent.opacity(0.1))
             .clipShape(Circle())
     }

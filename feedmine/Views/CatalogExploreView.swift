@@ -197,11 +197,13 @@ struct CatalogExploreView: View {
                     Text(source.title)
                         .font(.subheadline)
                         .lineLimit(1)
+                        .minimumScaleFactor(0.75)
                     if let host = source.displayHost {
                         Text(host)
                             .font(.caption)
                             .foregroundStyle(.tertiary)
                             .lineLimit(1)
+                            .minimumScaleFactor(0.75)
                     }
                 }
                 Spacer()
@@ -261,8 +263,11 @@ struct CatalogExploreView: View {
                 Image(systemName: "xmark")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
+                    .frame(minWidth: 44, minHeight: 44)
+                    .contentShape(Rectangle())
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Dismiss error")
         }
         .padding(8)
         .background(.ultraThinMaterial)

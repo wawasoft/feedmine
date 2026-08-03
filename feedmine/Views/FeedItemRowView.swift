@@ -19,7 +19,7 @@ struct FeedItemRowView: View {
                             .fill(Color.purple.opacity(0.15))
                             .overlay {
                                 Image(systemName: "play.fill")
-                                    .font(.system(size: 16, weight: .medium))
+                                    .font(.subheadline.weight(.medium))
                                     .foregroundStyle(Color.purple.opacity(0.5))
                                     .offset(x: 1)
                             }
@@ -46,7 +46,9 @@ struct FeedItemRowView: View {
                     Text(item.category)
                         .font(.caption2)
                         .fontWeight(.medium)
-                        .foregroundStyle(categoryColor(item.category))
+                        // Category hues are too light as text on white —
+                        // darken to WCAG AA 4.5:1.
+                        .foregroundStyle(ComponentToken.badgeTextColor(categoryColor(item.category)))
                     Text("·")
                         .font(.caption2)
                         .foregroundStyle(.tertiary)

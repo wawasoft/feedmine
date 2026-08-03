@@ -19,8 +19,9 @@ struct StoryDuelScene: View {
             VStack(spacing: 10) {
             // Question
             Text("Which would you open first?")
-                .font(.system(size: 22, weight: .bold))
+                .font(.title2.weight(.bold))
                 .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.7)
                 .padding(.horizontal, 20)
                 .padding(.top, 8)
 
@@ -75,6 +76,7 @@ struct StoryDuelScene: View {
             }
             .padding(.bottom, 52)
         }
+        .dynamicTypeSize(...DynamicTypeSize.accessibility3)
         .safeAreaInset(edge: .bottom) {
             Button("Skip to review") {
                 onSkip()

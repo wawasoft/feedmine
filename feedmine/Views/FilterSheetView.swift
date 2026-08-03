@@ -42,6 +42,8 @@ struct FilterSheetView: View {
                         Label("Clear All Filters", systemImage: "xmark.circle")
                     }
                     .disabled(!hasDraftFilters && loader.searchQuery.isEmpty)
+                    .accessibilityLabel("Clear all filters")
+                    .accessibilityHint("Resets content type, language, mood, and region filters")
                 }
 
                 Section("Feeds") {
@@ -155,6 +157,7 @@ struct FilterSheetView: View {
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                                     .lineLimit(1)
+                                    .minimumScaleFactor(0.7)
                             }
                         }
                     }

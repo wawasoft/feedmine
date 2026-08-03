@@ -20,6 +20,7 @@ struct StoryDuelCard: View {
                         .fontWeight(.semibold)
                         .foregroundStyle(accent)
                         .lineLimit(1)
+                        .minimumScaleFactor(0.75)
                     Spacer()
                     if candidate.item.isPodcast {
                         Label("Podcast", systemImage: "headphones")
@@ -41,9 +42,10 @@ struct StoryDuelCard: View {
 
                 // Title
                 Text(candidate.item.title)
-                    .font(.system(size: 17, weight: .semibold))
+                    .font(.headline.weight(.semibold))
                     .foregroundStyle(.primary)
                     .lineLimit(3)
+                    .minimumScaleFactor(0.8)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 12)
