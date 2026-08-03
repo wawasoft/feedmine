@@ -61,6 +61,24 @@ CATEGORY_CONFIG = {
         "media_kind": "video",
         "default_enabled": "true",
     },
+    "news": {
+        "topic": "News & Current Affairs",
+        "subcategory": "News",
+        "nature": "current-sensitive",
+        "quality": "50",
+        "activity": "active",
+        "media_kind": "text",
+        "default_enabled": "true",
+    },
+    "influencers": {
+        "topic": "General Interests",
+        "subcategory": "Influencers",
+        "nature": "periodic",
+        "quality": "55",
+        "activity": "active",
+        "media_kind": "mixed",
+        "default_enabled": "true",
+    },
 }
 
 

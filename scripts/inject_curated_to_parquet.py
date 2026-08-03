@@ -52,6 +52,16 @@ CATEGORY_CONFIG = {
         "subcategory": "Universities",
         "media_kind": "video",
     },
+    "news": {
+        "topic": "News & Current Affairs",
+        "subcategory": "News",
+        "media_kind": "text",
+    },
+    "influencers": {
+        "topic": "General Interests",
+        "subcategory": "Influencers",
+        "media_kind": "mixed",
+    },
 }
 
 
