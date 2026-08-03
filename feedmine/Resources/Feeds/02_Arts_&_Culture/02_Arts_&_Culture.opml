@@ -78,7 +78,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="design, branding, packaging, typography, inspiration" />
                     <outline text="arun.is"
                              title="arun.is"
                              type="rss"
@@ -94,7 +94,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="design, personal blog, creativity, travel, observations" />
                     <outline text="Automattic Design"
                              title="Automattic Design"
                              type="rss"
@@ -110,7 +110,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="design, WordPress, UX, AI, web design" />
                     <outline text="Blog - Amy Goodchild"
                              title="Blog - Amy Goodchild"
                              type="rss"
@@ -126,7 +126,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="generative art, creative coding, JavaScript, p5.js, art tutorials" />
                     <outline text="Jorge Arango"
                              title="Jorge Arango"
                              type="rss"
@@ -142,7 +142,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="information architecture, systems thinking, AI, design, podcast" />
                     <outline text="Maggie Appleton"
                              title="Maggie Appleton"
                              type="rss"
@@ -158,7 +158,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="programming, design, anthropology, artificial intelligence, essays" />
                     <outline text="Plus Equals"
                              title="Plus Equals"
                              type="rss"
@@ -174,7 +174,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="algorithmic art, combinatorics, zine, generative art, design" />
                     <outline text="Rob Weychert"
                              title="Rob Weychert"
                              type="rss"
@@ -190,7 +190,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="art, design, film reviews, music, web development" />
                     <outline text="swissmiss"
                              title="swissmiss"
                              type="rss"
@@ -206,7 +206,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="design, inspiration, creativity, quotes, lifestyle" />
                     <outline text="The personal website of Matthew Ström"
                              title="The personal website of Matthew Ström"
                              type="rss"
@@ -222,7 +222,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="design, technology, workplace, culture, essays" />
                     <outline text="Truth &amp; Beauty"
                              title="Truth &amp; Beauty"
                              type="rss"
@@ -238,7 +238,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="data visualization, information design, visual storytelling, design talks, visual analytics" />
                     <outline text="| Nightingale | Nightingale"
                              title="| Nightingale | Nightingale"
                              type="rss"
@@ -254,7 +254,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="data visualization, analytics, design, data literacy, AI" />
         </outline>
     <outline text="Books &amp; Literature" title="Books &amp; Literature">
       <outline text="螺丝在拧紧" title="螺丝在拧紧" type="rss" xmlUrl="https://www.ximalaya.com/album/47008946.xml" description="A Chinese podcast hosted by Wu Qi that engages in deep conversations with writers, editors, and cultural figures, exploring social issues, literature, art, and personal experiences in contemporary China." language="zh-CN" category="podcast,chinese culture,social commentary,literature,art" feedmineSourceId="2784e24a3604402aa48f091619313b6fab2b30b34b228ef2af075bbfe8429176" feedmineTopic="Arts &amp; Culture" feedmineSubcategory="Books &amp; Literature" feedmineNature="evergreen" feedmineActivity="prolific" feedmineArticlesFetched="30" feedmineQualityScore="96" feedmineDefaultEnabled="true" feedmineMediaKind="text" htmlUrl="https://www.ximalaya.com/album/47008946" feedmineLatestItemAt="2026-07-08 16:30:00-07"/>
@@ -517,7 +517,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="marketing, cartoons, advertising, business, humor" />
         </outline>
     <outline text="Culture &amp; Heritage" title="Culture &amp; Heritage">
       <outline text="日谈公园" title="日谈公园" type="rss" xmlUrl="https://www.ximalaya.com/album/5574153.xml" description="A Chinese talk podcast covering a wide range of topics including culture, sports, movies, family relationships, and personal life advice." language="zh-CN" category="podcast,culture,lifestyle,society,entertainment" feedmineSourceId="c10680b30cd7e92e1fbe4359801f2140208aba6a0e028f9b1da63de07b78da4b" feedmineTopic="Arts &amp; Culture" feedmineSubcategory="Culture &amp; Heritage" feedmineNature="current-sensitive" feedmineActivity="prolific" feedmineArticlesFetched="30" feedmineQualityScore="91" feedmineDefaultEnabled="true" feedmineMediaKind="text" htmlUrl="https://www.ximalaya.com/album/5574153" feedmineLatestItemAt="2026-07-19 13:00:00-07"/>
@@ -801,7 +801,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="photography, daily blog, personal, family, tech" />
                     <outline text="PetaPixel"
                              title="PetaPixel"
                              type="rss"
@@ -817,7 +817,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="photography, camera news, gear reviews, lenses, inspiration" />
         </outline>
     <outline text="Arts &amp; Culture" title="Arts &amp; Culture">
       <outline text="Visual Arts" title="Visual Arts">

@@ -62,17 +62,7 @@ final class FeedLoader {
     var feedDisplayPhase: FeedDisplayPhase { store.feedDisplayPhase }
     var totalFetched: Int { store.totalFetched }
     var fetchErrorCount: Int { store.fetchErrorCount }
-    /// Unified source count from bridge when active, legacy otherwise. (Etapa 6)
-    /// Total source count. Uses unified bridge when it has data,
-    /// otherwise falls back to the registry. Prevents /0 display in debug.
-    var sourceCount: Int {
-        if Settings.unifiedSelectionState,
-           let bridge = store.selectionBridge,
-           bridge.eligibleSourceCount > 0 {
-            return bridge.eligibleSourceCount
-        }
-        return store.registry.sourceCount
-    }
+    var sourceCount: Int { store.registry.sourceCount }
     /// Sources available under the current filter configuration
     /// (preset, region, language, content type, taxonomy).
     var activeSources: [FeedSource] {
@@ -114,15 +104,7 @@ final class FeedLoader {
         }
     }
     var activeSourceCount: Int {
-        if let filter = store.presetSourceFilter { return filter.count }
-        let legacyCount = activeSources.count
-        // Use unified count when bridge has real data, fall back to legacy
-        if Settings.unifiedSelectionState,
-           let bridge = store.selectionBridge,
-           bridge.eligibleSourceCount > 0 {
-            return bridge.eligibleSourceCount
-        }
-        return legacyCount
+        store.presetSourceFilter?.count ?? activeSources.count
     }
     var podcastSourceCount: Int { store.podcastSourceCount }
     var podcastItemCount: Int { store.podcastItemCount }
@@ -200,6 +182,7 @@ final class FeedLoader {
     }
     // Single source of truth: all filter state lives in FeedStore
     var selectedContentType: ContentType { store.activeContentType }
+    var selectedMood: MoodFilter { store.activeMood }
     var selectedNodeIDs: Set<String> { store.activeNodeIDs }
     var selectedNodeNames: [String] { TaxonomyStore.shared.selectedNodeNames }
     var selectedLanguages: Set<String> { store.activeLanguages }
@@ -210,7 +193,7 @@ final class FeedLoader {
     var hasActiveFilters: Bool {
         if activePreset.isSmartFeed { return true }
         return activePreset != .everything
-            || hasRegionSelection || hasTaxonomySelection
+            || hasRegionSelection || hasTaxonomySelection || selectedMood != .all
             || selectedContentType != .all || hasLanguageSelection
     }
     var activeFilterCount: Int {
@@ -223,6 +206,7 @@ final class FeedLoader {
         count += selectedNodeIDs.count
         count += selectedLanguages.count
         if selectedContentType != .all { count += 1 }
+        if selectedMood != .all { count += 1 }
         if !searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { count += 1 }
         return count
     }
@@ -231,6 +215,49 @@ final class FeedLoader {
     /// Backward-compat: returns name of first selected node, or nil.
     var selectedCategory: String? {
         selectedNodeIDs.first.flatMap { TaxonomyStore.shared.flatIndex[$0]?.name }
+    }
+
+    // MARK: - Mood Filter
+
+    enum MoodFilter: String, CaseIterable, Identifiable {
+        case all = "All"
+        case serious = "Serious"
+        case fun = "Fun"
+        case technical = "Technical"
+        case inspiring = "Inspiring"
+        var id: String { rawValue }
+        var icon: String {
+            switch self {
+            case .all: return "circle.grid.3x3.fill"
+            case .serious: return "newspaper.fill"
+            case .fun: return "sparkles"
+            case .technical: return "gearshape.2.fill"
+            case .inspiring: return "sun.max.fill"
+            }
+        }
+        func matches(_ title: String) -> Bool {
+            let lower = title.lowercased()
+            switch self {
+            case .all: return true
+            case .serious:
+                return lower.contains("crisis") || lower.contains("war") || lower.contains("death") ||
+                       lower.contains("killed") || lower.contains("attack") || lower.contains("emergency") ||
+                       lower.contains("ban") || lower.contains("ruling") || lower.contains("court")
+            case .fun:
+                return lower.contains("fun") || lower.contains("amazing") || lower.contains("incredible") ||
+                       lower.contains("wow") || lower.contains("hilarious") || lower.contains("funny") ||
+                       lower.contains("adorable") || lower.contains("genius") || lower.contains("brilliant")
+            case .technical:
+                return lower.contains("ai") || lower.contains("code") || lower.contains("data") ||
+                       lower.contains("algorithm") || lower.contains("startup") || lower.contains("tech") ||
+                       lower.contains("software") || lower.contains("hardware") || lower.contains("api") ||
+                       lower.contains("quantum") || lower.contains("robot") || lower.contains("chip")
+            case .inspiring:
+                return lower.contains("discovered") || lower.contains("breakthrough") || lower.contains("solved") ||
+                       lower.contains("cure") || lower.contains("hope") || lower.contains("inspiring") ||
+                       lower.contains("hero") || lower.contains("changed") || lower.contains("revolutionary")
+            }
+        }
     }
 
     // MARK: - Language Filter
@@ -699,7 +726,7 @@ final class FeedLoader {
         let languages = resolvedLanguagesForFilter(store.activeLanguages)
         store.setFilter(region: store.activeRegion,
                         nodeIDs: TaxonomyStore.shared.selectedNodeIDs,
-                        type: store.activeContentType,
+                        type: store.activeContentType, mood: store.activeMood,
                         languages: languages)
     }
 
@@ -716,6 +743,7 @@ final class FeedLoader {
             region: store.activeRegion,
             nodeIDs: Set(validNodeIDs),
             type: store.activeContentType,
+            mood: store.activeMood,
             languages: languages
         )
     }
@@ -731,7 +759,7 @@ final class FeedLoader {
         store.hasUserClearedLanguageFilter = langs.isEmpty
         store.setFilter(region: store.activeRegion,
                         nodeIDs: store.activeNodeIDs,
-                        type: store.activeContentType,
+                        type: store.activeContentType, mood: store.activeMood,
                         languages: langs)
     }
 
@@ -740,7 +768,7 @@ final class FeedLoader {
         let languages = resolvedLanguagesForFilter(store.activeLanguages)
         store.setFilter(region: store.activeRegion,
                         nodeIDs: [],
-                        type: store.activeContentType,
+                        type: store.activeContentType, mood: store.activeMood,
                         languages: languages)
     }
 
@@ -748,7 +776,7 @@ final class FeedLoader {
         let languages = resolvedLanguagesForFilter(store.activeLanguages)
         store.setFilter(region: nil,
                         nodeIDs: store.activeNodeIDs,
-                        type: store.activeContentType,
+                        type: store.activeContentType, mood: store.activeMood,
                         languages: languages)
     }
 
@@ -763,11 +791,19 @@ final class FeedLoader {
         }
     }
 
+    func selectMood(_ mood: MoodFilter) {
+        let newValue = (store.activeMood == mood) ? .all : mood
+        let languages = resolvedLanguagesForFilter(store.activeLanguages)
+        store.setFilter(region: store.activeRegion, nodeIDs: store.activeNodeIDs,
+                        type: store.activeContentType, mood: newValue,
+                        languages: languages)
+    }
+
     func selectContentType(_ type: ContentType) {
         let newValue = (store.activeContentType == type) ? .all : type
         let languages = resolvedLanguagesForFilter(store.activeLanguages)
         store.setFilter(region: store.activeRegion, nodeIDs: store.activeNodeIDs,
-                        type: newValue,
+                        type: newValue, mood: store.activeMood,
                         languages: languages)
     }
 
@@ -875,12 +911,13 @@ final class FeedLoader {
     }
     func beginFilterEditing() { store.beginFilterEditing() }
     func endFilterEditing() { store.endFilterEditing() }
-    func applyFilterDraft(type: ContentType, languages: Set<String>) {
+    func applyFilterDraft(type: ContentType, mood: MoodFilter, languages: Set<String>) {
         store.hasUserClearedLanguageFilter = languages.isEmpty
         store.setFilter(
             region: store.activeRegion,
             nodeIDs: store.activeNodeIDs,
             type: type,
+            mood: mood,
             languages: languages
         )
     }
@@ -966,6 +1003,7 @@ final class FeedLoader {
             region: store.activeRegion,
             nodeIDs: store.activeNodeIDs,
             type: store.activeContentType,
+            mood: store.activeMood,
             languages: languages
         )
     }
@@ -1410,6 +1448,7 @@ final class FeedLoader {
             region: store.activeRegion,
             nodeIDs: store.activeNodeIDs,
             type: store.activeContentType,
+            mood: store.activeMood,
             languages: store.activeLanguages
         )
     }

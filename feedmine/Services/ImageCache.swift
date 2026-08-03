@@ -855,12 +855,6 @@ struct CachedAsyncImage: View {
                 Image(uiImage: image)
                     .resizable()
                     .opacity(loadedImage == nil ? 1 : imageOpacity)
-                    .onAppear {
-                        // Memory-cache hits render immediately but never enter
-                        // the async load() path that fires onResult. Consumers
-                        // like FeedItemCardView gate visibility on this callback.
-                        if loadedImage == nil { onResult?(true) }
-                    }
             } else if !didAttempt {
                 Color.clear
                     .task(id: retryCount) { await load() }

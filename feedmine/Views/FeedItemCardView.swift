@@ -483,13 +483,7 @@ struct FeedItemCardView: View, Equatable {
 
     // MARK: - Helpers
 
-    /// Published within the last hour. Uses publishedAt directly because
-    /// sectionDayOffset defaults to 0 for items loaded from the SQLite cache
-    /// and has no corresponding DB column, so every cached item would appear
-    /// as "New" on cold start.
-    private var isNew: Bool {
-        Date().timeIntervalSince(item.publishedAt) < 3600
-    }
+    private var isNew: Bool { item.sectionDayOffset == 0 }
 
     private static let relativeFormatter: RelativeDateTimeFormatter = {
         let f = RelativeDateTimeFormatter()

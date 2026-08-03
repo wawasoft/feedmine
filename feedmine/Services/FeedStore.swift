@@ -40,7 +40,6 @@ final class FeedStore {
         usesPersistentStorage && Settings.preparedFeedPipelineEnabled
     }
     /// Monotonic counter incremented on filter/preset/mode changes.
-    /// Replaced by SelectionID. Remove in Phase 7 (Fase 7 L6).
     private var presentationEpoch: UInt64 = 0
     /// Active context for the current feed composition.
     private var activePresentationContext = FeedPresentationContext(
@@ -63,74 +62,6 @@ final class FeedStore {
     let sourceCollectionStore: SourceCollectionStore
     let searchEngine: SearchEngine
     let whatsNewManager: WhatsNewManager
-
-    // MARK: - Unified Selection Engine (Phase 1–3)
-    /// The selection bridge. Created when unifiedSelectionEngine feature flag is on.
-    /// Manages SelectionSessions and exposes unified state/counters to the UI.
-    var selectionBridge: FeedStoreSelectionBridge?
-
-    /// Sync public observable state from the unified bridge.
-    /// Called internally after session state changes when unifiedSelectionState is active.
-    func syncPublicStateFromBridge() {
-        guard let bridge = selectionBridge,
-              Settings.unifiedSelectionState else { return }
-        visibleItems = bridge.visibleItems
-        visibleCards = bridge.visibleCards
-        visibleItemsGeneration = bridge.visibleItemsGeneration
-        loadingState = bridge.loadingState
-        hasPreviouslyLoadedContent = bridge.hasPreviouslyLoadedContent
-        reservoirCount = bridge.reservoirCount
-    }
-
-    /// Apply unified filter state to store properties. Called from extension.
-    func applyUnifiedFilterState(
-        region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType,
-        languages: Set<String>
-    ) {
-        activeRegion = region
-        activeNodeIDs = nodeIDs
-        activeContentType = type
-        activeLanguages = languages
-        Settings.filterRegion = region
-        Settings.filterTaxonomyNodes = Array(nodeIDs)
-        Settings.filterContentType = type.rawValue
-        Settings.filterLanguages = Array(languages)
-        filterGeneration &+= 1
-        presentationEpoch &+= 1
-        // Clear screen immediately (Etapa 1.1-1.2)
-        if !visibleItems.isEmpty {
-            visibleItems = []
-            visibleCards = []
-            visibleItemsGeneration &+= 1
-            loadingState = .refreshing
-            cardPreparationTask?.cancel()
-            reservoir.clear()
-            reservoirCount = 0
-        }
-    }
-
-    /// Apply unified preset state to store properties.
-    func applyUnifiedPresetState(_ preset: PresetSelector) {
-        activePreset = preset
-        Settings.activePreset = preset
-        presetGeneration &+= 1
-        presentationEpoch &+= 1
-    }
-
-    /// Apply unified reset state to store properties.
-    func applyUnifiedResetState() {
-        activeRegion = nil
-        activeNodeIDs = []
-        activeContentType = .all
-        activeLanguages = []
-        hasUserClearedLanguageFilter = true
-        Settings.filterRegion = nil
-        Settings.filterTaxonomyNodes = []
-        Settings.filterContentType = "All"
-        Settings.filterLanguages = []
-        filterGeneration &+= 1
-        presentationEpoch &+= 1
-    }
 
     // MARK: - Public state
     private(set) var visibleItems: [FeedItem] = []
@@ -189,6 +120,7 @@ final class FeedStore {
     var activeRegion: String?
     var activeNodeIDs: Set<String> = []
     var activeContentType: FeedLoader.ContentType = .all
+    var activeMood: FeedLoader.MoodFilter = .all
     var activeLanguages: Set<String> = []
     /// True when the user explicitly chose "all languages" (cleared filter).
     /// Reset when the user toggles a specific language. Not persisted — on
@@ -234,30 +166,17 @@ final class FeedStore {
     /// of O(items x selectedNodes).
     private(set) var cachedTaxonomyFeedURLs: Set<String> = []
     private var cachedTaxonomyNodeIDs: Set<String> = []
-    /// [Fase 7 L6] Replaced by SelectionID.
-    private var _filterGeneration: Int64 = 0
-    private var filterGeneration: Int64 {
-        get { _filterGeneration }
-        set {
-            if Settings.unifiedSelectionLegacyRemoved {
-                Log.feed.error("[Fase7] filterGeneration set but legacy is removed. Use SelectionID.")
-                return
-            }
-            _filterGeneration = newValue
-        }
-    }
-    /// [Fase 7 L6] Replaced by SelectionID.
-    private var _presetGeneration: Int64 = 0
-    private var presetGeneration: Int64 {
-        get { _presetGeneration }
-        set {
-            if Settings.unifiedSelectionLegacyRemoved {
-                Log.feed.error("[Fase7] presetGeneration set but legacy is removed. Use SelectionID.")
-                return
-            }
-            _presetGeneration = newValue
-        }
-    }
+    /// Monotonic counter incremented on every filter change. Async operations
+    /// (urgent fetch, reloadFromSQLite pipeline) capture the generation at launch
+    /// and discard results if a newer filter has been applied in the meantime.
+    private var filterGeneration: Int64 = 0
+    /// Monotonic counter incremented on every preset change. Async operations
+    /// originated by a preset selection (rebuild, source-enablement refresh,
+    /// collection hydration, filter reloads) capture the generation at launch
+    /// and discard results if a newer preset has been selected in the meantime.
+    /// This prevents a stale editorial source-enablement flush from clearing
+    /// correctly-hydrated collection content.
+    private var presetGeneration: Int64 = 0
     /// When set, the feed shows only items from this bookmark list.
     var selectedBookmarkListID: Int64?
     /// Preferred box for saving bookmarks. Defaults to the "Favorites" list.
@@ -267,10 +186,6 @@ final class FeedStore {
     /// Load a fixed bookmark feed — all items from the box, ordered by save date.
     /// Pauses all background processes that would modify the screen.
     func loadBookmarkFeed(items: [FeedItem]) {
-        // The unified selection bridge only manages main-feed content.
-        // Bookmarks always render from legacy visibleItems (see FeedLoader.useBridgeForUI).
-        // submitUnifiedBookmarks exists as a placeholder for when the engine
-        // supports secondary surfaces with item-ID whitelisting.
         isBookmarkFeed = true
         currentMode = .bookmarks(selectedBookmarkListID)
         pipelineTask?.cancel()
@@ -578,19 +493,18 @@ final class FeedStore {
     /// Hit recording is NOT performed here; it happens once at ingestion time
     /// in persistFetchedItems so each item is counted exactly once regardless
     /// of how many times applyFilters runs on the same items.
-    // Cache content filter results per item ID to avoid O(k) string
+    // Cache mood/content filter results per item ID to avoid O(k) string
     // scanning on every applyFilters call (called on each reservoir operation).
+    private var moodMatchCache: [String: Bool] = [:]
+    private var moodMatchCacheKey: String = ""
     private var contentFilterExcludeCache: [String: Bool] = [:]
-    private var lastContentFilterIDs: Set<UUID> = []    /// [Fase 7 L1] Replaced by InMemoryItemRuleEvaluator + ItemRuleSet.
+
     func applyFilters(_ items: [FeedItem], includeConsumed: Bool = true) -> [FeedItem] {
-        if Settings.unifiedSelectionLegacyRemoved {
-            Log.feed.error("[Fase7] applyFilters called but legacy is removed. Use ItemRuleSet.")
-            return items
-        }
         refreshCachedTaxonomyFeedURLsIfNeeded()
         let region = activeRegion
         let contentType = filterContentType
         let languages = activeLanguages
+        let mood = activeMood
         let contentFilters = ContentFilterStore.shared.isEnabled
             ? ContentFilterStore.shared.activeFilters : []
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
@@ -601,10 +515,14 @@ final class FeedStore {
         let smartFeedIDs = activeSmartFeedItemIDs
         let consumedIDs = consumedItemIDs
 
-        let currentFilterIDs = Set(contentFilters.map(\.id))
-        if currentFilterIDs != lastContentFilterIDs {
+        // Invalidate mood cache when mood changes (use rawValue as stable key)
+        let moodKey = mood.rawValue
+        if moodKey != moodMatchCacheKey {
+            moodMatchCache.removeAll()
+            moodMatchCacheKey = moodKey
+        }
+        if contentFilters.isEmpty {
             contentFilterExcludeCache.removeAll()
-            lastContentFilterIDs = currentFilterIDs
         }
 
         return items.filter { item in
@@ -619,6 +537,16 @@ final class FeedStore {
             guard cachedTaxonomyFeedURLs.isEmpty || cachedTaxonomyFeedURLs.contains(normalizedSourceURL) else { return false }
             guard Self.languageFilterMatchesNormalized(itemLanguage: item.language, selectedLanguages: languages, deviceLanguage: deviceLanguage) else { return false }
             guard contentType(item) else { return false }
+
+            // Mood check — cached per item ID (deterministic for a given mood)
+            if mood != .all {
+                if let cached = moodMatchCache[item.id] { guard cached else { return false } }
+                else {
+                    let match = mood.matches(item.title)
+                    moodMatchCache[item.id] = match
+                    guard match else { return false }
+                }
+            }
 
             // Content filter check — cached per item ID
             if !contentFilters.isEmpty {
@@ -1447,62 +1375,6 @@ final class FeedStore {
     func start() async {
         guard !hasStarted else { return }
         hasStarted = true
-
-        // --- Initialize unified selection engine (Phase 1–3) ---
-        // Wire the full pipeline: catalog adapter + real snapshots + executor.
-        // When unifiedSelectionMainFeed is on, the engine executes the real
-        // pipeline (cache → eligibility → ranking → mix → preparation → publish).
-        let catalogAdapter = SourceRegistryCatalogAdapter(registry: registry)
-        let snapshotBuilder = SelectionSnapshotBuilder(
-            registry: registry, taxonomyStore: TaxonomyStore.shared
-        )
-        let executor = SelectionExecutor(
-            db: db,
-            fetcher: fetcher,
-            scheduler: scheduler,
-            preparationCoordinator: preparationCoordinator!,
-            runwayPolicy: runwayPolicy
-        )
-        // Wire multiplier providers so editorial presets + curated profiles
-        // get real scoring boosts, not baseline 1.0 (P1-5)
-        executor.presetMultiplierProvider = { [weak self] in
-            guard let self else { return [:] }
-            var result: [SourceID: Double] = [:]
-            for (url, mult) in self.presetMultipliers {
-                let sid = CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: url))
-                result[sid] = mult
-            }
-            return result
-        }
-        executor.curatedMultiplierProvider = { [weak self] in
-            guard let self else { return [:] }
-            // Curated profile multipliers come from CuratedPreferenceEngine
-            // when a curated profile is active.
-            guard case .curatedFeed = self.activePreset else { return [:] }
-            var result: [SourceID: Double] = [:]
-            for source in self.registry.sources {
-                let sid = CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: source.url))
-                // Placeholder: actual curated multipliers require profile data
-                result[sid] = 1.0
-            }
-            return result
-        }
-        // 5.2 note: sourceURLProvider available on catalogAdapter.sourceURLs(for:)
-        // Deferred until GRDB StatementArguments concat is resolved.
-        initializeSelectionEngine(
-            catalog: catalogAdapter,
-            snapshotBuilder: snapshotBuilder,
-            executor: executor
-        )
-        // If unified main feed is on, let the legacy startup finish
-        // (OPML, taxonomy, filter restore, network monitor) then submit
-        // through the unified engine instead of the legacy content path.
-        // The flag check at the end of start() routes accordingly.
-        let useUnifiedMainFeed = Settings.unifiedSelectionMainFeed
-            && !activePreset.isSmartFeed
-            && !activePreset.isLastClicked
-            && activePreset.collectionID == nil
-
         loadingState = .initial
         isPreparingInitialRunway = true
         startupFetchedSourceCount = 0
@@ -1644,20 +1516,6 @@ final class FeedStore {
             } catch {
                 Log.feed.error("collection preset cache hydration failed: \(error)")
             }
-        } else if useUnifiedMainFeed, let bridge = selectionBridge {
-            // Unified engine path: submit the main feed request after catalog
-            // is fully loaded. The engine handles cache→eligibility→ranking→
-            // mix→preparation→publish.
-            bridge.activeRegion = activeRegion
-            bridge.activeNodeIDs = activeNodeIDs
-            bridge.activeLanguages = activeLanguages
-            bridge.activeContentType = activeContentType
-            bridge.contentFilterKeywords = ContentFilterStore.shared.isEnabled
-                ? Set(ContentFilterStore.shared.activeFilters.flatMap { $0.keywords })
-                : []
-            bridge.submitMainFeedRequest()
-            isPreparingInitialRunway = false
-            loadingState = .idle
         } else if visibleItems.isEmpty {
             await reloadFromSQLite()
         } else {
@@ -1741,17 +1599,37 @@ final class FeedStore {
             // owns first paint. Otherwise keep collecting distinct providers;
             // never fall through to the normal progressive path with a thin
             // four- or five-source sample.
+            //
+            // Deadline (30 s) prevents the cold start from blocking first paint
+            // indefinitely when network conditions can't satisfy the 100-source
+            // gate. A search-in-progress no-ops fetchNextBatch without burning
+            // a real attempt via the short-circuit backoff below.
             var coldStartAttempts = 0
+            let coldStartDeadline = Date().addingTimeInterval(30)
             while self.visibleItems.isEmpty,
                   self.reservoir.reservoirCount == 0,
-                  coldStartAttempts < 3 {
+                  coldStartAttempts < 3,
+                  Date() < coldStartDeadline {
                 coldStartAttempts += 1
                 await self.fetchNextBatch()
+                // fetchNextBatch returns immediately when searching;
+                // only count real network attempts against the limit.
+                if self.isSearching { coldStartAttempts -= 1 }
+            }
+            // Progressive fallback: persist whatever the cold start gathered
+            // so the user sees *something* instead of a dead loading screen.
+            if self.visibleItems.isEmpty,
+               self.reservoir.reservoirCount == 0,
+               !self.coldStartPendingItems.isEmpty {
+                let partial = Array(self.coldStartPendingItems.prefix(20))
+                _ = await self.persistFetchedItems(partial)
+                self.coldStartPendingItems.removeAll()
+                Log.feed.info("cold start published partial: items=\(partial.count)")
             }
             guard !self.visibleItems.isEmpty || self.reservoir.reservoirCount > 0 else {
                 self.isPreparingInitialRunway = false
                 self.loadingState = .idle
-                Log.feed.info("cold start still withheld after \(coldStartAttempts) registry attempts")
+                Log.feed.info("cold start still withheld after \(coldStartAttempts) real attempts (30 s deadline expired)")
                 return
             }
             // Bulk-fill only when the local runway is genuinely shallow. A
@@ -1810,6 +1688,7 @@ final class FeedStore {
             region: activeRegion,
             nodeIDs: activeNodeIDs,
             type: activeContentType,
+            mood: activeMood,
             languages: activeLanguages
         )
         FeedMetrics.event(
@@ -2185,12 +2064,6 @@ final class FeedStore {
     /// OPML, no restarting the network monitor, no re-hydrating SQLite, no
     /// baseline reset. Falls back to full startup if the store never started.
     func refreshNow() async {
-        // --- Unified Selection Engine path (Phase 3+) ---
-        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
-            submitUnifiedRefresh()
-            return
-        }
-        // --- Legacy path ---
         guard hasStarted else { await start(); return }
         if let smartFeedID = activePreset.smartFeedID {
             await refreshSmartFeed(id: smartFeedID)
@@ -2223,12 +2096,6 @@ final class FeedStore {
     }
 
     func loadMoreIfNeeded(currentItem: FeedItem) async {
-        // --- Unified Selection Engine path (Phase 3+) ---
-        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
-            submitUnifiedLoadMore()
-            return
-        }
-        // --- Legacy path ---
         guard !isSearching else { return }
         guard !isBookmarkFeed else { return }
         guard !activePreset.isSmartFeed else { return }
@@ -2238,14 +2105,11 @@ final class FeedStore {
         // Cards appear in rapid succession during scroll; only the last one matters.
         let now = Date()
         if let last = lastLoadMoreAttempt, now.timeIntervalSince(last) < 0.3 { return }
+        lastLoadMoreAttempt = now
 
         guard let itemIndex = visibleItems.firstIndex(where: { $0.id == currentItem.id }) else { return }
         guard itemIndex >= visibleItems.count - Reservoir.loadMoreThreshold else { return }
         guard itemIndex != lastLoadedIndex else { return }
-        // Only arm the throttle AFTER confirming we actually need a load-more.
-        // Otherwise a mid-list card that fails the threshold guard still
-        // suppresses the legitimate bottom-edge trigger arriving < 300ms later.
-        lastLoadMoreAttempt = now
         lastLoadedIndex = itemIndex
 
         scheduler.recordConsumption()
@@ -2333,6 +2197,7 @@ final class FeedStore {
         Settings.filterTaxonomyNodes = Array(activeNodeIDs)
         Settings.filterContentType = activeContentType.rawValue
         Settings.filterLanguages = Array(activeLanguages)
+        Settings.filterMood = activeMood.rawValue
         Settings.filterSetAt = Date().timeIntervalSince1970
     }
 
@@ -2356,6 +2221,7 @@ final class FeedStore {
             || !Settings.filterTaxonomyNodes.isEmpty
             || (FeedLoader.ContentType(rawValue: Settings.filterContentType) ?? .all) != .all
             || !Settings.filterLanguages.isEmpty
+            || (FeedLoader.MoodFilter(rawValue: Settings.filterMood) ?? .all) != .all
 
         if hasActiveFilters && Settings.filterAutoExpire {
             let elapsed = Date().timeIntervalSince1970 - Settings.filterSetAt
@@ -2363,6 +2229,7 @@ final class FeedStore {
                 Settings.filterRegion = nil
                 Settings.filterTaxonomyNodes = []
                 Settings.filterContentType = "All"
+                Settings.filterMood = "all"
                 Settings.filterLanguages = []
                 Settings.filterSetAt = 0
                 return
@@ -2398,43 +2265,12 @@ final class FeedStore {
         if let type = FeedLoader.ContentType(rawValue: Settings.filterContentType) {
             activeContentType = type
         }
+        if let mood = FeedLoader.MoodFilter(rawValue: Settings.filterMood) {
+            activeMood = mood
+        }
     }
 
-    func setFilter(region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType, languages: Set<String>? = nil) {
-        // --- Unified Selection Engine path (Phase 3+) ---
-        if Settings.unifiedSelectionMainFeed, let bridge = selectionBridge {
-            let langs = languages.map { Self.normalizedLanguageSet($0) } ?? activeLanguages
-            submitUnifiedFilter(region: region, nodeIDs: nodeIDs, type: type, languages: langs)
-            return
-        }
-
-        // --- Shadow mode (Phase 1): run unified compiler alongside legacy ---
-        if Settings.unifiedSelectionShadow, let bridge = selectionBridge {
-            let langs = languages.map { Self.normalizedLanguageSet($0) } ?? activeLanguages
-            let eligibleSourceCount = registry.enabledSources.count
-            // Compile the unified plan for comparison (does not affect UI)
-            Task { [weak self] in
-                guard let self else { return }
-                bridge.activeRegion = region
-                bridge.activeNodeIDs = nodeIDs
-                bridge.activeContentType = type
-                bridge.activeLanguages = langs
-                // Build the same request submitUnifiedFilter uses so the shadow
-                // comparison tests the actual filter, not a reset. (I1, I2)
-                let sourceUniverse: SourceUniversePolicy = nodeIDs.isEmpty && type == .all
-                    ? .enabledLibrary
-                    : .expandedCatalogRespectingExplicitOff
-                bridge.submitMainFeedRequest(
-                    sourceUniverse: sourceUniverse,
-                    taxonomyNodeIDs: nodeIDs.isEmpty ? nil : nodeIDs,
-                    contentTypes: type == .all ? nil : [type],
-                    region: region,
-                    observe: false  // Shadow mode — observe, don't hijack UI
-                )
-                Log.feed.info("[SelectionShadow] filter compiled: legacyEligible=\(eligibleSourceCount)")
-            }
-        }
-        // --- Legacy path ---
+    func setFilter(region: String?, nodeIDs: Set<String>, type: FeedLoader.ContentType, mood: FeedLoader.MoodFilter = .all, languages: Set<String>? = nil) {
         // Increment generation BEFORE updating state — every async operation
         // captures this and discards results if a newer filter supersedes it.
         filterGeneration &+= 1
@@ -2461,6 +2297,7 @@ final class FeedStore {
         activeRegion = region
         activeNodeIDs = nodeIDs
         activeContentType = type
+        activeMood = mood
         if let langs = languages {
             activeLanguages = Self.normalizedLanguageSet(langs)
         }
@@ -2509,6 +2346,7 @@ final class FeedStore {
         let region = activeRegion
         let languages = activeLanguages
         let contentType = filterContentType
+        let mood = activeMood
         let taxonomyURLs = cachedTaxonomyFeedURLs
         let contentFilters = ContentFilterStore.shared.isEnabled
             ? ContentFilterStore.shared.activeFilters : []
@@ -2516,10 +2354,15 @@ final class FeedStore {
             Locale.current.language.languageCode?.identifier
         )
 
-        let currentFilterIDs = Set(contentFilters.map(\.id))
-        if currentFilterIDs != lastContentFilterIDs {
+        // Invalidate mood cache when mood changes so the cull predicate
+        // re-evaluates mood matches rather than serving stale cache entries.
+        let moodKey = mood.rawValue
+        if moodKey != moodMatchCacheKey {
+            moodMatchCache.removeAll()
+            moodMatchCacheKey = moodKey
+        }
+        if contentFilters.isEmpty {
             contentFilterExcludeCache.removeAll()
-            lastContentFilterIDs = currentFilterIDs
         }
 
         let filterPredicate: (FeedItem) -> Bool = { [self] item in
@@ -2530,32 +2373,13 @@ final class FeedStore {
                 deviceLanguage: deviceLanguage
             )
             && contentType(item)
+            && (mood == .all || mood.matches(item.title))
             && (taxonomyURLs.isEmpty || taxonomyURLs.contains(OPMLParser.normalizeURL(item.sourceURL)))
             && (contentFilters.isEmpty || !contentFilterExcludes(item, filters: contentFilters))
         }
-
-        // CRITICAL: Do NOT publish surviving items as an intermediate composition.
-        // Publishing a partial set (sometimes just 1 card) creates a jarring
-        // flash of incorrect content before the full reload arrives.
-        //
-        // Instead, immediately clear the screen and show preparing state.
-        // The scheduled filter reload (scheduleFilterReload) produces the
-        // FULL composition and publishes it atomically.
         if !visibleItems.isEmpty {
-            // Clear visible content without publishing survivors
-            visibleItems = []
-            visibleCards = []
-            visibleItemsGeneration &+= 1
-            if loadingState != .initial {
-                loadingState = .refreshing
-            }
-            // Cancel in-flight preparation task — it belongs to the old
-            // composition and would try to publish stale cards
-            cardPreparationTask?.cancel()
-            reservoir.clear()
-            reservoirCount = 0
+            setVisibleItems(visibleItems.filter(filterPredicate))
         }
-
         // The What's New carousel renders above the main feed. Its items were
         // collected under the previous filter and must be culled immediately
         // so an English card doesn't flash at the top after switching to Swedish.
@@ -2737,18 +2561,13 @@ final class FeedStore {
     }
 
     func clearAllFilters() {
-        // --- Unified Selection Engine path (Phase 3+) ---
-        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
-            submitUnifiedReset()
-            return
-        }
-        // --- Legacy path ---
         filterGeneration &+= 1
         let generation = filterGeneration
 
         activeRegion = nil
         activeNodeIDs = []
         activeContentType = .all
+        activeMood = .all
         activeLanguages = []
         hasUserClearedLanguageFilter = true
         cachedTaxonomyNodeIDs = []
@@ -2774,16 +2593,6 @@ final class FeedStore {
 
     // MARK: - Search
     func search(_ query: String, includeSources: Bool = true, includeContents: Bool = true) {
-        // --- Unified Selection Engine path (Phase 6B) ---
-        if Settings.unifiedSelectionSearchSmart, let bridge = selectionBridge {
-            let expr = SearchExpression(legacyQuery: query)
-            let sourceScope: SourceUniversePolicy = activeNodeIDs.isEmpty && activeContentType == .all
-                ? .enabledLibrary
-                : .expandedCatalogRespectingExplicitOff
-            submitUnifiedSearch(expression: expr, sourceScope: sourceScope, languages: activeLanguages, contentFilterKeywords: bridge.contentFilterKeywords)
-            return
-        }
-        // --- Legacy path ---
         search(
             SearchExpression(legacyQuery: query),
             includeSources: includeSources,
@@ -3344,12 +3153,6 @@ final class FeedStore {
     /// "Open Collection Feed") and seeds the main feed with results.
     func setPreset(_ preset: PresetSelector) {
         guard preset != activePreset else { return }
-        // --- Unified Selection Engine path (Phase 3+) ---
-        if Settings.unifiedSelectionMainFeed, selectionBridge != nil {
-            submitUnifiedPreset(preset)
-            return
-        }
-        // --- Legacy path ---
         activePreset = preset
         Settings.activePreset = preset
         // Update presentation mode for the new preset
@@ -3502,19 +3305,6 @@ final class FeedStore {
     /// Fixed history feed ordered by actual content taps, newest first.
     /// Visibility-only impressions never write `clicked_at`.
     private func loadLastClickedFeed() async {
-        // --- Unified Selection Engine path (Phase 6A) ---
-        if Settings.unifiedSelectionSurfaces, let bridge = selectionBridge {
-            // Submit a unified Last Clicked request (trace/logging only —
-            // the actual items come from cache via the legacy path below)
-            // Submit unified trace (LastClicked has no SourceID mapping — the items
-            // come from clickedItemIDs cache, not source resolution)
-            let _ = bridge.coordinator.submit(
-                LastClickedSelectionAdapter(idGenerator: bridge.coordinator.idGenerator)
-                    .makeRequest(clickedItemIDs: clickedItemIDs, clickedSourceIDs: [])
-            )
-            // Fall through to legacy path for actual content display
-        }
-        // --- Legacy path ---
         let records: [FeedItemRecord] = (try? await db.read { db in
             try FeedItemRecord.fetchAll(db, sql: """
                 SELECT * FROM feed_item
@@ -3711,21 +3501,6 @@ final class FeedStore {
     /// Refresh What's New from the local DB. The network booster is reserved
     /// for startup so filter edits never cancel a write already in progress.
     func refreshWhatsNew(shouldBoost: Bool = false) {
-        // --- Unified Selection Engine path (Phase 6C) ---
-        if Settings.unifiedSelectionWhatsNew, let bridge = selectionBridge {
-            let criteria = ItemCriteria(
-                regions: activeRegion.map { [$0] } ?? [],
-                taxonomyNodeIDs: activeNodeIDs,
-                languages: activeLanguages,
-                contentTypes: activeContentType == .all ? [] : [activeContentType],
-                searchExpression: nil,
-                excludedKeywords: [],
-                contentFilterKeywords: bridge.contentFilterKeywords
-            )
-            submitUnifiedWhatsNew(baseCriteria: criteria, fetchedAfter: whatsNewManager.whatsNewBaselineDate ?? Date().addingTimeInterval(-86400))
-            // Still run legacy path for immediate display
-        }
-        // --- Legacy path ---
         whatsNewManager.refreshWhatsNew(
             seedFromDB: { [self] in await seedWhatsNewFromDB() },
             booster: { [self] in
@@ -3974,7 +3749,14 @@ final class FeedStore {
     }
 
     private func fetchNextBatch() async {
-        guard !isSearching else { return }
+        // When the user is searching, the feed surface is hidden behind the
+        // search UI. Don't waste network fetches that won't be visible, but
+        // also don't spin — yield briefly so the cold-start loop's deadline
+        // can progress without burning a real attempt.
+        guard !isSearching else {
+            try? await Task.sleep(nanoseconds: 800_000_000)
+            return
+        }
         let needsStarter = visibleItems.isEmpty && reservoir.reservoirCount == 0
         // The 100-source runway protects the first impression on a fresh app.
         // An empty result after a user changes filters is a different state: it
@@ -5487,13 +5269,6 @@ final class FeedStore {
     /// The normal startup pipeline remains the only network writer; onboarding
     /// simply consumes its retained results and can retry as that pool grows.
     func curatedOnboardingItems(languages: Set<String>) async -> [FeedItem] {
-        // --- Unified Selection Engine path (Phase 5) ---
-        if Settings.unifiedSelectionOnboarding, let bridge = selectionBridge {
-            let adapter = OnboardingSelectionAdapter(idGenerator: bridge.coordinator.idGenerator)
-            let _ = adapter.makeComparisonRequest(languages: languages)
-            // Submit for tracing; legacy path below still returns the actual items
-        }
-        // --- Legacy path ---
         let requested = Set(languages.compactMap {
             CuratedPreferenceEngine.baseLanguage($0)
         })
@@ -5638,6 +5413,7 @@ final class FeedStore {
             taxonomyNodeIDs: Array(activeNodeIDs),
             languages: Array(activeLanguages),
             contentType: activeContentType.rawValue,
+            mood: activeMood.rawValue,
             sourceCollectionID: activePreset.collectionID,
             excludedKeywords: ContentFilterStore.shared.activeFilters
                 .flatMap { $0.keywords }
@@ -5799,6 +5575,8 @@ final class FeedStore {
         }
         let contentType = FeedLoader.ContentType(rawValue: definition.contentType) ?? .all
         guard contentType.matches(item) else { return false }
+        let mood = FeedLoader.MoodFilter(rawValue: definition.mood) ?? .all
+        guard mood == .all || mood.matches(item.title) else { return false }
         if definition.excludedKeywords.contains(where: {
             item.searchableText.contains(Self.normalizedSmartFeedText($0))
         }) {
@@ -5974,40 +5752,6 @@ final class FeedStore {
     }
 
     private func loadSmartFeedFeed(id: Int64) async {
-        // --- Unified Selection Engine path (Phase 6B) ---
-        if Settings.unifiedSelectionSearchSmart, let bridge = selectionBridge {
-            do {
-                guard let smartFeed = try await smartFeedStore.smartFeed(id: id) else {
-                    activePreset = .everything
-                    return
-                }
-                let items = try await smartFeedStore.cachedItems(smartFeedID: id)
-                let allowlistSourceIDs = Set(items.compactMap {
-                    CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: $0.sourceURL))
-                })
-                submitUnifiedSmartFeed(
-                    smartFeedID: id,
-                    query: smartFeed.definition.query,
-                    region: smartFeed.definition.region,
-                    taxonomyNodeIDs: Set(smartFeed.definition.taxonomyNodeIDs),
-                    languages: Set(smartFeed.definition.languages),
-                    contentType: ContentType(rawValue: smartFeed.definition.contentType),
-                    collectionMemberIDs: smartFeed.definition.sourceCollectionID.map { _ in [] },
-                    excludedKeywords: Set(smartFeed.definition.excludedKeywords),
-                    contentFilterKeywords: bridge.contentFilterKeywords,
-                    allowlistSourceIDs: allowlistSourceIDs,
-                    allowlistItemIDs: Set(items.map(\.id))
-                )
-                // Still show cached items immediately
-                setVisibleItems(items)
-                loadingState = .idle
-                return
-            } catch {
-                loadingState = .idle
-                return
-            }
-        }
-        // --- Legacy path ---
         do {
             guard let smartFeed = try await smartFeedStore.smartFeed(id: id) else {
                 activePreset = .everything
@@ -6225,21 +5969,6 @@ final class FeedStore {
     /// It does not subscribe/enable the source. The endpoint's complete current
     /// payload is persisted and merged with any older local history.
     func loadSourceContent(_ source: SourceReference) async -> SourceContentResult {
-        // --- Unified Selection Engine path (Phase 6A) ---
-        if Settings.unifiedSelectionSurfaces, let bridge = selectionBridge {
-            let sourceID = CatalogIdentity.sourceID(
-                for: CatalogIdentity.sourceKey(for: source.feedURL)
-            )
-            submitUnifiedSourceView(sourceID: sourceID)
-            // Read from cache (unified engine will refresh in background)
-            let items = await sourceContentFromCache(source)
-            return SourceContentResult(
-                items: items,
-                fetchStatus: .success,
-                fetchedItemCount: items.count
-            )
-        }
-        // --- Legacy path ---
         await recordExplicitSourceAccess(source.feedURL)
         let resolved = registry.source(forURL: source.feedURL) ?? source.feedSource
         let fetchResult = await fetcher.fetch(resolved)
@@ -6324,21 +6053,6 @@ final class FeedStore {
     /// grant every member extended retention, preventing large playlists from
     /// silently pinning an unbounded database.
     func loadSourceCollectionContent(collectionID: Int64) async throws -> SourceCollectionContentResult {
-        // --- Unified Selection Engine path (Phase 6A) ---
-        if Settings.unifiedSelectionSurfaces, let bridge = selectionBridge {
-            let members = try await sourceCollectionStore.members(collectionID: collectionID)
-            let memberIDs = Set(members.compactMap {
-                CatalogIdentity.sourceID(for: CatalogIdentity.sourceKey(for: $0.sourceURL))
-            })
-            submitUnifiedCollection(
-                collectionID: collectionID,
-                memberIDs: memberIDs,
-                languages: activeLanguages,
-                contentFilterKeywords: bridge.contentFilterKeywords
-            )
-            // Legacy: still fetch and return items directly for the existing view
-        }
-        // --- Legacy path ---
         let members = try await sourceCollectionStore.members(collectionID: collectionID)
         let sources = members.map { member in
             registry.source(forURL: member.sourceURL) ?? sourceReference(for: member).feedSource

@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 import GRDB
-import ImageIO
 
 /// Central actor for image asset resolution. Coordinates:
 /// - Memory cache lookup (MemoryImageCache)
@@ -48,20 +47,8 @@ actor MediaAssetStore {
         let key = request.key
 
         // 1. Memory cache hit
-        if let memKey = request.cacheKey, let cachedImage = memoryCache.image(for: memKey) {
-            // Prefer DB metadata (has pixel dimensions, byte count, source).
-            if let metadata = await loadAssetMetadata(cacheKey: memKey) {
-                return metadata
-            }
-            // Fallback: memory hit without DB row. Build metadata directly
-            // from the cached UIImage so we don't lose a valid image.
-            return ResolvedImageAsset(
-                cacheKey: memKey,
-                pixelWidth: Int(cachedImage.size.width * cachedImage.scale),
-                pixelHeight: Int(cachedImage.size.height * cachedImage.scale),
-                byteCount: 0,
-                source: .unknown
-            )
+        if let memKey = request.cacheKey, memoryCache.image(for: memKey) != nil {
+            return await loadAssetMetadata(cacheKey: memKey)
         }
 
         // 2. Single-flight dedup: if this key is already in-flight, await it
@@ -265,18 +252,15 @@ actor MediaAssetStore {
 
     private nonisolated func isValidImageData(_ data: Data) -> Bool {
         guard data.count >= 4 else { return false }
-        // Use ImageIO to validate — it recognizes JPEG, PNG, GIF, WebP, HEIC,
-        // AVIF, BMP, TIFF, and any format the OS supports. This avoids
-        // rejecting valid images based on a hardcoded list of magic bytes.
-        guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
-            return false
-        }
-        guard let type = CGImageSourceGetType(source) else {
-            return false
-        }
-        // CGImageSourceCreateWithData already validated the data is parseable;
-        // the type check ensures we only accept actual image formats.
-        return true
+        // JPEG: FF D8 FF
+        if data[0] == 0xFF && data[1] == 0xD8 && data[2] == 0xFF { return true }
+        // PNG: 89 50 4E 47
+        if data[0] == 0x89 && data[1] == 0x50 && data[2] == 0x4E && data[3] == 0x47 { return true }
+        // GIF: 47 49 46 38
+        if data[0] == 0x47 && data[1] == 0x49 && data[2] == 0x46 && data[3] == 0x38 { return true }
+        // WebP/RIFF: 52 49 46 46
+        if data[0] == 0x52 && data[1] == 0x49 && data[2] == 0x46 && data[3] == 0x46 { return true }
+        return false
     }
 }
 

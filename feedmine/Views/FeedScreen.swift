@@ -101,18 +101,19 @@ struct FeedScreen: View {
 
             if isSearching && hasCommittedSearch {
                 unifiedSearchPanel
-            } else if loader.items.isEmpty
-                && (loader.isPreparingInitialRunway
-                    || loader.loadingState == .initial
-                    || ((loader.activePreset.collectionID != nil
-                        || loader.activePreset.isSmartFeed
-                        || loader.activePreset.isCuratedFeed)
-                        && loader.loadingState == .refreshing)) {
-                InitialFeedLoadingView()
-            } else if loader.items.isEmpty && loader.loadingState != .initial {
-                FeedEmptyStateView(mode: emptyMode)
             } else {
-                feedScrollView
+                switch loader.feedDisplayPhase {
+                case .preparing:
+                    InitialFeedLoadingView()
+                case .ready where loader.items.isEmpty:
+                    FeedEmptyStateView(mode: emptyMode)
+                case .ready:
+                    feedScrollView
+                case .empty:
+                    FeedEmptyStateView(mode: emptyMode)
+                case .failed:
+                    FeedEmptyStateView(mode: .generic)
+                }
             }
 
             // Floating compact header
@@ -207,6 +208,19 @@ struct FeedScreen: View {
                 withAnimation { showToast = true }
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .openSourceView)) { notification in
+            guard let feedURL = notification.userInfo?["feedURL"] as? String,
+                  !feedURL.isEmpty else { return }
+            let normalized = OPMLParser.normalizeURL(feedURL)
+            let ref = SourceReference(
+                title: "Source",
+                feedURL: normalized,
+                category: "",
+                region: "global",
+                mediaKind: .text
+            )
+            selectedSource = ref
+        }
         .onChange(of: player.lastPlaybackError) { _, error in
             if let error {
                 toastMessage = error; toastIcon = "exclamationmark.triangle"
@@ -227,22 +241,7 @@ struct FeedScreen: View {
         .sheet(item: $articleItem) { item in ArticleReaderView(item: item) }
         .sheet(item: $selectedSource) { SourceFeedView(source: $0) }
         .sheet(item: $sourceToCollect) { AddSourceToCollectionSheet(source: $0) }
-        .sheet(isPresented: $showSettings) {
-            SettingsSheetView(onOpenInApp: { url, title in
-                articleItem = FeedItem(
-                    id: "settings-link-\(url.hashValue)",
-                    sourceTitle: title,
-                    sourceURL: url,
-                    category: "Settings",
-                    title: title,
-                    excerpt: "",
-                    url: url,
-                    imageURL: nil,
-                    publishedAt: Date(),
-                    region: "global"
-                )
-            })
-        }
+        .sheet(isPresented: $showSettings) { SettingsSheetView() }
         .sheet(isPresented: $showSources) { SourceManagementView() }
         .sheet(isPresented: $showFilters) { FilterSheetView() }
         .sheet(isPresented: $showBookmarks) { BookmarkBoxesView() }
@@ -361,15 +360,14 @@ struct FeedScreen: View {
 
     private var filterLensSignature: String {
         guard hasFilterLensContent else { return "" }
-        // Cache against filter state to avoid string join on every scroll frame.
-        // Key must include every component that contributes to the signature,
-        // otherwise stale signatures are returned when omitted fields change.
-        let key = "\(loader.activePreset.displayName)|\(loader.selectedRegion ?? ".")|\(loader.selectedContentType.rawValue)|\(loader.selectedNodeIDs.sorted().joined(separator: ","))|\(loader.selectedLanguages.sorted().joined(separator: ","))|\(loader.searchQuery)"
+        // Cache against filter state to avoid string join on every scroll frame
+        let key = "\(loader.selectedRegion ?? ".")|\(loader.selectedContentType.rawValue)|\(loader.selectedMood.rawValue)|\(loader.searchQuery)"
         if key == _cachedFilterLensKey { return _cachedFilterLensSig }
         var parts: [String] = []
         parts.append(loader.activePreset.displayName)
         parts.append(loader.selectedRegion ?? "")
         parts.append(loader.selectedContentType.rawValue)
+        parts.append(loader.selectedMood.rawValue)
         parts.append(loader.selectedNodeIDs.sorted().joined(separator: ","))
         parts.append(loader.selectedLanguages.sorted().joined(separator: ","))
         parts.append(loader.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -386,10 +384,14 @@ struct FeedScreen: View {
             Color.clear.frame(height: 0)
             CompactErrorBanner()
             HStack(spacing: 8) {
-                CompactFeedStatus(onEasterEgg: {
-                    showCatalogExplore = true
-                })
+                if showDebugBar {
+                    CompactDebugInfo()
+                } else {
+                    CompactFeedStatus()
+                }
+
                 Spacer()
+
                 HStack(spacing: 4) {
                     Button {
                         if isSearching {
@@ -420,6 +422,15 @@ struct FeedScreen: View {
                         }
                     }
                     filterButton
+                    if showDebugBar {
+                        Button {
+                            showCatalogExplore = true
+                        } label: {
+                            Image(systemName: "books.vertical")
+                                .headerButtonStyle(accent: engine.accent)
+                        }
+                        .accessibilityLabel("Explore Catalog")
+                    }
                     Menu {
                         Button {
                             showCuratedOnboarding = true
@@ -1016,7 +1027,8 @@ struct FeedScreen: View {
             candidates.append(contentsOf: (results.savedItems + results.localItems).map {
                 loader.sourceReference(for: $0)
             })
-        } else if loader.activePreset.collectionID == nil {
+        } else if loader.activePreset.collectionID == nil,
+                  loader.selectedMood == .all {
             candidates.append(contentsOf: loader.activeSources.map {
                 SourceReference(source: $0)
             })
@@ -1464,11 +1476,9 @@ private extension View {
 
 struct CompactFeedStatus: View {
     @Environment(FeedLoader.self) private var loader
-    @Environment(\.openURL) private var openURL
     @State private var engine = CircadianEngine.shared
     @State private var showReadyPulse = false
     @AppStorage("showDebugBar") private var showDebugBar = false
-    var onEasterEgg: (() -> Void)?
 
     private var isShowingStartupProgress: Bool {
         loader.isPreparingInitialRunway || showReadyPulse
@@ -1480,19 +1490,14 @@ struct CompactFeedStatus: View {
 
     var body: some View {
         HStack(spacing: 4) {
-            // Easter egg: single-tap logo opens Catalog in-app (same as feeds)
             Image("Symbol-Gradient")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 16, height: 16)
-                .onTapGesture {
-                    onEasterEgg?()
-                }
             Text("Feedmine").font(.caption).fontWeight(.bold)
-                .padding(.trailing, 4)
             if isShowingStartupProgress {
                 HStack(spacing: 3) {
-                    Text("\(loader.startupFetchedSourceCount)/\(startupTotal)")
+                    Text("· \(loader.startupFetchedSourceCount)/\(startupTotal)")
                         .contentTransition(.numericText())
                     if showReadyPulse {
                         Image(systemName: "checkmark.circle.fill")
@@ -1507,7 +1512,7 @@ struct CompactFeedStatus: View {
                     "\(loader.startupFetchedSourceCount) de \(startupTotal) fontes verificadas"
                 )
             } else {
-                Text("\(loader.activeSourceCount)/\(loader.sourceCount) sources")
+                Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")
                     .font(.caption2.monospacedDigit())
                     .foregroundStyle(.secondary)
             }
@@ -1727,9 +1732,13 @@ struct InitialFeedLoadingView: View {
     }
 
     private var loadingTitle: String {
-        loader.hasPreviouslyLoadedContent
-            ? String(localized: "Loading your feed...")
-            : String(localized: "Loading articles")
+        if loader.startupFetchedSourceCount > 0 {
+            return String(localized: "Loading \(loader.startupFetchedSourceCount) sources...")
+        } else if loader.hasPreviouslyLoadedContent {
+            return String(localized: "Loading your feed...")
+        } else {
+            return String(localized: "Preparing your feed...")
+        }
     }
 
     var body: some View {

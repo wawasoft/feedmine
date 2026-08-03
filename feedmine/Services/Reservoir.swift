@@ -26,10 +26,6 @@ final class Reservoir {
     private(set) var reservoir: [FeedItem] = []
     var reservoirCount: Int { reservoir.count }
 
-    /// Incremented on every mutation that could race with an in-flight
-    /// shakeReshuffle. The detached task checks this before committing.
-    private var reshuffleGeneration = 0
-
     /// Next N items from the reservoir (not yet visible). Used for prefetching.
     func upcomingItems(_ count: Int) -> [FeedItem] {
         Array(reservoir.prefix(count))
@@ -153,18 +149,19 @@ final class Reservoir {
     /// reservoir before the switch could redraw.
     func removeRegions(_ regions: Set<String>) {
         guard !regions.isEmpty else { return }
-        reshuffleGeneration &+= 1
-        // Walk UP from each item's region to check if any disabled region
-        // is an ancestor of it (or matches exactly). This removes a disabled
-        // region and all its descendants, without affecting sibling regions.
-        let isDisabled: (FeedItem) -> Bool = { [self] item in
-            var region = sourceRegionMap[item.sourceURL] ?? "global"
-            while true {
-                if regions.contains(region) { return true }
-                guard let sep = region.lastIndex(of: "/") else { break }
-                region = String(region[..<sep])
+        // Pre-compute all ancestor paths for disabled regions so the per-item
+        // check is a single Set.contains — no String slicing in the hot loop.
+        var disabledWithAncestors = regions
+        for region in regions {
+            var candidate = region
+            while let sep = candidate.lastIndex(of: "/") {
+                candidate = String(candidate[..<sep])
+                disabledWithAncestors.insert(candidate)
             }
-            return false
+        }
+        let isDisabled: (FeedItem) -> Bool = { [self] item in
+            let itemRegion = sourceRegionMap[item.sourceURL] ?? "global"
+            return disabledWithAncestors.contains(itemRegion)
         }
         visibleItems.removeAll(where: isDisabled)
         reservoir.removeAll(where: isDisabled)
@@ -179,7 +176,6 @@ final class Reservoir {
     // MARK: - Clear + emergency
 
     func clear() {
-        reshuffleGeneration &+= 1
         visibleItems.removeAll()
         reservoir.removeAll()
         surfacedTimestamps.removeAll()
@@ -199,8 +195,6 @@ final class Reservoir {
         guard !visibleItems.isEmpty || !reservoir.isEmpty else { return }
         reservoir.append(contentsOf: visibleItems)
         visibleItems.removeAll()
-        reshuffleGeneration &+= 1
-        let capturedGeneration = reshuffleGeneration
         // Offload interleave to background — same pattern as seed().
         // The synchronous interleave() on MainActor was blocking for 10-100ms.
         Task.detached { [reservoir, presetMultipliers, sourceRegionMap, readItemIDs, surfacedTimestamps] in
@@ -212,13 +206,8 @@ final class Reservoir {
                 presetMultipliers: presetMultipliers
             )
             await MainActor.run {
-                // If another shake or clear happened, abandon this stale result.
-                guard self.reshuffleGeneration == capturedGeneration else { return }
-                // Preserve items that arrived during the off-main window
-                // (e.g. from append) so they aren't clobbered by the snapshot.
-                let resultIDs = Set(interleaved.map(\.id))
-                let windowAdditions = self.reservoir.filter { !resultIDs.contains($0.id) }
-                self.reservoir = windowAdditions + interleaved
+                let result = interleaved
+                self.reservoir = result
                 self.capReservoir()
                 let w = min(Self.pageSize, self.reservoir.count)
                 self.visibleItems = Array(self.reservoir.prefix(w))

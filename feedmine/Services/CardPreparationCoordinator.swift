@@ -358,47 +358,23 @@ actor CardPreparationCoordinator {
         context: FeedPresentationContext,
         deadline: ContinuousClock.Instant
     ) async -> ResolvedImageAsset? {
-        // Primary path: direct image URL from feed item
-        if let imageURL = item.bestImageURL.flatMap(URL.init(string:)) {
-            let request = ImageResolutionRequest(
-                itemID: item.id,
-                url: imageURL,
-                cacheKey: ImageCacheKey.forURL(imageURL),
-                source: .directImageURL
-            )
-            let result = await raceWithDeadline(deadline: deadline) {
-                await self.limiter.withSlot(category: "direct_image") {
-                    await self.mediaStore.resolve(request: request)
-                }
-            }
-            if result != nil { return result }
+        guard let imageURL = item.bestImageURL.flatMap(URL.init(string:)) else {
+            return nil
         }
 
-        // Fallback: podcast episodes and articles without feed images
-        // can have artwork on their episode/article page (Open Graph).
-        // This is essential for podcasts — many RSS feeds have no
-        // per-episode <itunes:image> but the episode page has artwork.
-        //
-        // Skip direct audio links (MP3/M4A/WAV/AAC) — downloading the full
-        // audio file as an "image" wastes bandwidth and always fails validation.
-        if item.canResolveArticleImage,
-           !item.isDirectAudioLink,
-           let articleURL = URL(string: item.url) {
-            let cacheKey = ImageCacheKey.forURL(articleURL)
-            let request = ImageResolutionRequest(
-                itemID: item.id,
-                url: articleURL,
-                cacheKey: cacheKey,
-                source: .articleOpenGraph
-            )
-            return await raceWithDeadline(deadline: deadline) {
-                await self.limiter.withSlot(category: "article_image") {
-                    await self.mediaStore.resolve(request: request)
-                }
+        let request = ImageResolutionRequest(
+            itemID: item.id,
+            url: imageURL,
+            cacheKey: ImageCacheKey.forURL(imageURL),
+            source: .directImageURL
+        )
+
+        // Race: resolution vs deadline
+        return await raceWithDeadline(deadline: deadline) {
+            await self.limiter.withSlot(category: "direct_image") {
+                await self.mediaStore.resolve(request: request)
             }
         }
-
-        return nil
     }
 
     private func decodeToRenderReady(

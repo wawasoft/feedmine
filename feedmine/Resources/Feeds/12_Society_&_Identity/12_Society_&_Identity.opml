@@ -102,7 +102,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="design, technology, reading list, AI, security" />
                     <outline text="Haptiq"
                              title="Haptiq"
                              type="rss"
@@ -118,7 +118,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="WordPress, Web Development, Design, Performance, Backups" />
                     <outline text="picu"
                              title="picu"
                              type="rss"
@@ -134,7 +134,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="WordPress, photography, photo proofing, plugin, updates" />
                     <outline text="The Pending Draft"
                              title="The Pending Draft"
                              type="rss"
@@ -150,7 +150,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="web development, web design, technology, curation, business" />
         </outline>
     <outline text="Society &amp; Communities" title="Society &amp; Communities">
       <outline text="Pew Research Center" title="Pew Research Center" type="rss" xmlUrl="https://www.pewresearch.org/feed/" description="Pew Research Center is a nonpartisan fact tank that conducts public opinion polling, demographic research, and content analysis to provide insights on the issues, attitudes, and trends shaping the world." language="en-US" category="public opinion,demographic research,trends,policy,social issues" feedmineSourceId="05df3a44733ab11a001b147892686f604f73990c60d580e177c32d4e810f803e" feedmineTopic="Society &amp; Identity" feedmineSubcategory="Society &amp; Communities" feedmineNature="evergreen" feedmineActivity="prolific" feedmineArticlesFetched="30" feedmineQualityScore="96" feedmineDefaultEnabled="true" feedmineMediaKind="text" htmlUrl="https://www.pewresearch.org" feedmineLatestItemAt="2026-07-17 10:51:34-07"/>

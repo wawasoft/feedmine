@@ -10,6 +10,7 @@ enum Keys {
     static let filterRegion = "filterRegion"
     static let filterTaxonomyNodes = "filterTaxonomyNodes"
     static let filterContentType = "filterContentType"
+    static let filterMood = "filterMood"
     static let filterSetAt = "filterSetAt"
     static let filterAutoExpire = "filterAutoExpire"
     static let filterLanguages = "filterLanguages"
@@ -55,18 +56,6 @@ enum Keys {
 
     // Prepared Feed Pipeline
     static let preparedFeedPipelineEnabled = "preparedFeedPipelineEnabled"
-
-    // Unified Selection Engine — feature flags per migration phase
-    static let unifiedSelectionEngine = "unifiedSelectionEngine"       // Master flag (off in production until Phase 3)
-    static let unifiedSelectionShadow = "unifiedSelectionShadow"       // Phase 1 — shadow mode
-    static let unifiedSelectionState = "unifiedSelectionState"         // Phase 2 — unified state & counters
-    static let unifiedSelectionMainFeed = "unifiedSelectionMainFeed"   // Phase 3 — main feed
-    static let unifiedSelectionRankingMix = "unifiedSelectionRankingMix" // Phase 4 — ranking & mix
-    static let unifiedSelectionOnboarding = "unifiedSelectionOnboarding" // Phase 5 — onboarding
-    static let unifiedSelectionSurfaces = "unifiedSelectionSurfaces"   // Phase 6A — fixed scopes
-    static let unifiedSelectionSearchSmart = "unifiedSelectionSearchSmart" // Phase 6B — search & smart feed
-    static let unifiedSelectionWhatsNew = "unifiedSelectionWhatsNew"   // Phase 6C — what's new
-    static let unifiedSelectionLegacyRemoved = "unifiedSelectionLegacyRemoved" // Phase 7 — legacy removal
 }
 
 // MARK: - Typed Settings Accessor
@@ -99,6 +88,10 @@ enum Settings {
     static var filterLanguages: [String] {
         get { d.stringArray(forKey: Keys.filterLanguages) ?? [] }
         set { d.set(newValue, forKey: Keys.filterLanguages) }
+    }
+    static var filterMood: String {
+        get { d.string(forKey: Keys.filterMood) ?? FeedLoader.MoodFilter.all.rawValue }
+        set { d.set(newValue, forKey: Keys.filterMood) }
     }
     static var hasInitializedLanguageDefault: Bool {
         get { d.bool(forKey: Keys.hasInitializedLanguageDefault) }
@@ -184,111 +177,5 @@ enum Settings {
             return d.bool(forKey: Keys.preparedFeedPipelineEnabled)
         }
         set { d.set(newValue, forKey: Keys.preparedFeedPipelineEnabled) }
-    }
-
-    // MARK: Unified Selection Engine — feature flags per migration phase
-    // All default to false in production. Debug builds auto-enable shadow + state.
-
-    /// Master flag for the unified selection engine. Off in production until Phase 3.
-    static var unifiedSelectionEngine: Bool {
-        get {
-#if DEBUG
-            // In debug, check launch argument first, then fall back to UserDefaults
-            if ProcessInfo.processInfo.arguments.contains("--unified-selection-engine") {
-                return true
-            }
-            if d.object(forKey: Keys.unifiedSelectionEngine) == nil {
-                return true  // default on in debug
-            }
-#endif
-            return d.bool(forKey: Keys.unifiedSelectionEngine)
-        }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionEngine) }
-    }
-
-    /// Phase 1 — shadow mode: run new compiler alongside legacy, compare results.
-    static var unifiedSelectionShadow: Bool {
-        get {
-#if DEBUG
-            if d.object(forKey: Keys.unifiedSelectionShadow) == nil {
-                return true  // default on in debug
-            }
-#endif
-            return d.bool(forKey: Keys.unifiedSelectionShadow)
-        }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionShadow) }
-    }
-
-    /// Phase 2 — unified state, counters, loading/empty/error states.
-    static var unifiedSelectionState: Bool {
-        get {
-#if DEBUG
-            if d.object(forKey: Keys.unifiedSelectionState) == nil {
-                return true  // default on in debug
-            }
-#endif
-            return d.bool(forKey: Keys.unifiedSelectionState)
-        }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionState) }
-    }
-
-    /// Phase 3 — main feed driven by SelectionSession.
-    /// In debug, requires launch argument --unified-main-feed to activate.
-    static var unifiedSelectionMainFeed: Bool {
-        get {
-#if DEBUG
-            if ProcessInfo.processInfo.arguments.contains("--unified-main-feed") {
-                return true
-            }
-#endif
-            return d.bool(forKey: Keys.unifiedSelectionMainFeed)
-        }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionMainFeed) }
-    }
-
-    /// Phase 4 — RankingEngine and MixAllocator.
-    static var unifiedSelectionRankingMix: Bool {
-        get {
-#if DEBUG
-            if ProcessInfo.processInfo.arguments.contains("--unified-ranking-mix") {
-                return true
-            }
-            if d.object(forKey: Keys.unifiedSelectionRankingMix) == nil {
-                return true  // default on in debug (engines are pure, no side effects)
-            }
-#endif
-            return d.bool(forKey: Keys.unifiedSelectionRankingMix)
-        }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionRankingMix) }
-    }
-
-    /// Phase 5 — onboarding, preview, and curated feed.
-    static var unifiedSelectionOnboarding: Bool {
-        get { d.bool(forKey: Keys.unifiedSelectionOnboarding) }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionOnboarding) }
-    }
-
-    /// Phase 6A — fixed scopes: Source View, Collection View, Bookmarks, Last Clicked.
-    static var unifiedSelectionSurfaces: Bool {
-        get { d.bool(forKey: Keys.unifiedSelectionSurfaces) }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionSurfaces) }
-    }
-
-    /// Phase 6B — search and Smart Feed.
-    static var unifiedSelectionSearchSmart: Bool {
-        get { d.bool(forKey: Keys.unifiedSelectionSearchSmart) }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionSearchSmart) }
-    }
-
-    /// Phase 6C — What's New.
-    static var unifiedSelectionWhatsNew: Bool {
-        get { d.bool(forKey: Keys.unifiedSelectionWhatsNew) }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionWhatsNew) }
-    }
-
-    /// Phase 7 — legacy removal, CI enforcement.
-    static var unifiedSelectionLegacyRemoved: Bool {
-        get { d.bool(forKey: Keys.unifiedSelectionLegacyRemoved) }
-        set { d.set(newValue, forKey: Keys.unifiedSelectionLegacyRemoved) }
     }
 }

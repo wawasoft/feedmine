@@ -3,7 +3,6 @@ import SwiftUI
 struct SettingsSheetView: View {
     @Environment(FeedLoader.self) private var loader
     @Environment(LocaleManager.self) private var localeManager
-    var onOpenInApp: ((String, String) -> Void)?  // url, title
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = true
     @AppStorage("prefetchImages") private var prefetchImages = true
     @AppStorage("nightMode") private var nightMode = false
@@ -13,7 +12,6 @@ struct SettingsSheetView: View {
     @AppStorage("paletteFamily") private var paletteFamilyRaw = PaletteFamily.warmEarth.rawValue
     @AppStorage("circadianTypographyOn") private var circadianTypographyOn = true
     @AppStorage("fontStyle") private var fontStyleRaw = FontStyle.system.rawValue
-    @AppStorage("showDebugBar") private var showDebugBar = false
 
     @State private var showClearReadConfirmation = false
     @State private var showClearBookmarksConfirmation = false
@@ -21,8 +19,6 @@ struct SettingsSheetView: View {
     @State private var showPalettePicker = false
     @State private var showFontStylePicker = false
     @State private var showRestartAlert = false
-    @State private var shareImage: UIImage?
-    @State private var showShareSheet = false
 
     private var topCategory: String? {
         let readItems = loader.items.filter { loader.isRead($0.id) }
@@ -152,7 +148,7 @@ struct SettingsSheetView: View {
                     Text("Reading")
                 } footer: {
                     if filterAutoExpire {
-                        Text("Category and content type filters reset after 4 hours away so you never open to an empty feed.")
+                        Text("Category, mood, and content type filters reset after 4 hours away so you never open to an empty feed.")
                     }
                 }
 
@@ -208,10 +204,8 @@ struct SettingsSheetView: View {
                             loader.clearAllBookmarks()
                             loader.resetAllSourceToggles()
                             UserDefaults.standard.removeObject(forKey: "hasSeenOnboarding")
-                            // Propagate through the store so the feed immediately
-                            // reflects the reset, rather than waiting for a restart.
-                            loader.clearAllFilters()
-                            loader.setActivePreset(.everything)
+                            Settings.filterRegion = nil
+                            Settings.activePreset = .everything
                         }
                     }
 
@@ -224,49 +218,51 @@ struct SettingsSheetView: View {
                     }
                 }
 
-                // MARK: - Share Stats (disabled — ImageRenderer issues)
-                // TODO: Fix ImageRenderer blank output and re-enable
-                /*
+                // MARK: - Share Stats
                 Section {
                     Button {
                         let topCat = topCategory ?? "None"
-                        shareImage = renderStatsCard(
+                        if let image = renderStatsCard(
                             readCount: loader.readItemIDs.count,
                             bookmarkCount: loader.bookmarkedIDs.count,
                             streakCount: Settings.sessionStreak,
                             topCategory: topCat,
                             sourceCount: loader.sourceCount
-                        )
-                        if shareImage != nil { showShareSheet = true }
+                        ) {
+                            let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                               let root = windowScene.windows.first?.rootViewController {
+                                root.present(av, animated: true)
+                            }
+                        }
                     } label: {
                         Label("Share My Stats", systemImage: "chart.bar.fill")
                     }
                 } header: { Text("Share") }
-                */
-
-                // MARK: - Debug
-#if DEBUG
-                Section("Debug") {
-                    Toggle("Show Debug Overlay", systemImage: "wrench.and.screwdriver.fill", isOn: $showDebugBar)
-                        .tint(.orange)
-                }
-#endif
 
                 // MARK: - About
                 Section("About") {
+                    HStack {
+                        Text("Version"); Spacer()
+                        Text("1.0 (Prototype)").foregroundStyle(.secondary)
+                    }
+                    HStack {
+                        Text("Sources"); Spacer()
+                        Text("\(loader.sourceCount) feeds · \(loader.opmlFileCount) files").foregroundStyle(.secondary)
+                    }
                     Button {
-                        onOpenInApp?("https://wawasoft.net/about/", "About Feedmine")
+                        hasSeenOnboarding = false
                     } label: {
-                        Label("About this initiative", systemImage: "info.circle.fill")
+                        Label("Re-watch Intro", systemImage: "sparkles")
                     }
                 }
 
-                // MARK: - Feedback
                 Section {
-                    Button {
-                        onOpenInApp?("https://wawasoft.net/contact/", "Get in touch")
-                    } label: {
-                        Label("Get in touch", systemImage: "envelope.fill")
+                    Link(destination: URL(string: "mailto:wmontes@gmail.com?subject=Feedmine%20Feedback")!) {
+                        Label("Send Feedback", systemImage: "envelope.fill")
+                    }
+                    Link(destination: URL(string: "https://github.com/nmdias/FeedKit")!) {
+                        Label("FeedKit on GitHub", systemImage: "link")
                     }
                 } header: { Text("Feedback") } footer: {
                     Text("Feedmine is an independent, open-source RSS reader. No algorithms, no ads, no accounts — just stories from around the world, on your terms.")
@@ -279,11 +275,6 @@ struct SettingsSheetView: View {
             }
             .sheet(isPresented: $showFontStylePicker) {
                 fontStylePickerSheet
-            }
-            .sheet(isPresented: $showShareSheet) {
-                if let image = shareImage {
-                    ShareSheet(activityItems: [image])
-                }
             }
             .alert(String(localized: "Restart Required", comment: "Language change alert title"),
                    isPresented: $showRestartAlert) {
@@ -421,16 +412,6 @@ struct SettingsSheetView: View {
         }
         .navigationTitle(String(localized: "Language", comment: "Language picker title"))
     }
-}
-
-// MARK: - Share Sheet wrapper
-
-struct ShareSheet: UIViewControllerRepresentable {
-    let activityItems: [Any]
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-    }
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 // MARK: - Public helpers for font size

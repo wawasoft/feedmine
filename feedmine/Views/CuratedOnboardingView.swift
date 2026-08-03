@@ -4,6 +4,8 @@ import UIKit
 struct CuratedOnboardingView: View {
     enum Stage: Int {
         case welcome
+        case intent
+        case topics
         case languages
         case comparisons
         case review
@@ -12,6 +14,7 @@ struct CuratedOnboardingView: View {
     @Environment(FeedLoader.self) private var loader
     @State private var engine = CircadianEngine.shared
     @State private var stage: Stage = .welcome
+    @State private var seed = OnboardingSeed()
     @State private var selectedLanguages: Set<String> = []
     @State private var session: CuratedOnboardingSession?
     @State private var feedName = "My Feed"
@@ -21,7 +24,6 @@ struct CuratedOnboardingView: View {
     @State private var errorMessage: String?
     @State private var answerPulse = 0
     @State private var answerDelayTask: Task<Void, Never>?
-    @State private var isAnswering = false
     @State private var showInspector = false
 
     /// Snapshot of the global language filter before onboarding mutates it,
@@ -65,10 +67,36 @@ struct CuratedOnboardingView: View {
                             accent: engine.accent,
                             onStart: {
                                 withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                                    stage = .languages
+                                    stage = .intent
                                 }
                             },
                             onSkip: cancelOnboarding
+                        )
+                    case .intent:
+                        IntentScene(
+                            selectedIntent: Binding(
+                                get: { seed.intent },
+                                set: { seed.intent = $0 }
+                            ),
+                            accent: engine.accent,
+                            onContinue: {
+                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                    stage = .topics
+                                }
+                            }
+                        )
+                    case .topics:
+                        TopicsScene(
+                            selectedTopics: Binding(
+                                get: { seed.topicIDs },
+                                set: { seed.topicIDs = $0 }
+                            ),
+                            accent: engine.accent,
+                            onContinue: {
+                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                                    stage = .languages
+                                }
+                            }
                         )
                     case .languages:
                         LanguageScene(
@@ -285,7 +313,10 @@ struct CuratedOnboardingView: View {
             preOnboardingLanguages = loader.selectedLanguages
         }
         loader.applyCuratedLanguages(selectedLanguages)
-        let newSession = CuratedOnboardingSession(languages: selectedLanguages)
+        let newSession = CuratedOnboardingSession(
+            languages: selectedLanguages,
+            seed: seed
+        )
         session = newSession
         candidateAttempts = 0
         withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
@@ -310,16 +341,6 @@ struct CuratedOnboardingView: View {
 
                 withAnimation(.easeInOut(duration: 0.25)) {
                     session.updateCandidates(candidates)
-                }
-
-                // If the pool is exhausted but the user has enough answers
-                // to finish, transition to review instead of retrying.
-                if session.isComplete {
-                    previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
-                    withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
-                        stage = .review
-                    }
-                    return
                 }
 
                 // Warm images for the current pair before showing cards.
@@ -399,8 +420,7 @@ struct CuratedOnboardingView: View {
     }
 
     private func answer(_ outcome: CuratedChoiceOutcome) {
-        guard !isAnswering, let session else { return }
-        isAnswering = true
+        guard let session else { return }
 
         // Celebration feedback sequence
         withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
@@ -424,27 +444,20 @@ struct CuratedOnboardingView: View {
         if session.currentPair == nil && !session.isComplete {
             answerDelayTask = Task { @MainActor in
                 try? await Task.sleep(for: .milliseconds(350))
-                guard !Task.isCancelled else { isAnswering = false; return }
+                guard !Task.isCancelled else { return }
                 refreshCandidatePool()
-                isAnswering = false
             }
-            return
         }
 
         if session.isComplete {
             answerDelayTask = Task { @MainActor in
                 try? await Task.sleep(for: .milliseconds(500))
-                guard !Task.isCancelled, session.isComplete else { isAnswering = false; return }
-                previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
+                guard !Task.isCancelled, session.isComplete else { return }
                 withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
                     stage = .review
                 }
-                isAnswering = false
             }
-            return
         }
-
-        isAnswering = false
     }
 
     private func save(_ session: CuratedOnboardingSession) async {
@@ -457,11 +470,6 @@ struct CuratedOnboardingView: View {
                 name: name,
                 definition: session.profile
             )
-            // Restore the global language filter that was mutated in startComparisons.
-            // The curated feed preset now owns the language selection.
-            if let previous = preOnboardingLanguages {
-                loader.applyCuratedLanguages(previous)
-            }
             loader.setActivePreset(.curatedFeed(
                 curatedFeedID: saved.id,
                 curatedFeedName: saved.name
@@ -476,20 +484,15 @@ struct CuratedOnboardingView: View {
         withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
             switch stage {
             case .welcome: break
-            case .languages: stage = .welcome
+            case .intent: stage = .welcome
+            case .topics: stage = .intent
+            case .languages: stage = .topics
             case .comparisons:
                 candidateTask?.cancel()
                 stage = .languages
             case .review:
-                candidateTask?.cancel()
                 stage = session?.answerCount ?? 0 > 0 ? .comparisons : .languages
             }
-        }
-        // When returning to comparisons from a completed session, the pair
-        // was cleared and must be re-populated, otherwise the spinner runs
-        // forever. Only restart if we actually landed on .comparisons.
-        if stage == .comparisons, session?.currentPair == nil {
-            refreshCandidatePool()
         }
     }
 

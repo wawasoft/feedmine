@@ -72,8 +72,6 @@
 		<string>uk</string>
 		<string>vi</string>
 	</array>
-	<key>CFBundleDisplayName</key>
-	<string>Feedmine</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
