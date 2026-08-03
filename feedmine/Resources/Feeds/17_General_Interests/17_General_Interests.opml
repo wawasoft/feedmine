@@ -562,7 +562,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="technology, society, consciousness, perception, essays" />
                     <outline text="alainveuve.com"
                              title="alainveuve.com"
                              type="rss"
@@ -578,7 +578,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="technology, strategy, society, AI, digital transformation" />
                     <outline text="blog.dasrecht.net"
                              title="blog.dasrecht.net"
                              type="rss"
@@ -594,7 +594,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="personal blog, web, technology, digital culture, link roundup" />
                     <outline text="Brave New World"
                              title="Brave New World"
                              type="rss"
@@ -610,7 +610,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="personal blog, media criticism, technology, society, culture" />
                     <outline text="Daring Fireball"
                              title="Daring Fireball"
                              type="rss"
@@ -626,7 +626,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="apple, technology, commentary, links" />
                     <outline text="habi.gna.ch"
                              title="habi.gna.ch"
                              type="rss"
@@ -642,7 +642,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="blog, reading list, technology, personal, curated links" />
                     <outline text="kottke.org"
                              title="kottke.org"
                              type="rss"
@@ -658,7 +658,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="technology, culture, design, essays, curated links" />
                     <outline text="Laura Kalbag"
                              title="Laura Kalbag"
                              type="rss"
@@ -674,7 +674,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="web design, accessibility, tech ethics, privacy, personal blog" />
                     <outline text="Little Big Details"
                              title="Little Big Details"
                              type="rss"
@@ -690,7 +690,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="UI design, UX, micro-interactions, design inspiration, web design" />
                     <outline text="Marcel"
                              title="Marcel"
                              type="rss"
@@ -706,7 +706,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="art, drawing, painting, personal blog, life experiences" />
                     <outline text="Thomas Griffin"
                              title="Thomas Griffin"
                              type="rss"
@@ -722,7 +722,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="leadership, productivity, problem-solving, business, personal development" />
                     <outline text="Tiny Projects"
                              title="Tiny Projects"
                              type="rss"
@@ -738,7 +738,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="indie hacking, micro-saas, side projects, entrepreneurship, web development" />
                     <outline text="UARRR.org"
                              title="UARRR.org"
                              type="rss"
@@ -754,7 +754,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="comics, personal blog, creativity, everyday life, reflection" />
                     <outline text="Will Jessop&apos;s Writings"
                              title="Will Jessop&apos;s Writings"
                              type="rss"
@@ -770,7 +770,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="programming, postgres, DIY, 3d printing, sourdough" />
                     <outline text="Zeynep Tufekci | The Atlantic"
                              title="Zeynep Tufekci | The Atlantic"
                              type="rss"
@@ -786,7 +786,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="politics, society, pandemic, analysis, sociology" />
         </outline>
   </body>
 </opml>

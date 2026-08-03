@@ -112,7 +112,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="SaaS, bootstrapping, podcasting, entrepreneurship, startup" />
                     <outline text="viewSource"
                              title="viewSource"
                              type="rss"
@@ -128,7 +128,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="podcast, web development, WordPress, JavaScript, Laravel" />
         </outline>
     <outline text="Music &amp; Audio" title="Music &amp; Audio">
       <outline text="Podcasts &amp; Audio" title="Podcasts &amp; Audio">
