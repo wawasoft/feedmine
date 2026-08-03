@@ -100,6 +100,7 @@ struct FeedmineApp: App {
         Settings.filterTaxonomyNodes = []
         Settings.filterContentType = FeedLoader.ContentType.all.rawValue
         Settings.filterLanguages = []
+        Settings.filterMood = FeedLoader.MoodFilter.all.rawValue
         Settings.filterSetAt = 0
         Settings.hasInitializedLanguageDefault = true
         TaxonomyStore.shared.clearSelection()
@@ -127,7 +128,18 @@ struct FeedmineApp: App {
     @MainActor
     private func handleIncomingURL(_ url: URL) {
         if url.scheme == "feedmine" {
-            if url.host == "import",
+            if url.host == "source",
+               let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+               let feedURL = components.queryItems?.first(where: { $0.name == "url" })?.value,
+               !feedURL.isEmpty {
+                // Open the Source View for this feed URL.
+                // Post a notification — the active FeedScreen handles navigation.
+                NotificationCenter.default.post(
+                    name: .openSourceView,
+                    object: nil,
+                    userInfo: ["feedURL": feedURL]
+                )
+            } else if url.host == "import",
                let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
                let feedURL = components.queryItems?.first(where: { $0.name == "url" })?.value,
                !feedURL.isEmpty {

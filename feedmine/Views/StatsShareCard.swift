@@ -119,9 +119,7 @@ func renderStatsCard(
         sourceCount: sourceCount
     )
     .environment(\.colorScheme, .light)
-    .background(Color.white)
-    .frame(width: 340)
     let renderer = ImageRenderer(content: view)
-    renderer.scale = UIScreen.main.scale > 0 ? UIScreen.main.scale : 3.0
+    renderer.scale = UIScreen.main.scale
     return renderer.uiImage
 }

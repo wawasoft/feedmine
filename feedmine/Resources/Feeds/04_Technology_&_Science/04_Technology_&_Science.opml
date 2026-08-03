@@ -506,7 +506,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="Google Tag Manager, Google Analytics, Web Analytics, Tagging, Consent Mode" />
                     <outline text="Samuel Schmitt"
                              title="Samuel Schmitt"
                              type="rss"
@@ -522,7 +522,7 @@
                              feedmineArticlesFetched="0"
                              feedmineQualityScore="42"
                              feedmineDefaultEnabled="true"
-                             feedmineMediaKind="text"/>
+                             feedmineMediaKind="text" category="SEO, digital marketing, content strategy, web stories, Google SERP" />
         </outline>
     <outline text="Space &amp; Astronomy" title="Space &amp; Astronomy">
       <outline text="Cosmology News -- ScienceDaily" title="Cosmology News -- ScienceDaily" type="rss" xmlUrl="https://www.sciencedaily.com/rss/space_time/cosmology.xml" description="The latest research and discoveries in cosmology, covering the origin and evolution of the universe, from deep space observations to spectroscopic analysis." language="en-US" category="cosmology,astronomy,universe,space research,astrophysics" feedmineSourceId="f3137e1cf21b8b701e3710dfc3a4e2af9af38194b0e27833fa17afa44983c6e4" feedmineTopic="Technology &amp; Science" feedmineSubcategory="Space &amp; Astronomy" feedmineNature="current-sensitive" feedmineActivity="prolific" feedmineArticlesFetched="30" feedmineQualityScore="93" feedmineDefaultEnabled="true" feedmineMediaKind="text" htmlUrl="https://www.sciencedaily.com/news/space_time/cosmology/" feedmineLatestItemAt="2026-07-17 20:09:35-07"/>
@@ -1230,7 +1230,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, technology, running, app development, weekly" />
         <outline text="24 ways"
                  title="24 ways"
                  type="rss"
@@ -1246,7 +1246,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, web development, front-end, CSS, JavaScript" />
         <outline text="Adactio"
                  title="Adactio"
                  type="rss"
@@ -1262,7 +1262,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="" />
         <outline text="Adam Argyle"
                  title="Adam Argyle"
                  type="rss"
@@ -1278,7 +1278,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, JavaScript, Web Development, Design, UX" />
         <outline text="Adam Silver"
                  title="Adam Silver"
                  type="rss"
@@ -1294,7 +1294,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="UX, form design, accessibility, interaction design, web design" />
         <outline text="Adam Wathan&apos;s Blog"
                  title="Adam Wathan&apos;s Blog"
                  type="rss"
@@ -1310,7 +1310,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, Tailwind CSS, front-end, entrepreneurship" />
         <outline text="Adrian Roselli"
                  title="Adrian Roselli"
                  type="rss"
@@ -1326,7 +1326,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, web development, ARIA, HTML, user experience" />
         <outline text="Ahmad Shadeed Blog"
                  title="Ahmad Shadeed Blog"
                  type="rss"
@@ -1342,7 +1342,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, front-end development, web design, web development, design-to-code" />
         <outline text="Aleksandr Hovhannisyan"
                  title="Aleksandr Hovhannisyan"
                  type="rss"
@@ -1358,7 +1358,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, Eleventy, Bash, programming" />
         <outline text="Alistair Shepherd"
                  title="Alistair Shepherd"
                  type="rss"
@@ -1374,7 +1374,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, front-end, performance, build tools, JavaScript" />
         <outline text="Alvaro Montoro&apos;s website"
                  title="Alvaro Montoro&apos;s website"
                  type="rss"
@@ -1390,7 +1390,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="creative coding, CSS art, travel, career, personal blog" />
         <outline text="Andy Budd: Writing"
                  title="Andy Budd: Writing"
                  type="rss"
@@ -1406,7 +1406,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design, product development, startups, writing, ux" />
         <outline text="Andy Davies"
                  title="Andy Davies"
                  type="rss"
@@ -1422,7 +1422,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web performance, site speed, browser caching, third-party tags, HTTP Archive" />
         <outline text="Articles &amp; Experiments by Roman Komarov"
                  title="Articles &amp; Experiments by Roman Komarov"
                  type="rss"
@@ -1438,7 +1438,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, web development, front-end, experiments, SVG" />
         <outline text="Articles - Amy Hupe"
                  title="Articles - Amy Hupe"
                  type="rss"
@@ -1454,7 +1454,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design systems, UX, documentation, personal essays" />
         <outline text="Articles by Charlotte Dann"
                  title="Articles by Charlotte Dann"
                  type="rss"
@@ -1470,7 +1470,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend, generative art, three.js, css, creative coding" />
         <outline text="Articles by Ryan Mulligan"
                  title="Articles by Ryan Mulligan"
                  type="rss"
@@ -1486,7 +1486,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end development, CSS, JavaScript, Web Components, web development" />
         <outline text="Articles on Smashing Magazine — For Web Designers And Developers"
                  title="Articles on Smashing Magazine — For Web Designers And Developers"
                  type="rss"
@@ -1502,7 +1502,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, web development, front-end, UX, security" />
         <outline text="atthis.link"
                  title="atthis.link"
                  type="rss"
@@ -1518,7 +1518,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="computing, technology, research, essays" />
         <outline text="Austin Gil"
                  title="Austin Gil"
                  type="rss"
@@ -1534,7 +1534,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, personal blog, bikepacking, poetry" />
         <outline text="Baldur Bjarnason"
                  title="Baldur Bjarnason"
                  type="rss"
@@ -1550,7 +1550,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="photography, Iceland, nature, technology, writing" />
         <outline text="Ben Frain"
                  title="Ben Frain"
                  type="rss"
@@ -1566,7 +1566,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="Web Development, CSS, React, Web Components, SwiftUI" />
         <outline text="Blog - Sandi Metz"
                  title="Blog - Sandi Metz"
                  type="rss"
@@ -1582,7 +1582,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="Ruby, object-oriented design, programming, software design, coding" />
         <outline text="Blog of fearless web developer Silvestar Bistrović"
                  title="Blog of fearless web developer Silvestar Bistrović"
                  type="rss"
@@ -1598,7 +1598,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend, CSS, JAMstack, WordPress, freelancing" />
         <outline text="blog.damato.design"
                  title="blog.damato.design"
                  type="rss"
@@ -1614,7 +1614,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end development, design systems, CSS, web design, accessibility" />
         <outline text="Blogccasion"
                  title="Blogccasion"
                  type="rss"
@@ -1630,7 +1630,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, web standards, browser APIs, Home Assistant, technology" />
         <outline text="Brain Baking"
                  title="Brain Baking"
                  type="rss"
@@ -1646,7 +1646,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, video games, technology, life reflections, parenting" />
         <outline text="Bram.us"
                  title="Bram.us"
                  type="rss"
@@ -1662,7 +1662,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, Web Development, Browser Features, Front-End, Web Platform" />
         <outline text="Callum Hart"
                  title="Callum Hart"
                  type="rss"
@@ -1678,7 +1678,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, front-end, JavaScript, UX, testing" />
         <outline text="Chip Cullen"
                  title="Chip Cullen"
                  type="rss"
@@ -1694,7 +1694,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, software engineering, productivity, career, AI" />
         <outline text="Chris Burnell – Writing"
                  title="Chris Burnell – Writing"
                  type="rss"
@@ -1710,7 +1710,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, personal blog, indie web, music, projects" />
         <outline text="Chris Coyier"
                  title="Chris Coyier"
                  type="rss"
@@ -1726,7 +1726,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, technology, personal blog, internet culture, coding" />
         <outline text="chriskirknielsen"
                  title="chriskirknielsen"
                  type="rss"
@@ -1742,7 +1742,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, front-end, Eleventy, CSS, developer tools" />
         <outline text="Christian Heilmann"
                  title="Christian Heilmann"
                  type="rss"
@@ -1758,7 +1758,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, coding, accessibility, AI, programming" />
         <outline text="Clagnut"
                  title="Clagnut"
                  type="rss"
@@ -1774,7 +1774,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, web development, CSS, typography, technology" />
         <outline text="Coder&apos;s Block"
                  title="Coder&apos;s Block"
                  type="rss"
@@ -1790,7 +1790,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, web development, front-end, tutorials, programming" />
         <outline text="CSS In Real Life"
                  title="CSS In Real Life"
                  type="rss"
@@ -1806,7 +1806,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, web development, frontend, web design, blogging" />
         <outline text="CSS Wizardry"
                  title="CSS Wizardry"
                  type="rss"
@@ -1822,7 +1822,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web performance, site speed, caching, HTTP/2, front-end optimization" />
         <outline text="CSS-Tricks"
                  title="CSS-Tricks"
                  type="rss"
@@ -1838,7 +1838,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, front-end development, web design, tutorials" />
         <outline text="CSSHell"
                  title="CSSHell"
                  type="rss"
@@ -1854,7 +1854,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, web development, front-end, best practices, anti-patterns" />
         <outline text="Dan Wilson"
                  title="Dan Wilson"
                  type="rss"
@@ -1870,7 +1870,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, Web Animations API, Houdini, front-end" />
         <outline text="Daniel Schulz"
                  title="Daniel Schulz"
                  type="rss"
@@ -1886,7 +1886,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend, CSS, web development, animation, creative coding" />
         <outline text="Danny Guo"
                  title="Danny Guo"
                  type="rss"
@@ -1902,7 +1902,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="JavaScript, TypeScript, Web Development, Programming, Blog" />
         <outline text="Darek Kay"
                  title="Darek Kay"
                  type="rss"
@@ -1918,7 +1918,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="travel, sabbatical, New Zealand, Australia, travel journal" />
         <outline text="Darin Senneff - UX Designer and Developer"
                  title="Darin Senneff - UX Designer and Developer"
                  type="rss"
@@ -1934,7 +1934,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="UX, web accessibility, front-end development, inclusive design, screen readers" />
         <outline text="Dave Smyth"
                  title="Dave Smyth"
                  type="rss"
@@ -1950,7 +1950,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design, web design, UX/UI, typography, design process" />
         <outline text="daverupert.com"
                  title="daverupert.com"
                  type="rss"
@@ -1966,7 +1966,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, tech industry, personal blog, work culture, Austin" />
         <outline text="David Walsh Blog"
                  title="David Walsh Blog"
                  type="rss"
@@ -1982,7 +1982,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, JavaScript, CSS, HTML, tutorials" />
         <outline text="dbushell.com"
                  title="dbushell.com"
                  type="rss"
@@ -1998,7 +1998,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, front-end, design, technology" />
         <outline text="DEV Community: Laura buns"
                  title="DEV Community: Laura buns"
                  type="rss"
@@ -2014,7 +2014,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, twitter bots, react native, programming, dev.to" />
         <outline text="DEV Community: Nico Martin"
                  title="DEV Community: Nico Martin"
                  type="rss"
@@ -2030,7 +2030,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, React, PWA, browser APIs, JavaScript" />
         <outline text="Dev Tips by Nikita Dubko"
                  title="Dev Tips by Nikita Dubko"
                  type="rss"
@@ -2046,7 +2046,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end, web development, HTML, CSS, accessibility" />
         <outline text="DevTools Tips"
                  title="DevTools Tips"
                  type="rss"
@@ -2062,7 +2062,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, developer tools, browser debugging, CSS, DevTools" />
         <outline text="Die Netzialisten"
                  title="Die Netzialisten"
                  type="rss"
@@ -2078,7 +2078,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Full Site Editing, Web Development, Themes, Blocks" />
         <outline text="Dutchcelt. Egor Kloos&apos; Blog"
                  title="Dutchcelt. Egor Kloos&apos; Blog"
                  type="rss"
@@ -2094,7 +2094,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="css, web development, design engineering, color systems, web standards" />
         <outline text="Dylan Smith @dylanatsmith"
                  title="Dylan Smith @dylanatsmith"
                  type="rss"
@@ -2110,7 +2110,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend, design, product, personal blog, weeknotes" />
         <outline text="Edwin Cromley"
                  title="Edwin Cromley"
                  type="rss"
@@ -2126,7 +2126,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="programming, web development, Elixir, Docker, WordPress" />
         <outline text="Elise Hein’s personal site"
                  title="Elise Hein’s personal site"
                  type="rss"
@@ -2142,7 +2142,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, design systems, UI design, front-end" />
         <outline text="Elliot Jay Stocks"
                  title="Elliot Jay Stocks"
                  type="rss"
@@ -2158,7 +2158,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design, typography, web design, newsletters, personal blog" />
         <outline text="ElmaStudio"
                  title="ElmaStudio"
                  type="rss"
@@ -2174,7 +2174,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Full Site Editing, Block Themes, Web Development, Gutenberg" />
         <outline text="Eric Bailey"
                  title="Eric Bailey"
                  type="rss"
@@ -2190,7 +2190,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, inclusive design, web development, digital ethics, user experience" />
         <outline text="Erik Kroes"
                  title="Erik Kroes"
                  type="rss"
@@ -2206,7 +2206,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, inclusive design, web design, digital inclusion, design systems" />
         <outline text="Feed for Anselm Hannemann’s Writings"
                  title="Feed for Anselm Hannemann’s Writings"
                  type="rss"
@@ -2238,7 +2238,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, photography, life lessons, technology, creativity" />
         <outline text="freek.dev - all blogposts"
                  title="freek.dev - all blogposts"
                  type="rss"
@@ -2254,7 +2254,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="PHP, Laravel, Web Development, AI, Developer Workflow" />
         <outline text="germano.dev"
                  title="germano.dev"
                  type="rss"
@@ -2270,7 +2270,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, security, machine learning, programming, tech blog" />
         <outline text="Hakim.se"
                  title="Hakim.se"
                  type="rss"
@@ -2286,7 +2286,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, JavaScript, UI design, open source, front-end" />
         <outline text="hey it&apos;s violet"
                  title="hey it&apos;s violet"
                  type="rss"
@@ -2302,7 +2302,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="programming, JavaScript, career, tech, personal blog" />
         <outline text="Homepage on Probably"
                  title="Homepage on Probably"
                  type="rss"
@@ -2318,7 +2318,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="product marketing, technology, Apple, management, personal blog" />
         <outline text="Human Who Codes"
                  title="Human Who Codes"
                  type="rss"
@@ -2334,7 +2334,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, JavaScript, software engineering, Git, AI coding" />
         <outline text="Iain Bean"
                  title="Iain Bean"
                  type="rss"
@@ -2350,7 +2350,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, front-end, accessibility, performance, web design" />
         <outline text="ignorethecode.net"
                  title="ignorethecode.net"
                  type="rss"
@@ -2366,7 +2366,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="programming, usability, technology, software, personal tech" />
         <outline text="Impressive Webs"
                  title="Impressive Webs"
                  type="rss"
@@ -2382,7 +2382,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end development, web development, JavaScript, APIs, UX" />
         <outline text="Industrial Empathy"
                  title="Industrial Empathy"
                  type="rss"
@@ -2398,7 +2398,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, performance, AI, engineering, leadership" />
         <outline text="Infrequently Noted"
                  title="Infrequently Noted"
                  type="rss"
@@ -2414,7 +2414,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web standards, browsers, performance, web development, JavaScript" />
         <outline text="Jared White"
                  title="Jared White"
                  type="rss"
@@ -2430,7 +2430,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="photography, television, web culture, personal blog, Oregon" />
         <outline text="Jay Freestone | Software Engineer"
                  title="Jay Freestone | Software Engineer"
                  type="rss"
@@ -2446,7 +2446,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, frontend, performance, software engineering" />
         <outline text="Jeff Zych&apos;s Internet Nook"
                  title="Jeff Zych&apos;s Internet Nook"
                  type="rss"
@@ -2462,7 +2462,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design, technology, creativity, books, AI, product design" />
         <outline text="Jens Oliver Meiert"
                  title="Jens Oliver Meiert"
                  type="rss"
@@ -2478,7 +2478,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend development, HTML, open source, AI, web performance" />
         <outline text="Jim Nielsen’s Blog"
                  title="Jim Nielsen’s Blog"
                  type="rss"
@@ -2494,7 +2494,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, design, technology, personal blog, AI" />
         <outline text="jjenzz.com"
                  title="jjenzz.com"
                  type="rss"
@@ -2510,7 +2510,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="react, components, frontend, web development, progressive enhancement" />
         <outline text="Jon Yablonski"
                  title="Jon Yablonski"
                  type="rss"
@@ -2526,7 +2526,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="UX design, design psychology, user experience, design ethics, heuristics" />
         <outline text="Josh Comeau&apos;s blog"
                  title="Josh Comeau&apos;s blog"
                  type="rss"
@@ -2542,7 +2542,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, front-end, web development, tutorials, interactive" />
         <outline text="justmarkup"
                  title="justmarkup"
                  type="rss"
@@ -2558,7 +2558,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend, web development, CSS, JavaScript, accessibility" />
         <outline text="Karl Sutt"
                  title="Karl Sutt"
                  type="rss"
@@ -2574,7 +2574,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="software development, cloud computing, developer productivity, tech insights" />
         <outline text="Katy DeCorah"
                  title="Katy DeCorah"
                  type="rss"
@@ -2590,7 +2590,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, books, music, fitness, outdoor activities" />
         <outline text="Kilian Valkhof"
                  title="Kilian Valkhof"
                  type="rss"
@@ -2606,7 +2606,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end development, user experience, web development, accessibility, Polypane" />
         <outline text="Kitty Giraudel"
                  title="Kitty Giraudel"
                  type="rss"
@@ -2622,7 +2622,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend, web development, accessibility, Eleventy, technical tutorials" />
         <outline text="Lene Saile - Web Development Blog"
                  title="Lene Saile - Web Development Blog"
                  type="rss"
@@ -2638,7 +2638,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, CSS, frontend development, grid layout, web development" />
         <outline text="macwright.com"
                  title="macwright.com"
                  type="rss"
@@ -2654,7 +2654,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, programming, JavaScript, cycling, tech conferences" />
         <outline text="Manuel Matuzović - All Posts"
                  title="Manuel Matuzović - All Posts"
                  type="rss"
@@ -2670,7 +2670,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, CSS, web development, performance, front-end" />
         <outline text="Marko Denic"
                  title="Marko Denic"
                  type="rss"
@@ -2686,7 +2686,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="Linux, programming, tutorials, developer tools, AI" />
         <outline text="martinwolf.org"
                  title="martinwolf.org"
                  type="rss"
@@ -2702,7 +2702,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, JavaScript, digital minimalism, personal blog" />
         <outline text="Matthias Ott – User Experience Designer"
                  title="Matthias Ott – User Experience Designer"
                  type="rss"
@@ -2718,7 +2718,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, front-end development, CSS, UX, HTML" />
         <outline text="Mattias Geniar on ma.ttias.be"
                  title="Mattias Geniar on ma.ttias.be"
                  type="rss"
@@ -2734,7 +2734,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="devops, web development, nginx, laravel, varnish" />
         <outline text="Max Böck"
                  title="Max Böck"
                  type="rss"
@@ -2750,7 +2750,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end development, web design, indie web, personal blog" />
         <outline text="Maxim Orlov"
                  title="Maxim Orlov"
                  type="rss"
@@ -2766,7 +2766,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="Node.js, JavaScript, Web Development, Programming, Async" />
         <outline text="Maxime Heckel&apos;s Blog"
                  title="Maxime Heckel&apos;s Blog"
                  type="rss"
@@ -2782,7 +2782,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="React, WebGL, Shaders, Frontend, TypeScript" />
         <outline text="Mayank"
                  title="Mayank"
                  type="rss"
@@ -2798,7 +2798,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, Sass, Web Development, JavaScript, Front-End" />
         <outline text="Melanie Richards"
                  title="Melanie Richards"
                  type="rss"
@@ -2814,7 +2814,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, design, personal blog, crafting, learning logs" />
         <outline text="Mike Street&apos;s Blog"
                  title="Mike Street&apos;s Blog"
                  type="rss"
@@ -2830,7 +2830,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="devops, self-hosting, software development, cloud storage, programming" />
         <outline text="Miriam Eric Suzanne"
                  title="Miriam Eric Suzanne"
                  type="rss"
@@ -2846,7 +2846,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="css, web design, front-end development, technology, personal blog" />
         <outline text="Modern CSS Solutions"
                  title="Modern CSS Solutions"
                  type="rss"
@@ -2862,7 +2862,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, Web Design, Frontend Development, Tutorials" />
         <outline text="Monica Dinculescu"
                  title="Monica Dinculescu"
                  type="rss"
@@ -2878,7 +2878,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, software engineering, generative art, creative process, tech community" />
         <outline text="NicJ.net"
                  title="NicJ.net"
                  type="rss"
@@ -2894,7 +2894,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web performance, JavaScript, RUM, web development, performance metrics" />
         <outline text="Nicolas Hoizey - Articles"
                  title="Nicolas Hoizey - Articles"
                  type="rss"
@@ -2910,7 +2910,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, IndieWeb, photography, personal blog, technology" />
         <outline text="notizBlog"
                  title="notizBlog"
                  type="rss"
@@ -2926,7 +2926,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="open web, federated social web, RSS, indie web, blogging" />
         <outline text="OddBird"
                  title="OddBird"
                  type="rss"
@@ -2942,7 +2942,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, Web Development, Accessibility, UI Design, Frontend" />
         <outline text="PabstWP"
                  title="PabstWP"
                  type="rss"
@@ -2958,7 +2958,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, corporate blogging, relaunch, projects" />
         <outline text="Paramdeo Singh"
                  title="Paramdeo Singh"
                  type="rss"
@@ -2974,7 +2974,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="software engineering, JavaScript, web development, SvelteKit, programming" />
         <outline text="Patrick Brosset"
                  title="Patrick Brosset"
                  type="rss"
@@ -2990,7 +2990,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, browsers, performance, Edge" />
         <outline text="Paulund"
                  title="Paulund"
                  type="rss"
@@ -3006,7 +3006,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, Laravel, PHP, JavaScript, tutorials" />
         <outline text="pawelgrzybek.com"
                  title="pawelgrzybek.com"
                  type="rss"
@@ -3022,7 +3022,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, tech commentary, monthly roundups, personal blog, music" />
         <outline text="Piccalilli"
                  title="Piccalilli"
                  type="rss"
@@ -3038,7 +3038,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end development, web design, CSS, accessibility, design systems" />
         <outline text="Piper Haywood"
                  title="Piper Haywood"
                  type="rss"
@@ -3054,7 +3054,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal, design, technology, life, writing" />
         <outline text="Posts on Seirdy&apos;s Home"
                  title="Posts on Seirdy&apos;s Home"
                  type="rss"
@@ -3070,7 +3070,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="technology, privacy, open source, software freedom, platform governance" />
         <outline text="Prototyping.news Feed"
                  title="Prototyping.news Feed"
                  type="rss"
@@ -3086,7 +3086,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="prototyping, web development, UX design, design tools" />
         <outline text="QuirksBlog"
                  title="QuirksBlog"
                  type="rss"
@@ -3102,7 +3102,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, web development, front-end, browser compatibility" />
         <outline text="Rach Smith&apos;s digital garden"
                  title="Rach Smith&apos;s digital garden"
                  type="rss"
@@ -3118,7 +3118,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="productivity, journaling, parenting, minimalism, personal blog" />
         <outline text="Raymond Camden"
                  title="Raymond Camden"
                  type="rss"
@@ -3134,7 +3134,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, JavaScript, static sites, AI tools, programming" />
         <outline text="Read the Tea Leaves"
                  title="Read the Tea Leaves"
                  type="rss"
@@ -3150,7 +3150,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="software development, AI, coding, web development, technology" />
         <outline text="remy sharp&apos;s b:log"
                  title="remy sharp&apos;s b:log"
                  type="rss"
@@ -3166,7 +3166,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, coding, javascript, tech, personal blog" />
         <outline text="Robin Rendle"
                  title="Robin Rendle"
                  type="rss"
@@ -3182,7 +3182,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, typography, indie web, books, personal blog" />
         <outline text="Ronalds Vilciņš"
                  title="Ronalds Vilciņš"
                  type="rss"
@@ -3198,7 +3198,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="digital marketing, AI, technology news, Latvian blog, online advertising" />
         <outline text="Ross Wintle"
                  title="Ross Wintle"
                  type="rss"
@@ -3214,7 +3214,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, software development, productivity, writing, tech" />
         <outline text="Rupert Angermeier"
                  title="Rupert Angermeier"
                  type="rss"
@@ -3230,7 +3230,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, HTML, SVG, debugging" />
         <outline text="RWieruch"
                  title="RWieruch"
                  type="rss"
@@ -3246,7 +3246,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="React, Next.js, TypeScript, JavaScript, Web Development" />
         <outline text="Sara Soueidan – Blog"
                  title="Sara Soueidan – Blog"
                  type="rss"
@@ -3262,7 +3262,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, web development, CSS, HTML, SVG" />
         <outline text="Sarah Higley"
                  title="Sarah Higley"
                  type="rss"
@@ -3278,7 +3278,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, ARIA, CSS, web development, screen readers" />
         <outline text="Scott O’Hara - Accessibility engineer, UX developer and designer"
                  title="Scott O’Hara - Accessibility engineer, UX developer and designer"
                  type="rss"
@@ -3294,7 +3294,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, web development, HTML, UX, inclusive design" />
         <outline text="screenspan.net"
                  title="screenspan.net"
                  type="rss"
@@ -3310,7 +3310,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="UX, web design, sustainability, leadership, technology" />
         <outline text="Shawn Hooper"
                  title="Shawn Hooper"
                  type="rss"
@@ -3326,7 +3326,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="homelab, self-hosting, web development, technology, tutorials" />
         <outline text="Silvan Hagen"
                  title="Silvan Hagen"
                  type="rss"
@@ -3342,7 +3342,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, Laravel, Filament, PHP, digital consulting" />
         <outline text="Simple Thread"
                  title="Simple Thread"
                  type="rss"
@@ -3358,7 +3358,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="energy software, power grid, AI, infrastructure, software development" />
         <outline text="SMTH"
                  title="SMTH"
                  type="rss"
@@ -3374,7 +3374,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, CSS, frontend, development, design patterns" />
         <outline text="Stack Diary"
                  title="Stack Diary"
                  type="rss"
@@ -3390,7 +3390,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="technology, cybersecurity, tech news, software, industry" />
         <outline text="Stefan Judis Web Development"
                  title="Stefan Judis Web Development"
                  type="rss"
@@ -3406,7 +3406,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, JavaScript, HTML, frontend" />
         <outline text="stefanzweifel.dev"
                  title="stefanzweifel.dev"
                  type="rss"
@@ -3422,7 +3422,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="Laravel, PHP, Software Development, Tech Conferences, Personal Blog" />
         <outline text="Stephanie&apos;s Design and Technical Musings"
                  title="Stephanie&apos;s Design and Technical Musings"
                  type="rss"
@@ -3438,7 +3438,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, design, tech conferences, tech career" />
         <outline text="Steven Woodson"
                  title="Steven Woodson"
                  type="rss"
@@ -3454,7 +3454,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, accessibility, Eleventy, indieweb, consulting" />
         <outline text="Stéphanie Walter – Senior UX Designer, Mobile Expert, Conference Speaker, Blog writer and Teacher."
                  title="Stéphanie Walter – Senior UX Designer, Mobile Expert, Conference Speaker, Blog writer and Teacher."
                  type="rss"
@@ -3470,7 +3470,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="UX design, UX research, accessibility, design resources, inclusive design" />
         <outline text="Tae&apos;lur Alexis"
                  title="Tae&apos;lur Alexis"
                  type="rss"
@@ -3486,7 +3486,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="cybersecurity, penetration testing, CTF walkthroughs, certifications, web security" />
         <outline text="Tania Rascia | RSS Feed"
                  title="Tania Rascia | RSS Feed"
                  type="rss"
@@ -3502,7 +3502,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, React, Redux, JavaScript, programming tutorials" />
         <outline text="Tatiana Mac"
                  title="Tatiana Mac"
                  type="rss"
@@ -3518,7 +3518,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design, accessibility, communication, writing, technology" />
         <outline text="The A11Y Project"
                  title="The A11Y Project"
                  type="rss"
@@ -3534,7 +3534,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web accessibility, a11y, inclusive design, WCAG, assistive technology" />
         <outline text="The Ethically-Trained Programmer"
                  title="The Ethically-Trained Programmer"
                  type="rss"
@@ -3566,7 +3566,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, layout, web development, Flexbox, frontend" />
         <outline text="The Spicy Web"
                  title="The Spicy Web"
                  type="rss"
@@ -3582,7 +3582,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, web components, HTML, CSS, JavaScript" />
         <outline text="Thomas Michael Semmler - helloyes.dev"
                  title="Thomas Michael Semmler - helloyes.dev"
                  type="rss"
@@ -3598,7 +3598,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, frontend, CSS, design, personal blog" />
         <outline text="Thoughts From Eric"
                  title="Thoughts From Eric"
                  type="rss"
@@ -3614,7 +3614,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, Web Standards, Accessibility, Web Development, Technology" />
         <outline text="Tim Brown"
                  title="Tim Brown"
                  type="rss"
@@ -3630,7 +3630,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design, typography, personal blog, journal, food" />
         <outline text="TimKadlec.com on Web Performance Consulting | TimKadlec.com"
                  title="TimKadlec.com on Web Performance Consulting | TimKadlec.com"
                  type="rss"
@@ -3646,7 +3646,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web performance, front-end development, web development, JavaScript, CSS" />
         <outline text="Tink - Léonie Watson - On technology, food &amp; life in the digital age"
                  title="Tink - Léonie Watson - On technology, food &amp; life in the digital age"
                  type="rss"
@@ -3662,7 +3662,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="accessibility, web development, assistive technology, screen readers, personal blog" />
         <outline text="Tobias Ahlin"
                  title="Tobias Ahlin"
                  type="rss"
@@ -3678,7 +3678,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, CSS, JavaScript, front-end, UX design" />
         <outline text="tonsky.me"
                  title="tonsky.me"
                  type="rss"
@@ -3694,7 +3694,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="programming, design, UI/UX, Clojure, blog" />
         <outline text="TuneTheWeb Blog"
                  title="TuneTheWeb Blog"
                  type="rss"
@@ -3710,7 +3710,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web performance, security, usability, HTTPS, AMP" />
         <outline text="twnsnd"
                  title="twnsnd"
                  type="rss"
@@ -3726,7 +3726,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="Rails, databases, web performance, software architecture, CTO consultancy" />
         <outline text="Vadim Makeev"
                  title="Vadim Makeev"
                  type="rss"
@@ -3742,7 +3742,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend, web development, CSS, JavaScript, HTML" />
         <outline text="Varun Vachhar"
                  title="Varun Vachhar"
                  type="rss"
@@ -3758,7 +3758,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="front-end development, SVG, CSS Grid, WebGL, creative coding" />
         <outline text="Webbed Briefs"
                  title="Webbed Briefs"
                  type="rss"
@@ -3774,7 +3774,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, video, satire, web platform, accessibility" />
         <outline text="Webfalken – WordPress im Gleitflug"
                  title="Webfalken – WordPress im Gleitflug"
                  type="rss"
@@ -3790,7 +3790,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, web development, plugins, performance, seo" />
         <outline text="XML-RSS Feed for Anselm Hannemann’s Writings"
                  title="XML-RSS Feed for Anselm Hannemann’s Writings"
                  type="rss"
@@ -3806,7 +3806,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, Frontend Development, Web Development, Engineering Culture" />
         <outline text="yetanother.blog"
                  title="yetanother.blog"
                  type="rss"
@@ -3822,7 +3822,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, frontend, CSS, JavaScript, open source" />
         <outline text="yuanchuan.dev"
                  title="yuanchuan.dev"
                  type="rss"
@@ -3838,7 +3838,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="CSS, SVG, Web Animation, Creative Coding, Front-end Development" />
         <outline text="Zach Holman"
                  title="Zach Holman"
                  type="rss"
@@ -3854,7 +3854,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="angel investing, startups, entrepreneurship, technology, soccer" />
         <outline text="Zach Leatherman"
                  title="Zach Leatherman"
                  type="rss"
@@ -3870,7 +3870,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="eleventy, web development, static site generators, html, javascript" />
         <outline text="ZS"
                  title="ZS"
                  type="rss"
@@ -3886,7 +3886,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, side projects, tools, programming, websites" />
         </outline>
 
         <outline text="WordPress" title="WordPress">
@@ -3905,7 +3905,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, gutenberg, development, tutorials" />
         <outline text="agm"
                  title="agm"
                  type="rss"
@@ -3921,7 +3921,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, life, work, health, writing" />
         <outline text="ajmorris"
                  title="ajmorris"
                  type="rss"
@@ -3937,7 +3937,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="AI, career development, product management, productivity, technology" />
         <outline text="Alex Kirk"
                  title="Alex Kirk"
                  type="rss"
@@ -3953,7 +3953,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, AI, Personal Software, ActivityPub, Self-hosting" />
         <outline text="Alex.Party"
                  title="Alex.Party"
                  type="rss"
@@ -3969,7 +3969,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="frontend development, JavaScript, CSS, personal blog, ADHD" />
         <outline text="Amsive Digital"
                  title="Amsive Digital"
                  type="rss"
@@ -3985,7 +3985,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="digital marketing, AI search, local SEO, healthcare marketing, measurement" />
         <outline text="Anders Norén"
                  title="Anders Norén"
                  type="rss"
@@ -4001,7 +4001,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, hiking, outdoor adventures, personal blog" />
         <outline text="Aurooba Makes"
                  title="Aurooba Makes"
                  type="rss"
@@ -4017,7 +4017,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, web development, javascript, personal blog, tutorials" />
         <outline text="BDWM"
                  title="BDWM"
                  type="rss"
@@ -4033,7 +4033,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, PHP, JavaScript, WordPress, front-end" />
         <outline text="Bill Erickson"
                  title="Bill Erickson"
                  type="rss"
@@ -4049,7 +4049,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, ACF, Web Development, Programming, AI Tools" />
         <outline text="Blog on Thomas Kräftner"
                  title="Blog on Thomas Kräftner"
                  type="rss"
@@ -4065,7 +4065,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="ActionScript, Flash, WordPress, Web Development, Tech Community" />
         <outline text="bradt.ca"
                  title="bradt.ca"
                  type="rss"
@@ -4081,7 +4081,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="software development, productivity, technology, writing, web development" />
         <outline text="Brian Coords"
                  title="Brian Coords"
                  type="rss"
@@ -4097,7 +4097,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, development, WooCommerce, WP-CLI, community" />
         <outline text="caspar.blog"
                  title="caspar.blog"
                  type="rss"
@@ -4113,7 +4113,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal essays, technology, sustainability, music, culture" />
         <outline text="Chris Brailsford"
                  title="Chris Brailsford"
                  type="rss"
@@ -4129,7 +4129,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, tutorials, developer tips" />
         <outline text="Chris Wiegman"
                  title="Chris Wiegman"
                  type="rss"
@@ -4145,7 +4145,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="technology, web development, open source, Hugo, WordPress" />
         <outline text="Cory Miller"
                  title="Cory Miller"
                  type="rss"
@@ -4161,7 +4161,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="leadership, entrepreneurship, personal development, business, values" />
         <outline text="critterverse.blog"
                  title="critterverse.blog"
                  type="rss"
@@ -4177,7 +4177,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, block editor, web development, design" />
         <outline text="Damon Cook"
                  title="Damon Cook"
                  type="rss"
@@ -4209,7 +4209,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, WordPress, CSS, Node.js, coding workflows" />
         <outline text="Daniel Bachhuber"
                  title="Daniel Bachhuber"
                  type="rss"
@@ -4225,7 +4225,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, technology, running, personal blog, product management" />
         <outline text="David Bisset"
                  title="David Bisset"
                  type="rss"
@@ -4241,7 +4241,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Web Development, Podcasts, Plugins, Community" />
         <outline text="Digging Into WordPress"
                  title="Digging Into WordPress"
                  type="rss"
@@ -4257,7 +4257,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Plugins, Development, Tutorials, SEO" />
         <outline text="English – oandre.gal"
                  title="English – oandre.gal"
                  type="rss"
@@ -4273,7 +4273,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="programming, WordPress, artificial intelligence, web development, personal blog" />
         <outline text="Ephermeral themes"
                  title="Ephermeral themes"
                  type="rss"
@@ -4289,7 +4289,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="lifestyle, fitness, home, business, guides" />
         <outline text="Epiphyt"
                  title="Epiphyt"
                  type="rss"
@@ -4305,7 +4305,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, plugins, security, performance, web development" />
         <outline text="essays – Paolo Belcastro"
                  title="essays – Paolo Belcastro"
                  type="rss"
@@ -4337,7 +4337,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, Block Editor, User Experience, Development" />
         <outline text="felix-arntz.me"
                  title="felix-arntz.me"
                  type="rss"
@@ -4353,7 +4353,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, open source, web development, performance, plugins" />
         <outline text="femKreations | Femy Praseeth"
                  title="femKreations | Femy Praseeth"
                  type="rss"
@@ -4369,7 +4369,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="writing, storytelling, creativity, gratitude, personal blog" />
         <outline text="Florian Brinkmann"
                  title="Florian Brinkmann"
                  type="rss"
@@ -4385,7 +4385,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, WordPress, Laravel, JavaScript, Statamic" />
         <outline text="Freemius"
                  title="Freemius"
                  type="rss"
@@ -4401,7 +4401,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="software monetization, pricing, payments, licensing, SaaS" />
         <outline text="Full Site Editing"
                  title="Full Site Editing"
                  type="rss"
@@ -4417,7 +4417,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, block themes, global styles, web development" />
         <outline text="Gary Pendergast"
                  title="Gary Pendergast"
                  type="rss"
@@ -4433,7 +4433,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, web development, AI, personal blog" />
         <outline text="Geoff Graham"
                  title="Geoff Graham"
                  type="rss"
@@ -4449,7 +4449,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, WordPress, design, personal blog, technology" />
         <outline text="Gutenberg Times"
                  title="Gutenberg Times"
                  type="rss"
@@ -4465,7 +4465,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, gutenberg, block editor, news, AI" />
         <outline text="Helen on WordPress"
                  title="Helen on WordPress"
                  type="rss"
@@ -4481,7 +4481,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, open source, blogging, community" />
         <outline text="Highrise Digital"
                  title="Highrise Digital"
                  type="rss"
@@ -4497,7 +4497,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, recruitment, job boards, block themes, web development" />
         <outline text="Ian Svoboda"
                  title="Ian Svoboda"
                  type="rss"
@@ -4513,7 +4513,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, CSS, Web Development, Frontend, Flexbox" />
         <outline text="Igor Benić"
                  title="Igor Benić"
                  type="rss"
@@ -4529,7 +4529,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, PHP, Development, Tutorials, Plugins" />
         <outline text="InnerBlocks"
                  title="InnerBlocks"
                  type="rss"
@@ -4545,7 +4545,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, Block Development, JavaScript, Components" />
         <outline text="Jason Yingling"
                  title="Jason Yingling"
                  type="rss"
@@ -4561,7 +4561,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, WordPress, AI, programming, debugging" />
         <outline text="Jean-Baptiste Audras"
                  title="Jean-Baptiste Audras"
                  type="rss"
@@ -4577,7 +4577,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, development, plugins, community" />
         <outline text="Jem – UK blogger"
                  title="Jem – UK blogger"
                  type="rss"
@@ -4593,7 +4593,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, running, life updates, UK, marathon" />
         <outline text="Joe Casabona"
                  title="Joe Casabona"
                  type="rss"
@@ -4609,7 +4609,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="solopreneur, productivity, systems, AI, workflows" />
         <outline text="Johannes Kinast"
                  title="Johannes Kinast"
                  type="rss"
@@ -4625,7 +4625,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, web development, php, vue.js, tools" />
         <outline text="Jonathan Bossenger"
                  title="Jonathan Bossenger"
                  type="rss"
@@ -4641,7 +4641,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, AI, software development, open source, conferences" />
         <outline text="Joni Halabi"
                  title="Joni Halabi"
                  type="rss"
@@ -4657,7 +4657,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, WordPress, AI, writing, parenting" />
         <outline text="Josh Baker – Unreal Engine Developer"
                  title="Josh Baker – Unreal Engine Developer"
                  type="rss"
@@ -4673,7 +4673,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, AWS, tutorials, video streaming, DevOps" />
         <outline text="Jschof"
                  title="Jschof"
                  type="rss"
@@ -4689,7 +4689,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, Vue.js, Angular, WordPress, JavaScript" />
         <outline text="Julians Blog"
                  title="Julians Blog"
                  type="rss"
@@ -4705,7 +4705,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, Plugin Development, WooCommerce, Web Development" />
         <outline text="Justin Tadlock"
                  title="Justin Tadlock"
                  type="rss"
@@ -4721,7 +4721,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, WordPress, web development, reading, life reflections" />
         <outline text="Kevin Dees"
                  title="Kevin Dees"
                  type="rss"
@@ -4737,7 +4737,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="full-stack development, programming, technology, remote work, personal essays" />
         <outline text="Konstantin Kovshenin"
                  title="Konstantin Kovshenin"
                  type="rss"
@@ -4753,7 +4753,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, caching, email, development, Sail" />
         <outline text="Krasen Slavov"
                  title="Krasen Slavov"
                  type="rss"
@@ -4769,7 +4769,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Plugins, Development, AI, Git" />
         <outline text="Lara Schenck"
                  title="Lara Schenck"
                  type="rss"
@@ -4785,7 +4785,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="programming, computing education, research, personal blog, creativity" />
         <outline text="Liam Dempsey"
                  title="Liam Dempsey"
                  type="rss"
@@ -4801,7 +4801,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, podcasting, local business, product reviews, technology" />
         <outline text="Marie Comet"
                  title="Marie Comet"
                  type="rss"
@@ -4817,7 +4817,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, ACF, Gutenberg, Elementor, PHP" />
         <outline text="Marinus Klasen"
                  title="Marinus Klasen"
                  type="rss"
@@ -4833,7 +4833,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Elementor, WooCommerce, Web Development, PHP" />
         <outline text="Mark Wilkinson"
                  title="Mark Wilkinson"
                  type="rss"
@@ -4849,7 +4849,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, tutorials, WordCamp, multisite" />
         <outline text="Matías Ventura"
                  title="Matías Ventura"
                  type="rss"
@@ -4865,7 +4865,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, design, essays, technology, personal blog" />
         <outline text="Mel Choyce"
                  title="Mel Choyce"
                  type="rss"
@@ -4881,7 +4881,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="design, figma, music, personal blog, creative" />
         <outline text="mkaz.blog"
                  title="mkaz.blog"
                  type="rss"
@@ -4897,7 +4897,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="python, programming, development, ai, tools" />
         <outline text="modularwp.com"
                  title="modularwp.com"
                  type="rss"
@@ -4913,7 +4913,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, JSX, React, Web Development" />
         <outline text="MRW Web Design"
                  title="MRW Web Design"
                  type="rss"
@@ -4929,7 +4929,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web design, accessibility, nonprofits, front-end development, conferences" />
         <outline text="Nick Diego"
                  title="Nick Diego"
                  type="rss"
@@ -4945,7 +4945,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, programming, tech career, blogging" />
         <outline text="Nutt.net"
                  title="Nutt.net"
                  type="rss"
@@ -4961,7 +4961,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, laravel, php, web development" />
         <outline text="Otto on WordPress"
                  title="Otto on WordPress"
                  type="rss"
@@ -4977,7 +4977,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, development, security, plugins" />
         <outline text="Pascal Birchler"
                  title="Pascal Birchler"
                  type="rss"
@@ -4993,7 +4993,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, performance, open source, WordCamp" />
         <outline text="Permanent Tourist"
                  title="Permanent Tourist"
                  type="rss"
@@ -5009,7 +5009,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="photography, travel, Switzerland, personal blog, outdoors" />
         <outline text="Peter Wilson"
                  title="Peter Wilson"
                  type="rss"
@@ -5025,7 +5025,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, PHP, web development, WP-CLI, plugins" />
         <outline text="PeterJohn Hunt"
                  title="PeterJohn Hunt"
                  type="rss"
@@ -5041,7 +5041,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Development, PHP, AJAX, Web Development" />
         <outline text="phpied.com"
                  title="phpied.com"
                  type="rss"
@@ -5057,7 +5057,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, JavaScript, programming, personal blog" />
         <outline text="Pole Vault Web"
                  title="Pole Vault Web"
                  type="rss"
@@ -5073,7 +5073,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, PHP, Web Development, Tutorials, Freelancing" />
         <outline text="Posts – TinyBit"
                  title="Posts – TinyBit"
                  type="rss"
@@ -5089,7 +5089,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, performance, optimization, CSS, web development" />
         <outline text="Remkus de Vries"
                  title="Remkus de Vries"
                  type="rss"
@@ -5105,7 +5105,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, performance, web development, site maintenance, WordCamp" />
         <outline text="Riad Benguella"
                  title="Riad Benguella"
                  type="rss"
@@ -5121,7 +5121,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, software engineering, CMS, web development, open source" />
         <outline text="rm.codes"
                  title="rm.codes"
                  type="rss"
@@ -5137,7 +5137,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, React, Block Editor, Web Development" />
         <outline text="Roy Tanck"
                  title="Roy Tanck"
                  type="rss"
@@ -5153,7 +5153,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="blog, WordPress, PHP, Android, personal" />
         <outline text="Ryan Welcher"
                  title="Ryan Welcher"
                  type="rss"
@@ -5169,7 +5169,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, Web Development, Tutorials" />
         <outline text="ryelle codes"
                  title="ryelle codes"
                  type="rss"
@@ -5185,7 +5185,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, accessibility, typography, AI, personal blog" />
         <outline text="SABRINA ZEIDAN"
                  title="SABRINA ZEIDAN"
                  type="rss"
@@ -5201,7 +5201,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Performance, Plugin Development, REST API, Web Vitals" />
         <outline text="simon.blog"
                  title="simon.blog"
                  type="rss"
@@ -5217,7 +5217,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, WooCommerce, community, conferences, web development" />
         <outline text="Since1979"
                  title="Since1979"
                  type="rss"
@@ -5233,7 +5233,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, CSS, JavaScript, Web Development, Google Analytics" />
         <outline text="Something Odd!"
                  title="Something Odd!"
                  type="rss"
@@ -5249,7 +5249,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="personal blog, selfhosting, photography, WordPress, music" />
         <outline text="Stefan Bohacek"
                  title="Stefan Bohacek"
                  type="rss"
@@ -5265,7 +5265,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="fediverse, social web, ActivityPub, tools, personal blog" />
         <outline text="Steve Grunwell"
                  title="Steve Grunwell"
                  type="rss"
@@ -5281,7 +5281,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="PHP, software development, design patterns, code quality, testing" />
         <outline text="Taupecat Studios"
                  title="Taupecat Studios"
                  type="rss"
@@ -5297,7 +5297,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, web development, plugins, Sass, nonprofits" />
         <outline text="The Man in the Arena"
                  title="The Man in the Arena"
                  type="rss"
@@ -5313,7 +5313,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="PHP, WordPress, web development, personal blog, annual review" />
         <outline text="thewpvoyage"
                  title="thewpvoyage"
                  type="rss"
@@ -5329,7 +5329,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, Development, Tips, Programming" />
         <outline text="Timi Wahalahti"
                  title="Timi Wahalahti"
                  type="rss"
@@ -5345,7 +5345,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Backend Development, Plugins, Tech, Personal Blog" />
         <outline text="TimNash.co.uk"
                  title="TimNash.co.uk"
                  type="rss"
@@ -5361,7 +5361,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, security, cybersecurity, workshops" />
         <outline text="Tom J Nowell"
                  title="Tom J Nowell"
                  type="rss"
@@ -5377,7 +5377,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, PHP, Development, Performance, Block Editor" />
         <outline text="Tom McFarlin"
                  title="Tom McFarlin"
                  type="rss"
@@ -5393,7 +5393,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="software engineering, web development, WordPress, app development, programming" />
         <outline text="Weston Ruter"
                  title="Weston Ruter"
                  type="rss"
@@ -5409,7 +5409,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, WordPress, performance, WordPress plugins" />
         <outline text="WP Mainline"
                  title="WP Mainline"
                  type="rss"
@@ -5425,7 +5425,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, community, news, wordcamp, events" />
         <outline text="WP Theming"
                  title="WP Theming"
                  type="rss"
@@ -5441,7 +5441,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, web development, theming, laravel, devops" />
         <outline text="WP-GB » WordPress Gutenberg Comments Feed"
                  title="WP-GB » WordPress Gutenberg Comments Feed"
                  type="rss"
@@ -5473,7 +5473,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="web development, code snippets, tutorials, PHP, CSS" />
         <outline text="wpastronaut.com"
                  title="wpastronaut.com"
                  type="rss"
@@ -5505,7 +5505,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="WordPress, Gutenberg, ACF, Tutorials, Plugins" />
         <outline text="Writing"
                  title="Writing"
                  type="rss"
@@ -5521,7 +5521,7 @@
                  feedmineArticlesFetched="0"
                  feedmineQualityScore="42"
                  feedmineDefaultEnabled="true"
-                 feedmineMediaKind="text"/>
+                 feedmineMediaKind="text" category="wordpress, design, career, personal blog" />
         </outline>
 </body>
 </opml>
