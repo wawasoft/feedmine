@@ -10,6 +10,10 @@ struct CuratedFeed: Identifiable, Sendable, Hashable {
     let id: Int64
     let name: String
     let definition: CuratedProfileDefinition
+    /// The explicit Composer choices that produced this feed, when it was
+    /// created through the Composer. Feeds from the older onboarding flow
+    /// have `nil` and continue to work.
+    let recipe: FeedRecipeDefinition?
     let createdAt: Date
     let updatedAt: Date
 }

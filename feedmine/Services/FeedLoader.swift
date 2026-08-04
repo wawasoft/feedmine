@@ -975,21 +975,28 @@ final class FeedLoader {
     @discardableResult
     func createCuratedFeed(
         name: String,
-        definition: CuratedProfileDefinition
+        definition: CuratedProfileDefinition,
+        recipe: FeedRecipeDefinition? = nil
     ) async throws -> CuratedFeed {
-        try await store.createCuratedFeed(name: name, definition: definition)
+        try await store.createCuratedFeed(
+            name: name,
+            definition: definition,
+            recipe: recipe
+        )
     }
 
     @discardableResult
     func updateCuratedFeed(
         id: Int64,
         name: String,
-        definition: CuratedProfileDefinition
+        definition: CuratedProfileDefinition,
+        recipe: FeedRecipeDefinition? = nil
     ) async throws -> CuratedFeed {
         try await store.updateCuratedFeed(
             id: id,
             name: name,
-            definition: definition
+            definition: definition,
+            recipe: recipe
         )
     }
 

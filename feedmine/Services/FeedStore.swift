@@ -5220,9 +5220,14 @@ final class FeedStore {
     @discardableResult
     func createCuratedFeed(
         name: String,
-        definition: CuratedProfileDefinition
+        definition: CuratedProfileDefinition,
+        recipe: FeedRecipeDefinition? = nil
     ) async throws -> CuratedFeed {
-        let id = try await curatedFeedStore.create(name: name, definition: definition)
+        let id = try await curatedFeedStore.create(
+            name: name,
+            definition: definition,
+            recipe: recipe
+        )
         guard let feed = try await curatedFeedStore.curatedFeed(id: id) else {
             throw CuratedFeedError.invalidDefinition
         }
@@ -5232,12 +5237,14 @@ final class FeedStore {
     func updateCuratedFeed(
         id: Int64,
         name: String,
-        definition: CuratedProfileDefinition
+        definition: CuratedProfileDefinition,
+        recipe: FeedRecipeDefinition? = nil
     ) async throws -> CuratedFeed {
         try await curatedFeedStore.update(
             id: id,
             name: name,
-            definition: definition
+            definition: definition,
+            recipe: recipe
         )
         guard let feed = try await curatedFeedStore.curatedFeed(id: id) else {
             throw CuratedFeedError.missingFeed

@@ -220,6 +220,7 @@ final class UserStateStore {
                 t.autoIncrementedPrimaryKey("id")
                 t.column("name", .text).notNull()
                 t.column("definition_json", .text).notNull()
+                t.column("recipe_json", .text)
                 t.column("sort_order", .integer).notNull().defaults(to: 0)
                 t.column("created_at", .integer).notNull()
                 t.column("updated_at", .integer).notNull()
@@ -309,6 +310,21 @@ final class UserStateStore {
             }
             try db.create(index: "idx_imported_source_identity",
                           on: "imported_source", columns: ["source_identity"])
+        }
+
+        migrator.registerMigration("v9_curated_feed_recipe") { db in
+            // The recipe_json column holds the explicit Composer recipe. It is
+            // nullable: curated feeds created before the Composer have none.
+            // do/catch tolerates a pre-existing column (e.g. a database that
+            // already ran an equivalent migration under another identifier).
+            do {
+                try db.alter(table: "curated_feed") { table in
+                    table.add(column: "recipe_json", .text)
+                }
+            } catch let error as DatabaseError
+                where error.message?.contains("duplicate column") == true {
+                Log.db.info("recipe_json column already present; skipping")
+            }
         }
 
         try migrator.migrate(db)
@@ -858,7 +874,7 @@ final class CuratedFeedStore {
     func allCuratedFeeds() async throws -> [CuratedFeed] {
         try await db.read { db in
             try Row.fetchAll(db, sql: """
-                SELECT id, name, definition_json, created_at, updated_at
+                SELECT id, name, definition_json, recipe_json, created_at, updated_at
                 FROM curated_feed
                 ORDER BY sort_order, created_at, id
                 """).compactMap(Self.feed(from:))
@@ -868,7 +884,7 @@ final class CuratedFeedStore {
     func curatedFeed(id: Int64) async throws -> CuratedFeed? {
         try await db.read { db in
             try Row.fetchOne(db, sql: """
-                SELECT id, name, definition_json, created_at, updated_at
+                SELECT id, name, definition_json, recipe_json, created_at, updated_at
                 FROM curated_feed
                 WHERE id = ?
                 """, arguments: [id]).flatMap(Self.feed(from:))
@@ -876,13 +892,24 @@ final class CuratedFeedStore {
     }
 
     @discardableResult
-    func create(name: String, definition: CuratedProfileDefinition) async throws -> Int64 {
+    func create(
+        name: String,
+        definition: CuratedProfileDefinition,
+        recipe: FeedRecipeDefinition? = nil
+    ) async throws -> Int64 {
         let cleanName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !cleanName.isEmpty else { throw CuratedFeedError.emptyName }
         guard !definition.languages.isEmpty else { throw CuratedFeedError.emptyLanguages }
         let data = try JSONEncoder().encode(definition)
         guard let json = String(data: data, encoding: .utf8) else {
             throw CuratedFeedError.invalidDefinition
+        }
+        let recipeJSON: String?
+        if let recipe {
+            let recipeData = try JSONEncoder().encode(recipe)
+            recipeJSON = String(data: recipeData, encoding: .utf8)
+        } else {
+            recipeJSON = nil
         }
         return try await db.write { db in
             let order = try Int.fetchOne(
@@ -892,9 +919,9 @@ final class CuratedFeedStore {
             let now = Int(Date().timeIntervalSince1970)
             try db.execute(sql: """
                 INSERT INTO curated_feed
-                    (name, definition_json, sort_order, created_at, updated_at)
-                VALUES (?, ?, ?, ?, ?)
-                """, arguments: [cleanName, json, order, now, now])
+                    (name, definition_json, recipe_json, sort_order, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+                """, arguments: [cleanName, json, recipeJSON, order, now, now])
             return db.lastInsertedRowID
         }
     }
@@ -902,7 +929,8 @@ final class CuratedFeedStore {
     func update(
         id: Int64,
         name: String,
-        definition: CuratedProfileDefinition
+        definition: CuratedProfileDefinition,
+        recipe: FeedRecipeDefinition? = nil
     ) async throws {
         let cleanName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !cleanName.isEmpty else { throw CuratedFeedError.emptyName }
@@ -911,14 +939,22 @@ final class CuratedFeedStore {
         guard let json = String(data: data, encoding: .utf8) else {
             throw CuratedFeedError.invalidDefinition
         }
+        let recipeJSON: String?
+        if let recipe {
+            let recipeData = try JSONEncoder().encode(recipe)
+            recipeJSON = String(data: recipeData, encoding: .utf8)
+        } else {
+            recipeJSON = nil
+        }
         try await db.write { db in
             try db.execute(sql: """
                 UPDATE curated_feed
-                SET name = ?, definition_json = ?, updated_at = ?
+                SET name = ?, definition_json = ?, recipe_json = ?, updated_at = ?
                 WHERE id = ?
                 """, arguments: [
                     cleanName,
                     json,
+                    recipeJSON,
                     Int(Date().timeIntervalSince1970),
                     id,
                 ])
@@ -938,12 +974,20 @@ final class CuratedFeedStore {
                 CuratedProfileDefinition.self,
                 from: data
               ) else { return nil }
+        let recipe: FeedRecipeDefinition?
+        if let recipeStr: String = row["recipe_json"],
+           let recipeData = recipeStr.data(using: .utf8) {
+            recipe = try? JSONDecoder().decode(FeedRecipeDefinition.self, from: recipeData)
+        } else {
+            recipe = nil
+        }
         let createdAt: Int = row["created_at"]
         let updatedAt: Int = row["updated_at"]
         return CuratedFeed(
             id: row["id"],
             name: row["name"],
             definition: definition,
+            recipe: recipe,
             createdAt: Date(timeIntervalSince1970: TimeInterval(createdAt)),
             updatedAt: Date(timeIntervalSince1970: TimeInterval(updatedAt))
         )

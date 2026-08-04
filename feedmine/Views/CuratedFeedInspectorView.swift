@@ -382,7 +382,8 @@ struct CuratedFeedInspectorView: View {
             updated = try await loader.updateCuratedFeed(
                 id: updated.id,
                 name: normalizedName,
-                definition: profile
+                definition: profile,
+                recipe: updated.recipe
             )
             feed = updated
             loader.setActivePreset(.curatedFeed(
