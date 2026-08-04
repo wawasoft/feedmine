@@ -1015,7 +1015,7 @@ final class CuratedOnboardingSession {
             return $0.item.publishedAt > $1.item.publishedAt
         }
         if currentPair == nil && !isComplete {
-            chooseNextPair()
+            prepareNextPair()
         }
     }
 
