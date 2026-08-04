@@ -12,6 +12,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+    from catalog_identity import canonical_url, compute_source_id
+
 
 SCHEMA_VERSION = 1
 
@@ -60,20 +65,7 @@ def sync_opml_tree(source_root: Path, destination_root: Path) -> list[Path]:
 
 
 def canonical_catalog_url(raw: str) -> str:
-    value = raw.strip()
-    parsed = urlsplit(value)
-    if not parsed.scheme or not parsed.hostname:
-        return value
-    hostname = parsed.hostname.lower()
-    netloc = hostname
-    if parsed.port is not None:
-        netloc += f":{parsed.port}"
-    if parsed.username is not None:
-        credentials = parsed.username
-        if parsed.password is not None:
-            credentials += f":{parsed.password}"
-        netloc = f"{credentials}@{netloc}"
-    return urlunsplit((parsed.scheme.lower(), netloc, parsed.path, parsed.query, parsed.fragment))
+    return canonical_url(raw)
 
 
 def count_unique_sources(paths: list[Path]) -> int:
@@ -83,7 +75,16 @@ def count_unique_sources(paths: list[Path]) -> int:
         for element in root.iter():
             url = element.attrib.get("xmlUrl")
             if url:
-                sources.add(canonical_catalog_url(url))
+                identity = canonical_catalog_url(url)
+                expected_source_id = compute_source_id(identity)
+                actual_source_id = element.attrib.get("feedmineSourceId")
+                if actual_source_id != expected_source_id:
+                    raise ValueError(
+                        f"{path}: feedmineSourceId does not match canonical URL identity"
+                    )
+                if any(entity in url.casefold() for entity in ("&amp;", "&#38;", "&#x26;")):
+                    raise ValueError(f"{path}: URL contains an encoded entity after XML parsing")
+                sources.add(identity)
     return len(sources)
 
 

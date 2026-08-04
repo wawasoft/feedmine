@@ -6,7 +6,7 @@ struct OPMLParser {
     /// Bump when the parse LOGIC or FeedSource shape changes (region derivation,
     /// mediaKind classification, dedup/normalize) so caches produced by the old
     /// logic are ignored even within the same app build.
-    private static let cacheFormatVersion = 9  // + contact email fields
+    private static let cacheFormatVersion = 10  // + shared catalog URL identity
 
     /// Codable envelope persisted to Caches/.
     private struct CachedParse: Codable {
@@ -408,7 +408,18 @@ struct OPMLParser {
         if let cached = normalizedURLCache.object(forKey: raw as NSString) {
             return cached as String
         }
-        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        var trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        // Correctly encoded OPML attributes arrive already decoded. This
+        // bounded pass handles legacy values that embedded a literal &amp;
+        // (or were escaped twice) before URLComponents interprets the query.
+        for _ in 0..<3 {
+            let decoded = trimmed
+                .replacingOccurrences(of: "&amp;", with: "&")
+                .replacingOccurrences(of: "&#38;", with: "&")
+                .replacingOccurrences(of: "&#x26;", with: "&", options: .caseInsensitive)
+            guard decoded != trimmed else { break }
+            trimmed = decoded
+        }
         guard var components = URLComponents(string: trimmed) else {
             normalizedURLCache.setObject(trimmed as NSString, forKey: raw as NSString)
             return trimmed
@@ -426,6 +437,7 @@ struct OPMLParser {
             let trackingParams = Set([
                 "utm_source", "utm_medium", "utm_campaign", "utm_term",
                 "utm_content", "ref", "source", "fbclid", "gclid",
+                "mc_cid", "mc_eid", "ref_src",
             ])
             let retained = queryItems.filter { !trackingParams.contains($0.name.lowercased()) }
             components.queryItems = retained.isEmpty ? nil : retained

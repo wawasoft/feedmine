@@ -21,6 +21,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+try:
+    from scripts.catalog_identity import canonical_url
+except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+    from catalog_identity import canonical_url
+
 
 NODE_TOPIC = 0
 NODE_COUNTRY = 1
@@ -84,22 +89,7 @@ def stable_uint32(raw: str, reserved_zero: bool = True) -> int:
 
 
 def canonical_url_key(raw: str) -> str:
-    trimmed = raw.strip()
-    parsed = urllib.parse.urlsplit(trimmed)
-    if not parsed.scheme or not parsed.netloc:
-        return trimmed
-
-    scheme = parsed.scheme.lower()
-    hostname = (parsed.hostname or "").lower()
-    netloc = hostname
-    if parsed.port is not None:
-        netloc = f"{netloc}:{parsed.port}"
-    if parsed.username:
-        userinfo = urllib.parse.quote(urllib.parse.unquote(parsed.username))
-        if parsed.password:
-            userinfo += ":" + urllib.parse.quote(urllib.parse.unquote(parsed.password))
-        netloc = f"{userinfo}@{netloc}"
-    return urllib.parse.urlunsplit((scheme, netloc, parsed.path, parsed.query, parsed.fragment))
+    return canonical_url(raw)
 
 
 def display_host(raw: str) -> str | None:

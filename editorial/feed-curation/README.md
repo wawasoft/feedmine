@@ -1,88 +1,101 @@
 # Feed catalog curation
 
-This directory keeps editorial review artifacts outside the app bundle.
+This directory is the audit trail for the production catalog. Crawl evidence
+is reconciled before it can reach OPML, SQLite, or the public feed repository.
 
-- `staging/discovery-candidates.opml` contains only non-production editorial
-  endpoints (empty, failed, or policy-excluded). They are not loaded by
-  Feedmine. Synthetic Google News search URLs are deliberately omitted.
-- `curation-summary.json` records counts and classification outcomes for the
-  current curated release.
-- `source-disposition-ledger.csv.gz` accounts for every normalized source
-  identity, including production, empty, failed, policy-excluded, and synthetic
-  discovery rows.
-- `source-placement-decisions.csv.gz` is the audit trail from previous OPML
-  memberships to each source's new primary placement and freshness policy.
-- `recovery-summary.json` records the recovery queues, retry outcomes, policy
-  exclusions, and final ledger reconciliation.
-- `policy-exclusions.csv` is the human-reviewed list of compromised, polluted,
-  or redundant editorial endpoints. Generic Google News topic queries are
-  excluded separately by deterministic policy.
-- `source-experience.md` defines the single-home OPML invariant, direct Source
-  View, tiered search, history boundary, and personal source collections.
-- `validation/unified-search-astronomy-source.png` is the final simulator
-  evidence that a content-derived source match opens with its description,
-  tags, format, activity, language, and enablement control.
+## Current release: 2026-08-03
 
-The 2026-07-20 release contains 34,243 analyzed production sources in 118 OPML
-files, with zero duplicate placements, invalid outlines, or missing metadata.
-Another 6,129 editorial identities remain isolated in staging with an explicit
-reason: 1,500 returned no entries, 4,437 failed fetching or parsing, and 192
-were excluded by policy. The ledger also records 26,867 synthetic Google News
-search URLs, but those are not feeds and are deliberately omitted from staging.
-The freshness policy keeps 3,165 dormant current-sensitive or personal sources
-searchable but disabled by default; dormant evergreen and archival material
-remains enabled.
+The source corpus contained 99,576 rows and 90,326 declared runtime
+identities. Reconciliation produced:
 
-The original corpus contained 33,927 successful rows. Runtime-equivalent URL
-variants (`http/https`, `www`, trailing slash, tracking parameters, or fragment)
-collapsed 142 redundant rows into 33,785 physical source identities. Recovery
-added 458 production identities, for the final 34,243. The complete ledger is
-still exactly 67,239 normalized identities.
+- 77,443 publishable canonical sources with an editorial membership;
+- 77,443 production placements across 118 OPML files;
+- zero duplicate placements, invalid outlines, placeholder titles, `nan`
+  languages, escaped query entities, or source-ID mismatches;
+- 158,547 canonical membership records retained as provenance;
+- 86,712 accepted alias rows mapped to the canonical identity contract;
+- 12,864 quarantined corpus rows;
+- 54 successful sources held outside production because no membership exists.
 
-### What the old “29 thousand candidates” meant
+The quarantine contains 10,188 failed rows, 2,267 empty rows, 402 URLs whose
+HTML entities were corrected and therefore require a fresh crawl, and seven
+semantic redirect mismatches. A failed or empty alias can resolve to a
+published source only when another variant of the same final identity has a
+successful crawl. A corrected URL is never allowed to inherit the result of
+the incorrectly escaped request.
 
-They were not a second, uniformly ignored half of the catalog. Before recovery,
-the complete inventory was 33,785 production sources, 1,481 processed-empty
-sources, 4,266 failed sources, 840 editorial sources that had never been tried,
-and 26,867 synthetic search-query URLs. The earlier staging export was
-incomplete because it did not include all failed rows. The current ledger
-retains the full identity universe, while staging retains only non-production
-editorial endpoints, so synthetic search queries cannot be mistaken for feeds.
+The derived SQLite catalog contains 77,443 source, placement, and FTS rows.
+It preserves 77,188 `latest_item_at` values and 76,741 site URLs. `PRAGMA
+quick_check` passes.
 
-The 840 never-attempted editorial sources were fetched in isolation: 595
-returned real content, 15 were empty, and 230 failed. Content samples from up to
-five fetched entries per source were used for LLM descriptions and tags. Policy
-then excluded 184 generic Google News topic endpoints and three compromised or
-redundant feeds, leaving 408 new production sources. A direct retry of 640
-recoverable failures found 55 live feeds; five were policy exclusions, so 50
-more entered production. See `recovery-summary.json` for the full reconciliation.
+## Identity and publication contract
 
-Regenerate the production tree and reports from the analyzed Parquet corpus:
+`scripts/catalog_identity.py` is the Python identity implementation. The
+Swift runtime delegates catalog identity to `OPMLParser.normalizeURL`, which
+uses the same rules:
+
+1. Decode HTML entities before parsing.
+2. Normalize the identity scheme to HTTPS.
+3. Lowercase the host and remove a leading `www.`.
+4. Remove fragments, one trailing slash, and known tracking parameters.
+5. Preserve all other path and query information.
+6. Compute `feedmineSourceId` as SHA-256 of that canonical identity.
+
+The request URL is stored separately from the identity so redirect evidence
+can be audited without changing the identity formula.
+
+Production eligibility is explicit:
+
+- at least one non-quarantined variant must have `status=done`;
+- corrected escaped URLs require a new fetch;
+- high-confidence title/domain redirect mismatches are quarantined;
+- the canonical source must have at least one editorial membership;
+- publication fails when a source ID does not match the canonical URL.
+
+## Artifacts
+
+- `reconciliation-summary.json`: source, alias, membership, and quarantine
+  counts for the current corpus.
+- `source-aliases.csv.gz`: old source IDs and URLs mapped to canonical source
+  IDs and publication URLs.
+- `reconciliation-quarantine.csv.gz`: every source row withheld from the clean
+  corpus, with a deterministic reason.
+- `unmatched-memberships.csv.gz`: OPML occurrences that could not resolve to a
+  publishable canonical source.
+- `publishable-without-membership.csv`: successful canonical sources awaiting
+  an editorial home.
+- `source-placement-decisions.csv.gz`: the single production residence chosen
+  for each source.
+- `source-disposition-ledger.csv.gz`: production and remaining editorial
+  discovery identities after reconciliation.
+- `staging/discovery-candidates.opml`: non-production editorial candidates.
+- `policy-exclusions.csv`: manually reviewed exclusions.
+- `source-experience.md`: catalog UX and single-home policy.
+
+## Rebuild
+
+The original Parquet is immutable. Run reconciliation into `build/`, then
+curate and compile only from the derived canonical Parquets:
 
 ```bash
-.venv_feeds/bin/python scripts/curate_opml_catalog.py \
-  --now 2026-07-20T00:00:00Z
-python3 scripts/build_catalog.py \
-  --feeds-root build/feed-curation/Feeds \
-  --output build/feed-curation/catalog.sqlite \
-  --manifest-output build/feed-curation/catalog-manifest.json
+python scripts/reconcile_feed_corpus.py \
+  --sources feeds_corpus_sources.parquet \
+  --feeds-root feedmine/Resources/Feeds
+
+python scripts/curate_opml_catalog.py \
+  --sources build/catalog-reconciliation/feeds_corpus_sources.parquet \
+  --memberships build/catalog-reconciliation/feeds_corpus_source_memberships.parquet \
+  --output build/catalog-curated/Feeds \
+  --report-dir build/catalog-curated \
+  --now 2026-08-03T00:00:00Z
+
+python scripts/build_catalog.py \
+  --feeds-root build/catalog-curated/Feeds \
+  --output build/catalog-curated/catalog.sqlite \
+  --manifest-output build/catalog-curated/catalog-manifest.json
 ```
 
-The curation command never replaces `feedmine/Resources/Feeds`; publishing is
-kept as an explicit, reviewable step after its validation report passes.
-
-The runtime search order is sources/tags, saved items, then remaining local
-history/cache. Source matches use the bundled catalog's FTS5 index; saved item
-identities live in `user.sqlite` and are mirrored as retention pins so the
-content cache cannot expunge a bookmark's article body.
-
-Final release validation:
-
-- 46 Python curation, identity, fetch, enrichment, merge, and diagnostics tests;
-- 233 Swift unit/integration tests across the store, catalog, engine,
-  browser model, and taxonomy (zero failures);
-- SQLite `quick_check`, source/FTS/placement parity, and manifest count checks;
-- eight focused XCUITests covering onboarding personalization, tiered source
-  search, source collections, exact-source long press, and taxonomy categories;
-  five catalog-sensitive scenarios were rerun after the final semantic
-  refinement (zero failures).
+`curate_opml_catalog.py` writes only to its explicit output. Promotion to the
+bundled resources and public repository remains a separate reviewable step.
+`publish_catalog_update.py` revalidates canonical source IDs, URL entities,
+source/file counts, and the complete OPML inventory before writing a snapshot.

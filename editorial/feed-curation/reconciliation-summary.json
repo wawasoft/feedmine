@@ -1,0 +1,38 @@
+{
+  "artifacts": {
+    "aliases": "build/catalog-reconciliation/source-aliases.csv",
+    "memberships": "build/catalog-reconciliation/feeds_corpus_source_memberships.parquet",
+    "quarantine": "build/catalog-reconciliation/quarantine.csv",
+    "sources": "build/catalog-reconciliation/feeds_corpus_sources.parquet",
+    "unmatched_memberships": "build/catalog-reconciliation/unmatched-memberships.csv"
+  },
+  "inputs": {
+    "declared_identities": 90326,
+    "opml_occurrences": 196926,
+    "opml_parse_failures": 0,
+    "source_rows": 99576
+  },
+  "outputs": {
+    "canonical_memberships": 158547,
+    "canonical_sources": 77443,
+    "accepted_alias_collapse_count": 9215,
+    "eligible_canonical_sources": 77497,
+    "declared_identity_duplicate_rows": 9250,
+    "publishable_without_membership": 54,
+    "rows_withheld_from_canonical_output": 12864,
+    "source_alias_rows": 86712,
+    "unmatched_memberships": 37967
+  },
+  "quarantine": {
+    "semantic_redirect_mismatch": 7,
+    "status_empty": 2267,
+    "status_failed": 10188,
+    "url_entities_decoded_requires_refetch": 402
+  },
+  "schema_version": 1,
+  "title_sources": {
+    "feed_title": 77182,
+    "hostname_fallback": 79,
+    "source_title": 236
+  }
+}

@@ -12,8 +12,10 @@ from scripts.curate_opml_catalog import (
     canonical_url,
     classify_nature,
     classify_topic,
+    compute_source_id,
     default_enabled_for,
     deduplicate_runtime_identities,
+    choose_country,
     merge_candidate_inventory,
     normalize_language,
     parse_tags,
@@ -236,6 +238,17 @@ class CurateOPMLCatalogTests(unittest.TestCase):
             ["Science/science.opml", "countries/ireland.opml"],
         )
 
+    def test_country_collections_do_not_assign_multi_country_fanout_arbitrarily(self):
+        canada = Membership("90_countries", "canada", "", "en", "global", "canada", "90_countries/canada/canada.opml", None)
+        usa = Membership("90_countries", "usa", "", "en", "global", "usa", "90_countries/usa/usa.opml", None)
+        self.assertEqual(choose_country([canada]), "canada")
+        self.assertIsNone(choose_country([canada, usa]))
+
+    def test_global_topic_membership_supersedes_single_country_home(self):
+        canada = Membership("90_countries", "canada", "", "en", "global", "canada", "90_countries/canada/canada.opml", None)
+        science = Membership("04_Technology_&_Science", "science", "", "en", "global", None, "04_Technology_&_Science/science.opml", None)
+        self.assertIsNone(choose_country([canada, science]))
+
     def test_candidate_inventory_excludes_synthetic_search_queries(self):
         def corpus(status: str, suffix: str) -> CorpusDisposition:
             return CorpusDisposition(
@@ -287,7 +300,8 @@ class CurateOPMLCatalogTests(unittest.TestCase):
 
     def test_written_opml_is_enriched_and_valid(self):
         source = CuratedSource(
-            source_id="abc", title="Example", xml_url="https://example.com/feed.xml",
+            source_id=compute_source_id("https://example.com/feed.xml"),
+            title="Example", xml_url="https://example.com/feed.xml",
             site_url="https://example.com", description="A useful feed", tags=["science"],
             language="en", status="done", articles_fetched=10,
             latest_item_at="2026-07-01T00:00:00+00:00", topic_order=4,
@@ -302,6 +316,24 @@ class CurateOPMLCatalogTests(unittest.TestCase):
             report = validate_output(output, [source])
             self.assertEqual(report["source_count"], 1)
             self.assertEqual(report["file_count"], 1)
+            self.assertEqual(report["identity_mismatch_count"], 0)
+            self.assertEqual(report["placeholder_title_count"], 0)
+
+    def test_validation_rejects_a_source_id_from_an_old_formula(self):
+        source = CuratedSource(
+            source_id="old-formula", title="Example", xml_url="https://example.com/feed.xml",
+            site_url=None, description="A useful feed", tags=["science"], language="en",
+            status="done", articles_fetched=10, latest_item_at=None, topic_order=4,
+            topic_key="technology_science", topic_label="Technology & Science",
+            subcategory="Earth & Life Sciences", nature="evergreen", activity="active",
+            quality_score=75, default_enabled=True, media_kind="text", country=None,
+            old_files=[],
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            write_opml(output / source.primary_relative_path, source.topic_label, [source])
+            with self.assertRaisesRegex(RuntimeError, "identity_mismatch"):
+                validate_output(output, [source])
 
 
 if __name__ == "__main__":

@@ -22,11 +22,15 @@ import os
 import shutil
 import sys
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
 
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+    from catalog_identity import canonical_url, compute_source_id
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CURATED_DIR = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "curated"
@@ -70,32 +74,9 @@ def stable_id(namespace: str, value: str) -> str:
     return hashlib.sha256(f"{namespace}:{value}".encode("utf-8")).hexdigest()
 
 
-def compute_source_id(url: str) -> str:
-    """Mirrors curate_opml_catalog.py:compute_source_id."""
-    parsed = urlsplit(url)
-    canonical = urlunsplit((
-        parsed.scheme.lower(),
-        (parsed.hostname or "").lower(),
-        parsed.path,
-        parsed.query,
-        "",
-    ))
-    return hashlib.sha256(canonical.encode()).hexdigest()
-
-
 def compute_canonical_xml_url(url: str) -> str:
-    """Canonical URL form for dedup — strips www. from hostname."""
-    parsed = urlsplit(url)
-    hostname = (parsed.hostname or "").lower()
-    hostname = hostname[4:] if hostname.startswith("www.") else hostname
-    path = parsed.path[:-1] if parsed.path.endswith("/") else parsed.path
-    return urlunsplit((
-        parsed.scheme.lower(),
-        hostname,
-        path,
-        parsed.query,
-        "",
-    ))
+    """Compatibility wrapper around the shared identity contract."""
+    return canonical_url(url)
 
 
 def make_membership_id(source_id: str, collection: str, topic: str, subcategory: str,

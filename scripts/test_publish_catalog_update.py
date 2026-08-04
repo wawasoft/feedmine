@@ -4,6 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from scripts.catalog_identity import compute_source_id
 from scripts.publish_catalog_update import publish
 
 
@@ -15,8 +16,10 @@ class PublishCatalogUpdateTests(unittest.TestCase):
             destination = root / "destination"
             bundle_manifest = root / "bundle-manifest.json"
             source.mkdir()
+            first_url = "https://example.com/first.xml"
             (source / "first.opml").write_text(
-                '<opml><body><outline type="rss" xmlUrl="https://example.com/first.xml" /></body></opml>',
+                f'<opml><body><outline type="rss" xmlUrl="{first_url}" '
+                f'feedmineSourceId="{compute_source_id(first_url)}" /></body></opml>',
                 encoding="utf-8",
             )
             catalog_manifest = root / "catalog-manifest.json"
@@ -33,8 +36,10 @@ class PublishCatalogUpdateTests(unittest.TestCase):
             (source / "first.opml").unlink()
             nested = source / "topic"
             nested.mkdir()
+            second_url = "https://example.com/second.xml"
             (nested / "second.opml").write_text(
-                '<opml><body><outline type="rss" xmlUrl="https://example.com/second.xml" /></body></opml>',
+                f'<opml><body><outline type="rss" xmlUrl="{second_url}" '
+                f'feedmineSourceId="{compute_source_id(second_url)}" /></body></opml>',
                 encoding="utf-8",
             )
             second = publish(self.args(source, destination, catalog_manifest, bundle_manifest))
@@ -43,6 +48,24 @@ class PublishCatalogUpdateTests(unittest.TestCase):
             self.assertFalse((destination / "Feeds" / "first.opml").exists())
             self.assertTrue((destination / "Feeds" / "topic" / "second.opml").exists())
             self.assertEqual(second["files"][0]["path"], "Feeds/topic/second.opml")
+
+    def test_publish_rejects_an_id_from_a_different_formula(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source"
+            destination = root / "destination"
+            source.mkdir()
+            (source / "invalid.opml").write_text(
+                '<opml><body><outline type="rss" xmlUrl="https://example.com/feed/" '
+                'feedmineSourceId="old-formula" /></body></opml>',
+                encoding="utf-8",
+            )
+            catalog_manifest = root / "catalog-manifest.json"
+            catalog_manifest.write_text(
+                json.dumps({"source_count": 1, "file_count": 1}), encoding="utf-8"
+            )
+            with self.assertRaisesRegex(ValueError, "feedmineSourceId"):
+                publish(self.args(source, destination, catalog_manifest, root / "bundle.json"))
 
     @staticmethod
     def args(source, destination, catalog_manifest, bundle_manifest):

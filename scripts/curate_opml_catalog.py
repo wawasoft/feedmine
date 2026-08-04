@@ -31,6 +31,11 @@ from pathlib import Path
 from typing import Iterable, Sequence
 
 try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+    from catalog_identity import canonical_url, compute_source_id
+
+try:
     import duckdb
 except ImportError as error:  # pragma: no cover - exercised by CLI users
     raise SystemExit(
@@ -252,46 +257,6 @@ def ascii_fold(value: str) -> str:
 def slug(value: str) -> str:
     value = ascii_fold(value).lower()
     return re.sub(r"[^a-z0-9]+", "_", value).strip("_") or "unknown"
-
-
-def canonical_url(value: str) -> str:
-    """Return the exact cross-layer identity used by OPMLParser.normalizeURL."""
-    value = value.strip()
-    parsed = urllib.parse.urlsplit(value)
-    if not parsed.scheme or not parsed.netloc:
-        return value
-    hostname = (parsed.hostname or "").lower()
-    if hostname.startswith("www."):
-        hostname = hostname[4:]
-    port = f":{parsed.port}" if parsed.port else ""
-    path = parsed.path
-    if path.endswith("/"):
-        path = path[:-1]
-    tracking = {
-        "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-        "ref", "source", "fbclid", "gclid",
-    }
-    query_items = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
-    query = urllib.parse.urlencode(
-        [(name, item) for name, item in query_items if name.lower() not in tracking],
-        doseq=True,
-    )
-    return urllib.parse.urlunsplit(("https", hostname + port, path, query, ""))
-
-
-def compute_source_id(url: str) -> str:
-    """SHA-256 of the canonical URL (mirrors the catalog identity function).
-
-    Same canonicalization as scripts/inject_enriched_metadata.py: lowercase
-    scheme and hostname, path and query kept, fragment dropped.
-    """
-    parsed = urllib.parse.urlsplit(url)
-    canonical = urllib.parse.urlunsplit(
-        (parsed.scheme.lower(),
-         parsed.hostname.lower() if parsed.hostname else "",
-         parsed.path, parsed.query, "")
-    )
-    return hashlib.sha256(canonical.encode()).hexdigest()
 
 
 def normalize_tag(value: str) -> str:
@@ -546,18 +511,28 @@ def media_kind_for(url: str, tags: Sequence[str], memberships: Sequence[Membersh
 
 
 def choose_country(memberships: Sequence[Membership]) -> str | None:
-    countries = [m.country for m in memberships if m.country and slug(m.collection) == "countries"]
+    country_collections = {"countries", "90_countries", "staging", "archived_countries"}
+    countries = [
+        m.country for m in memberships
+        if m.country and slug(m.collection) in country_collections
+    ]
     if not countries:
+        return None
+    distinct_countries = set(countries)
+    # A source repeated across countries is a global/faceted source, not a
+    # resident of whichever country happens to sort first in the corpus.
+    if len(distinct_countries) > 1:
         return None
     # Country-only sources retain geographic ownership.  A deliberately global
     # topical placement remains primary when present elsewhere in the old tree.
     has_global_editorial_home = any(
-        slug(m.collection) not in {"countries", "languages"} and m.region == "global"
+        slug(m.collection) not in country_collections | {"languages"}
+        and m.region == "global"
         for m in memberships
     )
     if has_global_editorial_home:
         return None
-    return Counter(countries).most_common(1)[0][0]
+    return next(iter(distinct_countries))
 
 
 def read_memberships(path: Path) -> dict[str, list[Membership]]:
@@ -1142,6 +1117,10 @@ def validate_output(output: Path, sources: Sequence[CuratedSource]) -> dict[str,
     seen_identities: Counter[str] = Counter()
     invalid = 0
     metadata_missing = 0
+    identity_mismatch = 0
+    placeholder_title = 0
+    invalid_language = 0
+    escaped_url = 0
     for path in files:
         root = ET.parse(path).getroot()
         if root.attrib.get("version") != "2.0":
@@ -1157,6 +1136,16 @@ def validate_output(output: Path, sources: Sequence[CuratedSource]) -> dict[str,
                 invalid += 1
             seen[element.attrib.get("feedmineSourceId", "")] += 1
             seen_identities[canonical_url(url)] += 1
+            if element.attrib.get("feedmineSourceId") != compute_source_id(url):
+                identity_mismatch += 1
+            if element.attrib.get("title", "").strip().casefold() in {
+                "", "valid", "untitled", "unknown", "nan", "none", "rss", "rss feed", "feed",
+            }:
+                placeholder_title += 1
+            if element.attrib.get("language", "").strip().casefold() in {"nan", "none", "null"}:
+                invalid_language += 1
+            if "&amp;" in url or "&#38;" in url or "&#x26;" in url.casefold():
+                escaped_url += 1
             required = ("description", "category", "feedmineNature", "feedmineActivity", "feedmineDefaultEnabled")
             if any(key not in element.attrib for key in required):
                 metadata_missing += 1
@@ -1168,6 +1157,12 @@ def validate_output(output: Path, sources: Sequence[CuratedSource]) -> dict[str,
         )
     if invalid or metadata_missing:
         raise RuntimeError(f"invalid={invalid} metadata_missing={metadata_missing}")
+    if identity_mismatch or placeholder_title or invalid_language or escaped_url:
+        raise RuntimeError(
+            "identity_mismatch={} placeholder_title={} invalid_language={} escaped_url={}".format(
+                identity_mismatch, placeholder_title, invalid_language, escaped_url
+            )
+        )
     duplicate_identities = sum(count - 1 for count in seen_identities.values() if count > 1)
     if duplicate_identities:
         raise RuntimeError(f"normalized source identities repeated {duplicate_identities} times")
@@ -1176,6 +1171,10 @@ def validate_output(output: Path, sources: Sequence[CuratedSource]) -> dict[str,
         "outline_occurrence_count": sum(seen.values()),
         "duplicate_occurrence_count": duplicate_identities,
         "invalid_outline_count": invalid, "metadata_missing_count": metadata_missing,
+        "identity_mismatch_count": identity_mismatch,
+        "placeholder_title_count": placeholder_title,
+        "invalid_language_count": invalid_language,
+        "escaped_url_count": escaped_url,
     }
 
 

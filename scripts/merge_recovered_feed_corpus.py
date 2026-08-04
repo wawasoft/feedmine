@@ -23,6 +23,11 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 
+try:
+    from scripts.catalog_identity import canonical_url
+except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+    from catalog_identity import canonical_url
+
 
 POLICY_EXCLUSION_REASON = (
     "editorial policy: redundant Google News topic endpoint returns generic headlines"
@@ -42,29 +47,6 @@ def clean(value: object) -> str:
     if value is None or pd.isna(value):
         return ""
     return str(value).strip()
-
-
-def canonical_url(value: str) -> str:
-    """Mirror the app/curation runtime identity normalization."""
-    value = clean(value)
-    parsed = urllib.parse.urlsplit(value)
-    if not parsed.scheme or not parsed.netloc:
-        return value
-    hostname = (parsed.hostname or "").lower()
-    if hostname.startswith("www."):
-        hostname = hostname[4:]
-    port = f":{parsed.port}" if parsed.port else ""
-    path = parsed.path[:-1] if parsed.path.endswith("/") else parsed.path
-    tracking = {
-        "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-        "ref", "source", "fbclid", "gclid",
-    }
-    query = urllib.parse.urlencode([
-        (name, item)
-        for name, item in urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
-        if name.lower() not in tracking
-    ], doseq=True)
-    return urllib.parse.urlunsplit(("https", hostname + port, path, query, ""))
 
 
 def is_redundant_google_topic(url: object) -> bool:

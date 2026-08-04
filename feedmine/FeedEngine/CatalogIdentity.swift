@@ -25,16 +25,13 @@ enum CatalogIdentity {
         CatalogNodeID(rawValue: stableUInt32Digest(key.rawValue, reservedZero: true))
     }
 
-    /// Conservative URL canonicalization for identity.
+    /// The single runtime URL identity contract.
     ///
-    /// Lowercases scheme/host and trims whitespace, but does not collapse
-    /// http/https, strip www, remove queries, or rewrite paths.
+    /// OPML parsing, registry lookups, catalog compilation and source IDs must
+    /// all use the same normalization. Keeping this as a delegation prevents
+    /// the FeedEngine catalog from drifting from the rest of the app again.
     static func canonicalURLKey(_ raw: String) -> String {
-        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard var components = URLComponents(string: trimmed) else { return trimmed }
-        components.scheme = components.scheme?.lowercased()
-        components.host = components.host?.lowercased()
-        return components.string ?? trimmed
+        OPMLParser.normalizeURL(raw)
     }
 
     static func displayHost(for raw: String) -> String? {
