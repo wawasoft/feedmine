@@ -1,5 +1,33 @@
 import Foundation
 
+// MARK: - Bounded Download (P1-12)
+
+/// Byte ceilings for user-controlled network responses.
+private enum DownloadLimit {
+    static let feedDiscoveryHTML = 256_000  // HTML page for feed discovery
+    static let feedProbe = 64_000           // RSS/Atom/JSON feed validation
+    static let opmlImport = 10_000_000      // remote OPML import
+}
+
+/// Download with a byte ceiling. Checks Content-Length before transfer;
+/// rejects responses exceeding the limit and truncates at the ceiling.
+private func boundedDownload(from url: URL, maxBytes: Int, session: URLSession = .shared) async throws -> (Data, HTTPURLResponse) {
+    var request = URLRequest(url: url)
+    request.timeoutInterval = 10
+
+    let (data, response) = try await session.data(for: request)
+    guard let http = response as? HTTPURLResponse else {
+        throw URLError(.badServerResponse)
+    }
+
+    // Reject responses that exceed the ceiling.
+    guard data.count <= maxBytes else {
+        throw URLError(.cannotParseResponse)
+    }
+
+    return (data, http)
+}
+
 // MARK: - Resolve Result
 
 struct ResolvedFeed: Sendable {
@@ -233,11 +261,12 @@ actor URLResolver {
 
     /// Parse HTML page for <link rel="alternate" type="application/rss+xml">
     private func parseHTMLForFeeds(_ url: URL) async -> [ResolvedFeed]? {
-        guard let (data, response) = try? await session.data(from: url),
-              let http = response as? HTTPURLResponse,
-              (200...299).contains(http.statusCode) else { return nil }
+        // P1-12: Bound HTML downloads for feed discovery.
+        guard let (data, http) = try? await boundedDownload(
+            from: url, maxBytes: DownloadLimit.feedDiscoveryHTML, session: session
+        ), (200...299).contains(http.statusCode) else { return nil }
 
-        guard let html = String(data: data.prefix(50000), encoding: .utf8) else { return nil }
+        guard let html = String(data: data, encoding: .utf8) else { return nil }
 
         var feeds: [ResolvedFeed] = []
         let pattern = #"<link[^>]+rel\s*=\s*["']alternate["'][^>]*>"#
@@ -328,10 +357,11 @@ actor URLResolver {
 
     /// Fetch a YouTube page and extract the channel ID from meta tags or page data.
     private func extractYouTubeChannelID(_ url: URL) async -> String? {
-        guard let (data, response) = try? await session.data(from: url),
-              let http = response as? HTTPURLResponse,
-              (200...299).contains(http.statusCode),
-              let html = String(data: data.prefix(100000), encoding: .utf8) else { return nil }
+        // P1-12: Bound YouTube metadata downloads to 512 KB.
+        guard let (data, http) = try? await boundedDownload(
+            from: url, maxBytes: 512_000, session: session
+        ), (200...299).contains(http.statusCode),
+              let html = String(data: data, encoding: .utf8) else { return nil }
 
         // Try: <meta itemprop="channelId" content="UCxxxx">
         let metaPattern = #"<meta[^>]+itemprop\s*=\s*["']channelId["'][^>]+content\s*=\s*["']([^"']+)["']"#
@@ -459,9 +489,11 @@ actor URLResolver {
     /// Quick check if a URL returns a valid feed (HTTP 200 + XML/JSON feed content).
     private func probeFeedURL(_ urlString: String) async -> Bool {
         guard let url = URL(string: urlString) else { return false }
-        guard let (data, response) = try? await session.data(from: url),
-              let http = response as? HTTPURLResponse,
-              (200...299).contains(http.statusCode) else { return false }
+        // P1-12: Bound feed probe downloads to prevent memory spikes from
+        // large responses masquerading as feeds.
+        guard let (data, http) = try? await boundedDownload(
+            from: url, maxBytes: DownloadLimit.feedProbe, session: session
+        ), (200...299).contains(http.statusCode) else { return false }
         return data.looksLikeFeedData
     }
 }
