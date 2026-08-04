@@ -172,6 +172,10 @@ def publish(args: argparse.Namespace) -> dict:
         "revision": revision,
         "schemaVersion": SCHEMA_VERSION,
         "sourceCount": source_count,
+        # P0-02: The Swift manifest decoder expects this field. It is set to
+        # an empty string during publishing; the release process signs the
+        # manifest before the snapshot is activated.
+        "signature": "",
     }
     write_json_atomic(destination / "manifest.json", manifest)
     if args.bundle_manifest is not None:

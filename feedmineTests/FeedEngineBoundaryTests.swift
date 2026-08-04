@@ -311,6 +311,51 @@ final class CatalogUpdateServiceTests: XCTestCase {
         XCTAssertThrowsError(try manifest.validate())
     }
 
+    /// P0-02: A manifest without `signature` must decode with an empty default.
+    func testManifestDecodesWithoutSignatureField() throws {
+        let json = """
+        {
+            "schemaVersion": 1,
+            "revision": 5,
+            "generatedAt": "2026-08-03T00:00:00Z",
+            "sourceCount": 100,
+            "fileCount": 2,
+            "files": [
+                {"path": "Feeds/topic.opml", "sha256": "aaaaaaaabbbbbbbbccccccccddddddddeeeeeeeeffffffff0000000011111111", "bytes": 1024},
+                {"path": "Feeds/other.opml", "sha256": "2222222233333333444444445555555566666666777777778888888899999999", "bytes": 2048}
+            ]
+        }
+        """
+        let data = Data(json.utf8)
+        let manifest = try JSONDecoder().decode(CatalogUpdateManifest.self, from: data)
+        XCTAssertEqual(manifest.revision, 5)
+        XCTAssertEqual(manifest.sourceCount, 100)
+        XCTAssertEqual(manifest.fileCount, 2)
+        XCTAssertEqual(manifest.signature, "", "Missing signature should default to empty string")
+        // validate() should pass (no public key configured, so signature check skipped)
+        XCTAssertNoThrow(try manifest.validate())
+    }
+
+    /// P0-02: A manifest WITH signature must decode it correctly.
+    func testManifestDecodesWithSignatureField() throws {
+        let json = """
+        {
+            "schemaVersion": 1,
+            "revision": 1,
+            "generatedAt": "2026-08-03T00:00:00Z",
+            "sourceCount": 50,
+            "fileCount": 1,
+            "files": [
+                {"path": "Feeds/test.opml", "sha256": "aaaaaaaabbbbbbbbccccccccddddddddeeeeeeeeffffffff0000000011111111", "bytes": 512}
+            ],
+            "signature": "deadbeef"
+        }
+        """
+        let data = Data(json.utf8)
+        let manifest = try JSONDecoder().decode(CatalogUpdateManifest.self, from: data)
+        XCTAssertEqual(manifest.signature, "deadbeef")
+    }
+
     private static func opml(title: String, url: String) -> Data {
         Data("""
         <?xml version="1.0" encoding="UTF-8"?>

@@ -41,6 +41,43 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
     /// Empty string if not signed (bundled catalog during development).
     let signature: String
 
+    // P0-02: The bundled and remote manifests currently omit the `signature`
+    // field. Synthesized Codable would throw keyNotFound. A custom decoder
+    // provides an empty default so the catalog update mechanism can operate
+    // while the publisher is updated to include the field.
+    enum CodingKeys: String, CodingKey {
+        case schemaVersion, revision, generatedAt, sourceCount, fileCount, files, signature
+    }
+
+    init(
+        schemaVersion: Int,
+        revision: Int,
+        generatedAt: String,
+        sourceCount: Int,
+        fileCount: Int,
+        files: [CatalogUpdateFile],
+        signature: String = ""
+    ) {
+        self.schemaVersion = schemaVersion
+        self.revision = revision
+        self.generatedAt = generatedAt
+        self.sourceCount = sourceCount
+        self.fileCount = fileCount
+        self.files = files
+        self.signature = signature
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        schemaVersion = try container.decode(Int.self, forKey: .schemaVersion)
+        revision = try container.decode(Int.self, forKey: .revision)
+        generatedAt = try container.decode(String.self, forKey: .generatedAt)
+        sourceCount = try container.decode(Int.self, forKey: .sourceCount)
+        fileCount = try container.decode(Int.self, forKey: .fileCount)
+        files = try container.decode([CatalogUpdateFile].self, forKey: .files)
+        signature = try container.decodeIfPresent(String.self, forKey: .signature) ?? ""
+    }
+
     func validate() throws {
         guard schemaVersion == Self.supportedSchemaVersion else {
             throw CatalogUpdateError.unsupportedSchema(schemaVersion)
