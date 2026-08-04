@@ -105,34 +105,47 @@ actor URLResolver {
 
     /// Probe candidate feed URLs in parallel. Returns the first URL that
     /// responds with a valid feed, cancelling all remaining probes.
+    // P2-14: Distinguish deadline expiry from a failed probe so the deadline
+    // actually cancels the remaining search rather than continuing silently.
+    private enum ProbeEvent: Sendable {
+        case match(String)
+        case miss
+        case deadline
+    }
+
     private func firstMatchingFeed(_ candidates: [String], maxConcurrent: Int, deadlineSeconds: Int) async -> String? {
-        await withTaskGroup(of: String?.self) { group in
+        await withTaskGroup(of: ProbeEvent.self) { group in
             var iterator = candidates.makeIterator()
             var started = 0
             let cap = max(1, maxConcurrent)
 
-            // Add deadline task
+            // Deadline task — fires once and signals the group to stop.
             group.addTask {
                 try? await Task.sleep(for: .seconds(deadlineSeconds))
-                return nil
+                return .deadline
             }
 
             // Prime the window
             while started < cap, let candidate = iterator.next() {
                 group.addTask {
-                    await self.probeFeedURL(candidate) ? candidate : nil
+                    await self.probeFeedURL(candidate) ? .match(candidate) : .miss
                 }
                 started += 1
             }
 
-            while let result = await group.next() {
-                if let match = result {
+            while let event = await group.next() {
+                switch event {
+                case .match(let url):
                     group.cancelAll()
-                    return match
-                }
-                if let candidate = iterator.next() {
-                    group.addTask {
-                        await self.probeFeedURL(candidate) ? candidate : nil
+                    return url
+                case .deadline:
+                    group.cancelAll()
+                    return nil
+                case .miss:
+                    if let candidate = iterator.next() {
+                        group.addTask {
+                            await self.probeFeedURL(candidate) ? .match(candidate) : .miss
+                        }
                     }
                 }
             }
