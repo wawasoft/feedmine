@@ -1,7 +1,7 @@
 <img width="1800" height="520" alt="feedmine-wordmark" src="https://github.com/user-attachments/assets/cd4ad7d7-ceb2-4292-bcbb-70aef3f18d00" />
 
 News, podcast, video, and forum feed reader for iOS. The bundled catalog
-contains 34,243 normalized content-analyzed sources with descriptions, tags,
+contains 88,084 normalized content-analyzed sources with descriptions, tags,
 language, format, activity, and freshness-aware defaults.
 
 ## Open source and stewardship
