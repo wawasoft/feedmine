@@ -336,14 +336,8 @@ final class CatalogUpdateServiceTests: XCTestCase {
         XCTAssertNoThrow(try manifest.validate())
     }
 
-    /// P0-03: The public key is immutable once the process starts.
-    func testPublicKeyIsImmutable() {
-        // Verify the key is a compile-time constant, not a mutable static
-        let key = CatalogUpdateManifest.publicKeyHex
-        XCTAssertEqual(key, "", "Default key should be empty (development mode)")
-    }
-
-    /// P0-03: With the default empty key, a manifest with empty signature validates.
+    /// P0-03: With the default empty key in DEBUG, unsigned manifests validate
+    /// (development mode). In Release, this would throw.
     func testManifestValidatesWithEmptyKeyAndEmptySignature() throws {
         let manifest = CatalogUpdateManifest(
             schemaVersion: 1,

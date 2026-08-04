@@ -111,8 +111,15 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
         let pkHex = Self.publicKeyHex
         guard !pkHex.isEmpty else {
             // No public key configured — skip verification (development mode).
-            // In production, the key MUST be set before the first catalog load.
+            // In production builds, refuse to accept unsigned remote manifests.
+            #if DEBUG
             return
+            #else
+            throw CatalogUpdateError.invalidManifest(
+                "Catalog signature verification is mandatory in Release builds. " +
+                "Set CatalogUpdateManifest.publicKeyHex before distribution."
+            )
+            #endif
         }
         guard !signature.isEmpty else {
             throw CatalogUpdateError.invalidManifest("manifest is not signed")
