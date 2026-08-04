@@ -968,6 +968,104 @@ final class FeedLoader {
             .map { $0.0 }
     }
 
+    /// Returns fully prepared feed cards for the Composer preview zone.
+    /// Uses the recipe+evidence merge, scores via sourceMultipliers,
+    /// and resolves card presentations (image + layout) before returning.
+    /// Cancellable — check Task.isCancelled between stages.
+    func previewCuratedCards(
+        recipe: FeedRecipeDefinition?,
+        evidence: CuratedProfileDefinition,
+        limit: Int = 3
+    ) async -> [FeedCardPresentation] {
+        let effective = FeedRecipeResolver.effectiveProfile(
+            recipe: recipe,
+            evidence: evidence
+        )
+
+        let sources = store.registry.sources
+        let multipliers = CuratedPreferenceEngine.sourceMultipliers(
+            sources: sources,
+            profile: effective
+        )
+
+        let candidates: [FeedItem]
+        if multipliers.isEmpty {
+            candidates = Array(items.prefix(limit * 2))
+        } else {
+            candidates = items
+                .map { item -> (FeedItem, Double) in
+                    (item, multipliers[item.sourceURL] ?? 1.0)
+                }
+                .filter { $0.1 > 1.0 }
+                .sorted { $0.1 > $1.1 }
+                .prefix(limit * 2)
+                .map { $0.0 }
+        }
+
+        guard !candidates.isEmpty else { return [] }
+        guard !Task.isCancelled else { return [] }
+
+        // Resolve presentations in parallel
+        return await withTaskGroup(
+            of: (Int, FeedCardPresentation?).self
+        ) { group in
+            for (index, item) in candidates.enumerated() {
+                group.addTask {
+                    guard !Task.isCancelled else { return (index, nil) }
+                    let presentation = await Self.resolvePresentation(for: item)
+                    return (index, presentation)
+                }
+            }
+
+            var results: [(Int, FeedCardPresentation)] = []
+            for await (index, presentation) in group {
+                if let presentation {
+                    results.append((index, presentation))
+                }
+            }
+
+            return results
+                .sorted { $0.0 < $1.0 }
+                .prefix(limit)
+                .map { $0.1 }
+        }
+    }
+
+    /// Resolve a single card presentation — mirrors CollectionManagementView pattern.
+    private nonisolated static func resolvePresentation(
+        for item: FeedItem
+    ) async -> FeedCardPresentation {
+        let imageURL = item.imageURL.flatMap(URL.init(string:))
+        let articleURL = URL(string: item.url)
+
+        let media: ResolvedCardMedia
+        if let resolvedImage = await ImageLoader.resolveImage(
+            url: imageURL,
+            articleURL: articleURL
+        ) {
+            media = .image(resolvedImage)
+        } else if imageURL != nil || articleURL != nil {
+            media = .placeholder
+        } else {
+            media = .none
+        }
+
+        let layout: FeedCardLayout
+        switch media {
+        case .image: layout = .hero
+        case .placeholder: layout = .hero
+        case .none: layout = .textOnly
+        }
+
+        return FeedCardPresentation(
+            item: item,
+            media: media,
+            layout: layout,
+            isRead: false,
+            isBookmarked: false
+        )
+    }
+
     func curatedFeed(id: Int64) async throws -> CuratedFeed? {
         try await store.curatedFeed(id: id)
     }
