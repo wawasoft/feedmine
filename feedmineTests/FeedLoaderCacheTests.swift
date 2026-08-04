@@ -66,7 +66,7 @@ final class FeedLoaderCacheTests: XCTestCase {
         XCTAssertEqual(updated["pt"], 1)
     }
 
-    func testFilteredDateSectionsPreserveProviderOrderAcrossDates() throws {
+    func testFilteredDateSectionsPreserveProviderOrderAcrossDates() async throws {
         let store = try FeedStore(inMemory: true)
         let orderedItems = [
             item(id: "google-today", source: "Google", daysAgo: 0),
@@ -74,12 +74,33 @@ final class FeedLoaderCacheTests: XCTestCase {
             item(id: "youtube-yesterday", source: "YouTube", daysAgo: 1),
             item(id: "blog-earlier", source: "Blog", daysAgo: 10),
         ]
-        store.loadBookmarkFeed(items: orderedItems)
+
+        // Register sources so the filter can match them.
+        let sources = [
+            FeedSource(title: "Google", url: "https://google.example/feed", category: "News", region: "global", language: "zh"),
+            FeedSource(title: "Podcast", url: "https://podcast.example/feed", category: "News", region: "global", language: "zh"),
+            FeedSource(title: "YouTube", url: "https://youtube.example/feed", category: "News", region: "global", language: "zh"),
+            FeedSource(title: "Blog", url: "https://blog.example/feed", category: "News", region: "global", language: "zh"),
+        ]
+        store.registry.sources = sources
+
+        // Persist items to SQLite so the filter reload can find them.
+        try await store.db.write { db in
+            for item in orderedItems {
+                try FeedItemRecord(from: item, region: "global").insert(db)
+            }
+        }
+
         store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: ["zh"])
         let loader = FeedLoader(store: store)
 
-        let sections = loader.dateSections
+        // Wait for async filter reload.
+        let deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.isEmpty && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(50))
+        }
 
+        let sections = loader.dateSections
         XCTAssertEqual(sections.count, 1)
         XCTAssertFalse(try XCTUnwrap(sections.first).showsHeader)
         XCTAssertEqual(sections.flatMap(\.items).map(\.id), orderedItems.map(\.id))
