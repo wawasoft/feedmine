@@ -266,6 +266,13 @@ actor ImportPipeline {
                     ImportItemResult(url: opmlURL.absoluteString, title: nil, status: .unreachable)
                 ]), [])
             }
+            // P1-12: Reject oversized remote OPML before parsing.
+            guard data.count <= Self.opmlImportMaxBytes else {
+                return (ImportResult(items: [
+                    ImportItemResult(url: opmlURL.absoluteString, title: nil,
+                        status: .invalid("OPML too large (\(data.count) bytes)"))
+                ]), [])
+            }
             let fileName = opmlURL.deletingPathExtension().lastPathComponent
             return await ingest(opmlData: data, fileName: fileName, existingURLs: existingURLs, validate: validate)
         } catch {
@@ -328,6 +335,10 @@ actor ImportPipeline {
         case unreachable
     }
 
+    /// P1-12: Per-resource byte ceilings for user-controlled downloads.
+    private static let feedProbeMaxBytes = 64_000       // feed validation probe
+    private static let opmlImportMaxBytes = 10_000_000  // remote OPML import
+
     /// Fetch a URL and verify it contains a parseable RSS/Atom/JSON feed.
     /// Returns the feed title if found.
     private func probeFeed(url: String) async -> ProbeResult {
@@ -340,6 +351,13 @@ actor ImportPipeline {
 
             guard (200...299).contains(http.statusCode) else {
                 return .unreachable
+            }
+
+            // P1-12: Reject responses larger than the probe ceiling before
+            // inspecting content — prevents memory spikes from oversized
+            // responses to user-supplied URLs.
+            guard data.count <= Self.feedProbeMaxBytes else {
+                return .invalid("Feed response too large (\(data.count) bytes)")
             }
 
             guard data.looksLikeFeedData else {
