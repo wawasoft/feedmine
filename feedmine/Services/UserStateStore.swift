@@ -25,6 +25,15 @@ final class UserStateStore {
 
     /// One-time migration: move user.sqlite from Documents (pre-1.0 layout)
     /// to Application Support/Feedmine/. Called before the database is opened.
+    ///
+    /// P1-10: When both the old Documents database and the new Application
+    /// Support database exist (e.g. from a partial prior migration), we
+    /// must not silently open the new empty database while the user's real
+    /// data remains in Documents. The policy:
+    ///   - If the new destination already exists with data, prefer it.
+    ///   - If the new destination is empty/absent, complete the migration.
+    ///   - If both have data, keep the new one (it was migrated earlier).
+    ///   - Never leave the user's data invisible.
     private static func migrateUserDBFromDocumentsIfNeeded() {
         let fm = FileManager.default
         let docs = fm.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -37,6 +46,28 @@ final class UserStateStore {
         try? fm.createDirectory(at: newDir, withIntermediateDirectories: true)
 
         let newPath = newDir.appendingPathComponent("user.sqlite").path
+
+        // P1-10: If a database already exists at the destination, check
+        // which one is authoritative before blindly moving.
+        if fm.fileExists(atPath: newPath) {
+            let oldSize = (try? fm.attributesOfItem(atPath: oldPath)[.size] as? Int64) ?? 0
+            let newSize = (try? fm.attributesOfItem(atPath: newPath)[.size] as? Int64) ?? 0
+            if newSize > 0 {
+                // Destination has content — keep it (previous migration succeeded).
+                // Remove the old Documents copy so we don't check again on every launch.
+                Log.db.info("Application Support user.sqlite exists (\(newSize) bytes); removing Documents copy")
+                for suffix in ["", "-wal", "-shm"] {
+                    try? fm.removeItem(atPath: oldPath + suffix)
+                }
+                return
+            }
+            // Destination exists but is empty — remove it and proceed with migration.
+            Log.db.info("Application Support user.sqlite is empty; re-migrating from Documents")
+            for suffix in ["", "-wal", "-shm"] {
+                try? fm.removeItem(atPath: newPath + suffix)
+            }
+        }
+
         let suffixes = ["", "-wal", "-shm"]
         var moved: [(String, String)] = []
         do {
@@ -49,10 +80,11 @@ final class UserStateStore {
             }
             Log.db.info("Migrated user.sqlite from Documents to Application Support/Feedmine/")
         } catch {
+            // Rollback on failure — never leave a partial trio.
             for (src, dst) in moved {
                 try? fm.moveItem(atPath: dst, toPath: src)
             }
-            Log.db.error("User DB migration to Application Support failed, keeping old location: \(error)")
+            Log.db.error("User DB migration to Application Support failed: \(error)")
         }
     }
 
