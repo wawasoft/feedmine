@@ -295,6 +295,22 @@ final class UserStateStore {
             }
         }
 
+        migrator.registerMigration("v8_imported_sources") { db in
+            try db.create(table: "imported_source") { t in
+                t.autoIncrementedPrimaryKey("id")
+                t.column("source_identity", .text).notNull().unique()
+                t.column("request_url", .text).notNull()
+                t.column("title", .text).notNull()
+                t.column("category", .text).notNull().defaults(to: "Imported")
+                t.column("media_kind", .text).notNull().defaults(to: MediaKind.text.rawValue)
+                t.column("language", .text)
+                t.column("added_at", .integer).notNull()
+                t.column("enabled", .integer).notNull().defaults(to: 1)
+            }
+            try db.create(index: "idx_imported_source_identity",
+                          on: "imported_source", columns: ["source_identity"])
+        }
+
         try migrator.migrate(db)
     }
 
@@ -734,6 +750,82 @@ final class SmartFeedStore {
     ) -> SmartFeedDefinition? {
         guard let data = json.data(using: .utf8) else { return nil }
         return try? JSONDecoder().decode(SmartFeedDefinition.self, from: data)
+    }
+}
+
+// MARK: - Imported Sources (P0-04)
+
+extension UserStateStore {
+    /// Persist imported sources into user.sqlite, replacing any previous set.
+    func saveImportedSources(_ sources: [FeedSource]) throws {
+        try db.write { db in
+            try db.execute(sql: "DELETE FROM imported_source")
+            let now = Int(Date().timeIntervalSince1970)
+            for source in sources {
+                try db.execute(
+                    sql: """
+                        INSERT INTO imported_source
+                        (source_identity, request_url, title, category, media_kind, language, added_at, enabled)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+                        """,
+                    arguments: [
+                        OPMLParser.normalizeURL(source.url),
+                        source.url,
+                        source.title,
+                        source.category,
+                        source.mediaKind.rawValue,
+                        source.language,
+                        now,
+                    ]
+                )
+            }
+        }
+    }
+
+    /// Load imported sources from user.sqlite.
+    func loadImportedSources() throws -> [FeedSource] {
+        try db.read { db in
+            let rows = try Row.fetchAll(db, sql: """
+                SELECT request_url, title, category, media_kind, language
+                FROM imported_source WHERE enabled = 1 ORDER BY id
+                """)
+            return rows.map { row in
+                FeedSource(
+                    title: row["title"],
+                    url: row["request_url"],
+                    category: row["category"],
+                    region: "imported",
+                    mediaKind: MediaKind(rawValue: row["media_kind"]) ?? .text,
+                    language: row["language"]
+                )
+            }
+        }
+    }
+
+    /// One-time migration: import existing imported_sources.json into SQLite.
+    /// Removes the JSON file on success so old data isn't re-imported.
+    func migrateImportedSourcesFromJSONIfNeeded() {
+        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("imported_sources.json")
+        guard FileManager.default.fileExists(atPath: fileURL.path) else { return }
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let imported = try JSONDecoder().decode([FeedSource].self, from: data)
+            guard !imported.isEmpty else {
+                try? FileManager.default.removeItem(at: fileURL)
+                return
+            }
+            // Only migrate if the SQLite table is empty (first migration).
+            let existingCount = try db.read { db in
+                try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM imported_source") ?? 0
+            }
+            guard existingCount == 0 else { return }
+            try saveImportedSources(imported)
+            try FileManager.default.removeItem(at: fileURL)
+            Log.db.info("Migrated \(imported.count) imported sources from JSON to user.sqlite")
+        } catch {
+            Log.db.error("Failed to migrate imported_sources.json: \(error)")
+        }
     }
 }
 

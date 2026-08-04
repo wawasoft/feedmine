@@ -300,24 +300,23 @@ final class CatalogIdentityContractTests: XCTestCase {
         XCTAssertEqual(sources.count, 1)
     }
 
-    /// Empty imported sources deletes the JSON file.
+    /// P0-04: Empty imported sources correctly clears the SQLite table.
     @MainActor
-    func testEmptyImportedSourcesDeletesJSONFile() async throws {
+    func testEmptyImportedSourcesClearsSQLiteTable() async throws {
         let store = try FeedStore(inMemory: true)
         let loader = FeedLoader(store: store)
-        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("imported_sources.json")
-        // Clean up from any prior run
-        try? FileManager.default.removeItem(at: fileURL)
-        // Import then remove all imported sources
+
+        // Import a source — should appear in SQLite
         _ = await loader.importFeeds(urls: ["https://example.com/feed.xml?auth=secret"], skipValidation: true)
-        XCTAssertTrue(FileManager.default.fileExists(atPath: fileURL.path),
-                      "imported_sources.json should exist after import")
-        // Remove all imported sources from registry
+        var imported = try store.userRepo.loadImportedSources()
+        XCTAssertEqual(imported.count, 1, "Should have 1 imported source in SQLite")
+
+        // Remove all imported sources from registry and persist
         let nonImported = store.registry.sources.filter { $0.region != "imported" }
         store.registry.sources = nonImported
-        loader.addSources([])  // triggers persistImportedSources
-        XCTAssertFalse(FileManager.default.fileExists(atPath: fileURL.path),
-                       "imported_sources.json should be deleted when empty")
+        loader.addSources([])  // triggers persistImportedSources → SQLite DELETE + re-insert empty
+
+        imported = try store.userRepo.loadImportedSources()
+        XCTAssertEqual(imported.count, 0, "SQLite imported_source table should be empty")
     }
 }

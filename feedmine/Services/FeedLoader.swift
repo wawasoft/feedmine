@@ -1460,48 +1460,39 @@ final class FeedLoader {
         )
     }
 
+    /// P0-04: Persist imported sources into user.sqlite instead of a fragile
+    /// standalone JSON file. The SQLite store shares the transaction, migration,
+    /// backup, and conflict rules used for all other user state.
     private func persistImportedSources() {
         let imported = store.registry.sources.filter { $0.region == "imported" }
-        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("imported_sources.json")
-        // P0-04: When all imported sources are removed, delete the stale file
-        // so a relaunch doesn't restore the removed source. Also use atomic
-        // write to prevent corruption on crash/termination mid-write.
-        guard !imported.isEmpty else {
-            if FileManager.default.fileExists(atPath: url.path) {
-                do {
-                    try FileManager.default.removeItem(at: url)
-                } catch {
-                    Log.import_.error("Failed to delete stale imported_sources.json: \(error)")
-                }
-            }
-            return
-        }
         do {
-            let data = try JSONEncoder().encode(imported)
-            try data.write(to: url, options: .atomic)
+            try store.userRepo.saveImportedSources(imported)
+            // Clean up legacy JSON file after successful SQLite write
+            let legacyURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("imported_sources.json")
+            if FileManager.default.fileExists(atPath: legacyURL.path) {
+                try? FileManager.default.removeItem(at: legacyURL)
+            }
         } catch {
             Log.import_.error("Failed to persist imported sources: \(error)")
         }
     }
 
-    /// Restore previously imported sources from disk on app launch.
+    /// Restore previously imported sources from user.sqlite on app launch.
     /// Merges them into the registry without duplicating bundled sources.
     @discardableResult
     private func restoreImportedSources() -> Bool {
-        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("imported_sources.json")
-        guard FileManager.default.fileExists(atPath: fileURL.path) else { return false }
         do {
-            let data = try Data(contentsOf: fileURL)
-            let imported = try JSONDecoder().decode([FeedSource].self, from: data)
+            // One-time migration from legacy JSON to SQLite
+            store.userRepo.migrateImportedSourcesFromJSONIfNeeded()
+            let imported = try store.userRepo.loadImportedSources()
             guard !imported.isEmpty else { return false }
             let sourceCountBeforeRestore = store.registry.sources.count
             store.registry.sources = OPMLParser.deduplicateSources(
                 store.registry.sources + imported
             )
             store.registry.prepareFilterCaches()
-            Log.import_.info("Restored \(imported.count) imported sources")
+            Log.import_.info("Restored \(imported.count) imported sources from user.sqlite")
             return store.registry.sources.count > sourceCountBeforeRestore
         } catch {
             Log.import_.error("Failed to restore imported sources: \(error)")
