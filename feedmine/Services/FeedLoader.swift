@@ -1343,24 +1343,31 @@ final class FeedLoader {
     /// Pass `skipValidation: true` when URLs come from URLResolver (already probed).
     /// Returns ImportResult for UI feedback.
     func importFeeds(urls: [String], category: String = "Imported", skipValidation: Bool = false) async -> ImportResult {
+        // P0-01: Identity for dedup uses normalizeURL; requestURL preserves
+        // authorization/signed parameters for fetching. existingURLs tracks
+        // canonical identities of sources already in the registry.
         let existingURLs = Set(store.registry.sources.map { OPMLParser.normalizeURL($0.url) })
 
         if skipValidation {
             // URLs already validated by URLResolver — skip probe, just dedup + register
             var results: [ImportItemResult] = []
             var newSources: [FeedSource] = []
+            var seenIdentities = existingURLs
             for rawURL in urls {
-                let normalized = OPMLParser.normalizeURL(rawURL)
-                if existingURLs.contains(normalized) {
+                let identity = OPMLParser.normalizeURL(rawURL)
+                let request = OPMLParser.requestURL(rawURL)
+                if seenIdentities.contains(identity) {
                     results.append(ImportItemResult(url: rawURL, title: nil, status: .duplicate))
                 } else {
-                    let kind = ImportPipeline.detectMediaKind(url: normalized, title: nil)
+                    seenIdentities.insert(identity)
+                    let kind = ImportPipeline.detectMediaKind(url: request, title: nil)
                     let source = FeedSource(
-                        title: ImportPipeline.titleFromURL(normalized),
-                        url: normalized, category: category, region: "imported", mediaKind: kind
+                        title: ImportPipeline.titleFromURL(request),
+                        url: request,  // P0-01: store the fetchable URL
+                        category: category, region: "imported", mediaKind: kind
                     )
                     newSources.append(source)
-                    results.append(ImportItemResult(url: normalized, title: source.title, status: .imported))
+                    results.append(ImportItemResult(url: rawURL, title: source.title, status: .imported))
                 }
             }
             if !newSources.isEmpty {
@@ -1455,12 +1462,22 @@ final class FeedLoader {
 
     private func persistImportedSources() {
         let imported = store.registry.sources.filter { $0.region == "imported" }
-        guard !imported.isEmpty else { return }
+        let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("imported_sources.json")
+        // P0-04: When all imported sources are removed, delete the stale file
+        // so a relaunch doesn't restore the removed source. Also use atomic
+        // write to prevent corruption on crash/termination mid-write.
+        guard !imported.isEmpty else {
+            do {
+                try FileManager.default.removeItem(at: url)
+            } catch {
+                Log.import_.error("Failed to delete stale imported_sources.json: \(error)")
+            }
+            return
+        }
         do {
-            let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                .appendingPathComponent("imported_sources.json")
             let data = try JSONEncoder().encode(imported)
-            try data.write(to: url)
+            try data.write(to: url, options: .atomic)
         } catch {
             Log.import_.error("Failed to persist imported sources: \(error)")
         }

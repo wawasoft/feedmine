@@ -41,8 +41,11 @@ struct ImportResult: Sendable {
 /// ```
 actor ImportPipeline {
     private let session: URLSession
+    /// Injectable probe for testing. When set, bypasses real network requests.
+    private let injectedProbe: (@Sendable (String) async -> ProbeResult)?
 
-    init() {
+    init(probe: (@Sendable (String) async -> ProbeResult)? = nil) {
+        self.injectedProbe = probe
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 10
         config.timeoutIntervalForResource = 15
@@ -64,28 +67,35 @@ actor ImportPipeline {
         var results: [ImportItemResult] = []
         var newSources: [FeedSource] = []
 
-        // Separate dedup/invalid URLs (no network needed) from probe candidates
-        var toProbe: [(index: Int, normalized: String, rawURL: String)] = []
-        for (i, rawURL) in urls.enumerated() {
-            let normalized = OPMLParser.normalizeURL(rawURL)
+        // P0-01: Track both identity (for dedup) and request URL (for fetching).
+        // Identity is the canonical normalized form; requestURL preserves auth
+        // parameters, scheme, and www prefix needed for successful HTTP requests.
+        var seenIdentities = existingURLs
 
-            // Dedup check
-            if existingURLs.contains(normalized) {
+        // Separate dedup/invalid URLs (no network needed) from probe candidates
+        var toProbe: [(identity: String, requestURL: String, rawURL: String)] = []
+        for rawURL in urls {
+            let identity = OPMLParser.normalizeURL(rawURL)
+            let request = OPMLParser.requestURL(rawURL)
+
+            // Dedup check against both existing sources AND this batch
+            if seenIdentities.contains(identity) {
                 results.append(ImportItemResult(url: rawURL, title: nil, status: .duplicate))
                 continue
             }
+            seenIdentities.insert(identity)
 
-            // Validate URL format
-            guard URL(string: normalized) != nil else {
+            // Validate URL format on the request URL (what we'll actually fetch)
+            guard URL(string: request) != nil else {
                 results.append(ImportItemResult(url: rawURL, title: nil, status: .invalid("Malformed URL")))
                 continue
             }
 
-            toProbe.append((i, normalized, rawURL))
+            toProbe.append((identity, request, rawURL))
         }
 
         // Probe feeds concurrently (max 5 at a time)
-        let probeResults: [(rawURL: String, normalized: String, probe: ProbeResult)] = await withTaskGroup(of: (String, String, ProbeResult).self) { group in
+        let probeResults: [(rawURL: String, requestURL: String, probe: ProbeResult)] = await withTaskGroup(of: (String, String, ProbeResult).self) { group in
             var collected: [(String, String, ProbeResult)] = []
             var running = 0
 
@@ -96,11 +106,11 @@ actor ImportPipeline {
                         running -= 1
                     }
                 }
-                let normalized = item.normalized
+                let request = item.requestURL
                 let rawURL = item.rawURL
                 group.addTask {
-                    let probe = await self.probeFeed(url: normalized)
-                    return (rawURL, normalized, probe)
+                    let probe = await self.probeFeed(url: request)
+                    return (rawURL, request, probe)
                 }
                 running += 1
             }
@@ -111,25 +121,25 @@ actor ImportPipeline {
             return collected
         }
 
-        for (rawURL, normalized, probe) in probeResults {
+        for (rawURL, requestURL, probe) in probeResults {
             switch probe {
             case .success(let title):
-                let kind = Self.detectMediaKind(url: normalized, title: title)
+                let kind = Self.detectMediaKind(url: requestURL, title: title)
                 let source = FeedSource(
-                    title: title ?? Self.titleFromURL(normalized),
-                    url: normalized,
+                    title: title ?? Self.titleFromURL(requestURL),
+                    url: requestURL,  // P0-01: store the fetchable URL
                     category: category,
                     region: "imported",
                     mediaKind: kind
                 )
                 newSources.append(source)
-                results.append(ImportItemResult(url: normalized, title: title, status: .imported))
+                results.append(ImportItemResult(url: rawURL, title: title, status: .imported))
 
             case .invalid(let reason):
-                results.append(ImportItemResult(url: normalized, title: nil, status: .invalid(reason)))
+                results.append(ImportItemResult(url: rawURL, title: nil, status: .invalid(reason)))
 
             case .unreachable:
-                results.append(ImportItemResult(url: normalized, title: nil, status: .unreachable))
+                results.append(ImportItemResult(url: rawURL, title: nil, status: .unreachable))
             }
         }
 
@@ -159,10 +169,13 @@ actor ImportPipeline {
             var newSources: [FeedSource] = []
             var seen = existingURLs
             for source in parsedSources {
-                let normalized = OPMLParser.normalizeURL(source.url)
-                // Basic syntax checks (always enforced)
-                guard !normalized.isEmpty,
-                      let parsed = URL(string: normalized),
+                // P0-01: identity for dedup uses normalizeURL; storage uses
+                // requestURL to preserve any authorization/signed parameters.
+                let identity = OPMLParser.normalizeURL(source.url)
+                let fetchURL = OPMLParser.requestURL(source.url)
+                // Basic syntax checks on the fetch URL
+                guard !fetchURL.isEmpty,
+                      let parsed = URL(string: fetchURL),
                       let scheme = parsed.scheme?.lowercased(),
                       ["http", "https"].contains(scheme),
                       parsed.host != nil else {
@@ -170,15 +183,15 @@ actor ImportPipeline {
                                                     status: .invalid("Invalid or unsupported URL")))
                     continue
                 }
-                if seen.contains(normalized) {
-                    Log.import_.info("Dropped duplicate URL in OPML: \(normalized)")
+                if seen.contains(identity) {
+                    Log.import_.info("Dropped duplicate URL in OPML: \(identity)")
                     results.append(ImportItemResult(url: source.url, title: source.title, status: .duplicate))
                 } else {
-                    seen.insert(normalized)
-                    let kind = Self.detectMediaKind(url: source.url, title: source.title)
+                    seen.insert(identity)
+                    let kind = Self.detectMediaKind(url: fetchURL, title: source.title)
                     let corrected = FeedSource(
                         title: source.title,
-                        url: normalized,
+                        url: fetchURL,  // P0-01: store the fetchable URL
                         category: source.category,
                         region: "imported",
                         mediaKind: kind
@@ -191,39 +204,45 @@ actor ImportPipeline {
         }
 
         // With validation: probe each feed
-        // Deduplicate sources by normalized URL (keep first occurrence, which has first group's category)
-        var dedupedSources: [FeedSource] = []
-        var seenURLs = Set<String>()
+        // P0-01: Deduplicate by identity (normalizeURL), preserve original
+        // OPML metadata keyed by identity for title/category restoration.
+        var dedupedRequestURLs: [String] = []
+        var results: [ImportItemResult] = []
+        var seenIdentities = existingURLs
+        var metadataByIdentity: [String: (title: String, category: String)] = [:]
         for source in parsedSources {
-            let normalized = OPMLParser.normalizeURL(source.url)
-            if seenURLs.insert(normalized).inserted {
-                dedupedSources.append(source)
+            let identity = OPMLParser.normalizeURL(source.url)
+            guard seenIdentities.insert(identity).inserted else {
+                results.append(ImportItemResult(url: source.url, title: source.title, status: .duplicate))
+                continue
+            }
+            let request = OPMLParser.requestURL(source.url)
+            dedupedRequestURLs.append(request)
+            // Keep first occurrence's metadata when duplicates exist
+            if metadataByIdentity[identity] == nil {
+                metadataByIdentity[identity] = (source.title, source.category)
             }
         }
-        let urls = dedupedSources.map(\.url)
-        let titleMap = Dictionary(
-            dedupedSources.map { ($0.url, $0) },
-            uniquingKeysWith: { first, _ in first }
-        )
-        let (result, sources) = await ingest(
-            urls: urls,
+        let (probeResult, sources) = await ingest(
+            urls: dedupedRequestURLs,
             category: fileName.capitalized,
             existingURLs: existingURLs
         )
-        // Preserve original titles from OPML where available
+        // Merge duplicate results from local dedup with probe results
+        let mergedItems = results + probeResult.items
+        // Restore original OPML titles/categories where available, keyed by identity
         let corrected = sources.map { source -> FeedSource in
-            if let original = titleMap[source.url] ?? titleMap[OPMLParser.normalizeURL(source.url)] {
-                return FeedSource(
-                    title: original.title.isEmpty ? source.title : original.title,
-                    url: source.url,
-                    category: original.category.isEmpty ? source.category : original.category,
-                    region: "imported",
-                    mediaKind: source.mediaKind
-                )
-            }
-            return source
+            let identity = OPMLParser.normalizeURL(source.url)
+            guard let original = metadataByIdentity[identity] else { return source }
+            return FeedSource(
+                title: original.title.isEmpty ? source.title : original.title,
+                url: source.url,
+                category: original.category.isEmpty ? source.category : original.category,
+                region: "imported",
+                mediaKind: source.mediaKind
+            )
         }
-        return (result, corrected)
+        return (ImportResult(items: mergedItems), corrected)
     }
 
     /// Import from a remote OPML URL (fetch then parse)
@@ -296,7 +315,7 @@ actor ImportPipeline {
 
     // MARK: - Feed Probe
 
-    private enum ProbeResult {
+    enum ProbeResult: Sendable {
         case success(title: String?)
         case invalid(String)
         case unreachable
@@ -305,6 +324,7 @@ actor ImportPipeline {
     /// Fetch a URL and verify it contains a parseable RSS/Atom/JSON feed.
     /// Returns the feed title if found.
     private func probeFeed(url: String) async -> ProbeResult {
+        if let injected = injectedProbe { return await injected(url) }
         guard let feedURL = URL(string: url) else { return .invalid("Malformed URL") }
 
         do {
