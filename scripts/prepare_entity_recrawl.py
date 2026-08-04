@@ -10,13 +10,23 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
 import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 try:
     from scripts.catalog_identity import canonical_url, compute_source_id, request_url
+    from scripts.fetch_new_feeds import FETCH_EVIDENCE_COLUMNS
 except ModuleNotFoundError:
     from catalog_identity import canonical_url, compute_source_id, request_url
+    from fetch_new_feeds import FETCH_EVIDENCE_COLUMNS
+
+
+# Additional columns that carry evidence of the old fetch and must be cleared.
+_ADDITIONAL_EVIDENCE_COLUMNS = [
+    "content_length", "fetch_duration_ms", "fetched_at", "last_modified",
+]
 
 
 def prepare(sources: Path, quarantine: Path, output: Path) -> int:
@@ -24,18 +34,83 @@ def prepare(sources: Path, quarantine: Path, output: Path) -> int:
     import pyarrow.parquet as pq
 
     table = pq.read_table(sources)
+    source_digest = hashlib.sha256(sources.read_bytes()).hexdigest()
     rows = table.to_pylist()
-    queued: dict[int, str] = {}
+
+    # ── Build stable-key lookup ──
+    by_source_id: dict[str, int] = {}
+    for i, row in enumerate(rows):
+        sid = row.get("source_id", "")
+        if sid:
+            if sid in by_source_id:
+                raise ValueError(
+                    f"duplicate source_id in parquet: {sid} at indices "
+                    f"{by_source_id[sid]} and {i}"
+                )
+            by_source_id[sid] = i
+        else:
+            # Allow rows without source_id (e.g. legacy data); they just
+            # can't be matched.
+            pass
+
+    # ── Parse quarantine, resolve by old_source_id ──
+    queued: list[tuple[int, str, dict]] = []   # (index, fetch_url, csv_row)
+    unmatched: list[dict] = []
+
     with quarantine.open(newline="", encoding="utf-8") as handle:
         for item in csv.DictReader(handle):
             if item.get("reason") != "url_entities_decoded_requires_refetch":
                 continue
-            queued[int(item["row_index"])] = request_url(item.get("xml_url", ""))
 
-    for index, fetch_url in queued.items():
-        if index < 0 or index >= len(rows):
-            raise ValueError(f"quarantine row_index outside source parquet: {index}")
+            old_source_id = item.get("old_source_id", "").strip()
+            raw_url = item.get("xml_url", "").strip()
+            fetch_url = request_url(raw_url)
+
+            if not old_source_id:
+                raise ValueError(
+                    f"quarantine row missing old_source_id: {item}"
+                )
+
+            # Resolve by stable key — old_source_id, not row_index.
+            if old_source_id not in by_source_id:
+                unmatched.append(item)
+                continue
+
+            index = by_source_id[old_source_id]
+            row = rows[index]
+
+            # Verify xml_url matches between CSV and parquet row.
+            row_xml_url = row.get("xml_url", "")
+            if row_xml_url != raw_url:
+                raise ValueError(
+                    f"xml_url mismatch for old_source_id {old_source_id}: "
+                    f"parquet row has {row_xml_url!r}, quarantine has {raw_url!r}"
+                )
+
+            queued.append((index, fetch_url, item))
+
+    if unmatched:
+        raise ValueError(
+            f"{len(unmatched)} quarantine rows could not be resolved to parquet "
+            f"rows: " + ", ".join(r.get("old_source_id", "?") for r in unmatched)
+        )
+
+    if not queued:
+        print("  no entity-recrawl rows to prepare")
+        return 0
+
+    # ── Clear old evidence and set new identity + provenance ──
+    for index, fetch_url, item in queued:
         row = rows[index]
+
+        # Clear ALL fetch-derived evidence from the previous crawl (P0-02).
+        for col in FETCH_EVIDENCE_COLUMNS:
+            row[col] = None
+        for col in _ADDITIONAL_EVIDENCE_COLUMNS:
+            if col in row:
+                row[col] = None
+
+        # Set new identity.
         row["source_id"] = compute_source_id(fetch_url)
         row["xml_url"] = fetch_url
         row["canonical_xml_url"] = canonical_url(fetch_url)
@@ -44,16 +119,43 @@ def prepare(sources: Path, quarantine: Path, output: Path) -> int:
         row["final_url"] = None
         row["attempt_count"] = 0
 
+        # P0-02 / P1-03: provenance of the recrawl.
+        row["recrawl_reason"] = "url_entities_decoded_requires_refetch"
+        row["previous_source_id"] = item.get("old_source_id", "")
+        row["prepared_at"] = datetime.now(timezone.utc).isoformat()
+        row["input_digest"] = source_digest
+
+    # ── Atomic write ──
+    # Extend schema with provenance columns not in the original parquet.
+    provenance_fields = [
+        pa.field("recrawl_reason", pa.string()),
+        pa.field("previous_source_id", pa.string()),
+        pa.field("prepared_at", pa.string()),
+        pa.field("input_digest", pa.string()),
+    ]
+    extended_schema = table.schema
+    for field in provenance_fields:
+        try:
+            _ = extended_schema.field(field.name)
+        except KeyError:
+            extended_schema = extended_schema.append(field)
+
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = output.with_suffix(output.suffix + ".tmp")
-    pq.write_table(pa.Table.from_pylist(rows, schema=table.schema), temporary, compression="zstd")
+    pq.write_table(
+        pa.Table.from_pylist(rows, schema=extended_schema),
+        temporary,
+        compression="zstd",
+    )
     os.replace(temporary, output)
     return len(queued)
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--sources", type=Path, default=Path("feeds_corpus_sources.parquet"))
+    parser.add_argument(
+        "--sources", type=Path, default=Path("feeds_corpus_sources.parquet")
+    )
     parser.add_argument(
         "--quarantine", type=Path,
         default=Path("build/catalog-reconciliation/quarantine.csv"),
@@ -68,4 +170,7 @@ def parse_args() -> argparse.Namespace:
 if __name__ == "__main__":
     arguments = parse_args()
     count = prepare(arguments.sources, arguments.quarantine, arguments.output)
-    print(f"prepared {count} entity-corrected source rows for recrawl: {arguments.output}")
+    print(
+        f"prepared {count} entity-corrected source rows for recrawl: "
+        f"{arguments.output}"
+    )
