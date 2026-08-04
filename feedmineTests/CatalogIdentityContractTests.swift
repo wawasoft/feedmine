@@ -256,6 +256,50 @@ final class CatalogIdentityContractTests: XCTestCase {
         XCTAssertEqual(r2.importedCount, 0)
     }
 
+    /// OPML validate: true path preserves titles/URLs through probes.
+    func testOPMLValidatePathPreservesMetadata() async throws {
+        let pipeline = ImportPipeline(probe: { _ in .success(title: "Probed Title") })
+        let opml = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <opml version="2.0">
+          <body>
+            <outline text="Original Title" xmlUrl="https://example.com/feed.xml?temp_url_sig=abc" />
+          </body>
+        </opml>
+        """
+        let data = Data(opml.utf8)
+        let (result, sources) = await pipeline.ingest(
+            opmlData: data, fileName: "test", existingURLs: [], validate: true
+        )
+        XCTAssertEqual(result.importedCount, 1)
+        let source = try XCTUnwrap(sources.first)
+        // Title from OPML should be preserved (not overwritten by probe)
+        XCTAssertEqual(source.title, "Original Title")
+        // URL should preserve auth params
+        XCTAssertTrue(source.url.contains("temp_url_sig=abc"))
+    }
+
+    /// validate: true OPML reports duplicates from within the OPML.
+    func testOPMLValidatePathReportsInternalDuplicates() async throws {
+        let pipeline = ImportPipeline(probe: { _ in .success(title: "Feed") })
+        let opml = """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <opml version="2.0">
+          <body>
+            <outline text="First" xmlUrl="https://example.com/feed.xml?temp_url_sig=one" />
+            <outline text="Second" xmlUrl="https://example.com/feed.xml?temp_url_sig=two" />
+          </body>
+        </opml>
+        """
+        let data = Data(opml.utf8)
+        let (result, sources) = await pipeline.ingest(
+            opmlData: data, fileName: "test", existingURLs: [], validate: true
+        )
+        XCTAssertEqual(result.importedCount, 1)
+        XCTAssertEqual(result.duplicateCount, 1)
+        XCTAssertEqual(sources.count, 1)
+    }
+
     /// Empty imported sources deletes the JSON file.
     @MainActor
     func testEmptyImportedSourcesDeletesJSONFile() async throws {

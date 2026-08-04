@@ -1468,10 +1468,12 @@ final class FeedLoader {
         // so a relaunch doesn't restore the removed source. Also use atomic
         // write to prevent corruption on crash/termination mid-write.
         guard !imported.isEmpty else {
-            do {
-                try FileManager.default.removeItem(at: url)
-            } catch {
-                Log.import_.error("Failed to delete stale imported_sources.json: \(error)")
+            if FileManager.default.fileExists(atPath: url.path) {
+                do {
+                    try FileManager.default.removeItem(at: url)
+                } catch {
+                    Log.import_.error("Failed to delete stale imported_sources.json: \(error)")
+                }
             }
             return
         }

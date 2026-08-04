@@ -8,7 +8,10 @@ enum MediaKind: String, Codable, Sendable {
 }
 
 struct FeedSource: Codable, Identifiable, Sendable {
-    var id: String { url }
+    /// Canonical identity derived from the fetch URL. Two FeedSources with
+    /// equivalent URLs (different auth params, scheme, www, trailing slash)
+    /// share the same identity. This mirrors SourceReference.id.
+    var id: String { OPMLParser.normalizeURL(url) }
     let title: String
     let url: String
     let category: String

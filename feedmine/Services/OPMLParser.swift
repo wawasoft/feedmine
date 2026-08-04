@@ -409,6 +409,9 @@ struct OPMLParser {
         "mc_cid", "mc_eid", "ref_src", "temp_url_sig",
         "temp_url_expires", "expires", "cfid", "cftoken",
         "jsessionid", "phpsessid",
+        // Additional auth/session params that must not affect identity
+        "token", "sig", "key", "auth", "apikey", "api_key",
+        "signature", "access_token", "refresh_token",
     ])
 
     /// OPML is XML, so only the five XML named entities plus numeric entities
