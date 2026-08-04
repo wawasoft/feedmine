@@ -378,6 +378,55 @@ final class CuratedPreferenceEngineTests: XCTestCase {
         XCTAssertEqual(saved?.definition, definition)
     }
 
+    func testCuratedFeedPersistsRecipeRoundTrip() async throws {
+        let userState = try UserStateStore(inMemory: true)
+        let store = CuratedFeedStore(db: userState.db)
+        let definition = CuratedProfileDefinition(languages: ["en"])
+        let recipe = FeedRecipeDefinition(
+            languages: ["en"],
+            discoveryLevel: 0.7,
+            topicPreferences: [CuratedTopic.technologyScience.featureKey: .more],
+            editorialPreferences: [CuratedEditorialStyle.specialist.featureKey: .less],
+            adjustFromOpens: true
+        )
+
+        // Create with recipe — read back intact
+        let id = try await store.create(
+            name: "Composed",
+            definition: definition,
+            recipe: recipe
+        )
+        let createdRow = try await store.curatedFeed(id: id)
+        let created = try XCTUnwrap(createdRow, "Feed created with a recipe must be readable")
+        XCTAssertEqual(created.recipe, recipe)
+
+        // Update with a modified recipe — read back reflects the update
+        var updatedRecipe = recipe
+        updatedRecipe.discoveryLevel = 0.4
+        updatedRecipe.topicPreferences[CuratedTopic.musicAudio.featureKey] = .less
+        try await store.update(
+            id: id,
+            name: "Composed Updated",
+            definition: definition,
+            recipe: updatedRecipe
+        )
+        let updatedRow = try await store.curatedFeed(id: id)
+        let updated = try XCTUnwrap(updatedRow, "Feed updated with a recipe must be readable")
+        XCTAssertEqual(updated.name, "Composed Updated")
+        XCTAssertEqual(updated.recipe, updatedRecipe)
+        XCTAssertNotEqual(updated.recipe, recipe, "Recipe must reflect the update, not the stale value")
+
+        // Nil recipe — old-style feeds decode with recipe == nil
+        let legacyID = try await store.create(
+            name: "Legacy",
+            definition: definition,
+            recipe: nil
+        )
+        let legacyRow = try await store.curatedFeed(id: legacyID)
+        let legacy = try XCTUnwrap(legacyRow, "Feed created without a recipe must be readable")
+        XCTAssertNil(legacy.recipe, "Feeds without a recipe must read back as nil")
+    }
+
     // MARK: - Pending pair lifecycle
 
     func test_pendingPair_notVisible_untilPublished() throws {
