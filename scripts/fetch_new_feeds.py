@@ -289,8 +289,11 @@ def fetch_one(url: str) -> dict:
         parsed = parse_feed(body, url)
         result.update(parsed)
 
-        if not result.get("error_message") and result["articles_fetched"] == 0:
-            result["error_message"] = "No articles found in feed"
+        # P1-07: A valid XML feed that parses successfully but has zero
+        # articles is healthy — not failed. The classifier already handles
+        # this: 2xx/3xx with no error_message → "done".
+        # Do NOT force an error_message here; it contradicts the
+        # classify_fetch_result docstring and its own HTTP-status branch.
 
     except urllib.error.HTTPError as e:
         result["http_status"] = e.code
