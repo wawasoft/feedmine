@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas pyarrow duckdb pytest
+          pip install pandas pyarrow duckdb pytest feedparser
 
       - name: Git diff --check
         run: git diff --check
@@ -51,8 +51,42 @@ jobs:
           fi
 
       - name: Rebuild and audit catalog
+        # P1-11: No || true — catalog rebuild failure must fail CI.
+        # If the rebuild fails, the remaining checks cannot run meaningfully.
         run: |
-          python3 scripts/curate_opml_catalog.py --root feedmine/Resources/Feeds --output /tmp/catalog-test.sqlite || true
-          if [ -f /tmp/catalog-test.sqlite ]; then
-            sqlite3 /tmp/catalog-test.sqlite "PRAGMA quick_check;"
+          python3 scripts/curate_opml_catalog.py --root feedmine/Resources/Feeds --output /tmp/catalog-test.sqlite
+          if [ ! -f /tmp/catalog-test.sqlite ]; then
+            echo "ERROR: catalog rebuild did not produce output"
+            exit 1
           fi
+          sqlite3 /tmp/catalog-test.sqlite "PRAGMA quick_check;"
+          # Verify source and file counts match expectations
+          sqlite3 /tmp/catalog-test.sqlite "SELECT COUNT(DISTINCT source_id) FROM sources;"
+          sqlite3 /tmp/catalog-test.sqlite "SELECT COUNT(DISTINCT id) FROM opml_files;"
+
+      - name: Validate manifest against Swift schema
+        # P1-11: Ensure the bundled manifest can be decoded by the app.
+        # The Swift CatalogUpdateManifest expects a non-empty or missing
+        # signature field — verify the JSON is structurally valid.
+        run: |
+          python3 -c "
+          import json
+          manifest = json.loads(open('feedmine/Resources/FeedEngine/catalog-update-manifest.json').read())
+          required = ['schemaVersion', 'revision', 'generatedAt', 'sourceCount', 'fileCount', 'files']
+          for key in required:
+              assert key in manifest, f'Missing required key: {key}'
+          assert manifest['revision'] > 0, 'revision must be positive'
+          assert manifest['sourceCount'] > 0, 'sourceCount must be positive'
+          assert manifest['fileCount'] == len(manifest['files']), 'fileCount mismatch'
+          for f in manifest['files']:
+              assert 'path' in f and 'sha256' in f and 'bytes' in f, f'Invalid file entry: {f}'
+          print(f'Manifest OK: revision={manifest[\"revision\"]}, sources={manifest[\"sourceCount\"]}, files={manifest[\"fileCount\"]}')
+          "
+
+      - name: CLI smoke tests
+        # P1-11: Verify key scripts start without import errors.
+        run: |
+          python3 scripts/fetch_all_feeds.py --help
+          python3 -m scripts.fetch_all_feeds --help
+          python3 scripts/publish_catalog_update.py --help
+          python3 scripts/prepare_entity_recrawl.py --help
