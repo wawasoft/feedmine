@@ -29,7 +29,7 @@ except ModuleNotFoundError:
     from catalog_identity import canonical_url, compute_source_id, request_url
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-CACHE_BASE = REPO_ROOT / "scripts" / "scripts" / "feed_discovery" / "cache" / "subregion"
+CACHE_BASE = REPO_ROOT / "scripts" / "feed_discovery" / "cache" / "subregion"
 SOURCES_PATH = REPO_ROOT / "feeds_corpus_sources.parquet"
 MEMBERSHIPS_PATH = REPO_ROOT / "feeds_corpus_source_memberships.parquet"
 
@@ -96,6 +96,13 @@ def main():
     seen_membership = set(str(m) for m in memberships_df["membership_id"])
 
     # --- Scan iTunes cache ---
+    # P2-15: Fail fast when the cache root is missing rather than silently
+    # producing zero results (which operators may interpret as valid data).
+    if not CACHE_BASE.is_dir():
+        print(f"ERROR: iTunes cache directory not found: {CACHE_BASE}", file=sys.stderr)
+        print("  Run scripts/discover_itunes_podcasts.py first, or pass --cache-root.", file=sys.stderr)
+        sys.exit(1)
+
     podcasts = {}  # feedUrl → podcast info
 
     for root, dirs, files in os.walk(CACHE_BASE):
