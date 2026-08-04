@@ -48,7 +48,8 @@
 | Manifest: duplicates / invalid / failed | ✅ 0 / 0 / 0 |
 | Identity scan (all OPML source IDs) | ✅ 77,443 unchanged, 0 changed |
 | `canonical(canonical(x)) == canonical(x)` | ✅ 0 failures across 77,443 URLs |
-| Swift `CatalogIdentityContractTests` | ⚠️ Requires macOS — code written, syntactically verified |
+| Swift `xcodebuild test CatalogIdentityContractTests` | ✅ 8 tests, 0 failures |
+| Catalog rebuild (78,292 sources from parquet) | ✅ 0 identity mismatches |
 
 ## Commits
 
