@@ -4,7 +4,7 @@
     {
       "bytes": 1137477,
       "path": "Feeds/01_News_&_Current_Affairs/01_News_&_Current_Affairs.opml",
-      "sha256": "491909cb7e5c1544b4a9bfcdaf9d31a6650c0e70743ec22aecfb8d8dc786cf06"
+      "sha256": "436c9690d1222c1f2a953d5d405b56161dc942007e5df8cff3f603b620546284"
     },
     {
       "bytes": 517119,
@@ -19,12 +19,12 @@
     {
       "bytes": 846611,
       "path": "Feeds/04_Technology_&_Science/04_Technology_&_Science.opml",
-      "sha256": "fd037a3a656b1edcf2c0a7740663400559b551ee1bf20e2ec8186074e473e5c9"
+      "sha256": "b0e872c5b8e84e5bd91ad43eb94a2e6137f58accf2ad65c2154c7d1d0aeaa1d6"
     },
     {
       "bytes": 368613,
       "path": "Feeds/05_Business_&_Industry/05_Business_&_Industry.opml",
-      "sha256": "79ea208b345bf39960fbb178b09b5676fdcf2b0dd05241634bfdeb67644498da"
+      "sha256": "7867d9cd0b5e9bef7aa3928133f2f10a443c3652fe265899fb2967a6c7cdaea2"
     },
     {
       "bytes": 323101,
@@ -54,7 +54,7 @@
     {
       "bytes": 373400,
       "path": "Feeds/11_Education_&_Knowledge/11_Education_&_Knowledge.opml",
-      "sha256": "424e9177116867f74a9e36f7d3864a5ef5842c1a761e1472c10b0e5b6bfa8a48"
+      "sha256": "69e76c0ea2ba781e62af4eedb23f145dda46e12b89bcc480cd454f3e094ed505"
     },
     {
       "bytes": 239750,
@@ -69,7 +69,7 @@
     {
       "bytes": 505675,
       "path": "Feeds/14_Games_&_Hobbies/14_Games_&_Hobbies.opml",
-      "sha256": "c4cb46ae9814b520a9735c21b64d39ad54340b348f5863803f3fc7a0ba130f9f"
+      "sha256": "4db8aafb3188cf57b200795b6f271120fc50c8ef2b6f8b2ec3043956774abda4"
     },
     {
       "bytes": 280976,
@@ -84,12 +84,12 @@
     {
       "bytes": 2351636,
       "path": "Feeds/17_General_Interests/17_General_Interests.opml",
-      "sha256": "12986753dabad012bb98ec7bb5284d50eb3e23baa906ed35d8fe9191055ec811"
+      "sha256": "30d049b1143ef3fa5f8e41340fcd09d0892e1e7f3aec9ac5718de1c16076f58f"
     },
     {
       "bytes": 446276,
       "path": "Feeds/90_countries/algeria/algeria.opml",
-      "sha256": "89e30ae386785aba21ae1cda73d7fcbedcb64c64428bfa106a319ec4f8b534dc"
+      "sha256": "1f55d55e4bc746d1093c276401899837b60b1643a539fd7dc8648541a0247951"
     },
     {
       "bytes": 264698,
@@ -109,7 +109,7 @@
     {
       "bytes": 1113006,
       "path": "Feeds/90_countries/australia/australia.opml",
-      "sha256": "5554f78a70432b19c0ebb13bf027b38e4c196ca50c9ad1a9c85b7a97c156ab3c"
+      "sha256": "159c171ef85314c2a67442e65814a7b89a3a2113f380ac12a0a815daea747145"
     },
     {
       "bytes": 422242,
@@ -124,7 +124,7 @@
     {
       "bytes": 378903,
       "path": "Feeds/90_countries/bangladesh/bangladesh.opml",
-      "sha256": "19489b881d32feb0e37396d00f98004d6036d15b5e8e6e1447ba906e53571a37"
+      "sha256": "2b8ef65fdda8539cf15ae4f505e66bc702d7dfebd5c2a50b6ad9caf10a7f1157"
     },
     {
       "bytes": 199239,
@@ -149,7 +149,7 @@
     {
       "bytes": 283220,
       "path": "Feeds/90_countries/bulgaria/bulgaria.opml",
-      "sha256": "7da6ec7a872e71952a5b35a2befcbec6494791d181c358f5321ff5c9686816f6"
+      "sha256": "19517126fd207251202ef377dd183eab4dc74abeb7efc44f6587ea784415a9d2"
     },
     {
       "bytes": 227100,
@@ -164,12 +164,12 @@
     {
       "bytes": 395319,
       "path": "Feeds/90_countries/chile/chile.opml",
-      "sha256": "43ab74b9c74af5e3ba8a6f308068b599508bda3cf73a68af995c2a19e5850a46"
+      "sha256": "6fea945d5350a08a0a86a8cfe23a5f83d1abc9dee9271c8d97be30d598afd3de"
     },
     {
       "bytes": 612137,
       "path": "Feeds/90_countries/china/china.opml",
-      "sha256": "f3ce913998e4da7538c631866217b21dd105811cf15a47c6dd7ca9939e1b7656"
+      "sha256": "de654842933c338ab0982505911a672bf40613729a64b67caeffca8149ccb8b8"
     },
     {
       "bytes": 1029858,
@@ -214,7 +214,7 @@
     {
       "bytes": 334617,
       "path": "Feeds/90_countries/ecuador/ecuador.opml",
-      "sha256": "80de812e164802a48e695ba05093afc7a53fa56143901b712c7ec452193261ff"
+      "sha256": "24c892b1dbab7ed792d8dc269134e132651191fae80b6d6503b7cc04fbf6ee30"
     },
     {
       "bytes": 925977,
@@ -234,17 +234,17 @@
     {
       "bytes": 278256,
       "path": "Feeds/90_countries/ethiopia/ethiopia.opml",
-      "sha256": "48f1b55ffd422668afa54f3dc62a4a22758605891973e3ac443c0ecb60a17267"
+      "sha256": "92a2aeb4ccd04eba4335673b14db3f4d2e6307c0fa21273f04c7b42dd608928c"
     },
     {
       "bytes": 405582,
       "path": "Feeds/90_countries/finland/finland.opml",
-      "sha256": "b404168551e67e423419b62a8e19738c3c23fb8a4c03221984d388f43937057f"
+      "sha256": "fefa57f7b6d42ebe55a102748d4753553a686aa608be9e172ed80d79944d57ad"
     },
     {
       "bytes": 1279752,
       "path": "Feeds/90_countries/france/france.opml",
-      "sha256": "c4eecbcbb29a9233b2bab32e86de1e2a175ba93d4bda5bc784099a36adf69444"
+      "sha256": "bb02acca3ab89c0cc780aeabb3d93fde938102983c0d61fd45bbffc515430159"
     },
     {
       "bytes": 260272,
@@ -259,7 +259,7 @@
     {
       "bytes": 270728,
       "path": "Feeds/90_countries/ghana/ghana.opml",
-      "sha256": "38f8192959e9a13a762a6c18c926749dd0c25dcc6e3db52e1c96329cec0524d4"
+      "sha256": "ca4ac1f6eea42ec741173998a5dce6d45a9544c1871adabc80118c081a793a69"
     },
     {
       "bytes": 924117,
@@ -284,7 +284,7 @@
     {
       "bytes": 384954,
       "path": "Feeds/90_countries/hungary/hungary.opml",
-      "sha256": "c8a1dc1480a398a3302ebbfeaac9e4274032fc4bcbad856deb1dbe8471de4775"
+      "sha256": "4a22d2799f20b97b02da87379d42078de6d73e46d2e247b72cfefff707750dda"
     },
     {
       "bytes": 255603,
@@ -294,12 +294,12 @@
     {
       "bytes": 1409498,
       "path": "Feeds/90_countries/india/india.opml",
-      "sha256": "2dba949708b4935b957dbfa190a1d2975eaa74034724695020b1defa0821966d"
+      "sha256": "f45cae2d5cb914d500037d6a6f2d347a822f27902f071de813d8b11bd0c86850"
     },
     {
       "bytes": 1258082,
       "path": "Feeds/90_countries/indonesia/indonesia.opml",
-      "sha256": "cc758c43680aa3eed09d3a98fe34fa17e0bdfd2a4f8f7ddb1fbb8aa322680029"
+      "sha256": "ad452c533d265664b40124b3c8cbff36f899e99669522f61d14b37345fd3f21b"
     },
     {
       "bytes": 157149,
@@ -314,12 +314,12 @@
     {
       "bytes": 424053,
       "path": "Feeds/90_countries/ireland/ireland.opml",
-      "sha256": "228b0645f2a663c06e5510161eea0d0ecf034a90a5428cc3ae8b72e8fa4fa70d"
+      "sha256": "082db7dfb7f0079a1d50926e86ac44f0be96943a35623aa07d1a3f0303418b9c"
     },
     {
       "bytes": 459822,
       "path": "Feeds/90_countries/israel/israel.opml",
-      "sha256": "998b4ee3f9e699c9df1df54155a784c5e6cd406edd84f25c45bc2fe2a94483e7"
+      "sha256": "ea5794a17c20fc03c8219968ee7f9cf72bc0619602e401c7f4abf5e2f373d1f5"
     },
     {
       "bytes": 1242606,
@@ -329,7 +329,7 @@
     {
       "bytes": 193369,
       "path": "Feeds/90_countries/ivory_coast/ivory_coast.opml",
-      "sha256": "f9b1d9f168068f8e9e62f2203be652a1f4735df7ddd5db7d3f49078759297fc2"
+      "sha256": "5f78597f2adf295a41c5ee125968a7b9c9d7d246d890cf0e092a333ec9905015"
     },
     {
       "bytes": 171410,
@@ -339,27 +339,27 @@
     {
       "bytes": 1512255,
       "path": "Feeds/90_countries/japan/japan.opml",
-      "sha256": "c828d7b7fdf3b0aa14b917692f7dadbe3a51a285528a3d5021b35c20bc9e3c36"
+      "sha256": "4483bcecb5e491885ff715be1f8c0b86d029464d4854b6b4670289fbe9533240"
     },
     {
       "bytes": 428592,
       "path": "Feeds/90_countries/kazakhstan/kazakhstan.opml",
-      "sha256": "3fc4e015654c15595615be8bfff0abb6be2dfc0ec2a3e06b2cfab885379a50ae"
+      "sha256": "5cd2dbfbe114af604dc5c6178ac13ff6b318c976c2b092acd2b0ffbb85b2ce35"
     },
     {
       "bytes": 321662,
       "path": "Feeds/90_countries/kenya/kenya.opml",
-      "sha256": "ffe7c353fb2fc551a7869fd1ec3c5cc86447a9a514192df4d3b8606547de541c"
+      "sha256": "c5716c0e19fece0476695a47db6b6f9df9452fff547f92cc02603c118dbcada4"
     },
     {
       "bytes": 258032,
       "path": "Feeds/90_countries/latvia/latvia.opml",
-      "sha256": "ce374f3820976de66780fcb02d45267b180ddfd61a014fc898bd540813df9b26"
+      "sha256": "08c6ed8229217a3083a777e7acee7d1219c596031c347ff2ff8d80f8ef2e8e9f"
     },
     {
       "bytes": 222686,
       "path": "Feeds/90_countries/lithuania/lithuania.opml",
-      "sha256": "3de9cd99cc82b014f621970792fefc559150c8bd3bc20e4f000a2a2176c8e99c"
+      "sha256": "867aa8522f2caa3ab54d0e7896ea8f58437687d245d9ef98f8e3d2c21fc435e3"
     },
     {
       "bytes": 212206,
@@ -369,7 +369,7 @@
     {
       "bytes": 311383,
       "path": "Feeds/90_countries/malaysia/malaysia.opml",
-      "sha256": "8644a4fbfa22096bb7c9c726ef1d5650afca07b7a5eee39bd0b4b73e6c296b61"
+      "sha256": "b90511cebe5a942fb1ecf90ee2985b99eb4a515ed09dd9cac0b905afb650137a"
     },
     {
       "bytes": 170876,
@@ -384,7 +384,7 @@
     {
       "bytes": 821753,
       "path": "Feeds/90_countries/morocco/morocco.opml",
-      "sha256": "688aa892814bbed4346425c8735252366c8f4dd744be9d7526aefd8bbb07a8ab"
+      "sha256": "437a0656e035b834576749dc3b25f54975163f368673b643d1b985f23b148d18"
     },
     {
       "bytes": 181431,
@@ -404,7 +404,7 @@
     {
       "bytes": 366837,
       "path": "Feeds/90_countries/new_zealand/new_zealand.opml",
-      "sha256": "ffd483b312a8456f3e74b005a847a53324d795cab35d3b735ab1ae72f8dabf9b"
+      "sha256": "5359b125ccf3ce59d3e0eea5941210d1740a2dae4e9959a587112332fc98d156"
     },
     {
       "bytes": 211853,
@@ -414,17 +414,17 @@
     {
       "bytes": 660786,
       "path": "Feeds/90_countries/nigeria/nigeria.opml",
-      "sha256": "ecf5581edfeab290bc94ee0b8f7f37238f868ce93eaa8f261f0861247f5500e3"
+      "sha256": "0d8418a28a7e5855bf9059c4d514afeb301d68adc2dbec75bcc9eb100d3a34f8"
     },
     {
       "bytes": 409584,
       "path": "Feeds/90_countries/norway/norway.opml",
-      "sha256": "d93ff022d7a2e56b95c325d39b5d5b38ccde09386da8845861f7aca275ee944e"
+      "sha256": "4ef54c66c17745632405494d697e4dda4463dc5e2e2074cd1cb74e5e751783b5"
     },
     {
       "bytes": 414603,
       "path": "Feeds/90_countries/pakistan/pakistan.opml",
-      "sha256": "dedc56c14730c8952bd1bb6280ee2c2a49d729905cc19d27bc8111ff3493f36b"
+      "sha256": "3e2792f5f4d5e8b03be0ce8648f74d98eab65ff91ed0632e7b29072497f42267"
     },
     {
       "bytes": 368457,
@@ -444,7 +444,7 @@
     {
       "bytes": 558090,
       "path": "Feeds/90_countries/philippines/philippines.opml",
-      "sha256": "2adb250eaeb5a4ee36c43998aca7781f7b76dc120843241e34e7c8e13d91b3fa"
+      "sha256": "93337319c385842c1b312a0db1afab7c960c3bb18e3f16771a0ab1e74a994c16"
     },
     {
       "bytes": 1042115,
@@ -469,7 +469,7 @@
     {
       "bytes": 1181266,
       "path": "Feeds/90_countries/romania/romania.opml",
-      "sha256": "fab20341a2469c1ccae582552e650ad2dfade5bea290d8296f51f3b1c82394b3"
+      "sha256": "8b488925f44c0af42ed3a3f4fcb70f416f80d9b248700d7d8be3eb5d89801afa"
     },
     {
       "bytes": 643122,
@@ -494,17 +494,17 @@
     {
       "bytes": 285495,
       "path": "Feeds/90_countries/slovakia/slovakia.opml",
-      "sha256": "a60550204e8ec9a2c9367f27aa0d92b14324eb46015f5248ecdd8643d592af5c"
+      "sha256": "6182517e068e01343f2f8a6e9362f3599033094950ec935e59bea985c4294888"
     },
     {
       "bytes": 144117,
       "path": "Feeds/90_countries/slovenia/slovenia.opml",
-      "sha256": "abcb85df4b5884cd3364b71526940582fd296a789e10865e7ed07091f40e3a40"
+      "sha256": "1e1a9f5d1d49398bf084cfd80a6af9203433c755b2c98028485f65c0dd5d2855"
     },
     {
       "bytes": 320264,
       "path": "Feeds/90_countries/south_africa/south_africa.opml",
-      "sha256": "6cc22693fa16f431e039a3186905006b361e2b0a698be21062a19aa944ca5172"
+      "sha256": "28bc3322076439c39cc31de19224f6d95e9b6ee29e861138a4c21e08b8b05aae"
     },
     {
       "bytes": 363614,
@@ -524,12 +524,12 @@
     {
       "bytes": 328899,
       "path": "Feeds/90_countries/sudan/sudan.opml",
-      "sha256": "b33b19af412e20c4d7d58cb6cd7a40d5a120c1b679d0f8a4a2f77755f24de365"
+      "sha256": "8add120a16c49b951e8b6276cb23950c86277b7dadd37548c32815b4741da091"
     },
     {
       "bytes": 425449,
       "path": "Feeds/90_countries/sweden/sweden.opml",
-      "sha256": "50aeb49570eee16d424522f0217077f3fc4886bc4a5fe4d5b69291450a325e73"
+      "sha256": "c06095616e687c33c2aba5190c5f82894619620d9462bc0ec8b59791eb55fe3a"
     },
     {
       "bytes": 433364,
@@ -544,7 +544,7 @@
     {
       "bytes": 932458,
       "path": "Feeds/90_countries/thailand/thailand.opml",
-      "sha256": "26c23d606b345a405f835fe45579bf9c24d748e06edde93e7ccb7157be06d0fb"
+      "sha256": "ae107b923ce29b34ab9d2e349e69c937e331045fc97dd3b02809f84530554f28"
     },
     {
       "bytes": 181957,
@@ -569,7 +569,7 @@
     {
       "bytes": 896839,
       "path": "Feeds/90_countries/united_kingdom/united_kingdom.opml",
-      "sha256": "e5cf85e6f5e6c47d8b2f8d043d7cce28fb7f53e3c5bd3eaa201f5495871f4791"
+      "sha256": "10a40d2f82d34adec1c6c51899f69bfa92ad97335d52f7202affb697593b051a"
     },
     {
       "bytes": 235917,
@@ -584,7 +584,7 @@
     {
       "bytes": 286709,
       "path": "Feeds/90_countries/venezuela/venezuela.opml",
-      "sha256": "12132082719a0e5f9f12adc9facf2de56bba3ecc4f71c2ca3e5ae5d1b9ff7589"
+      "sha256": "8a845151b53cd1a459ab6a2c18c7c53998d036b5c1975aea73d12d5ceeaa8e0e"
     },
     {
       "bytes": 515782,

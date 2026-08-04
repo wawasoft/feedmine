@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0196141C47292FDF3D36E40F /* HTTPValidators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16463ADA5A24489515082F05 /* HTTPValidators.swift */; };
+		A1C1D1E1F1A1B1C1D1E1F1A1 /* CatalogIdentityContractTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C2D2E2F2A2B2C2D2E2F2A2 /* CatalogIdentityContractTests.swift */; };
 		01B2225A15616DD15C1C4157 /* FeedmineFilterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB0274A7B41E6AEEE9DD939 /* FeedmineFilterUITests.swift */; };
 		0282F6D1D5EDC24C20B526CB /* CatalogInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A85FCA76BCFC194F99A1B047 /* CatalogInput.swift */; };
 		0384610A52F28F8FEA681230 /* SourceManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2A96EFA10A9D618AEA036A /* SourceManagementView.swift */; };
@@ -317,6 +318,7 @@
 		85BC7361CDC09C1858857316 /* CircadianEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircadianEngine.swift; sourceTree = "<group>"; };
 		85CC861DFB4DB8E6C0C0B564 /* ko.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ko.json; sourceTree = "<group>"; };
 		866824D0605369320DC64C67 /* AdaptiveSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveSchedulerTests.swift; sourceTree = "<group>"; };
+		B2C2D2E2F2A2B2C2D2E2F2A2 /* CatalogIdentityContractTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogIdentityContractTests.swift; sourceTree = "<group>"; };
 		87CEF7256570A4EC3F05DF96 /* es.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = es.json; sourceTree = "<group>"; };
 		87F611B28256E9442168C776 /* FeedItemCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemCardView.swift; sourceTree = "<group>"; };
 		89A4598C277C43D5D97A6DC6 /* PreparedFeedCard.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PreparedFeedCard.swift; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				866824D0605369320DC64C67 /* AdaptiveSchedulerTests.swift */,
+				B2C2D2E2F2A2B2C2D2E2F2A2 /* CatalogIdentityContractTests.swift */,
 				80663CE60339F6E887F02E18 /* CatalogBrowserViewModelTests.swift */,
 				51427CB61E6A37BC02A6EA65 /* ContentCollectionTests.swift */,
 				2164E6D372693F6DB774E998 /* ContentDistributionTests.swift */,
@@ -911,6 +914,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				355D2D60D8CF4B12645579EB /* AdaptiveSchedulerTests.swift in Sources */,
+				A1C1D1E1F1A1B1C1D1E1F1A1 /* CatalogIdentityContractTests.swift in Sources */,
 				B34F5D8CE8803D88C8C6BAE0 /* CatalogBrowserViewModelTests.swift in Sources */,
 				3533D8B1023DF857D7063CB5 /* ContentCollectionTests.swift in Sources */,
 				EBBDB6057090A7F9F5060355 /* ContentDistributionTests.swift in Sources */,

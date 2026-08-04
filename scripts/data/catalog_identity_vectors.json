@@ -1,0 +1,79 @@
+[
+  {
+    "name": "tracking and runtime variants",
+    "raw": "http://www.Example.com/feed/?utm_source=newsletter&hl=pt-BR#latest",
+    "canonical": "https://example.com/feed?hl=pt-BR",
+    "request": "http://www.example.com/feed/?utm_source=newsletter&hl=pt-BR",
+    "valid": true
+  },
+  {
+    "name": "retained query spelling",
+    "raw": "https://example.com/feed?ceid=KE:en&next=/world/news&q=a+b&bare",
+    "canonical": "https://example.com/feed?ceid=KE:en&next=/world/news&q=a+b&bare",
+    "request": "https://example.com/feed?ceid=KE:en&next=/world/news&q=a+b&bare",
+    "valid": true
+  },
+  {
+    "name": "empty filtered query has no question mark",
+    "raw": "https://example.com/feed?utm_source=x&",
+    "canonical": "https://example.com/feed",
+    "request": "https://example.com/feed?utm_source=x&",
+    "valid": true
+  },
+  {
+    "name": "xml entities and double escaping",
+    "raw": "https://example.com/feed?next=&#58;&#47;&amp;amp;label=&quot;x&quot;",
+    "canonical": "https://example.com/feed?next=:/&label=%22x%22",
+    "request": "https://example.com/feed?next=:/&label=%22x%22",
+    "valid": true
+  },
+  {
+    "name": "lone percent",
+    "raw": "https://example.com/100%real",
+    "canonical": "https://example.com/100%25real",
+    "request": "https://example.com/100%25real",
+    "valid": true
+  },
+  {
+    "name": "unicode IDN host",
+    "raw": "https://bücher.example/feed",
+    "canonical": "https://xn--bcher-kva.example/feed",
+    "request": "https://xn--bcher-kva.example/feed",
+    "valid": true
+  },
+  {
+    "name": "percent encoded IDN host",
+    "raw": "https://b%C3%BCcher.example/feed",
+    "canonical": "https://xn--bcher-kva.example/feed",
+    "request": "https://xn--bcher-kva.example/feed",
+    "valid": true
+  },
+  {
+    "name": "out of range port",
+    "raw": "https://example.com:70000/feed",
+    "canonical": "https://example.com:70000/feed",
+    "request": "https://example.com:70000/feed",
+    "valid": false
+  },
+  {
+    "name": "non numeric port",
+    "raw": "https://example.com:nope/feed",
+    "canonical": "https://example.com:nope/feed",
+    "request": "https://example.com:nope/feed",
+    "valid": false
+  },
+  {
+    "name": "IPv6 keeps brackets",
+    "raw": "https://[2001:db8::1]:8080/feed",
+    "canonical": "https://[2001:db8::1]:8080/feed",
+    "request": "https://[2001:db8::1]:8080/feed",
+    "valid": true
+  },
+  {
+    "name": "signed request has stable identity",
+    "raw": "https://cdn.example.com/feed?x-amz-signature=secret&X-Amz-Date=20260803T000000Z&temp_url_sig=abc&expires=99&episode=7",
+    "canonical": "https://cdn.example.com/feed?episode=7",
+    "request": "https://cdn.example.com/feed?x-amz-signature=secret&X-Amz-Date=20260803T000000Z&temp_url_sig=abc&expires=99&episode=7",
+    "valid": true
+  }
+]

@@ -25,6 +25,11 @@ from pathlib import Path
 from typing import Optional
 from urllib.parse import urljoin, urlparse
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 
 # ---------------------------------------------------------------------------
 # Parse famous_people.txt
@@ -344,7 +349,7 @@ def generate_opml(
                      .replace(">", "&gt;").replace('"', "&quot;"))
         url_esc = (url.replace("&", "&amp;").replace("<", "&lt;")
                    .replace(">", "&gt;").replace('"', "&quot;"))
-        source_id = hashlib.sha256(url.encode()).hexdigest()
+        source_id = compute_source_id(url)
 
         # Determine topic
         name_lower = f.get("name", "").lower()

@@ -20,13 +20,16 @@ import os, sys, json
 from pathlib import Path
 from typing import Optional
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from catalog_identity import compute_source_id
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 COUNTRIES_DIR = BASE_DIR / "feedmine" / "Resources" / "Feeds" / "90_countries"
 
 # ── XML helpers ──────────────────────────────────────────────────
 
 def feedmine_source_id(xml_url: str) -> str:
-    return hashlib.sha256(xml_url.encode("utf-8")).hexdigest()
+    return compute_source_id(xml_url)
 
 def esc(text: str) -> str:
     return saxutils.escape(text)

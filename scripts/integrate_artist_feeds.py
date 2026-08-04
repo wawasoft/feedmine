@@ -22,6 +22,11 @@ from pathlib import Path
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COUNTRIES_JSON = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "countries.json"
 COUNTRIES_DIR = REPO_ROOT / "feedmine" / "Resources" / "Feeds" / "90_countries"
@@ -67,7 +72,7 @@ def _make_feed_element(feed: dict, country_name: str) -> ET.Element:
     """Create an <outline> element for a single feed with full metadata."""
     url = feed["url"]
     title = feed.get("title") or feed.get("feed_title") or feed.get("name") or url
-    sid = hashlib.sha256(url.encode()).hexdigest()
+    sid = compute_source_id(url)
 
     elem = ET.Element("outline")
     elem.set("text", title)

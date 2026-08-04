@@ -7,6 +7,7 @@ from pathlib import Path
 import duckdb
 import feedparser
 
+from scripts.catalog_identity import compute_source_id
 from scripts.fetch_all_feeds_v2 import (
     FetchAttempt,
     FetchResult,
@@ -153,7 +154,7 @@ class PersistenceTests(unittest.TestCase):
             "countries/nicaragua/sample.opml", "Sample", "audio",
         )
         self.source = SourceRecord(
-            stable_id("source", canonical), "Example", canonical, canonical, [membership]
+            compute_source_id(canonical), "Example", canonical, canonical, [membership]
         )
         register_catalog(self.conn, [self.source])
 

@@ -27,6 +27,11 @@ import urllib.error
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CACHE_DIR = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "artist_v4"
 COUNTRIES_JSON = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "countries.json"
@@ -411,7 +416,7 @@ def generate_opml(country_name: str, feeds: list[dict]) -> str:
                      .replace(">", "&gt;").replace('"', "&quot;"))
         url_esc = (url.replace("&", "&amp;").replace("<", "&lt;")
                    .replace(">", "&gt;").replace('"', "&quot;"))
-        source_id = hashlib.sha256(url.encode()).hexdigest()
+        source_id = compute_source_id(url)
 
         nm = f.get("name", "").lower()
         if any(w in nm for w in ["music", "singer", "song", "band", "rapper", "composer"]):

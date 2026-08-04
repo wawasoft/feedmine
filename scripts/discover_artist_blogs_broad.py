@@ -25,6 +25,11 @@ import urllib.error
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 # ---------------------------------------------------------------------------
 # Country data
 # ---------------------------------------------------------------------------
@@ -461,7 +466,7 @@ def generate_opml(country_name: str, feeds: list[dict]) -> str:
                      .replace(">", "&gt;").replace('"', "&quot;"))
         url_esc = (url.replace("&", "&amp;").replace("<", "&lt;")
                    .replace(">", "&gt;").replace('"', "&quot;"))
-        source_id = hashlib.sha256(url.encode()).hexdigest()
+        source_id = compute_source_id(url)
 
         lines.append(
             f'                        <outline text="{title_esc}" title="{title_esc}" '

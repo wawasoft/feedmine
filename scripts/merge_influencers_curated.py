@@ -16,18 +16,22 @@ import hashlib, json, os, sys
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url, compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 INFLUENCERS_JSON = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "influencers_curated.json"
 PRODUCTION = REPO_ROOT / "feedmine" / "Resources" / "Feeds" / "90_countries"
 
 
 def normalize_url(url: str) -> str:
-    if not url: return ""
-    return url.strip().rstrip("/").lower().replace("https://", "").replace("http://", "").replace("www.", "")
+    return canonical_url(url)
 
 
 def source_id(url: str) -> str:
-    return hashlib.sha256(url.encode()).hexdigest()
+    return compute_source_id(url)
 
 
 def indent_xml(elem: ET.Element, level: int = 0) -> None:

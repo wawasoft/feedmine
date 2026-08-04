@@ -5,12 +5,14 @@ from xml.sax.saxutils import escape, quoteattr
 
 from feedmine_verify.scanner import scan_directory
 
+try:
+    from scripts.catalog_identity import canonical_url
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url
+
 
 def normalize_url(url: str) -> str:
-    u = url.strip().lower().split("#")[0]
-    if u.startswith("http://"):
-        u = "https://" + u[len("http://"):]
-    return u.rstrip("/")
+    return canonical_url(url)
 
 
 def existing_feed_urls(country_dir: Path) -> set[str]:

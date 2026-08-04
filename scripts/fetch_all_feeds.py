@@ -33,6 +33,11 @@ import html2text
 import httpx
 from tqdm import tqdm
 
+try:
+    from scripts.catalog_identity import canonical_url as canonical_feed_url
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url as canonical_feed_url
+
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
@@ -79,15 +84,8 @@ def clean_text(raw: str | None) -> str | None:
 
 
 def canonical_url(raw: str) -> str:
-    """Normalise a URL: lowercase scheme+host, remove fragments."""
-    trimmed = raw.strip()
-    p = urlsplit(trimmed)
-    scheme = (p.scheme or "https").lower()
-    hostname = (p.hostname or "").lower()
-    netloc = hostname
-    if p.port:
-        netloc = f"{hostname}:{p.port}"
-    return urlunsplit((scheme, netloc, p.path or "/", p.query, ""))
+    """Compatibility wrapper around the catalog source identity contract."""
+    return canonical_feed_url(raw)
 
 
 def slugify(raw: str) -> str:

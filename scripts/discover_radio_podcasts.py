@@ -34,6 +34,11 @@ from urllib.parse import urlencode, urljoin, urlparse
 import aiohttp
 import requests
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 # ── Paths ────────────────────────────────────────────────────────────────────
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "scripts/feed_discovery/data"
@@ -70,7 +75,7 @@ RADIO_KEYWORDS: dict[str, str] = {
 
 
 def sid(url: str) -> str:
-    return hashlib.sha256(url.encode()).hexdigest()
+    return compute_source_id(url)
 
 
 # ── Source 1: iTunes (fastest, returns verified podcast RSS) ────────────────

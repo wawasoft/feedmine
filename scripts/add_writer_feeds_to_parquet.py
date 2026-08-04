@@ -8,17 +8,20 @@ new feeds with status="pending" for the fetch→enrich→inject pipeline.
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import shutil
 import sys
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
 
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id, request_url
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url, compute_source_id, request_url
 
 ROOT = Path(__file__).resolve().parent.parent
 PARQUET_PATH = ROOT / "feeds_corpus_sources.parquet"
@@ -26,30 +29,8 @@ BACKUP_PATH = ROOT / "feeds_corpus_sources.backup.parquet"
 CACHE_DIR = ROOT / "scripts" / "feed_discovery" / "data" / "writer_cache"
 
 
-def compute_source_id(url: str) -> str:
-    """Mirror the standard source_id computation."""
-    parsed = urlsplit(url)
-    canonical = urlunsplit((
-        parsed.scheme.lower(),
-        (parsed.hostname or "").lower(),
-        parsed.path,
-        parsed.query,
-        "",
-    ))
-    return hashlib.sha256(canonical.encode()).hexdigest()
-
-
 def compute_canonical_xml_url(url: str) -> str:
-    """Canonical form used for dedup."""
-    parsed = urlsplit(url)
-    path = parsed.path[:-1] if parsed.path.endswith("/") else parsed.path
-    return urlunsplit((
-        parsed.scheme.lower(),
-        (parsed.hostname or "").lower(),
-        path,
-        parsed.query,
-        "",
-    ))
+    return canonical_url(url)
 
 
 def main():
@@ -71,9 +52,6 @@ def main():
     for url in df["canonical_xml_url"]:
         existing_canonical.add(str(url).strip().lower())
 
-    # Assign sequential source_ids
-    next_id = int(df["source_id"].max()) + 1
-
     # Collect writer feeds from cache
     new_rows = []
     seen = set()
@@ -94,9 +72,9 @@ def main():
             title = (feed.get("title") or url)[:300]
 
             new_rows.append({
-                "source_id": int(next_id),
+                "source_id": compute_source_id(url),
                 "source_title": str(title),
-                "xml_url": str(url),
+                "xml_url": request_url(url),
                 "canonical_xml_url": str(canonical),
                 "site_url": "",
                 "feed_title": str(title),
@@ -113,7 +91,6 @@ def main():
                 "final_url": "",
                 "content_type": "",
             })
-            next_id += 1
 
     print(f"Cache feeds: {total_cache}")
     print(f"New (not in parquet): {len(new_rows)}")
@@ -125,7 +102,6 @@ def main():
     # Build new dataframe with explicit types matching the parquet schema
     new_df = pd.DataFrame(new_rows)
     new_df = new_df.astype({
-        "source_id": "int64",
         "articles_fetched": "int64",
         "attempt_count": "int64",
         "http_status": "int64",

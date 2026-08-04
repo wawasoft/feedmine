@@ -36,6 +36,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
 
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url, compute_source_id
+
 # ═══════════════════════════════════════════════════════════════════════════════
 # Enrichment formulas — exact ports from curate_opml_catalog.py
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -76,35 +81,6 @@ def ascii_fold(value: str) -> str:
 
 def phrase_present(haystack: str, needle: str) -> bool:
     return bool(re.search(rf"(?<![a-z0-9]){re.escape(needle)}(?![a-z0-9])", haystack))
-
-
-def canonical_url(value: str) -> str:
-    """Exact copy from curate_opml_catalog.py line 253 — cross-layer identity."""
-    value = value.strip()
-    parsed = urllib.parse.urlsplit(value)
-    if not parsed.scheme or not parsed.netloc:
-        return value
-    hostname = (parsed.hostname or "").lower()
-    if hostname.startswith("www."):
-        hostname = hostname[4:]
-    port = f":{parsed.port}" if parsed.port else ""
-    path = parsed.path
-    if path.endswith("/"):
-        path = path[:-1]
-    tracking = {
-        "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
-        "ref", "source", "fbclid", "gclid",
-    }
-    query_items = urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
-    query = urllib.parse.urlencode(
-        [(name, item) for name, item in query_items if name.lower() not in tracking],
-        doseq=True,
-    )
-    return urllib.parse.urlunsplit(("https", hostname + port, path, query, ""))
-
-
-def compute_source_id(url: str) -> str:
-    return hashlib.sha256(canonical_url(url).encode()).hexdigest()
 
 
 def normalize_tag(value: str) -> str:

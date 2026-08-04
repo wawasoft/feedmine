@@ -18,30 +18,23 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import re
 import shutil
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
 
 import pyarrow.parquet as pq
+
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
 
 
 # ---------------------------------------------------------------------------
 # Helpers (mirroring curate_opml_catalog.py logic)
 # ---------------------------------------------------------------------------
-
-def compute_source_id(url: str) -> str:
-    """Mirrors the catalog identity function."""
-    parsed = urlsplit(url)
-    canonical = urlunsplit(
-        (parsed.scheme.lower(), parsed.hostname.lower() if parsed.hostname else "",
-         parsed.path, parsed.query, "")
-    )
-    return hashlib.sha256(canonical.encode()).hexdigest()
-
 
 def activity_for(latest_item_at_str: str | None, articles_fetched: int, now: datetime) -> str:
     """Classify activity: prolific, active, quiet, dormant."""

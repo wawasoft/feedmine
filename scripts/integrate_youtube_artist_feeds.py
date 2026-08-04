@@ -16,6 +16,11 @@ from pathlib import Path
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 COUNTRIES_JSON = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "countries.json"
 COUNTRIES_DIR = REPO_ROOT / "feedmine" / "Resources" / "Feeds" / "90_countries"
@@ -45,7 +50,7 @@ ARTIST_KEYWORDS = [
 
 def _make_feed_element(feed_url: str, channel_name: str, country_name: str) -> ET.Element:
     """Create an <outline> element for a YouTube channel feed."""
-    sid = hashlib.sha256(feed_url.encode()).hexdigest()
+    sid = compute_source_id(feed_url)
     elem = ET.Element("outline")
     elem.set("text", channel_name)
     elem.set("title", channel_name)

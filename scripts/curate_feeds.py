@@ -33,6 +33,11 @@ import hashlib
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
+
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url, compute_source_id
 from typing import Optional
 from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
 
@@ -90,41 +95,11 @@ TRACKING_PARAMS = {
 
 
 def normalize_url(raw: str) -> str:
-    """Normalize a feed URL for dedup, matching iOS OPMLParser.normalizeURL."""
-    if not raw:
-        return ""
-    raw = raw.strip()
-    try:
-        parsed = urlparse(raw)
-    except Exception:
-        return raw
-
-    scheme = parsed.scheme or "https"
-    if scheme == "http":
-        scheme = "https"
-
-    host = (parsed.hostname or "").lower()
-    if host.startswith("www."):
-        host = host[4:]
-
-    # Remove fragment
-    # Keep query but strip tracking params
-    qs = parse_qs(parsed.query, keep_blank_values=False)
-    clean_qs = {k: v for k, v in qs.items() if k not in TRACKING_PARAMS}
-    query = urlencode(clean_qs, doseq=True) if clean_qs else ""
-
-    # Remove trailing slash from path
-    path = parsed.path.rstrip("/") if parsed.path != "/" else parsed.path
-
-    port = f":{parsed.port}" if parsed.port and parsed.port not in (80, 443) else ""
-
-    return urlunparse((scheme, f"{host}{port}", path, parsed.params, query, ""))
+    return canonical_url(raw)
 
 
 def url_to_source_id(url: str) -> str:
-    """SHA-256 of normalized URL (matches feedmineSourceId in OPML)."""
-    norm = normalize_url(url)
-    return hashlib.sha256(norm.encode()).hexdigest()
+    return compute_source_id(url)
 
 
 # ── helpers ────────────────────────────────────────────────────────────

@@ -40,6 +40,15 @@ import feedparser
 import httpx
 from tqdm import tqdm
 
+try:
+    from scripts.catalog_identity import (
+        canonical_url as canonical_feed_url,
+        compute_source_id,
+        request_url,
+    )
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url as canonical_feed_url, compute_source_id, request_url
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FEEDS_DIR = PROJECT_ROOT / "feedmine" / "Resources" / "Feeds"
@@ -221,7 +230,7 @@ def clean_html(raw: str | None) -> str | None:
         return clean_text(re.sub(r"<[^>]+>", " ", str(raw)))
 
 
-def canonical_url(raw: str, *, strip_tracking: bool = False) -> str:
+def canonical_content_url(raw: str, *, strip_tracking: bool = False) -> str:
     trimmed = raw.strip()
     if not trimmed:
         return ""
@@ -466,12 +475,12 @@ def discover_sources(feeds_dir: Path, manifest_index: dict[str, dict]) -> list[S
             tqdm.write(f"  [skip] {rel_path}: {exc}")
             continue
         for title, xml_url, membership in records:
-            canonical = canonical_url(xml_url)
+            canonical = canonical_feed_url(xml_url)
             if not canonical:
                 continue
             source = merged.get(canonical)
             if source is None:
-                source = SourceRecord(stable_id("source", canonical), title, xml_url, canonical)
+                source = SourceRecord(compute_source_id(canonical), title, request_url(xml_url), canonical)
                 merged[canonical] = source
                 membership_keys[canonical] = set()
             if membership not in membership_keys[canonical]:
@@ -498,7 +507,7 @@ def extract_articles(feed_data, source_id: str, max_articles: int = MAX_ARTICLES
     for position, entry in enumerate(feed_data.entries[:max_articles]):
         title = clean_html(entry.get("title"))
         raw_url = clean_text(entry.get("link"))
-        item_url = canonical_url(raw_url or "", strip_tracking=True)
+        item_url = canonical_content_url(raw_url or "", strip_tracking=True)
         published_at, published_raw, published_valid = normalize_published(entry, item_url, raw_url, title)
         content_text, summary = _entry_content(entry)
         if not any((title, item_url, content_text, summary)):

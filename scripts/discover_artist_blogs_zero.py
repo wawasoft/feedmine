@@ -18,6 +18,11 @@ import urllib.request, urllib.error
 from pathlib import Path
 from urllib.parse import urlparse
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CACHE_DIR = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "artist_zero"
 COUNTRIES_JSON = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "countries.json"
@@ -221,7 +226,7 @@ def make_opml(cname, feeds):
         t = f.get("title") or f.get("name") or u
         te = t.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace('"',"&quot;")
         ue = u.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace('"',"&quot;")
-        sid = hashlib.sha256(u.encode()).hexdigest()
+        sid = compute_source_id(u)
         lines.append(f'      <outline text="{te}" title="{te}" type="rss" xmlUrl="{ue}" description="Artist blog from {cname}." language="" category="artist,blog,personal,{cname.lower()}" feedmineSourceId="{sid}" feedmineTopic="Arts &amp; Culture" feedmineSubcategory="Artist Blogs" feedmineNature="personal" feedmineActivity="active" feedmineArticlesFetched="0" feedmineQualityScore="50" feedmineDefaultEnabled="true" feedmineMediaKind="text" htmlUrl="{ue}" />')
     return lines
 

@@ -110,15 +110,7 @@ def main():
     print(f"Existing sources: {len(sources_df):,}")
     print(f"Existing memberships: {len(memberships_df):,}")
 
-    # Build dedup sets — normalize canonical URLs to strip www.
-    def _norm_canonical(u: str) -> str:
-        u = str(u).strip().lower()
-        # Strip www. from hostname for matching
-        if "://www." in u:
-            u = u.replace("://www.", "://")
-        return u
-
-    existing_canonical = set(_norm_canonical(u) for u in sources_df["canonical_xml_url"])
+    existing_canonical = set(canonical_url(u) for u in sources_df["canonical_xml_url"])
     existing_source_ids = set(str(s) for s in sources_df["source_id"])
 
     # Next source_id (even though source_id is hash-based, we still need sequential for safety)
@@ -168,7 +160,7 @@ def main():
                 if not url:
                     continue
 
-                canonical = compute_canonical_xml_url(url).lower()
+                canonical = compute_canonical_xml_url(url)
                 if canonical in seen_canonical:
                     continue
                 seen_canonical.add(canonical)

@@ -67,6 +67,35 @@ class PublishCatalogUpdateTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "feedmineSourceId"):
                 publish(self.args(source, destination, catalog_manifest, root / "bundle.json"))
 
+    def test_validation_reports_all_files_before_touching_destination(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / "source"
+            destination = root / "destination"
+            source.mkdir()
+            destination.mkdir()
+            marker = destination / "keep.txt"
+            marker.write_text("unchanged", encoding="utf-8")
+            (source / "bad-id.opml").write_text(
+                '<opml><body><outline xmlUrl="https://example.com/feed" '
+                'feedmineSourceId="wrong" /></body></opml>',
+                encoding="utf-8",
+            )
+            (source / "bad-xml.opml").write_text("<opml><body>", encoding="utf-8")
+            catalog_manifest = root / "catalog-manifest.json"
+            catalog_manifest.write_text(
+                json.dumps({"source_count": 2, "file_count": 2}), encoding="utf-8"
+            )
+
+            with self.assertRaises(ValueError) as raised:
+                publish(self.args(source, destination, catalog_manifest, root / "bundle.json"))
+
+            diagnostic = str(raised.exception)
+            self.assertIn("bad-id.opml", diagnostic)
+            self.assertIn("bad-xml.opml", diagnostic)
+            self.assertEqual(marker.read_text(encoding="utf-8"), "unchanged")
+            self.assertFalse((destination / "Feeds").exists())
+
     @staticmethod
     def args(source, destination, catalog_manifest, bundle_manifest):
         return argparse.Namespace(

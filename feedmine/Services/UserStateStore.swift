@@ -199,6 +199,70 @@ final class UserStateStore {
             )
         }
 
+        migrator.registerMigration("v7_source_collection_identity_v2") { db in
+            // source_url is a fetch URL and must never be replaced by the
+            // canonical identity. Keep the two concepts in separate columns.
+            // Rebuilding also changes uniqueness to the stable identity.
+            try db.create(table: "source_collection_member_v7") { t in
+                t.column("collection_id", .integer).notNull()
+                    .references("source_collection", onDelete: .cascade)
+                t.column("source_identity", .text).notNull()
+                t.column("source_url", .text).notNull()
+                t.column("title_snapshot", .text).notNull()
+                t.column("media_kind", .text).notNull().defaults(to: MediaKind.text.rawValue)
+                t.column("added_at", .integer).notNull()
+                t.column("sort_order", .integer).notNull().defaults(to: 0)
+                t.primaryKey(["collection_id", "source_identity"])
+            }
+
+            let rows = try Row.fetchAll(db, sql: """
+                SELECT rowid AS migration_rowid, collection_id, source_url,
+                       title_snapshot, media_kind, added_at, sort_order
+                FROM source_collection_member
+                ORDER BY collection_id, sort_order, added_at, rowid
+                """)
+            var seen = Set<String>()
+            var collisionCount = 0
+            for row in rows {
+                let collectionID: Int64 = row["collection_id"]
+                let sourceURL: String = row["source_url"]
+                let identity = OPMLParser.normalizeURL(sourceURL)
+                let key = "\(collectionID)\u{0}\(identity)"
+                guard seen.insert(key).inserted else {
+                    // The ORDER BY above selects one complete, deterministic
+                    // provenance row. Never combine MIN dates/order from one
+                    // URL with title/media fields from another.
+                    collisionCount += 1
+                    continue
+                }
+                try db.execute(sql: """
+                    INSERT INTO source_collection_member_v7
+                        (collection_id, source_identity, source_url,
+                         title_snapshot, media_kind, added_at, sort_order)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """, arguments: [
+                        collectionID,
+                        identity,
+                        sourceURL,
+                        row["title_snapshot"] as String,
+                        row["media_kind"] as String,
+                        row["added_at"] as Int,
+                        row["sort_order"] as Int,
+                    ])
+            }
+            try db.drop(table: "source_collection_member")
+            try db.rename(table: "source_collection_member_v7", to: "source_collection_member")
+            try db.create(index: "idx_source_collection_member_order",
+                          on: "source_collection_member", columns: ["collection_id", "sort_order"])
+            try db.create(index: "idx_source_collection_member_identity",
+                          on: "source_collection_member", columns: ["source_identity"])
+            try db.create(index: "idx_source_collection_member_source",
+                          on: "source_collection_member", columns: ["source_url"])
+            if collisionCount > 0 {
+                Log.db.info("Collapsed \(collisionCount) collection URL aliases using complete provenance rows")
+            }
+        }
+
         try migrator.migrate(db)
     }
 
@@ -789,7 +853,7 @@ struct SourceCollection: Identifiable, Equatable, Sendable {
 }
 
 struct SourceCollectionMember: Identifiable, Equatable, Sendable {
-    var id: String { sourceURL }
+    var id: String { OPMLParser.normalizeURL(sourceURL) }
     let sourceURL: String
     let title: String
     let mediaKind: MediaKind
@@ -903,13 +967,18 @@ final class SourceCollectionStore {
             for source in sources {
                 try db.execute(sql: """
                     INSERT INTO source_collection_member
-                        (collection_id, source_url, title_snapshot, media_kind, added_at, sort_order)
-                    VALUES (?, ?, ?, ?, ?, ?)
-                    ON CONFLICT(collection_id, source_url) DO UPDATE SET
+                        (collection_id, source_identity, source_url, title_snapshot,
+                         media_kind, added_at, sort_order)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    ON CONFLICT(collection_id, source_identity) DO UPDATE SET
+                        source_url = excluded.source_url,
                         title_snapshot = excluded.title_snapshot,
-                        media_kind = excluded.media_kind
+                        media_kind = excluded.media_kind,
+                        added_at = excluded.added_at,
+                        sort_order = excluded.sort_order
                     """, arguments: [
-                        collectionID, OPMLParser.normalizeURL(source.feedURL), source.title,
+                        collectionID, OPMLParser.normalizeURL(source.feedURL),
+                        OPMLParser.requestURL(source.feedURL), source.title,
                         source.mediaKind.rawValue, Int(Date().timeIntervalSince1970), order,
                     ])
                 if db.changesCount > 0 { order += 1 }
@@ -964,10 +1033,12 @@ final class SourceCollectionStore {
                 for source in grouped[name] ?? [] {
                     try db.execute(sql: """
                         INSERT OR IGNORE INTO source_collection_member
-                            (collection_id, source_url, title_snapshot, media_kind, added_at, sort_order)
-                        VALUES (?, ?, ?, ?, ?, ?)
+                            (collection_id, source_identity, source_url, title_snapshot,
+                             media_kind, added_at, sort_order)
+                        VALUES (?, ?, ?, ?, ?, ?, ?)
                         """, arguments: [
-                            collectionID, OPMLParser.normalizeURL(source.url), source.title,
+                            collectionID, OPMLParser.normalizeURL(source.url),
+                            OPMLParser.requestURL(source.url), source.title,
                             source.mediaKind.rawValue, Int(Date().timeIntervalSince1970), memberOrder,
                         ])
                     if db.changesCount > 0 {
@@ -989,7 +1060,7 @@ final class SourceCollectionStore {
         try await db.write { db in
             try db.execute(sql: """
                 DELETE FROM source_collection_member
-                WHERE collection_id = ? AND source_url = ?
+                WHERE collection_id = ? AND source_identity = ?
                 """, arguments: [collectionID, OPMLParser.normalizeURL(sourceURL)])
         }
     }
@@ -999,7 +1070,7 @@ final class SourceCollectionStore {
             for (index, sourceURL) in sourceURLs.enumerated() {
                 try db.execute(sql: """
                     UPDATE source_collection_member SET sort_order = ?
-                    WHERE collection_id = ? AND source_url = ?
+                    WHERE collection_id = ? AND source_identity = ?
                     """, arguments: [index, collectionID, OPMLParser.normalizeURL(sourceURL)])
             }
         }
@@ -1008,7 +1079,7 @@ final class SourceCollectionStore {
     func collectionIDs(containing sourceURL: String) async throws -> Set<Int64> {
         try await db.read { db in
             try Set(Int64.fetchAll(db, sql: """
-                SELECT collection_id FROM source_collection_member WHERE source_url = ?
+                SELECT collection_id FROM source_collection_member WHERE source_identity = ?
                 """, arguments: [OPMLParser.normalizeURL(sourceURL)]))
         }
     }

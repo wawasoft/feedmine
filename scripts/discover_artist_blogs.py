@@ -28,6 +28,11 @@ from pathlib import Path
 from typing import Optional
 from urllib.parse import urljoin, urlparse
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 # ---------------------------------------------------------------------------
 # Language → artist / musician / actor / singer / performer terms
 # ---------------------------------------------------------------------------
@@ -746,7 +751,7 @@ def generate_opml(
             .replace('"', "&quot;")
         )
 
-        source_id = hashlib.sha256(url.encode()).hexdigest()
+        source_id = compute_source_id(url)
 
         # Determine topic based on name clues
         name_lower = f.get("name", "").lower()

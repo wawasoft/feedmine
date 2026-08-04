@@ -23,6 +23,11 @@ from pathlib import Path
 from typing import Optional
 from urllib.parse import urljoin, urlparse
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 # ---------------------------------------------------------------------------
 # Language data
 # ---------------------------------------------------------------------------
@@ -490,7 +495,7 @@ def generate_opml(country_name: str, feeds: list[dict]) -> str:
     for f in feeds:
         title = (f.get("title") or f["url"]).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
         url_esc = f["url"].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
-        sid = hashlib.sha256(f["url"].encode()).hexdigest()
+        sid = compute_source_id(f["url"])
         cn = (country_name or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
         lines.append(
             f'                        <outline text="{title}" title="{title}" '

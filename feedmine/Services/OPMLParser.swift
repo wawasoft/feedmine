@@ -403,51 +403,226 @@ struct OPMLParser {
         return c
     }()
 
+    private static let identityQueryParameters = Set([
+        "utm_source", "utm_medium", "utm_campaign", "utm_term",
+        "utm_content", "ref", "source", "fbclid", "gclid",
+        "mc_cid", "mc_eid", "ref_src", "temp_url_sig",
+        "temp_url_expires", "expires", "cfid", "cftoken",
+        "jsessionid", "phpsessid",
+    ])
+
+    /// OPML is XML, so only the five XML named entities plus numeric entities
+    /// are portable. This deliberately mirrors scripts/catalog_identity.py
+    /// instead of Foundation's broader, platform-dependent HTML decoding.
+    private static func decodeURLXMLEntities(_ raw: String) -> String {
+        var value = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        for _ in 0..<3 {
+            var decoded = value
+                .replacingOccurrences(of: "&amp;", with: "&", options: .caseInsensitive)
+                .replacingOccurrences(of: "&lt;", with: "<", options: .caseInsensitive)
+                .replacingOccurrences(of: "&gt;", with: ">", options: .caseInsensitive)
+                .replacingOccurrences(of: "&quot;", with: "\"", options: .caseInsensitive)
+                .replacingOccurrences(of: "&apos;", with: "'", options: .caseInsensitive)
+
+            while let range = decoded.range(
+                of: #"&#(?:[0-9]+|[xX][0-9A-Fa-f]+);"#,
+                options: .regularExpression
+            ) {
+                let entity = String(decoded[range])
+                let payload = entity.dropFirst(2).dropLast()
+                let radix: Int
+                let digits: Substring
+                if payload.first == "x" || payload.first == "X" {
+                    radix = 16
+                    digits = payload.dropFirst()
+                } else {
+                    radix = 10
+                    digits = payload
+                }
+                guard let scalarValue = UInt32(digits, radix: radix),
+                      scalarValue <= 0x10FFFF,
+                      !(0xD800...0xDFFF).contains(scalarValue),
+                      let scalar = UnicodeScalar(scalarValue) else {
+                    // Leave invalid entities untouched and continue after it.
+                    let suffix = decoded[range.upperBound...]
+                    guard suffix.range(
+                        of: #"&#(?:[0-9]+|[xX][0-9A-Fa-f]+);"#,
+                        options: .regularExpression
+                    ) != nil else { break }
+                    // Invalid entities are exceptionally rare in URLs. Avoid
+                    // an unbounded replacement loop by ending this pass.
+                    break
+                }
+                decoded.replaceSubrange(range, with: String(scalar))
+            }
+            guard decoded != value else { break }
+            value = decoded
+        }
+        return value
+    }
+
+    private static func normalizePercentEncoding(_ value: String, safe: CharacterSet) -> String {
+        let scalars = Array(value.unicodeScalars)
+        let hexadecimal = CharacterSet(charactersIn: "0123456789abcdefABCDEF")
+        var result = ""
+        var index = 0
+        while index < scalars.count {
+            let scalar = scalars[index]
+            if scalar == "%", index + 2 < scalars.count,
+               hexadecimal.contains(scalars[index + 1]),
+               hexadecimal.contains(scalars[index + 2]) {
+                result += "%"
+                result += String(scalars[index + 1]).uppercased()
+                result += String(scalars[index + 2]).uppercased()
+                index += 3
+                continue
+            }
+            if scalar.isASCII, safe.contains(scalar) {
+                result.append(Character(String(scalar)))
+            } else {
+                for byte in String(scalar).utf8 {
+                    result += String(format: "%%%02X", byte)
+                }
+            }
+            index += 1
+        }
+        return result
+    }
+
+    private static var pathSafeCharacters: CharacterSet {
+        CharacterSet(charactersIn:
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" +
+            "-._~!$&'()*+,;=/:@"
+        )
+    }
+
+    private static var querySafeCharacters: CharacterSet {
+        pathSafeCharacters.union(CharacterSet(charactersIn: "?"))
+    }
+
+    private static var userInfoSafeCharacters: CharacterSet {
+        CharacterSet(charactersIn:
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" +
+            "-._~!$&'()*+,;=:"
+        )
+    }
+
+    private static func hasValidPort(in raw: String) -> Bool {
+        guard let schemeEnd = raw.range(of: "://")?.upperBound else { return false }
+        let remainder = raw[schemeEnd...]
+        let authorityEnd = remainder.firstIndex { "/?#".contains($0) } ?? raw.endIndex
+        var authority = String(raw[schemeEnd..<authorityEnd])
+        if let at = authority.lastIndex(of: "@") {
+            authority = String(authority[authority.index(after: at)...])
+        }
+        if authority.hasPrefix("[") {
+            guard let close = authority.firstIndex(of: "]") else { return false }
+            let suffix = authority[authority.index(after: close)...]
+            guard !suffix.isEmpty else { return true }
+            guard suffix.first == ":" else { return false }
+            return validPortDigits(suffix.dropFirst())
+        }
+        let colonCount = authority.reduce(into: 0) { count, character in
+            if character == ":" { count += 1 }
+        }
+        if colonCount == 0 { return !authority.isEmpty }
+        guard colonCount == 1, let colon = authority.lastIndex(of: ":") else { return false }
+        return validPortDigits(authority[authority.index(after: colon)...])
+    }
+
+    private static func validPortDigits<S: StringProtocol>(_ digits: S) -> Bool {
+        guard !digits.isEmpty, digits.allSatisfy(\.isNumber),
+              let port = Int(digits), (1...65535).contains(port) else { return false }
+        return true
+    }
+
+    private static func encodedHost(_ rawHost: String, stripWWW: Bool) -> String? {
+        var host = rawHost.lowercased()
+        if host.contains(":") {
+            return "[\(host)]"
+        }
+        if stripWWW, host.hasPrefix("www.") {
+            host.removeFirst(4)
+        }
+        var hostComponents = URLComponents()
+        hostComponents.scheme = "https"
+        hostComponents.host = host
+        guard let encoded = hostComponents.string,
+              encoded.hasPrefix("https://") else { return nil }
+        return String(encoded.dropFirst("https://".count))
+    }
+
+    private static func filteredIdentityQuery(_ rawQuery: String?) -> String? {
+        guard let rawQuery else { return nil }
+        let retained = rawQuery.split(separator: "&", omittingEmptySubsequences: true).compactMap {
+            segment -> String? in
+            let rawName = String(segment.split(separator: "=", maxSplits: 1,
+                                               omittingEmptySubsequences: false).first ?? "")
+            let name = (rawName.removingPercentEncoding ?? rawName)
+                .replacingOccurrences(of: "+", with: " ")
+                .lowercased()
+            guard !identityQueryParameters.contains(name), !name.hasPrefix("x-amz-") else {
+                return nil
+            }
+            return normalizePercentEncoding(String(segment), safe: querySafeCharacters)
+        }
+        return retained.isEmpty ? nil : retained.joined(separator: "&")
+    }
+
+    private static func transformedURL(_ raw: String, identity: Bool) -> String {
+        let decoded = decodeURLXMLEntities(raw)
+        guard hasValidPort(in: decoded),
+              let components = URLComponents(string: decoded),
+              let originalScheme = components.scheme?.lowercased(),
+              originalScheme == "http" || originalScheme == "https",
+              let rawHost = components.host,
+              let host = encodedHost(rawHost, stripWWW: identity) else {
+            return decoded
+        }
+        if let port = components.port, !(1...65535).contains(port) {
+            return decoded
+        }
+
+        var authority = ""
+        if let user = components.percentEncodedUser {
+            authority += normalizePercentEncoding(user, safe: userInfoSafeCharacters)
+            if let password = components.percentEncodedPassword {
+                authority += ":" + normalizePercentEncoding(password, safe: userInfoSafeCharacters)
+            }
+            authority += "@"
+        }
+        authority += host
+        if let port = components.port { authority += ":\(port)" }
+
+        var path = normalizePercentEncoding(components.percentEncodedPath, safe: pathSafeCharacters)
+        if identity, path.hasSuffix("/") { path.removeLast() }
+        let query: String?
+        if identity {
+            query = filteredIdentityQuery(components.percentEncodedQuery)
+        } else if let rawQuery = components.percentEncodedQuery {
+            query = normalizePercentEncoding(rawQuery, safe: querySafeCharacters)
+        } else {
+            query = nil
+        }
+        return "\(identity ? "https" : originalScheme)://\(authority)\(path)" +
+            (query.map { "?\($0)" } ?? "")
+    }
+
     static func normalizeURL(_ raw: String) -> String {
         // Fast path: cache hit
         if let cached = normalizedURLCache.object(forKey: raw as NSString) {
             return cached as String
         }
-        var trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        // Correctly encoded OPML attributes arrive already decoded. This
-        // bounded pass handles legacy values that embedded a literal &amp;
-        // (or were escaped twice) before URLComponents interprets the query.
-        for _ in 0..<3 {
-            let decoded = trimmed
-                .replacingOccurrences(of: "&amp;", with: "&")
-                .replacingOccurrences(of: "&#38;", with: "&")
-                .replacingOccurrences(of: "&#x26;", with: "&", options: .caseInsensitive)
-            guard decoded != trimmed else { break }
-            trimmed = decoded
-        }
-        guard var components = URLComponents(string: trimmed) else {
-            normalizedURLCache.setObject(trimmed as NSString, forKey: raw as NSString)
-            return trimmed
-        }
-
-        // This identity contract is mirrored by canonical_url() in the OPML
-        // curation pipeline. Keep both sides aligned so one physical OPML row
-        // always maps to one runtime source.
-        components.scheme = "https"
-        if let host = components.host?.lowercased() {
-            components.host = host.hasPrefix("www.") ? String(host.dropFirst(4)) : host
-        }
-        components.fragment = nil
-        if let queryItems = components.queryItems {
-            let trackingParams = Set([
-                "utm_source", "utm_medium", "utm_campaign", "utm_term",
-                "utm_content", "ref", "source", "fbclid", "gclid",
-                "mc_cid", "mc_eid", "ref_src",
-            ])
-            let retained = queryItems.filter { !trackingParams.contains($0.name.lowercased()) }
-            components.queryItems = retained.isEmpty ? nil : retained
-        }
-        if components.path.hasSuffix("/") {
-            components.path.removeLast()
-        }
-        let result = components.string ?? trimmed
+        let result = transformedURL(raw, identity: true)
         normalizedURLCache.setObject(result as NSString, forKey: raw as NSString)
         return result
+    }
+
+    /// URL used for HTTP requests. Unlike normalizeURL, this preserves signed
+    /// and authorization parameters, the original scheme, www and trailing /
+    /// while still repairing XML entities and invalid lone percent signs.
+    static func requestURL(_ raw: String) -> String {
+        transformedURL(raw, identity: false)
     }
 }
 

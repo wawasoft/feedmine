@@ -27,6 +27,11 @@ import xml.etree.ElementTree as ET
 
 import pandas as pd
 
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url, compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PENDING_OPML = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "discovery_pending.opml"
 PARQUET_PATH = REPO_ROOT / "feeds_corpus_sources.parquet"
@@ -78,13 +83,11 @@ SECTION_CONFIG = {
 
 
 def normalize_url(url: str) -> str:
-    if not url:
-        return ""
-    return url.strip().rstrip("/").lower().replace("https://", "").replace("http://", "").replace("www.", "")
+    return canonical_url(url)
 
 
 def source_id(url: str) -> str:
-    return hashlib.sha256(url.encode()).hexdigest()
+    return compute_source_id(url)
 
 
 def indent_xml(elem: ET.Element, level: int = 0) -> None:

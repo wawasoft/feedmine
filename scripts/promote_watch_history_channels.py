@@ -17,7 +17,6 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import os
 import shutil
@@ -28,10 +27,14 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlsplit, urlunsplit
 
 import feedparser
 import httpx
+
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -97,17 +100,6 @@ CATEGORY_TO_OPML: dict[str, tuple[str, str | None, str | None]] = {
 # ---------------------------------------------------------------------------
 # Helpers — identity
 # ---------------------------------------------------------------------------
-
-def compute_source_id(url: str) -> str:
-    """Canonical SHA-256 identity matching curate_opml_catalog.py."""
-    parsed = urlsplit(url)
-    canonical = urlunsplit(
-        (parsed.scheme.lower(),
-         parsed.hostname.lower() if parsed.hostname else "",
-         parsed.path, parsed.query, "")
-    )
-    return hashlib.sha256(canonical.encode()).hexdigest()
-
 
 # ---------------------------------------------------------------------------
 # Helpers — OPML I/O

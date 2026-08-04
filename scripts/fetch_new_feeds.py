@@ -62,6 +62,11 @@ import pyarrow.parquet as pq
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 # ── Config ──
 ROOT = Path(__file__).resolve().parent.parent
 PARQUET_PATH = ROOT / "feeds_corpus_sources.parquet"
@@ -74,15 +79,6 @@ CONCURRENCY = 20
 FLUSH_EVERY = 100
 
 # ── Helpers ──
-
-def compute_source_id(url: str) -> str:
-    parsed = urlsplit(url)
-    canonical = urlunsplit((
-        parsed.scheme.lower(),
-        parsed.hostname.lower() if parsed.hostname else "",
-        parsed.path, parsed.query, ""))
-    return hashlib.sha256(canonical.encode()).hexdigest()
-
 
 def parse_feed(xml_bytes: bytes, xml_url: str) -> dict:
     """Extract metadata and articles from RSS/Atom XML."""
@@ -266,10 +262,16 @@ def write_parquet(df) -> None:
 # ── Main ──
 
 def main():
+    global PARQUET_PATH, BACKUP_PATH, PROGRESS_PATH
     parser = argparse.ArgumentParser(description="Fetch pending feeds from parquet")
+    parser.add_argument("--parquet", type=Path, default=PARQUET_PATH)
+    parser.add_argument("--progress", type=Path, default=PROGRESS_PATH)
     parser.add_argument("--limit", type=int, default=0, help="Only fetch N feeds (0=all)")
     parser.add_argument("--reset", action="store_true", help="Clear progress and restart")
     args = parser.parse_args()
+    PARQUET_PATH = args.parquet
+    BACKUP_PATH = PARQUET_PATH.with_name(PARQUET_PATH.stem + ".backup.parquet")
+    PROGRESS_PATH = args.progress
 
     # ── 1. Read parquet ──
     print(f"Reading {PARQUET_PATH}...")

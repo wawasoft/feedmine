@@ -4,12 +4,17 @@
 import hashlib
 import xml.sax.saxutils as saxutils
 from datetime import datetime
+from pathlib import Path
+import sys
 from typing import Optional
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from catalog_identity import compute_source_id
 
 
 def feedmine_source_id(xml_url: str) -> str:
-    """SHA-256 hash of the xmlUrl — unique identifier for each feed."""
-    return hashlib.sha256(xml_url.encode("utf-8")).hexdigest()
+    """Shared FeedMine catalog identity."""
+    return compute_source_id(xml_url)
 
 
 def escape_xml(text: str) -> str:

@@ -49,6 +49,11 @@ except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
         valid_http_url,
     )
 
+try:
+    from scripts.catalog_collections import is_country_collection
+except ModuleNotFoundError:
+    from catalog_collections import is_country_collection
+
 
 SCHEMA_VERSION = 1
 PLACEHOLDER_TITLES = frozenset({
@@ -110,7 +115,9 @@ def title_similarity(left: str, right: str) -> float:
     left_folded = " ".join(sorted(_title_tokens(left)))
     right_folded = " ".join(sorted(_title_tokens(right)))
     if not left_folded or not right_folded:
-        return 1.0
+        left_fallback = _fold(left).strip()
+        right_fallback = _fold(right).strip()
+        return 1.0 if left_fallback and left_fallback == right_fallback else 0.0
     left_tokens = set(left_folded.split())
     right_tokens = set(right_folded.split())
     jaccard = len(left_tokens & right_tokens) / len(left_tokens | right_tokens)
@@ -148,7 +155,7 @@ def choose_title(row: Mapping[str, object]) -> tuple[str, str]:
         return feed_title[:300], "feed_title_repaired" if feed_repaired else "feed_title"
     if not is_placeholder_title(source_title):
         return source_title[:300], "source_title_repaired" if source_repaired else "source_title"
-    host = urllib.parse.urlsplit(clean_text(row.get("xml_url"))).hostname or "Untitled"
+    host = _host(clean_text(row.get("xml_url"))) or "Untitled"
     return host[:300], "hostname_fallback"
 
 
@@ -330,7 +337,6 @@ def _walk_memberships(
 def read_opml_memberships(feeds_root: Path) -> tuple[list[dict[str, str | None]], int]:
     result: list[dict[str, str | None]] = []
     parse_failures = 0
-    country_collections = {"countries", "90_countries", "_staging", "_archived_countries"}
     for path in sorted(feeds_root.rglob("*.opml")):
         relative = path.relative_to(feeds_root).as_posix()
         try:
@@ -347,7 +353,7 @@ def read_opml_memberships(feeds_root: Path) -> tuple[list[dict[str, str | None]]
         metadata = {
             "collection": collection,
             "topic": Path(relative).stem,
-            "country": parts[1] if collection in country_collections and len(parts) > 1 else None,
+            "country": parts[1] if is_country_collection(collection) and len(parts) > 1 else None,
             "opml_file": relative,
             "opml_title": clean_text(head.findtext("title")) if head is not None else None,
             "language": clean_text(head.findtext("language")) if head is not None else None,
@@ -447,6 +453,24 @@ def run(args: argparse.Namespace) -> dict[str, object]:
     args.output_sources.parent.mkdir(parents=True, exist_ok=True)
     pq.write_table(clean_table, args.output_sources, compression="zstd")
 
+    # Pending injections are not publishable evidence yet, but they must remain
+    # a first-class queue for the next crawl instead of disappearing from the
+    # canonical run outputs.
+    pending_candidates = [
+        candidate for candidate in blocked
+        if candidate.status == "pending" and candidate.blocking_reason is None
+    ]
+    pending_rows = [dict(candidate.row) for candidate in pending_candidates]
+    if pending_rows:
+        pending_table = pa.Table.from_pylist(pending_rows, schema=table.schema)
+    else:
+        pending_frame = pd.DataFrame([], columns=table.schema.names)
+        pending_table = pa.Table.from_pandas(
+            pending_frame, schema=table.schema, preserve_index=False
+        )
+    args.pending_output.parent.mkdir(parents=True, exist_ok=True)
+    pq.write_table(pending_table, args.pending_output, compression="zstd")
+
     membership_columns = [
         "membership_id", "source_id", "collection", "topic", "subcategory",
         "claimed_language", "region", "claimed_country", "opml_file", "opml_title",
@@ -496,7 +520,8 @@ def run(args: argparse.Namespace) -> dict[str, object]:
     ])
     _write_csv(args.report_dir / "unmatched-memberships.csv", unmatched, [
         "opml_file", "xml_url", "normalized_identity", "reason", "collection",
-        "topic", "subcategory", "claimed_country", "claimed_language",
+        "topic", "subcategory", "claimed_country", "claimed_language", "region",
+        "opml_title", "claimed_media_kind",
     ])
 
     eligible_ids = {resolution.source_id for resolution in resolutions}
@@ -534,6 +559,7 @@ def run(args: argparse.Namespace) -> dict[str, object]:
             "rows_withheld_from_canonical_output": len(blocked),
             "publishable_without_membership": len(eligible_ids - membership_ids),
             "unmatched_memberships": len(unmatched),
+            "pending_sources_preserved": len(pending_candidates),
         },
         "quarantine": dict(sorted(Counter(
             candidate.blocking_reason or f"status_{candidate.status}" for candidate in blocked
@@ -543,6 +569,7 @@ def run(args: argparse.Namespace) -> dict[str, object]:
             "sources": str(args.output_sources),
             "memberships": str(args.output_memberships),
             "aliases": str(args.report_dir / "source-aliases.csv"),
+            "pending_sources": str(args.pending_output),
             "quarantine": str(args.report_dir / "quarantine.csv"),
             "unmatched_memberships": str(args.report_dir / "unmatched-memberships.csv"),
         },
@@ -561,6 +588,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--feeds-root", type=Path, default=Path("feedmine/Resources/Feeds"))
     parser.add_argument("--output-sources", type=Path, default=Path("build/catalog-reconciliation/feeds_corpus_sources.parquet"))
     parser.add_argument("--output-memberships", type=Path, default=Path("build/catalog-reconciliation/feeds_corpus_source_memberships.parquet"))
+    parser.add_argument("--pending-output", type=Path, default=Path("build/catalog-reconciliation/pending-source-queue.parquet"))
     parser.add_argument("--report-dir", type=Path, default=Path("build/catalog-reconciliation"))
     parser.add_argument("--json", action="store_true")
     return parser.parse_args(argv)

@@ -155,7 +155,10 @@ struct SourceReference: Identifiable, Equatable, Sendable {
         contactType: String? = nil
     ) {
         self.title = title
-        self.feedURL = OPMLParser.normalizeURL(feedURL)
+        // Preserve the fetch endpoint (including signed/authorization query
+        // parameters). `id` and registry lookups derive a separate canonical
+        // identity via OPMLParser.normalizeURL.
+        self.feedURL = OPMLParser.requestURL(feedURL)
         self.siteURL = siteURL
         self.displayHost = displayHost ?? URL(string: feedURL)?.host
         self.category = category

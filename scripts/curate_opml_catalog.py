@@ -36,6 +36,19 @@ except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
     from catalog_identity import canonical_url, compute_source_id
 
 try:
+    from scripts.catalog_collections import (
+        PRODUCTION_COUNTRY_COLLECTION,
+        is_country_collection,
+        production_collection,
+    )
+except ModuleNotFoundError:
+    from catalog_collections import (
+        PRODUCTION_COUNTRY_COLLECTION,
+        is_country_collection,
+        production_collection,
+    )
+
+try:
     import duckdb
 except ImportError as error:  # pragma: no cover - exercised by CLI users
     raise SystemExit(
@@ -100,7 +113,7 @@ class CuratedSource:
     def primary_relative_path(self) -> Path:
         if self.country:
             country_key = slug(self.country)
-            return Path("90_countries") / country_key / f"{country_key}.opml"
+            return Path(PRODUCTION_COUNTRY_COLLECTION) / country_key / f"{country_key}.opml"
         editorial_name = self.topic_label.replace(" ", "_").replace("/", "-")
         ordered_key = f"{self.topic_order:02d}_{editorial_name}"
         return Path(ordered_key) / f"{ordered_key}.opml"
@@ -511,10 +524,9 @@ def media_kind_for(url: str, tags: Sequence[str], memberships: Sequence[Membersh
 
 
 def choose_country(memberships: Sequence[Membership]) -> str | None:
-    country_collections = {"countries", "90_countries", "staging", "archived_countries"}
     countries = [
         m.country for m in memberships
-        if m.country and slug(m.collection) in country_collections
+        if m.country and is_country_collection(m.collection)
     ]
     if not countries:
         return None
@@ -526,7 +538,7 @@ def choose_country(memberships: Sequence[Membership]) -> str | None:
     # Country-only sources retain geographic ownership.  A deliberately global
     # topical placement remains primary when present elsewhere in the old tree.
     has_global_editorial_home = any(
-        slug(m.collection) not in country_collections | {"languages"}
+        not is_country_collection(m.collection) and slug(m.collection) != "languages"
         and m.region == "global"
         for m in memberships
     )
@@ -1269,12 +1281,16 @@ def build(args: argparse.Namespace) -> dict[str, object]:
     for source in sources:
         grouped[source.primary_relative_path].append(source)
     for relative_path, group in sorted(grouped.items(), key=lambda item: item[0].as_posix()):
-        is_country = relative_path.parts[0] in {"90_countries", "_staging", "_archived_countries", "countries"}
+        is_country = is_country_collection(relative_path.parts[0])
         title = group[0].country if is_country else group[0].topic_label
-        # Rewrite staging paths → production directory (90_countries)
+        # Rewrite every country alias to the one production directory.
         out_path = args.output / relative_path
-        if relative_path.parts[0] in ("_staging", "_archived_countries", "countries"):
-            out_path = args.output / "90_countries" / Path(*relative_path.parts[1:])
+        if is_country:
+            out_path = (
+                args.output
+                / production_collection(relative_path.parts[0])
+                / Path(*relative_path.parts[1:])
+            )
         write_opml(out_path, title or relative_path.stem, group, country=is_country)
 
     known_urls = {canonical_url(source.xml_url) for source in sources}
@@ -1307,8 +1323,16 @@ def build(args: argparse.Namespace) -> dict[str, object]:
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--feeds-root", type=Path, default=Path("feedmine/Resources/Feeds"))
-    parser.add_argument("--sources", type=Path, default=Path("feeds_corpus_sources.parquet"))
-    parser.add_argument("--memberships", type=Path, default=Path("feeds_corpus_source_memberships.parquet"))
+    parser.add_argument(
+        "--sources", type=Path,
+        default=Path("build/catalog-reconciliation/feeds_corpus_sources.parquet"),
+        help="canonical sources produced by reconcile_feed_corpus.py",
+    )
+    parser.add_argument(
+        "--memberships", type=Path,
+        default=Path("build/catalog-reconciliation/feeds_corpus_source_memberships.parquet"),
+        help="canonical memberships produced by reconcile_feed_corpus.py",
+    )
     parser.add_argument("--output", type=Path, default=Path("build/feed-curation/Feeds"))
     parser.add_argument("--report-dir", type=Path, default=Path("build/feed-curation"))
     parser.add_argument(

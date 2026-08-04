@@ -6,16 +6,18 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
+import tempfile
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
 try:
-    from scripts.catalog_identity import canonical_url, compute_source_id
+    from scripts.catalog_identity import canonical_url, compute_source_id, decode_url_entities
 except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
-    from catalog_identity import canonical_url, compute_source_id
+    from catalog_identity import canonical_url, compute_source_id, decode_url_entities
 
 
 SCHEMA_VERSION = 1
@@ -40,38 +42,55 @@ def next_revision(destination: Path) -> int:
     return revision + 1
 
 
-def sync_opml_tree(source_root: Path, destination_root: Path) -> list[Path]:
-    source_files = sorted(path for path in source_root.rglob("*.opml") if path.is_file())
-    if not source_files:
-        raise ValueError(f"no OPML files found below {source_root}")
+def sync_opml_tree(source_root: Path, destination_root: Path, source_files: list[Path]) -> list[Path]:
+    """Replace the complete Feeds tree with rollback on any failure."""
+    destination_root.parent.mkdir(parents=True, exist_ok=True)
+    stage_parent = Path(tempfile.mkdtemp(
+        prefix=".feedmine-publish-stage-", dir=destination_root.parent
+    ))
+    staged_root = stage_parent / "Feeds"
+    rollback_root = stage_parent / "previous-Feeds"
+    try:
+        for source_path in source_files:
+            relative = source_path.relative_to(source_root)
+            staged_path = staged_root / relative
+            staged_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source_path, staged_path)
+        # Verify staged bytes before the old tree is moved.
+        for source_path in source_files:
+            relative = source_path.relative_to(source_root)
+            if sha256(source_path) != sha256(staged_root / relative):
+                raise IOError(f"staged copy hash mismatch: {relative}")
 
-    destination_root.mkdir(parents=True, exist_ok=True)
-    expected = {path.relative_to(source_root) for path in source_files}
-    for existing in sorted(destination_root.rglob("*"), reverse=True):
-        if existing.is_file() and existing.relative_to(destination_root) not in expected:
-            existing.unlink()
-        elif existing.is_dir() and not any(existing.iterdir()):
-            existing.rmdir()
-
-    published: list[Path] = []
-    for source_path in source_files:
-        relative = source_path.relative_to(source_root)
-        destination_path = destination_root / relative
-        destination_path.parent.mkdir(parents=True, exist_ok=True)
-        if not destination_path.exists() or sha256(source_path) != sha256(destination_path):
-            shutil.copy2(source_path, destination_path)
-        published.append(destination_path)
-    return published
+        had_previous = destination_root.exists()
+        if had_previous:
+            os.replace(destination_root, rollback_root)
+        try:
+            os.replace(staged_root, destination_root)
+        except Exception:
+            if had_previous and rollback_root.exists():
+                os.replace(rollback_root, destination_root)
+            raise
+        if rollback_root.exists():
+            shutil.rmtree(rollback_root)
+    finally:
+        shutil.rmtree(stage_parent, ignore_errors=True)
+    return [destination_root / path.relative_to(source_root) for path in source_files]
 
 
 def canonical_catalog_url(raw: str) -> str:
     return canonical_url(raw)
 
 
-def count_unique_sources(paths: list[Path]) -> int:
+def validate_sources(paths: list[Path]) -> int:
     sources: set[str] = set()
+    errors: list[str] = []
     for path in paths:
-        root = ET.parse(path).getroot()
+        try:
+            root = ET.parse(path).getroot()
+        except ET.ParseError as error:
+            errors.append(f"{path}: invalid XML: {error}")
+            continue
         for element in root.iter():
             url = element.attrib.get("xmlUrl")
             if url:
@@ -79,12 +98,16 @@ def count_unique_sources(paths: list[Path]) -> int:
                 expected_source_id = compute_source_id(identity)
                 actual_source_id = element.attrib.get("feedmineSourceId")
                 if actual_source_id != expected_source_id:
-                    raise ValueError(
-                        f"{path}: feedmineSourceId does not match canonical URL identity"
+                    errors.append(
+                        f"{path}: {url!r}: feedmineSourceId does not match canonical identity"
                     )
-                if any(entity in url.casefold() for entity in ("&amp;", "&#38;", "&#x26;")):
-                    raise ValueError(f"{path}: URL contains an encoded entity after XML parsing")
+                if decode_url_entities(url) != url:
+                    errors.append(f"{path}: {url!r}: URL contains a residual XML entity")
                 sources.add(identity)
+    if errors:
+        raise ValueError(
+            f"catalog validation found {len(errors)} error(s):\n" + "\n".join(errors)
+        )
     return len(sources)
 
 
@@ -106,13 +129,16 @@ def publish(args: argparse.Namespace) -> dict:
     if not isinstance(source_count, int) or source_count < 1:
         raise ValueError("catalog manifest does not contain a positive source_count")
 
-    published_files = sync_opml_tree(source_root, destination / "Feeds")
+    source_files = sorted(path for path in source_root.rglob("*.opml") if path.is_file())
+    if not source_files:
+        raise ValueError(f"no OPML files found below {source_root}")
     expected_file_count = catalog_metadata.get("file_count")
-    if expected_file_count != len(published_files):
+    if expected_file_count != len(source_files):
         raise ValueError(
-            f"catalog manifest file_count is {expected_file_count}; OPML tree has {len(published_files)}"
+            f"catalog manifest file_count is {expected_file_count}; OPML tree has {len(source_files)}"
         )
-    actual_source_count = count_unique_sources(published_files)
+    # Validate every source before writing a single destination file.
+    actual_source_count = validate_sources(source_files)
     if actual_source_count != source_count:
         raise ValueError(
             f"catalog manifest source_count is {source_count}; OPML tree has {actual_source_count}"
@@ -120,6 +146,8 @@ def publish(args: argparse.Namespace) -> dict:
     revision = args.revision if args.revision is not None else next_revision(destination)
     if revision < 1:
         raise ValueError("revision must be positive")
+
+    published_files = sync_opml_tree(source_root, destination / "Feeds", source_files)
 
     entries = []
     for path in published_files:

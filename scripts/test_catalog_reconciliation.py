@@ -12,6 +12,7 @@ from scripts.reconcile_feed_corpus import (
     remap_memberships,
     repair_mojibake,
     semantic_redirect_mismatch,
+    title_similarity,
 )
 
 
@@ -52,6 +53,18 @@ class CatalogIdentityTests(unittest.TestCase):
         title, source = choose_title(source_row(source_title="valid", feed_title="Real Publication"))
         self.assertEqual(title, "Real Publication")
         self.assertEqual(source, "feed_title")
+
+    def test_single_character_titles_do_not_bypass_hijack_detection(self):
+        self.assertEqual(title_similarity("X", "Y"), 0.0)
+        self.assertEqual(title_similarity("X", "X"), 1.0)
+
+    def test_malformed_url_title_fallback_does_not_raise(self):
+        title, source = choose_title(source_row(
+            source_title="",
+            feed_title="",
+            xml_url="https://[broken/feed",
+        ))
+        self.assertEqual((title, source), ("Untitled", "hostname_fallback"))
 
 
 class ReconciliationTests(unittest.TestCase):

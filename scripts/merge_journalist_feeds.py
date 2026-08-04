@@ -16,6 +16,11 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 
 def find_insertion_point(lines: list[str]) -> Optional[int]:
     """Find where to insert new feeds within the OPML body.
@@ -104,7 +109,7 @@ def merge_feeds_into_opml(
         url_esc = f["url"].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
         cn = (country_name or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
         import hashlib
-        sid = hashlib.sha256(f["url"].encode()).hexdigest()
+        sid = compute_source_id(f["url"])
 
         desc = f"Journalist blog from {cn}."
 

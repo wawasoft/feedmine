@@ -16,6 +16,11 @@ import re
 from pathlib import Path
 from typing import Optional
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 
 def find_arts_insertion_point(lines: list[str]) -> Optional[int]:
     """Find where to insert new feeds within the Arts & Culture topic outline.
@@ -132,7 +137,7 @@ def merge_feeds_into_opml(
         title = (f.get("title") or f["url"]).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
         url_esc = f["url"].replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
         cn = (country_name or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
-        sid = hashlib.sha256(f["url"].encode()).hexdigest()
+        sid = compute_source_id(f["url"])
 
         feed_lines.append(
             f'{indent}    <outline text="{title}" title="{title}" '

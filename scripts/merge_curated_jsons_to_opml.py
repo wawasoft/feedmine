@@ -21,12 +21,16 @@ Usage:
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import sys
 from pathlib import Path
 import xml.etree.ElementTree as ET
+
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url, compute_source_id
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CURATED_DIR = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "curated"
@@ -84,13 +88,11 @@ CATEGORY_CONFIG = {
 
 def normalize_url(url: str) -> str:
     """Normalize URL for dedup comparison."""
-    if not url:
-        return ""
-    return url.strip().rstrip("/").lower().replace("https://", "").replace("http://", "").replace("www.", "")
+    return canonical_url(url)
 
 
 def source_id(url: str) -> str:
-    return hashlib.sha256(url.encode()).hexdigest()
+    return compute_source_id(url)
 
 
 def indent_xml(elem: ET.Element, level: int = 0) -> None:

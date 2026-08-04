@@ -23,26 +23,18 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import hashlib
 import html
 import re
 import shutil
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
 
 import pandas as pd
 import pyarrow.parquet as pq
 
-
-def compute_source_id(url: str) -> str:
-    """SHA-256 of canonical URL (mirrors catalog identity function)."""
-    parsed = urlsplit(url)
-    canonical = urlunsplit(
-        (parsed.scheme.lower(),
-         parsed.hostname.lower() if parsed.hostname else "",
-         parsed.path, parsed.query, "")
-    )
-    return hashlib.sha256(canonical.encode()).hexdigest()
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
 
 
 def _escape_xml(s: str) -> str:

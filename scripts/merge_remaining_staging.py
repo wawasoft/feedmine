@@ -17,6 +17,11 @@ from pathlib import Path
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 STAGING = REPO_ROOT / "feedmine" / "Resources" / "Feeds" / "_staging"
 PRODUCTION = REPO_ROOT / "feedmine" / "Resources" / "Feeds" / "90_countries"
@@ -135,7 +140,7 @@ def main():
 
             for f in feeds:
                 url = f["url"]
-                sid = hashlib.sha256(url.encode()).hexdigest()
+                sid = compute_source_id(url)
                 elem = ET.SubElement(subcat, "outline")
                 elem.set("text", f["title"] or url)
                 elem.set("title", f["title"] or url)

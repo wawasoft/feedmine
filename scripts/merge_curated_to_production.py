@@ -18,6 +18,11 @@ from pathlib import Path
 from collections import defaultdict
 import xml.etree.ElementTree as ET
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PRODUCTION = REPO_ROOT / "feedmine" / "Resources" / "Feeds" / "90_countries"
 SOURCES_PARQUET = REPO_ROOT / "feeds_corpus_sources.parquet"
@@ -142,7 +147,7 @@ def main():
                 subcat.set("title", "Curated Feeds")
 
             # Build feed element
-            sid = hashlib.sha256(url.encode()).hexdigest()
+            sid = compute_source_id(url)
             elem = ET.SubElement(subcat, "outline")
             elem.set("text", str(title)[:200])
             elem.set("title", str(title)[:200])

@@ -26,6 +26,11 @@ from urllib.parse import quote_plus, urlencode, urljoin
 import aiohttp
 import requests
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "scripts/feed_discovery/data"
 COUNTRIES_PATH = DATA_DIR / "countries.json"
@@ -38,7 +43,7 @@ HEADERS = {
 
 
 def sid(url: str) -> str:
-    return hashlib.sha256(url.encode()).hexdigest()
+    return compute_source_id(url)
 
 
 # ── Strategy 1: DuckDuckGo Text Search ──────────────────────────────────────

@@ -22,9 +22,9 @@ from pathlib import Path
 from typing import Iterable
 
 try:
-    from scripts.catalog_identity import canonical_url
+    from scripts.catalog_identity import canonical_url, valid_http_url
 except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
-    from catalog_identity import canonical_url
+    from catalog_identity import canonical_url, valid_http_url
 
 
 NODE_TOPIC = 0
@@ -197,11 +197,6 @@ def extract_language(root: ET.Element) -> str | None:
 
 def outline_name(element: ET.Element, fallback: str) -> str:
     return (element.attrib.get("title") or element.attrib.get("text") or fallback).strip()
-
-
-def valid_http_url(raw: str) -> bool:
-    parsed = urllib.parse.urlsplit(raw)
-    return parsed.scheme.lower() in {"http", "https"} and bool(parsed.hostname)
 
 
 def iter_outline_occurrences(
@@ -427,7 +422,14 @@ def compile_catalog(occurrences: list[Occurrence], output: Path, file_count: int
         if previous_source_key is not None and previous_source_key != skey:
             raise RuntimeError(f"source id collision {sid}: {previous_source_key} vs {skey}")
         source_keys_by_id[sid] = skey
-        sources.setdefault(skey, {
+        if skey in sources:
+            previous = sources[skey]
+            raise RuntimeError(
+                "catalog identity collapse must be reconciled before compilation: "
+                f"{previous['opml_file']} ({previous['declared_url']}) and "
+                f"{occurrence.opml_file} ({occurrence.declared_url}) -> {skey}"
+            )
+        sources[skey] = {
             "id": sid,
             "key": skey,
             "title": occurrence.title,
@@ -445,7 +447,8 @@ def compile_catalog(occurrences: list[Occurrence], output: Path, file_count: int
             "quality_score": occurrence.quality_score,
             "default_enabled": 1 if occurrence.default_enabled else 0,
             "type": occurrence.feed_type,
-        })
+            "opml_file": occurrence.opml_file,
+        }
 
         parent_id = 0
         path_components: list[str] = []

@@ -22,6 +22,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+try:
+    from scripts.catalog_identity import compute_source_id
+except ModuleNotFoundError:
+    from catalog_identity import compute_source_id
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "scripts/feed_discovery/data"
 FEEDS_DIR = PROJECT_ROOT / "feedmine/Resources/Feeds/90_countries"
@@ -29,7 +34,7 @@ INPUT_PATH = DATA_DIR / "radio_podcasts_by_country.json"
 
 
 def source_id(url: str) -> str:
-    return hashlib.sha256(url.encode()).hexdigest()
+    return compute_source_id(url)
 
 
 def indent_xml(elem: ET.Element, level: int = 0) -> None:

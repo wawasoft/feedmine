@@ -13,17 +13,20 @@ Usage:
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import shutil
 import sys
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
 
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
+
+try:
+    from scripts.catalog_identity import canonical_url, compute_source_id, request_url
+except ModuleNotFoundError:
+    from catalog_identity import canonical_url, compute_source_id, request_url
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CACHE_BASE = REPO_ROOT / "scripts" / "scripts" / "feed_discovery" / "cache" / "subregion"
@@ -48,27 +51,12 @@ ISO3_TO_SLUG = {
 
 
 def stable_id(namespace: str, value: str) -> str:
+    import hashlib
     return hashlib.sha256(f"{namespace}:{value}".encode("utf-8")).hexdigest()
 
 
-def compute_source_id(url: str) -> str:
-    parsed = urlsplit(url)
-    canonical = urlunsplit((
-        parsed.scheme.lower(),
-        (parsed.hostname or "").lower(),
-        parsed.path,
-        parsed.query,
-        "",
-    ))
-    return hashlib.sha256(canonical.encode()).hexdigest()
-
-
 def compute_canonical_xml_url(url: str) -> str:
-    parsed = urlsplit(url)
-    hostname = (parsed.hostname or "").lower()
-    hostname = hostname[4:] if hostname.startswith("www.") else hostname
-    path = parsed.path[:-1] if parsed.path.endswith("/") else parsed.path
-    return urlunsplit((parsed.scheme.lower(), hostname, path, parsed.query, ""))
+    return canonical_url(url)
 
 
 def make_membership_id(source_id: str, collection: str, topic: str, subcategory: str,
@@ -83,10 +71,7 @@ def make_membership_id(source_id: str, collection: str, topic: str, subcategory:
 
 
 def _norm_canonical(u: str) -> str:
-    u = str(u).strip().lower()
-    if "://www." in u:
-        u = u.replace("://www.", "://")
-    return u
+    return canonical_url(u)
 
 
 def main():
@@ -156,7 +141,7 @@ def main():
     # --- Filter to new feeds ---
     new_podcasts = {}
     for feed_url_lower, info in podcasts.items():
-        canonical = compute_canonical_xml_url(info["feed_url"]).lower()
+        canonical = compute_canonical_xml_url(info["feed_url"])
         if canonical in existing_canonical:
             continue
         existing_canonical.add(canonical)
@@ -176,7 +161,7 @@ def main():
     for feed_url_lower, info in new_podcasts.items():
         url = info["feed_url"]
         sid = compute_source_id(url)
-        canonical = compute_canonical_xml_url(url).lower()
+        canonical = compute_canonical_xml_url(url)
         title = (info["title"] or info["artist"] or url)[:300]
         genre = info["genre"]
         country_slug = info["country"]
@@ -185,7 +170,7 @@ def main():
         new_sources.append({
             "source_id": sid,
             "source_title": str(title),
-            "xml_url": url,
+            "xml_url": request_url(url),
             "canonical_xml_url": canonical,
             "site_url": "",
             "feed_title": str(title),
