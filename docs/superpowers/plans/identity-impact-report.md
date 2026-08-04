@@ -37,14 +37,18 @@
 
 | Gate | Result |
 |------|--------|
-| `git diff --check` | PASS |
-| `python3 -m compileall -q scripts` | PASS |
-| `python3 -m pytest scripts/` (43 tests) | PASS (43 passed, 67 subtests) |
-| `migrate_catalog_identity.py --dry-run` | 118 files, 0 changes |
-| Identity impact | 77,443 unchanged, 0 changed |
-| `canonical(canonical(x)) == canonical(x)` | 0 failures across corpus |
-| All OPML source IDs match `compute_source_id` | PASS |
-| Swift `CatalogIdentityContractTests` | Pending macOS (code ready, verified syntactically) |
+| `git diff --check` | ✅ PASS |
+| `python3 -m compileall -q scripts` | ✅ PASS |
+| `python3 -m pytest scripts/` (43 tests) | ✅ 43 passed, 67 subtests |
+| `migrate_catalog_identity.py --dry-run` | ✅ 118 files, 0 changes |
+| `PRAGMA quick_check` | ✅ ok |
+| FTS row count | ✅ 77,443 |
+| `catalog_source` row count | ✅ 77,443 |
+| Manifest: sources / placements / files / nodes | ✅ 77,443 / 77,443 / 118 / 6,450 |
+| Manifest: duplicates / invalid / failed | ✅ 0 / 0 / 0 |
+| Identity scan (all OPML source IDs) | ✅ 77,443 unchanged, 0 changed |
+| `canonical(canonical(x)) == canonical(x)` | ✅ 0 failures across 77,443 URLs |
+| Swift `CatalogIdentityContractTests` | ⚠️ Requires macOS — code written, syntactically verified |
 
 ## Commits
 
