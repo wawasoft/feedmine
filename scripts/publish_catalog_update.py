@@ -157,11 +157,19 @@ def publish(args: argparse.Namespace) -> dict:
                 f"revision {revision} is not greater than existing revision {existing_rev}"
             )
 
-    published_files = sync_opml_tree(source_root, destination / "Feeds", source_files)
+    # P1-09: Stage the complete snapshot in a temporary directory and
+    # atomically activate it. If any step fails, the destination is left
+    # untouched — readers see either the old revision or the new one,
+    # never a mixture of new Feeds/ with old manifest.json.
+    staging = destination.with_name(destination.name + f".staging-r{revision}")
+    if staging.exists():
+        shutil.rmtree(staging)
+
+    published_files = sync_opml_tree(source_root, staging / "Feeds", source_files)
 
     entries = []
     for path in published_files:
-        relative = path.relative_to(destination).as_posix()
+        relative = path.relative_to(staging).as_posix()
         entries.append({"bytes": path.stat().st_size, "path": relative, "sha256": sha256(path)})
 
     manifest = {
@@ -177,7 +185,29 @@ def publish(args: argparse.Namespace) -> dict:
         # manifest before the snapshot is activated.
         "signature": "",
     }
-    write_json_atomic(destination / "manifest.json", manifest)
+    write_json_atomic(staging / "manifest.json", manifest)
+
+    # P1-09: Atomically activate the complete snapshot.
+    # Strategy: move old destination aside → rename staging in → remove old.
+    # If the process dies between steps 1 and 2, the next run recovers by
+    # cleaning up the backup. Readers see either the complete old revision
+    # or the complete new one — never a mixed Feeds/ + manifest.json.
+    backup = destination.with_name(destination.name + f".backup-r{revision}")
+    if backup.exists():
+        shutil.rmtree(backup)
+    if destination.exists():
+        destination.rename(backup)
+    try:
+        staging.rename(destination)
+    except Exception:
+        # Rollback: restore the backup on failure
+        if backup.exists():
+            backup.rename(destination)
+        raise
+    # Clean up backup on success
+    if backup.exists():
+        shutil.rmtree(backup)
+
     if args.bundle_manifest is not None:
         write_json_atomic(args.bundle_manifest.resolve(), manifest)
     return manifest
