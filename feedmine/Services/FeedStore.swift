@@ -4950,17 +4950,14 @@ final class FeedStore {
                 maxCount: runwayPolicy.initialPublishedCount
             )
         } else {
-            // Legacy safety net: pull more items from reservoir until the
-            // first page is full.
-            if visibleItems.count < Reservoir.pageSize && reservoir.reservoirCount > 0 {
-                repeat {
-                    reservoir.moveToVisible(count: Reservoir.pageSize)
-                    setVisibleItems(applyFilters(reservoir.visibleItems))
-                } while visibleItems.count < Reservoir.pageSize && reservoir.reservoirCount > 0
-            }
-            // Pre-resolve images for the initial visible page
-            let upcoming = reservoir.visibleItems
+            // Legacy pipeline: seed() already moved items to the visible
+            // window. Set visibleItems directly from the reservoir's visible
+            // items rather than relying on the moveToVisible loop (which
+            // only runs when reservoir.reservoirCount > 0 — missing the case
+            // where all seeded items fit in the first page).
+            let upcoming = applyFilters(reservoir.visibleItems)
             if !upcoming.isEmpty {
+                setVisibleItems(upcoming)
                 cardQueue.enqueue(upcoming)
                 await cardQueue.waitForReady(count: min(Reservoir.pageSize, upcoming.count))
                 let presMap = Dictionary(uniqueKeysWithValues: cardQueue.presentations.map { ($0.id, $0) })
