@@ -78,6 +78,77 @@ MAX_ARTICLES = 15
 CONCURRENCY = 20
 FLUSH_EVERY = 100
 
+# ── Progress schema (P0-01: typed, versioned, resumable) ──
+PROGRESS_SCHEMA_VERSION = 1
+
+# Columns that carry fetch evidence and must be cleared on recrawl prep.
+FETCH_EVIDENCE_COLUMNS = [
+    "feed_title", "feed_description", "site_url", "feed_reported_language",
+    "articles_fetched", "latest_item_at", "http_status", "final_url",
+    "content_type", "error_message",
+]
+
+_SCALAR_TYPES = (str, int, float, bool, type(None))
+
+def _serialize_progress_value(v):
+    """Serialize a single progress value preserving int/bool/None in JSON."""
+    if v is None:
+        return None
+    if isinstance(v, bool):
+        return v
+    if isinstance(v, int):
+        return v
+    if isinstance(v, float):
+        return v
+    return str(v)
+
+def _deserialize_progress_value(v, *, default=None):
+    """Deserialize a progress value. Legacy string values are coerced
+    for known-typed columns or left as-is."""
+    if v is None:
+        return default
+    if isinstance(v, (int, float, bool)):
+        return v
+    # Legacy: stringified value from old progress files
+    if isinstance(v, str):
+        if v == "":
+            return 0 if isinstance(default, int) else ""
+        try:
+            return int(v)
+        except (ValueError, TypeError):
+            pass
+        try:
+            return float(v)
+        except (ValueError, TypeError):
+            pass
+        return v
+    return v
+
+def classify_fetch_result(result: dict) -> str:
+    """Return 'done' only when there is no error AND evidence of valid fetch.
+    Zero articles with a 2xx/3xx response = valid feed with no recent items.
+    Any error_message = failed regardless of article count.
+    """
+    if result.get("error_message"):
+        return "failed"
+    http_status = result.get("http_status", 0)
+    if isinstance(http_status, str):
+        try:
+            http_status = int(http_status)
+        except (ValueError, TypeError):
+            http_status = 0
+    if 200 <= http_status < 400:
+        return "done"
+    articles = result.get("articles_fetched", 0)
+    if isinstance(articles, str):
+        try:
+            articles = int(articles)
+        except (ValueError, TypeError):
+            articles = 0
+    if articles > 0:
+        return "done"
+    return "failed"
+
 # ── Helpers ──
 
 def parse_feed(xml_bytes: bytes, xml_url: str) -> dict:
@@ -291,17 +362,25 @@ def main():
     remaining = []
     for idx in pending_idx:
         pid = str(df.at[idx, "source_id"])
-        if pid in progress:
-            # Apply cached results
-            p = progress[pid]
-            for col in ["feed_title", "feed_description", "site_url", "feed_reported_language",
-                         "articles_fetched", "latest_item_at", "http_status", "final_url",
-                         "content_type", "error_message"]:
-                if col in p and p[col]:
-                    df.at[idx, col] = p[col]
-            df.at[idx, "status"] = "done" if p.get("articles_fetched", 0) > 0 else "done"
-        else:
+        if pid not in progress:
             remaining.append(idx)
+            continue
+        p = progress[pid]
+        schema_ver = p.get("schema_version", 0)
+        if schema_ver < 1:
+            # Legacy cache: reject with diagnostic, re-fetch
+            print(f"  [warn] legacy progress entry for {pid[:12]}... — re-fetching")
+            remaining.append(idx)
+            continue
+        # Apply cached fields with typed deserialization
+        fields = p.get("fields", {})
+        for col in FETCH_EVIDENCE_COLUMNS:
+            if col in fields:
+                val = _deserialize_progress_value(
+                    fields[col], default=0 if col == "articles_fetched" else ""
+                )
+                df.at[idx, col] = val
+        df.at[idx, "status"] = p.get("status", "failed")
 
     print(f"  {len(pending_idx)} pending total")
     print(f"  {len(pending_idx) - len(remaining)} already processed (cached)")
@@ -348,18 +427,20 @@ def main():
                 except Exception as e:
                     result = {"error_message": f"Thread error: {e}", "articles_fetched": 0}
 
-                # Update dataframe
-                for col, val in result.items():
-                    if val:  # only update non-empty
-                        df.at[idx, col] = val
+                # Update dataframe — apply ALL result fields including empty/zero
+                for col in FETCH_EVIDENCE_COLUMNS:
+                    if col in result:
+                        df.at[idx, col] = result[col]
 
-                new_status = "done" if result.get("articles_fetched", 0) > 0 else "failed"
-                if result.get("error_message"):
-                    new_status = "failed"
+                new_status = classify_fetch_result(result)
                 df.at[idx, "status"] = new_status
 
-                # Cache in progress
-                progress[pid] = {k: str(v) if v else "" for k, v in result.items()}
+                # Cache in progress with typed serialization
+                progress[pid] = {
+                    "schema_version": PROGRESS_SCHEMA_VERSION,
+                    "status": new_status,
+                    "fields": {k: _serialize_progress_value(v) for k, v in result.items()},
+                }
 
                 if new_status == "done":
                     processed += 1
