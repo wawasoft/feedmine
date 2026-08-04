@@ -219,7 +219,7 @@ final class UserStateStore {
                 SELECT rowid AS migration_rowid, collection_id, source_url,
                        title_snapshot, media_kind, added_at, sort_order
                 FROM source_collection_member
-                ORDER BY collection_id, sort_order, added_at, rowid
+                ORDER BY collection_id, added_at DESC, sort_order DESC, rowid DESC
                 """)
             var seen = Set<String>()
             var collisionCount = 0

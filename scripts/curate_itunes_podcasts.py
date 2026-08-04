@@ -119,15 +119,19 @@ def main():
                 if not feed_url:
                     continue
 
-                # Dedup by feedUrl — keep first occurrence
-                if feed_url.lower() in podcasts:
+                # P2-10: Dedup by canonical_url, not .lower().
+                # Host is case-folded by the identity contract; path/query preserve case.
+                podcast_key = canonical_url(feed_url)
+                if not podcast_key:
+                    continue
+                if podcast_key in podcasts:
                     continue
 
                 itunes_country = result.get("country", "")
                 country_slug = ISO3_TO_SLUG.get(itunes_country, subregion_country)
 
-                podcasts[feed_url.lower()] = {
-                    "feed_url": feed_url,
+                podcasts[podcast_key] = {
+                    "feed_url": request_url(feed_url),
                     "title": result.get("collectionName", "") or result.get("trackName", ""),
                     "artist": result.get("artistName", ""),
                     "genre": result.get("primaryGenreName", ""),
@@ -140,12 +144,11 @@ def main():
 
     # --- Filter to new feeds ---
     new_podcasts = {}
-    for feed_url_lower, info in podcasts.items():
-        canonical = compute_canonical_xml_url(info["feed_url"])
-        if canonical in existing_canonical:
+    for podcast_key, info in podcasts.items():
+        if podcast_key in existing_canonical:
             continue
-        existing_canonical.add(canonical)
-        new_podcasts[feed_url_lower] = info
+        existing_canonical.add(podcast_key)
+        new_podcasts[podcast_key] = info
 
     print(f"New (not in parquet): {len(new_podcasts):,}")
 

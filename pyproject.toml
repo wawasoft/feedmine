@@ -18,7 +18,14 @@ include = ["feedmine_verify*"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8", "pycountry>=22"]
+editorial = [
+    "pandas>=2.0",
+    "pyarrow>=14.0",
+    "duckdb>=0.9",
+    "pytest>=8",
+    "pycountry>=22",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["scripts/feed_discovery/tests"]
+testpaths = ["scripts"]

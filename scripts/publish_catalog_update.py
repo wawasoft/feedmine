@@ -147,6 +147,16 @@ def publish(args: argparse.Namespace) -> dict:
     if revision < 1:
         raise ValueError("revision must be positive")
 
+    # P1-04: enforce strict monotonicity
+    existing_manifest_path = destination / "manifest.json"
+    if existing_manifest_path.exists():
+        existing = json.loads(existing_manifest_path.read_text(encoding="utf-8"))
+        existing_rev = existing.get("revision")
+        if isinstance(existing_rev, int) and revision <= existing_rev:
+            raise ValueError(
+                f"revision {revision} is not greater than existing revision {existing_rev}"
+            )
+
     published_files = sync_opml_tree(source_root, destination / "Feeds", source_files)
 
     entries = []

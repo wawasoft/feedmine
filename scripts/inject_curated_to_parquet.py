@@ -28,9 +28,9 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 try:
-    from scripts.catalog_identity import canonical_url, compute_source_id
+    from scripts.catalog_identity import canonical_url, compute_source_id, request_url
 except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
-    from catalog_identity import canonical_url, compute_source_id
+    from catalog_identity import canonical_url, compute_source_id, request_url
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 CURATED_DIR = REPO_ROOT / "scripts" / "feed_discovery" / "data" / "curated"
@@ -166,6 +166,7 @@ def main():
                 seen_canonical.add(canonical)
 
                 sid = compute_source_id(url)
+                fetch_url = request_url(url)
                 title = (feed.get("title") or url)[:300]
                 source_page = feed.get("source_page", "") or ""
                 genre = feed.get("genre", "") or config["subcategory"]
@@ -174,7 +175,7 @@ def main():
                 new_sources.append({
                     "source_id": sid,
                     "source_title": str(title),
-                    "xml_url": url,
+                    "xml_url": fetch_url,
                     "canonical_xml_url": canonical,
                     "site_url": str(source_page)[:500],
                     "feed_title": str(title),

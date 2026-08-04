@@ -113,6 +113,11 @@ class SourceRecord:
     country: str | None  # derived from path when under countries/
     opml_file: str  # relative path from Feeds/
 
+    @property
+    def source_id(self) -> str:
+        from scripts.catalog_identity import compute_source_id
+        return compute_source_id(self.xml_url)
+
 
 @dataclass
 class ArticleRecord:
@@ -404,8 +409,9 @@ CREATE SEQUENCE IF NOT EXISTS seq_article_id START 1;
 
 CREATE TABLE IF NOT EXISTS sources (
     source_id      INTEGER PRIMARY KEY DEFAULT nextval('seq_source_id'),
+    feedmine_source_id VARCHAR UNIQUE NOT NULL,
     source_title   VARCHAR,
-    xml_url        VARCHAR UNIQUE NOT NULL,
+    xml_url        VARCHAR NOT NULL,
     site_url       VARCHAR,
     feed_title     VARCHAR,
     feed_description VARCHAR,
@@ -452,10 +458,10 @@ def init_db(db_path: str, reset: bool = False) -> duckdb.DuckDBPyConnection:
     return conn
 
 
-def load_done_urls(conn: duckdb.DuckDBPyConnection) -> set[str]:
-    """Return set of xml_urls already fetched successfully."""
+def load_done_source_ids(conn: duckdb.DuckDBPyConnection) -> set[str]:
+    """P1-07: Return set of source_ids already fetched successfully."""
     rows = conn.execute(
-        "SELECT xml_url FROM sources WHERE status = 'done'"
+        "SELECT feedmine_source_id FROM sources WHERE status = 'done'"
     ).fetchall()
     return {r[0] for r in rows}
 
@@ -469,12 +475,13 @@ def _escape_sql_str(val: str | None) -> str:
 
 
 def insert_sources_batch(conn: duckdb.DuckDBPyConnection, sources: list[SourceRecord], chunk_size: int = 2000) -> None:
-    """Insert new sources in chunks using fast bulk VALUES (skip duplicates on xml_url)."""
+    """P1-07: Insert new sources, skip duplicates on feedmine_source_id."""
     for i in range(0, len(sources), chunk_size):
         chunk = sources[i : i + chunk_size]
         value_tuples = []
         for s in chunk:
             vals = ", ".join([
+                _escape_sql_str(s.source_id),
                 _escape_sql_str(s.title),
                 _escape_sql_str(s.xml_url),
                 _escape_sql_str(s.category),
@@ -488,8 +495,8 @@ def insert_sources_batch(conn: duckdb.DuckDBPyConnection, sources: list[SourceRe
             value_tuples.append(f"({vals})")
         sql = (
             "INSERT OR IGNORE INTO sources"
-            " (source_title, xml_url, category, subcategory, language,"
-            "  region, country, opml_file, status)"
+            " (feedmine_source_id, source_title, xml_url, category, subcategory,"
+            "  language, region, country, opml_file, status)"
             " VALUES " + ", ".join(value_tuples)
         )
         conn.execute(sql)
@@ -519,13 +526,13 @@ def mark_source_done(
                  site_url = ?,
                  feed_title = ?,
                  feed_description = ?
-               WHERE xml_url = ?""",
-            [len(articles), now, site_url, feed_title, feed_desc, source.xml_url],
+               WHERE feedmine_source_id = ?""",
+            [len(articles), now, site_url, feed_title, feed_desc, source.source_id],
         )
 
         # Get source_id
         sid_row = conn.execute(
-            "SELECT source_id FROM sources WHERE xml_url = ?", [source.xml_url]
+            "SELECT source_id FROM sources WHERE feedmine_source_id = ?", [source.source_id]
         ).fetchone()
         if sid_row is None:
             conn.execute("ROLLBACK")
@@ -563,8 +570,8 @@ def mark_source_failed(
     now = datetime.now(timezone.utc).isoformat()
     conn.execute(
         """UPDATE sources SET status = 'failed', error_message = ?, fetched_at = ?
-           WHERE xml_url = ?""",
-        [error[:1000], now, source.xml_url],
+           WHERE feedmine_source_id = ?""",
+        [error[:1000], now, source.source_id],
     )
 
 
@@ -622,23 +629,23 @@ async def run_fetch(
 ) -> None:
     """Main async loop: fetch all pending sources, store results via a writer thread."""
 
-    # Load skip list for resume (open a temp read connection)
+    # P1-07: Load skip list by source_id for resume (handles signed/aliased URLs)
     read_conn = duckdb.connect(db_path)
-    done_urls: set[str] = {
+    done_ids: set[str] = {
         r[0] for r in read_conn.execute(
-            "SELECT xml_url FROM sources WHERE status = 'done'"
+            "SELECT feedmine_source_id FROM sources WHERE status = 'done'"
         ).fetchall()
     }
     read_conn.close()
 
-    pending = [s for s in sources if s.xml_url not in done_urls]
+    # Filter out already-done sources by identity, not raw URL
+    pending = [s for s in sources if s.source_id not in done_ids]
 
-    # Deduplicate by canonical url
+    # Deduplicate by source_id (identity-based)
     seen: dict[str, SourceRecord] = {}
     for s in pending:
-        key = canonical_url(s.xml_url)
-        if key not in seen:
-            seen[key] = s
+        if s.source_id not in seen:
+            seen[s.source_id] = s
     pending = list(seen.values())
 
     if limit and limit < len(pending):

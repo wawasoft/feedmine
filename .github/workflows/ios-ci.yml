@@ -1,0 +1,29 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'feedmine/**'
+      - 'feedmineTests/**'
+      - '.github/workflows/ios-ci.yml'
+  pull_request:
+    paths:
+      - 'feedmine/**'
+      - 'feedmineTests/**'
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Build and test identity contract
+        run: |
+          xcodebuild test \
+            -project feedmine.xcodeproj \
+            -scheme feedmine \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -only-testing:feedmineTests/CatalogIdentityContractTests
