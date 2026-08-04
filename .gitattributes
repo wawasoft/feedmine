@@ -1,2 +1,4 @@
 *.sqlite filter=lfs diff=lfs merge=lfs -text
 feedmine/Resources/FeedEngine/catalog.sqlite filter=lfs diff=lfs merge=lfs -text
+editorial/feed-curation/*.csv.gz filter=lfs diff=lfs merge=lfs -text
+editorial/feed-curation/*.csv filter=lfs diff=lfs merge=lfs -text
