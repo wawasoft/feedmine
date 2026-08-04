@@ -99,6 +99,44 @@ def prepare(sources: Path, quarantine: Path, output: Path) -> int:
         print("  no entity-recrawl rows to prepare")
         return 0
 
+    # ── P1-08: Detect identity collisions BEFORE mutating rows ──
+    # Compute every proposed new ID and check for collisions against
+    # untouched rows AND within the queue itself.
+    proposed_ids: dict[str, list[int]] = {}  # new_id → [indices]
+    for index, fetch_url, _item in queued:
+        new_id = compute_source_id(fetch_url)
+        proposed_ids.setdefault(new_id, []).append(index)
+
+    collision_indices: set[int] = set()
+    for new_id, indices in proposed_ids.items():
+        # Queued-vs-queued collision
+        if len(indices) > 1:
+            print(f"  WARNING: {len(indices)} queued rows collapse to source_id {new_id}")
+            collision_indices.update(indices[1:])  # keep first, flag rest
+        # Queued-vs-untouched collision
+        for idx in indices:
+            if idx not in collision_indices:
+                for other_idx, row in enumerate(rows):
+                    if other_idx not in {i for _, _, _ in queued}:
+                        if row.get("source_id") == new_id:
+                            print(f"  WARNING: queued row {idx} collides with untouched row {other_idx} (source_id={new_id})")
+                            collision_indices.add(idx)
+                            break
+
+    if collision_indices:
+        # Write collision quarantine before aborting
+        quarantine_path = output.with_suffix(".collisions.csv")
+        with open(quarantine_path, "w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+            writer.writeheader()
+            for idx in sorted(collision_indices):
+                writer.writerow({k: str(v) for k, v in rows[idx].items()})
+        raise ValueError(
+            f"{len(collision_indices)} source_id collision(s) detected. "
+            f"Details written to {quarantine_path}. "
+            f"Review and resolve collisions manually before re-running."
+        )
+
     # ── Clear old evidence and set new identity + provenance ──
     for index, fetch_url, item in queued:
         row = rows[index]
