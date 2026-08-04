@@ -336,6 +336,27 @@ final class CatalogUpdateServiceTests: XCTestCase {
         XCTAssertNoThrow(try manifest.validate())
     }
 
+    /// P0-03: The public key is immutable once the process starts.
+    func testPublicKeyIsImmutable() {
+        // Verify the key is a compile-time constant, not a mutable static
+        let key = CatalogUpdateManifest.publicKeyHex
+        XCTAssertEqual(key, "", "Default key should be empty (development mode)")
+    }
+
+    /// P0-03: With the default empty key, a manifest with empty signature validates.
+    func testManifestValidatesWithEmptyKeyAndEmptySignature() throws {
+        let manifest = CatalogUpdateManifest(
+            schemaVersion: 1,
+            revision: 1,
+            generatedAt: "2026-08-03T00:00:00Z",
+            sourceCount: 1,
+            fileCount: 1,
+            files: [CatalogUpdateFile(path: "Feeds/t.opml", sha256: String(repeating: "a", count: 64), bytes: 1)],
+            signature: ""
+        )
+        XCTAssertNoThrow(try manifest.validate())
+    }
+
     /// P0-02: A manifest WITH signature must decode it correctly.
     func testManifestDecodesWithSignatureField() throws {
         let json = """

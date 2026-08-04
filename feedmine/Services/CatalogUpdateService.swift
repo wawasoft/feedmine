@@ -29,7 +29,11 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
     /// The corresponding private key is held outside the repository and used
     /// only during the editorial release process.
     /// Generate a new keypair with: scripts/sign_manifest.swift --generate
-    nonisolated(unsafe) static var publicKeyHex: String = ""
+    ///
+    /// P0-03: This key is immutable at runtime. In Release builds an empty
+    /// key causes signature verification to be skipped (development mode);
+    /// a production key must be compiled into the app before distribution.
+    nonisolated(unsafe) static let publicKeyHex: String = ""
 
     let schemaVersion: Int
     let revision: Int
