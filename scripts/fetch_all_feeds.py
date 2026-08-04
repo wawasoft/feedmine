@@ -34,9 +34,9 @@ import httpx
 from tqdm import tqdm
 
 try:
-    from scripts.catalog_identity import canonical_url as canonical_feed_url
+    from scripts.catalog_identity import canonical_url as canonical_feed_url, compute_source_id
 except ModuleNotFoundError:
-    from catalog_identity import canonical_url as canonical_feed_url
+    from catalog_identity import canonical_url as canonical_feed_url, compute_source_id
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -115,7 +115,6 @@ class SourceRecord:
 
     @property
     def source_id(self) -> str:
-        from scripts.catalog_identity import compute_source_id
         return compute_source_id(self.xml_url)
 
 
@@ -652,7 +651,7 @@ async def run_fetch(
         pending = pending[:limit]
 
     total = len(pending)
-    done_count = len(done_urls)
+    done_count = len(done_ids)
     print(f"\nTotal sources in DB: {len(sources)}")
     print(f"Already done:       {done_count}")
     print(f"Pending to fetch:   {total}")
