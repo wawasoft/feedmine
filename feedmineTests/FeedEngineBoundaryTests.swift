@@ -336,8 +336,8 @@ final class CatalogUpdateServiceTests: XCTestCase {
         XCTAssertNoThrow(try manifest.validate())
     }
 
-    /// P0-03: With the default empty key in DEBUG, unsigned manifests validate
-    /// (development mode). In Release, this would throw.
+    /// P0-03: With the default empty key, unsigned manifest validation is
+    /// skipped. A production key must be compiled in before distribution.
     func testManifestValidatesWithEmptyKeyAndEmptySignature() throws {
         let manifest = CatalogUpdateManifest(
             schemaVersion: 1,

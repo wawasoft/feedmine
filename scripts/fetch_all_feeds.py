@@ -528,11 +528,7 @@ def init_db(db_path: str, reset: bool = False) -> duckdb.DuckDBPyConnection:
             "WHERE table_name = 'sources'"
         ).fetchone()[0] > 0
         if sources_exist:
-            try:
-                _migrate_sources_schema(conn)
-            except Exception as e:
-                print(f"  WARNING: schema migration failed: {e}", file=sys.stderr)
-                print(f"  Run with --reset to start fresh.", file=sys.stderr)
+            _migrate_sources_schema(conn)
 
     return conn
 

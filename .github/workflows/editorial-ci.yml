@@ -29,7 +29,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pandas pyarrow duckdb pytest feedparser
+          pip install pandas pyarrow duckdb pytest feedparser html2text httpx tqdm
 
       - name: Git diff --check
         run: git diff --check

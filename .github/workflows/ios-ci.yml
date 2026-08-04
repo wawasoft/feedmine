@@ -37,13 +37,14 @@ jobs:
 
       - name: Run full unit test suite
         run: |
+          set -o pipefail
           xcodebuild test \
             -project feedmine.xcodeproj \
             -scheme feedmine \
             -destination 'platform=iOS Simulator,name=iPhone 16' \
             -testPlan FeedMine-ReleaseValidation 2>&1 | tee xcodebuild.log
-          # Fail if any test failures (allow known infra flakiness)
-          if grep -q "Testing failed" xcodebuild.log; then
-            echo "::error::Full test suite has failures"
+          # Fail on build or test failures
+          if grep -qE "BUILD FAILED|Testing failed|xcodebuild: error:" xcodebuild.log; then
+            echo "::error::Build or test failures detected"
             exit 1
           fi
