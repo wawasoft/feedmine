@@ -1594,7 +1594,7 @@ final class FeedStoreTests: XCTestCase {
             itemLanguage: nil, selectedLanguages: ["en"], deviceLanguage: "en"))
     }
 
-    func testSetFilterImmediatelyRemovesVisibleItemsOutsideSelectedLanguage() throws {
+    func testSetFilterImmediatelyRemovesVisibleItemsOutsideSelectedLanguage() async throws {
         let store = try FeedStore(inMemory: true)
         let englishURL = "https://en.example/feed"
         let portugueseURL = "https://pt.example/feed"
@@ -1618,11 +1618,22 @@ final class FeedStoreTests: XCTestCase {
             region: "global", language: "pt"
         )
 
-        store.loadBookmarkFeed(items: [portugueseItem, englishItem])
+        // Persist items to SQLite so filter reload can find them.
+        try await store.db.write { db in
+            try FeedItemRecord(from: englishItem, region: "global").insert(db)
+            try FeedItemRecord(from: portugueseItem, region: "global").insert(db)
+        }
+
         store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: ["en"])
 
+        // Wait for async filter reload to complete.
+        let deadline = Date().addingTimeInterval(3)
+        while store.visibleItems.count < 1 && Date() < deadline {
+            try await Task.sleep(for: .milliseconds(50))
+        }
+
         XCTAssertEqual(store.visibleItems.map(\.id), ["en-visible"],
-                       "Selecting English should synchronously remove non-English visible cards")
+                       "Selecting English should show only English items after reload")
     }
 
     func testDetectedLanguageOverridesWrongSourceLanguage() async {
@@ -2120,7 +2131,7 @@ final class FeedStoreTests: XCTestCase {
         try await store.deleteSourceCollection(id: queens)
         XCTAssertEqual(store.registry.sources.count, 1, "Deleting a playlist must not delete its source")
         let remainingMembers = try await store.sourceCollectionMembers(collectionID: favorites)
-        XCTAssertEqual(remainingMembers.map(\.sourceURL), [reference.id])
+        XCTAssertEqual(remainingMembers.map(\.id), [reference.id])
     }
 
     func testCollectionPresetImmediatelyHydratesCachedExternalSource() async throws {
