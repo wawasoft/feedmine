@@ -196,7 +196,9 @@
 		407D2EE8D220516B8F12EF74 /* IntentScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FCADA7FFCFA597999BE2A60 /* IntentScene.swift */; };
 		52BFA2808FE446B68B3B51AB /* FeedDisplayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775643C6A3754F75BF6415A7 /* FeedDisplayState.swift */; };
 		0F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinition.swift */; };
+		0F1E2D3C4B5A60718293A4B5E /* FeedRecipeResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2D3C4B5A60718293A4B5E /* FeedRecipeResolver.swift */; };
 		2F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinitionTests.swift */; };
+		2F1E2D3C4B5A60718293A4B5D /* FeedRecipeResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1E2D3C4B5A60718293A4B5D /* FeedRecipeResolverTests.swift */; };
 		/* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -410,7 +412,9 @@
 		3FCADA7FFCFA597999BE2A60 /* IntentScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentScene.swift; sourceTree = "<group>"; };
 		775643C6A3754F75BF6415A7 /* FeedDisplayState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDisplayState.swift; sourceTree = "<group>"; };
 		F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecipeDefinition.swift; sourceTree = "<group>"; };
+		F1E2D3C4B5A60718293A4B5E /* FeedRecipeResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecipeResolver.swift; sourceTree = "<group>"; };
 		1F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecipeDefinitionTests.swift; sourceTree = "<group>"; };
+		1F1E2D3C4B5A60718293A4B5D /* FeedRecipeResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecipeResolverTests.swift; sourceTree = "<group>"; };
 		/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,6 +500,7 @@
 				3DD7582E99C284BC5A1BF27A /* ContentVarietyDiagnostics.swift */,
 				000CCA31229EFA4B4CE0B2ED /* CuratedPreferenceEngineTests.swift */,
 				1F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinitionTests.swift */,
+				1F1E2D3C4B5A60718293A4B5D /* FeedRecipeResolverTests.swift */,
 				FDD68AC45197062E556EAB8F /* DatabasePerformanceTests.swift */,
 				19DA20EFDE6E6D009F472AC7 /* FeedEngineBoundaryTests.swift */,
 				2B1257D955820CA147477E6D /* FeedLoaderCacheTests.swift */,
@@ -543,6 +548,7 @@
 				E7A0A1E3E711645E0671EF50 /* CuratedPreferenceEngine.swift */,
 				A8B50077DA1D77D2A8954743 /* DesignTokens.swift */,
 				3BED6C6B303B501C9F3EE980 /* ExportEngine.swift */,
+				F1E2D3C4B5A60718293A4B5E /* FeedRecipeResolver.swift */,
 				AB28CEAD07ED3A770CACA3BC /* FeedEngineCatalogDiagnostics.swift */,
 				CCFE40D8C0B0EC9B61DA1F43 /* FeedHTTPSync.swift */,
 				1B89B6467E341514F26C040B /* FeedLoader.swift */,
@@ -933,6 +939,7 @@
 				500DCA7C0B7683D2498E85FC /* FeedEngineBoundaryTests.swift in Sources */,
 				7272EFE99306D0F087C6F28C /* FeedLoaderCacheTests.swift in Sources */,
 				2F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinitionTests.swift in Sources */,
+				2F1E2D3C4B5A60718293A4B5D /* FeedRecipeResolverTests.swift in Sources */,
 				B07DB4F715E9688D1EC1053B /* FeedStoreTests.swift in Sources */,
 				77EE33D368D2DBC687EB7BC0 /* FilterPerformanceTests.swift in Sources */,
 				4450850A175DE996C7497865 /* HTTPValidatorsTests.swift in Sources */,
@@ -989,6 +996,7 @@
 				D38D54D8947B48111A20C2F1 /* CountryDetailScreen.swift in Sources */,
 				6736C9EE19A891DD013E51E6 /* CuratedFeed.swift in Sources */,
 				0F1E2D3C4B5A60718293A4B5C /* FeedRecipeDefinition.swift in Sources */,
+				0F1E2D3C4B5A60718293A4B5E /* FeedRecipeResolver.swift in Sources */,
 				3F659885BEE05099B6A771C8 /* OnboardingSeed.swift in Sources */,
 				AAADD16F35DC7940363EC905 /* CuratedFeedInspectorView.swift in Sources */,
 				613AC87799CE8F4BFB57AE39 /* CuratedOnboardingView.swift in Sources */,
