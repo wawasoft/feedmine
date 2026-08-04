@@ -2,7 +2,7 @@
 """
 Curate iTunes podcast search results into the parquet pipeline.
 
-Reads raw iTunes search JSONs from scripts/scripts/feed_discovery/cache/subregion/*/itunes/,
+Reads raw iTunes search JSONs from scripts/feed_discovery/cache/subregion/*/itunes/,
 deduplicates by feedUrl, maps iTunes country codes → FeedMine country slugs,
 and injects new feeds into feeds_corpus_sources.parquet as pending.
 
@@ -100,7 +100,8 @@ def main():
     # producing zero results (which operators may interpret as valid data).
     if not CACHE_BASE.is_dir():
         print(f"ERROR: iTunes cache directory not found: {CACHE_BASE}", file=sys.stderr)
-        print("  Run scripts/discover_itunes_podcasts.py first, or pass --cache-root.", file=sys.stderr)
+        print("  Generate cache data first via the feed_discovery pipeline,", file=sys.stderr)
+        print("  or pass --cache-root <path> if your cache is elsewhere.", file=sys.stderr)
         sys.exit(1)
 
     podcasts = {}  # feedUrl → podcast info

@@ -31,9 +31,12 @@ TRACKING_QUERY_PARAMETERS = frozenset({
 
 # These values authorize a request but do not identify the feed.  They are
 # removed only by canonical_url; request_url always preserves them.
+# Must match OPMLParser.identityQueryParameters in Swift.
 EPHEMERAL_QUERY_PARAMETERS = frozenset({
     "temp_url_sig", "temp_url_expires", "expires", "cfid", "cftoken",
     "jsessionid", "phpsessid",
+    "token", "sig", "key", "auth", "apikey", "api_key",
+    "signature", "access_token", "refresh_token",
 })
 
 _XML_NAMED_ENTITIES = {
