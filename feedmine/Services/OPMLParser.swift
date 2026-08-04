@@ -536,9 +536,24 @@ struct OPMLParser {
         return true
     }
 
-    private static func encodedHost(_ rawHost: String, stripWWW: Bool) -> String? {
-        var host = rawHost.lowercased()
+    /// P1-05: Reject hosts where percent-decoding reveals authority delimiters.
+    private static func validateDecodedHost(_ host: String, percentEncodedHost: String?) -> Bool {
+        guard !host.isEmpty else { return false }
+        let forbidden: Set<Character> = ["/", "?", "#", "@", "[", "]"]
+        for char in forbidden {
+            if host.contains(char) { return false }
+        }
+        // Colons are only valid inside bracketed IPv6 literals.
         if host.contains(":") {
+            guard let encoded = percentEncodedHost,
+                  encoded.hasPrefix("[") else { return false }
+        }
+        return true
+    }
+
+    private static func encodedHost(_ rawHost: String, stripWWW: Bool, isIPv6: Bool) -> String? {
+        var host = rawHost.lowercased()
+        if isIPv6 {
             return "[\(host)]"
         }
         if stripWWW, host.hasPrefix("www.") {
@@ -575,11 +590,20 @@ struct OPMLParser {
               let components = URLComponents(string: decoded),
               let originalScheme = components.scheme?.lowercased(),
               originalScheme == "http" || originalScheme == "https",
-              let rawHost = components.host,
-              let host = encodedHost(rawHost, stripWWW: identity) else {
+              let rawHost = components.host else {
+            return decoded
+        }
+        // P1-05: reject hosts where percent-decoding reveals delimiters
+        guard validateDecodedHost(rawHost, percentEncodedHost: components.percentEncodedHost) else {
             return decoded
         }
         if let port = components.port, !(1...65535).contains(port) {
+            return decoded
+        }
+
+        // P1-05: bracket-aware IPv6 detection
+        let isIPv6 = components.percentEncodedHost?.hasPrefix("[") ?? false
+        guard let host = encodedHost(rawHost, stripWWW: identity, isIPv6: isIPv6) else {
             return decoded
         }
 
@@ -595,7 +619,8 @@ struct OPMLParser {
         if let port = components.port { authority += ":\(port)" }
 
         var path = normalizePercentEncoding(components.percentEncodedPath, safe: pathSafeCharacters)
-        if identity, path.hasSuffix("/") { path.removeLast() }
+        // P1-06: remove ALL trailing slashes for idempotency
+        if identity { while path.hasSuffix("/") { path.removeLast() } }
         let query: String?
         if identity {
             query = filteredIdentityQuery(components.percentEncodedQuery)

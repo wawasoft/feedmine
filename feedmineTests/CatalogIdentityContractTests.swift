@@ -70,4 +70,44 @@ final class CatalogIdentityContractTests: XCTestCase {
         XCTAssertTrue(member.sourceURL.contains("X-Amz-Signature=two"))
         XCTAssertEqual(member.id, OPMLParser.normalizeURL(second.feedURL))
     }
+
+    // P1-06: idempotency
+    func testNormalizeURLIsIdempotent() throws {
+        for vector in try vectors() {
+            let once = OPMLParser.normalizeURL(vector.raw)
+            let twice = OPMLParser.normalizeURL(once)
+            XCTAssertEqual(once, twice,
+                "not idempotent: \(vector.name): normalize(\(vector.raw)) = \(once), normalize(\(once)) = \(twice)")
+        }
+    }
+
+    // P1-06: trailing slash idempotency
+    func testMultipleTrailingSlashesAreAllRemoved() {
+        XCTAssertEqual(OPMLParser.normalizeURL("https://example.com/feed//"), "https://example.com/feed")
+        XCTAssertEqual(OPMLParser.normalizeURL("https://example.com/feed///"), "https://example.com/feed")
+    }
+
+    // P1-05: percent-encoded authority delimiters
+    func testRejectsPercentEncodedAuthorityDelimiters() {
+        // These URLs have percent-encoded delimiters that decode to invalid host chars
+        let invalidURLs = [
+            "https://foo%2Fbar/feed",
+            "https://example%3Acom/feed",
+            "https://foo%40bar/feed",
+        ]
+        for url in invalidURLs {
+            // normalizeURL returns the input unchanged for invalid URLs
+            XCTAssertEqual(OPMLParser.normalizeURL(url), url,
+                "\(url): should return unchanged (invalid)")
+            XCTAssertEqual(OPMLParser.requestURL(url), url,
+                "\(url): should return unchanged (invalid)")
+        }
+    }
+
+    // P1-05: valid IPv6 is accepted
+    func testValidBracketedIPv6Accepted() {
+        let url = "https://[2001:db8::1]/feed"
+        XCTAssertEqual(OPMLParser.normalizeURL(url), "https://[2001:db8::1]/feed")
+        XCTAssertEqual(OPMLParser.requestURL(url), "https://[2001:db8::1]/feed")
+    }
 }

@@ -119,6 +119,32 @@ def _normalize_percent_encoded(value: str, safe: frozenset[str]) -> str:
     return "".join(result)
 
 
+# Authority delimiters that must never appear DECODED in a hostname (P1-05).
+# If any decode from percent-encoding within the host, the URL is rejected
+# because the decoded host changes the request destination.
+_FORBIDDEN_DECODED_IN_HOST = frozenset({"/", "?", "#", "@", "[", "]"})
+
+
+def _validate_decoded_host(netloc: str, hostname: str) -> bool:
+    """Reject hosts where percent-decoding reveals authority delimiters.
+
+    A host like ``example%2Fcom`` decodes to ``example/com``, changing the
+    URL structure.  These must be rejected rather than silently rewritten.
+    """
+    if not hostname:
+        return False
+    decoded = urllib.parse.unquote(hostname)
+    for char in _FORBIDDEN_DECODED_IN_HOST:
+        if char in decoded:
+            return False
+    # Colons are valid only inside bracketed IPv6 literals (P1-05).
+    # ``parsed.hostname`` strips brackets, so we check ``netloc``.
+    if ":" in decoded:
+        if not netloc.startswith("["):
+            return False
+    return True
+
+
 def _canonical_hostname(parsed: urllib.parse.SplitResult) -> tuple[str, bool]:
     hostname = parsed.hostname
     if not hostname:
@@ -128,7 +154,11 @@ def _canonical_hostname(parsed: urllib.parse.SplitResult) -> tuple[str, bool]:
     except (UnicodeDecodeError, ValueError):
         raise ValueError("invalid encoded hostname") from None
     decoded = decoded.casefold()
-    is_ipv6 = ":" in decoded
+
+    # Bracket-aware IPv6 detection (P1-05): use the netloc to detect literal
+    # IPv6 addresses instead of the ":" in decoded heuristic which
+    # misidentifies percent-encoded colons as IPv6.
+    is_ipv6 = parsed.netloc.startswith("[")
     if not is_ipv6 and decoded.startswith("www."):
         decoded = decoded[4:]
     if not is_ipv6:
@@ -178,6 +208,9 @@ def _split_http_url(raw: object) -> tuple[str, urllib.parse.SplitResult] | None:
             return None
         _validated_port(parsed)
         _canonical_hostname(parsed)
+        # P1-05: reject hosts where percent-decoding reveals delimiters
+        if not _validate_decoded_host(parsed.netloc, parsed.hostname or ""):
+            return None
     except (UnicodeError, ValueError):
         return None
     return value, parsed
@@ -239,8 +272,8 @@ def canonical_url(raw: object) -> str:
     except (UnicodeError, ValueError):
         return value
     path = _normalize_percent_encoded(parsed.path, _PATH_SAFE)
-    if path.endswith("/"):
-        path = path[:-1]
+    # P1-06: rstrip all trailing slashes for idempotency
+    path = path.rstrip("/")
     return urllib.parse.urlunsplit((
         "https",
         netloc,

@@ -75,5 +75,75 @@
     "canonical": "https://cdn.example.com/feed?episode=7",
     "request": "https://cdn.example.com/feed?x-amz-signature=secret&X-Amz-Date=20260803T000000Z&temp_url_sig=abc&expires=99&episode=7",
     "valid": true
+  },
+  {
+    "name": "P1-05: percent-encoded slash in host",
+    "raw": "https://foo%2Fbar/feed",
+    "canonical": "https://foo%2Fbar/feed",
+    "request": "https://foo%2Fbar/feed",
+    "valid": false
+  },
+  {
+    "name": "P1-05: percent-encoded colon in host",
+    "raw": "https://example%3Acom/feed",
+    "canonical": "https://example%3Acom/feed",
+    "request": "https://example%3Acom/feed",
+    "valid": false
+  },
+  {
+    "name": "P1-05: percent-encoded colon-only host",
+    "raw": "https://%3A/feed",
+    "canonical": "https://%3A/feed",
+    "request": "https://%3A/feed",
+    "valid": false
+  },
+  {
+    "name": "P1-05: percent-encoded at-sign in host",
+    "raw": "https://foo%40bar/feed",
+    "canonical": "https://foo%40bar/feed",
+    "request": "https://foo%40bar/feed",
+    "valid": false
+  },
+  {
+    "name": "P1-05: percent-encoded brackets in host",
+    "raw": "https://%5B::1%5D/feed",
+    "canonical": "https://%5B::1%5D/feed",
+    "request": "https://%5B::1%5D/feed",
+    "valid": false
+  },
+  {
+    "name": "P1-06: double trailing slash",
+    "raw": "https://example.com/feed//",
+    "canonical": "https://example.com/feed",
+    "request": "https://example.com/feed//",
+    "valid": true
+  },
+  {
+    "name": "P1-06: triple trailing slash",
+    "raw": "https://example.com/feed///",
+    "canonical": "https://example.com/feed",
+    "request": "https://example.com/feed///",
+    "valid": true
+  },
+  {
+    "name": "P1-06: trailing slash with query",
+    "raw": "https://example.com/feed/?a=1",
+    "canonical": "https://example.com/feed?a=1",
+    "request": "https://example.com/feed/?a=1",
+    "valid": true
+  },
+  {
+    "name": "valid bracketed IPv6",
+    "raw": "https://[2001:db8::1]/feed",
+    "canonical": "https://[2001:db8::1]/feed",
+    "request": "https://[2001:db8::1]/feed",
+    "valid": true
+  },
+  {
+    "name": "valid IDN hostname",
+    "raw": "https://münchen.de/feed",
+    "canonical": "https://xn--mnchen-3ya.de/feed",
+    "request": "https://xn--mnchen-3ya.de/feed",
+    "valid": true
   }
 ]
