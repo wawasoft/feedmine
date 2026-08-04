@@ -157,7 +157,14 @@ actor ImportPipeline {
         let parser = XMLParser(data: opmlData)
         let delegate = OPMLImportDelegate(fallbackCategory: fileName.capitalized)
         parser.delegate = delegate
-        parser.parse()
+        // P2-13: Require successful parse. A partial parse (valid outlines
+        // followed by malformed XML) would silently return partial sources.
+        guard parser.parse(), parser.parserError == nil else {
+            let error = parser.parserError?.localizedDescription ?? "malformed OPML"
+            return (ImportResult(items: [
+                ImportItemResult(url: fileName, title: nil, status: .invalid("OPML parse error: \(error)"))
+            ]), [])
+        }
 
         let parsedSources = delegate.sources
 
@@ -421,6 +428,8 @@ private final class OPMLImportDelegate: NSObject, XMLParserDelegate, @unchecked 
     }
 
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        // P2-13: Clear everything — no partial sources from a broken parse.
+        sources.removeAll()
         categoryStack.removeAll()
         outlinePushStack.removeAll()
     }

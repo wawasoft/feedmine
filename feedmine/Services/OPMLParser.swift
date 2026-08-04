@@ -297,10 +297,10 @@ struct OPMLParser {
         let delegate = OPMLDelegate(fallbackCategory: fallbackCategory, region: region, mediaKind: mediaKind,
                                     fileLanguage: fileLanguage)
         parser.delegate = delegate
-        parser.parse()
-
-        if let error = parser.parserError {
-            throw error
+        // P2-13: Require successful parse.
+        guard parser.parse(), parser.parserError == nil else {
+            throw parser.parserError ?? NSError(domain: "OPMLParser", code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to parse OPML at \(url.path)"])
         }
 
         return (delegate.sources, delegate.invalidSourceCount)
@@ -352,8 +352,12 @@ struct OPMLParser {
         let fileName = url.deletingPathExtension().lastPathComponent
         let delegate = OPMLDelegate(fallbackCategory: fileName.capitalized, fileLanguage: fileLanguage)
         parser.delegate = delegate
-        parser.parse()
-        if let error = parser.parserError { throw error }
+        // P2-13: Require successful parse — partial sources from malformed
+        // OPML are discarded.
+        guard parser.parse(), parser.parserError == nil else {
+            throw parser.parserError ?? NSError(domain: "OPMLParser", code: -1,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to parse OPML file"])
+        }
         return delegate.sources
     }
 
