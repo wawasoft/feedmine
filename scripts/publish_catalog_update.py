@@ -193,7 +193,12 @@ def publish(args: argparse.Namespace) -> dict:
     # cleaning up the backup. Readers see either the complete old revision
     # or the complete new one — never a mixed Feeds/ + manifest.json.
     backup = destination.with_name(destination.name + f".backup-r{revision}")
-    if backup.exists():
+    # If a backup from a prior crashed run exists, restore it — the crash
+    # happened before staging completed, so the destination may be absent
+    # or incomplete.
+    if backup.exists() and not destination.exists():
+        backup.rename(destination)
+    elif backup.exists():
         shutil.rmtree(backup)
     if destination.exists():
         destination.rename(backup)
