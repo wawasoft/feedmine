@@ -442,6 +442,72 @@ CREATE INDEX IF NOT EXISTS idx_sources_xml_url ON sources(xml_url);
 """
 
 
+def _migrate_sources_schema(conn: duckdb.DuckDBPyConnection) -> int:
+    """P1-06: Add feedmine_source_id to existing sources tables.
+
+    Old databases had only xml_url; the identity refactor added
+    feedmine_source_id. CREATE TABLE IF NOT EXISTS does not alter
+    existing tables, so we must migrate in-place.
+
+    Returns the number of sources backfilled.
+    """
+    cols = {row[2] for row in conn.execute("PRAGMA table_info('sources')").fetchall()}
+    if "feedmine_source_id" in cols:
+        return 0  # already migrated
+
+    print("  Migrating sources table: adding feedmine_source_id column...")
+    conn.execute("ALTER TABLE sources ADD COLUMN feedmine_source_id VARCHAR")
+
+    # Backfill from xml_url
+    rows = conn.execute(
+        "SELECT source_id, xml_url FROM sources WHERE feedmine_source_id IS NULL"
+    ).fetchall()
+
+    if not rows:
+        # Add NOT NULL + UNIQUE constraint
+        conn.execute(
+            "ALTER TABLE sources ALTER feedmine_source_id SET NOT NULL"
+        )
+        conn.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_sources_feedmine_id "
+            "ON sources(feedmine_source_id)"
+        )
+        return 0
+
+    count = len(rows)
+    # Detect identity collisions before applying
+    id_map: dict[str, list[int]] = {}
+    for source_id, xml_url in rows:
+        fmid = compute_source_id(xml_url)
+        id_map.setdefault(fmid, []).append(source_id)
+
+    collisions = {fmid: ids for fmid, ids in id_map.items() if len(ids) > 1}
+    if collisions:
+        collision_detail = "; ".join(
+            f"{fmid}: source_ids {ids}" for fmid, ids in list(collisions.items())[:5]
+        )
+        raise ValueError(
+            f"Identity collisions during migration: {collision_detail}. "
+            f"Resolve manually (merge or delete duplicates) before re-running."
+        )
+
+    for source_id, xml_url in rows:
+        fmid = compute_source_id(xml_url)
+        conn.execute(
+            "UPDATE sources SET feedmine_source_id = ? WHERE source_id = ?",
+            [fmid, source_id],
+        )
+
+    # Now safe to add constraints
+    conn.execute("ALTER TABLE sources ALTER feedmine_source_id SET NOT NULL")
+    conn.execute(
+        "CREATE UNIQUE INDEX IF NOT EXISTS idx_sources_feedmine_id "
+        "ON sources(feedmine_source_id)"
+    )
+    print(f"  Backfilled feedmine_source_id for {count} sources")
+    return count
+
+
 def init_db(db_path: str, reset: bool = False) -> duckdb.DuckDBPyConnection:
     """Open DuckDB, create tables, return connection."""
     # Create parent dir if needed
@@ -454,6 +520,20 @@ def init_db(db_path: str, reset: bool = False) -> duckdb.DuckDBPyConnection:
         conn.execute("DROP SEQUENCE IF EXISTS seq_source_id")
         conn.execute("DROP SEQUENCE IF EXISTS seq_article_id")
     conn.execute(CREATE_TABLES_SQL)
+
+    # P1-06: Migrate existing databases that predate the identity refactor
+    if not reset:
+        sources_exist = conn.execute(
+            "SELECT COUNT(*) FROM information_schema.tables "
+            "WHERE table_name = 'sources'"
+        ).fetchone()[0] > 0
+        if sources_exist:
+            try:
+                _migrate_sources_schema(conn)
+            except Exception as e:
+                print(f"  WARNING: schema migration failed: {e}", file=sys.stderr)
+                print(f"  Run with --reset to start fresh.", file=sys.stderr)
+
     return conn
 
 
