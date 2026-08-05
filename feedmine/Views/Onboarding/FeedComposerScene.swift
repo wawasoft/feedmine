@@ -16,9 +16,10 @@ struct FeedComposerScene: View {
     @State private var previewCards: [FeedCardPresentation] = []
     @State private var previewTask: Task<Void, Never>?
     @State private var previewState: PreviewState = .preparing
+    @State private var isRecomputing = false
     @State private var recipeVersion = 0
 
-    enum PreviewState {
+    enum PreviewState: Equatable {
         case preparing
         case ready
         case noResults
@@ -60,6 +61,16 @@ struct FeedComposerScene: View {
                 noResultsView
             case .error(let message):
                 errorView(message)
+            }
+
+            // Subtle inline indicator while recomputing — the current cards
+            // stay visible underneath; no flash of skeletons.
+            if isRecomputing, previewState == .ready {
+                ProgressView()
+                    .controlSize(.small)
+                    .frame(height: 14)
+                    .transition(.opacity)
+                    .accessibilityLabel(String(localized: "Updating preview"))
             }
         }
         .padding(.top, 12)
@@ -130,102 +141,130 @@ struct FeedComposerScene: View {
     // MARK: - Editorial Sheet
 
     private var editorialSheet: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                // Header
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(String(localized: "Shape your first feed"))
-                        .font(.title.weight(.bold))
-                        .fontDesign(.serif)
+        VStack(spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    // Header
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(localized: "Shape your first feed"))
+                            .font(.title.weight(.bold))
+                            .fontDesign(.serif)
 
-                    Text(String(localized: "Optional. Change anything later."))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
+                        Text(String(localized: "Optional. Change anything later."))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
 
-                // Languages
-                sectionLabel(String(localized: "Languages"))
-                LanguageSelectionControl(
-                    selectedLanguages: Binding(
-                        get: { Set(recipe.languages) },
-                        set: { langs in
-                            recipe.languages = Array(langs).sorted()
-                            bumpRecipe()
-                        }
-                    ),
-                    availableLanguages: loader.availableLanguages,
-                    accent: engine.accent
-                )
+                    // Languages
+                    sectionLabel(String(localized: "Languages"))
+                    LanguageSelectionControl(
+                        selectedLanguages: Binding(
+                            get: { Set(recipe.languages) },
+                            set: { langs in
+                                recipe.languages = Array(langs).sorted()
+                                bumpRecipe()
+                            }
+                        ),
+                        availableLanguages: loader.availableLanguages,
+                        accent: engine.accent
+                    )
 
-                Divider()
+                    Divider()
 
-                // Discovery
-                DiscoverySlider(
-                    value: Binding(
-                        get: { recipe.discoveryLevel },
-                        set: { val in
-                            recipe.discoveryLevel = val
-                            bumpRecipe()
-                        }
-                    ),
-                    accent: engine.accent
-                )
-
-                Divider()
-
-                // Source balance
-                EditorialBalanceControl(
-                    preferences: Binding(
-                        get: { recipe.editorialPreferences },
-                        set: { prefs in
-                            recipe.editorialPreferences = prefs
-                            bumpRecipe()
-                        }
-                    ),
-                    accent: engine.accent
-                )
-
-                Divider()
-
-                // Topics
-                sectionLabel(String(localized: "Topics"))
-                ForEach(CuratedTopic.allCases) { topic in
-                    TopicPreferenceRow(
-                        topicKey: topic.featureKey,
-                        topicName: topic.displayName,
-                        level: Binding(
-                            get: {
-                                recipe.topicPreferences[topic.featureKey, default: .neutral]
-                            },
-                            set: { level in
-                                if level == .neutral {
-                                    recipe.topicPreferences.removeValue(forKey: topic.featureKey)
-                                } else {
-                                    recipe.topicPreferences[topic.featureKey] = level
-                                }
+                    // Discovery
+                    DiscoverySlider(
+                        value: Binding(
+                            get: { recipe.discoveryLevel },
+                            set: { val in
+                                recipe.discoveryLevel = val
                                 bumpRecipe()
                             }
                         ),
                         accent: engine.accent
                     )
-                    Divider().opacity(0.3)
+
+                    Divider()
+
+                    // Source balance
+                    EditorialBalanceControl(
+                        preferences: Binding(
+                            get: { recipe.editorialPreferences },
+                            set: { prefs in
+                                recipe.editorialPreferences = prefs
+                                bumpRecipe()
+                            }
+                        ),
+                        accent: engine.accent
+                    )
+
+                    Divider()
+
+                    // Topics
+                    sectionLabel(String(localized: "Topics"))
+                    ForEach(CuratedTopic.allCases) { topic in
+                        TopicPreferenceRow(
+                            topicKey: topic.featureKey,
+                            topicName: topic.displayName,
+                            level: Binding(
+                                get: {
+                                    recipe.topicPreferences[topic.featureKey, default: .neutral]
+                                },
+                                set: { level in
+                                    if level == .neutral {
+                                        recipe.topicPreferences.removeValue(forKey: topic.featureKey)
+                                    } else {
+                                        recipe.topicPreferences[topic.featureKey] = level
+                                    }
+                                    bumpRecipe()
+                                }
+                            ),
+                            accent: engine.accent
+                        )
+                        Divider().opacity(0.3)
+                    }
+
+                    Divider()
+
+                    // Media types
+                    MediaTypeToggles(
+                        selected: Binding(
+                            get: { recipe.mediaTypes },
+                            set: { types in
+                                recipe.mediaTypes = types
+                                bumpRecipe()
+                            }
+                        ),
+                        accent: engine.accent
+                    )
+                }
+                .padding(20)
+            }
+
+            // Pinned footer — always visible, never below the fold.
+            VStack(spacing: 10) {
+                // A way out and a way back to neutral, always reachable.
+                HStack(spacing: 12) {
+                    Button(action: onReset) {
+                        Text(String(localized: "Reset"))
+                            .font(.subheadline.weight(.medium))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(engine.accent)
+                    .accessibilityIdentifier("composer-reset")
+
+                    Button(action: onStartBroad) {
+                        Text(String(localized: "Start broad"))
+                            .font(.subheadline.weight(.medium))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(engine.accent)
+                    .accessibilityIdentifier("composer-start-broad")
                 }
 
-                Divider()
-
-                // Media types
-                MediaTypeToggles(
-                    selected: Binding(
-                        get: { recipe.mediaTypes },
-                        set: { types in
-                            recipe.mediaTypes = types
-                            bumpRecipe()
-                        }
-                    ),
-                    accent: engine.accent
-                )
-
-                // Open my feed button — always visible
                 Button(action: onSave) {
                     Text(String(localized: "Open my feed"))
                         .font(.body.weight(.semibold))
@@ -235,10 +274,11 @@ struct FeedComposerScene: View {
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.roundedRectangle(radius: 16))
                 .tint(engine.accent)
-                .padding(.top, 8)
                 .accessibilityIdentifier("composer-open-feed")
             }
-            .padding(20)
+            .padding(.horizontal, 20)
+            .padding(.top, 8)
+            .padding(.bottom, 12)
         }
         .background(
             reduceTransparency
@@ -279,7 +319,13 @@ struct FeedComposerScene: View {
     private func requestPreview() {
         previewTask?.cancel()
         previewTask = Task { @MainActor in
-            previewState = .preparing
+            // Keep the current preview visible while the next one is computed.
+            // Only the very first load (or a non-ready state) shows skeletons.
+            if previewState != .ready {
+                previewState = .preparing
+            } else {
+                isRecomputing = true
+            }
 
             let evidence = CuratedProfileDefinition(languages: recipe.languages)
             let cards = await loader.previewCuratedCards(
@@ -288,7 +334,10 @@ struct FeedComposerScene: View {
                 limit: 3
             )
 
+            // A superseded task returns here without touching isRecomputing —
+            // the newer task owns the indicator state.
             guard !Task.isCancelled else { return }
+            isRecomputing = false
 
             withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
                 if cards.isEmpty {

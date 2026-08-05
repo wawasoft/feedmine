@@ -25,6 +25,17 @@ enum FeedRecipeResolver {
             weights[editorialKey] = level.profileWeight
         }
 
+        // Media types map to the engine's `media:*` feature keys (MediaKind
+        // vocabulary: text/audio/video). A type the user excluded gets weight
+        // -3 — strongly downweighted in ranking and dropped from previews.
+        // The default (all three present) adds no weights at all.
+        let allMediaTypes: Set<MediaType> = [.article, .podcast, .video]
+        if recipe.mediaTypes != allMediaTypes {
+            for type in allMediaTypes where !recipe.mediaTypes.contains(type) {
+                weights[Self.mediaFeatureKey(for: type)] = -3
+            }
+        }
+
         // Layer evidence on top (additive)
         for (key, evidenceWeight) in evidence.weights {
             let baseline = weights[key, default: 0]
@@ -43,5 +54,16 @@ enum FeedRecipeResolver {
             evidence: evidence.evidence,
             modelVersion: CuratedProfileDefinition.currentModelVersion
         )
+    }
+
+    /// The engine feature key for a media type. `MediaType` uses content names
+    /// (article/podcast/video) while the engine's feature vocabulary uses
+    /// `MediaKind` names (text/audio/video), so the mapping is explicit.
+    private static func mediaFeatureKey(for type: MediaType) -> String {
+        switch type {
+        case .article: return "media:text"
+        case .podcast: return "media:audio"
+        case .video: return "media:video"
+        }
     }
 }

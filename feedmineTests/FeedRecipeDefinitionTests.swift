@@ -49,12 +49,15 @@ final class FeedRecipeDefinitionTests: XCTestCase {
             languages: ["en", "pt"],
             discoveryLevel: 0.7,
             topicPreferences: ["topic:technology-science": .more],
-            editorialPreferences: ["editorial:specialist": .more]
+            editorialPreferences: ["editorial:specialist": .more],
+            mediaTypes: [.article, .video]  // podcasts excluded
         )
         let data = try JSONEncoder().encode(recipe)
         let decoded = try JSONDecoder().decode(FeedRecipeDefinition.self, from: data)
         XCTAssertEqual(decoded.languages, recipe.languages)
         XCTAssertEqual(decoded.discoveryLevel, recipe.discoveryLevel)
         XCTAssertEqual(decoded.topicPreferences, recipe.topicPreferences)
+        XCTAssertEqual(decoded.editorialPreferences, recipe.editorialPreferences)
+        XCTAssertEqual(decoded.mediaTypes, recipe.mediaTypes)
     }
 }
