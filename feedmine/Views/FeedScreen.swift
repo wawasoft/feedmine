@@ -151,7 +151,7 @@ struct FeedScreen: View {
         .onChange(of: scenePhase) { _, phase in handleScenePhase(phase) }
         .onReceive(NotificationCenter.default.publisher(for: .onboardingDidSaveCuratedFeed)) { notification in
             let name = notification.userInfo?["feedName"] as? String ?? "Your mix"
-            toastMessage = "\(name) is ready. Open the hood anytime."
+            toastMessage = "\(name) is ready"
             toastIcon = "slider.horizontal.3"
             withAnimation { showToast = true }
         }
