@@ -1,53 +1,49 @@
 import SwiftUI
 import UIKit
 
+/// Two-stage onboarding: a brand welcome screen, then an optional composer
+/// where the user shapes their first feed recipe. "Start broad" saves an
+/// immediately usable neutral recipe and dismisses.
 struct CuratedOnboardingView: View {
-    enum Stage: Int {
+    enum Stage {
         case welcome
-        case intent
-        case topics
-        case languages
-        case comparisons
-        case review
+        case composer
     }
 
     @Environment(FeedLoader.self) private var loader
     @State private var engine = CircadianEngine.shared
     @State private var stage: Stage = .welcome
-    @State private var seed = OnboardingSeed()
-    @State private var selectedLanguages: Set<String> = []
-    @State private var session: CuratedOnboardingSession?
-    @State private var feedName = "My Feed"
-    @State private var candidateTask: Task<Void, Never>?
-    @State private var candidateAttempts = 0
+    @State private var recipe: FeedRecipeDefinition
     @State private var isSaving = false
     @State private var errorMessage: String?
-    @State private var answerPulse = 0
-    @State private var answerDelayTask: Task<Void, Never>?
-    @State private var showInspector = false
-
-    /// Snapshot of the global language filter before onboarding mutates it,
-    /// restored on cancel so the main feed isn't left filtered.
-    @State private var preOnboardingLanguages: Set<String>?
-
-    /// Preview items computed once when entering the reveal stage, avoiding
-    /// repeated MainActor work during body recomputation.
-    @State private var previewItems: [FeedItem] = []
 
     let isFirstRun: Bool
     var onCancel: () -> Void = {}
     var onSaved: (CuratedFeed) -> Void = { _ in }
 
-    /// Image URLs from the candidate pool or visible feed — used as ambient
-    /// backdrop glows so the background reflects real content, not static decor.
+    init(
+        isFirstRun: Bool,
+        onCancel: @escaping () -> Void = {},
+        onSaved: @escaping (CuratedFeed) -> Void = { _ in }
+    ) {
+        self.isFirstRun = isFirstRun
+        self.onCancel = onCancel
+        self.onSaved = onSaved
+        _recipe = State(initialValue: FeedRecipeDefinition.neutral(
+            languages: [Self.deviceLanguageCode]
+        ))
+    }
+
+    /// Device language, used to seed the neutral recipe on first run,
+    /// Start broad, and Reset to neutral.
+    private static var deviceLanguageCode: String {
+        Locale.current.language.languageCode?.identifier ?? "en"
+    }
+
+    /// Article images from the visible feed — used as ambient backdrop glows
+    /// so the background reflects real content, not static decor.
     private var ambientImageURLs: [URL] {
-        if let session, let pair = session.currentPair {
-            return [pair.left, pair.right].compactMap {
-                ($0.item.bestImageURL ?? $0.item.imageURL).flatMap(URL.init(string:))
-            }
-        }
-        // During welcome/languages, use whatever's in the visible feed
-        return loader.items.prefix(8).compactMap {
+        loader.items.prefix(8).compactMap {
             ($0.bestImageURL ?? $0.imageURL).flatMap(URL.init(string:))
         }
     }
@@ -59,97 +55,21 @@ struct CuratedOnboardingView: View {
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
-                simplifiedTopBar
+                topBar
                 Group {
                     switch stage {
                     case .welcome:
                         WelcomeScene(
                             accent: engine.accent,
-                            onShape: {
-                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                                    stage = .intent
-                                }
-                            },
-                            onStartBroad: cancelOnboarding
+                            onShape: moveToComposer,
+                            onStartBroad: startBroad
                         )
-                    case .intent:
-                        IntentScene(
-                            selectedIntent: Binding(
-                                get: { seed.intent },
-                                set: { seed.intent = $0 }
-                            ),
-                            accent: engine.accent,
-                            onContinue: {
-                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                                    stage = .topics
-                                }
-                            }
-                        )
-                    case .topics:
-                        TopicsScene(
-                            selectedTopics: Binding(
-                                get: { seed.topicIDs },
-                                set: { seed.topicIDs = $0 }
-                            ),
-                            accent: engine.accent,
-                            onContinue: {
-                                withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                                    stage = .languages
-                                }
-                            }
-                        )
-                    case .languages:
-                        LanguageScene(
-                            selectedLanguages: $selectedLanguages,
-                            availableLanguages: loader.availableLanguages,
-                            accent: engine.accent,
-                            onContinue: startComparisons
-                        )
-                    case .comparisons:
-                        if let session, let pair = session.currentPair {
-                            StoryDuelScene(
-                                pair: pair,
-                                accent: engine.accent,
-                                canUndo: session.canUndo,
-                                canFinish: session.canFinish,
-                                isReady: session.isReady,
-                                onChoose: answer,
-                                onUndo: {
-                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                        session.undo()
-                                        updateAutoName()
-                                    }
-                                },
-                                onFinish: {
-                                    previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
-                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                                        stage = .review
-                                    }
-                                },
-                                onSkip: {
-                                    previewItems = loader.previewCuratedFeed(profile: session.profile, limit: 3)
-                                    withAnimation(.spring(response: 0.5, dampingFraction: 0.75)) {
-                                        stage = .review
-                                    }
-                                }
-                            )
-                            .id(pair.id)
-                            .transition(.asymmetric(
-                                insertion: .move(edge: .bottom).combined(with: .opacity),
-                                removal: .move(edge: .top).combined(with: .opacity)
-                            ))
-                        } else {
-                            candidateLoadingState(session)
-                        }
-                    case .review:
-                        FeedRevealScene(
-                            profile: session?.profile ?? CuratedProfileDefinition(),
-                            feedName: $feedName,
-                            accent: engine.accent,
-                            previewItems: previewItems,
-                            isSaving: isSaving,
-                            onSave: { Task { await save(session!) } },
-                            onOpenHood: { showInspector = true }
+                    case .composer:
+                        FeedComposerScene(
+                            recipe: $recipe,
+                            onSave: { Task { await save() } },
+                            onStartBroad: startBroad,
+                            onReset: resetToNeutral
                         )
                     }
                 }
@@ -161,14 +81,6 @@ struct CuratedOnboardingView: View {
         }
         .tint(engine.accent)
         .preferredColorScheme(nil)
-        .onAppear {
-            seedLanguageSelection()
-            prepareDefaultName()
-        }
-        .onDisappear {
-            candidateTask?.cancel()
-            answerDelayTask?.cancel()
-        }
         .alert("Couldn’t save this feed", isPresented: Binding(
             get: { errorMessage != nil },
             set: { if !$0 { errorMessage = nil } }
@@ -177,298 +89,65 @@ struct CuratedOnboardingView: View {
         } message: {
             Text(errorMessage ?? "")
         }
-        .sensoryFeedback(.selection, trigger: answerPulse)
-        .sheet(isPresented: $showInspector) {
-            if let session {
-                NavigationStack {
-                    ScrollView {
-                        CuratedProfileControls(
-                            profile: session.profile,
-                            accent: engine.accent,
-                            onTopicChange: { session.setTopicWeight($0, $1) },
-                            onEditorialChange: { session.setEditorialWeight($0, $1) },
-                            onDiscoveryChange: { session.setDiscoveryLevel($0) },
-                            onLearningChange: { session.setLearningEnabled($0) }
-                        )
-                        .padding(.horizontal, 22)
-                        .padding(.vertical, 16)
-                    }
-                    .background(engine.pageBackground)
-                    .navigationTitle("Everything learned")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .confirmationAction) {
-                            Button("Done") { showInspector = false }
-                        }
-                    }
-                }
-            }
-        }
     }
 
-    private var simplifiedTopBar: some View {
+    private var topBar: some View {
         HStack {
-            if stage != .welcome {
-                Button { goBack() } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 15, weight: .semibold))
-                        .frame(width: 36, height: 36)
-                        .background(.thinMaterial, in: Circle())
-                }
-                .accessibilityLabel("Back")
-            } else {
-                Color.clear.frame(width: 36, height: 36)
-            }
+            Color.clear.frame(width: 36, height: 36)
 
             Spacer()
 
-            if stage == .comparisons, let session {
-                ConfidenceProgressView(
-                    answerCount: session.answerCount,
-                    isReady: session.isReady,
-                    accent: engine.accent
-                )
-            }
-
-            Spacer()
-
-            Button { cancelOnboarding() } label: {
+            Button { onCancel() } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 13, weight: .semibold))
                     .frame(width: 36, height: 36)
                     .background(.thinMaterial, in: Circle())
             }
-            .accessibilityLabel(isFirstRun ? "Start with everything" : "Close")
+            .accessibilityLabel("Close")
         }
         .padding(.horizontal, 18)
         .padding(.top, 8)
         .padding(.bottom, 6)
     }
 
-    // MARK: - Helpers
-
-    /// Cancel onboarding, restoring the global language filter if it was mutated.
-    private func cancelOnboarding() {
-        if let saved = preOnboardingLanguages {
-            loader.applyCuratedLanguages(saved)
-        }
-        onCancel()
-    }
-
     // MARK: - Actions
 
-    // Old welcomePage content moved to WelcomeScene.swift — kept here for diff clarity:
-
-    
-// MARK: - Actions
-
-    private func seedLanguageSelection() {
-        guard selectedLanguages.isEmpty else { return }
-        if !loader.selectedLanguages.isEmpty {
-            selectedLanguages = loader.selectedLanguages
-            return
-        }
-        if let deviceLanguage = CuratedPreferenceEngine.baseLanguage(
-            Locale.current.language.languageCode?.identifier
-        ) {
-            selectedLanguages = [deviceLanguage]
+    private func moveToComposer() {
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+            stage = .composer
         }
     }
 
-    private func prepareDefaultName() {
-        updateAutoName()
+    /// "Start broad" — reset the recipe to neutral and save immediately.
+    private func startBroad() {
+        recipe = FeedRecipeDefinition.neutral(languages: [Self.deviceLanguageCode])
+        Task { await save() }
     }
 
-    /// Generates a feed name from the top preference signals, falling back
-    /// to a warm default when no signals exist yet. The name updates
-    /// dynamically as the session accumulates answers.
-    private func updateAutoName() {
-        guard let session else {
-            if feedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                feedName = "My Feed"
-            }
-            return
-        }
-        let topTopics = CuratedPreferenceEngine.topTopicWeights(
-            in: session.profile, limit: 2
-        ).filter { $0.weight > 0.1 }.map(\.topic.shortName)
-        let generated: String
-        if topTopics.count >= 2 {
-            generated = "\(topTopics[0]) & \(topTopics[1])"
-        } else if let first = topTopics.first {
-            generated = "\(first) Mix"
-        } else {
-            generated = "My First Feed"
-        }
-        // Only overwrite if the user hasn't manually edited the name
-        let trimmed = feedName.trimmingCharacters(in: .whitespacesAndNewlines)
-        if trimmed.isEmpty || trimmed == "My Curated Feed" || trimmed == "My Feed" {
-            feedName = generated
-        }
+    /// Reset the composer's recipe in place without saving.
+    private func resetToNeutral() {
+        recipe = FeedRecipeDefinition.neutral(languages: [Self.deviceLanguageCode])
     }
 
-    private func startComparisons() {
-        // Snapshot global filter before mutating — restored on cancel
-        if preOnboardingLanguages == nil {
-            preOnboardingLanguages = loader.selectedLanguages
-        }
-        loader.applyCuratedLanguages(selectedLanguages)
-        let newSession = CuratedOnboardingSession(
-            languages: selectedLanguages,
-            seed: seed
-        )
-        session = newSession
-        candidateAttempts = 0
-        withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
-            stage = .comparisons
-        }
-        refreshCandidatePool()
-    }
-
-    private func refreshCandidatePool() {
-        candidateTask?.cancel()
-        candidateTask = Task { @MainActor in
-            for attempt in 0..<10 {
-                guard !Task.isCancelled, stage == .comparisons, let session else {
-                    return
-                }
-                candidateAttempts = attempt + 1
-                session.beginCandidateRefresh()
-                let candidates = await loader.curatedOnboardingCandidates(
-                    languages: selectedLanguages
-                )
-                guard !Task.isCancelled else { return }
-
-                withAnimation(.easeInOut(duration: 0.25)) {
-                    session.updateCandidates(candidates)
-                }
-
-                // Warm images for the current pair before showing cards.
-                // The "Finding a fair comparison" state now does real work.
-                if let pair = session.currentPair {
-                    await warmPairImages(pair)
-                    return
-                }
-
-                // No pair yet — wait and retry.
-                try? await Task.sleep(for: .seconds(1.5))
-            }
-        }
-    }
-
-    /// Pre-load images for both cards in a pair so they render with photos,
-    /// not placeholder gradients. Actually initiates the download (unlike the
-    /// previous version which only polled). Times out at 4 seconds.
-    private func warmPairImages(_ pair: CuratedComparisonPair) async {
-        let urlStrings = [pair.left, pair.right].compactMap {
-            $0.item.bestImageURL ?? $0.item.imageURL
-        }
-        guard !urlStrings.isEmpty else { return }
-
-        let urls = urlStrings.compactMap(URL.init(string:))
-        guard !urls.isEmpty else { return }
-
-        // Initiate prefetch through the loader's prefetcher
-        await loader.prefetcher.prefetch(urls: urls.map(\.absoluteString), priorityURLs: urls.map(\.absoluteString))
-
-        // Wait up to 4 seconds for at least one to land in cache
-        let deadline = Date().addingTimeInterval(4)
-        while Date() < deadline {
-            if Task.isCancelled { break }
-            if urls.contains(where: { ImageCache.hasCachedImageData(for: $0) }) { break }
-            try? await Task.sleep(for: .milliseconds(150))
-        }
-    }
-
-    @ViewBuilder
-    private func candidateLoadingState(
-        _ session: CuratedOnboardingSession?
-    ) -> some View {
-        VStack(spacing: 20) {
-            Spacer()
-            ZStack {
-                ForEach(0..<5, id: \.self) { i in
-                    Circle()
-                        .fill(engine.accent.opacity(0.5))
-                        .frame(width: 8, height: 8)
-                        .offset(y: -54)
-                        .rotationEffect(.degrees(Double(i) * 72))
-                        .opacity(0.3 + 0.7 * abs(sin(Double(i) * 0.8)))
-                }
-                Image(systemName: "point.3.connected.trianglepath.dotted")
-                    .font(.system(size: 38, weight: .light))
-                    .foregroundStyle(engine.accent)
-                    .symbolEffect(.pulse, options: .repeating.speed(0.8))
-            }
-            .frame(width: 120, height: 120)
-            .rotationEffect(.degrees(candidateAttempts > 0 ? 360 : 0))
-            .animation(
-                .linear(duration: 4).repeatForever(autoreverses: false),
-                value: candidateAttempts
-            )
-
-            Text("Finding a fair comparison")
-                .font(.headline)
-            Text("Feedmine is using real stories arriving through the normal feed.\nNothing is generated or sent away.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 36)
-
-            Spacer()
-        }
-    }
-
-    private func answer(_ outcome: CuratedChoiceOutcome) {
-        guard let session else { return }
-
-        // Celebration feedback sequence
-        withAnimation(.spring(response: 0.35, dampingFraction: 0.65)) {
-            answerPulse += 1
-            session.answer(outcome)
-            updateAutoName()
-        }
-
-        // Haptic — prepare for next call, fire now
-        let impact = UIImpactFeedbackGenerator(style: .medium)
-        impact.prepare()
-        impact.impactOccurred()
-
-        // If reached target, a stronger celebration
-        if session.reachedTarget && !session.isComplete {
-            let heavyImpact = UIImpactFeedbackGenerator(style: .heavy)
-            heavyImpact.prepare()
-            heavyImpact.impactOccurred()
-        }
-
-        if session.currentPair == nil && !session.isComplete {
-            answerDelayTask = Task { @MainActor in
-                try? await Task.sleep(for: .milliseconds(350))
-                guard !Task.isCancelled else { return }
-                refreshCandidatePool()
-            }
-        }
-
-        if session.isComplete {
-            answerDelayTask = Task { @MainActor in
-                try? await Task.sleep(for: .milliseconds(500))
-                guard !Task.isCancelled, session.isComplete else { return }
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.7)) {
-                    stage = .review
-                }
-            }
-        }
-    }
-
-    private func save(_ session: CuratedOnboardingSession) async {
+    /// Save the current recipe as a new curated feed: resolve the effective
+    /// profile from recipe + evidence, persist it, activate it, then dismiss.
+    private func save() async {
+        guard !isSaving else { return }
         isSaving = true
         defer { isSaving = false }
-        let name = feedName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            ? "My Feed" : feedName
+
+        let name = autoName()
+        let evidence = CuratedProfileDefinition(languages: recipe.languages)
+        let effectiveProfile = FeedRecipeResolver.effectiveProfile(
+            recipe: recipe,
+            evidence: evidence
+        )
+
         do {
             let saved = try await loader.createCuratedFeed(
                 name: name,
-                definition: session.profile
+                definition: effectiveProfile,
+                recipe: recipe
             )
             loader.setActivePreset(.curatedFeed(
                 curatedFeedID: saved.id,
@@ -480,29 +159,20 @@ struct CuratedOnboardingView: View {
         }
     }
 
-    private func goBack() {
-        withAnimation(.spring(response: 0.42, dampingFraction: 0.88)) {
-            switch stage {
-            case .welcome: break
-            case .intent: stage = .welcome
-            case .topics: stage = .intent
-            case .languages: stage = .topics
-            case .comparisons:
-                candidateTask?.cancel()
-                stage = .languages
-            case .review:
-                stage = session?.answerCount ?? 0 > 0 ? .comparisons : .languages
+    /// Feed name from the topics the user asked for more of, falling back
+    /// to a warm default when no explicit preferences exist yet.
+    private func autoName() -> String {
+        let moreTopics = recipe.topicPreferences
+            .filter { $0.value == .more }
+            .compactMap { kv in
+                CuratedTopic.allCases.first { $0.featureKey == kv.key }?.displayName
             }
+        if moreTopics.count == 1 {
+            return moreTopics[0]
+        } else if moreTopics.count >= 2 {
+            return "\(moreTopics[0]) & \(moreTopics[1])"
         }
-    }
-
-    private func fallbackFlag(for code: String) -> String {
-        let mapping = [
-            "en": "🌎", "pt": "🇧🇷", "es": "🇪🇸", "fr": "🇫🇷",
-            "de": "🇩🇪", "it": "🇮🇹", "ar": "🌍", "hi": "🇮🇳",
-            "zh": "🇨🇳", "ja": "🇯🇵", "he": "🇮🇱", "ru": "🌍",
-        ]
-        return mapping[code] ?? "🌐"
+        return "My Feed"
     }
 }
 
@@ -693,108 +363,6 @@ struct CuratedProfileControls: View {
     }
 }
 
-// MARK: - Story choice card
-
-private struct CuratedStoryChoiceCard: View {
-    let candidate: CuratedCandidate
-    let marker: String
-    let accent: Color
-    let action: () -> Void
-
-    @State private var imageFailed = false
-
-    var body: some View {
-        Button(action: action) {
-            VStack(alignment: .leading, spacing: 0) {
-                artwork
-                    .aspectRatio(4.0 / 3.0, contentMode: .fit)
-                    .clipped()
-
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack(spacing: 6) {
-                        Text(marker)
-                            .font(.system(size: 11, weight: .black))
-                            .foregroundStyle(accent)
-                            .frame(width: 20, height: 20)
-                            .background(accent.opacity(0.12), in: Circle())
-                        Text(candidate.item.sourceTitle)
-                            .font(.caption2)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(accent)
-                            .lineLimit(1)
-                        Spacer(minLength: 4)
-                        Label(
-                            candidate.editorial.style.shortName,
-                            systemImage: candidate.editorial.style.icon
-                        )
-                        .font(.system(size: 9, weight: .bold))
-                        .foregroundStyle(.secondary)
-                        .lineLimit(1)
-                    }
-                    Text(candidate.item.title)
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundStyle(.primary)
-                        .lineLimit(3)
-                        .multilineTextAlignment(.leading)
-                    HStack(spacing: 4) {
-                        Image(systemName: "hand.tap")
-                        Text("I’d open this")
-                    }
-                    .font(.caption2)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.secondary)
-                }
-                .padding(12)
-                .frame(
-                    maxWidth: .infinity,
-                    minHeight: 120,
-                    maxHeight: 120,
-                    alignment: .topLeading
-                )
-            }
-            .background(.regularMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(.white.opacity(0.06), lineWidth: 0.6)
-            )
-            .shadow(color: .black.opacity(0.06), radius: 14, y: 6)
-        }
-        .buttonStyle(CuratedPressStyle())
-        .accessibilityIdentifier("curated-choice-\(marker.lowercased())")
-    }
-
-    @ViewBuilder
-    private var artwork: some View {
-        GeometryReader { geometry in
-            ZStack {
-                LinearGradient(
-                    colors: [
-                        ComponentToken.categoryColor(for: candidate.item.category).opacity(0.48),
-                        accent.opacity(0.16),
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                Image(systemName: candidate.topic.icon)
-                    .font(.system(size: 36, weight: .light))
-                    .foregroundStyle(.white.opacity(0.82))
-
-                if candidate.item.hasPotentialImage, !imageFailed {
-                    CachedAsyncImage(
-                        url: candidate.item.bestImageURL.flatMap(URL.init(string:)),
-                        articleURL: candidate.item.canResolveArticleImage
-                            ? URL(string: candidate.item.url) : nil,
-                        onResult: { success in imageFailed = !success }
-                    )
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                }
-            }
-        }
-    }
-}
-
 struct CuratedPressStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -806,7 +374,7 @@ struct CuratedPressStyle: ButtonStyle {
 
 // MARK: - Decorative artwork
 
-/// Ambient backdrop built from real article images in the candidate pool.
+/// Ambient backdrop built from real article images in the visible feed.
 /// Heavily blurred and dimmed so they create atmosphere without distracting.
 private struct CuratedBackdrop: View {
     let accent: Color
