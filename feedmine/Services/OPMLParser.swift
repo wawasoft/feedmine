@@ -26,8 +26,16 @@ struct OPMLParser {
         let info = Bundle.main.infoDictionary
         let build = info?["CFBundleVersion"] as? String ?? "0"
         let short = info?["CFBundleShortVersionString"] as? String ?? "0"
+        let revision = CatalogRuntime.activeManifest()?.revision ?? 0
+#if DEBUG
+        // Development: skip mtime so the cache survives rebuilds of the same
+        // app version. Bump cacheFormatVersion when OPML files or parse logic
+        // change. The catalog revision still auto-invalidates on managed updates.
+        return "\(cacheFormatVersion)-\(short)-\(build)-r\(revision)-dev"
+#else
         // Bundled resources are immutable for an installed build. The mtime
-        // remains useful for development builds that do not carry a manifest.
+        // catches the rare case of a delta update modifying the Feeds/ tree
+        // without changing the bundle version (shouldn't happen, but safe).
         let executableMtime = Bundle.main.executableURL.flatMap {
             try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate
         } ?? nil
@@ -38,8 +46,8 @@ struct OPMLParser {
             executableMtime?.timeIntervalSince1970 ?? 0,
             feedsMtime?.timeIntervalSince1970 ?? 0
         )
-        let revision = CatalogRuntime.activeManifest()?.revision ?? 0
         return "\(cacheFormatVersion)-\(short)-\(build)-r\(revision)-mt\(Int64(stamp * 1000))"
+#endif
     }
 
     private static var cacheURL: URL? {
@@ -450,15 +458,12 @@ struct OPMLParser {
                       scalarValue <= 0x10FFFF,
                       !(0xD800...0xDFFF).contains(scalarValue),
                       let scalar = UnicodeScalar(scalarValue) else {
-                    // Leave invalid entities untouched and continue after it.
-                    let suffix = decoded[range.upperBound...]
-                    guard suffix.range(
-                        of: #"&#(?:[0-9]+|[xX][0-9A-Fa-f]+);"#,
-                        options: .regularExpression
-                    ) != nil else { break }
-                    // Invalid entities are exceptionally rare in URLs. Avoid
-                    // an unbounded replacement loop by ending this pass.
-                    break
+                    // Skip invalid entity, continue with remaining text.
+                    // The old code broke the while loop here, meaning a
+                    // single invalid entity (e.g. surrogate pair) before
+                    // a valid entity would leave the valid entity
+                    // permanently undecoded — identity mismatch.
+                    continue
                 }
                 decoded.replaceSubrange(range, with: String(scalar))
             }
@@ -593,15 +598,23 @@ struct OPMLParser {
 
     private static func transformedURL(_ raw: String, identity: Bool) -> String {
         let decoded = decodeURLXMLEntities(raw)
+
+        // P1-05: Always validate the host BEFORE any early return on port
+        // validity. A URL with a bad port and percent-decoded host delimiters
+        // must still be rejected — the host check must not be gated on port
+        // validity (code review finding 1.1).
+        if let components = URLComponents(string: decoded),
+           let rawHost = components.host {
+            guard validateDecodedHost(rawHost, percentEncodedHost: components.percentEncodedHost) else {
+                return decoded
+            }
+        }
+
         guard hasValidPort(in: decoded),
               let components = URLComponents(string: decoded),
               let originalScheme = components.scheme?.lowercased(),
               originalScheme == "http" || originalScheme == "https",
               let rawHost = components.host else {
-            return decoded
-        }
-        // P1-05: reject hosts where percent-decoding reveals delimiters
-        guard validateDecodedHost(rawHost, percentEncodedHost: components.percentEncodedHost) else {
             return decoded
         }
         if let port = components.port, !(1...65535).contains(port) {
@@ -623,7 +636,13 @@ struct OPMLParser {
             authority += "@"
         }
         authority += host
-        if let port = components.port { authority += ":\(port)" }
+        // Omit default ports from identity — https://x:443 and https://x
+        // are the same feed and must dedup to the same key.
+        if let port = components.port,
+           !(identity && ((originalScheme == "https" && port == 443)
+                       || (originalScheme == "http" && port == 80))) {
+            authority += ":\(port)"
+        }
 
         var path = normalizePercentEncoding(components.percentEncodedPath, safe: pathSafeCharacters)
         // P1-06: remove ALL trailing slashes for idempotency

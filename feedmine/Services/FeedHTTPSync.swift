@@ -119,14 +119,30 @@ actor FeedHTTPSync {
                 // misconfigured endpoint from exhausting memory. 20 MB covers
                 // even the chattiest daily RSS feeds while rejecting accidental
                 // non-feed responses (HTML dumps, binaries).
+                // Buffered chunking: accumulate bytes into a 16 KB staging
+                // buffer before appending to the main accumulator, to reduce
+                // per-byte allocation overhead vs. the old element-per-await loop.
                 let maxFeedBytes = 20_971_520 // 20 MB
                 var accumulator = Data()
                 accumulator.reserveCapacity(1_048_576) // 1 MB initial
+                let chunkSize = 16_384 // 16 KB
+                var buffer = Data(capacity: chunkSize)
                 for try await byte in asyncBytes {
-                    guard accumulator.count < maxFeedBytes else {
+                    buffer.append(byte)
+                    if buffer.count >= chunkSize {
+                        guard accumulator.count + buffer.count <= maxFeedBytes else {
+                            throw URLError(.dataLengthExceedsMaximum)
+                        }
+                        accumulator.append(buffer)
+                        buffer.removeAll(keepingCapacity: true)
+                    }
+                }
+                // Flush any remaining bytes in the buffer.
+                if !buffer.isEmpty {
+                    guard accumulator.count + buffer.count <= maxFeedBytes else {
                         throw URLError(.dataLengthExceedsMaximum)
                     }
-                    accumulator.append(byte)
+                    accumulator.append(buffer)
                 }
 
                 updated = extractValidators(from: httpResponse, into: updated)
@@ -204,34 +220,50 @@ actor FeedHTTPSync {
             v.cacheControl = HTTPValidators.ParsedCacheControl.parse(cacheControl)
         }
         if let expiresStr = response.value(forHTTPHeaderField: "Expires") {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            v.expires = formatter.date(from: expiresStr)
+            v.expires = Self.httpDateFormatter.date(from: expiresStr)
         }
 
         return v
     }
 
     /// Parse Retry-After header: either seconds or HTTP-date.
+    /// Clamped to [0, 24h] to prevent a feed from being permanently
+    /// throttled by an unreasonable value (e.g. Retry-After: 9999999999).
     private func parseRetryAfter(from response: HTTPURLResponse) -> Date {
         guard let header = response.value(forHTTPHeaderField: "Retry-After") else {
             return Date().addingTimeInterval(60) // default 60s
         }
 
+        let maxRetry: TimeInterval = 86_400 // 24 hours
+
         // Try seconds first
         if let seconds = TimeInterval(header.trimmingCharacters(in: .whitespaces)) {
-            return Date().addingTimeInterval(seconds)
+            let clamped = min(max(0, seconds), maxRetry)
+            return Date().addingTimeInterval(clamped)
         }
 
         // Try HTTP-date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
+        let formatter = Self.retryAfterDateFormatter
         if let date = formatter.date(from: header) {
-            return date
+            let seconds = date.timeIntervalSinceNow
+            let clamped = min(max(0, seconds), maxRetry)
+            return Date().addingTimeInterval(clamped)
         }
 
         return Date().addingTimeInterval(60) // unparseable → default 60s
     }
+
+    private static let httpDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
+        f.locale = Locale(identifier: "en_US_POSIX")
+        return f
+    }()
+
+    private static let retryAfterDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEE, dd MMM yyyy HH:mm:ss z"
+        f.locale = Locale(identifier: "en_US_POSIX")
+        return f
+    }()
 }

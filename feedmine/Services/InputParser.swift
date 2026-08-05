@@ -77,7 +77,16 @@ enum InputParser {
 
     private static func normalize(_ raw: String) -> URL? {
         var str = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !str.hasPrefix("http") { str = "https://\(str)" }
+        // Case-insensitive scheme check — HTTP://EXAMPLE.COM must not become
+        // https://HTTP://EXAMPLE.COM (review finding).
+        if !str.lowercased().hasPrefix("http") {
+            // Reject email addresses and mailto: links — they produce garbage
+            // feed URLs when prefixed with https://.
+            if str.contains("@") && !str.contains("/") { return nil }
+            str = "https://\(str)"
+        }
+        // Reject mailto: after scheme prefixing.
+        if let url = URL(string: str), url.scheme?.lowercased() == "mailto" { return nil }
         return URL(string: str)
     }
 

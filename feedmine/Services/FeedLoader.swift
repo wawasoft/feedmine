@@ -347,7 +347,7 @@ final class FeedLoader {
         // Build a lookup from item ID → pre-resolved card presentation.
         // Items still being prepared won't have an entry yet; views handle
         // nil/missing cards gracefully with content-type placeholders.
-        let cardsByID = Dictionary(uniqueKeysWithValues: cards.map { ($0.id, $0) })
+        let cardsByID = Dictionary(cards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
 
         // A filtered feed already has an intentional provider/category/media
         // order. Regrouping it by date would move all fresh aggregator cards
@@ -550,8 +550,10 @@ final class FeedLoader {
     func noteVisibleIndex(for item: FeedItem) {
         if item.id == _lastNoteVisibleID { return }  // already recorded this item
         _lastNoteVisibleID = item.id
-        // Fast path: try to find by walking from known visible index
-        let idx = filteredItems.firstIndex(where: { $0.id == item.id }) ?? 0
+        // Skip items not in filteredItems (e.g. search results, bookmark-box
+        // items) — recording index 0 would snap the trim/load-more anchor to
+        // the top and cause premature trimming (review finding).
+        guard let idx = filteredItems.firstIndex(where: { $0.id == item.id }) else { return }
         noteVisibleIndex(idx)
     }
     private var _lastNoteVisibleID: String = ""

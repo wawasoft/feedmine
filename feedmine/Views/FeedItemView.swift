@@ -32,7 +32,6 @@ struct FeedItemView: View {
                     onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil,
                     isInBookmarkBox: loader.selectedBookmarkListID != nil
                 )
-                .equatable()
                 .padding(.horizontal, 12)
             } else {
                 FeedItemRowView(
@@ -128,10 +127,9 @@ struct FeedItemView: View {
                 Label("Share Link", systemImage: "link")
             }
         }
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("feed-item-\(item.language ?? "und")-\(item.id)")
         .accessibilityLabel("\(item.title) from \(item.sourceTitle)")
-        .accessibilityAddTraits(item.isRead ? [] : .isHeader)
     }
 
     private func playPodcastAudio() {

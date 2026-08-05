@@ -125,10 +125,12 @@ final class AdaptiveScheduler {
                     // --- GATE: Skip if throttled, in skip window, or within min interval ---
                     if shouldSkip(source: source, validators: v, estimator: e, now: now) { continue }
 
-                    // Existing failure backoff
+                    // Existing failure backoff (capped to prevent overflow
+                    // to infinity at ~55 consecutive failures)
                     let failures = consecutiveFailures[source.url] ?? 0
                     if failures >= 3 {
-                        let backoff = pow(2.0, Double(failures - 2)) * 60
+                        let cappedFailures = min(failures, 20)
+                        let backoff = min(pow(2.0, Double(cappedFailures - 2)) * 60, 86_400)
                         if let last = lastFetchedAt[source.url],
                            now.timeIntervalSince(last) < backoff { continue }
                     }
@@ -221,7 +223,8 @@ final class AdaptiveScheduler {
         let minInterval = minimumInterval(validators: validators, estimator: estimator)
         let elapsed = now.timeIntervalSince(validators.lastFetchAt ?? .distantPast)
 
-        if estimator.confidence > 0.5 && estimator.lastPublication > .distantPast {
+        if estimator.confidence > 0.5 && estimator.lastPublication > .distantPast,
+           estimator.publicationInterval > 0 {
             let expectedNext = estimator.lastPublication.addingTimeInterval(estimator.publicationInterval)
             if now > expectedNext {
                 return min(1.0, 0.5 + now.timeIntervalSince(expectedNext) / estimator.publicationInterval)
@@ -241,6 +244,7 @@ final class AdaptiveScheduler {
         if let skipDays = validators.skipDays {
             let formatter = DateFormatter()
             formatter.dateFormat = "EEEE"
+            formatter.locale = Locale(identifier: "en_US_POSIX")
             let dayName = formatter.string(from: now)
             if skipDays.contains(dayName) { return true }
         }

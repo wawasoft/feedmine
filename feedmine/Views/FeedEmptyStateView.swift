@@ -166,6 +166,8 @@ struct FeedEmptyStateView: View {
                 return String(localized: "No articles yet", comment: "Empty state title")
             }
         }
+        // All cases in mode switch are exhaustive; this line is unreachable.
+        return ""
     }
 
     private var description: String {
@@ -182,7 +184,7 @@ struct FeedEmptyStateView: View {
             } else if loader.fetchErrorCount > 0 && loader.totalFetched == 0 {
                 return String(localized: "All \(loader.fetchErrorCount) sources failed to load. Check your internet connection and pull to refresh.", comment: "Empty state description")
             } else if loader.sources.isEmpty {
-                return String(localized: "Add .opml files to the Resources/Feeds folder in Xcode and rebuild the app.", comment: "Empty state description")
+                return String(localized: "Tap + to add a feed and start building your personal news feed.", comment: "Empty state description")
             } else {
                 return circadianNoArticlesMessage
             }
@@ -200,6 +202,9 @@ struct FeedEmptyStateView: View {
     }
 
     private var showActions: Bool {
-        loader.loadingState != .initial && loader.loadingState != .refreshing
+        // .noSourcesEnabled always needs the "Open Filters" button, even while
+        // loading. The "Refresh Now" button stays gated on loading state.
+        if case .noSourcesEnabled = mode { return true }
+        return loader.loadingState != .initial && loader.loadingState != .refreshing
     }
 }

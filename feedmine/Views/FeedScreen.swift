@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import UserNotifications
 
 /// Non-reactive impression counter — mutated on every card `.onAppear`
 /// without triggering SwiftUI body re-evaluation.
@@ -109,8 +110,13 @@ struct FeedScreen: View {
                     FeedEmptyStateView(mode: emptyMode)
                 case .ready:
                     feedScrollView
-                case .empty:
+                case .empty where loader.items.isEmpty:
                     FeedEmptyStateView(mode: emptyMode)
+                case .empty:
+                    // Defensive: phase says empty but items are populated
+                    // (offline→online recovery, failed→success cycle).
+                    // Show the feed — the phase will correct on next publish.
+                    feedScrollView
                 case .failed:
                     FeedEmptyStateView(mode: .generic)
                 }
@@ -360,18 +366,12 @@ struct FeedScreen: View {
 
     private var filterLensSignature: String {
         guard hasFilterLensContent else { return "" }
-        // Cache against filter state to avoid string join on every scroll frame
-        let key = "\(loader.selectedRegion ?? ".")|\(loader.selectedContentType.rawValue)|\(loader.selectedMood.rawValue)|\(loader.searchQuery)"
+        // Cache against filter state to avoid string join on every scroll frame.
+        // Key MUST include every component of the signature to prevent stale
+        // cached values when non-key components change (review finding).
+        let key = "\(loader.activePreset.displayName)|\(loader.selectedRegion ?? ".")|\(loader.selectedContentType.rawValue)|\(loader.selectedMood.rawValue)|\(loader.selectedNodeIDs.sorted().joined(separator: ","))|\(loader.selectedLanguages.sorted().joined(separator: ","))|\(loader.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines))"
         if key == _cachedFilterLensKey { return _cachedFilterLensSig }
-        var parts: [String] = []
-        parts.append(loader.activePreset.displayName)
-        parts.append(loader.selectedRegion ?? "")
-        parts.append(loader.selectedContentType.rawValue)
-        parts.append(loader.selectedMood.rawValue)
-        parts.append(loader.selectedNodeIDs.sorted().joined(separator: ","))
-        parts.append(loader.selectedLanguages.sorted().joined(separator: ","))
-        parts.append(loader.searchQuery.trimmingCharacters(in: .whitespacesAndNewlines))
-        let sig = parts.joined(separator: "|")
+        let sig = key
         _cachedFilterLensKey = key
         _cachedFilterLensSig = sig
         return sig
@@ -836,7 +836,7 @@ struct FeedScreen: View {
                                 // Build a lookup so each row gets its pre-resolved
                                 // card presentation without scanning the full array.
                                 let cardsByID = Dictionary(
-                                    uniqueKeysWithValues: section.cards.map { ($0.id, $0) }
+                                    section.cards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first }
                                 )
                                 ForEach(section.items) { item in
                                     FeedItemView(item: item,
@@ -978,9 +978,14 @@ struct FeedScreen: View {
                 .shadow(color: .black.opacity(0.15), radius: 10, y: 5)
                 .padding(.bottom, 100)
                 .transition(.move(edge: .bottom).combined(with: .opacity))
-                .onAppear { DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                .task(id: toastMessage) {
+                    // Auto-dismiss after 2s. .task(id:) cancels and restarts
+                    // on every new toastMessage, fixing the race where a
+                    // second toast's timer could be stomped by the first.
+                    try? await Task.sleep(for: .seconds(2))
+                    guard !Task.isCancelled else { return }
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) { showToast = false }
-                }}
+                }
                 .animation(.spring(response: 0.35, dampingFraction: 0.8), value: showToast)
             }
         }
@@ -1292,7 +1297,7 @@ struct FeedScreen: View {
 
     private func updateBadge() {
         let unread = loader.items.count - loader.readItemIDs.count
-        Task { @MainActor in UIApplication.shared.applicationIconBadgeNumber = max(0, unread) }
+        Task { try? await UNUserNotificationCenter.current().setBadgeCount(max(0, unread)) }
     }
 
     private func recordFirstScreenMetric() {
@@ -1509,7 +1514,7 @@ struct CompactFeedStatus: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .accessibilityLabel(
-                    "\(loader.startupFetchedSourceCount) de \(startupTotal) fontes verificadas"
+                    "\(loader.startupFetchedSourceCount) of \(startupTotal) sources verified"
                 )
             } else {
                 Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")

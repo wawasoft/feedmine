@@ -108,18 +108,18 @@ struct FeedItemCardView: View, Equatable {
                 }
                 .aspectRatio(16.0 / 9.0, contentMode: .fit)
                 .clipped()
-                .overlay(alignment: .topTrailing) {
-                    cardOverlays
-                }
-                .overlay {
-                    mediaOverlay
-                }
                 .overlay {
                     if onImageTap != nil {
                         Color.clear
                             .contentShape(Rectangle())
                             .highPriorityGesture(TapGesture().onEnded { onImageTap?() })
                     }
+                }
+                .overlay {
+                    mediaOverlay
+                }
+                .overlay(alignment: .topTrailing) {
+                    cardOverlays
                 }
                 .transition(.opacity.combined(with: .scale(scale: 0.97)))
                 // Source row after image

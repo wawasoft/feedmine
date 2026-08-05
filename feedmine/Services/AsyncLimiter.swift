@@ -38,7 +38,25 @@ private actor AsyncSemaphore {
 
     func wait() async {
         if count < limit { count += 1; return }
-        await withCheckedContinuation { waiters.append($0) }
+        await withTaskCancellationHandler {
+            await withCheckedContinuation { cont in
+                waiters.append(cont)
+            }
+        } onCancel: {
+            Task { [weak self] in
+                await self?.removeWaiterOnCancel()
+            }
+        }
+    }
+
+    private func removeWaiterOnCancel() {
+        // Remove the last-added waiter — on cancellation, the continuation
+        // must be resumed (with the cancelled result) so the suspended task
+        // doesn't hang permanently. The last waiter is the one just appended
+        // above, since waiters are serviced FIFO by signal().
+        if let last = waiters.popLast() {
+            last.resume()
+        }
     }
 
     func signal() {

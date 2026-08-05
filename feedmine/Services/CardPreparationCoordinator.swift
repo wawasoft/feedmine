@@ -25,7 +25,13 @@ actor CardPreparationCoordinator {
 
     /// Continuations waiting for the contiguous prefix to grow.
     /// Woken by storeRenderReady when a new card joins the prefix.
-    private var prefixWaiters: [UUID: CheckedContinuation<Void, Never>] = [:]
+    /// Boxed so the onCancel handler and the registration site can both
+    /// reach the same continuation reference (fixes leaked suspended tasks
+    /// when the calling task is cancelled mid-wait).
+    private var prefixWaiters: [UUID: PrefixWaiter] = [:]
+    private final class PrefixWaiter: @unchecked Sendable {
+        var continuation: CheckedContinuation<Void, Never>?
+    }
 
     /// The context this coordinator is currently serving.
     private var activeContext: FeedPresentationContext?
@@ -87,7 +93,12 @@ actor CardPreparationCoordinator {
         // re-evaluate whether their prefix condition is met.
         let waiters = prefixWaiters
         prefixWaiters.removeAll()
-        for (_, cont) in waiters { cont.resume() }
+        for (_, box) in waiters {
+            if let c = box.continuation {
+                box.continuation = nil
+                c.resume()
+            }
+        }
     }
 
     /// Append items to the end of the editorial sequence. Filters out
@@ -185,12 +196,34 @@ actor CardPreparationCoordinator {
             guard ContinuousClock().now < deadline else { return cards }
 
             // Suspend until storeRenderReady signals or cancellation.
+            // The PrefixWaiter box lets both the registration site and the
+            // onCancel handler reach the same continuation — the first to
+            // fire resumes it, the second is a no-op. The old code only
+            // removed the waiter from the dictionary, permanently leaking
+            // the suspended task (review finding).
             let waiterID = UUID()
+            let box = PrefixWaiter()
             await withTaskCancellationHandler {
                 await withCheckedContinuation { cont in
-                    prefixWaiters[waiterID] = cont
+                    box.continuation = cont
+                    prefixWaiters[waiterID] = box
+                    // If cancelled between entering withTaskCancellationHandler
+                    // and this line, onCancel has already fired (no-op since
+                    // continuation was nil). Re-check and resume immediately.
+                    if Task.isCancelled, let c = box.continuation {
+                        box.continuation = nil
+                        prefixWaiters.removeValue(forKey: waiterID)
+                        c.resume()
+                    }
                 }
             } onCancel: {
+                // Resume the continuation directly (box is captured, not self).
+                // Defer actor-state cleanup to a task since onCancel is Sendable
+                // and cannot mutate actor-isolated properties.
+                if let c = box.continuation {
+                    box.continuation = nil
+                    c.resume()
+                }
                 Task { [weak self] in
                     await self?.removePrefixWaiter(waiterID)
                 }
@@ -299,7 +332,6 @@ actor CardPreparationCoordinator {
             let asset = await self.resolveImageAsset(
                 for: item, context: context, deadline: deadline
             )
-            guard await self.isContextActive(context) else { return }
 
             let resolved: ResolvedCardAsset
             if let asset {
@@ -310,16 +342,18 @@ actor CardPreparationCoordinator {
                 resolved = .none
             }
 
-            await self.storeResolved(item.id, asset: resolved)
+            // Atomic guard+write — no suspension between check and write
+            // so a context change can't sneak in (TOCTOU fix).
+            guard await self.storeResolved(item.id, asset: resolved, context: context) else { return }
 
             // Decode to render-ready
             await self.setState(item.id, to: .decoding)
             let renderReady = await self.decodeToRenderReady(
                 item: item, asset: resolved, context: context
             )
-            guard await self.isContextActive(context) else { return }
 
-            await self.storeRenderReady(item.id, card: renderReady)
+            // Atomic guard+write — context-validated in one actor transaction.
+            guard await self.storeRenderReady(item.id, card: renderReady, context: context) else { return }
         }
     }
 
@@ -333,12 +367,24 @@ actor CardPreparationCoordinator {
         context == activeContext
     }
 
-    private func storeResolved(_ id: String, asset: ResolvedCardAsset) {
+    /// Atomic guard+write: stores the resolved asset only if the context is
+    /// still active. Callers suspended between their last context check and
+    /// the write are protected — the check and write happen in one actor
+    /// transaction with no suspension point between them (TOCTOU fix).
+    @discardableResult
+    private func storeResolved(_ id: String, asset: ResolvedCardAsset,
+                                context: FeedPresentationContext) -> Bool {
+        guard context == activeContext else { return false }
         resolvedByID[id] = asset
         stateByID[id] = .resolved(asset)
+        return true
     }
 
-    private func storeRenderReady(_ id: String, card: PreparedFeedCard) {
+    /// Atomic guard+write for render-ready cards. Same TOCTOU fix as above.
+    @discardableResult
+    private func storeRenderReady(_ id: String, card: PreparedFeedCard,
+                                   context: FeedPresentationContext) -> Bool {
+        guard context == activeContext else { return false }
         renderReadyByID[id] = card
         stateByID[id] = .renderReady(card)
 
@@ -346,11 +392,17 @@ actor CardPreparationCoordinator {
         // can re-evaluate whether the prefix is now long enough.
         let waiters = prefixWaiters
         prefixWaiters.removeAll()
-        for (_, cont) in waiters { cont.resume() }
+        for (_, box) in waiters {
+            if let c = box.continuation {
+                box.continuation = nil
+                c.resume()
+            }
+        }
+        return true
     }
 
     private func removePrefixWaiter(_ id: UUID) {
-        prefixWaiters.removeValue(forKey: id)
+        prefixWaiters.removeValue(forKey: id)?.continuation = nil
     }
 
     private func resolveImageAsset(

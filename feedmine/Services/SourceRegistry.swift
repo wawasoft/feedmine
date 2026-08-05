@@ -190,7 +190,19 @@ final class SourceRegistry {
 
     private var countryRegionKeys: Set<String> {
         if let cached = _countryRegionKeys { return cached }
-        let keys = Set(countrySources.map { Self.regionKey($0.region) })
+        // Derive from every region under countries/ (not just isCountryFeed
+        // sources) so countries represented only by sub-regions or by
+        // media-only sources can still be bulk-disabled. Each country is keyed
+        // by its top-level region (region:countries/<slug>), which is the key
+        // isSourceEnabled checks for both direct and sub-region sources.
+        let keys = Set(
+            uniqueRegions.lazy
+                .filter { $0.hasPrefix("countries/") }
+                .map { region -> String in
+                    let parts = region.split(separator: "/").map(String.init)
+                    return Self.regionKey(parts.prefix(2).joined(separator: "/"))
+                }
+        )
         _countryRegionKeys = keys
         return keys
     }
@@ -557,7 +569,11 @@ final class SourceRegistry {
                     let raw = String(key.dropFirst(4))
                     return Self.sourceKey(raw)
                 }
-                return key
+                if key.hasPrefix("cat:") || key.hasPrefix("region:") {
+                    return key
+                }
+                // Legacy key: old code stored raw URLs without the "url:" prefix.
+                return Self.sourceKey(key)
             })
         }
         if let arr = UserDefaults.standard.stringArray(forKey: "toggleEnabledOverrides") {
@@ -566,7 +582,11 @@ final class SourceRegistry {
                     let raw = String(key.dropFirst(4))
                     return Self.sourceKey(raw)
                 }
-                return key
+                if key.hasPrefix("cat:") || key.hasPrefix("region:") {
+                    return key
+                }
+                // Legacy key: old code stored raw URLs without the "url:" prefix.
+                return Self.sourceKey(key)
             })
         }
         recomputeActiveCounts()

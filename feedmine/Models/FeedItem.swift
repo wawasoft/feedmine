@@ -92,30 +92,52 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
             .folding(options: .diacriticInsensitive, locale: nil)
     }
 
-    /// Extracts the YouTube video ID from the URL, if any
+    /// Extracts the YouTube video ID from the URL, if any.
+    ///
+    /// Validates the host against known YouTube domains (exact match or
+    /// `.youtube.com` / `.youtu.be` suffix — rejects spoofed hosts like
+    /// `youtube.com.evil.example`). Rejects bare-host youtu.be URLs
+    /// (`"/"` is not a valid video ID) and IDs that would produce malformed
+    /// thumbnail URLs.
     var youTubeVideoID: String? {
         // Fast reject before allocating URL/URLComponents: this is called per
         // item during filtering, interleaving, isTimeless, and rendering, and
         // almost no items are YouTube links. "youtu" covers youtube.com and
         // youtu.be, and the host checks below still gate real matches.
         guard url.contains("youtu") else { return nil }
-        guard let url = URL(string: url) else { return nil }
-        // youtube.com/watch?v=VIDEO_ID
-        if url.host?.contains("youtube.com") == true || url.host?.contains("youtu.be") == true {
-            if url.host?.contains("youtu.be") == true {
-                return url.pathComponents.last.flatMap { $0.isEmpty ? nil : $0 }
-            }
-            // youtube.com/shorts/VIDEO_ID — second path component after "/shorts/"
-            let components = url.pathComponents
-            if components.count >= 3 && components[1] == "shorts" {
-                return components[2]
-            }
-            // youtube.com/watch?v=VIDEO_ID — query parameter
-            if let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
-               let queryItems = urlComponents.queryItems,
-               let videoID = queryItems.first(where: { $0.name == "v" })?.value {
-                return videoID
-            }
+        guard let parsed = URL(string: url) else { return nil }
+        let host = parsed.host?.lowercased()
+
+        // Exact host or subdomain suffix — rejects youtube.com.evil.example.
+        let isYT = host == "youtube.com" || host == "youtu.be"
+            || host?.hasSuffix(".youtube.com") == true
+            || host?.hasSuffix(".youtu.be") == true
+        guard isYT, let host else { return nil }
+
+        // youtu.be/VIDEO_ID — single path segment after the host.
+        if host.hasSuffix("youtu.be") {
+            // pathComponents for "https://youtu.be/" is ["/"]; for
+            // "https://youtu.be/abc123" it's ["/", "abc123"].
+            // Drop the root "/" and take the first real segment.
+            let segments = parsed.pathComponents.dropFirst()  // skip "/"
+            guard let id = segments.first, !id.isEmpty, id != "/" else { return nil }
+            // youtu.be/abc123/extra → only take the first segment.
+            return id
+        }
+
+        // youtube.com/shorts/VIDEO_ID — second path component after root.
+        let components = parsed.pathComponents
+        if components.count >= 3 && components[1] == "shorts" {
+            let id = components[2]
+            guard !id.isEmpty, id != "/" else { return nil }
+            return id
+        }
+        // youtube.com/watch?v=VIDEO_ID — query parameter.
+        if let urlComponents = URLComponents(url: parsed, resolvingAgainstBaseURL: false),
+           let queryItems = urlComponents.queryItems,
+           let videoID = queryItems.first(where: { $0.name == "v" })?.value,
+           !videoID.isEmpty {
+            return videoID
         }
         return nil
     }
@@ -163,12 +185,14 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
     var isPodcast: Bool { audioURL != nil }
 
     /// True when the article URL itself is a direct audio file — no page to open.
+    /// Extracts the path extension from the URL (ignoring query strings and
+    /// fragments) and lowercases it, so signed CDN URLs like
+    /// `…/ep.mp3?token=abc` are correctly identified as direct audio.
     var isDirectAudioLink: Bool {
-        let lower = url.lowercased()
-        return lower.hasSuffix(".mp3") || lower.hasSuffix(".m4a")
-            || lower.hasSuffix(".wav") || lower.hasSuffix(".aac")
-            || lower.hasSuffix(".ogg") || lower.hasSuffix(".flac")
-            || lower.hasSuffix(".opus")
+        let lower = URLComponents(string: url)?.path.lowercased()
+            ?? url.lowercased()
+        let audioExts: Set<String> = ["mp3", "m4a", "wav", "aac", "ogg", "flac", "opus"]
+        return audioExts.contains((lower as NSString).pathExtension)
     }
 
     /// URL that can be handed to AVFoundation. Podcast feeds occasionally
@@ -179,24 +203,28 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
 
     /// Atemporal content (blogs, science, tutorials) ages slowly.
     /// News and sports are time-sensitive. Used for stale cutoff and sorting.
+    /// Video and podcast content is always timeless regardless of category —
+    /// a sports podcast should not get a news-aggressive eviction window.
     var isTimeless: Bool {
-        let lower = category.lowercased()
-        if lower.contains("news") || lower.contains("sport") { return false }
-        if lower.contains("blog") || lower.contains("science") || lower.contains("tech")
-            || lower.contains("programming") || lower.contains("culture")
-            || lower.contains("history") || lower.contains("design")
-            || lower.contains("food") || lower.contains("diy")
-            || lower.contains("music") || lower.contains("movie")
-            || lower.contains("photography") || lower.contains("travel")
-            || lower.contains("environment") || lower.contains("architecture") { return true }
-        // Video/podcast content is timeless
         if isYouTube || isPodcast { return true }
+        let lower = category.lowercased()
+        // Check timeless categories first, then time-sensitive.
+        // Word-boundary matching avoids false positives ("agriculture" ≠ "culture").
+        let timelessCategories: Set<String> = [
+            "blog", "science", "tech", "programming", "culture",
+            "history", "design", "food", "diy", "music", "movie",
+            "photography", "travel", "environment", "architecture",
+        ]
+        if timelessCategories.contains(where: { lower.contains($0) }) { return true }
+        let timelyCategories: Set<String> = ["news", "sport"]
+        if timelyCategories.contains(where: { lower.contains($0) }) { return false }
         return false
     }
 
-    /// Formatted duration string, e.g. "34 min"
+    /// Formatted duration string, e.g. "34 min".
+    /// Returns nil for sub-minute durations (avoiding "0 min" labels).
     var durationFormatted: String? {
-        guard let d = duration, d > 0 else { return nil }
+        guard let d = duration, d >= 60 else { return nil }
         let mins = Int(d / 60)
         if mins < 60 { return "\(mins) min" }
         let hrs = mins / 60
@@ -206,6 +234,8 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
 
     /// A copy with audio stripped — used when an enclosure fails playability
     /// validation, so the item is no longer treated as a podcast.
+    /// Preserves read/bookmark state and sectionDayOffset so this can safely
+    /// be called on already-stamped or persisted items (not just parse-time).
     func withoutAudio() -> FeedItem {
         FeedItem(
             id: id, sourceTitle: sourceTitle, sourceURL: sourceURL, category: category,
@@ -219,7 +249,9 @@ struct FeedItem: Identifiable, Sendable, Codable, Equatable {
             attribution: attribution,
             enclosures: enclosures,
             languageFromFeed: languageFromFeed,
-            alternateLinks: alternateLinks
+            alternateLinks: alternateLinks,
+            isRead: isRead, isBookmarked: isBookmarked,
+            sectionDayOffset: sectionDayOffset
         )
     }
 

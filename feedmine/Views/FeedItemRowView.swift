@@ -26,6 +26,13 @@ struct FeedItemRowView: View {
                     } else if let pres = presentation, case .image = pres.media {
                         PreparedCardImage(media: pres.media)
                             .aspectRatio(contentMode: .fill)
+                    } else {
+                        // hasPotentialImage without a resolved image — render the
+                        // content-type placeholder instead of an empty rectangle.
+                        contentTypePlaceholderImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .opacity(0.5)
                     }
                 }
                 .frame(width: 56, height: 56)
@@ -76,6 +83,21 @@ struct FeedItemRowView: View {
         .padding(.vertical, 8)
         .background(Color(.systemBackground))
         .opacity(isRead ? 0.7 : 1)
+    }
+
+    /// Decorative placeholder asset keyed to the item's content type and the
+    /// active circadian palette, e.g. "Placeholder-Video-amber".
+    private var contentTypePlaceholderImage: Image {
+        let suffix = CircadianEngine.shared.paletteFamily.placeholderSuffix
+        if item.isYouTube {
+            return Image("Placeholder-Video-\(suffix)")
+        } else if item.isPodcast {
+            return Image("Placeholder-Podcast-\(suffix)")
+        } else if item.isForum {
+            return Image("Placeholder-Forum-\(suffix)")
+        } else {
+            return Image("Placeholder-Article-\(suffix)")
+        }
     }
 
     private static let relativeFormatter: RelativeDateTimeFormatter = {
