@@ -1,35 +1,57 @@
 import SwiftUI
 
-/// Opening screen — real feed cards blurred behind glass, hinting at what's
-/// inside. No orbital icons, no slider symbol — the content is the decoration.
+/// Opening screen — deep navy brand opening with cascading real feed cards
+/// behind light glass. "The open web, arranged by you."
 struct WelcomeScene: View {
     let accent: Color
-    let onStart: () -> Void
-    let onSkip: () -> Void
+    let onShape: () -> Void
+    let onStartBroad: () -> Void
 
+    @Environment(FeedLoader.self) private var loader
     @State private var appeared = false
+
+    private let deepNavy = Color(hex: "#050A18")
 
     var body: some View {
         ZStack {
-            // Ghost feed cards behind heavy glass
-            blurredFeedBackground
+            deepNavy.ignoresSafeArea()
+
+            // Cascading real feed cards
+            cardCascade
 
             // Foreground content
             VStack(spacing: 0) {
                 Spacer()
 
+                // Wordmark — use existing Wawasoft "W" logo + amber-coral gradient
+                // If the real wordmark is a view/component, replace this placeholder:
+                Text(String(localized: "FeedMine"))
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(.white.opacity(0.6))
+                    .opacity(appeared ? 1 : 0)
+
+                // Amber rule
+                Rectangle()
+                    .fill(accent)
+                    .frame(width: 40, height: 1)
+                    .padding(.top, 12)
+                    .opacity(appeared ? 1 : 0)
+
                 // Headline
-                Text("A feed you can see through.")
-                    .font(.system(size: 34, weight: .bold))
+                Text(headline)
+                    .font(.largeTitle.weight(.bold))
+                    .fontDesign(.serif)
+                    .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 24)
+                    .padding(.top, 16)
                     .opacity(appeared ? 1 : 0)
                     .offset(y: appeared ? 0 : 20)
 
                 // Body
-                Text("Choose a few real stories. Feedmine will build a mix you can inspect and change anytime.")
-                    .font(.system(size: 16))
-                    .foregroundStyle(.secondary)
+                Text(String(localized: "FeedMine brings together independent publications, podcasts, video channels and public sources. Set the mix yourself — or start broad and explore."))
+                    .font(.body)
+                    .foregroundStyle(Color(hex: "#8899AA"))
                     .multilineTextAlignment(.center)
                     .lineSpacing(5)
                     .padding(.horizontal, 32)
@@ -38,15 +60,15 @@ struct WelcomeScene: View {
                     .offset(y: appeared ? 0 : 16)
 
                 // Trust signals
-                HStack(spacing: 16) {
-                    trustBadge("On-device")
-                    Circle().fill(.secondary).frame(width: 3, height: 3)
-                    trustBadge("No account")
-                    Circle().fill(.secondary).frame(width: 3, height: 3)
-                    trustBadge("Fully editable")
+                HStack(spacing: 12) {
+                    trustBadge(String(localized: "On-device"))
+                    Circle().fill(Color(hex: "#8899AA")).frame(width: 2, height: 2)
+                    trustBadge(String(localized: "No account"))
+                    Circle().fill(Color(hex: "#8899AA")).frame(width: 2, height: 2)
+                    trustBadge(String(localized: "Fully editable"))
                 }
                 .font(.caption)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color(hex: "#8899AA"))
                 .padding(.top, 20)
                 .opacity(appeared ? 1 : 0)
 
@@ -54,26 +76,28 @@ struct WelcomeScene: View {
 
                 // CTAs
                 VStack(spacing: 14) {
-                    Button(action: onStart) {
-                        Text("Build my first feed")
-                            .fontWeight(.semibold)
+                    Button(action: onShape) {
+                        Text(String(localized: "Shape my feed"))
+                            .font(.body.weight(.semibold))
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
                     }
                     .buttonStyle(.borderedProminent)
                     .buttonBorderShape(.roundedRectangle(radius: 16))
+                    .tint(accent)
                     .padding(.horizontal, 24)
                     .opacity(appeared ? 1 : 0)
                     .offset(y: appeared ? 0 : 12)
-                    .accessibilityIdentifier("welcome-start")
+                    .accessibilityIdentifier("welcome-shape")
 
-                    Button("Start with everything") {
-                        onSkip()
+                    Button(String(localized: "Start broad")) {
+                        onStartBroad()
                     }
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color(hex: "#8899AA"))
+                    .frame(minHeight: 44)
                     .opacity(appeared ? 1 : 0)
-                    .accessibilityIdentifier("welcome-skip")
+                    .accessibilityIdentifier("welcome-broad")
                 }
                 .padding(.bottom, 40)
             }
@@ -83,29 +107,59 @@ struct WelcomeScene: View {
         }
     }
 
-    /// Ghost feed cards behind heavy blur — real content exists behind the
-    /// glass, hinting at what Feedmine reveals inside.
-    private var blurredFeedBackground: some View {
-        let cardSpecs: [(w: CGFloat, h: CGFloat, x: CGFloat, y: CGFloat, opacity: Double)] = [
-            (160, 110, -120, -200, 0.35), (185, 125, 100, -140, 0.42),
-            (150, 100, -140, 160, 0.30),  (175, 115, 130, 180, 0.38),
-            (195, 130, -80, -250, 0.45), (165, 105, 90, 210, 0.33),
-        ]
+    private var headline: AttributedString {
+        var text = AttributedString(String(localized: "The open web,\narranged by you."))
+        if let range = text.range(of: "you") {
+            text[range].foregroundColor = UIColor(accent)
+        }
+        return text
+    }
+
+    /// Real feed cards behind light glass
+    private var cardCascade: some View {
+        let sampleItems = Array(loader.items.prefix(6))
         return ZStack {
-            ForEach(0..<6, id: \.self) { i in
-                let spec = cardSpecs[i]
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(.ultraThinMaterial)
-                    .frame(width: spec.w, height: spec.h)
-                    .offset(x: spec.x, y: spec.y)
-                    .opacity(appeared ? spec.opacity : 0)
+            if sampleItems.isEmpty {
+                // Fallback: abstract cards
+                ForEach(0..<6, id: \.self) { i in
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(.white.opacity(0.04))
+                        .frame(
+                            width: CGFloat(140 + i * 8),
+                            height: CGFloat(100 + i * 6)
+                        )
+                        .offset(
+                            x: CGFloat(-80 + i * 40),
+                            y: CGFloat(-180 + i * 50)
+                        )
+                        .opacity(appeared ? 0.4 - Double(i) * 0.04 : 0)
+                        .animation(
+                            .easeInOut(duration: 1.0).delay(Double(i) * 0.12),
+                            value: appeared
+                        )
+                }
+            } else {
+                ForEach(Array(sampleItems.enumerated()), id: \.element.id) { i, item in
+                    FeedItemCardView(
+                        item: item,
+                        isRead: false,
+                        isBookmarked: false
+                    )
+                    .frame(width: 160, height: 110)
+                    .scaleEffect(0.85)
+                    .offset(
+                        x: CGFloat(-90 + i * 45),
+                        y: CGFloat(-190 + i * 55)
+                    )
+                    .opacity(appeared ? 0.45 : 0)
                     .animation(
-                        .easeInOut(duration: 1.0).delay(Double(i) * 0.1),
+                        .easeInOut(duration: 1.0).delay(Double(i) * 0.12),
                         value: appeared
                     )
+                }
             }
         }
-        .overlay(.ultraThinMaterial.opacity(0.92))
+        .overlay(.ultraThinMaterial.opacity(0.88))
         .allowsHitTesting(false)
     }
 

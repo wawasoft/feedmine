@@ -65,12 +65,12 @@ struct CuratedOnboardingView: View {
                     case .welcome:
                         WelcomeScene(
                             accent: engine.accent,
-                            onStart: {
+                            onShape: {
                                 withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
                                     stage = .intent
                                 }
                             },
-                            onSkip: cancelOnboarding
+                            onStartBroad: cancelOnboarding
                         )
                     case .intent:
                         IntentScene(
