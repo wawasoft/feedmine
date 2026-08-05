@@ -42,7 +42,7 @@ final class AccessibilityAuditTests: XCTestCase {
     func testAccessibilityAudit_Onboarding() throws {
         AppLauncher.launchAccessibility(app: app, locale: "en", showOnboarding: true)
 
-        _ = app.buttons["welcome-start"].waitForExistence(timeout: UIWaits.launchTimeout)
+        _ = app.buttons[ScreenID.welcomeShape].waitForExistence(timeout: UIWaits.launchTimeout)
 
         try app.performAccessibilityAudit()
     }

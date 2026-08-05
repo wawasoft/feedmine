@@ -236,6 +236,7 @@ struct FeedComposerScene: View {
                 .buttonBorderShape(.roundedRectangle(radius: 16))
                 .tint(engine.accent)
                 .padding(.top, 8)
+                .accessibilityIdentifier("composer-open-feed")
             }
             .padding(20)
         }

@@ -23,54 +23,15 @@ final class FeedmineUITests: XCTestCase {
         ]
         app.launch()
 
-        let start = app.buttons["welcome-start"]
-        XCTAssertTrue(start.waitForExistence(timeout: 40), "Curated onboarding must appear")
-        start.tap()
+        // Welcome screen — two-stage flow: Welcome → Composer
+        let shape = app.buttons["welcome-shape"]
+        XCTAssertTrue(shape.waitForExistence(timeout: 40), "Curated onboarding must appear")
+        shape.tap()
 
-        // Intent screen — pick "Stay informed"
-        let intentChip = app.buttons["intent-stayInformed"]
-        XCTAssertTrue(intentChip.waitForExistence(timeout: 30), "Intent screen must appear")
-        intentChip.tap()
-        let intentContinue = app.buttons["intent-continue"]
-        XCTAssertTrue(intentContinue.waitForExistence(timeout: 5))
-        intentContinue.tap()
-
-        // Topics screen — pick "Technology & Science"
-        let topicChip = app.buttons["topic-technology-science"]
-        XCTAssertTrue(topicChip.waitForExistence(timeout: 30), "Topics screen must appear")
-        topicChip.tap()
-        let topicsContinue = app.buttons["topics-continue"]
-        XCTAssertTrue(topicsContinue.waitForExistence(timeout: 5))
-        topicsContinue.tap()
-
-        // English is pre-selected by device language; no need to find/tap it
-        let continueBtn = app.buttons["language-continue"]
-        XCTAssertTrue(continueBtn.waitForExistence(timeout: 30))
-        continueBtn.tap()
-
-        let firstStory = app.buttons["duel-top-card"]
-        if firstStory.waitForExistence(timeout: 60) {
-            for _ in 0..<7 {
-                XCTAssertTrue(firstStory.waitForExistence(timeout: 15))
-                firstStory.tap()
-                // Wait for feedback overlay to dismiss
-                _ = app.staticTexts["You chose this"].waitForExistence(timeout: 3)
-            }
-            let review = app.buttons["duel-finish"]
-            XCTAssertTrue(review.waitForExistence(timeout: 10))
-            review.tap()
-        } else {
-            let balanced = app.buttons["Start with a balanced feed"]
-            XCTAssertTrue(
-                balanced.waitForExistence(timeout: 10),
-                "Onboarding must offer a cache-safe fallback when stories are unavailable"
-            )
-            balanced.tap()
-        }
-
-        let save = app.buttons["reveal-save"]
-        XCTAssertTrue(save.waitForExistence(timeout: 10))
-        save.tap()
+        // Composer screen — save the (default neutral) recipe
+        let openFeed = app.buttons["composer-open-feed"]
+        XCTAssertTrue(openFeed.waitForExistence(timeout: 30), "Composer must appear")
+        openFeed.tap()
 
         let filterButton = app.buttons["filter-button"]
         XCTAssertTrue(filterButton.waitForExistence(timeout: 15))

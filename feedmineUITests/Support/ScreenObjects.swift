@@ -39,16 +39,14 @@ enum ScreenID {
     static let stateOffline = "state.offline"
     static let stateError = "state.error"
 
-    // Onboarding
-    static let welcomeStart = "welcome-start"
-    static func intentChip(_ intent: String) -> String { "intent-\(intent)" }
-    static let intentContinue = "intent-continue"
-    static func topicChip(_ topic: String) -> String { "topic-\(topic)" }
-    static let topicsContinue = "topics-continue"
-    static let languageContinue = "language-continue"
+    // Onboarding (2-stage Welcome → Composer flow)
+    static let welcomeShape = "welcome-shape"
+    static let welcomeBroad = "welcome-broad"
+    static let composerOpenFeed = "composer-open-feed"
+
+    // Story duel identifiers — preserved for P2 "Tune with examples"
     static let duelTopCard = "duel-top-card"
     static let duelFinish = "duel-finish"
-    static let revealSave = "reveal-save"
 
     // Filter
     static let filterButton = "filter-button"

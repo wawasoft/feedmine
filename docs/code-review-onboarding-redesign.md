@@ -1,5 +1,9 @@
 # Onboarding Redesign — Code Review (2026-07-28)
 
+> **Note (2026-08-04):** This document describes the 2026-07-28 redesign (6 stages).
+> The current onboarding has been replaced by a 2-stage Welcome → Composer flow.
+> See `docs/superpowers/specs/2026-08-04-onboarding-composer-design.md` for the new design.
+
 > Branch: `worktree-onboarding-redesign` | Base: `main` | Status: em revisão
 
 ## Veredito

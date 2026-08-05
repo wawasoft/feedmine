@@ -36,69 +36,16 @@ final class UsabilityJourneyTests: XCTestCase {
         app.terminate()
         AppLauncher.launch(app: app, showOnboarding: true, locale: "en")
 
-        // Step 1: Welcome screen → Start
-        let start = UIWaits.waitFor(app.buttons["welcome-start"], timeout: UIWaits.launchTimeout)
-        start.tap()
+        // Step 1: Welcome screen → Composer
+        let shape = UIWaits.waitFor(app.buttons[ScreenID.welcomeShape], timeout: UIWaits.launchTimeout)
+        shape.tap()
 
-        // Step 2: Intent screen — tap first available intent, then Continue
-        _ = app.buttons.firstMatch.waitForExistence(timeout: UIWaits.extendedTimeout)
-        // Find and tap any intent chip
-        let intentChips = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'intent-' AND identifier != 'intent-continue'"))
-        if intentChips.firstMatch.waitForExistence(timeout: 10) {
-            intentChips.firstMatch.tap()
-        }
-        if app.buttons["intent-continue"].waitForExistence(timeout: 5) {
-            app.buttons["intent-continue"].tap()
-        }
+        // Step 2: Composer screen — save the default recipe
+        let openFeed = UIWaits.waitFor(app.buttons[ScreenID.composerOpenFeed], timeout: UIWaits.extendedTimeout)
+        openFeed.tap()
 
-        // Step 3: Handle variable onboarding flow
-        // The flow may be: Intent → Topics → Language, or Intent → Language directly,
-        // depending on the app's onboarding logic. Be adaptive.
-
-        // Check if Topics screen appeared
-        let topicsContinueExists = app.buttons["topics-continue"].waitForExistence(timeout: 8)
-        if topicsContinueExists {
-            // Tap first topic if available
-            let topicChips = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'topic-' AND identifier != 'topics-continue'"))
-            if topicChips.firstMatch.exists { topicChips.firstMatch.tap() }
-            app.buttons["topics-continue"].tap()
-        }
-
-        // Language screen — device language pre-selected
-        if app.buttons["language-continue"].waitForExistence(timeout: 10) {
-            app.buttons["language-continue"].tap()
-        }
-
-        // Should reach either story duel, balanced feed fallback, or feed screen
-        let hasDuel = app.buttons["duel-top-card"].waitForExistence(timeout: 15)
-        let hasFallback = app.buttons["Start with a balanced feed"].waitForExistence(timeout: 5)
-        let hasFeed = app.buttons["filter-button"].waitForExistence(timeout: 5)
-        let hasReveal = app.buttons["reveal-save"].waitForExistence(timeout: 5)
-
-        XCTAssertTrue(hasDuel || hasFallback || hasFeed || hasReveal,
-                      "User must reach usable content (duel, fallback, feed, or reveal) within budget")
-
-        // If we reached duel, complete it quickly
-        if hasDuel {
-            // Tap finish or skip the duel
-            for _ in 0..<5 {
-                if app.buttons["duel-finish"].exists { app.buttons["duel-finish"].tap(); break }
-                if app.buttons["duel-top-card"].exists { app.buttons["duel-top-card"].tap() }
-                _ = app.staticTexts.firstMatch.waitForExistence(timeout: 2)
-            }
-            // Accept the curated feed
-            if app.buttons["reveal-save"].waitForExistence(timeout: 5) {
-                app.buttons["reveal-save"].tap()
-            }
-        } else if hasFallback {
-            app.buttons["Start with a balanced feed"].tap()
-            if app.buttons["reveal-save"].waitForExistence(timeout: 5) {
-                app.buttons["reveal-save"].tap()
-            }
-        }
-
-        // Final assertion: user should see the main feed
-        let hasFilterButton = app.buttons["filter-button"].waitForExistence(timeout: UIWaits.launchTimeout)
+        // Final assertion: user should see the main feed with the curated preset active
+        let hasFilterButton = app.buttons[ScreenID.filterButton].waitForExistence(timeout: UIWaits.launchTimeout)
         XCTAssertTrue(hasFilterButton || app.collectionViews.firstMatch.exists,
                       "User must reach the main feed screen")
     }
