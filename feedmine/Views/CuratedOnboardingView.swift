@@ -11,6 +11,7 @@ struct CuratedOnboardingView: View {
     }
 
     @Environment(FeedLoader.self) private var loader
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var engine = CircadianEngine.shared
     @State private var stage: Stage = .welcome
     @State private var recipe: FeedRecipeDefinition
@@ -81,11 +82,11 @@ struct CuratedOnboardingView: View {
         }
         .tint(engine.accent)
         .preferredColorScheme(nil)
-        .alert("Couldn’t save this feed", isPresented: Binding(
+        .alert(String(localized: "Couldn’t save this feed"), isPresented: Binding(
             get: { errorMessage != nil },
             set: { if !$0 { errorMessage = nil } }
         )) {
-            Button("OK", role: .cancel) {}
+            Button(String(localized: "OK"), role: .cancel) {}
         } message: {
             Text(errorMessage ?? "")
         }
@@ -100,10 +101,11 @@ struct CuratedOnboardingView: View {
             Button { onCancel() } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 13, weight: .semibold))
-                    .frame(width: 36, height: 36)
+                    .frame(width: 44, height: 44)
                     .background(.thinMaterial, in: Circle())
+                    .contentShape(Circle())
             }
-            .accessibilityLabel("Close")
+            .accessibilityLabel(String(localized: "Close"))
         }
         .padding(.horizontal, 18)
         .padding(.top, 8)
@@ -113,7 +115,7 @@ struct CuratedOnboardingView: View {
     // MARK: - Actions
 
     private func moveToComposer() {
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+        withAnimation(reduceMotion ? nil : .spring(response: 0.6, dampingFraction: 0.7)) {
             stage = .composer
         }
     }
@@ -380,6 +382,7 @@ private struct CuratedBackdrop: View {
     let accent: Color
     let imageURLs: [URL]
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var loadedImages: [UIImage] = []
 
     var body: some View {
@@ -403,12 +406,15 @@ private struct CuratedBackdrop: View {
                         y: randomOffset(i, index: i).y
                     )
                     .animation(
-                        .easeInOut(duration: 4 + Double(i)).repeatForever(autoreverses: true),
+                        reduceMotion
+                            ? nil
+                            : .easeInOut(duration: 4 + Double(i)).repeatForever(autoreverses: true),
                         value: loadedImages.count
                     )
             }
         }
         .allowsHitTesting(false)
+        .accessibilityHidden(true)  // decorative backdrop
         .task(id: imageURLs.map(\.absoluteString).joined()) {
             await loadAmbientImages()
         }
@@ -422,8 +428,12 @@ private struct CuratedBackdrop: View {
             }
             guard images.count < 3 else { break }
         }
-        withAnimation(.easeInOut(duration: 2)) {
+        if reduceMotion {
             loadedImages = images
+        } else {
+            withAnimation(.easeInOut(duration: 2)) {
+                loadedImages = images
+            }
         }
     }
 

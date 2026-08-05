@@ -6,6 +6,8 @@ struct FlowLayout: Layout {
     let horizontalSpacing: CGFloat
     let verticalSpacing: CGFloat
 
+    @Environment(\.layoutDirection) private var layoutDirection
+
     init(horizontalSpacing: CGFloat, verticalSpacing: CGFloat) {
         self.horizontalSpacing = horizontalSpacing
         self.verticalSpacing = verticalSpacing
@@ -59,7 +61,10 @@ struct FlowLayout: Layout {
                 y += lineHeight + verticalSpacing
                 lineHeight = 0
             }
-            subview.place(at: CGPoint(x: x, y: y), proposal: .unspecified)
+            let placementX = layoutDirection == .rightToLeft
+                ? bounds.maxX - (x - bounds.minX) - size.width  // mirror the row
+                : x
+            subview.place(at: CGPoint(x: placementX, y: y), proposal: .unspecified)
             x += size.width + horizontalSpacing
             lineHeight = max(lineHeight, size.height)
         }

@@ -5,6 +5,8 @@ import SwiftUI
 struct FeedComposerScene: View {
     @Environment(FeedLoader.self) private var loader
     @Environment(CircadianEngine.self) private var engine
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
 
     @Binding var recipe: FeedRecipeDefinition
     let onSave: () -> Void
@@ -237,7 +239,11 @@ struct FeedComposerScene: View {
             }
             .padding(20)
         }
-        .background(.regularMaterial)
+        .background(
+            reduceTransparency
+                ? AnyShapeStyle(engine.pageBackground)
+                : AnyShapeStyle(.regularMaterial)
+        )
         .clipShape(
             UnevenRoundedRectangle(
                 topLeadingRadius: 20,
@@ -283,7 +289,7 @@ struct FeedComposerScene: View {
 
             guard !Task.isCancelled else { return }
 
-            withAnimation(.easeInOut(duration: 0.25)) {
+            withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.25)) {
                 if cards.isEmpty {
                     previewCards = []
                     previewState = .noResults

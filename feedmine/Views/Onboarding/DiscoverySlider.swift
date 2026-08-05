@@ -17,9 +17,11 @@ struct DiscoverySlider: View {
             }
             .tint(accent)
             .frame(minHeight: 44)
+            .accessibilityLabel(String(localized: "Discovery"))
             .accessibilityValue(
                 String(localized: "\(Int(value * 100)) percent toward exploratory")
             )
+            .accessibilityHint(String(localized: "Slide left for focused, right for exploratory"))
 
             HStack {
                 Text(String(localized: "Focused"))
@@ -30,9 +32,7 @@ struct DiscoverySlider: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+            .accessibilityElement(children: .ignore)  // slider hint conveys the ends
         }
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(String(localized: "Discovery"))
-        .accessibilityHint(String(localized: "Slide left for focused, right for exploratory"))
     }
 }

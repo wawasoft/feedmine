@@ -33,6 +33,8 @@ struct LanguageSelectionControl: View {
                 }
                 .font(.subheadline)
                 .foregroundStyle(accent)
+                .frame(minHeight: 44, alignment: .leading)
+                .contentShape(Rectangle())
             }
             .accessibilityLabel(String(localized: "Add another language"))
             .accessibilityIdentifier("language-add")

@@ -8,6 +8,8 @@ struct WelcomeScene: View {
     let onStartBroad: () -> Void
 
     @Environment(FeedLoader.self) private var loader
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @State private var appeared = false
 
     private let deepNavy = Color(hex: "#050A18")
@@ -103,7 +105,11 @@ struct WelcomeScene: View {
             }
         }
         .onAppear {
-            withAnimation(.easeOut(duration: 0.6)) { appeared = true }
+            if reduceMotion {
+                appeared = true  // instant, no animation
+            } else {
+                withAnimation(.easeOut(duration: 0.6)) { appeared = true }
+            }
         }
     }
 
@@ -122,6 +128,9 @@ struct WelcomeScene: View {
             if sampleItems.isEmpty {
                 // Fallback: abstract cards
                 ForEach(0..<6, id: \.self) { i in
+                    let animation: Animation? = reduceMotion
+                        ? nil
+                        : .easeInOut(duration: 1.0).delay(Double(i) * 0.12)
                     RoundedRectangle(cornerRadius: 14)
                         .fill(.white.opacity(0.04))
                         .frame(
@@ -133,13 +142,13 @@ struct WelcomeScene: View {
                             y: CGFloat(-180 + i * 50)
                         )
                         .opacity(appeared ? 0.4 - Double(i) * 0.04 : 0)
-                        .animation(
-                            .easeInOut(duration: 1.0).delay(Double(i) * 0.12),
-                            value: appeared
-                        )
+                        .animation(animation, value: appeared)
                 }
             } else {
                 ForEach(Array(sampleItems.enumerated()), id: \.element.id) { i, item in
+                    let animation: Animation? = reduceMotion
+                        ? nil
+                        : .easeInOut(duration: 1.0).delay(Double(i) * 0.12)
                     FeedItemCardView(
                         item: item,
                         isRead: false,
@@ -152,14 +161,16 @@ struct WelcomeScene: View {
                         y: CGFloat(-190 + i * 55)
                     )
                     .opacity(appeared ? 0.45 : 0)
-                    .animation(
-                        .easeInOut(duration: 1.0).delay(Double(i) * 0.12),
-                        value: appeared
-                    )
+                    .animation(animation, value: appeared)
                 }
             }
         }
-        .overlay(.ultraThinMaterial.opacity(0.88))
+        .overlay(
+            reduceTransparency
+                ? AnyShapeStyle(Color(deepNavy).opacity(0.92))
+                : AnyShapeStyle(.ultraThinMaterial.opacity(0.88))
+        )
+        .accessibilityHidden(true)  // decorative — cards are behind the veil
         .allowsHitTesting(false)
     }
 
