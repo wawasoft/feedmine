@@ -32,13 +32,14 @@ email_outreach/
 .env
 AuthKey_*.p8
 
-# Loop progress artifacts
+# Local/generated work artifacts
 .loop_progress.json
+.superpowers/
+logs/*.log
 *.zip
-.superpowers/
-.superpowers/
 .build-device/
 .build-dd-device/
+
 # Build artifacts
 build/
 .build-device/
