@@ -88,7 +88,6 @@ struct FeedmineApp: App {
         if ProcessInfo.processInfo.arguments.contains("-PreparedFeedPipeline") {
             UserDefaults.standard.set(true, forKey: Keys.preparedFeedPipelineEnabled)
         }
-        SmartFeedBackgroundScheduler.shared.register()
         FeedMetrics.event("Process.started")
         FeedMetrics.memory("processStarted")
     }
@@ -116,9 +115,6 @@ struct FeedmineApp: App {
                 .environment(audioPlayer)
                 .environment(contentFilters)
                 .onOpenURL { url in handleIncomingURL(url) }
-                .task {
-                    SmartFeedBackgroundScheduler.shared.configure(loader: loader)
-                }
         }
     }
 
@@ -169,7 +165,8 @@ struct FeedmineApp: App {
                         return
                     }
                     defer { url.stopAccessingSecurityScopedResource() }
-                    guard let data = try? Data(contentsOf: url) else {
+                    let fileStore = ImportFileStore()
+                    guard let data = try? await fileStore.read(url: url) else {
                         NotificationCenter.default.post(name: .feedImportCompleted, object: nil,
                             userInfo: ["message": "Could not read file"])
                         return
