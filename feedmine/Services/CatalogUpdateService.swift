@@ -16,6 +16,21 @@ private extension Data {
     }
 }
 
+/// Release 1.0 deliberately ships a single catalog authority: the snapshot
+/// compiled into the application bundle. The managed/remote update channel is
+/// kept available in Debug so it can continue to be developed and tested, but
+/// a production build neither loads a previously-installed managed snapshot nor
+/// performs a network update.
+enum CatalogReleasePolicy {
+    #if DEBUG
+    static let remoteUpdatesEnabled = true
+    static let managedSnapshotsEnabled = true
+    #else
+    static let remoteUpdatesEnabled = false
+    static let managedSnapshotsEnabled = false
+    #endif
+}
+
 struct CatalogUpdateFile: Codable, Equatable, Sendable {
     let path: String
     let sha256: String
@@ -30,9 +45,9 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
     /// only during the editorial release process.
     /// Generate a new keypair with: scripts/sign_manifest.swift --generate
     ///
-    /// P0-03: This key is immutable at runtime. In Release builds an empty
-    /// key causes signature verification to be skipped (development mode);
-    /// a production key must be compiled into the app before distribution.
+    /// Release 1.0 does not use the remote update channel in production. The
+    /// empty key therefore remains a development-only concern until that
+    /// channel is explicitly re-enabled in a later release.
     nonisolated(unsafe) static let publicKeyHex: String = ""
 
     let schemaVersion: Int
@@ -45,10 +60,6 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
     /// Empty string if not signed (bundled catalog during development).
     let signature: String
 
-    // P0-02: The bundled and remote manifests currently omit the `signature`
-    // field. Synthesized Codable would throw keyNotFound. A custom decoder
-    // provides an empty default so the catalog update mechanism can operate
-    // while the publisher is updated to include the field.
     enum CodingKeys: String, CodingKey {
         case schemaVersion, revision, generatedAt, sourceCount, fileCount, files, signature
     }
@@ -101,20 +112,12 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
             }
         }
 
-        // Verify Ed25519 signature if a public key is configured.
-        // Bundled catalogs during development may omit the signature;
-        // production catalogs must be signed.
         try verifySignature()
     }
 
     private func verifySignature() throws {
         let pkHex = Self.publicKeyHex
         guard !pkHex.isEmpty else {
-            // No public key configured — skip verification.
-            // A production key must be compiled into the app before the
-            // catalog update channel is considered authenticated.
-            // This is not a hard error because the app still functions
-            // via bundled-catalog fallbacks regardless of update state.
             return
         }
         guard !signature.isEmpty else {
@@ -130,7 +133,6 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
             throw CatalogUpdateError.invalidManifest("invalid signature encoding")
         }
 
-        // Recompute the payload: canonical JSON of all fields EXCEPT signature.
         let unsigned = CatalogUpdateManifest.UnsignedFields(
             schemaVersion: schemaVersion,
             revision: revision,
@@ -151,7 +153,6 @@ struct CatalogUpdateManifest: Codable, Equatable, Sendable {
         }
     }
 
-    /// Fields included in the signature payload (everything except `signature`).
     private struct UnsignedFields: Codable {
         let schemaVersion: Int
         let revision: Int
@@ -210,13 +211,21 @@ struct CatalogRuntimePaths: Sendable {
         managedRootURL.appendingPathComponent("current", isDirectory: true)
     }
 
-    func activeSnapshot(fileManager: FileManager = .default) -> CatalogSnapshot? {
+    func activeSnapshot(
+        fileManager: FileManager = .default,
+        includeManagedSnapshot: Bool = CatalogReleasePolicy.managedSnapshotsEnabled
+    ) -> CatalogSnapshot? {
         let bundled = snapshot(
             feedsURL: bundledFeedsURL,
             catalogURL: bundledCatalogURL,
             manifestURL: bundledManifestURL,
             fileManager: fileManager
         )
+
+        guard includeManagedSnapshot else {
+            return bundled
+        }
+
         let localRoot = currentURL
         let local = snapshot(
             feedsURL: localRoot.appendingPathComponent("Feeds", isDirectory: true),
@@ -276,8 +285,6 @@ enum CatalogRuntime {
                 withExtension: "sqlite",
                 subdirectory: "FeedEngine"
             )
-            // Xcode may flatten individually copied resources while preserving
-            // the Feeds folder reference. Support both bundle layouts.
             ?? Bundle.main.url(forResource: "catalog", withExtension: "sqlite")
     }
 
@@ -364,22 +371,38 @@ actor CatalogUpdateService {
     private let remoteRootURL: URL
     private let transport: any CatalogUpdateTransport
     private let fileManager: FileManager
+    private let remoteUpdatesEnabled: Bool
+    private let managedSnapshotsEnabled: Bool
 
     init(
         paths: CatalogRuntimePaths = .live,
         remoteRootURL: URL = CatalogUpdateService.defaultRemoteRoot,
         transport: any CatalogUpdateTransport = URLSessionCatalogUpdateTransport(),
-        fileManager: FileManager = .default
+        fileManager: FileManager = .default,
+        remoteUpdatesEnabled: Bool = CatalogReleasePolicy.remoteUpdatesEnabled,
+        managedSnapshotsEnabled: Bool = CatalogReleasePolicy.managedSnapshotsEnabled
     ) {
         self.paths = paths
         self.remoteRootURL = remoteRootURL
         self.transport = transport
         self.fileManager = fileManager
+        self.remoteUpdatesEnabled = remoteUpdatesEnabled
+        self.managedSnapshotsEnabled = managedSnapshotsEnabled
     }
 
     func updateIfAvailable() async throws -> CatalogUpdateOutcome {
-        guard let active = paths.activeSnapshot(fileManager: fileManager) else {
+        guard let active = paths.activeSnapshot(
+            fileManager: fileManager,
+            includeManagedSnapshot: managedSnapshotsEnabled
+        ) else {
             throw CatalogUpdateError.noLocalSnapshot
+        }
+
+        // Release 1.0 is bundled-only. Returning the bundled revision here is
+        // intentionally a successful no-op: callers do not need a separate
+        // release-only control path and, critically, no request leaves the app.
+        guard remoteUpdatesEnabled else {
+            return .current(revision: active.manifest.revision)
         }
 
         let manifestData = try await transport.data(from: remoteRootURL.appendingPathComponent("manifest.json"))
