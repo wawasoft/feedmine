@@ -1,0 +1,46 @@
+diff --git a/feedmine.xcodeproj/project.pbxproj b/feedmine.xcodeproj/project.pbxproj
+index eb0360a9..f0efcd68 100644
+--- a/feedmine.xcodeproj/project.pbxproj
++++ b/feedmine.xcodeproj/project.pbxproj
+@@ -7106,6 +7106,10 @@
+ 						DevelopmentTeam = 955573A4YH;
+ 						ProvisioningStyle = Automatic;
+ 					};
++					58CAC5F0FAA8580D56CC16D4 = {
++						DevelopmentTeam = 955573A4YH;
++						ProvisioningStyle = Automatic;
++					};
+ 				};
+ 			};
+ 			buildConfigurationList = BACDB8081763684DCBF9FB9F /* Build configuration list for PBXProject "feedmine" */;
+@@ -9306,6 +9310,8 @@
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+ 				BUNDLE_LOADER = "$(TEST_HOST)";
++				CODE_SIGN_STYLE = Automatic;
++				DEVELOPMENT_TEAM = 955573A4YH;
+ 				ENABLE_SWIFT_TESTING = NO;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+@@ -9325,6 +9331,8 @@
+ 			isa = XCBuildConfiguration;
+ 			buildSettings = {
+ 				BUNDLE_LOADER = "$(TEST_HOST)";
++				CODE_SIGN_STYLE = Automatic;
++				DEVELOPMENT_TEAM = 955573A4YH;
+ 				ENABLE_SWIFT_TESTING = NO;
+ 				GENERATE_INFOPLIST_FILE = YES;
+ 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+diff --git a/project.yml b/project.yml
+index 754af0dc..8235b7f3 100644
+--- a/project.yml
++++ b/project.yml
+@@ -97,6 +97,8 @@ targets:
+       PRODUCT_BUNDLE_IDENTIFIER: com.feedmine.tests
+       GENERATE_INFOPLIST_FILE: YES
+       ENABLE_SWIFT_TESTING: NO
++      CODE_SIGN_STYLE: Automatic
++      DEVELOPMENT_TEAM: "955573A4YH"
+ schemes:
+   feedmine:
+     build:
