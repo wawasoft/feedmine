@@ -2,22 +2,19 @@ import Foundation
 
 // MARK: - Import Models
 
-/// Outcome of a single feed URL import attempt.
 enum ImportItemStatus: Sendable {
-    case imported            // New, validated, added
-    case duplicate           // Already exists in registry
-    case invalid(String)     // URL malformed or not a feed (reason)
-    case unreachable         // Network timeout or non-2xx
+    case imported
+    case duplicate
+    case invalid(String)
+    case unreachable
 }
 
-/// Per-item result returned by the pipeline.
 struct ImportItemResult: Sendable {
     let url: String
     let title: String?
     let status: ImportItemStatus
 }
 
-/// Aggregate result of an import operation.
 struct ImportResult: Sendable {
     let items: [ImportItemResult]
     var importedCount: Int { items.filter { if case .imported = $0.status { return true }; return false }.count }
@@ -26,23 +23,15 @@ struct ImportResult: Sendable {
     var unreachableCount: Int { items.filter { if case .unreachable = $0.status { return true }; return false }.count }
 }
 
-// MARK: - Import Pipeline
-
-/// Unified ingestion pipeline for feed sources.
-/// Every import path (OPML file, pasted URL, remote URL, share sheet) feeds
-/// through this single service, ensuring consistent dedup, validation,
-/// classification, persistence, and feed reload.
-///
-/// Usage:
-/// ```
-/// let result = await pipeline.ingest(urls: ["https://example.com/feed.xml"])
-/// let result = await pipeline.ingest(opmlData: data, fileName: "my_feeds")
-/// let result = await pipeline.ingest(opmlURL: remoteURL)
-/// ```
 actor ImportPipeline {
     private let session: URLSession
-    /// Injectable probe for testing. When set, bypasses real network requests.
     private let injectedProbe: (@Sendable (String) async -> ProbeResult)?
+
+    private enum BoundedDownloadError: Error {
+        case nonHTTP
+        case badStatus(Int)
+        case tooLarge(limit: Int)
+    }
 
     init(probe: (@Sendable (String) async -> ProbeResult)? = nil) {
         self.injectedProbe = probe
@@ -58,7 +47,6 @@ actor ImportPipeline {
 
     // MARK: - Public API
 
-    /// Import from raw feed URLs (pasted, share sheet, etc.)
     func ingest(
         urls: [String],
         category: String = "Imported",
@@ -66,35 +54,24 @@ actor ImportPipeline {
     ) async -> (result: ImportResult, sources: [FeedSource]) {
         var results: [ImportItemResult] = []
         var newSources: [FeedSource] = []
-
-        // P0-01: Track both identity (for dedup) and request URL (for fetching).
-        // Identity is the canonical normalized form; requestURL preserves auth
-        // parameters, scheme, and www prefix needed for successful HTTP requests.
         var seenIdentities = existingURLs
-
-        // Separate dedup/invalid URLs (no network needed) from probe candidates
         var toProbe: [(identity: String, requestURL: String, rawURL: String)] = []
+
         for rawURL in urls {
             let identity = OPMLParser.normalizeURL(rawURL)
             let request = OPMLParser.requestURL(rawURL)
-
-            // Dedup check against both existing sources AND this batch
             if seenIdentities.contains(identity) {
                 results.append(ImportItemResult(url: rawURL, title: nil, status: .duplicate))
                 continue
             }
             seenIdentities.insert(identity)
-
-            // Validate URL format on the request URL (what we'll actually fetch)
             guard URL(string: request) != nil else {
                 results.append(ImportItemResult(url: rawURL, title: nil, status: .invalid("Malformed URL")))
                 continue
             }
-
             toProbe.append((identity, request, rawURL))
         }
 
-        // Probe feeds concurrently (max 5 at a time)
         let probeResults: [(rawURL: String, requestURL: String, probe: ProbeResult)] = await withTaskGroup(of: (String, String, ProbeResult).self) { group in
             var collected: [(String, String, ProbeResult)] = []
             var running = 0
@@ -127,17 +104,15 @@ actor ImportPipeline {
                 let kind = Self.detectMediaKind(url: requestURL, title: title)
                 let source = FeedSource(
                     title: title ?? Self.titleFromURL(requestURL),
-                    url: requestURL,  // P0-01: store the fetchable URL
+                    url: requestURL,
                     category: category,
                     region: "imported",
                     mediaKind: kind
                 )
                 newSources.append(source)
                 results.append(ImportItemResult(url: rawURL, title: title, status: .imported))
-
             case .invalid(let reason):
                 results.append(ImportItemResult(url: rawURL, title: nil, status: .invalid(reason)))
-
             case .unreachable:
                 results.append(ImportItemResult(url: rawURL, title: nil, status: .unreachable))
             }
@@ -146,19 +121,15 @@ actor ImportPipeline {
         return (ImportResult(items: results), newSources)
     }
 
-    /// Import from OPML file data (local file picker, AirDrop, etc.)
     func ingest(
         opmlData: Data,
         fileName: String,
         existingURLs: Set<String>,
         validate: Bool = true
     ) async -> (result: ImportResult, sources: [FeedSource]) {
-        // Parse OPML
         let parser = XMLParser(data: opmlData)
         let delegate = OPMLImportDelegate(fallbackCategory: fileName.capitalized)
         parser.delegate = delegate
-        // P2-13: Require successful parse. A partial parse (valid outlines
-        // followed by malformed XML) would silently return partial sources.
         guard parser.parse(), parser.parserError == nil else {
             let error = parser.parserError?.localizedDescription ?? "malformed OPML"
             return (ImportResult(items: [
@@ -169,18 +140,12 @@ actor ImportPipeline {
         let parsedSources = delegate.sources
 
         if !validate {
-            // Fast path: skip network probes, but still enforce basic syntax
-            // validation (URL format, scheme, host, non-empty). Without these
-            // checks a malformed OPML can inject garbage URLs into the registry.
             var results: [ImportItemResult] = []
             var newSources: [FeedSource] = []
             var seen = existingURLs
             for source in parsedSources {
-                // P0-01: identity for dedup uses normalizeURL; storage uses
-                // requestURL to preserve any authorization/signed parameters.
                 let identity = OPMLParser.normalizeURL(source.url)
                 let fetchURL = OPMLParser.requestURL(source.url)
-                // Basic syntax checks on the fetch URL
                 guard !fetchURL.isEmpty,
                       let parsed = URL(string: fetchURL),
                       let scheme = parsed.scheme?.lowercased(),
@@ -198,7 +163,7 @@ actor ImportPipeline {
                     let kind = Self.detectMediaKind(url: fetchURL, title: source.title)
                     let corrected = FeedSource(
                         title: source.title,
-                        url: fetchURL,  // P0-01: store the fetchable URL
+                        url: fetchURL,
                         category: source.category,
                         region: "imported",
                         mediaKind: kind
@@ -210,9 +175,6 @@ actor ImportPipeline {
             return (ImportResult(items: results), newSources)
         }
 
-        // With validation: probe each feed
-        // P0-01: Deduplicate by identity (normalizeURL), preserve original
-        // OPML metadata keyed by identity for title/category restoration.
         var dedupedRequestURLs: [String] = []
         var results: [ImportItemResult] = []
         var seenIdentities = existingURLs
@@ -225,7 +187,6 @@ actor ImportPipeline {
             }
             let request = OPMLParser.requestURL(source.url)
             dedupedRequestURLs.append(request)
-            // Keep first occurrence's metadata when duplicates exist
             if metadataByIdentity[identity] == nil {
                 metadataByIdentity[identity] = (source.title, source.category)
             }
@@ -235,9 +196,7 @@ actor ImportPipeline {
             category: fileName.capitalized,
             existingURLs: existingURLs
         )
-        // Merge duplicate results from local dedup with probe results
         let mergedItems = results + probeResult.items
-        // Restore original OPML titles/categories where available, keyed by identity
         let corrected = sources.map { source -> FeedSource in
             let identity = OPMLParser.normalizeURL(source.url)
             guard let original = metadataByIdentity[identity] else { return source }
@@ -252,29 +211,23 @@ actor ImportPipeline {
         return (ImportResult(items: mergedItems), corrected)
     }
 
-    /// Import from a remote OPML URL (fetch then parse)
     func ingest(
         opmlURL: URL,
         existingURLs: Set<String>,
         validate: Bool = true
     ) async -> (result: ImportResult, sources: [FeedSource])? {
         do {
-            let (data, response) = try await session.data(from: opmlURL)
-            guard let http = response as? HTTPURLResponse,
-                  (200...299).contains(http.statusCode) else {
-                return (ImportResult(items: [
-                    ImportItemResult(url: opmlURL.absoluteString, title: nil, status: .unreachable)
-                ]), [])
-            }
-            // P1-12: Reject oversized remote OPML before parsing.
-            guard data.count <= Self.opmlImportMaxBytes else {
-                return (ImportResult(items: [
-                    ImportItemResult(url: opmlURL.absoluteString, title: nil,
-                        status: .invalid("OPML too large (\(data.count) bytes)"))
-                ]), [])
-            }
+            let (data, _) = try await boundedData(from: opmlURL, maxBytes: Self.opmlImportMaxBytes)
             let fileName = opmlURL.deletingPathExtension().lastPathComponent
             return await ingest(opmlData: data, fileName: fileName, existingURLs: existingURLs, validate: validate)
+        } catch BoundedDownloadError.tooLarge(let limit) {
+            return (ImportResult(items: [
+                ImportItemResult(
+                    url: opmlURL.absoluteString,
+                    title: nil,
+                    status: .invalid("OPML too large (limit \(limit) bytes)")
+                )
+            ]), [])
         } catch {
             return (ImportResult(items: [
                 ImportItemResult(url: opmlURL.absoluteString, title: nil, status: .unreachable)
@@ -284,16 +237,11 @@ actor ImportPipeline {
 
     // MARK: - Media Kind Detection
 
-    /// Detect media kind from URL patterns and title hints.
     static func detectMediaKind(url: String, title: String?) -> MediaKind {
         let lower = url.lowercased()
-
-        // YouTube feeds
         if lower.contains("youtube.com/feeds") || lower.contains("youtube.com/channel") {
             return .video
         }
-
-        // Podcast indicators in URL
         let podcastPatterns = ["/podcast", "/episodes", "/audio", "anchor.fm", "feeds.buzzsprout",
                                "feeds.simplecast", "feeds.megaphone", "rss.art19", "feeds.transistor",
                                "feeds.acast", "feeds.libsyn", "pinecast.com", "omny.fm",
@@ -301,26 +249,20 @@ actor ImportPipeline {
         if podcastPatterns.contains(where: { lower.contains($0) }) {
             return .audio
         }
-
-        // Title-based hints
         if let t = title?.lowercased() {
             if t.contains("podcast") || t.contains("episode") { return .audio }
             if t.contains("youtube") || t.contains("video") { return .video }
         }
-
         return .text
     }
 
-    /// Derive a display title from a feed URL when no title is available.
     static func titleFromURL(_ url: String) -> String {
         guard let parsed = URL(string: url),
               let host = parsed.host else { return url }
-        // Strip www. and common TLDs for readability
         var name = host
             .replacingOccurrences(of: "www.", with: "")
             .replacingOccurrences(of: "feeds.", with: "")
             .replacingOccurrences(of: "rss.", with: "")
-        // Capitalize first letter
         if let first = name.first {
             name = String(first).uppercased() + name.dropFirst()
         }
@@ -335,66 +277,76 @@ actor ImportPipeline {
         case unreachable
     }
 
-    /// P1-12: Per-resource byte ceilings for user-controlled downloads.
-    private static let feedProbeMaxBytes = 64_000       // feed validation probe
-    private static let opmlImportMaxBytes = 10_000_000  // remote OPML import
+    private static let feedProbeMaxBytes = 64_000
+    private static let opmlImportMaxBytes = 10_000_000
 
-    /// Fetch a URL and verify it contains a parseable RSS/Atom/JSON feed.
-    /// Returns the feed title if found.
+    /// Streams at most `maxBytes` into memory. A declared Content-Length over
+    /// the ceiling is rejected before the body is consumed; chunked/unknown
+    /// length responses are stopped the moment the ceiling would be crossed.
+    /// Because callers persist only after this returns, cancellation/errors
+    /// cannot leave a partial OPML or probe file behind.
+    private func boundedData(from url: URL, maxBytes: Int) async throws -> (Data, HTTPURLResponse) {
+        let (bytes, response) = try await session.bytes(from: url)
+        guard let http = response as? HTTPURLResponse else {
+            throw BoundedDownloadError.nonHTTP
+        }
+        guard (200...299).contains(http.statusCode) else {
+            throw BoundedDownloadError.badStatus(http.statusCode)
+        }
+        if response.expectedContentLength > Int64(maxBytes) {
+            throw BoundedDownloadError.tooLarge(limit: maxBytes)
+        }
+
+        var data = Data()
+        if response.expectedContentLength > 0 {
+            data.reserveCapacity(min(maxBytes, Int(response.expectedContentLength)))
+        }
+        for try await byte in bytes {
+            try Task.checkCancellation()
+            guard data.count < maxBytes else {
+                throw BoundedDownloadError.tooLarge(limit: maxBytes)
+            }
+            data.append(byte)
+        }
+        return (data, http)
+    }
+
     private func probeFeed(url: String) async -> ProbeResult {
         if let injected = injectedProbe { return await injected(url) }
         guard let feedURL = URL(string: url) else { return .invalid("Malformed URL") }
 
         do {
-            let (data, response) = try await session.data(from: feedURL)
-            guard let http = response as? HTTPURLResponse else { return .unreachable }
-
-            guard (200...299).contains(http.statusCode) else {
-                return .unreachable
-            }
-
-            // P1-12: Reject responses larger than the probe ceiling before
-            // inspecting content — prevents memory spikes from oversized
-            // responses to user-supplied URLs.
-            guard data.count <= Self.feedProbeMaxBytes else {
-                return .invalid("Feed response too large (\(data.count) bytes)")
-            }
-
+            let (data, http) = try await boundedData(from: feedURL, maxBytes: Self.feedProbeMaxBytes)
             guard data.looksLikeFeedData else {
-                // Check content-type header
                 let contentType = http.value(forHTTPHeaderField: "Content-Type") ?? ""
                 if contentType.contains("html") {
                     return .invalid("HTML page, not a feed")
                 }
                 return .invalid("Unrecognized format")
             }
-
-            // Extract title from feed
-            let isJSON = data.first == 0x7B  // '{'
+            let isJSON = data.first == 0x7B
             let title = Self.extractTitle(from: data, isJSON: isJSON)
             return .success(title: title)
+        } catch BoundedDownloadError.tooLarge(let limit) {
+            return .invalid("Feed response too large (limit \(limit) bytes)")
         } catch {
             return .unreachable
         }
     }
 
-    /// Quick title extraction without full feed parse.
     private static func extractTitle(from data: Data, isJSON: Bool) -> String? {
         if isJSON {
-            // JSON Feed: {"title": "..."}
             if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                let title = json["title"] as? String {
                 return title
             }
             return nil
         }
-        // XML: <title>...</title> — grab the first one
         let str = String(data: data.prefix(2000), encoding: .utf8) ?? ""
         if let range = str.range(of: "<title>"),
            let end = str[range.upperBound...].range(of: "</title>") {
             let title = String(str[range.upperBound..<end.lowerBound])
                 .trimmingCharacters(in: .whitespacesAndNewlines)
-            // Skip CDATA wrapper
             if title.hasPrefix("<![CDATA[") && title.hasSuffix("]]>") {
                 return String(title.dropFirst(9).dropLast(3))
             }
@@ -403,8 +355,6 @@ actor ImportPipeline {
         return nil
     }
 }
-
-// MARK: - Minimal OPML Parser for Import (actor-safe)
 
 private final class OPMLImportDelegate: NSObject, XMLParserDelegate, @unchecked Sendable {
     let fallbackCategory: String
@@ -419,13 +369,11 @@ private final class OPMLImportDelegate: NSObject, XMLParserDelegate, @unchecked 
     func parser(_ parser: XMLParser, didStartElement element: String, namespaceURI: String?, qualifiedName: String?, attributes: [String: String] = [:]) {
         guard element == "outline" else { return }
         if let xmlUrl = attributes["xmlUrl"] ?? attributes["xmlurl"] {
-            // Leaf node (feed): use current category from stack, don't push
             let title = attributes["title"] ?? attributes["text"] ?? ""
             let category = categoryStack.last ?? fallbackCategory
             sources.append(FeedSource(title: title, url: xmlUrl, category: category, region: "imported"))
             outlinePushStack.append(false)
         } else {
-            // Group node: push category onto stack
             let groupName = attributes["text"] ?? attributes["title"] ?? fallbackCategory
             categoryStack.append(groupName)
             outlinePushStack.append(true)
@@ -446,19 +394,13 @@ private final class OPMLImportDelegate: NSObject, XMLParserDelegate, @unchecked 
     }
 
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        // P2-13: Clear everything — no partial sources from a broken parse.
         sources.removeAll()
         categoryStack.removeAll()
         outlinePushStack.removeAll()
     }
 }
 
-// MARK: - Shared Feed Detection
-
 extension Data {
-    /// True if the first 500 bytes look like an RSS, Atom, RDF, or JSON Feed.
-    /// Shared by ``ImportPipeline`` and ``URLResolver`` to avoid duplicate
-    /// feed-detection heuristics.
     var looksLikeFeedData: Bool {
         let prefix = String(prefix(500).compactMap { $0 < 128 ? Character(UnicodeScalar($0)) : nil })
         return prefix.contains("<rss") || prefix.contains("<feed") || prefix.contains("<RDF")
