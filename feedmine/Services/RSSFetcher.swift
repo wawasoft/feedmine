@@ -2,6 +2,17 @@ import Foundation
 import FeedKit
 
 actor RSSFetcher {
+    /// Collected per-source response times (ms) from the most recent batch.
+    /// Callers read + clear via `drainResponseTimes()` after each batch.
+    private var pendingResponseTimes: [String: Double] = [:]
+
+    /// Return and clear the accumulated response times from the last batch.
+    func drainResponseTimes() -> [String: Double] {
+        let times = pendingResponseTimes
+        pendingResponseTimes.removeAll(keepingCapacity: true)
+        return times
+    }
+
     private let session: URLSession
     private let starterSession: URLSession
     private let httpSync: FeedHTTPSync
@@ -30,7 +41,7 @@ actor RSSFetcher {
         let config = URLSessionConfiguration.default
         config.timeoutIntervalForRequest = 15
         config.timeoutIntervalForResource = 30
-        config.waitsForConnectivity = true       // wait for network instead of failing immediately
+        config.waitsForConnectivity = false      // let timeouts fire; app gates on its own reachability
         config.allowsCellularAccess = true
         config.httpMaximumConnectionsPerHost = 2 // be a good citizen
         config.urlCache = cache
@@ -68,26 +79,31 @@ actor RSSFetcher {
             return FeedFetchResult(source: source, items: [], outcome: .failed(CancellationError()))
         }
 
+        let startedAt = ContinuousClock().now
         let transport = httpSync ?? self.httpSync
         let httpResult = await transport.fetch(source, validators: validators)
+        let elapsed = ContinuousClock().now - startedAt
+
+        let ms = Double(elapsed.components.seconds) * 1000 + Double(elapsed.components.attoseconds) / 1e15
+        pendingResponseTimes[OPMLParser.normalizeURL(source.url)] = ms
 
         switch httpResult.outcome {
         case .notModified:
             return FeedFetchResult(
                 source: source, items: [],
-                outcome: .notModified
+                outcome: .notModified, elapsedMs: ms
             )
 
         case .throttled(let until):
             return FeedFetchResult(
                 source: source, items: [],
-                outcome: .throttled(until: until)
+                outcome: .throttled(until: until), elapsedMs: ms
             )
 
         case .failed(let error):
             return FeedFetchResult(
                 source: source, items: [],
-                outcome: .failed(error)
+                outcome: .failed(error), elapsedMs: ms
             )
 
         case .success(let data):
@@ -113,14 +129,16 @@ actor RSSFetcher {
                     Log.network.info("Empty feed: \(source.title)")
                     return FeedFetchResult(
                         source: source, items: [],
-                        outcome: .modifiedWithoutNewItems(validators: updatedValidators)
+                        outcome: .modifiedWithoutNewItems(validators: updatedValidators),
+                        elapsedMs: ms
                     )
                 }
                 let validated = await validateAudio(in: items)
                 updatedValidators.lastOutcome = .modifiedWithNewItems
                 return FeedFetchResult(
                     source: source, items: validated,
-                    outcome: .modifiedWithNewItems(validated, validators: updatedValidators)
+                    outcome: .modifiedWithNewItems(validated, validators: updatedValidators),
+                    elapsedMs: ms
                 )
 
             case .failure(let error):
@@ -129,7 +147,8 @@ actor RSSFetcher {
                 Log.network.error("Parse failure for \(source.title): \(error)")
                 return FeedFetchResult(
                     source: source, items: [],
-                    outcome: .failed(error)
+                    outcome: .failed(error),
+                    elapsedMs: ms
                 )
             }
         }
@@ -253,6 +272,10 @@ actor RSSFetcher {
             }
 
             eventLoop: while let event = await group.next() {
+                if Task.isCancelled {
+                    group.cancelAll()
+                    break eventLoop
+                }
                 switch event {
                 case .cancelled:
                     continue
@@ -494,8 +517,18 @@ actor RSSFetcher {
         req.timeoutInterval = 6
         req.setValue("bytes=0-0", forHTTPHeaderField: "Range")
         do {
-            let (_, response) = try await session.data(for: req)
+            // Use bytes(for:) to avoid downloading full episode bodies from
+            // servers that ignore Range requests. Stream at most 64 KB and
+            // classify based on headers alone — we don't need the body for audio probes.
+            let (asyncBytes, response) = try await session.bytes(for: req)
             guard let http = response as? HTTPURLResponse else { return .unknown }
+            // Drain body bytes (capped at 64 KB) to avoid leaking the connection.
+            // asyncBytes iterates individual UInt8 values — count them to cap.
+            var drained = 0
+            for try await _ in asyncBytes.prefix(65_000) {
+                drained += 1
+                if drained > 64_000 { break }
+            }
             return classify(http)
         } catch {
             return .unknown   // network error — can't determine, don't strip
@@ -567,12 +600,13 @@ actor RSSFetcher {
                 let rel = $0.attributes?.rel?.lowercased() ?? ""
                 return rel == "next" || rel == "previous" || rel == "first" || rel == "last"
             }) ?? false
+            let caps = SourceCapabilities(websub: websub, hasPagination: hasPagination)
             return (
                 ttl: nil,
                 skipHours: nil,
                 skipDays: nil,
                 lastBuildDate: atom.updated,
-                capabilities: websub.map { SourceCapabilities(websub: $0, hasPagination: hasPagination) }
+                capabilities: caps
             )
         case .json(let json):
             let websub = json.hubs?.first(where: { $0.type?.lowercased() == "websub" }).map { hub in
@@ -1346,6 +1380,9 @@ enum FeedTextSanitizer {
             return scalar.value == 160 ? " " : String(scalar)
         }
 
+        // Exact match first (case-sensitive — e.g. "Agrave" vs "agrave").
+        if let exact = namedHTMLEntities[body] { return exact }
+        // Fall back to case-insensitive for the common case.
         return namedHTMLEntities[body.lowercased()]
     }
 
@@ -1374,5 +1411,54 @@ enum FeedTextSanitizer {
         "rsquo": "'",
         "sbquo": "'",
         "trade": "TM",
+        // Latin-1 accented characters
+        "aacute": "\u{00E1}", "Aacute": "\u{00C1}",
+        "acirc": "\u{00E2}", "Acirc": "\u{00C2}",
+        "aelig": "\u{00E6}", "AElig": "\u{00C6}",
+        "agrave": "\u{00E0}", "Agrave": "\u{00C0}",
+        "aring": "\u{00E5}", "Aring": "\u{00C5}",
+        "atilde": "\u{00E3}", "Atilde": "\u{00C3}",
+        "auml": "\u{00E4}", "Auml": "\u{00C4}",
+        "ccedil": "\u{00E7}", "Ccedil": "\u{00C7}",
+        "eacute": "\u{00E9}", "Eacute": "\u{00C9}",
+        "ecirc": "\u{00EA}", "Ecirc": "\u{00CA}",
+        "egrave": "\u{00E8}", "Egrave": "\u{00C8}",
+        "eth": "\u{00F0}", "ETH": "\u{00D0}",
+        "euml": "\u{00EB}", "Euml": "\u{00CB}",
+        "iacute": "\u{00ED}", "Iacute": "\u{00CD}",
+        "icirc": "\u{00EE}", "Icirc": "\u{00CE}",
+        "igrave": "\u{00EC}", "Igrave": "\u{00CC}",
+        "iuml": "\u{00EF}", "Iuml": "\u{00CF}",
+        "ntilde": "\u{00F1}", "Ntilde": "\u{00D1}",
+        "oacute": "\u{00F3}", "Oacute": "\u{00D3}",
+        "ocirc": "\u{00F4}", "Ocirc": "\u{00D4}",
+        "ograve": "\u{00F2}", "Ograve": "\u{00D2}",
+        "oslash": "\u{00F8}", "Oslash": "\u{00D8}",
+        "otilde": "\u{00F5}", "Otilde": "\u{00D5}",
+        "ouml": "\u{00F6}", "Ouml": "\u{00D6}",
+        "szlig": "\u{00DF}",
+        "thorn": "\u{00FE}", "THORN": "\u{00DE}",
+        "uacute": "\u{00FA}", "Uacute": "\u{00DA}",
+        "ucirc": "\u{00FB}", "Ucirc": "\u{00DB}",
+        "ugrave": "\u{00F9}", "Ugrave": "\u{00D9}",
+        "uuml": "\u{00FC}", "Uuml": "\u{00DC}",
+        "yacute": "\u{00FD}", "Yacute": "\u{00DD}",
+        "yuml": "\u{00FF}",
+        // Inverted punctuation
+        "iexcl": "\u{00A1}", "iquest": "\u{00BF}",
+        // Miscellaneous
+        "ordf": "\u{00AA}", "ordm": "\u{00BA}",
+        "times": "\u{00D7}", "divide": "\u{00F7}",
+        "plusmn": "\u{00B1}", "sup1": "\u{00B9}",
+        "sup2": "\u{00B2}", "sup3": "\u{00B3}",
+        "frac14": "\u{00BC}", "frac12": "\u{00BD}",
+        "frac34": "\u{00BE}", "micro": "\u{00B5}",
+        "para": "\u{00B6}", "sect": "\u{00A7}",
+        "not": "\u{00AC}", "macr": "\u{00AF}",
+        "cedil": "\u{00B8}", "acute": "\u{00B4}",
+        "circ": "\u{02C6}", "tilde": "\u{02DC}",
+        "uml": "\u{00A8}", "brvbar": "\u{00A6}",
+        "cent": "\u{00A2}", "curren": "\u{00A4}",
+        "yen": "\u{00A5}", "shy": "\u{00AD}",
     ]
 }

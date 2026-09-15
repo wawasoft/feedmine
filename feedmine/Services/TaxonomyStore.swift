@@ -47,23 +47,94 @@ final class TaxonomyStore {
 
     var selectedNodeIDs: Set<String> = []
 
+    /// Monotonic counter for interleaved build() calls. Each call captures a
+    /// generation at start and only applies its result if no newer build has
+    /// begun since — so builds apply in call order, not task-completion order.
+    @ObservationIgnored private var buildGeneration: UInt64 = 0
+
     // MARK: - Persistence
 
-    private let cacheURL: URL = {
+    nonisolated private static let cacheURL: URL = {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("taxonomy_cache.json")
     }()
-    private static let cacheSchemaVersion = 3
+    nonisolated private static let cacheSchemaVersion = 3
 
     // MARK: - Tree Building
 
+    /// Snapshot of a finished taxonomy build. Computed entirely off the
+    /// main actor by `computeTaxonomy`, then assigned to the singleton in
+    /// one main-actor transaction.
+    private struct BuiltTaxonomy: Sendable {
+        let root: TaxonomyNode
+        let flatIndex: [String: TaxonomyNode]
+        let feedToNodeID: [String: String]
+        let childrenIndex: [String: [String]]
+        let nodeToFeedURLs: [String: Set<String>]
+        let coverageGroups: [CoverageGroup]
+    }
+
     /// Build the taxonomy tree from all feed sources.
     /// Single pass, O(n). Caches result to disk for warm starts.
+    ///
+    /// The tree build is a pure function of the source list, so the heavy
+    /// computation (500ms–1.5s for ~240 sources / 10K nodes) runs in a
+    /// detached task instead of blocking the main actor. Only the final
+    /// assignment of the rebuilt indexes touches the shared singleton, and
+    /// that happens on the main actor. Cache persistence (JSON-encoding
+    /// ~10K nodes) also runs off main.
     func build(
         from sources: [FeedSource],
         sharedCountrySourceURLs: Set<String> = []
     ) async {
-        let selectedBeforeRebuild = selectedNodeIDs
+        // Capture a generation. build() is main-actor isolated, so this bump
+        // is atomic relative to any other build() call — but the await below
+        // releases the main actor, letting a newer build start (and finish)
+        // first. The generation guard makes the stale build's apply a no-op.
+        let gen = buildGeneration + 1
+        buildGeneration = gen
+
+        let built = await Task.detached(priority: .userInitiated) {
+            Self.computeTaxonomy(
+                from: sources,
+                sharedCountrySourceURLs: sharedCountrySourceURLs
+            )
+        }.value
+
+        // Apply on the main actor — only the final assignment of the
+        // rebuilt indexes touches shared state.
+        guard buildGeneration == gen else { return }
+
+        feedToNodeID = built.feedToNodeID
+        childrenIndex = built.childrenIndex
+        sortedChildrenCache.removeAll()
+        nodeToFeedURLs = built.nodeToFeedURLs
+        flatIndex = built.flatIndex
+        // A rebuild can finish while a topic is being chosen. Keep the
+        // *current* selection (including any made during the build window),
+        // dropping only IDs that no longer exist in the refreshed catalogue.
+        selectedNodeIDs = selectedNodeIDs.filter { built.flatIndex[$0] != nil }
+        root = built.root
+        coverageGroups = built.coverageGroups
+
+        // Persist off main — encoding ~10K nodes is expensive too.
+        Task.detached(priority: .background) {
+            Self.persistCache(
+                root: built.root,
+                flatIndex: built.flatIndex,
+                feedToNodeID: built.feedToNodeID,
+                sources: sources,
+                sharedCountrySourceURLs: sharedCountrySourceURLs
+            )
+        }
+    }
+
+    /// Pure computation of the taxonomy tree. No shared instance state —
+    /// safe to run off the main actor.
+    nonisolated private static func computeTaxonomy(
+        from sources: [FeedSource],
+        sharedCountrySourceURLs: Set<String>
+    ) -> BuiltTaxonomy {
         let countryRegionsByURL = sources.reduce(into: [String: Set<String>]()) { result, source in
             let regionParts = source.region.split(separator: "/", omittingEmptySubsequences: true)
             guard regionParts.count >= 2, regionParts[0] == "countries" else { return }
@@ -76,15 +147,11 @@ final class TaxonomyStore {
             })
         )
 
-        // Clear stale state from previous builds
-        feedToNodeID.removeAll()
-        childrenIndex.removeAll()
-        sortedChildrenCache.removeAll()
-        nodeToFeedURLs.removeAll()
-
         // Intermediate: path segments → children
         var tree: [String: (node: TaxonomyNode, childIDs: Set<String>)] = [:]
         var rootChildren: Set<String> = []
+        var feedToNodeID: [String: String] = [:]
+        var nodeToFeedURLs: [String: Set<String>] = [:]
 
         // Ensure virtual root exists
         let rootNode = TaxonomyNode.root(feedCount: 0, childrenCount: 0)
@@ -183,10 +250,7 @@ final class TaxonomyStore {
         )
 
         // Build flat index
-        flatIndex = Dictionary(uniqueKeysWithValues: tree.map { ($0.key, $0.value.node) })
-        // A rebuild can finish while a topic is being chosen. Keep only
-        // selections whose stable node IDs remain in the refreshed catalogue.
-        selectedNodeIDs = selectedBeforeRebuild.filter { flatIndex[$0] != nil }
+        let flatIndex = Dictionary(uniqueKeysWithValues: tree.map { ($0.key, $0.value.node) })
 
         // Numeric folder prefixes are the editorial menu order.
         let topChildren = rootChildren
@@ -198,17 +262,31 @@ final class TaxonomyStore {
             language: nil, level: 0, kind: .topic
         )
 
-        self.root = rootWithChildren
-        rebuildCoverageGroups()
-
         // Build children index for O(1) lookups
-        childrenIndex.removeAll()
+        var childrenIndex: [String: [String]] = [:]
         for (nodeID, node) in flatIndex {
             guard let parentID = node.parentId else { continue }
             childrenIndex[parentID, default: []].append(nodeID)
         }
 
-        persistCache(sources: sources, sharedCountrySourceURLs: sharedCountrySourceURLs)
+        // Leaf-only coverage groups for the "All feeds in this topic" UI.
+        let coverageGroups = flatIndex.values.compactMap { node -> CoverageGroup? in
+            guard node.id != TaxonomyNode.rootID,
+                  node.childrenCount == 0,
+                  node.feedCount > 0,
+                  let urls = nodeToFeedURLs[node.id],
+                  !urls.isEmpty else { return nil }
+            return CoverageGroup(id: node.id, feedURLs: urls)
+        }.sorted { $0.id < $1.id }
+
+        return BuiltTaxonomy(
+            root: rootWithChildren,
+            flatIndex: flatIndex,
+            feedToNodeID: feedToNodeID,
+            childrenIndex: childrenIndex,
+            nodeToFeedURLs: nodeToFeedURLs,
+            coverageGroups: coverageGroups
+        )
     }
 
     // MARK: - Path derivation
@@ -220,7 +298,7 @@ final class TaxonomyStore {
         let kind: NodeKind
     }
 
-    private func derivePath(from source: FeedSource) -> [PathSegment] {
+    nonisolated private static func derivePath(from source: FeedSource) -> [PathSegment] {
         var segments: [PathSegment] = []
         let region = source.region
 
@@ -332,20 +410,20 @@ final class TaxonomyStore {
         return children
     }
 
-    private static func editorialNodeOrder(_ lhs: TaxonomyNode, _ rhs: TaxonomyNode) -> Bool {
+    nonisolated private static func editorialNodeOrder(_ lhs: TaxonomyNode, _ rhs: TaxonomyNode) -> Bool {
         let lhsOrder = ordinal(in: lhs.id.components(separatedBy: "/").last ?? lhs.id)
         let rhsOrder = ordinal(in: rhs.id.components(separatedBy: "/").last ?? rhs.id)
         if lhsOrder != rhsOrder { return lhsOrder < rhsOrder }
         return lhs.name.localizedCaseInsensitiveCompare(rhs.name) == .orderedAscending
     }
 
-    private static func ordinal(in raw: String) -> Int {
+    nonisolated private static func ordinal(in raw: String) -> Int {
         let prefix = raw.prefix { $0.isNumber }
         guard !prefix.isEmpty, let value = Int(prefix) else { return Int.max }
         return value
     }
 
-    private static func orderedDisplayName(_ raw: String) -> String {
+    nonisolated private static func orderedDisplayName(_ raw: String) -> String {
         raw.replacingOccurrences(
             of: #"^\d+[ _-]+"#,
             with: "",
@@ -476,7 +554,7 @@ final class TaxonomyStore {
     /// normalized, sorted, SHA-256. The pre-deduplication cross-country URL
     /// signal is included too, so the cache invalidates on any edit that
     /// affects country membership in the taxonomy tree.
-    static func sourceFingerprint(
+    nonisolated static func sourceFingerprint(
         for sources: [FeedSource],
         sharedCountrySourceURLs: Set<String> = []
     ) -> String {
@@ -501,7 +579,7 @@ final class TaxonomyStore {
 
     /// Invalidate disk cache — call when OPML manifest changes.
     func invalidateCache() {
-        try? FileManager.default.removeItem(at: cacheURL)
+        try? FileManager.default.removeItem(at: Self.cacheURL)
     }
 
     /// Try to load from disk cache. Returns true if cache was valid.
@@ -517,7 +595,7 @@ final class TaxonomyStore {
             for: sources,
             sharedCountrySourceURLs: sharedCountrySourceURLs
         )
-        guard let data = try? Data(contentsOf: cacheURL),
+        guard let data = try? Data(contentsOf: Self.cacheURL),
               let cached = try? JSONDecoder().decode(CachedTree.self, from: data) else {
             return false
         }
@@ -562,7 +640,13 @@ final class TaxonomyStore {
         return true
     }
 
-    private func persistCache(
+    /// Persist a finished build to disk. Pure function of the build
+    /// snapshot — runs off the main actor so JSON-encoding ~10K nodes
+    /// never blocks first paint.
+    nonisolated private static func persistCache(
+        root: TaxonomyNode?,
+        flatIndex: [String: TaxonomyNode],
+        feedToNodeID: [String: String],
         sources: [FeedSource],
         sharedCountrySourceURLs: Set<String>
     ) {
@@ -579,7 +663,7 @@ final class TaxonomyStore {
             sourceFingerprint: fingerprint
         )
         guard let data = try? JSONEncoder().encode(cached) else { return }
-        try? data.write(to: cacheURL, options: .atomic)
+        try? data.write(to: Self.cacheURL, options: .atomic)
     }
 }
 

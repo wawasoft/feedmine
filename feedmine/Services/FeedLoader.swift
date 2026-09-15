@@ -65,6 +65,25 @@ final class FeedLoader {
     var sourceCount: Int { store.registry.sourceCount }
     /// Sources available under the current filter configuration
     /// (preset, region, language, content type, taxonomy).
+    /// Active source count, cached per filter generation. Avoids recomputing
+    /// the O(n) activeSources filter on every header render.
+    @ObservationIgnored private var _cachedActiveSourceCount: Int?
+    @ObservationIgnored private var _cachedActiveSourceCountGen: Int64?
+
+    var activeSourceCount: Int {
+        if let presetCount = store.presetSourceFilter?.count {
+            return presetCount
+        }
+        let gen = store.activeFilterGeneration
+        if let cached = _cachedActiveSourceCount, _cachedActiveSourceCountGen == gen {
+            return cached
+        }
+        let count = activeSources.count
+        _cachedActiveSourceCount = count
+        _cachedActiveSourceCountGen = gen
+        return count
+    }
+
     var activeSources: [FeedSource] {
         if let filter = store.presetSourceFilter {
             return store.registry.sources.filter {
@@ -102,9 +121,6 @@ final class FeedLoader {
             }
             return true
         }
-    }
-    var activeSourceCount: Int {
-        store.presetSourceFilter?.count ?? activeSources.count
     }
     var podcastSourceCount: Int { store.podcastSourceCount }
     var podcastItemCount: Int { store.podcastItemCount }
@@ -145,6 +161,19 @@ final class FeedLoader {
             self.cards = cards
             self.showsHeader = showsHeader
         }
+    }
+
+    /// Cards-by-ID lookup keyed by section ID. Built once per dateSections
+    /// recomputation, reused across render passes. Avoids O(n) Dictionary
+    /// rebuilds on every FeedScreen body evaluation during scroll.
+    @ObservationIgnored private var _cardsByIDBySection: [String: [String: FeedCardPresentation]] = [:]
+
+    /// Returns a pre-built itemID→card lookup for the given section.
+    func cardsByID(for section: DateSection) -> [String: FeedCardPresentation] {
+        if let cached = _cardsByIDBySection[section.id] { return cached }
+        let dict = Dictionary(uniqueKeysWithValues: section.cards.map { ($0.id, $0) })
+        _cardsByIDBySection[section.id] = dict
+        return dict
     }
 
     // MARK: - Layout
@@ -296,6 +325,8 @@ final class FeedLoader {
 
     private var _cachedFiltered: [FeedItem] = []
     private var _cachedGeneration: UInt64?
+    private var _cachedCardsGeneration: UInt64?
+    private var _cachedReadRevision: UInt64?
     private var _cachedSearchQuery: String?
 
     /// Filtered card presentations matching the active search/filter state.
@@ -307,10 +338,17 @@ final class FeedLoader {
 
     var filteredItems: [FeedItem] {
         let generation = store.visibleItemsGeneration
-        if _cachedGeneration == generation, _cachedSearchQuery == searchQuery {
+        let cardsGeneration = store.visibleCardsGeneration
+        let readRevision = store.readStateRevision
+        if _cachedGeneration == generation,
+           _cachedCardsGeneration == cardsGeneration,
+           _cachedReadRevision == readRevision,
+           _cachedSearchQuery == searchQuery {
             return _cachedFiltered
         }
         _cachedGeneration = generation
+        _cachedCardsGeneration = cardsGeneration
+        _cachedReadRevision = readRevision
         _cachedSearchQuery = searchQuery
         var result = items
         let query = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -334,20 +372,32 @@ final class FeedLoader {
 
     private var _cachedSections: [DateSection] = []
     private var _cachedDateSectionsGen: UInt64?
+    private var _cachedDateSectionsCardsGen: UInt64?
+    private var _cachedDateSectionsReadRev: UInt64?
     private var _cachedDateSectionsQuery: String?
 
     var dateSections: [DateSection] {
         let items = filteredItems
-        if _cachedDateSectionsGen == _cachedGeneration, _cachedDateSectionsQuery == _cachedSearchQuery {
+        // Cache key includes cards generation + read revision: dateSections
+        // embeds card presentations (cardsByID), so a card-only swap
+        // (placeholder → resolved image) or an in-place read-state mutation
+        // must invalidate it even when items didn't change.
+        if _cachedDateSectionsGen == _cachedGeneration,
+           _cachedDateSectionsCardsGen == _cachedCardsGeneration,
+           _cachedDateSectionsReadRev == _cachedReadRevision,
+           _cachedDateSectionsQuery == _cachedSearchQuery {
             return _cachedSections
         }
         _cachedDateSectionsGen = _cachedGeneration
+        _cachedDateSectionsCardsGen = _cachedCardsGeneration
+        _cachedDateSectionsReadRev = _cachedReadRevision
         _cachedDateSectionsQuery = _cachedSearchQuery
+        _cardsByIDBySection.removeAll(keepingCapacity: true)
 
         // Build a lookup from item ID → pre-resolved card presentation.
         // Items still being prepared won't have an entry yet; views handle
         // nil/missing cards gracefully with content-type placeholders.
-        let cardsByID = Dictionary(uniqueKeysWithValues: cards.map { ($0.id, $0) })
+        let cardsByID = Dictionary(cards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
 
         // A filtered feed already has an intentional provider/category/media
         // order. Regrouping it by date would move all fresh aggregator cards
@@ -550,8 +600,10 @@ final class FeedLoader {
     func noteVisibleIndex(for item: FeedItem) {
         if item.id == _lastNoteVisibleID { return }  // already recorded this item
         _lastNoteVisibleID = item.id
-        // Fast path: try to find by walking from known visible index
-        let idx = filteredItems.firstIndex(where: { $0.id == item.id }) ?? 0
+        // Skip items not in filteredItems (e.g. search results, bookmark-box
+        // items) — recording index 0 would snap the trim/load-more anchor to
+        // the top and cause premature trimming (review finding).
+        guard let idx = filteredItems.firstIndex(where: { $0.id == item.id }) else { return }
         noteVisibleIndex(idx)
     }
     private var _lastNoteVisibleID: String = ""

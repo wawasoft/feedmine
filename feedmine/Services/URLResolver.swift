@@ -9,18 +9,35 @@ private enum DownloadLimit {
     static let opmlImport = 10_000_000      // remote OPML import
 }
 
-/// Download with a byte ceiling. Checks Content-Length before transfer;
-/// rejects responses exceeding the limit and truncates at the ceiling.
+/// Download with a byte ceiling. Streams the response body and aborts
+/// as soon as `maxBytes` is exceeded — content is never fully buffered
+/// before the guard. Also checks `Content-Length` ahead of transfer when
+/// the header is present, rejecting oversized responses before the first
+/// byte arrives.
 private func boundedDownload(from url: URL, maxBytes: Int, session: URLSession = .shared) async throws -> (Data, HTTPURLResponse) {
     var request = URLRequest(url: url)
     request.timeoutInterval = 10
 
-    let (data, response) = try await session.data(for: request)
+    let (asyncBytes, response) = try await session.bytes(for: request)
     guard let http = response as? HTTPURLResponse else {
         throw URLError(.badServerResponse)
     }
 
-    // Reject responses that exceed the ceiling.
+    // Early rejection when Content-Length is advertised and exceeds the cap.
+    if let lengthStr = http.value(forHTTPHeaderField: "Content-Length"),
+       let length = Int(lengthStr), length > maxBytes {
+        throw URLError(.cannotParseResponse)
+    }
+
+    var data = Data()
+    data.reserveCapacity(min(maxBytes, 64_000))
+    for try await chunk in asyncBytes.prefix(maxBytes + 1) {
+        // asyncBytes iterates Data chunks (not individual bytes) on recent OS
+        // versions; the prefix ensures we read at most maxBytes+1 chunks.
+        data.append(chunk)
+    }
+    // This would only happen on older OS versions where prefix(count:) on
+    // async sequences isn't supported — a defensive fallback.
     guard data.count <= maxBytes else {
         throw URLError(.cannotParseResponse)
     }
@@ -208,14 +225,20 @@ actor URLResolver {
         req.timeoutInterval = 5
         req.setValue("bytes=0-511", forHTTPHeaderField: "Range")
         do {
-            let (data, response) = try await URLSession.shared.data(for: req)
+            // Stream with bytes(for:) instead of data(for:) — servers that
+            // ignore Range return the full body, and data(for:) would buffer
+            // it entirely before the prefix check. bytes(for:) lets us drain
+            // only the first 256 bytes (review finding).
+            let (asyncBytes, response) = try await URLSession.shared.bytes(for: req)
             guard let http = response as? HTTPURLResponse else { return false }
             guard (200...299).contains(http.statusCode) || http.statusCode == 206 else {
                 return false
             }
-            // Quick structural check: does the first 512 bytes look like XML
-            // or JSON Feed? A full parse is too expensive for a probe.
-            let prefix = String(data: data.prefix(256), encoding: .utf8) ?? ""
+            var data = Data()
+            for try await byte in asyncBytes.prefix(256) {
+                data.append(byte)
+            }
+            let prefix = String(data: data, encoding: .utf8) ?? ""
             let trimmed = prefix.trimmingCharacters(in: .whitespacesAndNewlines)
             return trimmed.hasPrefix("<?xml") || trimmed.hasPrefix("<rss")
                 || trimmed.hasPrefix("<feed") || trimmed.hasPrefix("<atom")

@@ -58,7 +58,13 @@ final class Reservoir {
         }.value
         let w = min(Self.pageSize, interleaved.count)
         visibleItems = Array(interleaved.prefix(w))
-        reservoir = Array(interleaved.dropFirst(w))
+        // Union, don't replace: items appended while the interleave ran (e.g.
+        // by a concurrent fetch task) would be lost by wholesale replacement.
+        // Interleaved items keep their slots first — dedupReservoir is
+        // order-preserving (first occurrence wins) — so anything appended
+        // during the await lands after them instead of disappearing.
+        reservoir = Array(interleaved.dropFirst(w)) + reservoir
+        dedupReservoir()
         capReservoir()
         markAsSurfaced(visibleItems)
     }
@@ -115,7 +121,13 @@ final class Reservoir {
         guard safeEnd < visibleItems.count else { return }
         let belowToDiscard = min(toDiscard, visibleItems.count - safeEnd)
         if belowToDiscard > 0 {
+            // Return trimmed tail to the front of the reservoir so items are
+            // re-supplied when the user scrolls into them. The old code
+            // permanently discarded them, causing the feed to dead-end
+            // mid-session at the trim point (review finding H3).
+            let trimmed = visibleItems.suffix(belowToDiscard)
             visibleItems.removeLast(belowToDiscard)
+            reservoir.insert(contentsOf: trimmed, at: 0)
         }
     }
 
@@ -161,7 +173,18 @@ final class Reservoir {
         }
         let isDisabled: (FeedItem) -> Bool = { [self] item in
             let itemRegion = sourceRegionMap[item.sourceURL] ?? "global"
-            return disabledWithAncestors.contains(itemRegion)
+            if disabledWithAncestors.contains(itemRegion) { return true }
+            // Descendants of a disabled region must go too — the same
+            // hasPrefix(region + "/") pattern applyFilters uses (e.g.
+            // disabling countries/brazil also removes
+            // countries/brazil/sao-paulo). Check the originally disabled
+            // regions only: the ancestor expansion above would otherwise
+            // sweep sibling sub-regions (disabling countries/brazil/sao-paulo
+            // must not remove countries/brazil/rio items).
+            for disabled in regions where itemRegion.hasPrefix(disabled + "/") {
+                return true
+            }
+            return false
         }
         visibleItems.removeAll(where: isDisabled)
         reservoir.removeAll(where: isDisabled)
@@ -170,6 +193,7 @@ final class Reservoir {
             let batch = Array(reservoir.prefix(needed))
             visibleItems.append(contentsOf: batch)
             reservoir.removeFirst(needed)
+            markAsSurfaced(batch)
         }
     }
 

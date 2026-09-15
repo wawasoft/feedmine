@@ -11,6 +11,9 @@ struct FeedFetchResult: Sendable {
     let source: FeedSource
     let items: [FeedItem]
     let outcome: FeedFetchOutcome
+    /// Wall-clock response time in milliseconds (HTTP + parse).
+    /// Nil for pre-existing results that weren't timed.
+    var elapsedMs: Double?
 
     /// Convenience status for backward compatibility during migration.
     var status: FeedFetchStatus {

@@ -1,20 +1,11 @@
 import SwiftUI
 import UIKit
 
-/// Non-reactive impression counter — mutated on every card `.onAppear`
-/// without triggering SwiftUI body re-evaluation.
-private final class ImpressionTracker {
-    var seen = Set<String>()
-    var count: Int { seen.count }
-    func mark(_ id: String) { seen.insert(id) }
-}
-
 struct FeedScreen: View {
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(FeedLoader.self) private var loader
     @State private var articleItem: FeedItem?
-    private let impressions = ImpressionTracker()
-    @State private var showScrollButton = false
     @State private var lastScrollIndex: Int = 0
     /// Uncommitted text in the field. It does not trigger a search until Return
     /// or the add button turns it into a tag.
@@ -96,8 +87,13 @@ struct FeedScreen: View {
 
     private var screenContent: some View {
         ZStack(alignment: .top) {
-            // Full-bleed feed content with circadian page tint
-            engine.pageBackground.ignoresSafeArea()
+            // Full-bleed feed content with circadian page tint. The 2s period
+            // crossfade is scoped to this background only — attaching it higher
+            // (screenWithSheets) animated every animatable property in the whole
+            // hierarchy. Skipped entirely under Reduce Motion.
+            engine.pageBackground
+                .ignoresSafeArea()
+                .animation(reduceMotion ? nil : .easeInOut(duration: 2.0), value: engine.period)
 
             if isSearching && hasCommittedSearch {
                 unifiedSearchPanel
@@ -109,8 +105,10 @@ struct FeedScreen: View {
                     FeedEmptyStateView(mode: emptyMode)
                 case .ready:
                     feedScrollView
-                case .empty:
+                case .empty where loader.items.isEmpty:
                     FeedEmptyStateView(mode: emptyMode)
+                case .empty:
+                    feedScrollView
                 case .failed:
                     FeedEmptyStateView(mode: .generic)
                 }
@@ -229,8 +227,11 @@ struct FeedScreen: View {
             }
         }
         .onChange(of: loader.networkMonitor.isConnected) { _, connected in
-            if connected && loader.fetchErrorCount > 0 {
-                // Only fetch new content into reservoir — don't clear visible items
+            // Refresh when the network recovers from a known-disconnected
+            // state. Gating on wasDisconnected (not just connected) prevents
+            // the startup false→true transition from triggering a redundant
+            // concurrent fetch on every normal online launch.
+            if connected, loader.networkMonitor.wasDisconnected {
                 Task { await loader.refreshIfStale() }
             }
         }
@@ -291,7 +292,6 @@ struct FeedScreen: View {
             }
         }
         .tint(engine.accent)
-        .animation(.easeInOut(duration: 2.0), value: engine.period)
         .overlay { if nightMode { nightOverlay } }
         .fileImporter(
             isPresented: $showCollectionImporter,
@@ -833,11 +833,10 @@ struct FeedScreen: View {
                         }
                         ForEach(loader.dateSections) { section in
                             Section {
-                                // Build a lookup so each row gets its pre-resolved
-                                // card presentation without scanning the full array.
-                                let cardsByID = Dictionary(
-                                    uniqueKeysWithValues: section.cards.map { ($0.id, $0) }
-                                )
+                                // Pre-built lookup keyed by section ID, cached
+                                // across render passes to avoid O(n) rebuilds
+                                // during scroll-driven body evaluations.
+                                let cardsByID = loader.cardsByID(for: section)
                                 ForEach(section.items) { item in
                                     FeedItemView(item: item,
                                         presentation: cardsByID[item.id],
@@ -866,17 +865,8 @@ struct FeedScreen: View {
                                         }
                                     }
                                     .onAppear {
-                                        impressions.mark(item.id)
                                         loader.noteVisibleIndex(for: item)
-                                        if impressions.count % 8 == 0 {
-                                            let idx = loader.currentVisibleIndex
-                                            let goingUp = idx < lastScrollIndex
-                                            lastScrollIndex = idx
-                                            let shouldShow = goingUp && idx > 12
-                                            if shouldShow != showScrollButton {
-                                                showScrollButton = shouldShow
-                                            }
-                                        }
+                                        lastScrollIndex = loader.currentVisibleIndex
                                         Task { await loader.loadMoreIfNeeded(currentItem: item) }
                                     }
                                 }
@@ -894,9 +884,6 @@ struct FeedScreen: View {
                         }
                     }
                     .padding(.top, feedTopPadding)
-                    .safeAreaInset(edge: .bottom) {
-                        Color.clear.frame(height: 60).background(.ultraThinMaterial)
-                    }
                 }
                 .refreshable {
                     await loader.pullToRefresh()
@@ -907,7 +894,6 @@ struct FeedScreen: View {
                 }, action: { _, newOffset in
                     handleScrollOffset(newOffset)
                 })
-                if showScrollButton { floatingButtons(proxy: proxy) }
             }
             .onChange(of: scrollTargetID) { _, targetID in
                 guard let targetID else { return }
@@ -937,31 +923,6 @@ struct FeedScreen: View {
 
     // MARK: - Floating Buttons
 
-    private func floatingButtons(proxy: ScrollViewProxy) -> some View {
-        HStack {
-            Spacer()
-            Button {
-                let impact = UIImpactFeedbackGenerator(style: .soft)
-                impact.impactOccurred()
-                withAnimation(.easeInOut(duration: 0.4)) {
-                    proxy.scrollTo("top", anchor: .top)
-                }
-                showScrollButton = false
-            } label: {
-                Image(systemName: "arrow.up")
-                    .frame(width: 36, height: 36)
-                    .background(engine.accent.opacity(0.12))
-                    .clipShape(Circle())
-            }
-            .accessibilityLabel("Scroll to top")
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(.ultraThinMaterial)
-        .transition(.move(edge: .bottom).combined(with: .opacity))
-        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: showScrollButton)
-    }
-
     // MARK: - Overlays
 
     private var toastOverlay: some View {
@@ -978,9 +939,11 @@ struct FeedScreen: View {
                 .shadow(color: .black.opacity(0.15), radius: 10, y: 5)
                 .padding(.bottom, 100)
                 .transition(.move(edge: .bottom).combined(with: .opacity))
-                .onAppear { DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                .task(id: toastMessage) {
+                    try? await Task.sleep(for: .seconds(2))
+                    guard !Task.isCancelled else { return }
                     withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) { showToast = false }
-                }}
+                }
                 .animation(.spring(response: 0.35, dampingFraction: 0.8), value: showToast)
             }
         }
@@ -1214,6 +1177,7 @@ struct FeedScreen: View {
         searchFocused = true
     }
 
+    /// Scroll offset (points) beyond which the scroll-to-top button appears.
     private func handleScrollOffset(_ newOffset: CGFloat) {
         if newOffset > 40 { userHasScrolled = true }
 
@@ -1292,7 +1256,7 @@ struct FeedScreen: View {
 
     private func updateBadge() {
         let unread = loader.items.count - loader.readItemIDs.count
-        Task { @MainActor in UIApplication.shared.applicationIconBadgeNumber = max(0, unread) }
+        Task { try? await UNUserNotificationCenter.current().setBadgeCount(max(0, unread)) }
     }
 
     private func recordFirstScreenMetric() {
@@ -1509,7 +1473,7 @@ struct CompactFeedStatus: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
                 .accessibilityLabel(
-                    "\(loader.startupFetchedSourceCount) de \(startupTotal) fontes verificadas"
+                    "\(loader.startupFetchedSourceCount) of \(startupTotal) sources verified"
                 )
             } else {
                 Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")
@@ -1752,10 +1716,13 @@ struct InitialFeedLoadingView: View {
                     reduceMotion: reduceMotion
                 )
                 .frame(width: 152, height: 72)
+                .drawingGroup()  // Offload wave rendering to GPU/Metal, keeps main thread free
 
                 Text(loadingTitle)
                     .font(.title3.weight(.semibold))
                     .foregroundStyle(.primary)
+                    .contentTransition(.numericText())
+                    .animation(.smooth, value: loader.startupFetchedSourceCount)
                     .padding(.top, 22)
 
                 Text(String(localized: "We are keeping you entertained while the content arrives."))
@@ -1776,10 +1743,12 @@ struct InitialFeedLoadingView: View {
                         }
                     }
                     .frame(height: 5)
+                    .animation(.smooth(duration: 0.3), value: progressFraction)
 
                     HStack {
                         Text(verbatim: "\(loader.startupFetchedSourceCount)/\(loader.startupTargetSourceCount)")
                             .contentTransition(.numericText())
+                            .animation(.smooth, value: loader.startupFetchedSourceCount)
                         Spacer()
                         Text(verbatim: "\(Int((progressFraction * 100).rounded()))%")
                     }
@@ -1812,6 +1781,7 @@ struct InitialFeedLoadingView: View {
             .frame(maxWidth: .infinity, minHeight: proxy.size.height)
             .padding(.horizontal, 24)
         }
+        .drawingGroup()  // Offload entire loading view to GPU/Metal — zero main-thread rendering
         .disabled(true)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(loadingTitle)
@@ -1823,14 +1793,14 @@ struct InitialFeedLoadingView: View {
                 let names = loader.startupRecentSourceNames
                 if nextSourceNameIndex < names.count {
                     let backlog = names.count - nextSourceNameIndex
-                    let step = max(1, backlog / 4)
+                    let step = max(1, backlog / 8)
                     let index = min(names.count - 1, nextSourceNameIndex + step - 1)
-                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.35)) {
+                    withAnimation(reduceMotion ? nil : .spring(response: 0.35, dampingFraction: 0.8)) {
                         displayedSourceName = names[index]
                     }
                     nextSourceNameIndex = index + 1
                 }
-                try? await Task.sleep(for: .milliseconds(650))
+                try? await Task.sleep(for: .milliseconds(250))
             }
         }
     }
@@ -1873,7 +1843,7 @@ struct EmptyFilterView: View {
 
 extension View {
     func headerButtonStyle(accent: Color) -> some View {
-        self.frame(width: 36, height: 36)
+        self.frame(width: 44, height: 44)
             .background(accent.opacity(0.1))
             .clipShape(Circle())
     }

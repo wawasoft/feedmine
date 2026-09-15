@@ -138,6 +138,15 @@ actor FeedRunwayController {
         editorialCount: Int,
         estimatedSeconds: Double
     ) -> RunwayPressure {
+        // Constrained: thermal pressure, low-power mode, or expensive connection.
+        // Wires up the previously dead `.constrained` path so memory/thermal
+        // adaptation can actually execute (review finding).
+        let thermal = ProcessInfo.processInfo.thermalState
+        if thermal == .serious || thermal == .critical
+            || ProcessInfo.processInfo.isLowPowerModeEnabled {
+            return .constrained
+        }
+
         // Critical: very low runway
         if renderReadyCount < 20 || estimatedSeconds < 30 {
             return .critical

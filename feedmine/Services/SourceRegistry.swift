@@ -47,11 +47,15 @@ final class SourceRegistry {
             // Skip rebuild when sources haven't changed — prevents redundant
             // 7,500-entry dictionary allocation during startup when
             // loadFromOPML then restoreImportedSources both assign.
-            // Compare by count first (fast reject), then by source metadata
-            // set (O(n)). Language/category/region/title edits must refresh
-            // derived caches used by filter sheets and fetch scheduling.
+            // Compare by count first (fast reject), then by element-wise
+            // equality (O(n), no allocation). The old implementation built
+            // two 11,000-entry joined-string Sets per assignment (~150-800ms
+            // on the main actor); FeedSource is now Equatable so the exact
+            // comparison is allocation-free. Language/category/region/title
+            // edits must refresh derived caches used by filter sheets and
+            // fetch scheduling.
             guard sources.count != oldValue.count
-                    || sourceCacheIdentity(sources) != sourceCacheIdentity(oldValue) else { return }
+                    || !sources.elementsEqual(oldValue) else { return }
             rebuildCaches()
         }
     }
@@ -106,21 +110,6 @@ final class SourceRegistry {
 
     /// url → FeedSource, rebuilt when sources change
     private var sourceByURL: [String: FeedSource] = [:]
-
-    private func sourceCacheIdentity(_ sourceList: [FeedSource]) -> Set<String> {
-        Set(sourceList.map { source in
-            [
-                OPMLParser.normalizeURL(source.url),
-                source.title,
-                source.category,
-                source.region,
-                source.language ?? "",
-                source.mediaKind.rawValue,
-                source.defaultEnabled ? "1" : "0",
-                source.activity ?? "",
-            ].joined(separator: "\u{1F}")
-        })
-    }
 
     private func rebuildCaches() {
         var byURL: [String: FeedSource] = [:]
@@ -190,7 +179,19 @@ final class SourceRegistry {
 
     private var countryRegionKeys: Set<String> {
         if let cached = _countryRegionKeys { return cached }
-        let keys = Set(countrySources.map { Self.regionKey($0.region) })
+        // Derive from every region under countries/ (not just isCountryFeed
+        // sources) so countries represented only by sub-regions or by
+        // media-only sources can still be bulk-disabled. Each country is keyed
+        // by its top-level region (region:countries/<slug>), which is the key
+        // isSourceEnabled checks for both direct and sub-region sources.
+        let keys = Set(
+            uniqueRegions.lazy
+                .filter { $0.hasPrefix("countries/") }
+                .map { region -> String in
+                    let parts = region.split(separator: "/").map(String.init)
+                    return Self.regionKey(parts.prefix(2).joined(separator: "/"))
+                }
+        )
         _countryRegionKeys = keys
         return keys
     }
@@ -422,6 +423,7 @@ final class SourceRegistry {
         disabled.removeAll()
         enabledOverrides.removeAll()
         ensureActiveCounts()
+        scheduleSaveState()
     }
 
     func toggleAllCountries() {
@@ -557,7 +559,11 @@ final class SourceRegistry {
                     let raw = String(key.dropFirst(4))
                     return Self.sourceKey(raw)
                 }
-                return key
+                if key.hasPrefix("cat:") || key.hasPrefix("region:") {
+                    return key
+                }
+                // Legacy key: old code stored raw URLs without the "url:" prefix.
+                return Self.sourceKey(key)
             })
         }
         if let arr = UserDefaults.standard.stringArray(forKey: "toggleEnabledOverrides") {
@@ -566,7 +572,11 @@ final class SourceRegistry {
                     let raw = String(key.dropFirst(4))
                     return Self.sourceKey(raw)
                 }
-                return key
+                if key.hasPrefix("cat:") || key.hasPrefix("region:") {
+                    return key
+                }
+                // Legacy key: old code stored raw URLs without the "url:" prefix.
+                return Self.sourceKey(key)
             })
         }
         recomputeActiveCounts()
@@ -577,13 +587,15 @@ final class SourceRegistry {
     @ObservationIgnored private var _regionMap: [String: String]?
     var regionMap: [String: String] {
         if let cached = _regionMap { return cached }
-        let map = Dictionary(sources.map { ($0.url, $0.region) }, uniquingKeysWith: { first, _ in first })
+        // Key by normalized URL so lookups match whether callers pass the
+        // raw or the normalized form of a feed URL.
+        let map = Dictionary(sources.map { (OPMLParser.normalizeURL($0.url), $0.region) }, uniquingKeysWith: { first, _ in first })
         _regionMap = map
         return map
     }
 
     func regionFor(sourceURL: String) -> String {
-        regionMap[sourceURL] ?? "global"
+        regionMap[OPMLParser.normalizeURL(sourceURL)] ?? "global"
     }
 
     // MARK: - Language lookup
@@ -591,13 +603,14 @@ final class SourceRegistry {
     @ObservationIgnored private var _languageMap: [String: String?]?
     var languageMap: [String: String?] {
         if let cached = _languageMap { return cached }
-        let map = Dictionary(sources.map { ($0.url, $0.language) }, uniquingKeysWith: { first, _ in first })
+        // Key by normalized URL, mirroring regionMap above.
+        let map = Dictionary(sources.map { (OPMLParser.normalizeURL($0.url), $0.language) }, uniquingKeysWith: { first, _ in first })
         _languageMap = map
         return map
     }
 
     func languageFor(sourceURL: String) -> String? {
-        languageMap[sourceURL] ?? nil
+        languageMap[OPMLParser.normalizeURL(sourceURL)] ?? nil
     }
 
     // MARK: - Topic regions

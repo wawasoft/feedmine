@@ -22,6 +22,10 @@ struct FeedItemCardView: View, Equatable {
     var onBookmark: (() -> Void)? = nil
     var onViewSource: (() -> Void)? = nil
     var onAddSourceToCollection: (() -> Void)? = nil
+    /// Fired after a successful "Copy Link" action so the screen can show
+    /// its toast — the card owns the context menu, so this screen-level
+    /// feedback has to be threaded down.
+    var onCopy: (() -> Void)? = nil
     var onImageTap: (() -> Void)? = nil
     var isInBookmarkBox: Bool = false
     @AppStorage("fontSize") private var fontSize = "medium"
@@ -30,11 +34,15 @@ struct FeedItemCardView: View, Equatable {
 
     private var isLandscape: Bool { horizontalSizeClass == .regular }
     /// Structural: does this card have a resolved image to display?
-    /// Only true when the presentation pipeline has delivered a terminal `.image`.
-    /// Otherwise the slot shows the content-type placeholder — layout never shifts.
+    /// Only `.image` reserves the hero slot. `.placeholder` and `.none`
+    /// both collapse to text-only — a card without its real image must not
+    /// show a fake image slot. If the image arrives later, the card is
+    /// upgraded in-place via replaceVisibleCard (no layout shift because
+    /// the card wasn't occupying the hero slot before).
     private var hasImage: Bool {
-        guard let pres = presentation, case .image = pres.media else { return false }
-        return true
+        guard let pres = presentation else { return false }
+        if case .image = pres.media { return true }
+        return false
     }
 
     /// Test-facing property — mirrors hasImage so tests can verify that
@@ -108,18 +116,18 @@ struct FeedItemCardView: View, Equatable {
                 }
                 .aspectRatio(16.0 / 9.0, contentMode: .fit)
                 .clipped()
-                .overlay(alignment: .topTrailing) {
-                    cardOverlays
-                }
-                .overlay {
-                    mediaOverlay
-                }
                 .overlay {
                     if onImageTap != nil {
                         Color.clear
                             .contentShape(Rectangle())
                             .highPriorityGesture(TapGesture().onEnded { onImageTap?() })
                     }
+                }
+                .overlay {
+                    mediaOverlay
+                }
+                .overlay(alignment: .topTrailing) {
+                    cardOverlays
                 }
                 .transition(.opacity.combined(with: .scale(scale: 0.97)))
                 // Source row after image
@@ -334,15 +342,15 @@ struct FeedItemCardView: View, Equatable {
                 .lineLimit(1)
 
             if item.isPodcast {
-                mediaBadge("Podcast", color: .purple)
+                mediaBadge(String(localized: "Podcast"), color: .purple)
                 if let dur = item.durationFormatted {
                     Text(dur).font(.caption2).foregroundStyle(.secondary)
                 }
             }
             if item.isYouTube {
-                mediaBadge("Video", color: .red)
+                mediaBadge(String(localized: "Video"), color: .red)
             } else if isNew && !item.isPodcast {
-                mediaBadge("New", color: .blue)
+                mediaBadge(String(localized: "New"), color: .blue)
             }
 
             Spacer()
@@ -356,7 +364,7 @@ struct FeedItemCardView: View, Equatable {
                         Button(role: .destructive) {
                             onBookmark?()
                         } label: {
-                            Label("Remove from Box", systemImage: "bookmark.slash")
+                            Label(String(localized: "Remove from Box"), systemImage: "bookmark.slash")
                         }
                     } label: {
                         Image(systemName: "bookmark.fill")
@@ -393,7 +401,7 @@ struct FeedItemCardView: View, Equatable {
                 Button(role: .destructive) {
                     onBookmark?()
                 } label: {
-                    Label("Remove from Box", systemImage: "bookmark.slash")
+                    Label(String(localized: "Remove from Box"), systemImage: "bookmark.slash")
                 }
             } label: {
                 Image(systemName: "bookmark.fill")
@@ -456,28 +464,40 @@ struct FeedItemCardView: View, Equatable {
         BookmarkBoxContextMenu(itemID: item.id)
         if let onViewSource {
             Button(action: onViewSource) {
-                Label("View Source", systemImage: "rectangle.stack")
+                Label(String(localized: "View Source"), systemImage: "rectangle.stack")
             }
         }
         if let onAddSourceToCollection {
             Button(action: onAddSourceToCollection) {
-                Label("Add Source to Collection", systemImage: "rectangle.stack.badge.plus")
+                Label(String(localized: "Add Source to Collection"), systemImage: "rectangle.stack.badge.plus")
             }
         }
         Button {
             UIPasteboard.general.url = URL(string: item.url)
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()
+            onCopy?()
         } label: {
-            Label("Copy Link", systemImage: "doc.on.doc")
+            Label(String(localized: "Copy Link"), systemImage: "doc.on.doc")
+        }
+        Button {
+            if let image = renderCardAsImage(item: item) {
+                let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let root = windowScene.windows.first?.rootViewController {
+                    root.present(av, animated: true)
+                }
+            }
+        } label: {
+            Label(String(localized: "Share as Image"), systemImage: "photo.artframe")
         }
         Button {
             if let url = URL(string: item.url) { UIApplication.shared.open(url) }
         } label: {
-            Label("Open in Safari", systemImage: "safari")
+            Label(String(localized: "Open in Safari"), systemImage: "safari")
         }
         ShareLink(item: URL(string: item.url) ?? URL(string: "https://feedmine.app")!) {
-            Label("Share", systemImage: "square.and.arrow.up")
+            Label(String(localized: "Share"), systemImage: "square.and.arrow.up")
         }
     }
 

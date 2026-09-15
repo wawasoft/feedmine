@@ -17,6 +17,15 @@ struct OPMLParser {
         let failedFileCount: Int
         let invalidSourceCount: Int
         let duplicateSourceCount: Int
+        /// Failed-file count from the parse before the current one (0 when no
+        /// prior parse is recorded). A lower current `failedFileCount` means
+        /// the last parse made progress, which the repair gate treats as a
+        /// reason to repair again immediately.
+        let lastFailedFileCount: Int
+        /// When the last repair parse was persisted. `nil` until a partial
+        /// cache has been through its first background repair, so a cold
+        /// cache miss that found failures still gets one immediate retry.
+        let lastRepairAt: Date?
     }
 
     /// Cache key combining app version with the active local catalog revision.
@@ -26,8 +35,22 @@ struct OPMLParser {
         let info = Bundle.main.infoDictionary
         let build = info?["CFBundleVersion"] as? String ?? "0"
         let short = info?["CFBundleShortVersionString"] as? String ?? "0"
+        let revision = CatalogRuntime.activeManifest()?.revision ?? 0
+#if DEBUG
+        // Development: key the cache to the feeds directory mtime so edits to
+        // OPML files invalidate the parse cache, while ignoring the executable
+        // mtime so the cache still survives rebuilds of the same app version.
+        // Bump cacheFormatVersion when the parse LOGIC changes (mtime only
+        // catches file edits). The catalog revision still auto-invalidates on
+        // managed updates.
+        let feedsMtime = feedsURL.flatMap {
+            try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate
+        } ?? nil
+        return "\(cacheFormatVersion)-\(short)-\(build)-r\(revision)-mt\(Int64((feedsMtime?.timeIntervalSince1970 ?? 0) * 1000))-dev"
+#else
         // Bundled resources are immutable for an installed build. The mtime
-        // remains useful for development builds that do not carry a manifest.
+        // catches the rare case of a delta update modifying the Feeds/ tree
+        // without changing the bundle version (shouldn't happen, but safe).
         let executableMtime = Bundle.main.executableURL.flatMap {
             try? $0.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate
         } ?? nil
@@ -38,8 +61,8 @@ struct OPMLParser {
             executableMtime?.timeIntervalSince1970 ?? 0,
             feedsMtime?.timeIntervalSince1970 ?? 0
         )
-        let revision = CatalogRuntime.activeManifest()?.revision ?? 0
         return "\(cacheFormatVersion)-\(short)-\(build)-r\(revision)-mt\(Int64(stamp * 1000))"
+#endif
     }
 
     private static var cacheURL: URL? {
@@ -47,22 +70,25 @@ struct OPMLParser {
             .first?.appendingPathComponent("opml-parse-cache.plist")
     }
 
-    private static func loadCache(fingerprint: String) -> OPMLParseResult? {
+    private static func loadCache(fingerprint: String) -> CachedParse? {
         guard let url = cacheURL,
               let data = try? Data(contentsOf: url),
               let cached = try? PropertyListDecoder().decode(CachedParse.self, from: data),
               cached.fingerprint == fingerprint else { return nil }
-        return OPMLParseResult(
-            sources: cached.sources,
-            sharedCountrySourceURLs: Set(cached.sharedCountrySourceURLs),
-            fileCount: cached.fileCount,
-            failedFileCount: cached.failedFileCount,
-            invalidSourceCount: cached.invalidSourceCount,
-            duplicateSourceCount: cached.duplicateSourceCount
-        )
+        return cached
     }
 
-    private static func saveCache(_ result: OPMLParseResult, fingerprint: String) {
+    /// Persist a parse result. `previousFailedFileCount` is the failure count
+    /// that triggered this parse (0 for a cold cache miss); it becomes the
+    /// cache's `lastFailedFileCount` so the next launch's repair gate can
+    /// detect progress. `isRepair` stamps `lastRepairAt` — nil on a cold miss
+    /// so the first partial cache still gets one immediate background repair.
+    private static func saveCache(
+        _ result: OPMLParseResult,
+        fingerprint: String,
+        previousFailedFileCount: Int = 0,
+        isRepair: Bool = false
+    ) {
         guard let url = cacheURL else { return }
         let payload = CachedParse(
             fingerprint: fingerprint,
@@ -71,7 +97,9 @@ struct OPMLParser {
             fileCount: result.fileCount,
             failedFileCount: result.failedFileCount,
             invalidSourceCount: result.invalidSourceCount,
-            duplicateSourceCount: result.duplicateSourceCount
+            duplicateSourceCount: result.duplicateSourceCount,
+            lastFailedFileCount: previousFailedFileCount,
+            lastRepairAt: isRepair ? Date() : nil
         )
         do {
             let encoder = PropertyListEncoder()
@@ -99,10 +127,67 @@ struct OPMLParser {
         endCacheReadMetric()
         if let cached {
             FeedMetrics.event("OPML.cacheHit")
-            return cached
+            if shouldRepair(cached) {
+                // Partial cache from a previous parse with failed files.
+                // Serve it for instant first paint, then re-parse in the
+                // background so a transient failure repairs the cache. A
+                // persistent failure is backed off — repairs run only when
+                // the last parse made progress or the backoff window has
+                // elapsed — so a permanently broken file cannot trigger a
+                // full ~1900-file re-parse on every launch.
+                Task.detached(priority: .background) {
+                    let repaired = await Self.fullParse(fingerprint: fingerprint)
+                    saveCache(
+                        repaired,
+                        fingerprint: fingerprint,
+                        previousFailedFileCount: cached.failedFileCount,
+                        isRepair: true
+                    )
+                }
+            }
+            return OPMLParseResult(
+                sources: cached.sources,
+                sharedCountrySourceURLs: Set(cached.sharedCountrySourceURLs),
+                fileCount: cached.fileCount,
+                failedFileCount: cached.failedFileCount,
+                invalidSourceCount: cached.invalidSourceCount,
+                duplicateSourceCount: cached.duplicateSourceCount
+            )
         }
         FeedMetrics.event("OPML.cacheMiss")
+        return await fullParse(fingerprint: fingerprint)
+    }
 
+    /// Minimum interval between background repair parses for a persistent
+    /// failure. A transient failure is repaired on the first retry; anything
+    /// that survives is retried at most once per window.
+    private static let repairBackoffInterval: TimeInterval = 6 * 60 * 60
+
+    /// Whether a partial cache warrants a background repair parse. Repairs
+    /// when the failure count improved since the last full parse (progress —
+    /// a fix is taking effect, so retrying is worthwhile) or when the backoff
+    /// window has elapsed since the last attempt. Otherwise a permanently
+    /// broken file stays in the partial cache instead of re-parsing ~1900
+    /// files on every launch.
+    private static func shouldRepair(_ cached: CachedParse) -> Bool {
+        guard cached.failedFileCount > 0 else { return false }
+        if cached.failedFileCount < cached.lastFailedFileCount { return true }
+        guard let lastRepairAt = cached.lastRepairAt else {
+            // First partial cache (no repair recorded yet) — retry once
+            // immediately so a transient failure is repaired next launch.
+            return true
+        }
+        return Date().timeIntervalSince(lastRepairAt) >= repairBackoffInterval
+    }
+
+    /// Enumerate and parse every bundled OPML file (cache miss path).
+    /// Always saves the result — even partial results with failed files,
+    /// so one transient failure doesn't disable the cache and force a full
+    /// 1900-file re-parse on every later launch. A partial cache is marked
+    /// by its `failedFileCount` and triggers a background repair on the
+    /// next launch (see ``parseAll()``).
+    private static func fullParse(fingerprint: String) async -> OPMLParseResult {
+        let feedsURL = CatalogRuntime.activeFeedsURL()
         // Cache miss: enumerate all bundled OPML files. Bundle.urls(...) does not
         // recurse, so we walk Feeds/ manually to reach Feeds/countries/{c}/… feeds.
         let endFullParseMetric = FeedMetrics.beginInterval("OPML.fullParse")
@@ -198,10 +283,12 @@ struct OPMLParser {
             "OPML.parseCounts",
             "files=\(opmlFiles.count) sources=\(deduped.count) duplicates=\(duplicateSourceCount) invalid=\(invalidSourceCount)"
         )
-        // Only cache a COMPLETE parse. A partial result from a transient file
-        // failure or a cancellation must never be persisted, or it would be
-        // served on every later launch until the app build changes.
-        if failedFileCount == 0 && !wasCancelled {
+        // Cache even partial results: a transient file failure must not
+        // disable the cache and force a full 1900-file re-parse on every
+        // launch. Partial caches are served immediately on the next launch
+        // while a background repair re-validates them (parseAll). Only a
+        // cancelled parse is never persisted.
+        if !wasCancelled {
             saveCache(result, fingerprint: fingerprint)
         }
         return result
@@ -450,15 +537,11 @@ struct OPMLParser {
                       scalarValue <= 0x10FFFF,
                       !(0xD800...0xDFFF).contains(scalarValue),
                       let scalar = UnicodeScalar(scalarValue) else {
-                    // Leave invalid entities untouched and continue after it.
-                    let suffix = decoded[range.upperBound...]
-                    guard suffix.range(
-                        of: #"&#(?:[0-9]+|[xX][0-9A-Fa-f]+);"#,
-                        options: .regularExpression
-                    ) != nil else { break }
-                    // Invalid entities are exceptionally rare in URLs. Avoid
-                    // an unbounded replacement loop by ending this pass.
-                    break
+                    // Remove the invalid entity so the loop advances past
+                    // it. A bare `continue` would re-match the same
+                    // unconsumed range and spin forever (CRITICAL fix).
+                    decoded.replaceSubrange(range, with: "")
+                    continue
                 }
                 decoded.replaceSubrange(range, with: String(scalar))
             }
@@ -593,15 +676,23 @@ struct OPMLParser {
 
     private static func transformedURL(_ raw: String, identity: Bool) -> String {
         let decoded = decodeURLXMLEntities(raw)
+
+        // P1-05: Always validate the host BEFORE any early return on port
+        // validity. A URL with a bad port and percent-decoded host delimiters
+        // must still be rejected — the host check must not be gated on port
+        // validity (code review finding 1.1).
+        if let components = URLComponents(string: decoded),
+           let rawHost = components.host {
+            guard validateDecodedHost(rawHost, percentEncodedHost: components.percentEncodedHost) else {
+                return decoded
+            }
+        }
+
         guard hasValidPort(in: decoded),
               let components = URLComponents(string: decoded),
               let originalScheme = components.scheme?.lowercased(),
               originalScheme == "http" || originalScheme == "https",
               let rawHost = components.host else {
-            return decoded
-        }
-        // P1-05: reject hosts where percent-decoding reveals delimiters
-        guard validateDecodedHost(rawHost, percentEncodedHost: components.percentEncodedHost) else {
             return decoded
         }
         if let port = components.port, !(1...65535).contains(port) {
@@ -623,7 +714,13 @@ struct OPMLParser {
             authority += "@"
         }
         authority += host
-        if let port = components.port { authority += ":\(port)" }
+        // Omit default ports from identity — https://x:443 and https://x
+        // are the same feed and must dedup to the same key.
+        if let port = components.port,
+           !(identity && ((originalScheme == "https" && port == 443)
+                       || (originalScheme == "http" && port == 80))) {
+            authority += ":\(port)"
+        }
 
         var path = normalizePercentEncoding(components.percentEncodedPath, safe: pathSafeCharacters)
         // P1-06: remove ALL trailing slashes for idempotency

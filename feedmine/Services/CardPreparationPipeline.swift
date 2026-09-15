@@ -32,47 +32,67 @@ actor CardPreparationPipeline {
         // Resolve all items concurrently, tracking original positions so
         // we can reassemble in input order.
         typealias IndexedResult = (index: Int, presentation: FeedCardPresentation)
-        let results: [IndexedResult] = await withTaskGroup(of: IndexedResult.self) { group in
-            var iterator = items.enumerated().makeIterator()
-            var started = 0
+        // Collected outside the group so a cancellation throw mid-drain
+        // returns the results collected so far instead of discarding them.
+        var collected: [IndexedResult] = []
+        do {
+            // Throwing group: lets the drain loop surface cancellation via
+            // Task.checkCancellation() and bail out immediately.
+            try await withThrowingTaskGroup(of: IndexedResult.self) { group in
+                var iterator = items.enumerated().makeIterator()
+                var started = 0
 
-            // Prime the window
-            while started < maxConcurrent, let (idx, item) = iterator.next() {
-                group.addTask {
-                    let presentation = await self.prepareSingle(
-                        item, isRead: isRead, isBookmarked: isBookmarked
-                    )
-                    return (idx, presentation)
-                }
-                started += 1
-            }
-
-            var collected: [IndexedResult] = []
-            while let result = await group.next() {
-                collected.append(result)
-                if let (idx, item) = iterator.next() {
+                // Prime the window
+                while started < maxConcurrent, let (idx, item) = iterator.next() {
+                    let deadline = deadlineForIndex(idx)
                     group.addTask {
                         let presentation = await self.prepareSingle(
-                            item, isRead: isRead, isBookmarked: isBookmarked
+                            item,
+                            isRead: isRead,
+                            isBookmarked: isBookmarked,
+                            deadline: deadline
                         )
                         return (idx, presentation)
                     }
+                    started += 1
+                }
+
+                while let result = try await group.next() {
+                    // Respect cancellation: stop draining immediately. The
+                    // group cancels the remaining children on body exit.
+                    try Task.checkCancellation()
+                    collected.append(result)
+                    if let (idx, item) = iterator.next() {
+                        let deadline = deadlineForIndex(idx)
+                        group.addTask {
+                            let presentation = await self.prepareSingle(
+                                item,
+                                isRead: isRead,
+                                isBookmarked: isBookmarked,
+                                deadline: deadline
+                            )
+                            return (idx, presentation)
+                        }
+                    }
                 }
             }
-            return collected
+        } catch {
+            // Cancelled — the caller no longer wants the batch.
         }
 
         // Reassemble in original order
-        return results.sorted { $0.index < $1.index }.map(\.presentation)
+        return collected.sorted { $0.index < $1.index }.map(\.presentation)
     }
 
-    /// Prepare a single item. The core unit of work.
+    /// Prepare a single item. The core unit of work. `deadline` bounds the
+    /// media resolution so a stuck image URL can't stall the batch.
     func prepareSingle(
         _ item: FeedItem,
         isRead: Bool = false,
-        isBookmarked: Bool = false
+        isBookmarked: Bool = false,
+        deadline: ContinuousClock.Instant
     ) async -> FeedCardPresentation {
-        let media = await resolveMedia(for: item)
+        let media = await resolveMedia(for: item, deadline: deadline)
         let layout = cardLayout(for: item, media: media)
 
         return FeedCardPresentation(
@@ -86,7 +106,10 @@ actor CardPreparationPipeline {
 
     // MARK: - Private
 
-    private func resolveMedia(for item: FeedItem) async -> ResolvedCardMedia {
+    private func resolveMedia(
+        for item: FeedItem,
+        deadline: ContinuousClock.Instant
+    ) async -> ResolvedCardMedia {
         // Items without any image potential get .none immediately — no
         // need to allocate an image slot or run the pipeline.
         guard item.hasPotentialImage else { return .none }
@@ -94,11 +117,28 @@ actor CardPreparationPipeline {
         let imageURL = item.bestImageURL.flatMap(URL.init(string:))
         let articleURL = item.canResolveArticleImage ? URL(string: item.url) : nil
 
-        if let resolved = await ImageLoader.resolveImage(url: imageURL, articleURL: articleURL) {
-            return .image(resolved)
-        }
+        // Hard deadline on the network work — a hung fetch degrades to a
+        // placeholder instead of stalling the batch.
+        return await raceWithDeadline(deadline: deadline) { () -> ResolvedCardMedia? in
+            guard let image = await ImageLoader.resolveImage(
+                url: imageURL, articleURL: articleURL
+            ) else { return nil }
+            return .image(image)
+        } ?? .placeholder
+    }
 
-        return .placeholder
+    /// Per-item deadline, mirroring RunwayPolicy's tiers (initial viewport,
+    /// near runway, deep runway). `index` is the position within the batch.
+    private func deadlineForIndex(_ index: Int) -> ContinuousClock.Instant {
+        let duration: Duration
+        if index < 20 {
+            duration = .seconds(6)
+        } else if index < 120 {
+            duration = .seconds(15)
+        } else {
+            duration = .seconds(30)
+        }
+        return ContinuousClock().now.advanced(by: duration)
     }
 
     private func cardLayout(for item: FeedItem, media: ResolvedCardMedia) -> FeedCardLayout {
@@ -111,5 +151,37 @@ actor CardPreparationPipeline {
         case .placeholder, .none:
             return .textOnly
         }
+    }
+}
+
+// MARK: - Deadline Helper
+
+/// Race an async operation against a deadline. Uses TaskGroup so the first
+/// to complete wins — the deadline is a hard guarantee, not a cooperative
+/// cancellation request. If the deadline fires first, the operation's
+/// TaskGroup child is cancelled (but the actual download may continue in
+/// shared ImageLoader state — that's fine; this caller abandons the wait
+/// and returns nil, which the caller converts to a placeholder).
+///
+/// Mirrors CardPreparationCoordinator's deadline pattern so every network
+/// hop in the card pipeline is bounded.
+private func raceWithDeadline<T: Sendable>(
+    deadline: ContinuousClock.Instant,
+    operation: @escaping @Sendable () async -> T?
+) async -> T? {
+    await withTaskGroup(of: T?.self) { group in
+        // Runner: the actual operation
+        group.addTask {
+            return await operation()
+        }
+        // Timer: fires at deadline, returns nil
+        group.addTask {
+            try? await Task.sleep(until: deadline, clock: .continuous)
+            return nil
+        }
+        // First to complete wins; cancel the other
+        let result = await group.next() ?? nil
+        group.cancelAll()
+        return result
     }
 }

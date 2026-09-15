@@ -29,12 +29,16 @@ struct FeedItemView: View {
                     onBookmark: { loader.toggleBookmark(item.id) },
                     onViewSource: onViewSource,
                     onAddSourceToCollection: onAddSourceToCollection,
+                    onCopy: onCopy,
                     onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil,
                     isInBookmarkBox: loader.selectedBookmarkListID != nil
                 )
-                .equatable()
                 .padding(.horizontal, 12)
             } else {
+                // Row layout owns its context menu here. The card layout renders
+                // FeedItemCardView's own menu instead — attaching both menus to
+                // the same area makes the inner (card) one win and the outer one
+                // unreachable, so the menu must not apply to the card branch.
                 FeedItemRowView(
                     item: item,
                     isRead: item.isRead,
@@ -42,6 +46,7 @@ struct FeedItemView: View {
                     presentation: pres,
                     onImageTap: (item.isPodcast && !isDirectAudio) ? { playPodcastAudio() } : nil
                 )
+                .contextMenu { contextMenuContent }
                 Divider()
             }
         }
@@ -61,77 +66,51 @@ struct FeedItemView: View {
                 onOpen?()
             }
         }
-        .swipeActions(edge: .leading) {
-            Button {
-                let impact = UIImpactFeedbackGenerator(style: .light)
-                impact.impactOccurred()
-                if item.isRead {
-                    loader.markAsUnread(item.id)
-                } else {
-                    loader.markAsRead(item.id)
-                }
-            } label: {
-                Label(
-                    item.isRead ? "Unread" : "Read",
-                    systemImage: item.isRead ? "eye.slash" : "eye"
-                )
-            }
-            .tint(item.isRead ? .gray : .green)
-        }
-        .swipeActions(edge: .trailing) {
-            Button {
-                let impact = UIImpactFeedbackGenerator(style: .light)
-                impact.impactOccurred()
-                loader.toggleBookmark(item.id)
-            } label: {
-                Label(
-                    item.isBookmarked ? "Remove" : "Save",
-                    systemImage: item.isBookmarked ? "bookmark.slash.fill" : "bookmark.fill"
-                )
-            }
-            .tint(.yellow)
-        }
-        .contextMenu {
-            BookmarkBoxContextMenu(itemID: item.id)
-
-            if let onViewSource {
-                Button(action: onViewSource) {
-                    Label("View Source", systemImage: "rectangle.stack")
-                }
-            }
-
-            if let onAddSourceToCollection {
-                Button(action: onAddSourceToCollection) {
-                    Label("Add Source to Collection", systemImage: "rectangle.stack.badge.plus")
-                }
-            }
-
-            Button {
-                UIPasteboard.general.url = URL(string: item.url)
-                onCopy?()
-            } label: {
-                Label("Copy Link", systemImage: "doc.on.doc")
-            }
-            Button {
-                if let image = renderCardAsImage(item: item) {
-                    let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                       let root = windowScene.windows.first?.rootViewController {
-                        root.present(av, animated: true)
-                    }
-                }
-            } label: {
-                Label("Share as Image", systemImage: "photo.artframe")
-            }
-
-            ShareLink(item: URL(string: item.url) ?? URL(string: "https://feedmine.app")!) {
-                Label("Share Link", systemImage: "link")
-            }
-        }
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .contain)
         .accessibilityIdentifier("feed-item-\(item.language ?? "und")-\(item.id)")
         .accessibilityLabel("\(item.title) from \(item.sourceTitle)")
-        .accessibilityAddTraits(item.isRead ? [] : .isHeader)
+    }
+
+    /// Row-layout context menu, functionally equivalent to the card's own menu.
+    /// Cards use FeedItemCardView.cardContextMenu instead; an outer menu on the
+    /// shared area would be shadowed by the inner one (see the row-branch note).
+    @ViewBuilder
+    private var contextMenuContent: some View {
+        BookmarkBoxContextMenu(itemID: item.id)
+
+        if let onViewSource {
+            Button(action: onViewSource) {
+                Label("View Source", systemImage: "rectangle.stack")
+            }
+        }
+
+        if let onAddSourceToCollection {
+            Button(action: onAddSourceToCollection) {
+                Label("Add Source to Collection", systemImage: "rectangle.stack.badge.plus")
+            }
+        }
+
+        Button {
+            UIPasteboard.general.url = URL(string: item.url)
+            onCopy?()
+        } label: {
+            Label("Copy Link", systemImage: "doc.on.doc")
+        }
+        Button {
+            if let image = renderCardAsImage(item: item) {
+                let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let root = windowScene.windows.first?.rootViewController {
+                    root.present(av, animated: true)
+                }
+            }
+        } label: {
+            Label("Share as Image", systemImage: "photo.artframe")
+        }
+
+        ShareLink(item: URL(string: item.url) ?? URL(string: "https://feedmine.app")!) {
+            Label("Share Link", systemImage: "link")
+        }
     }
 
     private func playPodcastAudio() {

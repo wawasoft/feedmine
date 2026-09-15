@@ -7,7 +7,7 @@ enum MediaKind: String, Codable, Sendable {
     case forum
 }
 
-struct FeedSource: Codable, Identifiable, Sendable {
+struct FeedSource: Codable, Identifiable, Equatable, Sendable {
     /// Canonical identity derived from the fetch URL. Two FeedSources with
     /// equivalent URLs (different auth params, scheme, www, trailing slash)
     /// share the same identity. This mirrors SourceReference.id.
@@ -37,8 +37,14 @@ struct FeedSource: Codable, Identifiable, Sendable {
 
     /// YouTube RSS feeds follow this URL pattern — it's the standard endpoint.
     /// https://www.youtube.com/feeds/videos.xml?channel_id=...
+    ///
+    /// Uses parsed host comparison — rejects spoofed hosts like
+    /// `youtube.com.evil.example/feeds/videos.xml`.
     var isYouTube: Bool {
-        url.contains("youtube.com/feeds")
+        guard let host = URL(string: url)?.host?.lowercased() else { return false }
+        let isYTHost = host == "youtube.com"
+            || host.hasSuffix(".youtube.com")
+        return isYTHost && url.contains("/feeds/")
     }
 
     /// Only text news/blog sources are "country feeds" that should be opt-in.

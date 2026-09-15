@@ -73,3 +73,5 @@ scripts/scripts/
 
 # Stale progress files
 feeds_corpus_sources.enrich-progress.json
+
+.build-dd*/

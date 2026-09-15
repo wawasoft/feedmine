@@ -382,7 +382,7 @@ final class TaxonomyStoreTests: XCTestCase {
         await store.build(from: ordered)
         // Cache written with fingerprint of sorted URLs
 
-        let loaded = store.loadFromCache(sources: shuffled)
+        let loaded = await awaitCacheLoad(store, sources: shuffled)
         XCTAssertTrue(loaded, "Cache must be accepted when URLs are identical (order-independent fingerprint)")
     }
 
@@ -468,7 +468,7 @@ final class TaxonomyStoreTests: XCTestCase {
 
         // Reload from cache (warm path)
         let warmStore = TaxonomyStore()
-        let cacheHit = warmStore.loadFromCache(sources: sources)
+        let cacheHit = await awaitCacheLoad(warmStore, sources: sources)
         XCTAssertTrue(cacheHit, "Cache load should succeed with same source set")
 
         // Warm-path: feedURLs(inSubtreesOf:) must return the same results
@@ -477,5 +477,28 @@ final class TaxonomyStoreTests: XCTestCase {
                        "Warm cache should return same feed URL count as cold build")
         XCTAssertEqual(warmURLs, coldURLs,
                        "Warm cache should restore identical nodeToFeedURLs including bottom-up propagation")
+    }
+
+    // MARK: - Warm-cache helpers
+
+    /// `build()` persists the taxonomy cache in a detached background task it
+    /// does not await. Poll until the fresh cache lands (bounded) so warm-cache
+    /// tests don't read a stale cache written by an earlier test or run.
+    private func awaitCacheLoad(
+        _ store: TaxonomyStore,
+        sources: [FeedSource],
+        sharedCountrySourceURLs: Set<String> = []
+    ) async -> Bool {
+        let deadline = Date().addingTimeInterval(10)
+        repeat {
+            if store.loadFromCache(
+                sources: sources,
+                sharedCountrySourceURLs: sharedCountrySourceURLs
+            ) {
+                return true
+            }
+            try? await Task.sleep(nanoseconds: 25_000_000)
+        } while Date() < deadline
+        return false
     }
 }

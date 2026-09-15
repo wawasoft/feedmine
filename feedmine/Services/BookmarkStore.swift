@@ -100,6 +100,17 @@ final class BookmarkStore {
         }) ?? []
     }
 
+    /// Async variant that runs the synchronous GRDB read off the main actor
+    /// (startup fast path — the sync call above blocks its caller).
+    func allBookmarkedItemIDsAsync() async -> Set<String> {
+        let db = userDB
+        return await Task.detached(priority: .userInitiated) {
+            (try? db.read { db in
+                try Set(String.fetchAll(db, sql: "SELECT DISTINCT item_id FROM bookmark_item"))
+            }) ?? []
+        }.value
+    }
+
     func bookmarkedItems(listID: Int64? = nil) async throws -> [FeedItem] {
         let targetListID = listID ?? defaultListID()
         // Fetch item IDs from user.sqlite in save order (newest bookmark first).

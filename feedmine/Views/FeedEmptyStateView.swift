@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum FeedEmptyMode {
+enum FeedEmptyMode: Equatable {
     case noSourcesEnabled
     case fetching(topic: String, fetched: Int, total: Int)
     case noResults(topic: String)
@@ -200,6 +200,9 @@ struct FeedEmptyStateView: View {
     }
 
     private var showActions: Bool {
-        loader.loadingState != .initial && loader.loadingState != .refreshing
+        // .noSourcesEnabled always needs the "Open Filters" button, even while
+        // loading. The "Refresh Now" button stays gated on loading state.
+        if case .noSourcesEnabled = mode { return true }
+        return loader.loadingState != .initial && loader.loadingState != .refreshing
     }
 }

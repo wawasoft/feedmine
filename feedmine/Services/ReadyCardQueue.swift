@@ -32,6 +32,13 @@ final class ReadyCardQueue {
     /// A stuck/broken image URL must not stall the entire feed.
     private let timeout: Duration = .seconds(3)
 
+    /// Monotonic generation counter — bumped on every `reset()`. Each
+    /// enqueue task captures the current generation and discards its
+    /// results if the generation has changed by the time the pipeline
+    /// completes. Prevents in-flight batches from resurrecting stale
+    /// presentations after a filter change or refresh.
+    private var generation: UInt64 = 0
+
     // MARK: - Public API
 
     /// Enqueue a batch of items for preparation. Items are resolved in
@@ -41,16 +48,18 @@ final class ReadyCardQueue {
         let fresh = items.filter { !pendingIDs.contains($0.id) }
         guard !fresh.isEmpty else { return }
         pendingIDs.formUnion(fresh.map(\.id))
+        let enqueueGeneration = generation
 
         Task { [pipeline, weak self] in
             let newPresentations = await pipeline.prepare(fresh)
-            guard let self else { return }
+            guard let self, enqueueGeneration == self.generation else { return }
             // Merge into presentations, preserving input order.
             // Items resolve in parallel so they arrive out of order; we
             // slot each one at the correct position by scanning for the
             // first gap where the ID hasn't been filled yet.
             var merged = self.presentations
-            var newByID = Dictionary(uniqueKeysWithValues: newPresentations.map { ($0.id, $0) })
+            var newByID = Dictionary(newPresentations.map { ($0.id, $0) },
+                                     uniquingKeysWith: { first, _ in first })
 
             // Walk the pending IDs in order; replace any placeholder slot
             // with the resolved presentation.
@@ -78,6 +87,7 @@ final class ReadyCardQueue {
     func waitForReady(count minCount: Int) async {
         let deadline = Date().addingTimeInterval(TimeInterval(timeout.components.seconds))
         while presentations.count < minCount {
+            guard !Task.isCancelled else { break }
             guard Date() < deadline else { break }
             guard !pendingIDs.isEmpty else { break }
             try? await Task.sleep(for: .milliseconds(100))
@@ -89,11 +99,16 @@ final class ReadyCardQueue {
     /// that are no longer visible.
     func retainOnly(ids: Set<String>) {
         presentations.removeAll { !ids.contains($0.id) }
+        // In-flight enqueue tasks can still resurrect filtered-out cards.
+        // Bumping generation prevents those stale batches from merging
+        // their results back into presentations (review finding).
+        generation &+= 1
     }
 
     /// Clear all state (filter change, refresh).
     func reset() {
         presentations = []
         pendingIDs = []
+        generation &+= 1
     }
 }

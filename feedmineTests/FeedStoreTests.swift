@@ -1620,8 +1620,8 @@ final class FeedStoreTests: XCTestCase {
 
         // Persist items to SQLite so filter reload can find them.
         try await store.db.write { db in
-            try FeedItemRecord(from: englishItem, region: "global").insert(db)
-            try FeedItemRecord(from: portugueseItem, region: "global").insert(db)
+            try FeedItemRecord(from: englishItem, region: "global", language: englishItem.language).insert(db)
+            try FeedItemRecord(from: portugueseItem, region: "global", language: portugueseItem.language).insert(db)
         }
 
         store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: ["en"])

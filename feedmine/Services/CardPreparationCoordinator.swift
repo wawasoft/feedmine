@@ -16,6 +16,29 @@ actor CardPreparationCoordinator {
     private var resolvedByID: [String: ResolvedCardAsset] = [:]
     private var renderReadyByID: [String: PreparedFeedCard] = [:]
 
+    /// IDs of items whose prepare task is still running, keyed by a per-dispatch
+    /// token. `handleMemoryPressure` resets `nextPrepareIndex` backward so
+    /// demoted items can be re-decoded; without this set, `fillRunway` would
+    /// re-dispatch every item between the demoted index and the old
+    /// `nextPrepareIndex`, double-preparing the ones already in flight.
+    /// Token-keyed so a stale task completing after a context switch doesn't
+    /// remove the new context's in-flight marker (review finding).
+    private var inFlightIDs: [String: UUID] = [:]
+
+    /// Active deferred-retry tasks, keyed by item ID. Cancelled on context
+    /// change so stale upgrades can't mutate a newer coordinator state.
+    private var deferredRetryTasks: [String: Task<Void, Never>] = [:]
+
+    /// Called when a deferred image retry succeeds AND the card has already
+    /// been published (no longer in renderReadyByID). FeedStore wires this
+    /// to replace the visible card in-place via FeedDisplayState.
+    private var onCardMediaUpgraded: (@Sendable (_ itemID: String, _ image: RenderImage) -> Void)?
+
+    /// Set the deferred-image upgrade callback. Callable from any context.
+    func setOnCardMediaUpgraded(_ callback: @escaping @Sendable (_ itemID: String, _ image: RenderImage) -> Void) {
+        onCardMediaUpgraded = callback
+    }
+
     /// Index of the next item that hasn't started preparation.
     private var nextPrepareIndex: Int = 0
 
@@ -25,7 +48,13 @@ actor CardPreparationCoordinator {
 
     /// Continuations waiting for the contiguous prefix to grow.
     /// Woken by storeRenderReady when a new card joins the prefix.
-    private var prefixWaiters: [UUID: CheckedContinuation<Void, Never>] = [:]
+    /// Boxed so the onCancel handler and the registration site can both
+    /// reach the same continuation reference (fixes leaked suspended tasks
+    /// when the calling task is cancelled mid-wait).
+    private var prefixWaiters: [UUID: PrefixWaiter] = [:]
+    private final class PrefixWaiter: @unchecked Sendable {
+        var continuation: CheckedContinuation<Void, Never>?
+    }
 
     /// The context this coordinator is currently serving.
     private var activeContext: FeedPresentationContext?
@@ -79,6 +108,13 @@ actor CardPreparationCoordinator {
         stateByID.removeAll()
         resolvedByID.removeAll()
         renderReadyByID.removeAll()
+        // In-flight tasks from the old context are orphans — their guarded
+        // writes will be rejected, so they must not block re-preparation of
+        // same-ID items in the new context.
+        inFlightIDs.removeAll()
+        // Cancel any in-progress deferred retries and clear their state.
+        for (_, task) in deferredRetryTasks { task.cancel() }
+        deferredRetryTasks.removeAll()
         nextPrepareIndex = 0
         nextPublishIndex = 0
         activeContext = context
@@ -87,7 +123,12 @@ actor CardPreparationCoordinator {
         // re-evaluate whether their prefix condition is met.
         let waiters = prefixWaiters
         prefixWaiters.removeAll()
-        for (_, cont) in waiters { cont.resume() }
+        for (_, box) in waiters {
+            if let c = box.continuation {
+                box.continuation = nil
+                c.resume()
+            }
+        }
     }
 
     /// Append items to the end of the editorial sequence. Filters out
@@ -118,6 +159,11 @@ actor CardPreparationCoordinator {
             let idx = nextPrepareIndex
             let item = orderedItems[idx]
             nextPrepareIndex += 1
+            // After a memory-pressure demotion, nextPrepareIndex may have been
+            // reset backward across items whose tasks are still in flight.
+            // Those must not be dispatched a second time — advance past them
+            // and let the original task finish.
+            guard inFlightIDs[item.id] == nil else { continue }
             prepareItem(at: idx, item: item, context: context)
         }
     }
@@ -170,6 +216,12 @@ actor CardPreparationCoordinator {
     /// `storeRenderReady` wakes waiters when a new card joins the prefix.
     /// This eliminates the 300ms polling interval and the race window at
     /// the deadline instant.
+    ///
+    /// The deadline is a REAL wake source, not a comment: the waiter
+    /// suspends in a task group raced against `Task.sleep(until:)`, so a
+    /// waiter that missed its `storeRenderReady` wake (suspended between
+    /// the peek above and its registration) still re-evaluates at the
+    /// deadline instead of suspending forever.
     func waitForContiguousPrefix(
         minimumCount: Int,
         maximumCount: Int,
@@ -177,6 +229,7 @@ actor CardPreparationCoordinator {
         context: FeedPresentationContext
     ) async -> [PreparedFeedCard] {
         while true {
+            guard !Task.isCancelled else { return [] }
             let cards = peekRenderReadyPrefix(
                 maximumCount: maximumCount, context: context
             )
@@ -184,16 +237,56 @@ actor CardPreparationCoordinator {
             guard context == activeContext else { return [] }
             guard ContinuousClock().now < deadline else { return cards }
 
-            // Suspend until storeRenderReady signals or cancellation.
+            // Suspend until storeRenderReady signals OR the deadline fires.
+            // The PrefixWaiter box lets both the registration site and the
+            // onCancel handler reach the same continuation — the first to
+            // fire resumes it, the second is a no-op. The old code only
+            // removed the waiter from the dictionary, permanently leaking
+            // the suspended task (review finding).
             let waiterID = UUID()
-            await withTaskCancellationHandler {
-                await withCheckedContinuation { cont in
-                    prefixWaiters[waiterID] = cont
+            let box = PrefixWaiter()
+            try? await withThrowingTaskGroup(of: Void.self) { group in
+                group.addTask { [weak self] in
+                    guard let self else { return }
+                    await self.suspendForPrefixSignal(waiterID: waiterID, box: box)
                 }
-            } onCancel: {
-                Task { [weak self] in
-                    await self?.removePrefixWaiter(waiterID)
+                // Primary deadline: always wakes the group even when zero
+                // storeRenderReady calls happen while this waiter is
+                // suspended. The loop re-checks prefix/context/deadline.
+                group.addTask {
+                    try await Task.sleep(until: deadline, tolerance: .milliseconds(100))
                 }
+                // First to finish wins; cancel the loser.
+                _ = try await group.next()
+                group.cancelAll()
+            }
+        }
+    }
+
+    /// Register a PrefixWaiter and suspend until it is resumed by
+    /// `storeRenderReady`, cancellation, or the deadline race cancelling
+    /// this child task.
+    private func suspendForPrefixSignal(waiterID: UUID, box: PrefixWaiter) async {
+        await withTaskCancellationHandler {
+            await withCheckedContinuation { cont in
+                box.continuation = cont
+                prefixWaiters[waiterID] = box
+                // If cancelled between entering withTaskCancellationHandler
+                // and this line, onCancel has already fired (no-op since
+                // continuation was nil). Re-check and resume immediately.
+                if Task.isCancelled, let c = box.continuation {
+                    box.continuation = nil
+                    prefixWaiters.removeValue(forKey: waiterID)
+                    c.resume()
+                }
+            }
+        } onCancel: {
+            // Route through the actor to serialize with storeRenderReady.
+            // Resuming the continuation directly from onCancel races with
+            // storeRenderReady's resume — both can fire concurrently,
+            // causing a double-resume fatal error (review finding).
+            Task { [weak self] in
+                await self?.cancelPrefixWaiter(waiterID)
             }
         }
     }
@@ -224,15 +317,36 @@ actor CardPreparationCoordinator {
             resolvedByID.removeValue(forKey: id)
             stateByID.removeValue(forKey: id)
         }
+        trimToPublishedIndex()
         return true
+    }
+
+    /// Drop published items (everything before `nextPublishIndex`) from
+    /// `orderedItems` so the editorial sequence doesn't grow unboundedly
+    /// across many append/commit cycles. Both indices are shifted to match
+    /// the new array positions, so `fillRunway` and the count accessors keep
+    /// referring to the same items.
+    private func trimToPublishedIndex() {
+        guard nextPublishIndex > 0 else { return }
+        let trimmed = nextPublishIndex
+        for item in orderedItems.prefix(trimmed) {
+            // Published IDs were already removed by commitPublished; these
+            // removals are belt-and-suspenders for any stragglers.
+            stateByID.removeValue(forKey: item.id)
+            resolvedByID.removeValue(forKey: item.id)
+            renderReadyByID.removeValue(forKey: item.id)
+        }
+        orderedItems.removeFirst(trimmed)
+        nextPublishIndex = 0
+        nextPrepareIndex = max(0, nextPrepareIndex - trimmed)
     }
 
     /// Discard all state for a context that's no longer active.
     func invalidate(context: FeedPresentationContext) {
+        // Only invalidate the given context — never destroy the active one.
         guard context != activeContext else { return }
-        stateByID.removeAll()
-        resolvedByID.removeAll()
-        renderReadyByID.removeAll()
+        // Currently dead code (no callers). When wired: clear only maps
+        // belonging to the stale context, not everything.
     }
 
     func handleMemoryPressure() {
@@ -260,18 +374,22 @@ actor CardPreparationCoordinator {
 
     /// Number of render-ready cards ahead of the publish index (not yet published).
     var renderReadyCount: Int {
-        renderReadyByID.keys.filter { id in
-            guard let idx = orderedItems.firstIndex(where: { $0.id == id }) else { return false }
-            return idx >= nextPublishIndex
-        }.count
+        // Single pass over orderedItems — a firstIndex scan per map key would
+        // be O(n²) with hundreds of keys and thousands of items.
+        var count = 0
+        for i in nextPublishIndex..<orderedItems.count {
+            if renderReadyByID[orderedItems[i].id] != nil { count += 1 }
+        }
+        return count
     }
 
     /// Number of resolved (disk-level) cards ahead of the publish index.
     var resolvedCount: Int {
-        resolvedByID.keys.filter { id in
-            guard let idx = orderedItems.firstIndex(where: { $0.id == id }) else { return false }
-            return idx >= nextPublishIndex
-        }.count
+        var count = 0
+        for i in nextPublishIndex..<orderedItems.count {
+            if resolvedByID[orderedItems[i].id] != nil { count += 1 }
+        }
+        return count
     }
 
     /// Total items in the editorial sequence (includes published + pending).
@@ -288,18 +406,24 @@ actor CardPreparationCoordinator {
         at index: Int, item: FeedItem, context: FeedPresentationContext
     ) {
         setState(item.id, to: .queued)
+        let dispatchToken = UUID()
+        inFlightIDs[item.id] = dispatchToken
         let deadline = deadlineForIndex(index)
         let kind = placeholderKind(for: item)
 
         Task { [weak self] in
             guard let self else { return }
+            defer {
+                // Only remove if this dispatch's token still matches — stale
+                // tasks from old contexts must not strip a new context's marker.
+                Task { await self.markPrepareFinished(item.id, token: dispatchToken) }
+            }
 
             // Resolve to disk-level asset
             await self.setState(item.id, to: .resolvingDirectImage)
             let asset = await self.resolveImageAsset(
                 for: item, context: context, deadline: deadline
             )
-            guard await self.isContextActive(context) else { return }
 
             let resolved: ResolvedCardAsset
             if let asset {
@@ -310,16 +434,29 @@ actor CardPreparationCoordinator {
                 resolved = .none
             }
 
-            await self.storeResolved(item.id, asset: resolved)
+            // Atomic guard+write — no suspension between check and write
+            // so a context change can't sneak in (TOCTOU fix).
+            guard await self.storeResolved(item.id, asset: resolved, context: context) else { return }
 
             // Decode to render-ready
             await self.setState(item.id, to: .decoding)
             let renderReady = await self.decodeToRenderReady(
                 item: item, asset: resolved, context: context
             )
-            guard await self.isContextActive(context) else { return }
 
-            await self.storeRenderReady(item.id, card: renderReady)
+            // Atomic guard+write — context-validated in one actor transaction.
+            guard await self.storeRenderReady(item.id, card: renderReady, context: context) else { return }
+
+            // If image missed the deadline, start a deferred retry. The card
+            // is already published as text-only; if the image arrives later,
+            // we upgrade in-place (hero swap, no layout shift).
+            if case .placeholder = resolved {
+                Task { [weak self] in
+                    await self?.startDeferredImageRetry(
+                        for: item, at: index, kind: kind, context: context
+                    )
+                }
+            }
         }
     }
 
@@ -329,28 +466,62 @@ actor CardPreparationCoordinator {
         stateByID[id] = state
     }
 
+    private func markPrepareFinished(_ id: String, token: UUID? = nil) {
+        if let token {
+            guard inFlightIDs[id] == token else { return }
+        }
+        inFlightIDs.removeValue(forKey: id)
+    }
+
     private func isContextActive(_ context: FeedPresentationContext) -> Bool {
         context == activeContext
     }
 
-    private func storeResolved(_ id: String, asset: ResolvedCardAsset) {
+    /// Atomic guard+write: stores the resolved asset only if the context is
+    /// still active. Callers suspended between their last context check and
+    /// the write are protected — the check and write happen in one actor
+    /// transaction with no suspension point between them (TOCTOU fix).
+    @discardableResult
+    private func storeResolved(_ id: String, asset: ResolvedCardAsset,
+                                context: FeedPresentationContext) -> Bool {
+        guard context == activeContext else { return false }
         resolvedByID[id] = asset
         stateByID[id] = .resolved(asset)
+        inFlightIDs.removeValue(forKey: id)
+        return true
     }
 
-    private func storeRenderReady(_ id: String, card: PreparedFeedCard) {
+    /// Atomic guard+write for render-ready cards. Same TOCTOU fix as above.
+    @discardableResult
+    private func storeRenderReady(_ id: String, card: PreparedFeedCard,
+                                   context: FeedPresentationContext) -> Bool {
+        guard context == activeContext else { return false }
         renderReadyByID[id] = card
         stateByID[id] = .renderReady(card)
+        inFlightIDs.removeValue(forKey: id)
 
         // Wake any callers suspended in waitForContiguousPrefix so they
         // can re-evaluate whether the prefix is now long enough.
         let waiters = prefixWaiters
         prefixWaiters.removeAll()
-        for (_, cont) in waiters { cont.resume() }
+        for (_, box) in waiters {
+            if let c = box.continuation {
+                box.continuation = nil
+                c.resume()
+            }
+        }
+        return true
+    }
+
+    private func cancelPrefixWaiter(_ id: UUID) {
+        guard let box = prefixWaiters.removeValue(forKey: id),
+              let c = box.continuation else { return }
+        box.continuation = nil
+        c.resume()
     }
 
     private func removePrefixWaiter(_ id: UUID) {
-        prefixWaiters.removeValue(forKey: id)
+        prefixWaiters.removeValue(forKey: id)?.continuation = nil
     }
 
     private func resolveImageAsset(
@@ -369,12 +540,89 @@ actor CardPreparationCoordinator {
             source: .directImageURL
         )
 
-        // Race: resolution vs deadline
-        return await raceWithDeadline(deadline: deadline) {
-            await self.limiter.withSlot(category: "direct_image") {
+        // Race: resolution vs deadline. withSlot throws CancellationError
+        // when the caller was cancelled while queued — degrade to nil
+        // (placeholder) exactly like a deadline miss.
+        return try? await raceWithDeadline(deadline: deadline) {
+            try await self.limiter.withSlot(category: "direct_image") {
                 await self.mediaStore.resolve(request: request)
             }
         }
+    }
+
+    /// Start a deferred image retry with an extended deadline. The card is
+    /// already published as text-only (`.none` + `.textOnly`) — it does NOT
+    /// block the contiguous prefix. This retry runs in the background:
+    ///
+    /// - Image arrives → upgrade to `.image` + `.hero` in-place
+    /// - Deadline fires → no-op (card is already terminal text-only)
+    private func startDeferredImageRetry(
+        for item: FeedItem,
+        at index: Int,
+        kind: PlaceholderKind,
+        context: FeedPresentationContext
+    ) async {
+        // Cancel any prior retry for this ID.
+        deferredRetryTasks[item.id]?.cancel()
+        let retryDeadline = ContinuousClock().now.advanced(by: .seconds(12))
+
+        let task = Task { [weak self] in
+            guard let self else { return }
+            defer {
+                Task { await self.cleanupDeferredRetry(item.id) }
+            }
+
+            let asset = await self.resolveImageAsset(
+                for: item, context: context,
+                deadline: retryDeadline
+            )
+
+            guard !Task.isCancelled, let asset else {
+                // Timeout or cancellation — card stays text-only (already OK).
+                return
+            }
+
+            // Image arrived! Upgrade the card to hero.
+            await self.upgradeDeferredToHero(
+                item: item, asset: asset, context: context
+            )
+        }
+        deferredRetryTasks[item.id] = task
+    }
+
+    /// Upgrade a deferred-retry card from text-only to hero with image.
+    /// If the card is still in renderReadyByID, upgrades in-place.
+    /// If already published, signals via onCardMediaUpgraded callback.
+    private func upgradeDeferredToHero(
+        item: FeedItem, asset: ResolvedImageAsset, context: FeedPresentationContext
+    ) async {
+        await setState(item.id, to: .decoding)
+        let resolved: ResolvedCardAsset = .image(asset)
+        _ = await storeResolved(item.id, asset: resolved, context: context)
+        guard !Task.isCancelled else { return }
+
+        let renderReady = await decodeToRenderReady(
+            item: item, asset: resolved, context: context
+        )
+        guard !Task.isCancelled, case .image(let ri) = renderReady.media else { return }
+
+        // Try to upgrade the render-ready card in the coordinator.
+        // If the card was already published (removed by commitPublished),
+        // upgrade via the onCardMediaUpgraded callback instead.
+        if renderReadyByID[item.id] != nil {
+            // Still in coordinator — upgrade in place.
+            _ = await storeRenderReady(
+                item.id, card: renderReady, context: context
+            )
+        } else {
+            // Already published — upgrade via FeedStore callback.
+            onCardMediaUpgraded?(item.id, ri)
+        }
+    }
+
+    /// Remove tracking state for a completed deferred retry.
+    private func cleanupDeferredRetry(_ id: String) {
+        deferredRetryTasks.removeValue(forKey: id)
     }
 
     private func decodeToRenderReady(
@@ -396,9 +644,13 @@ actor CardPreparationCoordinator {
                 layout = .textOnly
             }
 
-        case .placeholder(let kind):
-            media = .placeholder(kind)
-            layout = item.hasPotentialImage ? .hero : .textOnly
+        case .placeholder:
+            // Never publish a placeholder in a hero slot — a card without
+            // its real image must render as text-only. The deferred retry
+            // path in prepareItem will upgrade to .image + .hero when the
+            // image arrives (or leave it text-only on timeout).
+            media = .none
+            layout = .textOnly
 
         case .none:
             media = .none
@@ -444,14 +696,16 @@ actor CardPreparationCoordinator {
 ///
 /// The operation's result is returned only if it completes before the
 /// deadline. Otherwise nil is returned and the operation is abandoned.
+/// Throws when the operation itself throws (e.g. withSlot's
+/// CancellationError for a caller cancelled while queued).
 private func raceWithDeadline<T: Sendable>(
     deadline: ContinuousClock.Instant,
-    operation: @escaping @Sendable () async -> T?
-) async -> T? {
-    await withTaskGroup(of: T?.self) { group in
+    operation: @escaping @Sendable () async throws -> T?
+) async throws -> T? {
+    try await withThrowingTaskGroup(of: T?.self) { group in
         // Runner: the actual operation
         group.addTask {
-            return await operation()
+            return try await operation()
         }
         // Timer: fires at deadline, returns nil
         group.addTask {
@@ -459,7 +713,7 @@ private func raceWithDeadline<T: Sendable>(
             return nil
         }
         // First to complete wins; cancel the other
-        let result = await group.next() ?? nil
+        let result = try await group.next() ?? nil
         group.cancelAll()
         return result
     }

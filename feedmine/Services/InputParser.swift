@@ -62,6 +62,9 @@ enum InputParser {
         for token in tokens {
             let trimmed = token.trimmingCharacters(in: CharacterSet(charactersIn: "\"'<>()[]{}"))
             guard !trimmed.isEmpty, trimmed.contains("."), !seen.contains(trimmed) else { continue }
+            // Reject email addresses (user@host) — they'd become
+            // https://user@host with userinfo, creating garbage sources.
+            guard !trimmed.contains("@") else { continue }
             // Add scheme if missing
             let withScheme = trimmed.hasPrefix("http") ? trimmed : "https://\(trimmed)"
             if let url = URL(string: withScheme), url.host != nil, !seen.contains(withScheme) {
@@ -77,7 +80,16 @@ enum InputParser {
 
     private static func normalize(_ raw: String) -> URL? {
         var str = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !str.hasPrefix("http") { str = "https://\(str)" }
+        // Case-insensitive scheme check — HTTP://EXAMPLE.COM must not become
+        // https://HTTP://EXAMPLE.COM (review finding).
+        if !str.lowercased().hasPrefix("http") {
+            // Reject email addresses and mailto: links — they produce garbage
+            // feed URLs when prefixed with https://.
+            if str.contains("@") && !str.contains("/") { return nil }
+            str = "https://\(str)"
+        }
+        // Reject mailto: after scheme prefixing.
+        if let url = URL(string: str), url.scheme?.lowercased() == "mailto" { return nil }
         return URL(string: str)
     }
 
