@@ -16,6 +16,13 @@ final class AudioPlayerManager {
     private var statusObserver: NSKeyValueObservation?
     private var interruptionObserver: NSObjectProtocol?
     private var routeChangeObserver: NSObjectProtocol?
+    /// Only the AVPlayer end event marks an episode as completed. This guard
+    /// prevents queued time callbacks and stop() from recreating a position
+    /// after completion without guessing that "near the end" means finished.
+    private var completedItemID: String?
+    /// Invalidates callbacks captured by a player/item that has since been
+    /// replaced or stopped.
+    private var playbackGeneration: UInt64 = 0
 
     private(set) var currentItem: FeedItem?
     private(set) var isPlaying = false
@@ -210,21 +217,45 @@ final class AudioPlayerManager {
     // MARK: - Position Persistence
 
     func savePosition() {
-        guard let id = currentItem?.id, currentTime > 0 else { return }
+        guard let id = currentItem?.id,
+              currentTime > 0,
+              completedItemID != id else { return }
         defaults.set(id, forKey: Self.savedItemIDKey)
         // Per-episode position (#30): keyed by item ID so switching between
         // podcasts preserves position for each independently.
         defaults.set(currentTime, forKey: "\(Self.savedPositionKey).\(id)")
     }
 
+    private func clearSavedPosition(for itemID: String) {
+        defaults.removeObject(forKey: "\(Self.savedPositionKey).\(itemID)")
+        if defaults.string(forKey: Self.savedItemIDKey) == itemID {
+            defaults.removeObject(forKey: Self.savedItemIDKey)
+        }
+    }
+
     private func restorePositionIfNeeded(for item: FeedItem) {
+        guard completedItemID != item.id else { return }
         let savedTime = defaults.double(forKey: "\(Self.savedPositionKey).\(item.id)")
         guard savedTime > 5 else { return }
 
+        let generation = playbackGeneration
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            guard let self, self.currentItem?.id == item.id else { return }
+            guard let self,
+                  self.playbackGeneration == generation,
+                  self.currentItem?.id == item.id,
+                  self.completedItemID != item.id else { return }
             self.seek(to: savedTime)
         }
+    }
+
+    private func prepareCompletedItemForReplay() {
+        guard let id = currentItem?.id, completedItemID == id else { return }
+        completedItemID = nil
+        clearSavedPosition(for: id)
+        lastSavedAt = 0
+        currentTime = 0
+        scrubTime = 0
+        player?.seek(to: .zero)
     }
 
     // MARK: - Playback
@@ -239,14 +270,19 @@ final class AudioPlayerManager {
         }
 
         if currentItem?.id == item.id {
+            prepareCompletedItemForReplay()
             activateSession()
             player?.play()
             isPlaying = true
-            updateNowPlaying()
+            updateNowPlaying(force: true)
             return true
         }
 
         stop()
+        playbackGeneration &+= 1
+        let generation = playbackGeneration
+        completedItemID = nil
+        lastSavedAt = 0
         activateSession()
         currentItem = item
         duration = item.duration ?? 0
@@ -258,7 +294,9 @@ final class AudioPlayerManager {
         // Observe timeControlStatus as primary playing-state source (#28)
         timeControlObserver = p.observe(\.timeControlStatus, options: [.new, .initial]) { [weak self] player, _ in
             Task { @MainActor [weak self] in
-                guard let self else { return }
+                guard let self,
+                      self.playbackGeneration == generation,
+                      self.currentItem?.id == item.id else { return }
                 switch player.timeControlStatus {
                 case .playing:
                     self.isPlaying = true
@@ -278,10 +316,12 @@ final class AudioPlayerManager {
         restorePositionIfNeeded(for: item)
 
         // Surface load failures instead of sitting silently "playing".
-        statusObserver = playerItem.observe(\.status, options: [.new]) { [weak self] item, _ in
-            let failed = item.status == .failed
+        statusObserver = playerItem.observe(\.status, options: [.new]) { [weak self] playerItem, _ in
+            let failed = playerItem.status == .failed
             Task { @MainActor [weak self] in
-                guard let self else { return }
+                guard let self,
+                      self.playbackGeneration == generation,
+                      self.currentItem?.id == item.id else { return }
                 if failed {
                     self.isPlaying = false
                     self.lastPlaybackError = "Playback failed"
@@ -290,40 +330,43 @@ final class AudioPlayerManager {
             }
         }
 
-        // End observer for this item. Capture the token so stop() can remove
-        // it — otherwise every new item leaks another NotificationCenter
-        // observer that is never torn down.
+        // Completion is event-driven. Never infer completion from elapsed time:
+        // pausing in the final seconds must keep the real resume position.
         endObserver = NotificationCenter.default.addObserver(
             forName: .AVPlayerItemDidPlayToEndTime,
             object: playerItem,
             queue: .main
         ) { [weak self] _ in
             Task { @MainActor [weak self] in
-                guard let self else { return }
-                isPlaying = false
-                updateNowPlaying()
-                // Clear saved position — episode finished.
-                // Must remove the per-episode key used by savePosition(),
-                // not the bare savedPositionKey constant.
-                if let id = currentItem?.id {
-                    UserDefaults.standard.removeObject(
-                        forKey: "\(Self.savedPositionKey).\(id)"
-                    )
+                guard let self,
+                      self.playbackGeneration == generation,
+                      self.currentItem?.id == item.id else { return }
+                self.completedItemID = item.id
+                self.isPlaying = false
+                if self.duration > 0 {
+                    self.currentTime = self.duration
+                    self.scrubTime = self.duration
                 }
-                UserDefaults.standard.removeObject(forKey: Self.savedItemIDKey)
+                self.lastSavedAt = self.currentTime
+                self.clearSavedPosition(for: item.id)
+                self.updateNowPlaying(force: true)
             }
         }
 
         // Periodic time observer
         let interval = CMTime(seconds: 0.5, preferredTimescale: 600)
-        timeObserver = player?.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+        timeObserver = p.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
             Task { @MainActor [weak self] in
-                guard let self else { return }
+                guard let self,
+                      self.playbackGeneration == generation,
+                      self.currentItem?.id == item.id,
+                      self.completedItemID != item.id else { return }
                 self.currentTime = time.seconds
-                if self.duration == 0, let dur = self.player?.currentItem?.duration.seconds, dur.isFinite {
+                if self.duration == 0,
+                   let dur = self.player?.currentItem?.duration.seconds,
+                   dur.isFinite {
                     self.duration = dur
                 }
-                // Update lock screen elapsed time
                 self.updateNowPlaying()
                 // Persist position every ~5 seconds using elapsed check (#31)
                 if self.currentTime - self.lastSavedAt >= 5, self.currentTime > 0 {
@@ -343,13 +386,21 @@ final class AudioPlayerManager {
             player?.pause()
             isPlaying = false
         } else {
+            prepareCompletedItemForReplay()
             player?.play()
             isPlaying = true
         }
-        updateNowPlaying()
+        updateNowPlaying(force: true)
     }
 
     func seek(to time: TimeInterval) {
+        if let id = currentItem?.id,
+           completedItemID == id,
+           (duration <= 0 || time < max(0, duration - 0.5)) {
+            completedItemID = nil
+            clearSavedPosition(for: id)
+            lastSavedAt = 0
+        }
         player?.seek(to: CMTime(seconds: time, preferredTimescale: 600))
         currentTime = time
         scrubTime = time
@@ -373,7 +424,10 @@ final class AudioPlayerManager {
     }
 
     func stop() {
+        // savePosition() is deliberately a no-op for an item that emitted the
+        // completion event, so stopping/switching cannot resurrect progress.
         savePosition()
+        playbackGeneration &+= 1
         player?.pause()
         if let observer = timeObserver { player?.removeTimeObserver(observer) }
         if let endObserver { NotificationCenter.default.removeObserver(endObserver) }
@@ -385,10 +439,13 @@ final class AudioPlayerManager {
         statusObserver = nil
         timeControlObserver = nil
         currentItem = nil
+        completedItemID = nil
         isPlaying = false
         currentTime = 0
         duration = 0
-        updateNowPlaying()
+        scrubTime = 0
+        lastSavedAt = 0
+        updateNowPlaying(force: true)
     }
 
     func clearPlaybackError() {
