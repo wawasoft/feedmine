@@ -51,6 +51,11 @@ struct FeedItemView: View {
             }
         }
         .onTapGesture {
+            // Diagnostic for the release review's ignored-tap class: this line is what separates "the synthesized tap
+            // never reached the app's gesture" from "the app got the tap and the reader did not open". The observation
+            // that costs the least to answer — the 20 s miss of 2026-09-17 could not be attributed without it, because
+            // the device log for that window had already rotated away.
+            Log.ui.info("card tap id=\(item.id) lang=\(item.language ?? "und") directAudio=\(isDirectAudio) podcast=\(item.isPodcast) read=\(item.isRead)")
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()
             if isDirectAudio {

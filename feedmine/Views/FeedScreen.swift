@@ -257,7 +257,14 @@ struct FeedScreen: View {
 
     private var screenWithSheets: some View {
         observedScreen
-        .sheet(item: $articleItem) { item in ArticleReaderView(item: item) }
+        .sheet(item: $articleItem) { item in
+            // The other half of the ignored-tap diagnostic (see `FeedItemView`'s tap log): if `card tap` is logged and
+            // this is not, the app received the tap and the reader did not present; if both are logged, the reader opened
+            // and a test's presentation probe is what failed.
+            ArticleReaderView(item: item)
+                .onAppear { Log.ui.info("reader presented id=\(item.id)") }
+                .onDisappear { Log.ui.info("reader dismissed id=\(item.id)") }
+        }
         .sheet(item: $selectedSource) { SourceFeedView(source: $0) }
         .sheet(item: $sourceToCollect) { AddSourceToCollectionSheet(source: $0) }
         .sheet(isPresented: $showSettings) { SettingsSheetView() }
