@@ -21,13 +21,14 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
 
 ## Baseline
 
-- Branch `fix/release-1.0-final-hardening` @ `395eced3` **plus the hardening tree committed as one baseline commit** (153
-  entries: 151 modified + 2 untracked, including `docs/release/HANDOFF.md` and
-  `docs/release/review-feed-responsiveness-build-5.md`). `catalog.sqlite` goes through **Git LFS** (`*.sqlite` in
-  `.gitattributes`), so its 118 MB never enters the pack.
+- Branch `fix/release-1.0-final-hardening` @ `395eced3` **plus the hardening tree committed as one baseline commit**:
+  **`17a0051a` "chore(release): baseline the 1.0 hardening tree (build 16)"**, 155 paths (153 modified + 2 added), working
+  tree clean, no push. `catalog.sqlite` goes through **Git LFS** (`*.sqlite` in `.gitattributes`), so its 118 MB never
+  enters the pack.
 - Restore point for the pre-commit tree: `/tmp/wip-1789618800.patch` (21:20 snapshot).
 - App Store Connect is at **1.0 (15)**; the tree carries **`CFBundleVersion` 16** (in `feedmine/Info.plist` and mirrored in
-  `project.yml`).
+  `project.yml`). The **archive is already built and verified** at `.build/feedmine.xcarchive` (archived app reports
+  `1.0 (16)`, 0 errors) — only the upload is outstanding.
 
 ## What is PROVEN (evidence exists; do not re-derive)
 
@@ -43,13 +44,35 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
 
 ## What is OPEN, with its blocker
 
-1. **TestFlight** — build 16, archive + `-exportArchive` with `destination: upload` (`.build/ExportOptions.plist`).
-   Blocked only on the upload itself; `Info.plist` is already at 16 and ASC at 15.
-2. **Latency, case A** — stop clearing the page on a *prepared* change; update from ready cards (the existing
-   `immediatelyCullVisibleItemsForActiveFilter()` path) and fall back to the in-progress surface only when the cull is
-   empty. The three reasons `setFilter` clears today (`FeedStore.swift:3110-3165`) must survive: no "filter lies" mismatch,
-   no dead-end on an empty composition, and the matrix assertion that only checked "some card exists". Then the 7.8 s local
-   composition the same measurement exposes. Case B is coverage work, not query tuning.
+1. **TestFlight** — build 16; archive done, **upload blocked on credentials**: `-exportArchive` failed with
+   `error: exportArchive Failed to Use Accounts` (Xcode's stored Apple ID session from the 13:19 upload of build 15 is no
+   longer usable from this shell), and the local ASC API key `~/.appstoreconnect/private_keys/AuthKey_H3U55Z9WZ7.p8` needs
+   the **issuer ID**, which nothing on this machine stores:
+   ```
+   xcodebuild -exportArchive -archivePath .build/feedmine.xcarchive \
+     -exportOptionsPlist .build/ExportOptions.plist -exportPath .build/tf-export \
+     -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_H3U55Z9WZ7.p8 \
+     -authenticationKeyID H3U55Z9WZ7 -authenticationKeyIssuerID <issuer>
+   ```
+   `/tmp/testflight.sh` does archive + export/upload with the lane lock and prints the archived version, the export exit
+   code and the `Upload succeeded` line. Needs the issuer ID (App Store Connect → Users and Access → Integrations) or a
+   re-authenticated Xcode account.
+2. **Latency, case A** — stop clearing the page on a *prepared* change. Concretely: `setFilter` currently sets
+   `display.setLoadingState(.refreshing)` + `display.setFeedDisplayPhase(.preparing(contextID:reason:.filterChange))` and then
+   reaches `setVisibleItems([], settlesPhase: false)` (`FeedStore.swift:3151`) whenever the language-buffer branch does not
+   hit — the clear is what costs the measured 8.19 s blank. The prepared path is to call
+   `immediatelyCullVisibleItemsForActiveFilter()` (`FeedStore.swift:3180`, already used elsewhere and already
+   filter-correct) **before** that clear, and when it leaves the page non-empty treat the change like the language-buffer
+   branch does: publish the culled cards, `setLoadingState(.idle)`, `setFeedDisplayPhase(.ready(contextID:))`, and let the
+   debounced reload replace/expand the composition behind it. Clear + `.preparing` stays the fallback for the genuinely
+   empty cull — which is also what keeps the two retracted concerns closed (see the comment at `:3140-3151`: the "filter
+   lies" mismatch cannot happen when the kept cards are culled *by the new predicate*, and the dead-end cannot happen while
+   `.preparing` is still entered when nothing is ready).
+   Acceptance: re-run `/tmp/filter-classify.sh` and require case A to report `page_kept=1`, `clear_ms=-1` and a
+   `languages_after` equal to the selected language (the probe already prints both, plus `ids_unchanged` so a stale page
+   cannot be mistaken for an update), then the full bar. Then the 7.8 s local composition the same run exposed
+   (`reloadFromSQLite … done visibleItems=9`, i.e. the cost sits *after* the query, which finished in 0.45 s). Case B is
+   coverage work, not query tuning.
 3. **The debounced reload can be dropped** — `scheduleFilterReload` (`FeedStore.swift:3296`) returns silently when
    `generation != filterGeneration`; in the leftover-container state this left a test waiting 37 s for a reload that never
    ran (measured 4×, gone once each gate starts from a clean container). The product-side question — a user whose filter
