@@ -47,13 +47,23 @@ final class PersonaExplorationUITests: XCTestCase {
             // signal — cheap, single-element queries — means the reader is up.
             let presented = ensureReaderPresented()
             if presented {
-                waitForReaderContent()
-                sleep(1)
-                capture("03-article-reader")
-                // Swipe article content
-                app.swipeUp()
-                sleep(1)
-                capture("04-article-scrolled")
+                if waitForReaderContent() {
+                    sleep(1)
+                    capture("03-article-reader")
+                    // One swipe, then a second surface. The capture shows the *next screenful*, which is not by itself
+                    // proof of a scroll offset (this run's article was a video page: the frame changed, no text moved).
+                    // It is an "after swipe" surface, and the two names say exactly that.
+                    app.swipeUp()
+                    sleep(1)
+                    capture("04-article-scrolled")
+                } else {
+                    // Presented but blank: keep the evidence, but **not** under a required name. Falling through to the two
+                    // captures below would put a blank reader behind two green basenames — the exact fabrication the
+                    // content gate exists to prevent — so the pair stays absent and the validator reports it, while a
+                    // `9x` diagnostic keeps the frame for the human reading the run.
+                    capture("90-reader-blank")
+                    print("READER reader_blank=1 — 03-article-reader and 04-article-scrolled not captured (the reader was presented but its body never rendered)")
+                }
             } else {
                 // No presentation, no surface: capturing the feed under a reader's name is the fabrication this harness
                 // exists to avoid, and the basename validator reports the pair as absent instead.
