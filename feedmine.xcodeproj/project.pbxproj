@@ -762,6 +762,7 @@
 				D12D0F772D8D07244FD2A241 /* Sources */,
 				2710D164F83F87583940D0E7 /* Resources */,
 				41305DDF0D69AEABC1278676 /* Frameworks */,
+				A7F3C1D94E2B48A19C60F0D1 /* Build Info (git SHA) */,
 			);
 			buildRules = (
 			);
@@ -1121,6 +1122,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A7F3C1D94E2B48A19C60F0D1 /* Build Info (git SHA) */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Info (git SHA)";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${PROJECT_DIR}/scripts/generate_build_info.sh\" \"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		90DD5C98CBFF59640B906AFD /* PBXTargetDependency */ = {
