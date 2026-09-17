@@ -117,6 +117,49 @@ final class FeedLoaderCacheTests: XCTestCase {
                        "All items should be present regardless of order")
     }
 
+    /// P0.4 — a **card/presentation** change must not invalidate filtering.
+    ///
+    /// This is the structural half of the scroll churn the release review describes: `filteredItems` used to key on
+    /// `visibleCardsGeneration`, so any card change (a media swap, or `setVisibleCards` from the legacy queue) made the
+    /// feed re-filter and re-group while the reader was scrolling — even though which items pass the active filter cannot
+    /// depend on a card's layout or image. The assertion uses the DEBUG-only rebuild counter because the returned array is
+    /// identical either way: a value comparison cannot see a needless rebuild, and "it recomputed" is exactly what has to
+    /// stop.
+    func testCardOnlyChangeDoesNotRebuildFilteredItems() async throws {
+        let store = try FeedStore(inMemory: true)
+        store.registry.sources = [
+            FeedSource(title: "Feed", url: "https://feed.example/feed",
+                       category: "News", region: "global", language: "zh"),
+        ]
+        let orderedItems = ["one", "two"].enumerated().map { index, id in
+            item(id: id, source: "Feed", daysAgo: index)
+        }
+        try await store.db.write { db in
+            for item in orderedItems {
+                try FeedItemRecord(from: item, region: "global", language: "zh").insert(db)
+            }
+        }
+
+        store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: ["zh"])
+        let loader = FeedLoader(store: store)
+        _ = await awaitPagePublication(of: store, label: self.name)
+        XCTAssertFalse(store.visibleItems.isEmpty, "precondition: the filter reload published a page")
+
+        _ = loader.filteredItems  // warm the cache
+        let baselineRebuilds = loader.filteredItemsRebuildCount
+        let idsBefore = loader.filteredItems.map(\.id)
+
+        // Cards only: the same presentations published again, which moves the cards generation and leaves items untouched.
+        let cardsGenerationBefore = store.visibleCardsGeneration
+        store.display.setVisibleCards(store.display.visibleCards)
+        XCTAssertGreaterThan(store.visibleCardsGeneration, cardsGenerationBefore,
+                             "precondition: the cards generation moved")
+
+        XCTAssertEqual(loader.filteredItems.map(\.id), idsBefore)
+        XCTAssertEqual(loader.filteredItemsRebuildCount, baselineRebuilds,
+                       "a card-only change rebuilt filteredItems — filtering must not depend on card presentation")
+    }
+
     private func item(id: String, source: String, daysAgo: Int) -> FeedItem {
         FeedItem(
             id: id,

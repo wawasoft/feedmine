@@ -332,6 +332,14 @@ final class FeedLoader {
     private var _cachedReadRevision: UInt64?
     private var _cachedSearchQuery: String?
 
+    /// Test-only instrument: how many times `filteredItems` actually rebuilt.
+    ///
+    /// The invariant "a card/media change never invalidates filtering" is not observable from the returned value — a
+    /// rebuild produces the same array — so the count is what a test can assert. Compiled out of release builds.
+    #if DEBUG
+    private(set) var filteredItemsRebuildCount = 0
+    #endif
+
     /// Filtered card presentations matching the active search/filter state.
     /// Mirrors filteredItems but uses pre-resolved FeedCardPresentation values.
     var filteredCards: [FeedCardPresentation] {
@@ -339,20 +347,28 @@ final class FeedLoader {
         return cards.filter { filteredIDs.contains($0.id) }
     }
 
+    /// Items matching the active search/filter state.
+    ///
+    /// **The key deliberately does not include the cards generation.** Which items are filtered depends on the source
+    /// filters, the search query and the read/consumed stamps — never on a card's layout or media. Keying on cards made a
+    /// pure presentation change (`setVisibleCards`, or any future media swap) invalidate filtering, which is the
+    /// structural half of the scroll churn the release review describes: image completion → card change → generation
+    /// change → re-filter/re-group while the reader is scrolling. `dateSections` still keys on both, because it embeds
+    /// card presentations (see its own comment) — that embedding is what has to go next.
     var filteredItems: [FeedItem] {
         let generation = store.visibleItemsGeneration
-        let cardsGeneration = store.visibleCardsGeneration
         let readRevision = store.readStateRevision
         if _cachedGeneration == generation,
-           _cachedCardsGeneration == cardsGeneration,
            _cachedReadRevision == readRevision,
            _cachedSearchQuery == searchQuery {
             return _cachedFiltered
         }
         _cachedGeneration = generation
-        _cachedCardsGeneration = cardsGeneration
         _cachedReadRevision = readRevision
         _cachedSearchQuery = searchQuery
+        #if DEBUG
+        filteredItemsRebuildCount &+= 1
+        #endif
         var result = items
         let query = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         if !query.isEmpty {

@@ -437,9 +437,10 @@ actor CardPreparationCoordinator {
             // Atomic guard+write — context-validated in one actor transaction.
             guard await self.storeRenderReady(item.id, card: renderReady, context: context) else { return }
 
-            // If image missed the deadline, start a deferred retry. The card
-            // is already published as text-only; if the image arrives later,
-            // we upgrade in-place (hero swap, no layout shift).
+            // If image missed the deadline, start a deferred retry. The card goes
+            // out as text-only and **stays that way for this session**: the retry
+            // only refreshes the runway entry, so the next composition can publish
+            // the image — a published presentation is never mutated (P0.1).
             if case .placeholder = resolved {
                 Task { [weak self] in
                     await self?.startDeferredImageRetry(
@@ -633,9 +634,10 @@ actor CardPreparationCoordinator {
 
         case .placeholder:
             // Never publish a placeholder in a hero slot — a card without
-            // its real image must render as text-only. The deferred retry
-            // path in prepareItem will upgrade to .image + .hero when the
-            // image arrives (or leave it text-only on timeout).
+            // its real image must render as text-only. The deferred retry in
+            // prepareItem refreshes the *runway entry* when the image arrives,
+            // so the next composition publishes it with media; this session's
+            // published card keeps its terminal text-only decision (P0.1).
             media = .none
             layout = .textOnly
 
