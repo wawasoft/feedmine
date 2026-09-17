@@ -344,6 +344,51 @@ final class ReservoirTests: XCTestCase {
 
     // MARK: - Helpers
 
+    // MARK: - Editorial order (review P0.5)
+
+    /// The published order is the sequencer's, so a run of one provider is repaired when alternatives exist.
+    func testSequencerBreaksConsecutiveProviderRunsWhenAlternativesExist() {
+        let clustered = makeItems(count: 5, sourceURL: "https://noisy.example/feed", sourceTitle: "Noisy")
+            + makeItems(count: 5, sourceURL: "https://other.example/feed", sourceTitle: "Other")
+        XCTAssertEqual(
+            EditorialSequencer.consecutiveRunIssues(in: clustered).count, 1,
+            "precondition: the raw candidate list has a five-deep run"
+        )
+
+        let sequenced = EditorialSequencer.sequence(clustered)
+
+        XCTAssertTrue(EditorialSequencer.isDiversityRespected(sequenced),
+                      "the sequencer must repair the run: \(EditorialSequencer.consecutiveRunIssues(in: sequenced))")
+        XCTAssertEqual(Set(sequenced.map(\.id)), Set(clustered.map(\.id)), "no item may be dropped or duplicated")
+        XCTAssertEqual(sequenced.first?.sourceURL, clustered.first?.sourceURL,
+                       "the pass is stable: the leading item keeps its place")
+    }
+
+    /// With no alternative providers left, a run is *not* a violation — the rule is "no repetition while alternatives
+    /// remain", never manufacturing diversity the candidate set cannot supply.
+    func testSequencerLeavesRunsAloneWhenNoAlternativesRemain() {
+        let clustered = makeItems(count: 6, sourceURL: "https://only.example/feed")
+        let sequenced = EditorialSequencer.sequence(clustered)
+        XCTAssertEqual(sequenced.map(\.id), clustered.map(\.id), "a single provider's order is left untouched")
+        XCTAssertTrue(EditorialSequencer.isDiversityRespected(sequenced),
+                      "five in a row from the only provider is not a violation")
+    }
+
+    /// The first page keeps the breadth policy: `pageSize` cards from as many providers as the candidates allow.
+    func testSequencerGivesTheFirstPageOneProviderPerCardWhenPossible() {
+        var candidates: [FeedItem] = []
+        for source in 0..<4 {
+            candidates += makeItems(count: 10, sourceURL: "https://s\(source).example/feed", sourceTitle: "S\(source)")
+        }
+        // Worst case for breadth: everything clustered per provider.
+        let sequenced = EditorialSequencer.sequence(candidates)
+        XCTAssertEqual(
+            EditorialSequencer.leadingProviderCount(sequenced, count: Reservoir.pageSize), 4,
+            "the first page must carry every provider that has candidates, not a cluster"
+        )
+        XCTAssertTrue(EditorialSequencer.isDiversityRespected(sequenced))
+    }
+
     private func makeItems(
         count: Int,
         sourceURL: String,

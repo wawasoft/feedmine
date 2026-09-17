@@ -1098,7 +1098,9 @@ final class FeedStore {
         self.reservoir.appendPreInterleaved(interleaved)
         if !self.isSearching && self.visibleItems.isEmpty && !self.reservoir.reservoir.isEmpty {
             self.reservoir.moveToVisible(count: Reservoir.pageSize)
-            self.setVisibleItems(self.applyFilters(self.reservoir.visibleItems))
+            // The published order is the sequencer's, not the Reservoir's (review P0.5): the Reservoir's interleave is an
+            // input, and every path that reaches the reader goes through this single policy.
+            self.setVisibleItems(EditorialSequencer.sequence(self.applyFilters(self.reservoir.visibleItems)))
         }
         self.reservoirCount = self.reservoir.reservoirCount
     }
@@ -2857,7 +2859,7 @@ final class FeedStore {
                     // the feed back to the initial page.
                     self.reservoirCount = self.reservoir.reservoirCount
                 } else {
-                    let filtered = self.applyFilters(self.reservoir.visibleItems)
+                    let filtered = EditorialSequencer.sequence(self.applyFilters(self.reservoir.visibleItems))
                     self.setVisibleItems(filtered)
                     // Rebuild visibleCards from legacy queue, keeping only items still visible
                     let presMap = Dictionary(uniqueKeysWithValues: self.cardQueue.presentations.map { ($0.id, $0) })
@@ -5976,8 +5978,16 @@ final class FeedStore {
         // raced against it — the append was often rejected because the
         // coordinator's activeContext hadn't been set yet.
         if usePreparedPipeline {
-            let editorialItems = reservoir.visibleItems
-                + reservoir.upcomingItems(reservoir.reservoirCount)
+            // Review P0.5: the editorial order handed to the coordinator is the sequencer's output, and the invariant is
+            // asserted right here — at the boundary where a composition becomes the page the reader will get. The
+            // Reservoir supplies candidates and its breadth intent; it does not get to publish a run of one provider.
+            let editorialItems = EditorialSequencer.sequence(
+                reservoir.visibleItems + reservoir.upcomingItems(reservoir.reservoirCount)
+            )
+            assert(
+                EditorialSequencer.isDiversityRespected(editorialItems),
+                "published order violates provider diversity: \(EditorialSequencer.consecutiveRunIssues(in: editorialItems))"
+            )
             await preparationCoordinator.replaceEditorialSequence(
                 editorialItems, context: ctx
             )
