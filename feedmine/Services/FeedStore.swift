@@ -1541,6 +1541,19 @@ final class FeedStore {
         return items.count >= target && Set(items.map(\.sourceURL)).count >= target
     }
 
+    /// The cold-start **publish** gate: a complete page with the first page's breadth — not a screenful.
+    ///
+    /// `coldStartImmediateItemCount` (12) used to be enough to publish, which is the "Loading → partial → better"
+    /// sequence the release review forbids: twelve items appeared, the reader started scrolling, and the page grew
+    /// underneath them. A page is published only when it is complete: `Reservoir.pageSize` items from as many distinct
+    /// providers — the same breadth policy the Reservoir applies when it front-loads unique providers. The 100-source
+    /// target stays a *background* fill goal (`coldStartMinimumSourceCount`), exactly as the bootstrap comment says.
+    nonisolated static func coldStartPageIsReady(_ items: [FeedItem]) -> Bool {
+        // `coldStartRunwayIsUseful` already requires `items.count >= target`, so this is one condition, not two: the
+        // page-sized target is what makes it "a full page of distinct providers".
+        coldStartRunwayIsUseful(items, targetSourceCount: Reservoir.pageSize)
+    }
+
     nonisolated private static func activeCatalogSourceCount() -> Int {
         if let count = CatalogRuntime.activeManifest()?.sourceCount {
             return count
@@ -1732,7 +1745,7 @@ final class FeedStore {
             guard Self.coldStartRunwayIsUseful(
                 result.items,
                 targetSourceCount: targetSourceCount
-            ) || result.items.count >= Self.coldStartImmediateItemCount else {
+            ) || Self.coldStartPageIsReady(result.items) else {
                 self.coldStartPendingItems = result.items
                 Log.feed.info(
                     "firstLaunchBootstrap withheld: sources=\(usefulSourceCount)/\(targetSourceCount) items=\(result.items.count)/\(targetSourceCount)"
@@ -2154,7 +2167,7 @@ final class FeedStore {
                 // After first paint, bail the tight loop and let progressive
                 // fetch fill the runway in background.
                 if !self.visibleItems.isEmpty { break }
-                // If first paint missed the 12s window, keep trying.
+                // If first paint missed the 12s window, keep trying — but only a **complete page** ends the loop.
                 if Date() > firstPaintDeadline, coldStartAttempts >= 2, !self.coldStartPendingItems.isEmpty {
                     // Persist everything gathered, not just the visible prefix: those items are
                     // already fetched, and discarding them threw away ~532 of a 552-item batch. The
@@ -2162,25 +2175,29 @@ final class FeedStore {
                     let pending = self.coldStartPendingItems
                     let persisted = await self.persistInSlices(pending)
                     self.coldStartPendingItems.removeAll()
-                    Log.feed.info("cold start persisted pending: items=\(persisted.count)/\(pending.count) after deadline")
-                    break
+                    let pageReady = Self.coldStartPageIsReady(persisted)
+                    Log.feed.info("cold start persisted pending: items=\(persisted.count)/\(pending.count) pageReady=\(pageReady ? 1 : 0) after deadline")
+                    // Review P0.3: a thin batch is not a page. It is persisted (the database must fill), but the run keeps
+                    // collecting until the page gate passes or the runway deadline decides below.
+                    if pageReady { break }
                 }
             }
-            // Progressive fallback: persist whatever the cold start gathered
-            // so the user sees *something* instead of a dead loading screen.
-            if self.visibleItems.isEmpty,
-               self.reservoir.reservoirCount == 0,
-               !self.coldStartPendingItems.isEmpty {
+            // Review P0.3 — nothing partial is ever revealed on an empty database. Any leftover batch is persisted so the
+            // database fills, but the page gate below is "a complete page of distinct providers", never "the reservoir
+            // has something": publishing a four-source sample and growing it in place is exactly the Loading → partial →
+            // better sequence the doctrine forbids. Staying in `.preparing` is the honest state here, and the deadline
+            // below chooses between a real page and the empty surface.
+            if self.visibleItems.isEmpty, !self.coldStartPendingItems.isEmpty {
                 let pending = self.coldStartPendingItems
                 let persisted = await self.persistInSlices(pending)
                 self.coldStartPendingItems.removeAll()
-                Log.feed.info("cold start published partial: items=\(persisted.count)/\(pending.count)")
+                Log.feed.info("cold start persisted leftover: items=\(persisted.count)/\(pending.count) pageReady=\(Self.coldStartPageIsReady(persisted) ? 1 : 0)")
             }
-            guard !self.visibleItems.isEmpty || self.reservoir.reservoirCount > 0 else {
+            guard !self.visibleItems.isEmpty || Self.coldStartPageIsReady(self.reservoir.visibleItems) else {
                 display.setIsPreparingInitialRunway(false)
                 display.setLoadingState(.idle)
                 display.setFeedDisplayPhase(.empty(contextID: self.presentationEpoch))
-                Log.feed.info("cold start still withheld after \(coldStartAttempts) real attempts (30 s deadline expired)")
+                Log.feed.info("cold start withheld: no complete page after \(coldStartAttempts) attempts (30 s deadline) — empty surface, no partial feed")
                 return
             }
             // Bulk-fill only when the local runway is genuinely shallow. A
@@ -4824,16 +4841,18 @@ final class FeedStore {
         if needsInitialRunway {
             coldStartPendingItems.append(contentsOf: result.items)
             let usefulSourceCount = Set(coldStartPendingItems.map(\.sourceURL)).count
-            // Same decoupling as the bootstrap's gate: publish as soon as there is a screenful, and
-            // keep the 100-source diversity target as a *background* fill goal. Measured here:
-            // `starterIngest withheld: sources=63/100 items=990/100` — 990 fetched items held back
-            // while the progress surface counted sources instead of content.
+            // Review P0.3: the publish trigger is a **complete page**, not a screenful. Publishing at twelve items is
+            // what produced `Loading → partial → better` — a page that grows under a reader who already started
+            // scrolling. The 100-source diversity target stays a *background* fill goal; the page-sized breadth gate is
+            // what the user actually waits for, and until it is met the loading surface keeps reporting progress
+            // (measured before this change: `starterIngest withheld: sources=63/100 items=990/100` — 990 fetched items
+            // held back while the progress surface counted sources instead of content).
             guard Self.coldStartRunwayIsUseful(
                 coldStartPendingItems,
                 targetSourceCount: coldStartTargetSourceCount
-            ) || coldStartPendingItems.count >= Self.coldStartImmediateItemCount else {
+            ) || Self.coldStartPageIsReady(coldStartPendingItems) else {
                 Log.feed.info(
-                    "starterIngest withheld: sources=\(usefulSourceCount)/\(coldStartTargetSourceCount) items=\(self.coldStartPendingItems.count)/\(coldStartTargetSourceCount)"
+                    "starterIngest withheld: sources=\(usefulSourceCount)/\(coldStartTargetSourceCount) items=\(self.coldStartPendingItems.count) pageReady=\(Self.coldStartPageIsReady(self.coldStartPendingItems) ? 1 : 0)"
                 )
                 return
             }

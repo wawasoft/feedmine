@@ -12,7 +12,9 @@ import Foundation
 @MainActor
 final class Reservoir {
     static let maxBuffer = 300
-    static let pageSize = 20
+    /// A page's worth of items. `nonisolated` because it is a constant every actor-bound caller needs — the cold-start
+    /// publish gate in `FeedStore` includes it and is itself `nonisolated` (review P0.3).
+    nonisolated static let pageSize = 20
     static let loadMoreThreshold = 5
     static let discardBatchSize = 50
     static let reservoirLowWatermark = 80

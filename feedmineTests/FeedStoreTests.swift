@@ -1651,6 +1651,34 @@ final class FeedStoreTests: XCTestCase {
         ))
     }
 
+    /// Review P0.3 — the **publish** gate is a complete page of distinct providers, not a screenful.
+    ///
+    /// The old trigger was `coldStartImmediateItemCount` (12 items), which is the `Loading → partial → better` sequence
+    /// the review forbids: twelve items appeared, the reader started scrolling, and the page grew underneath them. These
+    /// assertions pin the three interesting shapes — a screenful, a full page from too few providers, and a full page
+    /// with the Reservoir's breadth — so the gate cannot quietly relax back to "the reservoir has something".
+    func testColdStartPageGateRequiresAFullPageOfDistinctProviders() {
+        func items(sourceCount: Int, itemsPerSource: Int) -> [FeedItem] {
+            (0..<sourceCount).flatMap { source in
+                (0..<itemsPerSource).map { index in
+                    FeedItem(
+                        id: "\(source)-\(index)", sourceTitle: "Source \(source)",
+                        sourceURL: "https://source\(source).example/feed",
+                        category: "Category \(source % 8)", title: "Item \(index)",
+                        excerpt: "Excerpt", url: "https://example.com/\(source)/\(index)",
+                        imageURL: nil, publishedAt: Date(), region: "global", language: "en"
+                    )
+                }
+            }
+        }
+
+        XCTAssertFalse(FeedStore.coldStartPageIsReady(items(sourceCount: 6, itemsPerSource: 2)),
+                       "a screenful from six providers is not a page")
+        XCTAssertFalse(FeedStore.coldStartPageIsReady(items(sourceCount: 5, itemsPerSource: 8)),
+                       "forty items from five providers is volume, not breadth")
+        XCTAssertTrue(FeedStore.coldStartPageIsReady(items(sourceCount: Reservoir.pageSize, itemsPerSource: 1)))
+    }
+
     func testWhatsNewUsesTheSameLanguageFilterAsMainFeed() throws {
         let store = try FeedStore(inMemory: true)
         let englishURLs = (0..<10).map { "https://english\($0).example/feed" }
