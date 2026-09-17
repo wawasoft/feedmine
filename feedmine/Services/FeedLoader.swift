@@ -149,32 +149,41 @@ final class FeedLoader {
         let id: String
         let title: String
         let items: [FeedItem]
-        /// Pre-resolved card presentations matching `items` in order.
-        /// When the prepared pipeline is active, each card has terminal media
-        /// ready for immediate display. When nil/empty, views fall back to
-        /// content-type placeholders.
-        let cards: [FeedCardPresentation]
         let showsHeader: Bool
 
-        init(id: String? = nil, title: String, items: [FeedItem],
-             cards: [FeedCardPresentation] = [], showsHeader: Bool = true) {
+        init(id: String? = nil, title: String, items: [FeedItem], showsHeader: Bool = true) {
             self.id = id ?? title
             self.title = title
             self.items = items
-            self.cards = cards
             self.showsHeader = showsHeader
         }
     }
 
-    /// Cards-by-ID lookup keyed by section ID. Built once per dateSections
-    /// recomputation, reused across render passes. Avoids O(n) Dictionary
-    /// rebuilds on every FeedScreen body evaluation during scroll.
+    /// Cards-by-item lookup per section, rebuilt only when the cards change.
+    ///
+    /// A section deliberately does **not** carry its cards (review P0.4): sectioning and filtering depend on items and
+    /// order, so a card change — a media swap, or `setVisibleCards` on the legacy queue — must not invalidate them. The
+    /// lookup below reads the loader's live `cards` instead, and the cache is per section so a body pass that renders
+    /// several sections stays O(1) per section during scroll.
     @ObservationIgnored private var _cardsByIDBySection: [String: [String: FeedCardPresentation]] = [:]
+    @ObservationIgnored private var _cardsByIDGeneration: UInt64 = .max
 
-    /// Returns a pre-built itemID→card lookup for the given section.
+    /// itemID → card lookup for the given section, built from the loader's **live** `cards`.
+    ///
+    /// Rebuilt only when the cards generation moves; a request served from cache costs one dictionary hit, which is what
+    /// FeedScreen needs on every body pass during scroll.
     func cardsByID(for section: DateSection) -> [String: FeedCardPresentation] {
+        let cardsGeneration = store.visibleCardsGeneration
+        if _cardsByIDGeneration != cardsGeneration {
+            _cardsByIDBySection.removeAll(keepingCapacity: true)
+            _cardsByIDGeneration = cardsGeneration
+        }
         if let cached = _cardsByIDBySection[section.id] { return cached }
-        let dict = Dictionary(uniqueKeysWithValues: section.cards.map { ($0.id, $0) })
+        let sectionIDs = Set(section.items.map(\.id))
+        let dict = Dictionary(
+            cards.filter { sectionIDs.contains($0.id) }.map { ($0.id, $0) },
+            uniquingKeysWith: { first, _ in first }
+        )
         _cardsByIDBySection[section.id] = dict
         return dict
     }
@@ -328,7 +337,6 @@ final class FeedLoader {
 
     private var _cachedFiltered: [FeedItem] = []
     private var _cachedGeneration: UInt64?
-    private var _cachedCardsGeneration: UInt64?
     private var _cachedReadRevision: UInt64?
     private var _cachedSearchQuery: String?
 
@@ -338,6 +346,7 @@ final class FeedLoader {
     /// rebuild produces the same array — so the count is what a test can assert. Compiled out of release builds.
     #if DEBUG
     private(set) var filteredItemsRebuildCount = 0
+    private(set) var dateSectionsRebuildCount = 0
     #endif
 
     /// Filtered card presentations matching the active search/filter state.
@@ -391,42 +400,36 @@ final class FeedLoader {
 
     private var _cachedSections: [DateSection] = []
     private var _cachedDateSectionsGen: UInt64?
-    private var _cachedDateSectionsCardsGen: UInt64?
     private var _cachedDateSectionsReadRev: UInt64?
     private var _cachedDateSectionsQuery: String?
 
+    /// Items grouped for display, ordered by the editorial sequence.
+    ///
+    /// **The cache key has no cards generation.** Sections are items, order and headers; a card change (media resolution,
+    /// `setVisibleCards`) must not regroup or reorder them — that was the second half of the scroll churn in the release
+    /// review, and the reason `DateSection` no longer carries cards at all (the view resolves them through
+    /// `cardsByID(for:)`, which is cached on its own generation).
     var dateSections: [DateSection] {
         let items = filteredItems
-        // Cache key includes cards generation + read revision: dateSections
-        // embeds card presentations (cardsByID), so a card-only swap
-        // (placeholder → resolved image) or an in-place read-state mutation
-        // must invalidate it even when items didn't change.
         if _cachedDateSectionsGen == _cachedGeneration,
-           _cachedDateSectionsCardsGen == _cachedCardsGeneration,
            _cachedDateSectionsReadRev == _cachedReadRevision,
            _cachedDateSectionsQuery == _cachedSearchQuery {
             return _cachedSections
         }
         _cachedDateSectionsGen = _cachedGeneration
-        _cachedDateSectionsCardsGen = _cachedCardsGeneration
         _cachedDateSectionsReadRev = _cachedReadRevision
         _cachedDateSectionsQuery = _cachedSearchQuery
-        _cardsByIDBySection.removeAll(keepingCapacity: true)
-
-        // Build a lookup from item ID → pre-resolved card presentation.
-        // Items still being prepared won't have an entry yet; views handle
-        // nil/missing cards gracefully with content-type placeholders.
-        let cardsByID = Dictionary(cards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        #if DEBUG
+        dateSectionsRebuildCount &+= 1
+        #endif
 
         // A filtered feed already has an intentional provider/category/media
         // order. Regrouping it by date would move all fresh aggregator cards
         // ahead of older independent publishers and undo that diversity.
         if hasActiveFilters || !searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            let sectionCards = items.compactMap { cardsByID[$0.id] }
             _cachedSections = items.isEmpty
                 ? []
-                : [DateSection(id: "ordered-results", title: "", items: items,
-                               cards: sectionCards, showsHeader: false)]
+                : [DateSection(id: "ordered-results", title: "", items: items, showsHeader: false)]
             return _cachedSections
         }
         // Use pre-computed sectionDayOffset when available (new items);
@@ -454,8 +457,7 @@ final class FeedLoader {
         }
         _cachedSections = ["Today", "Yesterday", "This Week", "Earlier"].compactMap { t in
             grouped[t].map { groupItems in
-                let groupCards = groupItems.compactMap { cardsByID[$0.id] }
-                return DateSection(title: t, items: groupItems, cards: groupCards)
+                DateSection(title: t, items: groupItems)
             }
         }
         return _cachedSections

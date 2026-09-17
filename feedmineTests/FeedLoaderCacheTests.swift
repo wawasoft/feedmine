@@ -145,8 +145,18 @@ final class FeedLoaderCacheTests: XCTestCase {
         _ = await awaitPagePublication(of: store, label: self.name)
         XCTAssertFalse(store.visibleItems.isEmpty, "precondition: the filter reload published a page")
 
+        // Publish presentations for the page: the fixture needs cards for the lookup half of the assertions below, and in
+        // this in-memory store nothing else produces them (the prepared coordinator is not running here).
+        let publishedCards = store.visibleItems.map {
+            FeedCardPresentation(item: $0, media: .none, layout: .textOnly, isRead: false, isBookmarked: false)
+        }
+        store.display.publishCards(publishedCards, items: store.visibleItems,
+                                   readItemIDs: [], bookmarkItemIDs: [], isAppend: false)
+
         _ = loader.filteredItems  // warm the cache
-        let baselineRebuilds = loader.filteredItemsRebuildCount
+        _ = loader.dateSections
+        let baselineFilteredRebuilds = loader.filteredItemsRebuildCount
+        let baselineSectionRebuilds = loader.dateSectionsRebuildCount
         let idsBefore = loader.filteredItems.map(\.id)
 
         // Cards only: the same presentations published again, which moves the cards generation and leaves items untouched.
@@ -156,8 +166,21 @@ final class FeedLoaderCacheTests: XCTestCase {
                              "precondition: the cards generation moved")
 
         XCTAssertEqual(loader.filteredItems.map(\.id), idsBefore)
-        XCTAssertEqual(loader.filteredItemsRebuildCount, baselineRebuilds,
+        XCTAssertEqual(loader.filteredItemsRebuildCount, baselineFilteredRebuilds,
                        "a card-only change rebuilt filteredItems — filtering must not depend on card presentation")
+        XCTAssertEqual(loader.dateSectionsRebuildCount, baselineSectionRebuilds,
+                       "a card-only change rebuilt dateSections — grouping/ordering must not depend on card presentation")
+
+        // …and the cards themselves must still reach the view, now through the live lookup instead of an embedded copy.
+        let sections = loader.dateSections
+        XCTAssertFalse(sections.isEmpty, "precondition: the page grouped into sections")
+        for section in sections {
+            let byID = loader.cardsByID(for: section)
+            for item in section.items {
+                XCTAssertNotNil(byID[item.id],
+                                "section \(section.id) lost the card for \(item.id) — the lookup must read live cards")
+            }
+        }
     }
 
     private func item(id: String, source: String, daysAgo: Int) -> FeedItem {
