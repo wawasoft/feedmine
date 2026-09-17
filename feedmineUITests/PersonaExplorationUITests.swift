@@ -39,17 +39,26 @@ final class PersonaExplorationUITests: XCTestCase {
         // 3. Tap first article to open reader
         if let firstCard = firstHittableCard() {
             firstCard.tap()
-            // Not `sleep(3)`: the reader is a plain `WKWebView` (`ArticleWebView`), so a fixed sleep samples
-            // the *network*. Measured on the frozen tree: both `03-article-reader` and `04-article-scrolled`
-            // showed the reader chrome — source title, close button, blue progress bar still filling — over a
-            // **blank white body**, and the run still counted the reader as a covered surface.
-            waitForReaderContent()
-            sleep(1)
-            capture("03-article-reader")
-            // Swipe article content
-            app.swipeUp()
-            sleep(1)
-            capture("04-article-scrolled")
+            // Presentation first, content second. The pixel gate below cannot tell the reader from the *feed*: both are
+            // ink-rich, so applying it straight after the tap returned true in 116 ms on the feed's own pixels and the
+            // run captured the feed twice under the names `03-article-reader` / `04-article-scrolled` (found by reading
+            // the PNGs, not by the gate). `ArticleReaderView` is a `.sheet` containing a `NavigationStack` and a
+            // `WKWebView` (`FeedScreen.swift:260`), and the feed screen has no navigation bar and no web view, so either
+            // signal — cheap, single-element queries — means the reader is up.
+            let presented = ensureReaderPresented()
+            if presented {
+                waitForReaderContent()
+                sleep(1)
+                capture("03-article-reader")
+                // Swipe article content
+                app.swipeUp()
+                sleep(1)
+                capture("04-article-scrolled")
+            } else {
+                // No presentation, no surface: capturing the feed under a reader's name is the fabrication this harness
+                // exists to avoid, and the basename validator reports the pair as absent instead.
+                print("READER reader_not_presented=1 — 03-article-reader and 04-article-scrolled not captured (the reader surface was not exercised)")
+            }
             // Go back
             dismissSheet(preferring: "back")
             sleep(2)
@@ -328,7 +337,32 @@ final class PersonaExplorationUITests: XCTestCase {
         return nil
     }
 
-    /// Wait until the reader is actually showing an article, judged from **pixels** rather than the accessibility tree.
+    /// Wait until `ArticleReaderView` is actually presented, before anything is said about its content.
+    ///
+    /// The reader is a `.sheet` wrapping a `NavigationStack` + `WKWebView` (`FeedScreen.swift:260`), and the feed screen
+    /// has neither a navigation bar nor a web view — so `app.webViews` and `app.navigationBars` are precise, cheap,
+    /// single-element readers of "the reader is up". Without this gate the pixel check below is a false positive in one
+    /// step: the feed is ink-rich, so `bodyInkFraction()` passes on the feed's own pixels the instant after the tap, and
+    /// the run then files two feed screenshots as `03-article-reader` / `04-article-scrolled`.
+    @discardableResult
+    private func ensureReaderPresented(timeout: TimeInterval = 20) -> Bool {
+        let started = Date()
+        let deadline = started.addingTimeInterval(timeout)
+        var sawWebView = false
+        var sawNavigationBar = false
+        while Date() < deadline {
+            sawWebView = app.webViews.firstMatch.exists
+            if sawWebView { break }
+            sawNavigationBar = app.navigationBars.firstMatch.exists
+            if sawNavigationBar { break }
+            usleep(250_000)
+        }
+        let presented = sawWebView || sawNavigationBar
+        print("READER presented=\(presented ? 1 : 0) presented_ms=\(Int(Date().timeIntervalSince(started) * 1000)) signal=webview:\(sawWebView ? 1 : 0) navigationbar:\(sawNavigationBar ? 1 : 0)")
+        return presented
+    }
+
+    /// Wait until the reader is showing an article, judged from **pixels** rather than the accessibility tree.
     ///
     /// History, because both earlier versions were the failure rather than the fix:
     /// 1. `sleep(3)` sampled the network: both reader captures came back showing the chrome (source title, close button,
@@ -336,21 +370,24 @@ final class PersonaExplorationUITests: XCTestCase {
     /// 2. Polling `app.webViews.staticTexts` — first `allElementsBoundByIndex`, then a predicate-limited `firstMatch` —
     ///    asked XCUITest to resolve a UI query inside a live web page every 250 ms. On a large article that timed out and
     ///    killed the whole journey at **2 of 17 surfaces** with `Failed to resolve query: Timed out while evaluating UI
-    ///    query`, twice in a row (23:55 and 00:20 runs). A web view's accessibility snapshot is not a polling primitive.
+    ///    query`. A web view's accessibility snapshot is not a polling primitive.
+    /// 3. The first pixel version, applied straight after the tap, passed on the **feed's** pixels — the false positive
+    ///    `ensureReaderPresented()` now prevents. A pixel fraction says "this screen is not blank"; only the presentation
+    ///    signal says *which* screen it is.
     ///
-    /// So the signal is taken from the rendered screen instead: a screenshot's non-background ("ink") fraction over the
-    /// central region. The reader's page background is white and its chrome sits in the border that is excluded, so a
-    /// blank body measures ~0 and a rendered article (headline plus hero image) is an order of magnitude above the
-    /// threshold. Screenshots are already used by every `capture()` in this file, so this adds no new failure mode, and
-    /// the measured fraction is printed either way — a blank reader can no longer hide behind a green gate.
+    /// The signal is a screenshot's non-background ("ink") fraction over the central region, sampled only after the sheet
+    /// is up and twice in a row 400 ms apart, so the presentation animation's mixed frame cannot be mistaken for content.
     @discardableResult
     private func waitForReaderContent(timeout: TimeInterval = 20) -> Bool {
         let started = Date()
         let deadline = started.addingTimeInterval(timeout)
         var fraction = 0.0
+        var passes = 0
+        if app.webViews.firstMatch.exists { usleep(400_000) }  // let the sheet animation settle under the reader's own frame
         while Date() < deadline {
             fraction = bodyInkFraction()
-            if fraction >= 0.06 {
+            passes = fraction >= 0.06 ? passes + 1 : 0
+            if passes >= 2 {
                 print("READER content_ms=\(Int(Date().timeIntervalSince(started) * 1000)) ink=\(String(format: "%.3f", fraction))")
                 return true
             }
