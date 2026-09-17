@@ -29,11 +29,21 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
   more. `/tmp/wip-1789618800.patch` is a **partial, stale 21:20 snapshot of the uncommitted tree**: it predates the reopen
   step's later revisions, the 150 s readiness gate, the reader-content helper, the classification probe and these docs, so it
   restores the morning's tree, not this one. Use it only to recover that earlier state; use `git` for anything after 00:33.
-- App Store Connect is at **1.0 (15)**; the tree carries **`CFBundleVersion` 16** (in `feedmine/Info.plist` and mirrored in
-  `project.yml`). The **archive is already built and verified** at `.build/feedmine.xcarchive` (archived app reports
-  `1.0 (16)`, 0 errors) — only the upload is outstanding, and the two commits after it (`d56424cb`, `88f338f1`) touch
-  **only docs and `feedmineUITests/PersonaExplorationUITests.swift`** (`git diff --name-only 17a0051a..HEAD -- feedmine/` is
-  empty), so the archive still matches the tree's app target exactly.
+- App Store Connect: **1.0 (16) uploaded and `VALID`** (uploaded 2026-09-17T13:43:53-07:00, verified through the App Store
+  Connect API — `GET /v1/builds?filter[app]=6793279758&sort=-version`), sitting beside 15/14/13… (all `VALID`). The **archive**
+  is at `.build/feedmine.xcarchive` (archived app reports `1.0 (16)`), and `git diff --name-only 17a0051a..HEAD -- feedmine/`
+  is empty: every commit after the archive touches only docs and `feedmineUITests`, so the uploaded binary is exactly the code
+  the bar certified.
+- **Upload credentials (the working recipe).** Xcode's Apple ID account path fails on this machine
+  (`error: exportArchive Failed to Use Accounts`), so use the App Store Connect API key:
+  ```
+  xcodebuild -exportArchive -archivePath .build/feedmine.xcarchive \
+    -exportOptionsPlist .build/ExportOptions.plist -exportPath .build/tf-export \
+    -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_H3U55Z9WZ7.p8 \
+    -authenticationKeyID H3U55Z9WZ7 -authenticationKeyIssuerID 0e1bd229-1284-4916-91d2-7bf989859bcc
+  ```
+  (team `955573A4YH`; the issuer is required — omitting it errors with `The flag -authenticationKeyIssuerID is required`, and a
+  wrong one with `No Accounts with App Store Connect Access`.) `/tmp/testflight.sh` wraps archive + export/upload.
 
 ## What is PROVEN (evidence exists; do not re-derive)
 
