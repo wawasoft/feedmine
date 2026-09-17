@@ -25,7 +25,10 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
   **`17a0051a` "chore(release): baseline the 1.0 hardening tree (build 16)"**, 155 paths (153 modified + 2 added), working
   tree clean, no push. `catalog.sqlite` goes through **Git LFS** (`*.sqlite` in `.gitattributes`), so its 118 MB never
   enters the pack.
-- Restore point for the pre-commit tree: `/tmp/wip-1789618800.patch` (21:20 snapshot).
+- Restore point: **the commit `17a0051a` is the restore point** — the tree is committed, so nothing depends on a patch file any
+  more. `/tmp/wip-1789618800.patch` is a **partial, stale 21:20 snapshot of the uncommitted tree**: it predates the reopen
+  step's later revisions, the 150 s readiness gate, the reader-content helper, the classification probe and these docs, so it
+  restores the morning's tree, not this one. Use it only to recover that earlier state; use `git` for anything after 00:33.
 - App Store Connect is at **1.0 (15)**; the tree carries **`CFBundleVersion` 16** (in `feedmine/Info.plist` and mirrored in
   `project.yml`). The **archive is already built and verified** at `.build/feedmine.xcarchive` (archived app reports
   `1.0 (16)`, 0 errors) — only the upload is outstanding.

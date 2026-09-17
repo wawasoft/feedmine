@@ -202,12 +202,20 @@ final class PersonaExplorationUITests: XCTestCase {
 
         app.terminate()
 
-        // Guard 2 — the warm precondition, asserted immediately before the launch.
+        // Guard 2 — the warm precondition, decided **before** the launch and applied to the verdict after it. Two
+        // different failures, two different answers:
+        //   * container unreadable → the warm state is **unverified**. The relaunch still happens (so the surface set
+        //     stays complete and its captures stay comparable) but nothing below may be read as a warm-start result:
+        //     the run prints `verdict=inconclusive` with that reason and no warm ttff conclusion.
+        //   * container readable, no usable page → a real invalidation, which fails the run.
+        let warmVerified = persistedBefore.containerFound && persistedBefore.usable
         if !persistedBefore.containerFound {
-            print("REOPEN guard2 reopen_flush_unverified=container-unreadable (cannot read the app container from the test runner sandbox)")
+            print("REOPEN guard2 warm_precondition=unverified reason=container-unreadable (the runner could not read the app container, so a warm start cannot be proven)")
         } else if !persistedBefore.usable {
-            print("REOPEN guard2 reopen_flush_unverified=page-absent \(persistedBefore.evidence)")
-            XCTFail("reopen precondition: container missing — measurement invalid")
+            print("REOPEN guard2 warm_precondition=invalid reason=page-absent \(persistedBefore.evidence)")
+            XCTFail("reopen precondition: container readable but holding no usable page — measurement invalid")
+        } else {
+            print("REOPEN guard2 warm_precondition=verified \(persistedBefore.evidence)")
         }
 
         // Guard 3 — poll **both** signals at one cadence from the instant of launch, never post-hoc: the positive
@@ -215,7 +223,7 @@ final class PersonaExplorationUITests: XCTestCase {
         // see the end state, so a loading screen that appeared and vanished would go unrecorded; sampling the
         // negative signal from the first poll is what makes "no loading screen" a measurement instead of a guess.
         //
-        // Both surfaces now carry an identifier, which is what makes the negative half assertable at all:
+        // Both surfaces carry an identifier, which is what makes the negative half assertable at all:
         // `initial-feed-loading` on `InitialFeedLoadingView` (FeedScreen.swift:1709 — the view phase `.preparing`
         // renders) and `feed-empty-state` / `feed-empty-title` on `FeedEmptyStateView` (what a ready-but-empty feed
         // renders, whose title reads "Loading your feed..." while `loadingState == .initial`). Ids are what travel;
@@ -228,18 +236,25 @@ final class PersonaExplorationUITests: XCTestCase {
         let launchReturnedMS = Int(Date().timeIntervalSince(launchStart) * 1000)
         let stateAfterLaunch = app.state.rawValue
 
-        // The earliest look the harness can take: what is on screen the moment launch() returns. Written
-        // straight to disk with its own name so the capture list stays exactly 17; its cost is charged to
-        // `ttff_card_ms` and printed separately, so the number can be read either way.
+        // The first observation is a **query**, not a screenshot. `app.screenshot()` costs ~0.5 s and the previous
+        // shape charged that to the measurement — the poll that "found" the card ran at the same millisecond as the
+        // shot, so the number was the shot's latency, not the app's. Query first, then take the look-frame picture.
+        let firstCard = app.descendants(matching: .any).matching(reopenCardPredicate).firstMatch
+        let loadingPredicate = NSPredicate(format: "identifier IN %@", ["initial-feed-loading", "feed-empty-state"])
+        let loadingAny = app.descendants(matching: .any).matching(loadingPredicate).firstMatch
+        let cardAtLaunchReturn = firstCard.exists
+        let firstObservationMS = Int(Date().timeIntervalSince(launchStart) * 1000)
+
+        // The look-frame picture: what the screen held at the first moment the harness could look. Written straight to
+        // disk under its own name; it is positive evidence in its own right (it is the frame the user would have seen),
+        // which is separate from the question the harness cannot answer — whether a loading surface was composited
+        // *before* `launch()` returned.
         let firstLookShot = app.screenshot()
         try? firstLookShot.pngRepresentation.write(to: URL(fileURLWithPath: "\(screenshotDir)/17-reopen-at-launch-return.png"))
         let firstLookMS = Int(Date().timeIntervalSince(launchStart) * 1000)
 
-        let firstCard = app.descendants(matching: .any).matching(reopenCardPredicate).firstMatch
-        let loadingPredicate = NSPredicate(format: "identifier IN %@", ["initial-feed-loading", "feed-empty-state"])
-        let loadingAny = app.descendants(matching: .any).matching(loadingPredicate).firstMatch
-        var firstCardMS = -1
-        var firstPollMS = -1
+        var firstCardMS = cardAtLaunchReturn ? firstObservationMS : -1
+        var firstPollMS = firstObservationMS
         var polls = 0
         var loadingSeen = false
         var loadingFirstMS = -1
@@ -247,10 +262,9 @@ final class PersonaExplorationUITests: XCTestCase {
         var loadingSurfaceID = ""
         var loadingTitle = ""
         let reopenDeadline = Date().addingTimeInterval(30)
-        while Date() < reopenDeadline {
+        while firstCardMS < 0, Date() < reopenDeadline {
             polls += 1
             let elapsed = Int(Date().timeIntervalSince(launchStart) * 1000)
-            if polls == 1 { firstPollMS = elapsed }
             if loadingAny.exists {
                 if !loadingSeen {
                     loadingSeen = true
@@ -275,9 +289,14 @@ final class PersonaExplorationUITests: XCTestCase {
         // One poll of resolution: `loading_last_ms` is the last sample that still saw the surface, so the window
         // is a lower bound and `loading_ms` is reported as the span between first and last sighting.
         let loadingMS = loadingSeen ? max(0, loadingLastMS - loadingFirstMS) : -1
-        print("REOPEN ttff_card_ms=\(firstCardMS < 0 ? "timeout" : String(firstCardMS)) ttff_card_excl_first_look_ms=\(firstCardMS < 0 ? "n/a" : String(firstCardMS - firstLookMS)) loading_observed=\(loadingSeen ? 1 : 0) loading_ms=\(loadingMS < 0 ? "n/a" : String(loadingMS)) loading_first_ms=\(loadingFirstMS) loading_last_ms=\(loadingLastMS) loading_surface=\(loadingSurfaceID.isEmpty ? "none-observed" : loadingSurfaceID) loading_title=\(loadingTitle.isEmpty ? "n/a" : loadingTitle) cards=\(settledCards.count) hittable=\(settledCards.filter { $0.isHittable }.count) polls=\(polls) first_poll_ms=\(firstPollMS) launch_returned_ms=\(launchReturnedMS) first_look_shot_ms=\(firstLookMS) app_state_after_launch=\(stateAfterLaunch)")
+        // `launch()` blocks until the app is idle, so nothing before `launch_returned_ms` is observable from here and
+        // every ttff below is an **upper bound** — the card may have been on screen for seconds by then.
+        print("REOPEN ttff_card_ms=\(firstCardMS < 0 ? "timeout" : String(firstCardMS)) ttff_bound=upper_bound_from_launch_return card_at_launch_return=\(cardAtLaunchReturn ? 1 : 0) first_observation_ms=\(firstObservationMS) query_cost_ms=\(firstLookMS - firstObservationMS) loading_observed=\(loadingSeen ? 1 : 0) loading_ms=\(loadingMS < 0 ? "n/a" : String(loadingMS)) loading_first_ms=\(loadingFirstMS) loading_last_ms=\(loadingLastMS) loading_surface=\(loadingSurfaceID.isEmpty ? "none-observed" : loadingSurfaceID) loading_title=\(loadingTitle.isEmpty ? "n/a" : loadingTitle) cards=\(settledCards.count) hittable=\(settledCards.filter { $0.isHittable }.count) polls=\(polls) first_poll_ms=\(firstPollMS) launch_returned_ms=\(launchReturnedMS) first_look_shot_ms=\(firstLookMS) app_state_after_launch=\(stateAfterLaunch)")
+        if !warmVerified {
+            print("REOPEN verdict=inconclusive reason=warm-precondition-unverified — the relaunch above happened, but with no proof that the previous run's state reached disk, so `ttff_card_ms`, `loading_*` and `cards` describe an unlabelled start and must not be read as a warm-start result")
+        }
         if !loadingSeen {
-            print("REOPEN loading_surfaces=neither-observed window_sampled_ms=\(firstCardMS < 0 ? "timeout" : String(firstCardMS)) — no sample from the first poll onward found `initial-feed-loading` or `feed-empty-state`")
+            print("REOPEN loading_surfaces=neither-observed window_sampled_ms=from_launch_return_to_\(firstCardMS < 0 ? "timeout" : String(firstCardMS)) — no sample from the first observation onward found `initial-feed-loading` or `feed-empty-state`; this says nothing about the window before `launch()` returned")
         }
         print("REOPEN persisted_before \(persistedBefore.evidence)")
         print("REOPEN persisted_after \(persistedAfter.evidence)")
@@ -426,8 +445,10 @@ final class PersonaExplorationUITests: XCTestCase {
     /// What this probe can and cannot say, both measured:
     /// - `cards()` counts **rendered descendants**, not the store's page (a lazily built list showed 4–8 of the 9
     ///   published items), so it measures the user-visible window, never page size. Page size comes from the app log.
-    /// - The page-clear → first-card interval is the window in which the user is not looking at ready content. The
-    ///   loading surface itself carries no `accessibilityIdentifier`, so nothing here names *which* surface was up.
+    /// - The page-clear → first-card interval is the window in which the user is not looking at ready content. Which
+    ///   surface filled it is available since 2026-09-17 (`initial-feed-loading` on `InitialFeedLoadingView`,
+    ///   `feed-empty-state` on `FeedEmptyStateView` — the latter is what a `ready`-but-empty feed shows), so a follow-up
+    ///   can name it; this probe deliberately measures only the window, to keep its two changes comparable.
     /// - A change target is not "prepared" or "radical" by construction: the label is only allowed to be attached once
     ///   the app log reports the matching row count (`reloadFromSQLite … filtered=N`, `localOfType=N`) for that
     ///   generation. The probe supplies the timing; the log supplies the classification.
@@ -447,8 +468,8 @@ final class PersonaExplorationUITests: XCTestCase {
                 return code == "und" ? nil : code
             }).sorted()
         }
-        let baselineIDs = cards().map(\.identifier)
-        print("FILTERCHANGE before at=\(ISO8601DateFormatter().string(from: Date())) cards=\(baselineIDs.count) languages=\(languages()) first_ids=\(baselineIDs.prefix(3).joined(separator: ","))")
+        let openingIDs = cards().map(\.identifier)
+        print("FILTERCHANGE before at=\(ISO8601DateFormatter().string(from: Date())) cards=\(openingIDs.count) languages=\(languages()) first_ids=\(openingIDs.prefix(3).joined(separator: ","))")
 
         // The sheet must never be toggled blind: every tap on `filter-button` while it is open **closes** it, which is
         // how the first version of this probe measured nothing (`skipped=chip-unavailable` on both cases while the app
@@ -468,12 +489,17 @@ final class PersonaExplorationUITests: XCTestCase {
                 print("FILTERCHANGE sheet_unavailable looking=\(identifier)")
                 return nil
             }
+            // `exists` is visibility-independent, so it can answer true for a chip scrolled out of the sheet — and
+            // synthesizing a tap or a swipe on that element aborts with "Not hittable". Require hittability, and scroll
+            // the sheet (not the feed) until the chip can actually take the event.
             for _ in 0..<swipes {
-                if app.buttons[identifier].exists { return app.buttons[identifier] }
+                let chip = app.buttons[identifier]
+                if chip.exists, chip.isHittable { return chip }
                 app.swipeUp()
                 usleep(300_000)
             }
-            return app.buttons[identifier].exists ? app.buttons[identifier] : nil
+            let chip = app.buttons[identifier]
+            return chip.exists && chip.isHittable ? chip : nil
         }
 
         /// Tap a chip, dismiss the sheet (the reload is deferred to dismissal — `isEditingFilters`), then sample.
@@ -483,6 +509,10 @@ final class PersonaExplorationUITests: XCTestCase {
                 print("FILTERCHANGE \(label) skipped=chip-unavailable sheet_open=\(sheetIsOpen() ? 1 : 0) button_ids=\(dump.prefix(30))")
                 return
             }
+            // Baseline is taken here, immediately before this change's tap, so `ids_unchanged` compares the settled page
+            // to the page the user was looking at *for this change* — a single baseline captured before case A would make
+            // case B's comparison meaningless.
+            let idsBefore = cards().map(\.identifier)
             if !chip.isHittable { chip.swipeUp() }
             chip.tap()
             let chipAt = Date()
@@ -510,17 +540,24 @@ final class PersonaExplorationUITests: XCTestCase {
                 usleep(250_000)
             }
             let settledIDs = cards().map(\.identifier)
-            print("FILTERCHANGE \(label) chip_tap_at=\(ISO8601DateFormatter().string(from: chipAt)) clear_ms=\(clearedAt) first_card_ms=\(firstCardAt) polls=\(polls) cards_after=\(settledIDs.count) languages_after=\(languages()) page_kept=\(clearedAt < 0 ? 1 : 0) ids_unchanged=\(settledIDs == baselineIDs ? 1 : 0) first_ids_after=\(settledIDs.prefix(3).joined(separator: ","))")
+            // `ids_unchanged` is *not* a correctness signal: `cards()` samples only what the lazy list has built, so
+            // scrolling or republishing changes the sample without proving anything about page identity. The correctness
+            // signal is `languages_after` (does the page match the filter that was just applied?); `ids_unchanged` is
+            // reported only to show whether the sampled rows moved at all.
+            print("FILTERCHANGE \(label) chip_tap_at=\(ISO8601DateFormatter().string(from: chipAt)) clear_ms=\(clearedAt) first_card_ms=\(firstCardAt) polls=\(polls) cards_before=\(idsBefore.count) cards_after=\(settledIDs.count) languages_after=\(languages()) page_kept=\(clearedAt < 0 ? 1 : 0) ids_sampled_same=\(settledIDs == idsBefore ? 1 : 0)")
         }
 
-        // Case A — prepared: the language filter is set to a language the page is already showing.
+        // Case A — the target filter is the language the page is already showing. `languages()` gives the target; the
+        // classification is still made from the app log (`reloadFromSQLite … filtered=`, `flush … localOfType=`), because
+        // the probe can only see rendered rows.
         let pageLanguage = languages().first
         print("FILTERCHANGE case_A_target_language=\(pageLanguage ?? "none")")
-        measure("A-language-prepared", chip: pageLanguage.flatMap { findChip("language-\($0)") })
+        measure("A-language", chip: pageLanguage.flatMap { findChip("language-\($0)") })
         capture("18-filterchange-after-language")
 
-        // Case B — radical: a content type the page holds nothing of by construction. The chip ids come from
-        // `ContentType.rawValue.lowercased()`: all / articles / videos / **podcasts** / forums.
+        // Case B — a different content type. **Not** assumed to be radical: whether the store holds any render-ready
+        // content of that type is what the app log decides for this generation (`[Latency] flush … localOfType=`), and
+        // the run's report is labelled from that number, not from the choice of chip.
         measure("B-type-podcasts", chip: findChip("content-type-podcasts"))
         capture("19-filterchange-after-type")
         print("FILTERCHANGE done")
