@@ -15,7 +15,10 @@
 # cannot remove a non-empty directory, which is how earlier versions leaked the lock and blocked later lanes.
 #
 # Usage: scripts/release-journey.sh [journey-log] [build-log]
-#   env: FEEDMINE_SIM_UDID (default: the iPhone 16 used by the release lane)
+#   env: FEEDMINE_SIM_UDID     simulator UDID; default: the first available iPhone
+#        FEEDMINE_DESTINATION  full xcodebuild -destination; default: platform=iOS Simulator,id=$UDID
+#   The screenshot directory is NOT configurable here: `PersonaExplorationUITests.screenshotDir` hardcodes
+#   /tmp/feedmine-persona-screenshots, and the basename validation below must read exactly what the test wrote.
 # No `set -e`: the whole point of this script is to *report* a red run. A bare `xcodebuild` that exits 65 would otherwise
 # terminate it before the basename validation, the READER/REOPEN lines and the `JORNADA FALHOU` verdict, which is the
 # opposite of a gate that explains itself.
@@ -23,7 +26,14 @@ set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
-S="${FEEDMINE_SIM_UDID:-2F70B5E4-DF56-428C-A7B9-0A769B6CAC3D}"
+discover_udid() {
+  xcrun simctl list devices available 2>/dev/null \
+    | awk -F'[()]' '/iPhone/ && /Booted|Shutdown/ {gsub(/ /, "", $2); print $2; exit}'
+}
+S="${FEEDMINE_SIM_UDID:-$(discover_udid)}"
+if [ -z "$S" ]; then echo "ABORTADO: no iPhone simulator found — set FEEDMINE_SIM_UDID"; exit 9; fi
+DEST="${FEEDMINE_DESTINATION:-platform=iOS Simulator,id=$S}"
+echo "simulator: $S | destination: $DEST"
 SHOTS=/tmp/feedmine-persona-screenshots
 LOG="${1:-/tmp/feedmine-journey.log}"
 BUILDLOG="${2:-/tmp/feedmine-journey-build.log}"
@@ -49,11 +59,20 @@ acquire() {
 
 acquire
 echo "== journey gate start $(date '+%H:%M:%S') =="
+# Boot the target explicitly: `bootstatus` on a shutdown device does not boot it, and both it and `uninstall` can fail
+# silently, which would leave the previous run's app container in place — the script's whole premise ("a clean container
+# per run") would be gone while its output still read like a cold-start measurement.
+xcrun simctl shutdown "$S" 2>/dev/null || true; sleep 3
+xcrun simctl boot "$S" 2>/dev/null || true
 xcrun simctl bootstatus "$S" -b >/dev/null 2>&1 || true
 xcrun simctl uninstall "$S" com.feedmine.app 2>/dev/null || true
+if xcrun simctl get_app_container "$S" com.feedmine.app >/dev/null 2>&1; then
+  echo "ABORTADO: com.feedmine.app still has a container after uninstall — a warm-start measurement here would be invalid"
+  exit 9
+fi
 rm -rf "$SHOTS"
 if xcodebuild build-for-testing -project feedmine.xcodeproj -scheme feedmine \
-  -destination "platform=iOS Simulator,name=iPhone 16" > "$BUILDLOG" 2>&1; then BUILD_EXIT=0; else BUILD_EXIT=$?; fi
+  -destination "$DEST" > "$BUILDLOG" 2>&1; then BUILD_EXIT=0; else BUILD_EXIT=$?; fi
 BE=$(grep -acE 'error:' "$BUILDLOG" || true)
 echo "build-erros: $BE (exit=$BUILD_EXIT)"
 if [ "$BE" != "0" ] || [ "$BUILD_EXIT" != "0" ]; then
@@ -63,7 +82,7 @@ if [ "$BE" != "0" ] || [ "$BUILD_EXIT" != "0" ]; then
 fi
 
 if xcodebuild test-without-building -project feedmine.xcodeproj -scheme feedmine \
-  -destination "platform=iOS Simulator,name=iPhone 16" \
+  -destination "$DEST" \
   -only-testing:feedmineUITests/PersonaExplorationUITests/testCaptureAllScreens > "$LOG" 2>&1; then
   JOURNEY_EXIT=0
 else

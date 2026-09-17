@@ -122,9 +122,15 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
 - Scripts: **`scripts/release-acceptance.sh`** (the bar: gates ×3 + journey + basename validation + `REOPEN` lines,
   lock-guarded, **exit 1** on any failed gate or missing surface) and **`scripts/release-journey.sh`** (the journey half
   alone, same gate semantics) are **checked in** — the exit-status propagation that makes them gates rather than reports is
-  part of the repository, not of a `/tmp` file. Their `/tmp` predecessors (`/tmp/acceptance-final.sh`, `/tmp/reopen-measure.sh`)
-  and the probe helpers (`/tmp/filter-classify.sh`, `/tmp/perf-baseline.sh`) are ephemeral working copies; treat anything that
-  matters as living in the repo. Both scripts take `FEEDMINE_SIM_UDID` and write logs to `/tmp/feedmine-*.log`.
+  part of the repository, not of a `/tmp` file. Both derive the repo root from their own path, take `FEEDMINE_SIM_UDID`
+  (default: first available iPhone, discovered — no host-specific UDID baked in) and `FEEDMINE_DESTINATION`
+  (default `platform=iOS Simulator,id=$UDID`), **assert** the clean-container premise (`get_app_container` must fail after
+  `uninstall`, else the run aborts) and capture `xcodebuild`'s exit status for the build as well as the test. Their `/tmp`
+  predecessors (`/tmp/acceptance-final.sh`, `/tmp/reopen-measure.sh`) and the probe helpers (`/tmp/filter-classify.sh`,
+  `/tmp/perf-baseline.sh`) are ephemeral working copies; treat anything that matters as living in the repo. Logs land in
+  `/tmp/feedmine-*.log`, screenshots in `/tmp/feedmine-persona-screenshots` (hardcoded by the UI test, so not configurable).
+  **Pin `FEEDMINE_SIM_UDID` when comparing against the numbers in this file**: they were all measured on the iPhone 16
+  `2F70B5E4-DF56-428C-A7B9-0A769B6CAC3D`, while the scripts otherwise discover their device (booted iPhone first).
 - **Do not "fix" the flaky filter test in product code.** `FeedStore`/`applyFiltersOffMain` were correct; the flakes were
   test-side (fixed `Task.sleep(200ms)` sampling, a process-wide `taxonomy_cache.json`, and now the shared filter state —
   see `normalizeSharedFilterStateForTests()`).
