@@ -53,9 +53,6 @@ enum Keys {
     // Audio
     static let lastPodcastItemID = "lastPodcastItemID"
     static let lastPodcastPosition = "lastPodcastPosition"
-
-    // Prepared Feed Pipeline
-    static let preparedFeedPipelineEnabled = "preparedFeedPipelineEnabled"
 }
 
 // MARK: - Typed Settings Accessor
@@ -164,18 +161,5 @@ enum Settings {
     static var contentFiltersEnabled: Bool {
         get { d.object(forKey: Keys.contentFiltersEnabled) as? Bool ?? true }
         set { d.set(newValue, forKey: Keys.contentFiltersEnabled) }
-    }
-
-    // MARK: Prepared Feed Pipeline
-    /// Defaults to true — the prepared feed pipeline is the primary path.
-    /// Can be disabled via UserDefaults or launch argument for debugging.
-    static var preparedFeedPipelineEnabled: Bool {
-        get {
-            if d.object(forKey: Keys.preparedFeedPipelineEnabled) == nil {
-                return true  // enabled by default after Phase 9
-            }
-            return d.bool(forKey: Keys.preparedFeedPipelineEnabled)
-        }
-        set { d.set(newValue, forKey: Keys.preparedFeedPipelineEnabled) }
     }
 }

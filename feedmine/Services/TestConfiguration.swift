@@ -70,9 +70,6 @@ struct TestConfiguration: Sendable {
 
     // MARK: - Feature flags
 
-    /// Enable the prepared feed card pipeline.
-    let preparedFeedPipeline: Bool
-
     /// Reset content filters on launch (UITest isolation).
     let resetFilters: Bool
 
@@ -95,7 +92,6 @@ struct TestConfiguration: Sendable {
         fixedTheme: String? = nil,
         skipOnboarding: Bool = false,
         showOnboarding: Bool = false,
-        preparedFeedPipeline: Bool = false,
         resetFilters: Bool = false,
         appleLanguages: String? = nil
     ) {
@@ -110,7 +106,6 @@ struct TestConfiguration: Sendable {
         self.fixedTheme = fixedTheme
         self.skipOnboarding = skipOnboarding
         self.showOnboarding = showOnboarding
-        self.preparedFeedPipeline = preparedFeedPipeline
         self.resetFilters = resetFilters
         self.appleLanguages = appleLanguages
     }
@@ -150,7 +145,6 @@ struct TestConfiguration: Sendable {
             fixedTheme: extractArg(args, prefix: "-fixed-theme"),
             skipOnboarding: args.contains("-UITestSkipOnboarding"),
             showOnboarding: args.contains("-UITestShowOnboarding"),
-            preparedFeedPipeline: args.contains("-PreparedFeedPipeline"),
             resetFilters: args.contains("-UITestResetFilters"),
             appleLanguages: extractAppleLanguages(args)
         )

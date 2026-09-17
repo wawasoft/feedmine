@@ -34,11 +34,15 @@ final class FeedStore {
     private(set) var imageResolutionQueue: ImageResolutionQueue!
 
     // MARK: - Prepared feed pipeline (Phase 3+)
-    /// Feature flag controlling which pipeline publishes.
-    /// Disabled in test/in-memory mode so unit tests can assert on
-    /// visibleItems synchronously without waiting for async preparation.
+    /// Which path publishes. The prepared pipeline is the production path — the legacy synchronous path survives only
+    /// as the in-memory affordance that lets unit tests assert on `visibleItems` without waiting for preparation.
+    ///
+    /// This used to be `usesPersistentStorage && Settings.preparedFeedPipelineEnabled`, which made the legacy branch
+    /// *selectable in production* through a UserDefaults key that nothing exposed (`feedmineApp.swift` set it to true
+    /// on every boot and no view offered it). Selection by UserDefaults was the duality; `usesPersistentStorage` is the
+    /// seam the tests actually need. See review P1.3.
     private var usePreparedPipeline: Bool {
-        usesPersistentStorage && Settings.preparedFeedPipelineEnabled
+        usesPersistentStorage
     }
 
     // MARK: - Display State (extracted to FeedDisplayState)
@@ -1868,26 +1872,10 @@ final class FeedStore {
                 await loadReadState()
                 reservoir.readItemIDs = consumedItemIDs
                 bookmarkedItemIDs = await bookmarkStore.allBookmarkedItemIDsAsync()
-                if let cached = await display.restoreCachedPage(filterSignature: pageCacheSignature) {
-                    let stamped = await applyFiltersAsync(cached.items)
-                    let cards = await restoredCards(for: stamped, projection: cached.cards,
-                                                    readItemIDs: readItemIDs,
-                                                    bookmarkItemIDs: bookmarkedItemIDs)
-                    display.publishCards(cards, items: stamped,
-                                         readItemIDs: readItemIDs,
-                                         bookmarkItemIDs: bookmarkedItemIDs,
-                                         isAppend: false)
-                    // Publish before the catalogue finishes. The rest of
-                    // `start()` no longer finds an empty feed, so the cached
-                    // items are kept and only re-stamped once the full registry,
-                    // taxonomy and read state are in — the page never goes back
-                    // to the waiting screen.
-                    display.setIsPreparingInitialRunway(false)
-                    display.setLoadingState(.idle)
-                    display.setFeedDisplayPhase(.ready(contextID: presentationEpoch))
-                    let withMedia = cards.filter { if case .image = $0.media { return true }; return false }.count
-                    Log.feed.info("page[restore] items=\(stamped.count) withMedia=\(withMedia) fp=\(self.pageFingerprint(cards, prefix: 20))")
-                }
+                // Publish before the catalogue finishes. The rest of `start()` no longer finds an empty feed, so the
+                // restored items are kept and only re-stamped once the full registry, taxonomy and read state are in —
+                // the page never goes back to the waiting screen.
+                await restorePreparedPageIfAny(generation: filterGeneration, reason: "launch")
             }
         }
 
@@ -2357,6 +2345,40 @@ final class FeedStore {
             return "\(card.item.id)|\(layout)|\(hasMedia)"
         }
         return parts.joined(separator: ",")
+    }
+
+    /// Publish the prepared page for the **current** composition from disk, if the repository holds one.
+    ///
+    /// One lookup serves both entry points, because the page cache is keyed by the composition signature (review P0.2):
+    ///   * the launch path (`start()`), so a warm reopen paints the prepared page before the catalogue parses;
+    ///   * the filter-change path (`setFilter`), so a context that was prepared before switches **without the network** —
+    ///     the `filter tap → composição local → feed` step review P1.2 asks for, taken before the debounced reload and
+    ///     its network work even start.
+    ///
+    /// Contract: publishes only a non-empty composition whose generation is still current, settles `.ready` (publishing
+    /// alone does not leave `.preparing` while `loadingState == .refreshing`), and returns whether it published. Cards go
+    /// through the same filter pass and the same persisted-media restoration as the launch path, so a restored page can
+    /// never show an item the active filter excludes.
+    @discardableResult
+    private func restorePreparedPageIfAny(generation: Int64, reason: String) async -> Bool {
+        guard let cached = await display.restoreCachedPage(filterSignature: pageCacheSignature),
+              generation == filterGeneration else { return false }
+        let stamped = await applyFiltersAsync(cached.items)
+        guard generation == filterGeneration, !stamped.isEmpty else { return false }
+        let cards = await restoredCards(for: stamped, projection: cached.cards,
+                                        readItemIDs: readItemIDs,
+                                        bookmarkItemIDs: bookmarkedItemIDs)
+        guard generation == filterGeneration else { return false }
+        display.publishCards(cards, items: stamped,
+                             readItemIDs: readItemIDs,
+                             bookmarkItemIDs: bookmarkedItemIDs,
+                             isAppend: false)
+        display.setIsPreparingInitialRunway(false)
+        display.setLoadingState(.idle)
+        display.setFeedDisplayPhase(.ready(contextID: presentationEpoch))
+        let withMedia = cards.filter { if case .image = $0.media { return true }; return false }.count
+        Log.feed.info("page[restore] items=\(stamped.count) withMedia=\(withMedia) fp=\(self.pageFingerprint(cards, prefix: 20)) reason=\(reason)")
+        return true
     }
 
     private func restoredCards(
@@ -3152,6 +3174,7 @@ final class FeedStore {
 
         // Language buffer: if switching TO a previously-used language,
         // restore buffered items instantly instead of clearing.
+        var publishedFromLanguageBuffer = false
         if oldLanguages != activeLanguages,
            let buffered = restoreLanguageBuffer(for: self.activeLanguages),
            !buffered.isEmpty {
@@ -3163,6 +3186,7 @@ final class FeedStore {
                 display.setLoadingState(.idle)
                 display.setFeedDisplayPhase(.ready(contextID: presentationEpoch))
                 Log.feed.info("language buffer restore: items=\(filtered.count) lang=\(self.activeLanguages)")
+                publishedFromLanguageBuffer = true
                 // Keep network fetch running so fresh items replace buffered ones
             } else {
                 if !visibleItems.isEmpty { setVisibleItems([], settlesPhase: false) }
@@ -3176,6 +3200,26 @@ final class FeedStore {
             // and the display's invariant refuses it, leaving the old page up indefinitely with no recovery.
             // The honest fix is the in-progress surface (phase/emptyMode mapping), not the clear semantics.
             setVisibleItems([], settlesPhase: false)
+        }
+
+        // P1.2 — consult the prepared repository for the composition being switched *into*, before the reload goes near
+        // the network.
+        //
+        // The page cache is keyed by the composition signature, so a context the reader prepared earlier has its own
+        // prepared page on disk. Only `start()` used to look it up, which meant a filter tap into a context already
+        // visited cleared the feed and waited for the debounced reload — its SQLite pass and its network work — for a page
+        // that was already written. Publishing it here is the `filter tap → composição local → feed` step: the clear above
+        // has already run, so nothing of the previous composition is shown under the new chip, and the scheduled reload
+        // still runs afterwards to extend the runway in the background.
+        //
+        // Persistent storage only. In-memory mode is the unit-test affordance (`usePreparedPipeline`) and must never
+        // publish a page it did not compose: the cache file lives in the host's caches directory, shared across tests.
+        // The language buffer wins when it published — its items are in memory and fresher than any cached page.
+        if usePreparedPipeline, !publishedFromLanguageBuffer {
+            Task { [weak self] in
+                guard let self else { return }
+                _ = await self.restorePreparedPageIfAny(generation: generation, reason: "filter")
+            }
         }
         // Cull What's New items for the new filter — those render above
         // the main feed and must respect the new filter immediately.

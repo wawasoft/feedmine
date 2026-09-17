@@ -85,9 +85,6 @@ struct FeedmineApp: App {
         } else if ProcessInfo.processInfo.arguments.contains("-UITestSkipOnboarding") {
             UserDefaults.standard.set(true, forKey: Keys.hasSeenOnboarding)
         }
-        if ProcessInfo.processInfo.arguments.contains("-PreparedFeedPipeline") {
-            UserDefaults.standard.set(true, forKey: Keys.preparedFeedPipelineEnabled)
-        }
         FeedMetrics.event("Process.started")
         FeedMetrics.memory("processStarted")
     }

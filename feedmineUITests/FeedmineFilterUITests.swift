@@ -410,6 +410,57 @@ final class FeedmineFilterUITests: XCTestCase {
         }
     }
 
+    // MARK: - Prepared repository (review P1.2)
+
+    /// A context that was prepared before must switch **from the prepared repository**, not from a fresh reload.
+    ///
+    /// The page cache is keyed by the composition signature, so every context the reader visits writes its own prepared
+    /// page. This drives the sequence the review names for the filter-change flow — context A, context B, then back into
+    /// A — and asserts what the reader observes: each switch lands on cards rather than on a waiting surface.
+    ///
+    /// The app-side evidence that the return was served from disk (`page[restore] … reason=filter`) is read from the
+    /// device log by the release probe, because a UI test cannot read the app's log: grep for `reason=filter` after this
+    /// test to confirm the path, and for its absence to catch a regression that leaves the switch merely *fast*.
+    ///
+    /// Timings are logged with ISO-8601 stamps so the test-side sequence and the device log can be lined up.
+    func testSwitchBackIntoAPreparedContextLandsOnCards() {
+        let log = Self.ui
+        log.info("=== P1.2 filter-switch A → B → A at \(ISO8601DateFormatter().string(from: Date())) ===")
+        waitForAppReady()
+
+        func select(_ id: String, _ label: String) {
+            log.info("  [P12] select \(label) at \(ISO8601DateFormatter().string(from: Date()))")
+            openFilter()
+            var chip: XCUIElement?
+            for _ in 0..<6 {
+                if app.buttons[id].exists { chip = app.buttons[id]; break }
+                app.swipeUp()
+                usleep(400_000)
+            }
+            guard let chip else {
+                XCTFail("\(label): chip \(id) missing from an open, scrolled sheet")
+                return
+            }
+            chip.tap()
+            app.buttons["filter-done"].tap()
+            let card = app.descendants(matching: .any)
+                .matching(NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-"))
+                .firstMatch
+            XCTAssertTrue(card.waitForExistence(timeout: 30),
+                          "\(label): the switch must land on cards, not on a waiting surface")
+            log.info("  [P12] \(label) landed at \(ISO8601DateFormatter().string(from: Date()))")
+        }
+
+        select("content-type-videos", "A=videos")
+        // A's composition settles so its prepared page is written (the write is detached, right after publish).
+        sleep(6)
+        select("content-type-podcasts", "B=podcasts")
+        sleep(6)
+        // The return: A's page sits in the prepared repository, so this switch must not wait for a recomposition.
+        select("content-type-videos", "A=videos-return")
+        log.info("  ✅ PASS")
+    }
+
     private func openFilter() {
         app.buttons["filter-button"].tap()
         _ = app.buttons["filter-done"].waitForExistence(timeout: 5)
