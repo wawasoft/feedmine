@@ -43,7 +43,8 @@ targets:
       properties:
         UILaunchScreen: {}
         CFBundleShortVersionString: "1.0"
-        CFBundleVersion: "3"
+        CFBundleVersion: "16"
+        ITSAppUsesNonExemptEncryption: false
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsForMedia: true
         UIBackgroundModes:

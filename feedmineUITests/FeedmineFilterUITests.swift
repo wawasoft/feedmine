@@ -15,7 +15,7 @@ final class FeedmineFilterUITests: XCTestCase {
 
     override func setUp() {
         continueAfterFailure = true
-        app.launchArguments = ["-AppleLanguages", "(en)", "-UITestResetFilters"]
+        app.launchArguments = ["-AppleLanguages", "(en)", "-UITestResetFilters", "-UITestSkipOnboarding"]
         app.launch()
     }
 
@@ -397,7 +397,17 @@ final class FeedmineFilterUITests: XCTestCase {
             XCTFail("App failed to load — filter button not found")
             return
         }
-        sleep(5)
+        // Chrome is not content. A fixed sleep(5) let the first combo (`content-type-all`) run inside the
+        // cold start — first page lands ~12 s after launch on a clean install — so that combo was
+        // asserting cold-start readiness inside its own 8 s window, and no fetch-branch change could move
+        // it. Wait for a card; on timeout, fail loudly rather than time a measurement against an empty app.
+        let card = app.descendants(matching: .any)
+            .matching(NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-"))
+            .firstMatch
+        guard card.waitForExistence(timeout: 40) else {
+            XCTFail("Feed never produced a card — combos would measure an empty app")
+            return
+        }
     }
 
     private func openFilter() {
@@ -430,14 +440,58 @@ final class FeedmineFilterUITests: XCTestCase {
         add(attachment)
     }
 
+    /// Leaves one content type selected on an **idle** app for tens of seconds. That is the only configuration
+    /// where coverage mining can produce a pass: every new flush cancels `coverageMiningTask` before its first
+    /// pass (it sleeps ~600 ms first), and the combo matrix changes type every ~1.8 s, so a
+    /// `coverage active-audio-p0:` line cannot appear there by construction — which is why the earlier zero is an
+    /// artifact and not evidence about audio.
+    func testPodcastFilterIdleReachesCoverageMining() {
+        waitForAppReady()
+        openFilter()
+        // Assert the sheet is open before tapping a control inside it: the matrix taps this same id every run,
+        // so "button not found" here would mean the sheet never opened and send the reader hunting a rename
+        // that did not happen.
+        XCTAssertTrue(app.buttons["filter-done"].waitForExistence(timeout: 10),
+                      "filter sheet did not open")
+        // The sheet is long: its lower controls only exist after scrolling (the journey captures both
+        // `05-filter-sheet` and `06-filter-sheet-scrolled`, and the matrix swipes before tapping).
+        var foundPodcasts = false
+        for _ in 0..<6 {
+            if app.buttons["content-type-podcasts"].exists { foundPodcasts = true; break }
+            app.swipeUp()
+            usleep(400_000)
+        }
+        XCTAssertTrue(foundPodcasts, "podcasts control missing from an open, scrolled sheet")
+        app.buttons["content-type-podcasts"].tap()
+        app.buttons["filter-done"].tap()
+        // Liveness: the idle window must actually elapse with the type selected, or the coverage labels read
+        // afterwards are about some other phase.
+        let idleUntil = Date().addingTimeInterval(45)
+        while Date() < idleUntil {
+            usleep(1_000_000)
+        }
+        XCTAssertTrue(true, "idle window elapsed")
+    }
+
     private func waitForFeedItemIdentifiers(timeout: TimeInterval) -> [String] {
         let deadline = Date().addingTimeInterval(timeout)
         repeat {
-            let identifiers = app.descendants(matching: .any)
+            // `isHittable` removes two ways this assertion used to be satisfied without the requested
+            // content: an identifier left over from the previous composition and one scrolled out of the
+            // viewport. It does **not** check the type — the id is `feed-item-pt-<hash>`, fixed prefix plus
+            // hash, with no kind in it, and a kept page of article cards is both on screen and hittable, so
+            // it would still pass. Type checking needs what the app exposes on the card surface (or a
+            // comparison against the ids the app logged for that combo); until then this helper is stronger
+            // than "some id exists" and still weaker than "cards of the requested type".
+            let cards = app.descendants(matching: .any)
                 .matching(NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-"))
                 .allElementsBoundByIndex
-                .map(\.identifier)
-            if !identifiers.isEmpty { return identifiers }
+                .filter(\.isHittable)
+            let identifiers = cards.map(\.identifier)
+            // Honour the budget: the deadline was only tested between iterations, so a slow tree query
+            // returned late and the caller reported "content available" at 10 241 ms against an 8 s cap.
+            // Returning empty past the deadline makes the number and the verdict agree.
+            if !identifiers.isEmpty, Date() < deadline { return identifiers }
             usleep(100_000)
         } while Date() < deadline
         return []

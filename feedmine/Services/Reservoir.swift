@@ -46,16 +46,32 @@ final class Reservoir {
 
     // MARK: - Seed (cold/warm start)
 
-    /// Seeds the reservoir with pre-filtered items. Runs the expensive interleave
-    /// computation off the main actor; only the final array assignment is MainActor.
-    func seed(items: [FeedItem], presetMultipliers pm: [String: Double] = [:]) async {
-        self.presetMultipliers = pm
+    /// Computes the interleave for a cold/warm seed **without touching reservoir
+    /// state**. Runs the expensive computation off the main actor.
+    ///
+    /// The caller re-validates its composition between this call and
+    /// ``commitSeed(_:presetMultipliers:)``: the computation runs in a detached
+    /// task, which does not inherit cancellation, so it always runs to
+    /// completion and a superseded operation must not install its result.
+    func computeSeed(
+        items: [FeedItem],
+        presetMultipliers pm: [String: Double] = [:]
+    ) async -> [FeedItem] {
         let rid = readItemIDs
         let st = surfacedTimestamps
         let srm = sourceRegionMap
-        let interleaved = await Task.detached(priority: .userInitiated) {
+        return await Task.detached(priority: .userInitiated) {
             Reservoir.interleaveOffMain(items, readItemIDs: rid, surfacedTimestamps: st, sourceRegionMap: srm, presetMultipliers: pm)
         }.value
+    }
+
+    /// Installs the result of ``computeSeed(items:presetMultipliers:)``.
+    ///
+    /// This is the only place a seed mutates the reservoir — including
+    /// `markAsSurfaced`, which persists — so it must run only after the caller
+    /// has re-validated that its composition is still the current one.
+    func commitSeed(_ interleaved: [FeedItem], presetMultipliers pm: [String: Double] = [:]) {
+        presetMultipliers = pm
         let w = min(Self.pageSize, interleaved.count)
         visibleItems = Array(interleaved.prefix(w))
         // Union, don't replace: items appended while the interleave ran (e.g.

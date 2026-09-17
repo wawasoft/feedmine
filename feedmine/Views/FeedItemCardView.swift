@@ -36,9 +36,13 @@ struct FeedItemCardView: View, Equatable {
     /// Structural: does this card have a resolved image to display?
     /// Only `.image` reserves the hero slot. `.placeholder` and `.none`
     /// both collapse to text-only — a card without its real image must not
-    /// show a fake image slot. If the image arrives later, the card is
-    /// upgraded in-place via replaceVisibleCard (no layout shift because
-    /// the card wasn't occupying the hero slot before).
+    /// show a fake image slot.
+    ///
+    /// Because this slot is the card's only height difference between a
+    /// text-only card and a hero card, a published card can never gain it: a
+    /// late image would grow the card and shift every card below it. The store
+    /// serves late images through the next publication instead
+    /// (`FeedDisplayState` has no in-place card swap).
     private var hasImage: Bool {
         guard let pres = presentation else { return false }
         if case .image = pres.media { return true }

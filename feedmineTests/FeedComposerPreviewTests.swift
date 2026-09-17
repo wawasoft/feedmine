@@ -218,12 +218,13 @@ final class FeedComposerPreviewTests: XCTestCase {
         }
         store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: [])
 
-        // Poll for the async filter reload (300ms debounce + SQLite flush).
-        let deadline = Date().addingTimeInterval(5)
-        while store.visibleItems.isEmpty, Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
-        }
-        XCTAssertFalse(store.visibleItems.isEmpty, "seeding should populate visibleItems")
+        // Condition wait — the reload publishing a page — with the measured duration recorded (see
+        // `awaitPagePublication`): a cold-path stall must stay in the log, not be absorbed here.
+        let seeded = await awaitPagePublication(of: store, label: self.name)
+        XCTAssertFalse(
+            store.visibleItems.isEmpty,
+            "seeding should populate visibleItems (waited \(String(format: "%.3f", seeded))s; nothing was published)"
+        )
         let loader = FeedLoader(store: store)
         return (store, loader)
     }

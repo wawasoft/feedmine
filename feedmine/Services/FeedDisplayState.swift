@@ -1,3 +1,4 @@
+import CryptoKit
 import Foundation
 import Observation
 import OSLog
@@ -43,11 +44,13 @@ final class FeedDisplayState {
     /// `FeedLoader` uses this for cache invalidation instead of item count.
     private(set) var visibleItemsGeneration: UInt64 = 0
 
-    /// Monotonic counter incremented whenever `visibleCards` is replaced
-    /// or swapped in place (image resolution upgrades). `FeedLoader` caches
-    /// keyed only on `visibleItemsGeneration` would keep rendering stale
-    /// card media after `replaceVisibleCard` — cards can change without
-    /// items changing.
+    /// Monotonic counter incremented whenever `visibleCards` is published.
+    /// `FeedLoader` caches keyed only on `visibleItemsGeneration` would keep
+    /// rendering stale card media otherwise.
+    ///
+    /// There is deliberately no in-place card swap: a published presentation is
+    /// immutable, so cards and items always change together through
+    /// ``publishCards(_:items:readItemIDs:bookmarkItemIDs:isAppend:)``.
     private(set) var visibleCardsGeneration: UInt64 = 0
 
     /// Monotonic counter incremented on in-place item mutations that skip
@@ -66,6 +69,24 @@ final class FeedDisplayState {
 
     /// `true` while the cold-start runway is still being built.
     private(set) var isPreparingInitialRunway = false
+
+    /// itemID → cache key of the image published for it. Written by the prepared pipeline (which is
+    /// the only place that knows the key) and persisted with the page so a warm start can rebuild
+    /// the cards with their media. Never holds an image.
+    private(set) var visibleCardCacheKeys: [String: String] = [:]
+
+    /// True while a user-initiated composition is being fetched/prepared. Read by the surface to prefer the
+    /// in-progress view over "no results"; see `FeedStore.isPreparingFilteredComposition`.
+    private(set) var isFilteredCompositionInFlight = false
+
+    func setFilteredCompositionInFlight(_ value: Bool) {
+        guard isFilteredCompositionInFlight != value else { return }
+        isFilteredCompositionInFlight = value
+        logger.info("filtered composition in flight: \(value)")
+    }
+
+    /// Fingerprint of the page last written to the cache, so an unchanged page is not rewritten.
+    private var lastCachedPageFingerprint: String?
 
     /// Monotonic epoch incremented on every filter/preset change.
     /// Every async preparation task captures this; results are discarded
@@ -97,7 +118,10 @@ final class FeedDisplayState {
         _ items: [FeedItem],
         readItemIDs: Set<String>,
         bookmarkItemIDs: Set<String>,
-        shouldCache: Bool = false
+        shouldCache: Bool = false,
+        filterSignature: String = "",
+        settlesPhase: Bool = true,
+        isUserInitiated: Bool = false
     ) {
         var stamped = items
         for i in stamped.indices {
@@ -117,16 +141,51 @@ final class FeedDisplayState {
         let isFirstPaint: Bool
         if case .preparing = feedDisplayPhase,
            loadingState != .refreshing {
-            isFirstPaint = true
-            feedDisplayPhase = stamped.isEmpty
-                ? .empty(contextID: presentationEpoch)
-                : .ready(contextID: presentationEpoch)
-            if loadingState == .initial { loadingState = .idle }
-            logger.info("setVisibleItems firstPaint: phase=\(String(describing: self.feedDisplayPhase))")
+            // Settle the loading state by the rule the store itself uses for it
+            // (`isPreparingInitialRunway && visibleItems.isEmpty ? .initial : .idle`). A
+            // *transient* clear that leaves nothing on screen while the runway is still being
+            // prepared must not claim `.idle`: the startup watchdog is an inline check at the end
+            // of `start()` that answers `.idle` + `.preparing` with `.empty`, which is the
+            // "No sources enabled" screen appearing while the catalogue was still loading.
+            if loadingState == .initial,
+               settlesPhase || !stamped.isEmpty || !isPreparingInitialRunway {
+                loadingState = .idle
+            }
+            if settlesPhase {
+                // `settlesPhase: false` marks a transient clear: the empty publication a rebuild
+                // starts with. It must not answer a question the rebuild has not asked yet — doing
+                // so made the screen claim "No sources enabled" while the catalogue was still
+                // loading, and the real page replaced it seconds later. Only the caller knows which
+                // empty publications are answers, so it says so.
+                isFirstPaint = true
+                feedDisplayPhase = stamped.isEmpty
+                    ? .empty(contextID: presentationEpoch)
+                    : .ready(contextID: presentationEpoch)
+                logger.info("setVisibleItems firstPaint: phase=\(String(describing: self.feedDisplayPhase))")
+            } else {
+                isFirstPaint = false
+            }
         } else {
             isFirstPaint = false
         }
 
+        // The page that is already on screen is only replaced by a publication the user asked
+        // for (`isUserInitiated`, or the refresh marker setFilter/manualRefresh already use).
+        // Everything else — a rebuild's opening clear, a background flush — must leave it alone:
+        // that is what the user sees as a feed that vanishes and has to be reassembled.
+        let userInitiated = isUserInitiated || publicationIsUserInitiated
+        if stamped.isEmpty, !visibleItems.isEmpty, !userInitiated {
+            // The page on screen is never blanked by a publication the user did not ask for —
+            // transient or terminal. A rebuild's opening clear and an early "empty" composition
+            // (the catalogue had not produced anything yet) look identical to the reader: the feed
+            // disappears and an absence screen appears for no reason.
+            logger.info("setVisibleItems: kept \(self.visibleItems.count) displayed items; refused an empty publication")
+            return
+        }
+        // Auto-heal: a page arriving ends the in-flight state. Clearing it only in the flush tail meant a
+        // cancelled `pipelineTask` or a stale-generation exit left it stuck true, and the surface would show
+        // "fetching" forever — worse than the absence it replaces.
+        if !stamped.isEmpty { setFilteredCompositionInFlight(false) }
         guard stamped != visibleItems else { return }
         visibleItems = stamped
         if stamped.isEmpty { visibleCards = [] }
@@ -134,9 +193,10 @@ final class FeedDisplayState {
         logger.info("setVisibleItems: items=\(self.visibleItems.count) generation=\(self.visibleItemsGeneration)")
 
         // Cache the first page for instant warm-start restore. Runs after
-        // the assignment so the snapshot includes the published items.
+        // the assignment so the snapshot includes the published items. The
+        // signature keys the file to the composition that produced it.
         if shouldCache, isFirstPaint {
-            cacheVisiblePageIfNeeded(isAppend: false)
+            cacheVisiblePageIfNeeded(isAppend: false, filterSignature: filterSignature)
         }
     }
 
@@ -155,7 +215,11 @@ final class FeedDisplayState {
         readItemIDs: Set<String>,
         bookmarkItemIDs: Set<String>,
         isAppend: Bool,
-        shouldCache: Bool = false
+        shouldCache: Bool = false,
+        filterSignature: String = "",
+        settlesPhase: Bool = true,
+        isUserInitiated: Bool = false,
+        mediaCacheKeys: [String: String] = [:]
     ) {
         // Re-stamp: read/bookmark state may have changed during preparation.
         var stampedItems = items
@@ -163,7 +227,65 @@ final class FeedDisplayState {
             stampedItems[i].stamp(readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkItemIDs)
         }
 
-        if isAppend {
+
+        let userInitiated = isUserInitiated || publicationIsUserInitiated
+        if !isAppend, stampedItems.isEmpty, !visibleItems.isEmpty, !userInitiated {
+            logger.info("publishCards: kept \(self.visibleItems.count) displayed items; refused an empty publication")
+            return
+        }
+
+        // NOTE: converting a background *replace* into an append was tried here and reverted — it
+        // crashed (`Fatal error: Duplicate values for key`) on the filter paths, because a merged
+        // page can leave `visibleItems` and `visibleCards` describing different sets. The rule
+        // "background never takes over the page" is delivered instead by the guard above (an empty
+        // publication cannot blank the page) together with restoring the page *with* its media, so
+        // the pipeline's first publication matches what is already on screen.
+        // Same auto-heal on the card path.
+        if !stampedItems.isEmpty { setFilteredCompositionInFlight(false) }
+
+        // Background merge over a displayed page: keep the displayed *order*, keep the better card
+        // per id, append the ids this batch adds at the end. Reordering is what the user reports as
+        // "cards moving up and down", so the displayed order wins over the batch's order; removal is
+        // not this path's job either (a user-initiated change replaces the page instead), and a batch
+        // that has not resolved an image yet must not take an image away from a card on screen.
+        if !isAppend, !userInitiated, !visibleItems.isEmpty, !cards.isEmpty {
+            var incomingCard = [String: FeedCardPresentation](minimumCapacity: cards.count)
+            var incomingItem = [String: FeedItem](minimumCapacity: stampedItems.count)
+            for (card, item) in zip(cards, stampedItems) where incomingCard[card.id] == nil {
+                incomingCard[card.id] = card
+                incomingItem[card.id] = item
+            }
+            var mergedCards: [FeedCardPresentation] = []
+            var mergedItems: [FeedItem] = []
+            mergedCards.reserveCapacity(max(visibleCards.count, cards.count))
+            var placed = Set<String>(minimumCapacity: cards.count)
+            for (shownCard, shownItem) in zip(visibleCards, visibleItems) {
+                guard placed.insert(shownCard.id).inserted else { continue }
+                if let card = incomingCard[shownCard.id] {
+                    let keepShown = !Self.cardHasMedia(card.media) && Self.cardHasMedia(shownCard.media)
+                    mergedCards.append(keepShown ? shownCard : card)
+                    mergedItems.append(incomingItem[shownCard.id] ?? shownItem)
+                } else {
+                    mergedCards.append(shownCard)
+                    mergedItems.append(shownItem)
+                }
+            }
+            for (card, item) in zip(cards, stampedItems) where placed.insert(card.id).inserted {
+                mergedCards.append(card)
+                mergedItems.append(item)
+            }
+            visibleCards = mergedCards
+            visibleItems = mergedItems
+            visibleItemsGeneration &+= 1
+            visibleCardsGeneration &+= 1
+            for card in mergedCards where mediaCacheKeys[card.id] != nil {
+                visibleCardCacheKeys[card.id] = mediaCacheKeys[card.id]
+            }
+            // Fall through on purpose: the first-paint settle and the page-cache write below must
+            // still run, or a warm page would never be re-cached (measured: the cache froze at the
+            // boot batch, which had no media, so the next launch restored a worse page).
+        } else if isAppend {
+
             let existingIDs = Set(visibleCards.map(\.id))
             let newCards = cards.filter { !existingIDs.contains($0.id) }
             guard !newCards.isEmpty else { return }
@@ -174,9 +296,11 @@ final class FeedDisplayState {
             let newItems = stampedItems.filter { newIDs.contains($0.id) }
             visibleCards.append(contentsOf: newCards)
             visibleItems.append(contentsOf: newItems)
+            for (id, key) in mediaCacheKeys { visibleCardCacheKeys[id] = key }
         } else {
             visibleCards = cards
             visibleItems = stampedItems
+            visibleCardCacheKeys = mediaCacheKeys
         }
 
         visibleItemsGeneration &+= 1
@@ -187,11 +311,18 @@ final class FeedDisplayState {
         // empty state during setFilter/shakeToRefresh transient clears.
         if case .preparing = feedDisplayPhase,
            loadingState != .refreshing {
-            feedDisplayPhase = visibleItems.isEmpty
-                ? .empty(contextID: presentationEpoch)
-                : .ready(contextID: presentationEpoch)
-            if loadingState == .initial { loadingState = .idle }
-            logger.info("publishCards firstPaint: items=\(self.visibleItems.count) cards=\(self.visibleCards.count)")
+            // Same rule as `setVisibleItems`: the loading state settles because a page exists,
+            // while a transient clear with nothing on screen keeps the runway's own `.initial`.
+            if loadingState == .initial,
+               settlesPhase || !stampedItems.isEmpty || !isPreparingInitialRunway {
+                loadingState = .idle
+            }
+            if settlesPhase {
+                feedDisplayPhase = visibleItems.isEmpty
+                    ? .empty(contextID: presentationEpoch)
+                    : .ready(contextID: presentationEpoch)
+                logger.info("publishCards firstPaint: items=\(self.visibleItems.count) cards=\(self.visibleCards.count)")
+            }
         }
 
         // Persist the first page so the next launch paints instantly while
@@ -199,7 +330,7 @@ final class FeedDisplayState {
         // Cache with filter signature so filtered/config-specific pages
         // are also restored instantly on restart.
         if shouldCache {
-            cacheVisiblePageIfNeeded(isAppend: isAppend)
+            cacheVisiblePageIfNeeded(isAppend: isAppend, filterSignature: filterSignature)
         }
     }
 
@@ -246,23 +377,6 @@ final class FeedDisplayState {
         visibleCardsGeneration &+= 1
     }
 
-    /// Replace a single visible card in-place without bumping generation.
-    ///
-    /// Used for visual-only upgrades (e.g., placeholder → resolved image
-    /// from `imageResolutionQueue(didResolveImageFor:)`) that must not
-    /// shift the feed or invalidate `FeedLoader` caches.
-    ///
-    /// Does **not** touch `visibleItems` — only swaps the card presentation.
-    /// For full item+card publication, use ``publishCards(_:items:readItemIDs:bookmarkItemIDs:isAppend:)``.
-    func replaceVisibleCard(at index: Int, with card: FeedCardPresentation) {
-        guard visibleCards.indices.contains(index) else { return }
-        visibleCards[index] = card
-        // Card-only swap (placeholder → resolved image): bump the cards
-        // generation so FeedLoader's card-derived caches re-render even
-        // though items didn't change.
-        visibleCardsGeneration &+= 1
-    }
-
     /// Bump the presentation epoch and capture a fresh context atomically.
     ///
     /// FeedStore always performs these two operations together — splitting
@@ -295,19 +409,35 @@ final class FeedDisplayState {
     }()
 
     /// Returns the cache URL for the given filter signature (empty = main).
+    ///
+    /// The signature is hashed with SHA-256, not `hashValue`: Swift seeds
+    /// `hashValue` per process, so a signature-keyed file written by one launch
+    /// could never be read by the next one — the cache would miss every time.
     private static func pageCacheURL(filterSignature: String) -> URL? {
         guard let base = pageCacheBaseURL else { return nil }
         if filterSignature.isEmpty {
             return base.appendingPathComponent("visible-page-cache.json")
         }
-        // Hash the signature to keep filenames safe
-        let hash = filterSignature.hashValue
-        return base.appendingPathComponent("visible-page-cache-\(hash).json")
+        let digest = SHA256.hash(data: Data(filterSignature.utf8))
+        let name = digest.map { String(format: "%02x", $0) }.joined()
+        return base.appendingPathComponent("visible-page-cache-\(name.prefix(32)).json")
     }
 
     struct CachedPage: Codable {
         let items: [FeedItem]
         var visibleItemsGeneration: UInt64
+        /// Disk-level media projection for the page's cards: the cache key of each resolved image,
+        /// never the image itself. Optional so a page written by an older build still decodes.
+        ///
+        /// This exists so the restored page can be reconstructed *with* its media, by re-running the
+        /// pipeline's own decode, instead of painting placeholders that the first prepared batch then
+        /// swaps out under the reader's eyes.
+        var cards: [CachedCardMedia]?
+    }
+
+    struct CachedCardMedia: Codable {
+        let itemID: String
+        let cacheKey: String?
     }
 
     /// Save the current first page so the next cold launch paints instantly.
@@ -317,7 +447,21 @@ final class FeedDisplayState {
     /// are also cached for instant restore.
     func cacheVisiblePageIfNeeded(isAppend: Bool, filterSignature: String = "") {
         guard !isAppend, !visibleItems.isEmpty, let url = Self.pageCacheURL(filterSignature: filterSignature) else { return }
-        let page = CachedPage(items: visibleItems, visibleItemsGeneration: visibleItemsGeneration)
+        // Skip the rewrite only when nothing about the page changed — keyed on the *full* fingerprint
+        // (`id|layout|hasMedia`), never on the id list alone. The warm path's upgrade-only merge keeps
+        // the ids and improves the media, so an id-keyed guard would decide "unchanged", keep a
+        // media-less page cached, and hand the next launch the image pop-in it just fixed.
+        let fingerprint = Self.pageFingerprint(cards: visibleCards, items: visibleItems)
+        guard fingerprint != lastCachedPageFingerprint else { return }
+        lastCachedPageFingerprint = fingerprint
+        let projection: [CachedCardMedia]? = visibleCardCacheKeys.isEmpty ? nil : visibleItems.map {
+            CachedCardMedia(itemID: $0.id, cacheKey: visibleCardCacheKeys[$0.id])
+        }
+        let page = CachedPage(
+            items: visibleItems,
+            visibleItemsGeneration: visibleItemsGeneration,
+            cards: projection
+        )
         Task.detached(priority: .background) {
             do {
                 let data = try JSONEncoder().encode(page)
@@ -332,14 +476,51 @@ final class FeedDisplayState {
     /// Returns nil when no cache exists or decoding fails.
     /// File read + JSON decode run off the main actor so startup never janks.
     /// Pass a filter signature to restore a filtered/config-specific page.
-    func restoreCachedPage(filterSignature: String = "") async -> (items: [FeedItem], generation: UInt64)? {
+    func restoreCachedPage(filterSignature: String = "") async -> (items: [FeedItem], cards: [CachedCardMedia]?, generation: UInt64)? {
         guard let url = Self.pageCacheURL(filterSignature: filterSignature) else { return nil }
         return await Task.detached(priority: .userInitiated) {
             guard let data = try? Data(contentsOf: url),
                   let page = try? JSONDecoder().decode(CachedPage.self, from: data),
                   !page.items.isEmpty else { return nil }
-            return (page.items, page.visibleItemsGeneration)
+            return (page.items, page.cards, page.visibleItemsGeneration)
         }.value
+    }
+
+
+    /// `id|layout|hasMedia` per card, in order — the key that decides whether the page cache is stale.
+    static func pageFingerprint(cards: [FeedCardPresentation], items: [FeedItem]) -> String {
+        cards.map { card -> String in
+            let layout: String
+            switch card.layout {
+            case .hero: layout = "hero"
+            case .thumbnail: layout = "thumb"
+            case .textOnly: layout = "text"
+            }
+            let media: String
+            if case .image = card.media { media = "img" } else { media = "no" }
+            return "\(card.item.id)|\(layout)|\(media)"
+        }
+        .joined(separator: ",")
+    }
+
+    /// Whether a card carries a resolved image.
+    private static func cardHasMedia(_ media: ResolvedCardMedia) -> Bool {
+        if case .image = media { return true }
+        return false
+    }
+
+    /// Whether the publication in flight was asked for by the user.
+    ///
+    /// Three sources, because each covers a case the others miss: the explicit `isUserInitiated`
+    /// flag from a caller that knows; the `.refreshing` marker `setFilter`/`manualRefresh` already
+    /// set; and the phase's own `reason`, which is in scope in both publication paths and therefore
+    /// cannot be forgotten at a call site — `.startup` is background work, everything else
+    /// (`filterChange`, `presetChange`, `manualRefresh`, `source`, `collection`) is the user asking
+    /// for a different composition. Getting this wrong at one call site is what broke two attempts
+    /// at the rule, so deriving it where it cannot be missed matters more than the plumbing.
+    private var publicationIsUserInitiated: Bool {
+        if case .preparing(_, let reason) = feedDisplayPhase, reason != .startup { return true }
+        return loadingState == .refreshing
     }
 
     func setLoadingState(_ state: FeedLoadingState) {

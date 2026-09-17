@@ -114,7 +114,100 @@ final class FeedDisplayStateTests: XCTestCase {
         }
     }
 
-    func test_publishCards_firstPaint_setsPhaseToEmptyWhenItemsEmpty() {
+    /// An empty publication marked *transient* is the clear a rebuild starts with, not an
+    /// answer: settling `.empty` there made the screen claim "No sources enabled" while the
+    /// catalogue was still loading (`sources.isEmpty` was true, so the message was simply
+    /// false), and the real page replaced it seconds later. The caller knows which empty
+    /// publications are answers, so it says so with `settlesPhase: false`.
+    func test_publishCards_transientEmptyPublicationKeepsPreparing() {
+        let state = FeedDisplayState()
+        state.setLoadingState(.initial)
+
+        state.publishCards(
+            [], items: [], readItemIDs: [], bookmarkItemIDs: [],
+            isAppend: false, settlesPhase: false
+        )
+
+        guard case .preparing = state.feedDisplayPhase else {
+            XCTFail("A transient clear must not settle the phase, got \(state.feedDisplayPhase)")
+            return
+        }
+        // ...but a page exists, so the loading state settles — *unless* nothing is visible and
+        // the runway is still being prepared, which is the case the next test pins. Here no page
+        // was ever published and the runway is not preparing, so `.idle` is the honest answer.
+        XCTAssertEqual(state.loadingState, .idle)
+    }
+
+    /// **The rule that keeps the feed on screen.** A publication that would blank the displayed
+    /// page is refused unless the user asked for it — transient *or* terminal. An early "empty"
+    /// composition (the catalogue had produced nothing yet) looked identical to the reader: the
+    /// feed vanished and an absence screen appeared for no reason. A user-initiated publication
+    /// (filter, preset, refresh — `isUserInitiated`, or the `.refreshing` marker those paths set)
+    /// replaces the page, which is how a filter change takes effect.
+    func test_emptyPublicationNeverBlanksADisplayedPage() {
+        let state = FeedDisplayState()
+        let item = FeedItem.makeMock(id: "a")
+        state.publishCards(
+            [FeedCardPresentation.makeMock(id: "a", item: item)],
+            items: [item], readItemIDs: [], bookmarkItemIDs: [], isAppend: false
+        )
+
+        state.publishCards([], items: [], readItemIDs: [], bookmarkItemIDs: [], isAppend: false,
+                           settlesPhase: false)
+        XCTAssertEqual(state.visibleItems.count, 1, "a transient empty publication must not blank the page")
+
+        state.setVisibleItems([], readItemIDs: [], bookmarkItemIDs: [])
+        XCTAssertEqual(state.visibleItems.count, 1, "a terminal empty publication must not blank the page either")
+
+        // A user-initiated clear goes through: that is how a filter change takes effect.
+        state.setVisibleItems([], readItemIDs: [], bookmarkItemIDs: [], isUserInitiated: true)
+        XCTAssertTrue(state.visibleItems.isEmpty)
+    }
+
+    /// A *transient* clear that leaves nothing on screen while the runway is still being prepared
+    /// must not claim `.idle`: the startup watchdog is an inline check at the end of `start()` that
+    /// answers `.idle` + `.preparing` with `.empty`, which is the "No sources enabled" screen
+    /// appearing while the catalogue is still loading. Same rule the store uses when it drives the
+    /// state directly (`isPreparingInitialRunway && visibleItems.isEmpty ? .initial : .idle`).
+    func test_transientClearDuringRunwayPreparation_keepsInitialLoadingState() {
+        let state = FeedDisplayState()
+        state.setFeedDisplayPhase(.preparing(contextID: 0, reason: .startup))
+        state.setLoadingState(.initial)
+        state.setIsPreparingInitialRunway(true)
+
+        state.setVisibleItems([], readItemIDs: [], bookmarkItemIDs: [], settlesPhase: false)
+
+        XCTAssertEqual(state.loadingState, .initial,
+                       "a transient clear with nothing visible during runway prep must not settle")
+        guard case .preparing = state.feedDisplayPhase else {
+            XCTFail("the transient clear must not settle the phase, got \(state.feedDisplayPhase)")
+            return
+        }
+
+        // A terminal answer still settles both, even while the runway prepares.
+        state.setVisibleItems([], readItemIDs: [], bookmarkItemIDs: [])
+        XCTAssertEqual(state.loadingState, .idle)
+        guard case .empty = state.feedDisplayPhase else {
+            XCTFail("a terminal empty publication must settle .empty, got \(state.feedDisplayPhase)")
+            return
+        }
+
+        // And a transient clear that has a page to show settles as usual.
+        let item = FeedItem.makeMock(id: "a")
+        state.setFeedDisplayPhase(.preparing(contextID: 1, reason: .startup))
+        state.setLoadingState(.initial)
+        state.publishCards(
+            [FeedCardPresentation.makeMock(id: "a", item: item)],
+            items: [item], readItemIDs: [], bookmarkItemIDs: [],
+            isAppend: false, settlesPhase: false
+        )
+        XCTAssertEqual(state.loadingState, .idle, "a page on screen settles the loading state")
+    }
+
+    /// A *terminal* empty publication still settles the empty state — the flag is about who
+    /// knows, not about suppressing emptiness. Without this half, a genuinely empty feed would
+    /// sit on the loader forever.
+    func test_publishCards_terminalEmptyPublicationSettlesEmpty() {
         let state = FeedDisplayState()
         state.setLoadingState(.initial)
 
@@ -122,7 +215,7 @@ final class FeedDisplayStateTests: XCTestCase {
 
         XCTAssertEqual(state.loadingState, .idle)
         guard case .empty = state.feedDisplayPhase else {
-            XCTFail("First paint with no items should set phase to .empty, got \(state.feedDisplayPhase)")
+            XCTFail("A settled empty result must reach .empty, got \(state.feedDisplayPhase)")
             return
         }
     }
@@ -267,79 +360,33 @@ final class FeedDisplayStateTests: XCTestCase {
         XCTAssertEqual(state.visibleItemsGeneration, 2) // initial set + toggle
     }
 
-    // MARK: - replaceVisibleCard
+    // MARK: - Published presentations are immutable
 
-    func test_replaceVisibleCard_replacesCardInPlace() {
+    /// A card that has been published keeps its presentation: there is no API
+    /// to swap media or layout into `visibleCards` after publication, because
+    /// activating the hero slot changes the card's height and would shift every
+    /// card below it while the user is reading. A late image is served by the
+    /// next publication instead.
+    func test_publishedCardsOnlyChangeThroughPublication() {
         let state = FeedDisplayState()
         let item = FeedItem.makeMock(id: "a")
-        let card1 = FeedCardPresentation.makeMock(id: "a", item: item)
-        state.publishCards([card1], items: [item], readItemIDs: [], bookmarkItemIDs: [], isAppend: false)
-
-        let newCard = FeedCardPresentation(
-            item: item,
-            media: .placeholder,
-            layout: .hero,
-            isRead: false,
-            isBookmarked: false
+        let textOnly = FeedCardPresentation(
+            item: item, media: .none, layout: .textOnly,
+            isRead: false, isBookmarked: false
         )
-        state.replaceVisibleCard(at: 0, with: newCard)
+        state.publishCards([textOnly], items: [item], readItemIDs: [], bookmarkItemIDs: [], isAppend: false)
+        let generations = (state.visibleItemsGeneration, state.visibleCardsGeneration)
+
+        // The only way to change what is published is another publication.
+        let withImage = FeedCardPresentation(
+            item: item, media: .placeholder, layout: .hero,
+            isRead: false, isBookmarked: false
+        )
+        state.publishCards([withImage], items: [item], readItemIDs: [], bookmarkItemIDs: [], isAppend: false)
 
         XCTAssertEqual(state.visibleCards[0].layout, .hero)
-    }
-
-    func test_replaceVisibleCard_doesNotBumpGeneration() {
-        let state = FeedDisplayState()
-        let item = FeedItem.makeMock(id: "a")
-        let card = FeedCardPresentation.makeMock(id: "a", item: item)
-        state.publishCards([card], items: [item], readItemIDs: [], bookmarkItemIDs: [], isAppend: false)
-        let genBefore = state.visibleItemsGeneration
-
-        let upgradedCard = FeedCardPresentation(
-            item: item,
-            media: .placeholder,
-            layout: .thumbnail,
-            isRead: false,
-            isBookmarked: false
-        )
-        state.replaceVisibleCard(at: 0, with: upgradedCard)
-
-        XCTAssertEqual(state.visibleItemsGeneration, genBefore,
-                       "Visual card upgrade should not invalidate caches")
-    }
-
-    func test_replaceVisibleCard_doesNotTouchVisibleItems() {
-        let state = FeedDisplayState()
-        let item1 = FeedItem.makeMock(id: "a")
-        let card1 = FeedCardPresentation.makeMock(id: "a", item: item1)
-        state.publishCards([card1], items: [item1], readItemIDs: [], bookmarkItemIDs: [], isAppend: false)
-        let itemsBefore = state.visibleItems
-
-        let newCard = FeedCardPresentation(
-            item: item1,
-            media: .placeholder,
-            layout: .hero,
-            isRead: true,
-            isBookmarked: false
-        )
-        state.replaceVisibleCard(at: 0, with: newCard)
-
-        // visibleItems untouched — only the card changed
-        XCTAssertEqual(state.visibleItems, itemsBefore)
-        XCTAssertEqual(state.visibleCards[0].layout, .hero)
-    }
-
-    func test_replaceVisibleCard_outOfBounds_isNoop() {
-        let state = FeedDisplayState()
-        let item = FeedItem.makeMock(id: "a")
-        let card = FeedCardPresentation.makeMock(id: "a", item: item)
-        state.publishCards([card], items: [item], readItemIDs: [], bookmarkItemIDs: [], isAppend: false)
-
-        let newCard = FeedCardPresentation.makeMock(id: "x", item: item)
-        // Should not crash
-        state.replaceVisibleCard(at: 999, with: newCard)
-
-        XCTAssertEqual(state.visibleCards.count, 1)
-        XCTAssertEqual(state.visibleCards[0].id, "a")
+        XCTAssertGreaterThan(state.visibleItemsGeneration, generations.0)
+        XCTAssertGreaterThan(state.visibleCardsGeneration, generations.1)
     }
 
     // MARK: - advanceEpoch

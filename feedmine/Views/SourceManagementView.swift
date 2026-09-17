@@ -264,7 +264,7 @@ struct SourceManagementView: View {
         }
         var request = URLRequest(url: url)
         request.timeoutInterval = 10
-        request.setValue("FeedminePrototype/1.0", forHTTPHeaderField: "User-Agent")
+        request.setValue("Feedmine/1.0", forHTTPHeaderField: "User-Agent")
         do {
             let (_, response) = try await URLSession.shared.data(for: request)
             if let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) {

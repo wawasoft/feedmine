@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import XCTest
 
 /// Captures screenshots of every major screen/state in Feedmine for persona agents to analyze.
@@ -36,19 +37,21 @@ final class PersonaExplorationUITests: XCTestCase {
         capture("02-main-feed-scrolled")
 
         // 3. Tap first article to open reader
-        let firstCard = app.descendants(matching: .any)
-            .matching(NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-"))
-            .firstMatch
-        if firstCard.waitForExistence(timeout: 10) {
+        if let firstCard = firstHittableCard() {
             firstCard.tap()
-            sleep(3)
+            // Not `sleep(3)`: the reader is a plain `WKWebView` (`ArticleWebView`), so a fixed sleep samples
+            // the *network*. Measured on the frozen tree: both `03-article-reader` and `04-article-scrolled`
+            // showed the reader chrome — source title, close button, blue progress bar still filling — over a
+            // **blank white body**, and the run still counted the reader as a covered surface.
+            waitForReaderContent()
+            sleep(1)
             capture("03-article-reader")
             // Swipe article content
             app.swipeUp()
             sleep(1)
             capture("04-article-scrolled")
             // Go back
-            app.buttons.firstMatch.tap()
+            dismissSheet(preferring: "back")
             sleep(2)
         }
 
@@ -79,7 +82,7 @@ final class PersonaExplorationUITests: XCTestCase {
                 capture("08-search-results")
             }
             // Dismiss search
-            app.buttons.firstMatch.tap()
+            dismissSheet(preferring: "Cancel")
             sleep(1)
         }
 
@@ -99,42 +102,51 @@ final class PersonaExplorationUITests: XCTestCase {
             sleep(1)
         }
 
-        // 7. Settings
-        if moreMenu.exists {
-            moreMenu.tap()
+        // 7. Settings. Look first, open only if needed. `more-menu` is a lazy query — a captured element is
+        // never stale — what varies is whether step 6 left the menu open: its dismissal is
+        // `if done-button { tap } else { tap more-menu }`, and that fallback *toggles*, so a blind tap here
+        // closes an open menu and the following swipeUp then scrolls the feed instead of the sheet.
+        let settingsLabel = NSPredicate(format: "label CONTAINS[c] %@", "Settings")
+        var settingsBtn = app.buttons.element(matching: settingsLabel)
+        if !settingsBtn.exists, app.buttons["more-menu"].waitForExistence(timeout: 5) {
+            app.buttons["more-menu"].tap()
             sleep(1)
-            let settingsBtn = app.buttons["Settings"]
-            if !settingsBtn.exists { app.swipeUp(); sleep(1) }
-            if settingsBtn.exists {
+        }
+        if !settingsBtn.exists {
+            for _ in 0..<6 {
+                app.swipeUp()
+                usleep(400_000)
+                if app.buttons.element(matching: settingsLabel).exists {
+                    settingsBtn = app.buttons.element(matching: settingsLabel); break
+                }
+                if app.staticTexts.element(matching: settingsLabel).exists {
+                    settingsBtn = app.staticTexts.element(matching: settingsLabel); break
+                }
+            }
+        }
+        if settingsBtn.exists {
                 settingsBtn.tap()
                 sleep(2)
                 capture("11-settings")
                 app.swipeUp()
                 sleep(1)
                 capture("12-settings-scrolled")
-                app.buttons.firstMatch.tap()
-                sleep(1)
+                // The sheet now ships its own exit control; tap it, and only fall back to the grabber drag.
+                dismissSheetByDrag()
+                if !waitForFeed() { capture("98-settings-exit-failed") }
             } else {
                 // Dismiss more menu
-                app.buttons.firstMatch.tap()
+                dismissSheet(preferring: "Close")
             }
-        }
 
-        // 8. Add Feed
-        if moreMenu.exists {
-            moreMenu.tap()
+        // 8. Add Feed — same look-first shape as Settings: never tap the menu blind, because the previous
+        // dismissal toggles it and a blind tap then closes an open menu.
+        if let addFeedBtn = ensureMenuRow("Add Feed") {
+            addFeedBtn.tap()
+            sleep(2)
+            capture("13-add-feed")
+            dismissSheet(preferring: "Cancel")
             sleep(1)
-            let addFeedBtn = app.buttons["Add Feed"]
-            if !addFeedBtn.exists { app.swipeUp(); sleep(1) }
-            if addFeedBtn.exists {
-                addFeedBtn.tap()
-                sleep(2)
-                capture("13-add-feed")
-                app.buttons.firstMatch.tap()
-                sleep(1)
-            } else {
-                app.buttons.firstMatch.tap()
-            }
         }
 
         // 9. Browse Topics via filter
@@ -156,20 +168,17 @@ final class PersonaExplorationUITests: XCTestCase {
             sleep(1)
             capture("15-topics-scrolled")
             // Dismiss
-            app.buttons.firstMatch.tap()
+            dismissSheet(preferring: "filter-done")
             sleep(1)
             // Dismiss filter sheet too
             let doneFilter = app.buttons["filter-done"]
             if doneFilter.exists { doneFilter.tap() }
-            else { app.buttons.firstMatch.tap() }
+            else { dismissSheet(preferring: "filter-done") }
             sleep(1)
         }
 
         // 10. Long press context menu on a card
-        let cardForMenu = app.descendants(matching: .any)
-            .matching(NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-"))
-            .firstMatch
-        if cardForMenu.waitForExistence(timeout: 5) {
+        if let cardForMenu = firstHittableCard() {
             cardForMenu.press(forDuration: 1.0)
             sleep(1)
             capture("16-context-menu")
@@ -177,31 +186,562 @@ final class PersonaExplorationUITests: XCTestCase {
             sleep(1)
         }
 
+        // 11. Reopen — the headline acceptance criterion: close and reopen the app and the feed is already
+        // there, from the page the previous interaction persisted, with no loading screen in between. The 16
+        // surfaces above never relaunch, so this had never been measured.
+        let reopenCardPredicate = NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-")
+        let pageVisibleBeforeTerminate = app.descendants(matching: .any).matching(reopenCardPredicate)
+            .firstMatch.exists
+
+        // Guard 1 — a reopen can only be warm if the page actually reached disk. A page that was never
+        // flushed would make everything below a cold start wearing a warm label, so prove it *before*
+        // terminating. Unreadable container = unverified (reported, not fatal); container read and holding no
+        // usable page = a real invalidation, which guard 2 fails on.
+        let persistedBefore = reopenPersistedPageEvidence()
+        print("REOPEN guard1 persisted_on_disk=\(persistedBefore.usable ? 1 : 0) page_visible_before_terminate=\(pageVisibleBeforeTerminate ? 1 : 0) \(persistedBefore.evidence)")
+
+        app.terminate()
+
+        // Guard 2 — the warm precondition, asserted immediately before the launch.
+        if !persistedBefore.containerFound {
+            print("REOPEN guard2 reopen_flush_unverified=container-unreadable (cannot read the app container from the test runner sandbox)")
+        } else if !persistedBefore.usable {
+            print("REOPEN guard2 reopen_flush_unverified=page-absent \(persistedBefore.evidence)")
+            XCTFail("reopen precondition: container missing — measurement invalid")
+        }
+
+        // Guard 3 — poll **both** signals at one cadence from the instant of launch, never post-hoc: the positive
+        // one (first ready card) and the negative one (any loading/progress surface). A post-hoc check can only
+        // see the end state, so a loading screen that appeared and vanished would go unrecorded; sampling the
+        // negative signal from the first poll is what makes "no loading screen" a measurement instead of a guess.
+        //
+        // Both surfaces now carry an identifier, which is what makes the negative half assertable at all:
+        // `initial-feed-loading` on `InitialFeedLoadingView` (FeedScreen.swift:1709 — the view phase `.preparing`
+        // renders) and `feed-empty-state` / `feed-empty-title` on `FeedEmptyStateView` (what a ready-but-empty feed
+        // renders, whose title reads "Loading your feed..." while `loadingState == .initial`). Ids are what travel;
+        // the matched element's **label** is read once and reported, so the two are never confused.
+        //
+        // `app.launch()` returns when the app goes idle, so how long it blocks is itself part of the wait a user
+        // would sit through: stamp before the call and keep both numbers.
+        let launchStart = Date()
+        app.launch()
+        let launchReturnedMS = Int(Date().timeIntervalSince(launchStart) * 1000)
+        let stateAfterLaunch = app.state.rawValue
+
+        // The earliest look the harness can take: what is on screen the moment launch() returns. Written
+        // straight to disk with its own name so the capture list stays exactly 17; its cost is charged to
+        // `ttff_card_ms` and printed separately, so the number can be read either way.
+        let firstLookShot = app.screenshot()
+        try? firstLookShot.pngRepresentation.write(to: URL(fileURLWithPath: "\(screenshotDir)/17-reopen-at-launch-return.png"))
+        let firstLookMS = Int(Date().timeIntervalSince(launchStart) * 1000)
+
+        let firstCard = app.descendants(matching: .any).matching(reopenCardPredicate).firstMatch
+        let loadingPredicate = NSPredicate(format: "identifier IN %@", ["initial-feed-loading", "feed-empty-state"])
+        let loadingAny = app.descendants(matching: .any).matching(loadingPredicate).firstMatch
+        var firstCardMS = -1
+        var firstPollMS = -1
+        var polls = 0
+        var loadingSeen = false
+        var loadingFirstMS = -1
+        var loadingLastMS = -1
+        var loadingSurfaceID = ""
+        var loadingTitle = ""
+        let reopenDeadline = Date().addingTimeInterval(30)
+        while Date() < reopenDeadline {
+            polls += 1
+            let elapsed = Int(Date().timeIntervalSince(launchStart) * 1000)
+            if polls == 1 { firstPollMS = elapsed }
+            if loadingAny.exists {
+                if !loadingSeen {
+                    loadingSeen = true
+                    loadingFirstMS = elapsed
+                    loadingSurfaceID = loadingAny.identifier
+                    loadingTitle = loadingAny.label
+                }
+                loadingLastMS = elapsed
+            }
+            if firstCard.exists {
+                firstCardMS = elapsed
+                break
+            }
+            usleep(25_000)
+        }
+        capture("17-reopen")
+
+        sleep(1)
+        let settledCards = app.descendants(matching: .any).matching(reopenCardPredicate).allElementsBoundByIndex
+        let persistedAfter = reopenPersistedPageEvidence()
+
+        // One poll of resolution: `loading_last_ms` is the last sample that still saw the surface, so the window
+        // is a lower bound and `loading_ms` is reported as the span between first and last sighting.
+        let loadingMS = loadingSeen ? max(0, loadingLastMS - loadingFirstMS) : -1
+        print("REOPEN ttff_card_ms=\(firstCardMS < 0 ? "timeout" : String(firstCardMS)) ttff_card_excl_first_look_ms=\(firstCardMS < 0 ? "n/a" : String(firstCardMS - firstLookMS)) loading_observed=\(loadingSeen ? 1 : 0) loading_ms=\(loadingMS < 0 ? "n/a" : String(loadingMS)) loading_first_ms=\(loadingFirstMS) loading_last_ms=\(loadingLastMS) loading_surface=\(loadingSurfaceID.isEmpty ? "none-observed" : loadingSurfaceID) loading_title=\(loadingTitle.isEmpty ? "n/a" : loadingTitle) cards=\(settledCards.count) hittable=\(settledCards.filter { $0.isHittable }.count) polls=\(polls) first_poll_ms=\(firstPollMS) launch_returned_ms=\(launchReturnedMS) first_look_shot_ms=\(firstLookMS) app_state_after_launch=\(stateAfterLaunch)")
+        if !loadingSeen {
+            print("REOPEN loading_surfaces=neither-observed window_sampled_ms=\(firstCardMS < 0 ? "timeout" : String(firstCardMS)) — no sample from the first poll onward found `initial-feed-loading` or `feed-empty-state`")
+        }
+        print("REOPEN persisted_before \(persistedBefore.evidence)")
+        print("REOPEN persisted_after \(persistedAfter.evidence)")
+        if firstCardMS < 0 {
+            // Guard 4 — name the layer, or say plainly that it cannot be named: an absent persisted row is a
+            // save-path miss, a signature mismatch a restore-ordering one — and the signature itself
+            // (`FeedStore.pageCacheSignature`) is not reachable from the UI-test target, so the stored keys
+            // are reported and the signature is declared unavailable rather than guessed.
+            print("REOPEN miss=no-card-within-30s layer=indeterminate stored_keys=\(persistedBefore.pageKeys.joined(separator: ",")) computed_signature=unavailable-in-test-target (pageCacheSignature lives in the app target)")
+        }
+
         print("✅ All exploration screenshots saved to: \(screenshotDir)")
     }
 
-    // MARK: - Helpers
+
+
+    /// The first card that can actually take the press, scrolling back to the top if none is on
+    /// screen. Existence is not hittability: the journey swipes the feed repeatedly, and a matched card
+    /// with a negative y (`{{0.0, -686.3}, …}`) fails with "Not hittable" — the same class of bug as the
+    /// blind first-match tap.
+    private func firstHittableCard() -> XCUIElement? {
+        let predicate = NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-")
+        for _ in 0..<5 {
+            let cards = app.descendants(matching: .any).matching(predicate).allElementsBoundByIndex
+            if let card = cards.first(where: { $0.isHittable }) { return card }
+            app.swipeDown()
+            usleep(300_000)
+        }
+        return nil
+    }
+
+    /// Wait until the reader is actually showing an article, judged from **pixels** rather than the accessibility tree.
+    ///
+    /// History, because both earlier versions were the failure rather than the fix:
+    /// 1. `sleep(3)` sampled the network: both reader captures came back showing the chrome (source title, close button,
+    ///    blue progress bar still filling) over a **blank white body**, and the surface still counted as covered.
+    /// 2. Polling `app.webViews.staticTexts` — first `allElementsBoundByIndex`, then a predicate-limited `firstMatch` —
+    ///    asked XCUITest to resolve a UI query inside a live web page every 250 ms. On a large article that timed out and
+    ///    killed the whole journey at **2 of 17 surfaces** with `Failed to resolve query: Timed out while evaluating UI
+    ///    query`, twice in a row (23:55 and 00:20 runs). A web view's accessibility snapshot is not a polling primitive.
+    ///
+    /// So the signal is taken from the rendered screen instead: a screenshot's non-background ("ink") fraction over the
+    /// central region. The reader's page background is white and its chrome sits in the border that is excluded, so a
+    /// blank body measures ~0 and a rendered article (headline plus hero image) is an order of magnitude above the
+    /// threshold. Screenshots are already used by every `capture()` in this file, so this adds no new failure mode, and
+    /// the measured fraction is printed either way — a blank reader can no longer hide behind a green gate.
+    @discardableResult
+    private func waitForReaderContent(timeout: TimeInterval = 20) -> Bool {
+        let started = Date()
+        let deadline = started.addingTimeInterval(timeout)
+        var fraction = 0.0
+        while Date() < deadline {
+            fraction = bodyInkFraction()
+            if fraction >= 0.06 {
+                print("READER content_ms=\(Int(Date().timeIntervalSince(started) * 1000)) ink=\(String(format: "%.3f", fraction))")
+                return true
+            }
+            usleep(400_000)
+        }
+        print("READER content_timeout timeout_s=\(Int(timeout)) ink=\(String(format: "%.3f", fraction))")
+        return false
+    }
+
+    /// Non-background pixel fraction of the current screen, central region only.
+    ///
+    /// One screenshot is downsampled into a 60×60 RGB grid; the outer 12% border (status bar, `ArticleReaderView`'s
+    /// header, its in-web-view progress bar) is ignored. A pixel counts as ink when it is not near-white.
+    private func bodyInkFraction() -> Double {
+        guard let cgImage = app.screenshot().image.cgImage else { return 0 }
+        let side = 60
+        var pixels = [UInt8](repeating: 0, count: side * side * 4)
+        guard let context = CGContext(
+            data: &pixels,
+            width: side,
+            height: side,
+            bitsPerComponent: 8,
+            bytesPerRow: side * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue
+        ) else { return 0 }
+        context.draw(cgImage, in: CGRect(x: 0, y: 0, width: side, height: side))
+        let margin = Int(Double(side) * 0.12)
+        var counted = 0
+        var inked = 0
+        for row in margin..<(side - margin) {
+            for column in margin..<(side - margin) {
+                let index = (row * side + column) * 4
+                let red = Int(pixels[index]), green = Int(pixels[index + 1]), blue = Int(pixels[index + 2])
+                counted += 1
+                if red < 240 || green < 240 || blue < 240 { inked += 1 }
+            }
+        }
+        return counted == 0 ? 0 : Double(inked) / Double(counted)
+    }
+
+    /// Dismiss a presented sheet by its own control, never by "the first hittable button": on a sheet
+    /// that can be a filter chip, which toggles state and leaves the sheet up, and the next captures
+    /// would then photograph the sheet while the run reports the surface as verified.
+    private func dismissSheet(preferring identifier: String) {
+        if app.buttons[identifier].exists, app.buttons[identifier].isHittable {
+            app.buttons[identifier].tap()
+            return
+        }
+        if app.navigationBars.buttons.allElementsBoundByIndex.first(where: { $0.isHittable }) != nil {
+            app.navigationBars.buttons.allElementsBoundByIndex.first(where: { $0.isHittable })?.tap()
+            return
+        }
+        // A .presentationDetents sheet has no top-level close control, and `app.swipeDown()` is synthesized at the
+        // app's centre — inside the sheet's scroll list — so it scrolls the sheet instead of dismissing it. The
+        // failure dump names the affordance the sheet actually exposes: an element labelled "Sheet Grabber".
+        let grabber = app.buttons["Sheet Grabber"].exists ? app.buttons["Sheet Grabber"] : app.staticTexts["Sheet Grabber"]
+        if grabber.exists {
+            grabber.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+                .press(forDuration: 0.1, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.95)))
+            return
+        }
+        app.swipeDown()
+    }
+
+    /// Drives the one flow that reaches the breadth branch: a **manual refresh** (`forceFetch`). The filter
+    /// combos do not reach it — with a full page and `needsFilteredBreadth` false for `.all`, `wantsFetch` is
+    /// false and no fetch happens at all, which is why no `branch=` line ever appeared for them.
+    func testRefreshReachesBreadthFetch() {
+        waitForAppReady()
+        XCTAssertNotNil(firstHittableCard(), "need a page before refreshing")
+        for _ in 0..<3 {
+            app.swipeDown()
+            usleep(400_000)
+        }
+        sleep(20)
+        XCTAssertNotNil(firstHittableCard(), "the page must survive a refresh")
+    }
+
+    /// Evidence-only probe for the latency doctrine's item 8, run **before** any optimising:
+    ///
+    /// > Given enough time, a filter change updates *only from what is already there* — ready cards, all pretty — and
+    /// > the background then starts adjusting to the new reality.
+    ///
+    /// So the case has to be classified first: at the instant of the change, does the store already hold render-ready
+    /// content for the filter being switched to? Two changes are measured — the language filter set to the language the
+    /// page is already showing, and the content type set to one the store may hold nothing of. No assertions: every
+    /// signal is printed with a wall-clock stamp so it can be joined with the app's own log (`[TaxonomyTrace] setFilter`,
+    /// `reloadFromSQLite … loaded/filtered`, `flush gen=… local page published`, `[Latency] flush … localOfType=`), which
+    /// is where the *counts* come from — the unit-suite wall clock is not an instrument for this.
+    ///
+    /// What this probe can and cannot say, both measured:
+    /// - `cards()` counts **rendered descendants**, not the store's page (a lazily built list showed 4–8 of the 9
+    ///   published items), so it measures the user-visible window, never page size. Page size comes from the app log.
+    /// - The page-clear → first-card interval is the window in which the user is not looking at ready content. The
+    ///   loading surface itself carries no `accessibilityIdentifier`, so nothing here names *which* surface was up.
+    /// - A change target is not "prepared" or "radical" by construction: the label is only allowed to be attached once
+    ///   the app log reports the matching row count (`reloadFromSQLite … filtered=N`, `localOfType=N`) for that
+    ///   generation. The probe supplies the timing; the log supplies the classification.
+    func testFilterChangeClassification() {
+        waitForAppReady()
+        guard firstHittableCard() != nil else {
+            XCTFail("classification needs a prepared page first")
+            return
+        }
+        let cardPredicate = NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-")
+        func cards() -> [XCUIElement] { app.descendants(matching: .any).matching(cardPredicate).allElementsBoundByIndex }
+        func languages() -> [String] {
+            Set(cards().compactMap { element -> String? in
+                let parts = element.identifier.split(separator: "-")
+                guard parts.count >= 3, parts[0] == "feed", parts[1] == "item" else { return nil }
+                let code = String(parts[2])
+                return code == "und" ? nil : code
+            }).sorted()
+        }
+        let baselineIDs = cards().map(\.identifier)
+        print("FILTERCHANGE before at=\(ISO8601DateFormatter().string(from: Date())) cards=\(baselineIDs.count) languages=\(languages()) first_ids=\(baselineIDs.prefix(3).joined(separator: ","))")
+
+        // The sheet must never be toggled blind: every tap on `filter-button` while it is open **closes** it, which is
+        // how the first version of this probe measured nothing (`skipped=chip-unavailable` on both cases while the app
+        // was on the feed). Look first, exactly as `ensureMenuRow` does for the more-menu.
+        func sheetIsOpen() -> Bool { app.buttons["filter-done"].exists }
+        func openSheet() {
+            if sheetIsOpen() { return }
+            let button = app.buttons["filter-button"]
+            if button.waitForExistence(timeout: 10) {
+                button.tap()
+                sleep(2)
+            }
+        }
+        func findChip(_ identifier: String, swipes: Int = 8) -> XCUIElement? {
+            openSheet()
+            guard sheetIsOpen() else {
+                print("FILTERCHANGE sheet_unavailable looking=\(identifier)")
+                return nil
+            }
+            for _ in 0..<swipes {
+                if app.buttons[identifier].exists { return app.buttons[identifier] }
+                app.swipeUp()
+                usleep(300_000)
+            }
+            return app.buttons[identifier].exists ? app.buttons[identifier] : nil
+        }
+
+        /// Tap a chip, dismiss the sheet (the reload is deferred to dismissal — `isEditingFilters`), then sample.
+        func measure(_ label: String, chip: XCUIElement?) {
+            guard let chip, chip.exists else {
+                let dump = app.buttons.allElementsBoundByIndex.map(\.identifier).filter { !$0.isEmpty }
+                print("FILTERCHANGE \(label) skipped=chip-unavailable sheet_open=\(sheetIsOpen() ? 1 : 0) button_ids=\(dump.prefix(30))")
+                return
+            }
+            if !chip.isHittable { chip.swipeUp() }
+            chip.tap()
+            let chipAt = Date()
+            // Scrolling the sheet to reach a chip can push `filter-done` out of reach: scroll back before tapping,
+            // otherwise the sheet stays open and the reload is never scheduled.
+            let done = app.buttons["filter-done"]
+            if done.exists, !done.isHittable {
+                for _ in 0..<6 where !done.isHittable {
+                    app.swipeDown()
+                    usleep(200_000)
+                }
+            }
+            if done.exists { done.tap() } else { dismissSheet(preferring: "filter-done") }
+            let t0 = Date()
+            var clearedAt = -1
+            var firstCardAt = -1
+            var polls = 0
+            while Date().timeIntervalSince(t0) < 30 {
+                polls += 1
+                let elapsed = Int(Date().timeIntervalSince(t0) * 1000)
+                let count = cards().count
+                if count == 0, clearedAt < 0 { clearedAt = elapsed }
+                if count > 0, clearedAt >= 0 { firstCardAt = elapsed; break }
+                if count > 0, clearedAt < 0, elapsed > 3000 { break }  // never cleared: kept, not re-rendered
+                usleep(250_000)
+            }
+            let settledIDs = cards().map(\.identifier)
+            print("FILTERCHANGE \(label) chip_tap_at=\(ISO8601DateFormatter().string(from: chipAt)) clear_ms=\(clearedAt) first_card_ms=\(firstCardAt) polls=\(polls) cards_after=\(settledIDs.count) languages_after=\(languages()) page_kept=\(clearedAt < 0 ? 1 : 0) ids_unchanged=\(settledIDs == baselineIDs ? 1 : 0) first_ids_after=\(settledIDs.prefix(3).joined(separator: ","))")
+        }
+
+        // Case A — prepared: the language filter is set to a language the page is already showing.
+        let pageLanguage = languages().first
+        print("FILTERCHANGE case_A_target_language=\(pageLanguage ?? "none")")
+        measure("A-language-prepared", chip: pageLanguage.flatMap { findChip("language-\($0)") })
+        capture("18-filterchange-after-language")
+
+        // Case B — radical: a content type the page holds nothing of by construction. The chip ids come from
+        // `ContentType.rawValue.lowercased()`: all / articles / videos / **podcasts** / forums.
+        measure("B-type-podcasts", chip: findChip("content-type-podcasts"))
+        capture("19-filterchange-after-type")
+        print("FILTERCHANGE done")
+    }
+
+    /// Dismiss the Settings sheet the way the sheet itself expects: a drag from its grabber.
+    ///
+    /// `SettingsSheetView` uses `.presentationDetents([.medium, .large])` and has no top-level close button, so
+    /// `dismissSheet(preferring: "back")` falls through to `app.swipeDown()` — which, mid-sheet, **scrolls the
+    /// sheet** (the failure capture shows it parked on Storage/Share/About/Feedback) instead of closing it. Step 8
+    /// then ran inside Settings, where the menu is unreachable.
+    private func dismissSheetByDrag() {
+        // A .presentationDetents sheet has no top-level close control. `app.otherElements.firstMatch` used to be the
+        // fallback and dragged from the very top of the window — a system pull-down that cannot close the sheet while
+        // looking like a successful gesture. The sheet names its own affordance (the failure dump showed it).
+        let grabber = app.buttons["Sheet Grabber"].exists ? app.buttons["Sheet Grabber"] : app.staticTexts["Sheet Grabber"]
+        guard grabber.exists else {
+            capture("97-no-sheet-grabber")
+            XCTFail("dismissSheetByDrag found no element labelled \"Sheet Grabber\" — the sheet may not be presented")
+            return
+        }
+        grabber.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+            .press(forDuration: 0.1, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.95)))
+    }
+
+    /// Wait (without swiping — swipes on the feed change what later steps see) until the feed is back.
+    @discardableResult
+    private func waitForFeed(timeout: TimeInterval = 8) -> Bool {
+        let anchor = app.buttons["filter-button"]
+        let deadline = Date().addingTimeInterval(timeout)
+        while Date() < deadline {
+            if anchor.exists, anchor.isHittable { return true }
+            usleep(300_000)
+        }
+        return anchor.exists && anchor.isHittable
+    }
+
+    /// Bring a more-menu row into view **without toggling the menu shut**.
+    ///
+    /// Every step here used `if moreMenu.exists { moreMenu.tap() … }`, which assumes the menu is closed — but the
+    /// previous step's dismissal falls back to tapping `more-menu`, which *toggles*. Fixing one step then moved
+    /// the loss to the next (settings unlocked, add-feed lost). Look first; open only when the row is absent.
+    private func ensureMenuRow(_ label: String) -> XCUIElement? {
+        let predicate = NSPredicate(format: "label CONTAINS[c] %@", label)
+        func row() -> XCUIElement? {
+            if app.buttons.element(matching: predicate).exists { return app.buttons.element(matching: predicate) }
+            if app.staticTexts.element(matching: predicate).exists { return app.staticTexts.element(matching: predicate) }
+            return nil
+        }
+        if let found = row() { return found }
+        // "Look first" is not enough: a row that only exists *after* the menu opens cannot be seen while it is
+        // closed, so this tapped `more-menu` and *closed* an open menu — the dump proved it (it showed the feed
+        // list: Search/Bookmark/Filter/More). Decide open vs. closed with a canary row that is always in the menu.
+        // "Settings" is the sheet's own title too, so it is a false canary (it read true while the app was still
+        // inside the sheet). "Export" exists only in this menu.
+        let canary = app.buttons["Export"].exists || app.staticTexts["Export"].exists
+        if !canary {
+            let menu = app.buttons["more-menu"]
+            if menu.waitForExistence(timeout: 5) {
+                menu.tap()
+                sleep(1)
+                // Measure immediately after the tap, before any swipe. `exists` is visibility-independent, so an
+                // absent row here means the menu never opened; the swipes cannot make an absent row appear, and a
+                // dump taken after them only describes the end state.
+                let labels = app.buttons.allElementsBoundByIndex.map(\.label).filter { !$0.isEmpty }
+                print("MENU-AFTER-TAP looking=\(label) addFeed=\(app.buttons["Add Feed"].exists) exportRow=\(app.buttons["Export"].exists) appState=\(app.state.rawValue) labels=\(labels.prefix(14))")
+            }
+        }
+        for _ in 0..<6 {
+            if let found = row() { return found }
+            app.swipeUp()
+            usleep(400_000)
+        }
+        if row() == nil {
+            capture("99-menu-fail-\(label.replacingOccurrences(of: " ", with: "-"))")
+            print("MENU-DUMP-STATE looking=\(label) menu-open=\(app.buttons["Export"].exists || app.staticTexts["Export"].exists)")
+            // Stop guessing labels: print what the menu actually contains when the row is missing.
+            let labels = (app.buttons.allElementsBoundByIndex.map(\.label) + app.staticTexts.allElementsBoundByIndex.map(\.label))
+                .filter { !$0.isEmpty }
+            print("MENU-DUMP looking=\(label) labels=\(labels.prefix(40))")
+        }
+        return row()
+    }
+
+    /// Tap the first button that can actually receive the event. `app.buttons.firstMatch` picks the
+    /// first button in the tree, which on the feed screen is a card that is not hittable — the run then
+    /// aborts with "Failed to synthesize event: Not hittable" and every surface after it goes
+    /// unexercised (measured: 12 of the 16 steps ever captured).
+    private func tapFirstHittableButton() {
+        if let button = app.buttons.allElementsBoundByIndex.first(where: { $0.isHittable }) {
+            button.tap()
+        }
+    }
 
     private func capture(_ name: String) {
+        // The lane can leave the app backgrounded or dead: a failure capture showed the simulator's home screen, which
+        // silently corrupts every later step and made per-step failures look like UI problems. Bring it forward and
+        // record the mismatch loudly instead of measuring it.
+        if app.state != .runningForeground {
+            // Never activate() here: it relaunches a dead app, which would turn a mid-journey kill into a silent cold
+            // start whose later screenshots look verified. Fail loudly instead, and keep the evidence.
+            let diag = XCTAttachment(screenshot: app.screenshot())
+            diag.name = "00-not-foreground-\(name)"
+            diag.lifetime = .keepAlways
+            add(diag)
+            XCTFail("app not in foreground at capture \(name) (state=\(app.state.rawValue)) — run invalid")
+        }
         let screenshot = app.screenshot()
         let attachment = XCTAttachment(screenshot: screenshot)
         attachment.name = name
         attachment.lifetime = .keepAlways
         add(attachment)
 
-        // Also save directly to disk
-        if let png = screenshot.pngRepresentation {
-            let path = "\(screenshotDir)/\(name).png"
-            try? png.write(to: URL(fileURLWithPath: path))
-            print("📸 Captured: \(name)")
-        }
+        // Also save directly to disk. On iOS `pngRepresentation` is non-optional Data (the
+        // optional form is macOS), which is why this file never compiled while unlisted in the
+        // project — that is how it ended up outside the target.
+        let png = screenshot.pngRepresentation
+        let path = "\(screenshotDir)/\(name).png"
+        try? png.write(to: URL(fileURLWithPath: path))
+        print("📸 Captured: \(name)")
     }
 
     private func waitForAppReady() {
         guard app.buttons["filter-button"].waitForExistence(timeout: 45) else {
-            print("⚠️ App filter button not found — continuing anyway")
+            // Fail loudly instead of "continuing anyway": without the app there is nothing to capture,
+            // and continuing spends ~2.5 minutes producing zero evidence (measured: a hung launch showed
+            // 60 s waiting for the app to idle, then 45 s here, then "cannot request screenshot data
+            // because it does not exist" and 0 captures). Restart/reinstall the simulator and re-run.
+            XCTFail("App never became ready: no filter button within 45 s — nothing to capture")
             return
         }
+        // Chrome is not content. `filter-button` exists before anything is on screen, and the first page
+        // on a **fresh install** is not the ~11 s this comment used to claim: measured on the frozen
+        // tree from the app's own log (`DisplayState: publishCards firstPaint`) the cold first paint
+        // landed 81.4 s after the process started (OPML parse + taxonomy build + empty SQLite, so all 20
+        // cards come off the network). With the old 30 s budget the wait gave up while the app was still
+        // on `InitialFeedLoadingView`, `01-main-feed` photographed the loading screen, and step 3's
+        // `firstHittableCard()` returned nil — the run then reported "16 surfaces" while silently
+        // holding 14, the reader pair `03`/`04` missing. A readiness gate that expires before the app is
+        // ready does not skip a step, it fabricates a surface.
+        let cardPredicate = NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-")
+        let card = app.descendants(matching: .any).matching(cardPredicate).firstMatch
+        let cardWaitStart = Date()
+        let cardArrived = card.waitForExistence(timeout: 150)
+        print("READY card_after_ms=\(Int(Date().timeIntervalSince(cardWaitStart) * 1000)) arrived=\(cardArrived ? 1 : 0)")
+        if !cardArrived {
+            print("⚠️ No feed card within 150s — content-dependent steps will skip")
+        }
         sleep(8)
+    }
+
+    // MARK: - Reopen measurement helpers
+
+    /// What the app container holds for the persisted first page, read from the test runner.
+    private struct ReopenPersistedPage {
+        /// False when the container could not be located/read at all — unverified, not proven absent.
+        var containerFound: Bool
+        var evidence: String
+        /// The stored keys: the `visible-page-cache*` file names that key the persisted page.
+        var pageKeys: [String]
+        var usable: Bool
+    }
+
+    /// Guard 1's evidence. The app's container is found without hardcoding a device UDID: this runner's
+    /// `NSHomeDirectory()` is `<device>/data/Containers/Data/Application/<runner-uuid>`, so four
+    /// `deleteLastPathComponent()` calls land on `<device>/data`, whose `Containers/Data/Application`
+    /// holds the app's container — the sibling whose metadata plist names `com.feedmine.app`. The persisted
+    /// first page is `Library/Caches/visible-page-cache*.json` (`FeedDisplayState.pageCacheURL`).
+    private func reopenPersistedPageEvidence() -> ReopenPersistedPage {
+        var deviceData = URL(fileURLWithPath: NSHomeDirectory())
+        for _ in 0..<4 { deviceData.deleteLastPathComponent() }
+        let applications = deviceData.appendingPathComponent("Containers/Data/Application")
+        let candidates = (try? FileManager.default.contentsOfDirectory(at: applications, includingPropertiesForKeys: nil)) ?? []
+        var container: URL?
+        for candidate in candidates {
+            let metadata = candidate.appendingPathComponent(".com.apple.mobile_container_manager.metadata.plist")
+            guard let data = try? Data(contentsOf: metadata),
+                  let plist = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil),
+                  let fields = plist as? [String: Any],
+                  (fields["MCMMetadataIdentifier"] as? String) == "com.feedmine.app" else { continue }
+            container = candidate
+            break
+        }
+        guard let appContainer = container else {
+            return ReopenPersistedPage(
+                containerFound: false,
+                evidence: "container=unreadable searched=\(applications.path) candidates=\(candidates.count)",
+                pageKeys: [],
+                usable: false
+            )
+        }
+        let caches = appContainer.appendingPathComponent("Library/Caches")
+        let entries = (try? FileManager.default.contentsOfDirectory(
+            at: caches,
+            includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey]
+        )) ?? []
+        let pages = entries.filter { $0.lastPathComponent.hasPrefix("visible-page-cache") && $0.pathExtension == "json" }
+        var keys: [String] = []
+        var described: [String] = []
+        var usable = false
+        for page in pages.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
+            let values = try? page.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey])
+            let items = Self.reopenPageItemCount(at: page)
+            usable = usable || items > 0
+            keys.append(page.lastPathComponent)
+            described.append("\(page.lastPathComponent){bytes=\(values?.fileSize ?? -1) items=\(items) mtime=\(Int(values?.contentModificationDate?.timeIntervalSince1970 ?? 0))}")
+        }
+        return ReopenPersistedPage(
+            containerFound: true,
+            evidence: "container=found pages=\(pages.count) " + described.joined(separator: " "),
+            pageKeys: keys,
+            usable: usable
+        )
+    }
+
+    /// Item count of a persisted page, straight from the JSON — the page's own content, not a file size.
+    private static func reopenPageItemCount(at url: URL) -> Int {
+        guard let data = try? Data(contentsOf: url),
+              let object = try? JSONSerialization.jsonObject(with: data),
+              let fields = object as? [String: Any],
+              let items = fields["items"] as? [Any] else { return -1 }
+        return items.count
     }
 }

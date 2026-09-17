@@ -4,10 +4,55 @@ import XCTest
 @MainActor
 final class TaxonomyStoreTests: XCTestCase {
 
+    // MARK: - Per-test cache isolation
+
+    /// Every `TaxonomyStore` used to read and write one process-wide file, while `build()` persists
+    /// to it from a detached task whose write queue is *per instance*. Two stores therefore held
+    /// two independent queues onto the same path, and whichever snapshot was written last won
+    /// regardless of which was newer — a snapshot another test (or the app host) wrote could land
+    /// on top of this test's, the fingerprint then mismatched, and
+    /// `testCacheFingerprintAcceptsSameURLsDifferentOrder` spent its whole 10.0 s deadline retrying
+    /// a file it could not win back, while passing in 0.01 s alone.
+    ///
+    /// Each test now owns one cache file: this test's stores share it — which is exactly what the
+    /// warm-cache tests exercise, build with one store and load with a second — and no other test
+    /// or host process can write it. `tearDown` drains every write this test queued, then deletes
+    /// the file.
+    private var cacheURL: URL!
+    private var stores: [TaxonomyStore] = []
+
+    /// The only way a test may obtain a store, so it lands on this test's cache file and `tearDown`
+    /// can await its deferred write.
+    private func makeStore() -> TaxonomyStore {
+        let store = TaxonomyStore(cacheURL: cacheURL)
+        stores.append(store)
+        return store
+    }
+
+    override func setUp() async throws {
+        try await super.setUp()
+        cacheURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("TaxonomyStoreTests-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("taxonomy_cache.json")
+        try FileManager.default.createDirectory(
+            at: cacheURL.deletingLastPathComponent(),
+            withIntermediateDirectories: true
+        )
+    }
+
+    override func tearDown() async throws {
+        for store in stores {
+            await store.awaitCacheWrite()
+        }
+        stores.removeAll()
+        try? FileManager.default.removeItem(at: cacheURL.deletingLastPathComponent())
+        try await super.tearDown()
+    }
+
     // MARK: - Tree Building
 
     func testBuildEmptySourcesProducesEmptyTree() async {
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: [])
         let root = store.root
         XCTAssertNotNil(root)
@@ -23,7 +68,7 @@ final class TaxonomyStoreTests: XCTestCase {
             FeedSource(title: "Tea Journey", url: "https://teajourney.pub/feed",
                        category: "Tea Culture", region: "global", mediaKind: .text),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         // Root has 1 child (the topic OPML)
@@ -47,7 +92,7 @@ final class TaxonomyStoreTests: XCTestCase {
             FeedSource(title: "Globo Esporte", url: "https://globo.com/esporte/feed",
                        category: "Sports", region: "countries/brazil", mediaKind: .text),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         let rootChildren = store.children(of: TaxonomyNode.rootID)
@@ -67,7 +112,7 @@ final class TaxonomyStoreTests: XCTestCase {
             FeedSource(title: "Test", url: "https://test.com/feed",
                        category: "News", region: "global", mediaKind: .text),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         let nodeID = store.nodeID(for: "https://test.com/feed")
@@ -84,7 +129,7 @@ final class TaxonomyStoreTests: XCTestCase {
             FeedSource(title: "TechCrunch", url: "https://b.com",
                        category: "Startups", region: "global", mediaKind: .text),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         let results = store.search("coffee")
@@ -97,7 +142,7 @@ final class TaxonomyStoreTests: XCTestCase {
             FeedSource(title: "Test", url: "https://a.com",
                        category: "Coffee News", region: "global", mediaKind: .text),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         XCTAssertEqual(store.search("COFFEE").count, 1)
@@ -122,7 +167,7 @@ final class TaxonomyStoreTests: XCTestCase {
                 mediaKind: .text
             ),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         let results = store.search("Mythology & Folklore")
@@ -139,7 +184,7 @@ final class TaxonomyStoreTests: XCTestCase {
     // MARK: - Selection
 
     func testSelectAndDeselectNode() {
-        let store = TaxonomyStore()
+        let store = makeStore()
         store.select("test/id")
         XCTAssertTrue(store.selectedNodeIDs.contains("test/id"))
         store.deselect("test/id")
@@ -147,7 +192,7 @@ final class TaxonomyStoreTests: XCTestCase {
     }
 
     func testClearSelectionRemovesAll() {
-        let store = TaxonomyStore()
+        let store = makeStore()
         store.select("a")
         store.select("b")
         store.clearSelection()
@@ -162,7 +207,7 @@ final class TaxonomyStoreTests: XCTestCase {
             region: "global",
             mediaKind: .text
         )
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: [source])
         let nodeID = try XCTUnwrap(store.nodeID(for: source.url))
         store.select(nodeID)
@@ -198,7 +243,7 @@ final class TaxonomyStoreTests: XCTestCase {
             ),
             algerianSource,
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         let algeriaURLs = store.feedURLs(inSubtreesOf: ["countries/algeria"])
@@ -226,7 +271,7 @@ final class TaxonomyStoreTests: XCTestCase {
                 mediaKind: .text
             ),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(
             from: sources,
             sharedCountrySourceURLs: [OPMLParser.normalizeURL(sharedURL)]
@@ -275,7 +320,7 @@ final class TaxonomyStoreTests: XCTestCase {
         // 4 countries × 5 categories × 5 feeds = 100 feeds
         XCTAssertEqual(sources.count, 100)
 
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         // Root should have total of 100
@@ -315,7 +360,7 @@ final class TaxonomyStoreTests: XCTestCase {
                 mediaKind: .text
             ))
         }
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         // children(of:) should not iterate all 500+ nodes
@@ -332,7 +377,7 @@ final class TaxonomyStoreTests: XCTestCase {
             FeedSource(title: "Folha", url: "https://folha.com/feed",
                        category: "News", region: "countries/brazil", mediaKind: .text),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         let folhaNodeID = store.nodeID(for: "https://folha.com/feed")!
@@ -361,12 +406,12 @@ final class TaxonomyStoreTests: XCTestCase {
         ]
         XCTAssertEqual(setA.count, setB.count, "Both sets must have same count to validate fingerprint guards against count-only check")
 
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: setA)
         // Cache written by build — fingerprint = hash of sorted A URLs
 
         // Same store loading set B (same count, different URLs) → must reject
-        let loaded = store.loadFromCache(sources: setB)
+        let loaded = await store.loadFromCache(sources: setB)
         XCTAssertFalse(loaded, "Cache must be rejected when URLs differ even though count matches")
     }
 
@@ -378,7 +423,7 @@ final class TaxonomyStoreTests: XCTestCase {
         let shuffled: [FeedSource] = [ordered[1], ordered[0]]
         XCTAssertEqual(ordered.count, shuffled.count)
 
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: ordered)
         // Cache written with fingerprint of sorted URLs
 
@@ -395,10 +440,10 @@ final class TaxonomyStoreTests: XCTestCase {
         ]
         XCTAssertEqual(setA.count, setB.count)
 
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: setA)
 
-        let loaded = store.loadFromCache(sources: setB)
+        let loaded = await store.loadFromCache(sources: setB)
         XCTAssertFalse(loaded, "Cache must be rejected when category changes even though URL and count are identical")
     }
 
@@ -411,10 +456,10 @@ final class TaxonomyStoreTests: XCTestCase {
         ]
         XCTAssertEqual(setA.count, setB.count)
 
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: setA)
 
-        let loaded = store.loadFromCache(sources: setB)
+        let loaded = await store.loadFromCache(sources: setB)
         XCTAssertFalse(loaded, "Cache must be rejected when region changes even though URL, count, and category are identical")
     }
 
@@ -429,10 +474,10 @@ final class TaxonomyStoreTests: XCTestCase {
                 mediaKind: .audio
             ),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
-        let loaded = store.loadFromCache(
+        let loaded = await store.loadFromCache(
             sources: sources,
             sharedCountrySourceURLs: [OPMLParser.normalizeURL(sharedURL)]
         )
@@ -452,7 +497,7 @@ final class TaxonomyStoreTests: XCTestCase {
             FeedSource(title: "Sprudge", url: "https://sprudge.com/feed",
                        category: "Coffee News", region: "global", mediaKind: .text),
         ]
-        let store = TaxonomyStore()
+        let store = makeStore()
         await store.build(from: sources)
 
         // Cold-path: feedURLs(inSubtreesOf:) should return correct URLs.
@@ -467,7 +512,7 @@ final class TaxonomyStoreTests: XCTestCase {
         XCTAssertTrue(coldURLs.contains(OPMLParser.normalizeURL("https://globo.com/feed")))
 
         // Reload from cache (warm path)
-        let warmStore = TaxonomyStore()
+        let warmStore = makeStore()
         let cacheHit = await awaitCacheLoad(warmStore, sources: sources)
         XCTAssertTrue(cacheHit, "Cache load should succeed with same source set")
 
@@ -481,24 +526,23 @@ final class TaxonomyStoreTests: XCTestCase {
 
     // MARK: - Warm-cache helpers
 
-    /// `build()` persists the taxonomy cache in a detached background task it
-    /// does not await. Poll until the fresh cache lands (bounded) so warm-cache
-    /// tests don't read a stale cache written by an earlier test or run.
+    /// `build()` writes the cache in a task it does not wait for. Await that write, then read once.
+    /// Every store this test created is drained, not just `store`: the snapshot being read is
+    /// written by whichever instance ran `build()`, and the reader's own queue is empty when it
+    /// never built anything (that is exactly the `warmStore` case below). With the test's own cache
+    /// file and no writer left in flight, one read is the answer — retrying could only conceal a
+    /// fingerprint regression behind a write that eventually lands.
     private func awaitCacheLoad(
         _ store: TaxonomyStore,
         sources: [FeedSource],
         sharedCountrySourceURLs: Set<String> = []
     ) async -> Bool {
-        let deadline = Date().addingTimeInterval(10)
-        repeat {
-            if store.loadFromCache(
-                sources: sources,
-                sharedCountrySourceURLs: sharedCountrySourceURLs
-            ) {
-                return true
-            }
-            try? await Task.sleep(nanoseconds: 25_000_000)
-        } while Date() < deadline
-        return false
+        for pending in stores {
+            await pending.awaitCacheWrite()
+        }
+        return await store.loadFromCache(
+            sources: sources,
+            sharedCountrySourceURLs: sharedCountrySourceURLs
+        )
     }
 }

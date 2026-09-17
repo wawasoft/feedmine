@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import GRDB
 import NaturalLanguage
 import Observation
@@ -99,6 +100,21 @@ final class FeedStore {
     private(set) var startupTotalSourceCount = 0
     private(set) var startupRecentSourceNames: [String] = []
     private(set) var startupRunwayReady = false
+
+    /// True while a user-initiated composition is being fetched and prepared. The surface uses it to show
+    /// the in-progress view instead of "no results": a type filter whose content is not local yet has
+    /// nothing to show for several seconds, and an absence screen there is the user's own complaint
+    /// ("empty screens appearing for no reason") — while a genuinely finished empty answer still settles.
+    var isPreparingFilteredComposition: Bool { display.isFilteredCompositionInFlight }
+
+    /// Items already fetched toward the first screen. This is what actually releases the page
+    /// (`coldStartImmediateItemCount`), so the progress surface states it beside the source count —
+    /// the same distinction that had to be made in the publication gate.
+    private(set) var startupItemsReady = 0
+    private var startupSeenItemIDs = Set<String>()
+
+    /// Items that make a first screen.
+    var startupItemsTarget: Int { Self.coldStartImmediateItemCount }
     var isPreparingInitialRunway: Bool { display.isPreparingInitialRunway }
     /// True while an urgent taxonomy fetch is in-flight — FeedScreen uses this
     /// to keep the empty state in .fetching mode until items actually arrive.
@@ -179,6 +195,9 @@ final class FeedStore {
     /// of O(items x selectedNodes).
     private(set) var cachedTaxonomyFeedURLs: Set<String> = []
     private var cachedTaxonomyNodeIDs: Set<String> = []
+    /// Size of the taxonomy tree when `cachedTaxonomyFeedURLs` was filled, so a refresh that ran
+    /// before the tree existed can be redone once it appears.
+    private var cachedTaxonomyShape: Int = -1
     /// Monotonic counter incremented on every filter change. Async operations
     /// (urgent fetch, reloadFromSQLite pipeline) capture the generation at launch
     /// and discard results if a newer filter has been applied in the meantime.
@@ -533,12 +552,26 @@ final class FeedStore {
         let consumedIDs: Set<String>
         let taxonomyURLs: Set<String>
         let includeConsumed: Bool
+        /// Snapshot of the user's enabled content filters. The off-main pass
+        /// MUST apply the same keyword rule as the main-actor pass: without
+        /// this, an item hidden by a content filter reappears through every
+        /// path that filters off-main (startup, filter changes, append).
+        let contentFilters: [(id: UUID, keywords: [String])]
+        /// Key of the filter set above, as recorded in `contentFilterCacheKey`.
+        /// Carried so the merge-back can be discarded when the filters change
+        /// while this pass is still running off-main.
+        let contentFilterKey: String
         // Snapshot of caches — read-only on the filtering side
         let moodMatchSnapshot: [String: Bool]
         let contentExcludeSnapshot: [String: Bool]
         /// Pre-computed set of explicitly disabled source URLs (normalized).
         /// Used instead of calling isSourceEnabled from off-main context.
         let disabledSourceURLs: Set<String>
+        /// Normalized URLs the user turned off individually. An explicit catalogue
+        /// query — a content-type filter, or a taxonomy selection that names the
+        /// source — bypasses inherited disables (category, region) but not these,
+        /// mirroring `isSourceEligible` on the main-actor path.
+        let explicitlyDisabledSourceURLs: Set<String>
     }
 
     /// Off-main filter: runs the full predicate loop in a detached task.
@@ -553,9 +586,18 @@ final class FeedStore {
             var contentCache = input.contentExcludeSnapshot
             let filtered = items.filter { item in
                 let normalizedSourceURL = OPMLParser.normalizeURL(item.sourceURL)
-                let sourceEnabled = input.isClickHistory || input.isSmartFeed
-                    || (input.sourceFilter?.contains(normalizedSourceURL)
-                        ?? !input.disabledSourceURLs.contains(normalizedSourceURL))
+                // Mirrors `isSourceEligible` on the main-actor path: an explicit
+                // catalogue query — a content-type filter, or a taxonomy selection
+                // that names this source — bypasses inherited disables (category,
+                // region) but still respects a source the user turned off by hand.
+                let isExplicitCatalogueQuery = input.contentType != .all
+                    || (!input.taxonomyURLs.isEmpty
+                        && input.taxonomyURLs.contains(normalizedSourceURL))
+                let enabledByUser = input.sourceFilter?.contains(normalizedSourceURL)
+                    ?? (isExplicitCatalogueQuery
+                        ? !input.explicitlyDisabledSourceURLs.contains(normalizedSourceURL)
+                        : !input.disabledSourceURLs.contains(normalizedSourceURL))
+                let sourceEnabled = input.isClickHistory || input.isSmartFeed || enabledByUser
                 guard sourceEnabled else { return false }
                 guard !input.isClickHistory || input.clickIDs.contains(item.id) else { return false }
                 guard !input.isSmartFeed || input.smartFeedIDs.contains(item.id) else { return false }
@@ -586,20 +628,115 @@ final class FeedStore {
                         guard match else { return false }
                     }
                 }
+
+                // Content filter check — mirrors the main-actor pass exactly.
+                if !input.contentFilters.isEmpty {
+                    if let cached = contentCache[item.id] { guard !cached else { return false } }
+                    else {
+                        let excluded = Self.firstMatchingContentFilterID(
+                            in: item, filters: input.contentFilters
+                        ) != nil
+                        contentCache[item.id] = excluded
+                        guard !excluded else { return false }
+                    }
+                }
                 return true
             }
             return (filtered, moodCache, contentCache)
         }.value
     }
 
+    /// Identity of the composition the feed is currently showing, used to key the
+    /// cached first page so a warm start can only restore a page built under the
+    /// same filters. Composition inputs only — the click/consumed history is
+    /// deliberately excluded, because it changes on every interaction and a
+    /// signature that volatile would leave the cache permanently unreachable.
+    var pageCacheSignature: String {
+        let contentFilterKey = ContentFilterStore.shared.isEnabled
+            ? ContentFilterStore.shared.activeFilters
+                .map { "\($0.id):\($0.keywords.joined(separator: ","))" }
+                .joined(separator: "|")
+            : ""
+        return [
+            activePreset.cacheKey,
+            activeRegion ?? "",
+            activeContentType.rawValue,
+            activeLanguages.sorted().joined(separator: ","),
+            activeMood.rawValue,
+            presetSourceFilter?.sorted().joined(separator: "|") ?? "",
+            cachedTaxonomyFeedURLs.sorted().joined(separator: "|"),
+            contentFilterKey
+        ].joined(separator: "\u{1F}")
+    }
+
+    /// Disabled-source URL snapshot for the off-main filter pass.
+    ///
+    /// It used to be recomputed inside `buildFilterInput` on every call — a walk over
+    /// the whole catalogue plus a URL normalisation for each entry — so even a small
+    /// append during scroll paid catalogue-sized work on the main actor (review
+    /// finding 2). It is rebuilt only when the catalogue or the enablement changed, and
+    /// that rebuild now happens off the main actor (see `eligibilitySets()`).
+    ///
+    /// Invalidation compares the registry's own `disabled` and `enabledOverrides` sets
+    /// against copies, *in addition* to the revisions: the revision is bumped by the counts
+    /// recompute, which the bulk toggles defer by ~120 ms (and `resetAllToggles` can skip),
+    /// while the action's own reload runs inside that window. Comparing each set separately
+    /// catches every mutation of either — including a source moving from one to the other,
+    /// which a combined comparison would miss.
+    private var eligibilityCache: (
+        sourceRevision: UInt64,
+        enablementRevision: UInt64,
+        disabledKeys: Set<String>,
+        overrideKeys: Set<String>,
+        sets: (disabled: Set<String>, explicitlyDisabled: Set<String>)
+    )?
+
+    /// The filter pass's eligibility sets, rebuilt **in a detached task** when the
+    /// catalogue or the enablement changed.
+    ///
+    /// `applyFiltersAsync` is already async, so the suspension is free — and the rebuild is
+    /// regex work over 77,443 URLs that measured 1,599 ms on the main actor, which is why it
+    /// does not happen there. (The synchronous `applyFilters` never asks for these sets: it
+    /// resolves enablement per item.) `buildFilterInput` has exactly one caller, this one.
+    private func eligibilitySets() async -> (disabled: Set<String>, explicitlyDisabled: Set<String>) {
+        let inputs = registry.eligibilityInputs()
+        let sourceRevision = registry.sourceRevision
+        let enablementRevision = registry.enablementRevision
+        if let cached = eligibilityCache,
+           cached.sourceRevision == sourceRevision,
+           cached.enablementRevision == enablementRevision,
+           cached.disabledKeys == inputs.disabled,
+           cached.overrideKeys == inputs.enabledOverrides {
+            return cached.sets
+        }
+        let endMetric = FeedMetrics.beginInterval("Eligibility.snapshot")
+        let sets = await Task.detached(priority: .userInitiated) {
+            SourceRegistry.eligibilitySets(
+                sources: inputs.sources,
+                normalizedURLs: inputs.normalizedURLs,
+                disabled: inputs.disabled,
+                enabledOverrides: inputs.enabledOverrides
+            )
+        }.value
+        endMetric()
+        eligibilityCache = (
+            sourceRevision,
+            enablementRevision,
+            inputs.disabled,
+            inputs.enabledOverrides,
+            sets
+        )
+        return sets
+    }
+
     /// Build a FilterInput snapshot from current actor state so filtering
-    /// can run off the main actor in a detached task.
-    private func buildFilterInput(includeConsumed: Bool) -> FilterInput {
-        // Pre-compute disabled source URLs so the off-main filter pass
-        // can check enablement without calling back to the main actor.
-        let disabledURLs = Set(registry.sources
-            .filter { !registry.isSourceEnabled($0.url) }
-            .map { OPMLParser.normalizeURL($0.url) })
+    /// can run off the main actor in a detached task. The eligibility sets are passed in
+    /// because building them is catalogue-sized work that happens off the main actor.
+    private func buildFilterInput(
+        includeConsumed: Bool,
+        eligibility: (disabled: Set<String>, explicitlyDisabled: Set<String>)
+    ) -> FilterInput {
+        let contentFilterState = activeContentFiltersForFilterPass()
         return FilterInput(
             region: activeRegion,
             contentType: activeContentType,
@@ -614,21 +751,71 @@ final class FeedStore {
             consumedIDs: consumedItemIDs,
             taxonomyURLs: cachedTaxonomyFeedURLs,
             includeConsumed: includeConsumed,
+            contentFilters: contentFilterState.filters,
+            contentFilterKey: contentFilterState.key,
             moodMatchSnapshot: moodMatchCache,
             contentExcludeSnapshot: contentFilterExcludeCache,
-            disabledSourceURLs: disabledURLs
+            disabledSourceURLs: eligibility.disabled,
+            explicitlyDisabledSourceURLs: eligibility.explicitlyDisabled
         )
+    }
+
+    /// Content-filter snapshot for a filter pass, with the cache invalidation
+    /// that makes it safe to reuse. Both filter paths call this, so the
+    /// per-item exclusion cache can never serve a verdict computed under a
+    /// different filter set. The key is returned so the off-main caller can
+    /// re-check it after the pass.
+    private func activeContentFiltersForFilterPass()
+        -> (filters: [(id: UUID, keywords: [String])], key: String) {
+        let filters = ContentFilterStore.shared.isEnabled
+            ? ContentFilterStore.shared.activeFilters : []
+        if filters.isEmpty {
+            contentFilterExcludeCache.removeAll()
+        }
+        let filterKey = filters.map { "\($0.id):\($0.keywords.joined(separator: ","))" }.joined(separator: "|")
+        if filterKey != contentFilterCacheKey {
+            contentFilterExcludeCache.removeAll()
+            contentFilterCacheKey = filterKey
+        }
+        return (filters, filterKey)
+    }
+
+    /// Drops mood-match cache entries when the mood changes — a cached verdict
+    /// is only valid for the mood it was computed under.
+    private func invalidateMoodMatchCacheIfNeeded(_ mood: FeedLoader.MoodFilter) {
+        let moodKey = mood.rawValue
+        if moodKey != moodMatchCacheKey {
+            moodMatchCache.removeAll()
+            moodMatchCacheKey = moodKey
+        }
     }
 
     /// Run applyFilters off the main actor. Used in hot paths (startup,
     /// filter changes, append/refresh) to keep the main thread responsive.
     func applyFiltersAsync(_ items: [FeedItem], includeConsumed: Bool = true) async -> [FeedItem] {
         guard !items.isEmpty else { return [] }
-        let input = buildFilterInput(includeConsumed: includeConsumed)
+        // Same invalidation rules as the synchronous pass, applied before the
+        // snapshot is taken — otherwise stale cache entries merged back below
+        // would outlive the filter change that invalidated them.
+        invalidateMoodMatchCacheIfNeeded(activeMood)
+        // The synchronous `applyFilters` refreshes this cache as its first step; the async pass
+        // must do the same, or the two disagree exactly when a taxonomy selection is active:
+        // without the URLs, an explicit catalogue query is not recognised as one, the selected
+        // source is treated as merely disabled, and its items are dropped from the page.
+        refreshCachedTaxonomyFeedURLsIfNeeded()
+        let eligibility = await eligibilitySets()
+        let input = buildFilterInput(includeConsumed: includeConsumed, eligibility: eligibility)
         let (filtered, moodCache, contentCache) = await Self.applyFiltersOffMain(items, input: input)
-        // Merge caches back so subsequent synchronous applyFilters calls benefit.
-        if !moodCache.isEmpty { moodMatchCache.merge(moodCache) { _, new in new } }
-        if !contentCache.isEmpty { contentFilterExcludeCache.merge(contentCache) { _, new in new } }
+        // Merge caches back so subsequent synchronous applyFilters calls benefit —
+        // but only while the keys still match the pass that produced them. The
+        // user can change filters while the detached pass runs, and the verdicts
+        // it computed under the previous set must not survive that change.
+        if !moodCache.isEmpty, input.mood.rawValue == moodMatchCacheKey {
+            moodMatchCache.merge(moodCache) { _, new in new }
+        }
+        if !contentCache.isEmpty, input.contentFilterKey == contentFilterCacheKey {
+            contentFilterExcludeCache.merge(contentCache) { _, new in new }
+        }
         return filtered
     }
 
@@ -638,8 +825,7 @@ final class FeedStore {
         let contentType = filterContentType
         let languages = activeLanguages
         let mood = activeMood
-        let contentFilters = ContentFilterStore.shared.isEnabled
-            ? ContentFilterStore.shared.activeFilters : []
+        let contentFilters = activeContentFiltersForFilterPass().filters
         let deviceLanguage = Self.normalizedLanguageCode(Locale.current.language.languageCode?.identifier)
         let sourceFilter = presetSourceFilter
         let isClickHistory = activePreset.isLastClicked
@@ -648,20 +834,9 @@ final class FeedStore {
         let smartFeedIDs = activeSmartFeedItemIDs
         let consumedIDs = consumedItemIDs
 
-        // Invalidate mood cache when mood changes (use rawValue as stable key)
-        let moodKey = mood.rawValue
-        if moodKey != moodMatchCacheKey {
-            moodMatchCache.removeAll()
-            moodMatchCacheKey = moodKey
-        }
-        if contentFilters.isEmpty {
-            contentFilterExcludeCache.removeAll()
-        }
-        let filterKey = contentFilters.map { "\($0.id):\($0.keywords.joined(separator: ","))" }.joined(separator: "|")
-        if filterKey != contentFilterCacheKey {
-            contentFilterExcludeCache.removeAll()
-            contentFilterCacheKey = filterKey
-        }
+        // Mood and content-filter caches are keyed on the filter state they
+        // were computed under; both helpers are shared with the off-main path.
+        invalidateMoodMatchCacheIfNeeded(mood)
 
         return items.filter { item in
             let normalizedSourceURL = OPMLParser.normalizeURL(item.sourceURL)
@@ -700,27 +875,32 @@ final class FeedStore {
         }
     }
 
-    /// Content filter matching engine: checks if an item's title+excerpt contains any
-    /// keyword from the user's active content filters. Collects matching filter IDs
-    /// in `hitIDs` for optional hit tracking by the caller. Pure matching — no
-    /// side effects; callers decide whether to record hits via ContentFilterStore.
+    /// Matching engine shared by every filter path: returns the id of the first
+    /// filter with a keyword present in the item's searchable text, or nil.
+    /// `nonisolated` so the off-main pass applies the identical rule — the two
+    /// paths must never disagree about which items a filter hides.
     ///
-    /// Performance: uses plain contains() on pre-normalized strings instead of
-    /// localizedStandardContains. Keywords are already lowercased + diacritic-folded
-    /// by ContentFilterStore.activeFilters. Item text is computed once via
-    /// FeedItem.searchableText.
-    private func _contentFilterExcludes(_ item: FeedItem, filters: [(id: UUID, keywords: [String])], hitIDs: inout [UUID]) -> Bool {
-        guard !filters.isEmpty else { return false }
+    /// Performance: plain `contains()` on pre-normalized strings. Keywords are
+    /// already lowercased + diacritic-folded by ContentFilterStore.activeFilters;
+    /// item text is computed once by FeedItem.searchableText.
+    nonisolated static func firstMatchingContentFilterID(
+        in item: FeedItem,
+        filters: [(id: UUID, keywords: [String])]
+    ) -> UUID? {
+        guard !filters.isEmpty else { return nil }
         let text = item.searchableText
         for filter in filters {
-            for keyword in filter.keywords {
-                if text.contains(keyword) {
-                    hitIDs.append(filter.id)
-                    return true
-                }
+            for keyword in filter.keywords where text.contains(keyword) {
+                return filter.id
             }
         }
-        return false
+        return nil
+    }
+
+    private func _contentFilterExcludes(_ item: FeedItem, filters: [(id: UUID, keywords: [String])], hitIDs: inout [UUID]) -> Bool {
+        guard let id = Self.firstMatchingContentFilterID(in: item, filters: filters) else { return false }
+        hitIDs.append(id)
+        return true
     }
 
     /// Pure predicate — no side effects. Used by applyFilters where hits are
@@ -795,6 +975,22 @@ final class FeedStore {
     nonisolated static let immediateFilteredSourceTarget = 20
     private var coldStartPendingItems: [FeedItem] = []
     @ObservationIgnored private var startupSuccessfulSourceURLs: Set<String> = []
+    /// Cancel every piece of background work this store owns and stop its network
+    /// monitor. Distinct from what a flush does — a flush cancels the pipeline to
+    /// rebuild the same feed and keeps monitoring — this is for ending the store's
+    /// life. Tests that start a store use it so no fetch or preparation task runs
+    /// into the next test, which is the leakage finding 10 attributes the suite's
+    /// remaining timing failures to.
+    func cancelAllWork() {
+        pipelineTask?.cancel()
+        cardPreparationTask?.cancel()
+        progressiveFetchTask?.cancel()
+        trimDebounceTask?.cancel()
+        coverageMiningTask?.cancel()
+        firstLaunchBootstrapTask?.cancel()
+        networkMonitor.stop()
+    }
+
     private var firstLaunchBootstrapTask: Task<Void, Never>?
     private var curatedOnboardingLastFetchAt: [String: Date] = [:]
     private var progressiveFetchTask: Task<Void, Never>?
@@ -988,30 +1184,6 @@ final class FeedStore {
             object: nil, queue: .main
         ) { _ in
             Task { await prepCoordinator?.handleMemoryPressure() }
-        }
-
-        // Wire deferred image upgrades: when a card is already visible
-        // and a deferred retry finally resolves the image, replace the
-        // visible card in-place (text-only → hero) without shifting the feed.
-        Task { [weak self] in
-            guard let self else { return }
-            await self.preparationCoordinator.setOnCardMediaUpgraded { [weak self] itemID, renderImage in
-                guard let self else { return }
-                Task { @MainActor [weak self] in
-                    guard let self,
-                          let idx = self.display.visibleCards.firstIndex(where: { $0.id == itemID })
-                    else { return }
-                    var card = self.display.visibleCards[idx]
-                    let upgraded = FeedCardPresentation(
-                        item: card.item,
-                        media: .image(renderImage.image),
-                        layout: .hero,
-                        isRead: card.isRead,
-                        isBookmarked: card.isBookmarked
-                    )
-                    self.display.replaceVisibleCard(at: idx, with: upgraded)
-                }
-            }
         }
     }
 
@@ -1388,9 +1560,17 @@ final class FeedStore {
     }
 
     func configureStartupProgress(targetSourceCount: Int) {
+        // Reverted: the bar and its percentage read this pair, and the chip beside them counts the
+        // *catalogue total* (`FeedScreen` uses `max(startupTotalSourceCount, sourceCount)`), so pointing
+        // the bar at the page criterion made it fill at three sources while the chip read "3/77,443".
+        // Which denominators these two should use — catalogue total, or "enough for the first screen"
+        // with a separate signal for releasability — is a surface decision, recorded in
+        // `docs/release/1.0-checklist.md`, not something to improvise here.
         startupTargetSourceCount = max(1, min(Self.coldStartMinimumSourceCount, targetSourceCount))
         startupFetchedSourceCount = min(startupTargetSourceCount, startupSuccessfulSourceURLs.count)
         startupRunwayReady = startupFetchedSourceCount >= startupTargetSourceCount
+        startupItemsReady = 0
+        startupSeenItemIDs.removeAll()
     }
 
     func recordStartupFetchProgress(_ result: FeedFetchResult) {
@@ -1450,12 +1630,27 @@ final class FeedStore {
             let chunk = Array(sorted[start..<end])
             let usefulSourceCount = Set(items.map(\.sourceURL)).count
             let remainingSources = max(1, targetSourceCount - usefulSourceCount)
-            let remainingItems = max(1, targetSourceCount - items.count)
+            // Count what the caller actually needs. With a content type active, an early return on
+            // "a screenful" can hand back a screenful of the *wrong* kind, and the filtered page is
+            // then empty — measured: the podcast combo went from 4–5 cards to 0 after the speed-up.
+            // Same distinction as `localOfActiveType` uses when deciding whether a fetch can defer.
+            let relevantItems = self.activeContentType == .all
+                ? items.count
+                : items.filter { self.activeContentType.matches($0) }.count
+            let remainingItems = max(1, Self.coldStartImmediateItemCount - relevantItems)
             let result = await fetcher.fetchStarter(
                 chunk,
                 maxConcurrent: min(48, chunk.count),
-                minimumSuccessfulSources: remainingSources,
-                minimumItemCount: remainingItems,
+                // Stop a chunk at a *screenful* from a few publishers, not at the runway's
+                // diversity target: with `coldStartFetchChunkSize = 240` equal to the measured source
+                // count, the outer `totalDeadline` never fires (one chunk), so these two numbers plus
+                // the soft internal deadline are the only brake — and ~100 sources/items each is why a
+                // chunk ran 29.9 s. Speed comes from the item count; first-page diversity from the
+                // source floor, so it stays at three rather than one.
+                minimumSuccessfulSources: self.activeContentType == .all
+                    ? min(remainingSources, Self.coldStartMinimumPageSources, chunk.count)
+                    : min(remainingSources, max(Self.coldStartMinimumPageSources, 6), chunk.count),
+                minimumItemCount: min(remainingItems, Self.coldStartImmediateItemCount),
                 deadline: .seconds(10),
                 onProgress: { [weak self] result in
                     self?.recordStartupFetchProgress(result)
@@ -1503,7 +1698,9 @@ final class FeedStore {
 
         return Task { [weak self] in
             guard let self else { return }
+            let sourcesStartedAt = Date()
             let sources = await Self.activeStarterSources(language: language)
+            let sourcesMs = Int(Date().timeIntervalSince(sourcesStartedAt) * 1000)
             guard !Task.isCancelled, !sources.isEmpty else { return }
 
             // Keep bootstrap items eligible until the full registry replaces
@@ -1515,18 +1712,27 @@ final class FeedStore {
 
             // Bound the whole bootstrap: without a total deadline the
             // chunked 10s timeouts can block first paint for ~80s.
+            let fetchStartedAt = Date()
             let result = await self.fetchColdStartRunway(
                 from: sources,
                 totalDeadline: Date().addingTimeInterval(15)
             )
+            let fetchMs = Int(Date().timeIntervalSince(fetchStartedAt) * 1000)
+            Log.feed.info("firstLaunchBootstrap stages: sourcesMs=\(sourcesMs) sources=\(sources.count) fetchMs=\(fetchMs) items=\(result.items.count)")
             guard !Task.isCancelled, generation == self.filterGeneration else { return }
 
             let targetSourceCount = min(Self.coldStartMinimumSourceCount, sources.count)
             let usefulSourceCount = Set(result.items.map(\.sourceURL)).count
+            // Enough for the first screen is enough to publish. Withholding the whole batch until the
+            // full source target is met is what starves first paint: measured on a clean install, the
+            // bootstrap held 552 items from 15 sources back (`withheld: sources=15/100 items=552/100`)
+            // and the page showed 13 items until the ~100-source threshold was reached — the "0/100"
+            // the progress surface displays, and the reason a filter tap seconds after launch saw an
+            // empty feed.
             guard Self.coldStartRunwayIsUseful(
                 result.items,
                 targetSourceCount: targetSourceCount
-            ) else {
+            ) || result.items.count >= Self.coldStartImmediateItemCount else {
                 self.coldStartPendingItems = result.items
                 Log.feed.info(
                     "firstLaunchBootstrap withheld: sources=\(usefulSourceCount)/\(targetSourceCount) items=\(result.items.count)/\(targetSourceCount)"
@@ -1537,22 +1743,31 @@ final class FeedStore {
             for (url, status) in result.sourceOutcomes {
                 self.scheduler.recordFetch(sourceURL: url, outcome: status)
             }
-            let actualNew = await self.persistFetchedItems(result.items)
+            let actualNew = await self.persistInSlices(result.items)
             guard !Task.isCancelled, !actualNew.isEmpty else { return }
 
             // Prefetch BEFORE enqueuing — downloads start while reservoir
             // processes interleaving/filtering, so images are cached by render time.
             self.prefetchImagesIfEnabled(for: actualNew)
             self.collectWhatsNewCandidates(actualNew)
+            let appendStartedAt = Date()
             self.throttledReservoirAppend(actualNew)
             await self.flushPendingReservoir()
-            if !self.visibleItems.isEmpty {
+            let publishHopMs = Int(Date().timeIntervalSince(appendStartedAt) * 1000)
+            Log.feed.info("firstLaunchBootstrap append→flush: items=\(actualNew.count) appendHopMs=\(publishHopMs) reservoir=\(self.reservoir.reservoirCount) visible=\(self.visibleItems.count)")
+            // A bootstrap that finishes after the user changed the composition must not force
+            // `.ready` over the newer generation's `.preparing`: this block runs outside the flush's
+            // guards, so it needs its own. Same terms the flush paths use.
+            let bootstrapGeneration = self.filterGeneration
+            if !self.visibleItems.isEmpty, bootstrapGeneration == self.filterGeneration {
                 display.setIsPreparingInitialRunway(false)
                 display.setLoadingState(.idle)
                 display.setFeedDisplayPhase(.ready(contextID: self.presentationEpoch))
+            } else if bootstrapGeneration != self.filterGeneration {
+                Log.feed.info("firstLaunchBootstrap publication skipped: generation moved (\(bootstrapGeneration) → \(self.filterGeneration))")
             }
             Log.feed.info(
-                "firstLaunchBootstrap published: sources=\(result.fetchedSourceCount) items=\(actualNew.count) visible=\(self.visibleItems.count) elapsed=\(Date().timeIntervalSince(startedAt), format: .fixed(precision: 3))s"
+                "firstLaunchBootstrap published: sources=\(result.fetchedSourceCount) items=\(actualNew.count) visible=\(self.visibleItems.count) elapsed=\(Date().timeIntervalSince(startedAt), format: .fixed(precision: 3))s generation=\(bootstrapGeneration)"
             )
         }
     }
@@ -1612,6 +1827,53 @@ final class FeedStore {
                     Log.feed.error("early collection preset cache hydration failed: \(error)")
                 }
             }
+        } else if activePreset.collectionID == nil,
+                  !activePreset.isSmartFeed,
+                  !activePreset.isLastClicked,
+                  !activePreset.isCuratedFeed {
+            // The same rule, for the common feed, and it is the case that
+            // actually needs it: a warm install already holds a valid page in
+            // SQLite plus a ~14 KB `visible-page-cache.json`, yet that page was
+            // only published after the OPML parse (118 bundled files, ~26 MB
+            // parse cache), the taxonomy load or build (~8.8 MB cache), the
+            // filter restore, the read state and the bookmarks. Measured on a
+            // warm simulator container: first content at ~23 s, against the
+            // release target of one second for a *local* page.
+            //
+            // Restoring the persisted filters first is exactly what makes the
+            // cached page's composition match the one now in effect — the
+            // filters and the cache are both written from `Settings`, so they
+            // agree by construction. Taxonomy-node filters are the exception:
+            // they can only be validated once the taxonomy exists, so that case
+            // keeps the old order and simply waits. Scoring multipliers are not
+            // rebuilt here: the cached page needs filters, not ranking, and the
+            // existing call later in `start()` stays the only writer.
+            if Settings.filterTaxonomyNodes.isEmpty {
+                restoreFilters()
+                await loadReadState()
+                reservoir.readItemIDs = consumedItemIDs
+                bookmarkedItemIDs = await bookmarkStore.allBookmarkedItemIDsAsync()
+                if let cached = await display.restoreCachedPage(filterSignature: pageCacheSignature) {
+                    let stamped = await applyFiltersAsync(cached.items)
+                    let cards = await restoredCards(for: stamped, projection: cached.cards,
+                                                    readItemIDs: readItemIDs,
+                                                    bookmarkItemIDs: bookmarkedItemIDs)
+                    display.publishCards(cards, items: stamped,
+                                         readItemIDs: readItemIDs,
+                                         bookmarkItemIDs: bookmarkedItemIDs,
+                                         isAppend: false)
+                    // Publish before the catalogue finishes. The rest of
+                    // `start()` no longer finds an empty feed, so the cached
+                    // items are kept and only re-stamped once the full registry,
+                    // taxonomy and read state are in — the page never goes back
+                    // to the waiting screen.
+                    display.setIsPreparingInitialRunway(false)
+                    display.setLoadingState(.idle)
+                    display.setFeedDisplayPhase(.ready(contextID: presentationEpoch))
+                    let withMedia = cards.filter { if case .image = $0.media { return true }; return false }.count
+                    Log.feed.info("page[restore] items=\(stamped.count) withMedia=\(withMedia) fp=\(self.pageFingerprint(cards, prefix: 20))")
+                }
+            }
         }
 
         // On the first installation the full OPML registry and taxonomy still
@@ -1637,7 +1899,7 @@ final class FeedStore {
 
         // Build taxonomy tree from loaded sources — try cache first, build if needed
         let endTaxonomyMetric = FeedMetrics.beginInterval("Taxonomy.loadOrBuild")
-        let taxonomyCacheHit = TaxonomyStore.shared.loadFromCache(
+        let taxonomyCacheHit = await TaxonomyStore.shared.loadFromCache(
             sources: registry.sources,
             sharedCountrySourceURLs: registry.sharedCountrySourceURLs
         )
@@ -1661,6 +1923,7 @@ final class FeedStore {
 
         // Invalidate taxonomy filter cache after rebuild
         cachedTaxonomyNodeIDs = []
+        cachedTaxonomyShape = -1
         cachedTaxonomyFeedURLs = []
 
         // Restore persisted filters FIRST so the first render shows
@@ -1725,8 +1988,15 @@ final class FeedStore {
            !activePreset.isCuratedFeed,
            let cached = await display.restoreCachedPage() {
             let stamped = await applyFiltersAsync(cached.items)
-            display.setVisibleItems(stamped, readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkedItemIDs)
-            Log.feed.info("restored cached page: items=\(stamped.count) generation=\(cached.generation)")
+            let cards = await restoredCards(for: stamped, projection: cached.cards,
+                                            readItemIDs: readItemIDs,
+                                            bookmarkItemIDs: bookmarkedItemIDs)
+            display.publishCards(cards, items: stamped,
+                                 readItemIDs: readItemIDs,
+                                 bookmarkItemIDs: bookmarkedItemIDs,
+                                 isAppend: false)
+            let withMedia = cards.filter { if case .image = $0.media { return true }; return false }.count
+            Log.feed.info("restored cached page (late): items=\(stamped.count) withMedia=\(withMedia) generation=\(cached.generation)")
         }
         if let smartFeedID = activePreset.smartFeedID, visibleItems.isEmpty {
             await loadSmartFeedFeed(id: smartFeedID)
@@ -1886,10 +2156,13 @@ final class FeedStore {
                 if !self.visibleItems.isEmpty { break }
                 // If first paint missed the 12s window, keep trying.
                 if Date() > firstPaintDeadline, coldStartAttempts >= 2, !self.coldStartPendingItems.isEmpty {
-                    // Publish whatever we have instead of waiting longer.
-                    let partial = Array(self.coldStartPendingItems.prefix(20))
-                    _ = await self.persistFetchedItems(partial)
+                    // Persist everything gathered, not just the visible prefix: those items are
+                    // already fetched, and discarding them threw away ~532 of a 552-item batch. The
+                    // page only needs a prefix; storage wants all of it.
+                    let pending = self.coldStartPendingItems
+                    let persisted = await self.persistInSlices(pending)
                     self.coldStartPendingItems.removeAll()
+                    Log.feed.info("cold start persisted pending: items=\(persisted.count)/\(pending.count) after deadline")
                     break
                 }
             }
@@ -1898,10 +2171,10 @@ final class FeedStore {
             if self.visibleItems.isEmpty,
                self.reservoir.reservoirCount == 0,
                !self.coldStartPendingItems.isEmpty {
-                let partial = Array(self.coldStartPendingItems.prefix(20))
-                _ = await self.persistFetchedItems(partial)
+                let pending = self.coldStartPendingItems
+                let persisted = await self.persistInSlices(pending)
                 self.coldStartPendingItems.removeAll()
-                Log.feed.info("cold start published partial: items=\(partial.count)")
+                Log.feed.info("cold start published partial: items=\(persisted.count)/\(pending.count)")
             }
             guard !self.visibleItems.isEmpty || self.reservoir.reservoirCount > 0 else {
                 display.setIsPreparingInitialRunway(false)
@@ -1943,13 +2216,27 @@ final class FeedStore {
         // when loadingState is .idle (a publish raced ahead of the phase
         // transition, or a preset path forgot to settle it) AND when the
         // pipeline stalls in .initial without runway preparation running.
+        //
+        // A page on screen is always an answer, so it settles `.ready`. An
+        // *empty* page is only an answer once the runway has stopped preparing
+        // one: a transient clear during a rebuild leaves loadingState .idle with
+        // nothing visible, and settling `.empty` there is what put "No sources
+        // enabled" on screen while the catalogue was still loading.
         if case .preparing = display.feedDisplayPhase,
            display.loadingState == .idle
                 || (display.loadingState == .initial && !isPreparingInitialRunway) {
-            display.setFeedDisplayPhase(display.visibleItems.isEmpty
-                ? .empty(contextID: presentationEpoch)
-                : .ready(contextID: presentationEpoch))
-            Log.feed.warning("startup watchdog: forced phase out of .preparing")
+            // A page on screen is always an answer, so it settles `.ready`. An
+            // *empty* page is only an answer once the runway has stopped preparing
+            // one: a transient clear during a rebuild leaves loadingState .idle with
+            // nothing visible, and settling `.empty` there is what put "No sources
+            // enabled" on screen while the catalogue was still loading.
+            let hasPage = !display.visibleItems.isEmpty
+            if hasPage || !isPreparingInitialRunway {
+                display.setFeedDisplayPhase(hasPage
+                    ? .ready(contextID: presentationEpoch)
+                    : .empty(contextID: presentationEpoch))
+                Log.feed.warning("startup watchdog: forced phase out of .preparing")
+            }
         }
     }
 
@@ -1972,6 +2259,7 @@ final class FeedStore {
             sharedCountrySourceURLs: registry.sharedCountrySourceURLs
         )
         cachedTaxonomyNodeIDs = []
+        cachedTaxonomyShape = -1
         cachedTaxonomyFeedURLs = []
         startupTotalSourceCount = registry.sourceCount
         searchEngine.replaceCatalog(at: CatalogRuntime.activeCatalogURL())
@@ -2009,7 +2297,115 @@ final class FeedStore {
     /// Stamps each item with isRead/isBookmarked so views don't observe the
     /// global sets directly — reading one item won't invalidate all cards.
     /// Increments `visibleItemsGeneration` so FeedLoader caches invalidate reliably.
-    private func setVisibleItems(_ items: [FeedItem], isAppend: Bool = false) {
+
+
+    /// Persist a batch in slices. `persistFetchedItems` is all-or-nothing — one language-resolution
+    /// mismatch drops the entire call — so handing a cold-start batch of ~550 items to it is strictly
+    /// more fragile than the 20-item path it replaced. Slicing keeps one bad row from discarding the
+    /// work, which is the whole point of persisting it instead of throwing it away.
+    @discardableResult
+    private func persistInSlices(_ items: [FeedItem]) async -> [FeedItem] {
+        var persisted: [FeedItem] = []
+        for start in stride(from: 0, to: items.count, by: Self.coldStartPersistChunk) {
+            let slice = Array(items[start..<min(start + Self.coldStartPersistChunk, items.count)])
+            persisted.append(contentsOf: await persistFetchedItems(slice))
+        }
+        return persisted
+    }
+
+
+    /// Rebuild the presentations of a restored page from their persisted media projection, decoding
+    /// through the same store the pipeline uses. The restored card then carries the very image the
+    /// pipeline would publish for it, so the first prepared batch is not a visible change — which is
+    /// the whole point: the page the reader sees first is the page they keep.
+    ///
+    /// The rule mirrors `CardPreparationCoordinator.decodeToRenderReady`: an image means a hero slot,
+    /// and a card without its image must never take one.
+    /// Ordered fingerprint of a published page: `id|layout|hasMedia` per card, joined. Used to prove
+    /// that the page restored from cache and the pipeline's own first batch are the *same* page, which
+    /// is what "the reader sees the page they keep" means. `FeedCardPresentation` itself cannot be
+    /// compared: it carries `preparedAt: Date`, so `Equatable` is never equal across publications.
+    private func pageFingerprint(_ cards: [FeedCardPresentation], prefix: Int) -> String {
+        let parts = cards.prefix(prefix).map { card -> String in
+            let layout: String
+            switch card.layout {
+            case .hero: layout = "hero"
+            case .thumbnail: layout = "thumb"
+            case .textOnly: layout = "text"
+            }
+            let hasMedia: String
+            if case .image = card.media { hasMedia = "img" } else { hasMedia = "no" }
+            return "\(card.item.id)|\(layout)|\(hasMedia)"
+        }
+        return parts.joined(separator: ",")
+    }
+
+    private func restoredCards(
+        for items: [FeedItem],
+        projection: [FeedDisplayState.CachedCardMedia]?,
+        readItemIDs: Set<String>,
+        bookmarkItemIDs: Set<String>
+    ) async -> [FeedCardPresentation] {
+        // `reduce(into:)`, never `Dictionary(uniqueKeysWithValues:)`: a duplicated id must not be a
+        // crash. That is exactly how the reverted append-merge died (`Duplicate values for key`).
+        var keys = (projection ?? []).reduce(into: [String: String]()) { acc, entry in
+            if let key = entry.cacheKey { acc[entry.itemID] = key }
+        }
+        // Decode concurrently and only what can be on screen: on a cold launch every lookup is a
+        // memory miss (actor hop + disk read) and the cached page holds the whole previous page, so
+        // decoding it sequentially would sit directly in front of the first frame. Rows past the
+        // bound stay text-only and are published by the pipeline moments later, off screen.
+        let decodable = items.prefix(Self.restoredMediaDecodeLimit)
+        var decoded: [String: UIImage] = [:]
+        await withTaskGroup(of: (String, UIImage?).self) { group in
+            for item in decodable {
+                guard let key = keys[item.id] else { continue }
+                group.addTask { [mediaAssetStore] in (item.id, await mediaAssetStore.decodedImage(for: key)) }
+            }
+            for await (id, image) in group {
+                if let image { decoded[id] = image }
+            }
+        }
+
+        // Rebuild in item order: the display keeps `visibleItems` and `visibleCards` 1:1, so the
+        // cards must follow the caller's (already filtered) list, never the cached projection.
+        var cards: [FeedCardPresentation] = []
+        cards.reserveCapacity(items.count)
+        for item in items {
+            let read = item.isRead
+            let bookmarked = item.isBookmarked
+            if let image = decoded[item.id] {
+                cards.append(FeedCardPresentation(item: item, media: .image(image), layout: .hero,
+                                                  isRead: read, isBookmarked: bookmarked))
+            } else {
+                cards.append(FeedCardPresentation(item: item, media: .none, layout: .textOnly,
+                                                  isRead: read, isBookmarked: bookmarked))
+            }
+        }
+        return cards
+    }
+
+    /// How many rows of a restored page get their media decoded before the first paint. Beyond this,
+    /// rows render text-only and the pipeline fills them in as it reaches them.
+    private static let restoredMediaDecodeLimit = 30
+
+    /// How many fetched items are enough to paint the first page instead of waiting for the full
+    /// cold-start source target. A screen, not a budget: the runway can keep filling behind it.
+    private static let coldStartImmediateItemCount = 12
+
+    /// Publishers that must have delivered before a cold-start chunk stops early. One source is a
+    /// single channel and a thin first page; the floor keeps the page interleaved.
+    private static let coldStartMinimumPageSources = 3
+
+    /// Items per write when persisting a cold-start batch.
+    private static let coldStartPersistChunk = 64
+
+    private func setVisibleItems(
+        _ items: [FeedItem],
+        isAppend: Bool = false,
+        settlesPhase: Bool = true,
+        isUserInitiated: Bool = false
+    ) {
         // Prepared pipeline: defer publication until cards are terminal.
         // The UI must never see a card without its resolved media, then
         // see an image appear later — that violates the "feed is sacred"
@@ -2040,7 +2436,7 @@ final class FeedStore {
                 }
                 guard !Task.isCancelled, ctx.epoch == self.presentationEpoch else { return }
                 let pageSize = isAppend ? Reservoir.pageSize : self.runwayPolicy.initialPublishedCount
-                await self.promotePreparedCards(context: ctx, isAppend: isAppend, maxCount: pageSize)
+                await self.promotePreparedCards(context: ctx, isAppend: isAppend, maxCount: pageSize, isUserInitiated: isUserInitiated)
             }
             return  // <-- DO NOT publish items yet; wait for terminal cards
         }
@@ -2048,7 +2444,10 @@ final class FeedStore {
         // Legacy path (or prepared pipeline with empty items):
         let countBefore = display.visibleItems.count
         display.setVisibleItems(items, readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkedItemIDs,
-            shouldCache: !isAppend && currentMode == .main)
+            shouldCache: !isAppend && currentMode == .main,
+            filterSignature: pageCacheSignature,
+            settlesPhase: settlesPhase,
+            isUserInitiated: isUserInitiated)
         if display.visibleItems.count > 0 || countBefore > 0 {
             markPreviouslyLoadedContentIfNeeded(items)
         }
@@ -2071,7 +2470,8 @@ final class FeedStore {
     private func promotePreparedCards(
         context: FeedPresentationContext,
         isAppend: Bool = false,
-        maxCount: Int = 20
+        maxCount: Int = 20,
+        isUserInitiated: Bool = false
     ) async {
         let ready: [PreparedFeedCard]
         let clock = ContinuousClock()
@@ -2113,6 +2513,10 @@ final class FeedStore {
             context: context
         )
         guard committed else { return }
+        // Re-validate AFTER the commit hops: the epoch can change while that
+        // await is in flight, and publishing now would show cards from the old
+        // composition under the new one.
+        guard !Task.isCancelled, context.epoch == presentationEpoch else { return }
         ready = candidate
 
         // Stamp before creating cards so FeedCardPresentation gets correct
@@ -2135,13 +2539,31 @@ final class FeedStore {
             )
         }
 
+        // itemID → cache key, so the warm start can rebuild these exact cards. `reduce(into:)` on
+        // purpose: a duplicate id must degrade, not crash.
+        let mediaKeys = ready.reduce(into: [String: String]()) { acc, card in
+            if case .image(let renderImage) = card.media { acc[card.item.id] = renderImage.cacheKey }
+        }
+        if !isAppend {
+            let hasMedia = cards.filter { if case .image = $0.media { return true }; return false }.count
+            Log.feed.info("page[pipeline] items=\(items.count) withMedia=\(hasMedia) fp=\(self.pageFingerprint(cards, prefix: 20))")
+        }
         display.publishCards(cards, items: items,
             readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkedItemIDs,
             isAppend: isAppend,
-            shouldCache: isAppend ? false : currentMode == .main)
+            shouldCache: isAppend ? false : currentMode == .main,
+            filterSignature: pageCacheSignature,
+            isUserInitiated: isUserInitiated,
+            mediaCacheKeys: mediaKeys)
 
         if !isAppend {
             hasPreviouslyLoadedContent = true
+            // What the reader actually keeps. The batch above can arrive with less media than is on
+            // screen (the pipeline republishes ids it has not resolved yet); the display's upgrade-only
+            // merge is what stops that from stripping images, so this is the number to watch.
+            let shown = display.visibleCards
+            let shownMedia = shown.filter { if case .image = $0.media { return true }; return false }.count
+            Log.feed.info("page[visible] items=\(shown.count) withMedia=\(shownMedia) fp=\(self.pageFingerprint(shown, prefix: 20))")
         }
 
         // After publishing a batch, let the runway controller re-evaluate
@@ -2183,7 +2605,7 @@ final class FeedStore {
             cardPreparationTask?.cancel()
             progressiveFetchTask?.cancel()
             trimDebounceTask?.cancel()
-            setVisibleItems([])
+            setVisibleItems([], settlesPhase: false)
             reservoirCount = 0
             reservoir.clear()
             if !usePreparedPipeline {
@@ -2200,24 +2622,109 @@ final class FeedStore {
                     Log.feed.info("[TaxonomyTrace] flush gen=\(generation) dropping stale (current=\(self.filterGeneration))")
                     return
                 }
-                let needsFilteredBreadth = self.activeContentType != .all
-                    && Set(self.visibleItems.map(\.sourceURL)).count < Self.immediateFilteredSourceTarget
-                if !skipNetworkFetch,
-                   (forceFetch || self.visibleItems.count < Reservoir.pageSize || needsFilteredBreadth) {
-                    await self.fetchNextBatch()
+                // Present the local composition now instead of holding it behind the
+                // fetch below. "Has something valid to show" and "is fetching more"
+                // are different states: the loader used to stay up until the network
+                // returned, so changing a filter with a slow or unreachable server
+                // showed nothing even though matching articles were already in
+                // SQLite. The fetch below still appends in the background and the
+                // terminal state further down is unchanged — it only decides
+                // `.empty` when nothing was found at all.
+                if !self.visibleItems.isEmpty,
+                   generation == 0 || generation == self.filterGeneration {
+                    self.display.setLoadingState(.idle)
+                    self.display.setFeedDisplayPhase(.ready(contextID: self.presentationEpoch))
+                    Log.feed.info("[TaxonomyTrace] flush gen=\(generation) local page published items=\(self.visibleItems.count)")
                 }
+                let sourcesBefore = Set(self.visibleItems.map(\.sourceURL)).count
+                let needsFilteredBreadth = self.activeContentType != .all
+                    && sourcesBefore < Self.immediateFilteredSourceTarget
+                // Timed because this pair is the first-paint critical path for a content-type filter:
+                // a filtered page has few distinct providers, so it always fetches over the network
+                // and then reloads the whole page again to interleave whatever the fetch added.
+                let fetchesBefore = self.totalFetched
+                let fetchStart = ContinuousClock().now
+                // Deferring the fetch is only a win when the page already holds content *of the type
+                // being asked for*: otherwise the deferral also defers the filtered content, which is
+                // worse than waiting (measured: the filter acceptance went from 6.7 s to 11.8 s when
+                // the deferral did not check the type).
+                let localOfActiveType = self.activeContentType == .all
+                    ? self.visibleItems.count
+                    : self.visibleItems.filter { self.activeContentType.matches($0) }.count
+                let hasLocalPage = !self.visibleItems.isEmpty
+                // OFF until the cold start is fixed. Head-to-head on the same combo in the same
+                // position of the run: with the deferral off, `videos` showed 5 cards @1813 ms —
+                // matching the pre-change baseline of 5 @1277 ms — and with it on, 0 cards. The one
+                // benefit cited for it (podcast 6.68 s → 5.76 s) was a single sample contradicted by
+                // the next on-run (10.4 s) and beaten by the off-run (2.03 s). Do not re-enable on
+                // n=1; re-measure each configuration at least twice, and note `all` fails in both.
+                let wantsFetch = !skipNetworkFetch
+                    && (forceFetch || self.visibleItems.count < Reservoir.pageSize || needsFilteredBreadth)
+                // The reader who already has a page must not wait on the network for it. Measured on a
+                // content-type filter, the awaited fetch was the whole first-paint cost — 27.9 s and
+                // 10.8 s against a 0.7 s reload — while the fetch's own job (finding more providers for
+                // this content type) can happen behind the painted page: the display's upgrade-only
+                // merge keeps the page steady when the interleaved batch lands.
+                // A user-initiated composition change must not inherit the cold-start runway. The
+                // first-launch bootstrap that owns first paint can run for ~80 s (its own comment), and
+                // `progressiveFetchTask` awaits it; the flush cancels that waiter but not the bootstrap,
+                // so while `isPreparingInitialRunway` stayed true the filter's fetch took the cold-start
+                // branch and waited behind it — measured: 5.5 s and 10.6 s with 0 cards. The runway
+                // belongs to the initial page; once the user asks for a different composition, the
+                // bounded path is the right one.
+                if generation != 0 {
+                    self.display.setIsPreparingInitialRunway(false)
+                }
+                self.display.setFilteredCompositionInFlight(true)
+                var fetchRanInline = false
+                if wantsFetch {
+                    // The deferral is gone, not disabled: it was never validated (the blind version measured
+                    // as a regression, the type-gated benefit was n=1), and leaving a flag at `false` with a
+                    // helper behind it made that helper dead code which silently disabled the idea.
+                    await self.fetchNextBatch()
+                    fetchRanInline = true
+                }
+                let fetchMs = Int((ContinuousClock().now - fetchStart).components.seconds * 1000
+                    + (ContinuousClock().now - fetchStart).components.attoseconds / 1_000_000_000_000_000)
                 // A filtered fetch may add providers after the cached page was
                 // seeded. Rebuild once so those providers are interleaved into
                 // the first page instead of waiting behind a prolific channel.
+                let reloadStart = ContinuousClock().now
+                var reloaded = false
+                // Only the inline fetch is followed by this rebuild: it exists to interleave what the
+                // fetch just added. When the fetch went to the background, the helper owns the pair and
+                // rebuilding here would republish from SQLite without those providers — a second full
+                // reload serving nothing, and the batch whose cards have no resolved media yet.
                 if needsFilteredBreadth,
+                   fetchRanInline,
                    !Task.isCancelled,
                    (generation == 0 || generation == self.filterGeneration) {
                     await self.reloadFromSQLite(skipRead: skipRead, generation: generation)
+                    reloaded = true
+                }
+                let reloadMs = Int((ContinuousClock().now - reloadStart).components.seconds * 1000
+                    + (ContinuousClock().now - reloadStart).components.attoseconds / 1_000_000_000_000_000)
+                if needsFilteredBreadth || reloadMs > 50 {
+                    let sourcesAfter = Set(self.visibleItems.map(\.sourceURL)).count
+                    Log.feed.info("[Latency] flush gen=\(generation) type=\(String(describing: self.activeContentType)) localOfType=\(localOfActiveType) preparingRunway=\(self.display.isPreparingInitialRunway) bootstrap=\(self.firstLaunchBootstrapTask != nil) fetchMs=\(fetchMs) fetched=\(self.totalFetched - fetchesBefore) inline=\(fetchRanInline) reloadMs=\(reloadMs) reloaded=\(reloaded) sourcesBefore=\(sourcesBefore) sourcesAfter=\(sourcesAfter) items=\(self.visibleItems.count)")
                 }
                 if self.usesPersistentStorage,
                    !Task.isCancelled,
                    generation == self.filterGeneration {
                     self.startCoverageMining(generation: generation)
+                }
+                // The terminal state belongs to the operation that asked for it.
+                // Without this guard a stale flush stamps `.empty`/`.ready` for the
+                // *current* epoch after its network wait, flashing the wrong state
+                // over a newer composition that is still working.
+                // The composition for *this* generation is done: the surface may settle, even to empty.
+                if generation == 0 || generation == self.filterGeneration {
+                    self.display.setFilteredCompositionInFlight(false)
+                }
+                guard !Task.isCancelled,
+                      generation == 0 || generation == self.filterGeneration else {
+                    Log.feed.info("[TaxonomyTrace] flush gen=\(generation) dropping stale terminal state (current=\(self.filterGeneration))")
+                    return
                 }
                 display.setLoadingState(.idle)
                 display.setFeedDisplayPhase(self.visibleItems.isEmpty
@@ -2231,11 +2738,18 @@ final class FeedStore {
             pipelineTask = Task { [weak self] in
                 await prev?.value
                 guard !Task.isCancelled, let self else { return }
+                // This operation's inputs are collected right here — the reservoir
+                // as it stands once `prev` finished — so the composition carried to
+                // the publish below is the one in effect now. No guard is needed
+                // before the mutations that follow: nothing suspends between this
+                // capture and them.
+                let ctx = self.display.activePresentationContext
                 self.reservoir.moveToVisible(count: Reservoir.pageSize)
                 self.markSurfaced(self.reservoir.visibleItems)
                 let upcoming = self.reservoir.visibleItems
                 // Run filter off main actor — keeps UI responsive during scroll-driven appends.
                 let filtered = await self.applyFiltersAsync(upcoming)
+                guard !Task.isCancelled, ctx.epoch == self.presentationEpoch else { return }
 
                 if self.usePreparedPipeline {
                     // New pipeline: CardPreparationCoordinator handles everything.
@@ -2268,12 +2782,18 @@ final class FeedStore {
                 }
                 // Move any new items from reservoir buffer to visible
                 let oldCount = self.reservoir.visibleItems.count
+                // The composition this refresh carries is the one in effect when it
+                // collects its inputs (the reservoir, just now) — capturing at
+                // request time would abort refreshes whose epoch moved while this
+                // task waited for `prev`, leaving the feed empty.
+                let ctx = self.display.activePresentationContext
                 if self.reservoir.reservoirCount > 0 && oldCount < Reservoir.pageSize {
                     self.reservoir.moveToVisible(count: Reservoir.pageSize)
                 }
                 self.markSurfaced(self.reservoir.visibleItems)
                 let upcoming = self.reservoir.visibleItems
                 let filtered = await self.applyFiltersAsync(upcoming)
+                guard !Task.isCancelled, ctx.epoch == self.presentationEpoch else { return }
 
                 if self.usePreparedPipeline {
                     self.setVisibleItems(filtered, isAppend: true)
@@ -2323,11 +2843,16 @@ final class FeedStore {
 
         case .replace(let items):
             pipelineTask?.cancel()
+            // This channel answers on its own, empty or not: the in-flight state ends here.
+            display.setFilteredCompositionInFlight(false)
             if !usePreparedPipeline {
                 cardQueue.reset()
                 display.setVisibleCards([])
             }
-            setVisibleItems(items)
+            // `.replace` is the user-action channel (search results, source toggle, presets): the
+            // caller owns the data, so an empty replacement is an answer — turning off the last
+            // enabled source must empty the feed, not leave articles from the source just disabled.
+            setVisibleItems(items, isUserInitiated: true)
         }
     }
 
@@ -2488,8 +3013,16 @@ final class FeedStore {
     }
 
     private func refreshCachedTaxonomyFeedURLsIfNeeded() {
-        guard activeNodeIDs != cachedTaxonomyNodeIDs else { return }
+        // Guarding on the node ids alone is not enough: the taxonomy may not be loaded yet when
+        // this is called first (the early restore runs before it), and an empty URL set cached
+        // then would never be refreshed — the ids do not change until the user picks another
+        // selection — so the taxonomy restriction would silently stop applying for the whole
+        // session. The tree's size is the cheapest signal that it appeared or changed.
+        let taxonomyShape = TaxonomyStore.shared.flatIndex.count
+        guard activeNodeIDs != cachedTaxonomyNodeIDs
+                || taxonomyShape != cachedTaxonomyShape else { return }
         cachedTaxonomyNodeIDs = activeNodeIDs
+        cachedTaxonomyShape = taxonomyShape
         cachedTaxonomyFeedURLs = TaxonomyStore.shared.feedURLs(inSubtreesOf: activeNodeIDs)
     }
 
@@ -2605,10 +3138,17 @@ final class FeedStore {
                 Log.feed.info("language buffer restore: items=\(filtered.count) lang=\(self.activeLanguages)")
                 // Keep network fetch running so fresh items replace buffered ones
             } else {
-                if !visibleItems.isEmpty { setVisibleItems([]) }
+                if !visibleItems.isEmpty { setVisibleItems([], settlesPhase: false) }
             }
         } else if !visibleItems.isEmpty {
-            setVisibleItems([])
+            // Reverted: keeping the page through a filter change shows the *previous* composition under the
+            // new chip (article cards while the chip reads Podcasts — the filter lying, the same class as the
+            // bar/chip mismatch), it makes the matrix assertion stop being evidence (`:365` only checks that
+            // some card exists, which a kept page satisfies), and it can dead-end: once the flush tail settles
+            // `.ready` + `.idle`, a genuinely empty filtered composition arrives with `userInitiated` false
+            // and the display's invariant refuses it, leaving the old page up indefinitely with no recovery.
+            // The honest fix is the in-progress surface (phase/emptyMode mapping), not the clear semantics.
+            setVisibleItems([], settlesPhase: false)
         }
         // Cull What's New items for the new filter — those render above
         // the main feed and must respect the new filter immediately.
@@ -2648,27 +3188,14 @@ final class FeedStore {
         let contentType = filterContentType
         let mood = activeMood
         let taxonomyURLs = cachedTaxonomyFeedURLs
-        let contentFilters = ContentFilterStore.shared.isEnabled
-            ? ContentFilterStore.shared.activeFilters : []
+        let contentFilters = activeContentFiltersForFilterPass().filters
         let deviceLanguage = Self.normalizedLanguageCode(
             Locale.current.language.languageCode?.identifier
         )
 
         // Invalidate mood cache when mood changes so the cull predicate
         // re-evaluates mood matches rather than serving stale cache entries.
-        let moodKey = mood.rawValue
-        if moodKey != moodMatchCacheKey {
-            moodMatchCache.removeAll()
-            moodMatchCacheKey = moodKey
-        }
-        if contentFilters.isEmpty {
-            contentFilterExcludeCache.removeAll()
-        }
-        let filterKey = contentFilters.map { "\($0.id):\($0.keywords.joined(separator: ","))" }.joined(separator: "|")
-        if filterKey != contentFilterCacheKey {
-            contentFilterExcludeCache.removeAll()
-            contentFilterCacheKey = filterKey
-        }
+        invalidateMoodMatchCacheIfNeeded(mood)
 
         let filterPredicate: (FeedItem) -> Bool = { [self] item in
             (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
@@ -2707,25 +3234,12 @@ final class FeedStore {
         let contentType = filterContentType
         let mood = activeMood
         let taxonomyURLs = cachedTaxonomyFeedURLs
-        let contentFilters = ContentFilterStore.shared.isEnabled
-            ? ContentFilterStore.shared.activeFilters : []
+        let contentFilters = activeContentFiltersForFilterPass().filters
         let deviceLanguage = Self.normalizedLanguageCode(
             Locale.current.language.languageCode?.identifier
         )
 
-        let moodKey = mood.rawValue
-        if moodKey != moodMatchCacheKey {
-            moodMatchCache.removeAll()
-            moodMatchCacheKey = moodKey
-        }
-        if contentFilters.isEmpty {
-            contentFilterExcludeCache.removeAll()
-        }
-        let filterKey = contentFilters.map { "\($0.id):\($0.keywords.joined(separator: ","))" }.joined(separator: "|")
-        if filterKey != contentFilterCacheKey {
-            contentFilterExcludeCache.removeAll()
-            contentFilterCacheKey = filterKey
-        }
+        invalidateMoodMatchCacheIfNeeded(mood)
 
         let filterPredicate: (FeedItem) -> Bool = { [self] item in
             (region == nil || item.region == region || item.region.hasPrefix(region! + "/"))
@@ -2907,6 +3421,7 @@ final class FeedStore {
         activeLanguages = []
         hasUserClearedLanguageFilter = true
         cachedTaxonomyNodeIDs = []
+        cachedTaxonomyShape = -1
         cachedTaxonomyFeedURLs = []
         scheduleFilterPersistence(generation: generation)
 
@@ -3416,7 +3931,7 @@ final class FeedStore {
         reservoir.readItemIDs = consumedItemIDs
         if activePreset.isLastClicked {
             reservoir.clear()
-            setVisibleItems([])
+            setVisibleItems([], settlesPhase: false)
         }
         Task {
             try await db.write { db in
@@ -3458,8 +3973,19 @@ final class FeedStore {
                     // Prepend to visible feed
                     var combined = actualNew
                     combined.append(contentsOf: reservoir.visibleItems)
-                    await reservoir.seed(items: combined, presetMultipliers: presetMultipliers)
-                    guard !Task.isCancelled, generation == filterGeneration else { return }
+                    // Inputs collected here, so this is the composition to carry.
+                    // The filter generation alone cannot prove the composition:
+                    // a preset change bumps presetGeneration and the epoch without
+                    // touching it, and `applyUpdate(.replace())` validates nothing
+                    // itself.
+                    let ctx = display.activePresentationContext
+                    let interleaved = await reservoir.computeSeed(
+                        items: combined, presetMultipliers: presetMultipliers
+                    )
+                    guard !Task.isCancelled,
+                          generation == filterGeneration,
+                          ctx.epoch == self.presentationEpoch else { return }
+                    reservoir.commitSeed(interleaved, presetMultipliers: presetMultipliers)
                     applyUpdate(.replace(applyFilters(reservoir.visibleItems)))
                     reservoirCount = reservoir.reservoirCount
                 }
@@ -3645,13 +4171,32 @@ final class FeedStore {
     /// Collection items still use the normal filters and Reservoir interleave;
     /// membership merely replaces global source enablement as the allowlist.
     private func publishCollectionPresetItems(_ items: [FeedItem], collectionID: Int64) async {
+        // Identity for this operation is the collection plus the filter
+        // generation the items were filtered with — deliberately NOT the epoch:
+        // applying a preset is re-entrant (a round trip back to the same
+        // collection bumps the epoch, and a discarded editorial flush can bump it
+        // again while this operation is still the right one). A *filter* change
+        // mid-await is what would make these items stale, and
+        // `applyUpdate(.replace())` validates nothing itself.
         guard case .collection(let currentID, _) = activePreset,
               currentID == collectionID else { return }
+        let filterGenerationAtStart = filterGeneration
         let filteredItems = applyFilters(items, includeConsumed: false)
-        await reservoir.seed(items: filteredItems, presetMultipliers: presetMultipliers)
+        let interleaved = await reservoir.computeSeed(
+            items: filteredItems, presetMultipliers: presetMultipliers
+        )
         guard !Task.isCancelled,
+              filterGenerationAtStart == filterGeneration,
               case .collection(let latestID, _) = activePreset,
-              latestID == collectionID else { return }
+              latestID == collectionID else {
+            Log.feed.info("""
+                [PresetTrace] collection seed dropped: cancelled=\(Task.isCancelled) \
+                filterGen \(filterGenerationAtStart)→\(self.filterGeneration) \
+                collection \(collectionID)→\(String(describing: self.activePreset))
+                """)
+            return
+        }
+        reservoir.commitSeed(interleaved, presetMultipliers: presetMultipliers)
         applyUpdate(.replace(reservoir.visibleItems))
         reservoirCount = reservoir.reservoirCount
     }
@@ -4095,6 +4640,16 @@ final class FeedStore {
             // Smart Feeds subscribe at the ingestion boundary so every fetch
             // path participates, including imports and explicit source loads.
             await matchSmartFeeds(succeeded)
+            // The funnel every persistence path passes through, so the counter cannot under-report:
+            // sitting in one caller (`seedRegion`) made the surface show "3 of 12" while the bootstrap
+            // had published 57 and the starter ingest had persisted hundreds — the `/100` mistake in a
+            // third direction. `startupSeenItemIDs` deduplicates, so counting here is safe.
+            // Once a screenful is counted there is nothing left to count, and without this the id set
+            // would grow with every ingestion of the session (it runs far less often in its old caller).
+            guard startupItemsReady < startupItemsTarget else { return succeeded }
+            for item in actualNew where startupSeenItemIDs.insert(item.id).inserted {
+                startupItemsReady = min(startupItemsTarget, startupItemsReady + 1)
+            }
             return succeeded
         } catch {
             Log.db.error("persist error: \(error.localizedDescription)")
@@ -4176,20 +4731,58 @@ final class FeedStore {
             display.setLoadingState(isPreparingInitialRunway && visibleItems.isEmpty ? .initial : .idle)
         }
 
+        // The `all`-filter path produced no log line at all (`[Latency]` fires only when
+        // `needsFilteredBreadth`), which is why two attributions for its 0-card combo were guesses. Log
+        // the branch and the timing for every fetch, filter or not.
+        let branchStart = ContinuousClock().now
+        defer {
+            let ms = Int((ContinuousClock().now - branchStart).components.seconds * 1000
+                + (ContinuousClock().now - branchStart).components.attoseconds / 1_000_000_000_000_000)
+            Log.feed.info("[Latency] fetch branch=\(self.activeContentType == .all ? (needsInitialRunway ? "cold" : "general") : "filtered") type=\(String(describing: self.activeContentType)) runway=\(needsInitialRunway) filtered=\(needsFilteredRunway) branchMs=\(ms) items=\(self.visibleItems.count)")
+        }
         let result: FeedFetchBatch
         if needsInitialRunway {
             result = await fetchColdStartRunway(from: batch)
             Log.feed.info("starterFetch completed: sources=\(result.fetchedSourceCount) items=\(result.items.count) attempted=\(result.sourceOutcomes.count)")
         } else if needsFilteredRunway {
             let neededSources = max(1, Self.immediateFilteredSourceTarget - visibleSourceCount)
+            // What the reader needs is a *screen*, not twelve successful publishers. Demanding the
+            // full source target made the wait as long as the slowest sources in the batch and left no
+            // margin: the deadline was 8 s, exactly the budget the filter acceptance test asserts, so
+            // reload + preparation + publication had to fit in whatever the fetch left. One successful
+            // source that yields a screenful is the honest stopping condition.
+            // Count items of the type being asked for, and keep a source floor: a screenful from one
+            // channel is thin, and a screenful of the *wrong* type is an empty filtered page. This
+            // branch is the one a type filter reaches (generation != 0), not `fetchColdStartRunway`.
+            let relevantOnPage = activeContentType == .all
+                ? visibleItems.count
+                : visibleItems.filter { activeContentType.matches($0) }.count
+            let neededItemsForScreen = max(Self.coldStartImmediateItemCount, Self.coldStartImmediateItemCount - relevantOnPage)
+            // Not 6 for a typed filter. Demanding six successful publishers means a slow batch never
+            // satisfies the source criterion, the 2.5 s deadline fires and cancels the requests still in
+            // flight — measured: audio pass 1 returned 0 items at 3.846 s (deadline + drain) and the very
+            // next round brought 20 in 3.450 s, i.e. two network rounds for a typed filter with no local
+            // content. The item criterion drives the return; the source floor only keeps the page from
+            // being one channel.
+            let neededPageSources = 3
             result = await fetcher.fetchStarter(
                 batch,
                 maxConcurrent: min(30, batch.count),
-                minimumSuccessfulSources: min(neededSources, batch.count),
-                minimumItemCount: neededSources,
-                deadline: .seconds(8)
+                minimumSuccessfulSources: min(neededPageSources, batch.count),
+                minimumItemCount: neededItemsForScreen,
+                // Twice the measured round-trip, not less than it: at 2.5 s the deadline fired and
+                // cancelled requests still in flight — audio pass 1 returned 0 items at 3.846 s (deadline
+                // plus drain) while the very next round brought 20 in 3.450 s, so a typed filter with no
+                // local content paid two network rounds. A bound shorter than the answers it waits for is
+                // not a bound, it is a cancel.
+                deadline: .seconds(4)
             )
         } else {
+            // Reverted: this is the *breadth* path (fetch/refresh without an active type), and a bounded
+            // `fetchStarter` here cancels the rest in flight — the same `cancelAll` that drains up to 48
+            // requests. That traded breadth for speed exactly as the podcast combo punished, and the
+            // matrix acceptance (≥1 card in 8 s) cannot tell a thin page from a full one. Keep the whole
+            // `fetchAll`; if first paint must not wait for it, do not await it (below), never shrink it.
             result = await fetcher.fetchAll(batch, maxConcurrent: 15)
         }
         // Yield to let pending UI work through after network I/O returns
@@ -4223,10 +4816,14 @@ final class FeedStore {
         if needsInitialRunway {
             coldStartPendingItems.append(contentsOf: result.items)
             let usefulSourceCount = Set(coldStartPendingItems.map(\.sourceURL)).count
+            // Same decoupling as the bootstrap's gate: publish as soon as there is a screenful, and
+            // keep the 100-source diversity target as a *background* fill goal. Measured here:
+            // `starterIngest withheld: sources=63/100 items=990/100` — 990 fetched items held back
+            // while the progress surface counted sources instead of content.
             guard Self.coldStartRunwayIsUseful(
                 coldStartPendingItems,
                 targetSourceCount: coldStartTargetSourceCount
-            ) else {
+            ) || coldStartPendingItems.count >= Self.coldStartImmediateItemCount else {
                 Log.feed.info(
                     "starterIngest withheld: sources=\(usefulSourceCount)/\(coldStartTargetSourceCount) items=\(self.coldStartPendingItems.count)/\(coldStartTargetSourceCount)"
                 )
@@ -4239,7 +4836,7 @@ final class FeedStore {
         }
 
         let ingestStartedAt = Date()
-        let actualNew = await persistFetchedItems(itemsToPersist)
+        let actualNew = await persistInSlices(itemsToPersist)
         if needsInitialRunway {
             Log.feed.info("starterIngest persisted: items=\(actualNew.count) elapsed=\(Date().timeIntervalSince(ingestStartedAt), format: .fixed(precision: 3))s")
         }
@@ -4962,7 +5559,7 @@ final class FeedStore {
             await registry.loadFromOPML()
             reservoir.sourceRegionMap = registry.regionMap
         }
-        let taxonomyReady = TaxonomyStore.shared.loadFromCache(
+        let taxonomyReady = await TaxonomyStore.shared.loadFromCache(
             sources: registry.sources,
             sharedCountrySourceURLs: registry.sharedCountrySourceURLs
         )
@@ -5025,6 +5622,11 @@ final class FeedStore {
                 if coverageStep.isMultiple(of: 2), !self.isCoverageMiningActive {
                     let types: [FeedLoader.ContentType] = [.video, .audio, .forum, .text]
                     let type = types[(coverageStep / 2) % types.count]
+                    // Coverage mining rotates a fixed type order from a session-local cursor that restarts at
+                    // group 0 on every launch, so a given type's turn depends on how many passes the session
+                    // has had. Logged so "no audio ever arrives" can be told apart from "audio's turn never
+                    // came": the latter is ordering/persistence, not the network.
+                    Log.feed.info("[Coverage] step=\(coverageStep) type=\(type.rawValue) taxonomyCursor=\(self.taxonomyCoverageCursor)")
                     let sources = await self.coverageSources(
                         for: type,
                         languages: self.activeLanguages,
@@ -5301,17 +5903,44 @@ final class FeedStore {
         // registered when the items are actually used.
         for item in feedItems { loadedIDs.insert(item.id) }
         loadedIDsCount = loadedIDs.count
+        // Capture the composition this reload belongs to BEFORE the first
+        // suspension, and never re-read it afterwards: a filter change while the
+        // filter pass, the seed or the coordinator work is in flight must not hand
+        // stale items the new composition's identity. Same guard style as
+        // `setVisibleItems`.
+        let ctx = display.activePresentationContext
+        let filterGenerationAtStart = filterGeneration
+        let presetGenerationAtStart = presetGeneration
         // Pre-filter before seeding so the reservoir never holds items that
         // would be filtered out. This prevents the reservoir from becoming a
         // trove of disabled-source items that leak through on .append/.trim
         // (even after Task 1-2 fixes, this avoids wasted memory and ensures
         // consistent reservoirCount).
-
-        let filteredItems = applyFilters(feedItems)
-        let balancedItems = Self.balancedCandidatePool(filteredItems)
+        //
+        // Both steps are pure, and on a full store they walk up to 5,000 candidates
+        // through predicates that normalise text and strip HTML — which, done after
+        // the SELECT returned, monopolised the main actor (review finding 7). They
+        // now run in the off-main pass, whose cache merge-back is gated on the filter
+        // generation.
+        let filteredItems = await applyFiltersAsync(feedItems)
+        let balancedItems = await Task.detached(priority: .userInitiated) {
+            Self.balancedCandidatePool(filteredItems)
+        }.value
         Log.feed.info("[TaxonomyTrace] reloadFromSQLite gen=\(generation) loaded=\(feedItems.count) filtered=\(filteredItems.count) balanced=\(balancedItems.count) taxonomyURLs=\(taxonomyURLs?.count ?? 0)")
-        await reservoir.seed(items: balancedItems, presetMultipliers: presetMultipliers)
-        // markSurfaced runs on reservoir.visibleItems AFTER seed, so only
+        let interleaved = await reservoir.computeSeed(
+            items: balancedItems, presetMultipliers: presetMultipliers
+        )
+        // The inputs are the filters and the preset this reload read and filtered
+        // with — checked as such rather than by epoch, which also counts changes
+        // that leave those inputs valid (e.g. re-applying the same composition).
+        guard !Task.isCancelled,
+              filterGenerationAtStart == filterGeneration,
+              presetGenerationAtStart == presetGeneration else {
+            Log.feed.info("[TaxonomyTrace] reloadFromSQLite gen=\(generation) dropping stale seed after interleave")
+            return
+        }
+        reservoir.commitSeed(interleaved, presetMultipliers: presetMultipliers)
+        // markSurfaced runs on reservoir.visibleItems AFTER commit, so only
         // items that actually appear on screen are recorded as surfaced.
         markSurfaced(reservoir.visibleItems)
         // Install the full editorial sequence into the coordinator in ONE
@@ -5323,16 +5952,22 @@ final class FeedStore {
             let editorialItems = reservoir.visibleItems
                 + reservoir.upcomingItems(reservoir.reservoirCount)
             await preparationCoordinator.replaceEditorialSequence(
-                editorialItems, context: display.activePresentationContext
+                editorialItems, context: ctx
             )
+            // The coordinator validates the context itself (`context ==
+            // activeContext`), and it is called with the captured `ctx` — so a
+            // composition change is rejected there, without this store-level guard
+            // discarding work whose inputs are still valid.
+            guard !Task.isCancelled else { return }
             await preparationCoordinator.fillRunway(
                 targetRenderReady: runwayPolicy.initialPublishedCount,
-                context: display.activePresentationContext
+                context: ctx
             )
-            await runwayController.start(context: display.activePresentationContext)
+            guard !Task.isCancelled else { return }
+            await runwayController.start(context: ctx)
             await runwayController.evaluate()
             await promotePreparedCards(
-                context: display.activePresentationContext,
+                context: ctx,
                 isAppend: false,
                 maxCount: runwayPolicy.initialPublishedCount
             )
@@ -5342,6 +5977,12 @@ final class FeedStore {
             // items rather than relying on the moveToVisible loop (which
             // only runs when reservoir.reservoirCount > 0 — missing the case
             // where all seeded items fit in the first page).
+            //
+            // Kept synchronous on purpose: publishing under `await` would put a
+            // suspension between the filter and the publish, and this branch carries
+            // no generation guard of its own — a filter change landing in that window
+            // would publish a superseded composition. This path is the low-volume one,
+            // so the main-actor saving would not pay for that risk.
             let upcoming = applyFilters(reservoir.visibleItems)
             if !upcoming.isEmpty {
                 setVisibleItems(upcoming)
@@ -5585,6 +6226,10 @@ final class FeedStore {
         guard !actualNew.isEmpty else { return [] }
         await matchPersistentSearches(actualNew)
         prefetchImagesIfEnabled(for: actualNew)
+        // What actually gates publication: an item counts only once it is *persisted*, not once it is
+        // fetched. `persistFetchedItems` is all-or-nothing, so counting the fetcher's items would let
+        // the surface promise a ready screen while storage was still pending — the `/100` mistake in
+        // the opposite direction.
         return actualNew
     }
 
@@ -7580,28 +8225,22 @@ extension FeedStore: ImageResolutionQueueDelegate {
         }
     }
 
-    /// Called by ``ImageResolutionQueue`` when a background retry resolves an
-    /// image. Updates the item's card in ``visibleCards`` so the UI transitions
-    /// from placeholder to image in-place — no feed shift, no re-insertion.
+    /// A background retry resolved an image for an item that may already be on
+    /// screen.
+    ///
+    /// The published card is deliberately left alone. Its presentation is frozen
+    /// at publication, so this only records the late resolution; the image is in
+    /// `ImageCache` and the next composition publishes the card with it already
+    /// in place. Rewriting the published card here would activate the hero slot
+    /// and grow the card under a reader who is mid-scroll — the very shift the
+    /// freeze exists to prevent (see `CardPreparationCoordinator`'s deferred
+    /// retry, which takes the same decision). Pinned by
+    /// `FeedStoreTests.test_lateImageResolutionDoesNotMutatePublishedCard`.
     func imageResolutionQueue(didResolveImageFor itemID: String) {
-        guard let idx = visibleCards.firstIndex(where: { $0.id == itemID }),
-              let item = visibleItems.first(where: { $0.id == itemID })
-                ?? visibleCards[idx].item as FeedItem? else { return }
-
-        // Image is now in ImageCache (stored by ImageLoader during retry).
-        let imageURL = item.bestImageURL.flatMap(URL.init(string:))
-        let uiImage = imageURL.flatMap { ImageCache.shared.memoryImage(for: $0) }
-
-        guard let uiImage else { return }
-
-        let newCard = FeedCardPresentation(
-            item: item,
-            media: .image(uiImage),
-            layout: .hero,
-            isRead: item.isRead,
-            isBookmarked: item.isBookmarked
-        )
-        display.replaceVisibleCard(at: idx, with: newCard)
+        Log.feed.info("""
+            Image resolved late for \(itemID.prefix(12)); kept for the next composition \
+            (published cards keep their presentation)
+            """)
     }
 
     /// Called when all retries are exhausted. The item stays text-only.

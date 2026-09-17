@@ -73,6 +73,21 @@ enum PresetSelector: Codable, Sendable, Hashable {
         }
     }
 
+    /// Stable identity for cache keying. Deliberately not `displayName`: names are
+    /// user- and locale-dependent, so a renamed collection would silently orphan
+    /// its cached page. Ranking information is excluded too — the cached page holds
+    /// items, and which preset is active is enough to know whose items they are.
+    var cacheKey: String {
+        switch self {
+        case .everything:                        return "everything"
+        case .lastClicked:                       return "lastClicked"
+        case .editorial(let preset):             return "editorial:\(preset.rawValue)"
+        case .collection(let id, _):             return "collection:\(id)"
+        case .smartFeed(let id, _):              return "smartFeed:\(id)"
+        case .curatedFeed(let id, _):            return "curatedFeed:\(id)"
+        }
+    }
+
     var icon: String {
         switch self {
         case .everything:          return "circle.grid.3x3.fill"

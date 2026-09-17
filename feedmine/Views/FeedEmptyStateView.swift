@@ -44,6 +44,7 @@ struct FeedEmptyStateView: View {
                 .minimumScaleFactor(0.82)
                 .frame(maxWidth: 360)
                 .padding(.horizontal, 24)
+                .accessibilityIdentifier("feed-empty-title")
 
             // Description
             Text(description)
@@ -116,6 +117,12 @@ struct FeedEmptyStateView: View {
             Spacer()
         }
         .padding(.top, 40)
+        .accessibilityIdentifier("feed-empty-state")
+        // Same reason as `InitialFeedLoadingView`: this is the other no-feed surface (it is what a `ready`-but-empty
+        // feed renders, and its title reads "Loading your feed..." while `loadingState == .initial`), and the test-side
+        // sampler cannot see the window before `launch()` returns. The title says which variant the user was shown.
+        .onAppear { Log.ui.info("surface[empty-state] appear title=\(title)") }
+        .onDisappear { Log.ui.info("surface[empty-state] disappear") }
         .sheet(isPresented: $showFilters) {
             FilterSheetView()
         }

@@ -29,16 +29,6 @@ actor CardPreparationCoordinator {
     /// change so stale upgrades can't mutate a newer coordinator state.
     private var deferredRetryTasks: [String: Task<Void, Never>] = [:]
 
-    /// Called when a deferred image retry succeeds AND the card has already
-    /// been published (no longer in renderReadyByID). FeedStore wires this
-    /// to replace the visible card in-place via FeedDisplayState.
-    private var onCardMediaUpgraded: (@Sendable (_ itemID: String, _ image: RenderImage) -> Void)?
-
-    /// Set the deferred-image upgrade callback. Callable from any context.
-    func setOnCardMediaUpgraded(_ callback: @escaping @Sendable (_ itemID: String, _ image: RenderImage) -> Void) {
-        onCardMediaUpgraded = callback
-    }
-
     /// Index of the next item that hasn't started preparation.
     private var nextPrepareIndex: Int = 0
 
@@ -554,7 +544,7 @@ actor CardPreparationCoordinator {
     /// already published as text-only (`.none` + `.textOnly`) — it does NOT
     /// block the contiguous prefix. This retry runs in the background:
     ///
-    /// - Image arrives → upgrade to `.image` + `.hero` in-place
+    /// - Image arrives → kept in the render-ready cache for the next composition
     /// - Deadline fires → no-op (card is already terminal text-only)
     private func startDeferredImageRetry(
         for item: FeedItem,
@@ -591,8 +581,12 @@ actor CardPreparationCoordinator {
     }
 
     /// Upgrade a deferred-retry card from text-only to hero with image.
-    /// If the card is still in renderReadyByID, upgrades in-place.
-    /// If already published, signals via onCardMediaUpgraded callback.
+    ///
+    /// The card's **published presentation is immutable**: once a card has left
+    /// the render-ready runway, its media and layout do not change, because
+    /// activating the hero slot changes the card's height and would shift
+    /// everything below it while the user is reading. A late image is therefore
+    /// kept for the next composition instead of being applied in place.
     private func upgradeDeferredToHero(
         item: FeedItem, asset: ResolvedImageAsset, context: FeedPresentationContext
     ) async {
@@ -604,20 +598,13 @@ actor CardPreparationCoordinator {
         let renderReady = await decodeToRenderReady(
             item: item, asset: resolved, context: context
         )
-        guard !Task.isCancelled, case .image(let ri) = renderReady.media else { return }
+        guard !Task.isCancelled, case .image = renderReady.media else { return }
 
-        // Try to upgrade the render-ready card in the coordinator.
-        // If the card was already published (removed by commitPublished),
-        // upgrade via the onCardMediaUpgraded callback instead.
-        if renderReadyByID[item.id] != nil {
-            // Still in coordinator — upgrade in place.
-            _ = await storeRenderReady(
-                item.id, card: renderReady, context: context
-            )
-        } else {
-            // Already published — upgrade via FeedStore callback.
-            onCardMediaUpgraded?(item.id, ri)
-        }
+        // The published presentation is immutable, so the decoded card only
+        // refreshes the runway entry: the next composition publishes it with
+        // the image already in place, instead of the card growing a hero slot
+        // under a reader who is mid-scroll.
+        _ = await storeRenderReady(item.id, card: renderReady, context: context)
     }
 
     /// Remove tracking state for a completed deferred retry.

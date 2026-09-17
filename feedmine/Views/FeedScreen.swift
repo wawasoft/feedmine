@@ -75,6 +75,18 @@ struct FeedScreen: View {
                 total: loader.selectedNodeIDs.reduce(0) { $0 + (TaxonomyStore.shared.node(id: $1)?.feedCount ?? 0) }
             )
         }
+        if loader.hasActiveFilters, loader.items.isEmpty, loader.isPreparingFilteredComposition {
+            // The composition for this filter is still being fetched and prepared: show the in-progress
+            // surface, not an absence. Measured: a type filter with no local content of that type has
+            // nothing for several seconds (audio: first pass 0 items, next pass 20), and "no results"
+            // there is the user's "empty screens appearing for no reason". A finished empty answer still
+            // settles, because the flag clears when the generation's flush completes.
+            return .fetching(
+                topic: activeTopic,
+                fetched: loader.emptyStateFetchedCount,
+                total: loader.selectedNodeIDs.reduce(0) { $0 + (TaxonomyStore.shared.node(id: $1)?.feedCount ?? 0) }
+            )
+        }
         if loader.hasActiveFilters && loader.items.isEmpty && loader.loadingState == .idle {
             return .noResults(topic: activeTopic)
         }
@@ -99,6 +111,12 @@ struct FeedScreen: View {
                 unifiedSearchPanel
             } else {
                 switch loader.feedDisplayPhase {
+                case .preparing where !loader.items.isEmpty:
+                    // The store keeps the displayed page while a rebuild runs, and setFilter /
+                    // manualRefresh both enter `.preparing`. Swapping to the loading screen here
+                    // would blank a feed the user is already reading; the page stays until the new
+                    // composition lands.
+                    feedScrollView
                 case .preparing:
                     InitialFeedLoadingView()
                 case .ready where loader.items.isEmpty:
@@ -1462,6 +1480,10 @@ struct CompactFeedStatus: View {
             if isShowingStartupProgress {
                 HStack(spacing: 3) {
                     Text("· \(loader.startupFetchedSourceCount)/\(startupTotal)")
+                    // What actually gates the first screen, stated as such. The source count above is
+                    // the catalogue-scope figure (the chip's own denominator); this is the content one,
+                    // so the two never have to be the same number or agree by coincidence.
+                    Text("· \(loader.startupItemsReady) of \(loader.startupItemsTarget) articles for your first screen")
                         .contentTransition(.numericText())
                     if showReadyPulse {
                         Image(systemName: "checkmark.circle.fill")
@@ -1475,7 +1497,11 @@ struct CompactFeedStatus: View {
                 .accessibilityLabel(
                     "\(loader.startupFetchedSourceCount) of \(startupTotal) sources verified"
                 )
-            } else {
+            } else if loader.sourceCount > 0 {
+                // The local first page is published before the catalogue is
+                // loaded, so the runway flag clears while the total is still
+                // unknown. "0/0 sources" is a claim the app cannot make yet;
+                // stay silent until the registry has actually counted them.
                 Text("·\(loader.activeSourceCount)/\(loader.sourceCount) sources")
                     .font(.caption2.monospacedDigit())
                     .foregroundStyle(.secondary)
@@ -1784,10 +1810,18 @@ struct InitialFeedLoadingView: View {
         .drawingGroup()  // Offload entire loading view to GPU/Metal — zero main-thread rendering
         .disabled(true)
         .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("initial-feed-loading")
         .accessibilityLabel(loadingTitle)
         .accessibilityValue(
             "\(loader.startupFetchedSourceCount)/\(loader.startupTargetSourceCount)"
         )
+        // The doctrine's headline case ("close and reopen … no loading screen") is not measurable from the test side:
+        // `XCUIApplication.launch()` returns only when the app is idle, which on a warm relaunch is ~2.2 s in, so the
+        // test can only sample from there onward and the earlier window is unobserved. These lines timestamp the
+        // surface in the *app's* log — where `page[restore]` and `publishCards firstPaint` already live — so the whole
+        // window is covered by instruments the harness cannot block.
+        .onAppear { Log.ui.info("surface[initial-loading] appear label=\(loadingTitle)") }
+        .onDisappear { Log.ui.info("surface[initial-loading] disappear") }
         .task {
             while !Task.isCancelled {
                 let names = loader.startupRecentSourceNames

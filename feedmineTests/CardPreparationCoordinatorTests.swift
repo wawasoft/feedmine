@@ -190,17 +190,21 @@ final class CardPreparationCoordinatorTests: XCTestCase {
         // resolve to .none and become render-ready quickly.
         await coordinator.fillRunway(targetRenderReady: 3, context: ctx)
 
-        // Give the async tasks time to complete.
-        try? await Task.sleep(for: .milliseconds(500))
+        // Wait for the condition the assertions are about — the contiguous prefix reaching
+        // three render-ready cards — instead of a fixed 500ms. The old sleep turned a slow
+        // preparation into a silent pass: the `guard` below returned without asserting anything.
+        let ready = await coordinator.waitForContiguousPrefix(
+            minimumCount: 3,
+            maximumCount: 3,
+            deadline: ContinuousClock().now.advanced(by: .seconds(30)),
+            context: ctx
+        )
+        XCTAssertEqual(ready.count, 3, "all three image-less items must become render-ready within 30s")
 
         let peeked = await coordinator.peekRenderReadyPrefix(
             maximumCount: 3, context: ctx
         )
-        guard peeked.count == 3 else {
-            // If items didn't become ready (timing), this test is inconclusive.
-            // The coordinator may take longer in CI.
-            return
-        }
+        XCTAssertEqual(peeked.count, 3, "the render-ready prefix must hold all three items")
 
         let result = await coordinator.commitPublished(
             expectedIDs: peeked.map(\.id), context: ctx
@@ -232,7 +236,15 @@ final class CardPreparationCoordinatorTests: XCTestCase {
         let items = (0..<3).map { makeItem(id: "\($0)") }
         await coordinator.replaceEditorialSequence(items, context: ctx)
         await coordinator.fillRunway(targetRenderReady: 3, context: ctx)
-        try? await Task.sleep(for: .milliseconds(500))
+        // Readiness signal instead of a fixed 500ms: without three ready cards the
+        // "same IDs on repeated calls" assertion could pass on two peeks that both saw nothing.
+        let ready = await coordinator.waitForContiguousPrefix(
+            minimumCount: 3,
+            maximumCount: 3,
+            deadline: ContinuousClock().now.advanced(by: .seconds(30)),
+            context: ctx
+        )
+        XCTAssertEqual(ready.count, 3, "all three image-less items must become render-ready within 30s")
 
         let first = await coordinator.peekRenderReadyPrefix(
             maximumCount: 3, context: ctx
@@ -256,22 +268,27 @@ final class CardPreparationCoordinatorTests: XCTestCase {
         let items = (0..<5).map { makeItem(id: "\($0)") }
         await coordinator.replaceEditorialSequence(items, context: ctx)
         await coordinator.fillRunway(targetRenderReady: 5, context: ctx)
-        try? await Task.sleep(for: .milliseconds(500))
+        // Establish the precondition by signal — five ready cards — before starting the clock:
+        // the old 500ms sleep left it to luck whether anything was ready, and the test then
+        // skipped its only assertion.
+        let ready = await coordinator.waitForContiguousPrefix(
+            minimumCount: 5, maximumCount: 5,
+            deadline: ContinuousClock().now.advanced(by: .seconds(30)), context: ctx
+        )
+        XCTAssertEqual(ready.count, 5, "all five image-less items must become render-ready within 30s")
 
-        let deadline = ContinuousClock().now.advanced(by: .seconds(5))
         let start = ContinuousClock().now
         let cards = await coordinator.waitForContiguousPrefix(
-            minimumCount: 1, maximumCount: 5, deadline: deadline, context: ctx
+            minimumCount: 1, maximumCount: 5,
+            deadline: ContinuousClock().now.advanced(by: .seconds(5)), context: ctx
         )
         let elapsed = start.duration(to: .now)
 
-        if cards.count >= 1 {
-            XCTAssertLessThan(
-                elapsed, .seconds(1),
-                "Should return near-instantly when cards are already ready"
-            )
-        }
-        // If no cards ready, that's a timing issue — not a test failure.
+        XCTAssertEqual(cards.count, 5, "an already-ready prefix must be returned whole")
+        XCTAssertLessThan(
+            elapsed, .seconds(1),
+            "Should return near-instantly when cards are already ready"
+        )
     }
 
     func test_waitForContiguousPrefix_returnsEmptyOnWrongContext() async {
@@ -283,7 +300,7 @@ final class CardPreparationCoordinatorTests: XCTestCase {
             [makeItem(id: "A")], context: ctx1
         )
 
-        let deadline = ContinuousClock().now.advanced(by: .seconds(10))
+        let deadline = ContinuousClock().now.advanced(by: .seconds(30))
         let cards = await coordinator.waitForContiguousPrefix(
             minimumCount: 1, maximumCount: 5, deadline: deadline, context: ctx2
         )
@@ -299,25 +316,29 @@ final class CardPreparationCoordinatorTests: XCTestCase {
         let items = (0..<5).map { makeItem(id: "\($0)") }
         await coordinator.replaceEditorialSequence(items, context: ctx)
         await coordinator.fillRunway(targetRenderReady: 5, context: ctx)
-        try? await Task.sleep(for: .milliseconds(500))
+        // Signal first: the commit below must act on a prefix that is actually ready, so wait
+        // for it instead of sleeping a fixed 500ms and skipping the assertions when it was not.
+        let ready = await coordinator.waitForContiguousPrefix(
+            minimumCount: 5, maximumCount: 5,
+            deadline: ContinuousClock().now.advanced(by: .seconds(30)), context: ctx
+        )
+        XCTAssertEqual(ready.count, 5, "all five image-less items must become render-ready within 30s")
 
         let before = await coordinator.editorialAheadCount
         XCTAssertEqual(before, 5, "All 5 items ahead of publish index")
 
-        // Try to commit whatever is ready.
         let peeked = await coordinator.peekRenderReadyPrefix(
             maximumCount: 5, context: ctx
         )
-        if !peeked.isEmpty {
-            _ = await coordinator.commitPublished(
-                expectedIDs: peeked.map(\.id), context: ctx
-            )
-            let after = await coordinator.editorialAheadCount
-            XCTAssertEqual(
-                after, 5 - peeked.count,
-                "Ahead count should decrease by committed count"
-            )
-        }
+        XCTAssertEqual(peeked.count, 5, "the render-ready prefix must hold all five items")
+        _ = await coordinator.commitPublished(
+            expectedIDs: peeked.map(\.id), context: ctx
+        )
+        let after = await coordinator.editorialAheadCount
+        XCTAssertEqual(
+            after, 5 - peeked.count,
+            "Ahead count should decrease by committed count"
+        )
     }
 
     // MARK: - epoch guard
@@ -348,12 +369,18 @@ final class CardPreparationCoordinatorTests: XCTestCase {
         let items = (0..<10).map { makeItem(id: "\($0)") }
         await coordinator.replaceEditorialSequence(items, context: ctx)
         await coordinator.fillRunway(targetRenderReady: 10, context: ctx)
-        try? await Task.sleep(for: .milliseconds(500))
+        // Wait for three render-ready cards — the precondition the commit below is about —
+        // rather than sleeping 500ms and silently returning when they were not ready yet.
+        let ready = await coordinator.waitForContiguousPrefix(
+            minimumCount: 3, maximumCount: 3,
+            deadline: ContinuousClock().now.advanced(by: .seconds(30)), context: ctx
+        )
+        XCTAssertEqual(ready.count, 3, "three image-less items must become render-ready within 30s")
 
         let peeked = await coordinator.peekRenderReadyPrefix(
             maximumCount: 3, context: ctx
         )
-        guard peeked.count == 3 else { return }
+        XCTAssertEqual(peeked.count, 3, "the render-ready prefix must hold three items")
 
         let committed = await coordinator.commitPublished(
             expectedIDs: peeked.map(\.id), context: ctx

@@ -18,9 +18,13 @@ enum ImageResolutionState: String, Sendable {
 /// naturally runs on MainActor since FeedStore is @MainActor.
 @MainActor
 protocol ImageResolutionQueueDelegate: AnyObject, Sendable {
-    /// Called when a background retry resolves an image. FeedStore should
-    /// update the item's `imageURL` in the reservoir and, if visible,
-    /// replace the card's media slot in-place.
+    /// Called when a background retry resolves an image.
+    ///
+    /// This is the enforcement point for a hard contract: a card that has
+    /// already been published keeps its presentation. The image is already in
+    /// `ImageCache`, which is what the next composition reads, so a conformer
+    /// MUST NOT rewrite a published card here — activating the hero slot changes
+    /// the card's height and would shift every card below it under the reader.
     func imageResolutionQueue(didResolveImageFor itemID: String)
 
     /// Called when all retries are exhausted and the item is permanently
@@ -279,7 +283,10 @@ actor ImageResolutionQueue {
         pendingIDs.remove(itemID)
         await dequeue(itemID: itemID)
 
-        // Notify FeedStore to update visibleCards in-place
+        // The resolved image is already in ImageCache, which is what the next
+        // composition reads. The delegate is still notified so the contract is
+        // enforced and testable at one place — see the protocol documentation:
+        // it must not rewrite a card that was already published.
         await delegate?.imageResolutionQueue(didResolveImageFor: itemID)
     }
 

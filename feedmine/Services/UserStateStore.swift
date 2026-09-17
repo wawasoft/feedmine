@@ -29,11 +29,15 @@ final class UserStateStore {
     /// P1-10: When both the old Documents database and the new Application
     /// Support database exist (e.g. from a partial prior migration), we
     /// must not silently open the new empty database while the user's real
-    /// data remains in Documents. The policy:
-    ///   - If the new destination already exists with data, prefer it.
-    ///   - If the new destination is empty/absent, complete the migration.
-    ///   - If both have data, keep the new one (it was migrated earlier).
-    ///   - Never leave the user's data invisible.
+    /// data remains in Documents. The policy, in priority order:
+    ///   - Destination holds user rows → it wins; drop the Documents copy.
+    ///   - Destination is a verified empty shell → finish the migration.
+    ///   - Destination cannot be inspected → touch nothing (see below).
+    ///
+    /// The old heuristic treated *any* non-zero byte size as authority. A
+    /// database whose schema migrations ran but whose rows never arrived is
+    /// several pages of bytes with no user content, so that rule deleted the
+    /// only copy of the user's bookmarks.
     private static func migrateUserDBFromDocumentsIfNeeded() {
         let fm = FileManager.default
         let docs = fm.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -47,24 +51,38 @@ final class UserStateStore {
 
         let newPath = newDir.appendingPathComponent("user.sqlite").path
 
-        // P1-10: If a database already exists at the destination, check
-        // which one is authoritative before blindly moving.
+        // P1-10: inspect the destination before deciding which side is
+        // authoritative. Never infer authority from the file size.
         if fm.fileExists(atPath: newPath) {
-            let oldSize = (try? fm.attributesOfItem(atPath: oldPath)[.size] as? Int64) ?? 0
-            let newSize = (try? fm.attributesOfItem(atPath: newPath)[.size] as? Int64) ?? 0
-            if newSize > 0 {
-                // Destination has content — keep it (previous migration succeeded).
-                // Remove the old Documents copy so we don't check again on every launch.
-                Log.db.info("Application Support user.sqlite exists (\(newSize) bytes); removing Documents copy")
+            switch destinationUserDataState(atPath: newPath) {
+            case .holdsUserData:
+                // Previous migration completed — keep it and remove the
+                // Documents copy so we don't re-check on every launch.
+                Log.db.info("Application Support user.sqlite holds user data; removing Documents copy")
                 for suffix in ["", "-wal", "-shm"] {
                     try? fm.removeItem(atPath: oldPath + suffix)
                 }
                 return
-            }
-            // Destination exists but is empty — remove it and proceed with migration.
-            Log.db.info("Application Support user.sqlite is empty; re-migrating from Documents")
-            for suffix in ["", "-wal", "-shm"] {
-                try? fm.removeItem(atPath: newPath + suffix)
+
+            case .emptyShell:
+                // Destination carries no user rows — remove it and proceed.
+                Log.db.info("Application Support user.sqlite is empty; re-migrating from Documents")
+                for suffix in ["", "-wal", "-shm"] {
+                    try? fm.removeItem(atPath: newPath + suffix)
+                }
+
+            case let .unverifiable(reason):
+                // The destination exists but we could not prove what it
+                // holds (unreadable, corrupt, or a WAL pair we cannot open
+                // read-only). Deleting the Documents copy here — as the old
+                // size check did — could destroy the only copy of the user's
+                // data. Leave both in place; the regular open path decides,
+                // and the next launch re-checks.
+                Log.db.error("""
+                    Application Support user.sqlite could not be inspected (\(reason)); \
+                    leaving both databases in place
+                    """)
+                return
             }
         }
 
@@ -85,6 +103,66 @@ final class UserStateStore {
                 try? fm.moveItem(atPath: dst, toPath: src)
             }
             Log.db.error("User DB migration to Application Support failed: \(error)")
+        }
+    }
+
+    /// What a candidate `user.sqlite` actually contains.
+    private enum DestinationState {
+        /// At least one user-owned row — a database that really has been used.
+        case holdsUserData
+        /// Opens cleanly and holds none: schema only, created by a launch that
+        /// migrated the schema but never received the user's rows.
+        case emptyShell
+        /// Cannot be read or opened; contents unknown.
+        case unverifiable(String)
+    }
+
+    /// Tables written exclusively by user action (or by a migration copying
+    /// user data). None is seeded by the schema migrations themselves, so a
+    /// row in any of them proves the database has been used.
+    ///
+    /// `bookmark_list` is deliberately absent: `v1_bookmarks` inserts a default
+    /// list, so it holds a row in every database, including a brand-new one.
+    /// `user_metadata` is absent too — migration markers are written even when
+    /// nothing was migrated.
+    private static let userDataTables = [
+        "bookmark_item",
+        "smart_feed",
+        "curated_feed",
+        "imported_source",
+        "source_collection",
+        "source_collection_member",
+    ]
+
+    /// State of the destination database, decided by opening it — never by its
+    /// file size.
+    ///
+    /// Measured (SQLite 3.x, WAL): a newly created database materialises its
+    /// header page immediately, so "0-byte file whose committed rows live in
+    /// `-wal`" is not a state this schema can reach; and once the header page is
+    /// gone the WAL stops being readable — the app's own read-write open
+    /// discards it. Size therefore carries no information the open does not,
+    /// which is why there is exactly one decision path here.
+    private static func destinationUserDataState(atPath path: String) -> DestinationState {
+        var config = Configuration()
+        config.readonly = true
+        do {
+            let queue = try DatabaseQueue(path: path, configuration: config)
+            defer { try? queue.close() }
+            let userRows = try queue.read { db -> Int in
+                let existing = try Set(String.fetchAll(
+                    db,
+                    sql: "SELECT name FROM sqlite_master WHERE type = 'table'"
+                ))
+                var total = 0
+                for table in userDataTables where existing.contains(table) {
+                    total += try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(table)") ?? 0
+                }
+                return total
+            }
+            return userRows > 0 ? .holdsUserData : .emptyShell
+        } catch {
+            return .unverifiable(error.localizedDescription)
         }
     }
 
@@ -334,6 +412,32 @@ final class UserStateStore {
 
     private static let legacyMigrationMarker = "legacy_bookmark_migration_v1_completed"
 
+    /// Marker for the `imported_sources.json` → `imported_source` migration.
+    /// Its presence is what authorises deleting the legacy JSON file.
+    private static let importedSourcesJSONMigrationMarker = "imported_sources_json_migration_v1_completed"
+
+    /// True when a one-time migration recorded its completion marker.
+    private func hasMigrationMarker(_ key: String) throws -> Bool {
+        try db.read { db in
+            try String.fetchOne(db, sql: """
+                SELECT value FROM user_metadata WHERE key = ?
+                """, arguments: [key])
+        } == "1"
+    }
+
+    /// Record a completion marker inside an existing transaction. Callers
+    /// commit markers in the *same* transaction as the data they describe, so
+    /// a crash can never leave a half-applied migration marked as done.
+    ///
+    /// A pure function of its arguments that touches no actor state, hence
+    /// `nonisolated`: callable from any isolation context.
+    nonisolated private static func writeMigrationMarker(_ db: Database, key: String) throws {
+        try db.execute(sql: """
+            INSERT INTO user_metadata (key, value) VALUES (?, '1')
+            ON CONFLICT(key) DO UPDATE SET value = excluded.value
+            """, arguments: [key])
+    }
+
     /// Copy bookmark data from `feedmine.sqlite` into `user.sqlite`.
     /// Idempotent — checks marker first, validates counts after.
     /// Synchronous because all operations are local SQL (fast — typically
@@ -341,11 +445,7 @@ final class UserStateStore {
     /// before the UI loads favorites.
     func migrateFromLegacy(legacyDB: DatabaseQueue) throws {
         // Guard: already completed
-        let alreadyDone = try db.read { db in
-            try String.fetchOne(db, sql: """
-                SELECT value FROM user_metadata WHERE key = ?
-                """, arguments: [Self.legacyMigrationMarker])
-        } == "1"
+        let alreadyDone = try hasMigrationMarker(Self.legacyMigrationMarker)
         guard !alreadyDone else { return }
 
         let (lists, items) = try legacyDB.read { legacy in
@@ -356,10 +456,7 @@ final class UserStateStore {
         guard !lists.isEmpty || !items.isEmpty else {
             // Nothing to migrate — still record marker so we don't re-check
             try db.write { user in
-                try user.execute(sql: """
-                    INSERT INTO user_metadata (key, value) VALUES (?, '1')
-                    ON CONFLICT(key) DO UPDATE SET value = excluded.value
-                    """, arguments: [Self.legacyMigrationMarker])
+                try Self.writeMigrationMarker(user, key: Self.legacyMigrationMarker)
             }
             return
         }
@@ -401,10 +498,7 @@ final class UserStateStore {
                 """)
 
             // Record marker so future launches skip the check
-            try user.execute(sql: """
-                INSERT INTO user_metadata (key, value) VALUES (?, '1')
-                ON CONFLICT(key) DO UPDATE SET value = excluded.value
-                """, arguments: [Self.legacyMigrationMarker])
+            try Self.writeMigrationMarker(user, key: Self.legacyMigrationMarker)
         }
     }
 
@@ -413,12 +507,7 @@ final class UserStateStore {
     /// inspecting actual bookmark content — not just list count.
     func needsLegacyMigration(legacyDB: DatabaseQueue) throws -> Bool {
         // Check marker first — one-and-done
-        let alreadyCompleted = try db.read { db in
-            try String.fetchOne(db, sql: """
-                SELECT value FROM user_metadata WHERE key = ?
-                """, arguments: [Self.legacyMigrationMarker])
-        } == "1"
-        if alreadyCompleted { return false }
+        if try hasMigrationMarker(Self.legacyMigrationMarker) { return false }
 
         // Check for actual bookmark data in the legacy DB.
         // We inspect bookmark_item rows, not just bookmark_list count,
@@ -775,26 +864,34 @@ extension UserStateStore {
     /// Persist imported sources into user.sqlite, replacing any previous set.
     func saveImportedSources(_ sources: [FeedSource]) throws {
         try db.write { db in
-            try db.execute(sql: "DELETE FROM imported_source")
-            let now = Int(Date().timeIntervalSince1970)
-            for source in sources {
-                try db.execute(
-                    sql: """
-                        INSERT INTO imported_source
-                        (source_identity, request_url, title, category, media_kind, language, added_at, enabled)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, 1)
-                        """,
-                    arguments: [
-                        OPMLParser.normalizeURL(source.url),
-                        source.url,
-                        source.title,
-                        source.category,
-                        source.mediaKind.rawValue,
-                        source.language,
-                        now,
-                    ]
-                )
-            }
+            try Self.replaceImportedSources(db, with: sources)
+        }
+    }
+
+    /// Replace the whole `imported_source` table. Takes a `Database` so callers
+    /// can commit the rows together with their migration marker in one
+    /// transaction. `nonisolated` for the same reason: a pure function of its
+    /// arguments, callable from any isolation context.
+    nonisolated private static func replaceImportedSources(_ db: Database, with sources: [FeedSource]) throws {
+        try db.execute(sql: "DELETE FROM imported_source")
+        let now = Int(Date().timeIntervalSince1970)
+        for source in sources {
+            try db.execute(
+                sql: """
+                    INSERT INTO imported_source
+                    (source_identity, request_url, title, category, media_kind, language, added_at, enabled)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, 1)
+                    """,
+                arguments: [
+                    OPMLParser.normalizeURL(source.url),
+                    source.url,
+                    source.title,
+                    source.category,
+                    source.mediaKind.rawValue,
+                    source.language,
+                    now,
+                ]
+            )
         }
     }
 
@@ -818,25 +915,46 @@ extension UserStateStore {
         }
     }
 
-    /// One-time migration: import existing imported_sources.json into SQLite.
-    /// Removes the JSON file on success so old data isn't re-imported.
+    /// One-time migration: import the legacy `imported_sources.json` into
+    /// `imported_source`.
+    ///
+    /// The rows and the completion marker commit in the same transaction, and
+    /// the legacy file is removed only after that commit. The marker is what
+    /// authorises the deletion — no other code path may remove the file, so a
+    /// crash between "rows written" and "file removed" leaves the file as the
+    /// source of truth for the next launch instead of losing it.
     func migrateImportedSourcesFromJSONIfNeeded() {
-        let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("imported_sources.json")
-        guard FileManager.default.fileExists(atPath: fileURL.path) else { return }
         do {
-            let data = try Data(contentsOf: fileURL)
-            let imported = try JSONDecoder().decode([FeedSource].self, from: data)
-            guard !imported.isEmpty else {
-                try? FileManager.default.removeItem(at: fileURL)
+            guard try !hasMigrationMarker(Self.importedSourcesJSONMigrationMarker) else { return }
+
+            let fileURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("imported_sources.json")
+
+            guard FileManager.default.fileExists(atPath: fileURL.path) else {
+                // No legacy file on this install. Record the marker so a later
+                // import never reconsiders this path as pending migration.
+                try db.write { db in
+                    try Self.writeMigrationMarker(db, key: Self.importedSourcesJSONMigrationMarker)
+                }
                 return
             }
-            // Only migrate if the SQLite table is empty (first migration).
+
+            let data = try Data(contentsOf: fileURL)
+            let imported = try JSONDecoder().decode([FeedSource].self, from: data)
+
+            // Copy into the table only while it is still empty — a database that
+            // already holds imported sources is newer than the JSON.
             let existingCount = try db.read { db in
                 try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM imported_source") ?? 0
             }
-            guard existingCount == 0 else { return }
-            try saveImportedSources(imported)
+
+            try db.write { db in
+                if existingCount == 0, !imported.isEmpty {
+                    try Self.replaceImportedSources(db, with: imported)
+                }
+                try Self.writeMigrationMarker(db, key: Self.importedSourcesJSONMigrationMarker)
+            }
+
             try FileManager.default.removeItem(at: fileURL)
             Log.db.info("Migrated \(imported.count) imported sources from JSON to user.sqlite")
         } catch {

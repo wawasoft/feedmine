@@ -34,7 +34,7 @@ actor RSSFetcher {
             diskCapacity: 20_971_520
         )
         let headers = [
-            "User-Agent": "FeedminePrototype/1.0",
+            "User-Agent": "Feedmine/1.0",
             "Accept": "application/rss+xml, application/atom+xml, application/json, text/xml"
         ]
 

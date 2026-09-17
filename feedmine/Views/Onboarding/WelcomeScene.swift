@@ -165,10 +165,16 @@ struct WelcomeScene: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // The welcome is deliberately dark (deep navy, explicit colours), so the
+        // veil must be dark too: `.ultraThinMaterial` follows the *system*
+        // appearance, and this app's pages are light by design — so light mode is
+        // the common case, not the exception. A material veil therefore rendered
+        // as a light grey slab over the navy, with hard edges at its own bounds.
         .overlay(
             reduceTransparency
                 ? AnyShapeStyle(Color(deepNavy).opacity(0.92))
-                : AnyShapeStyle(.ultraThinMaterial.opacity(0.88))
+                : AnyShapeStyle(Color(deepNavy).opacity(0.62))
         )
         .accessibilityHidden(true)  // decorative — cards are behind the veil
         .allowsHitTesting(false)

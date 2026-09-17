@@ -8,11 +8,16 @@ final class FeedLoaderCacheTests: XCTestCase {
         super.setUp()
         UserDefaults.standard.removeObject(forKey: Keys.toggleDisabled)
         UserDefaults.standard.removeObject(forKey: Keys.toggleEnabledOverrides)
+        // This suite builds `FeedStore`s too, so it needs the same shared-state baseline as `FeedStoreTests`:
+        // without it a taxonomy selection left by another suite leaks into `reloadFromSQLite` and this suite's
+        // own items are filtered out (`loaded=0 … taxonomyURLs=N`), which cost two gate runs their green.
+        normalizeSharedFilterStateForTests()
     }
 
     override func tearDown() {
         UserDefaults.standard.removeObject(forKey: Keys.toggleDisabled)
         UserDefaults.standard.removeObject(forKey: Keys.toggleEnabledOverrides)
+        TaxonomyStore.shared.clearSelection()
         super.tearDown()
     }
 
@@ -94,12 +99,13 @@ final class FeedLoaderCacheTests: XCTestCase {
         store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: ["zh"])
         let loader = FeedLoader(store: store)
 
-        // Wait for async filter reload.
-        let deadline = Date().addingTimeInterval(5)
-        while store.visibleItems.isEmpty && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
-        }
-        XCTAssertFalse(store.visibleItems.isEmpty, "Items should be visible after filter reload")
+        // Condition wait — the reload publishing a page — with the measured duration recorded (see
+        // `awaitPagePublication`); the exact assertions below follow it.
+        let seeded = await awaitPagePublication(of: store, label: self.name)
+        XCTAssertFalse(
+            store.visibleItems.isEmpty,
+            "Items should be visible after filter reload (waited \(String(format: "%.3f", seeded))s)"
+        )
 
         let sections = loader.dateSections
         XCTAssertEqual(sections.count, 1)

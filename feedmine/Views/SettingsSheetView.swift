@@ -244,7 +244,8 @@ struct SettingsSheetView: View {
                 Section("About") {
                     HStack {
                         Text("Version"); Spacer()
-                        Text("1.0 (Prototype)").foregroundStyle(.secondary)
+                        Text("\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0") (\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"))")
+                            .foregroundStyle(.secondary)
                     }
                     HStack {
                         Text("Sources"); Spacer()

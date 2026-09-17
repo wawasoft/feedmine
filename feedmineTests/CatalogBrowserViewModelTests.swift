@@ -268,18 +268,17 @@ final class CatalogBrowserViewModelTests: XCTestCase {
 
         viewModel.searchText = "test query"
 
-        // Poll for the debounced search with a generous timeout.
-        // Task.sleep-based approaches are unreliable on the MainActor because
-        // the debounce task and the test task both run on it.
-        let deadline = CFAbsoluteTimeGetCurrent() + 5.0
-        while CFAbsoluteTimeGetCurrent() < deadline {
-            if viewModel.isSearching,
-               !viewModel.isLoading,
-               !viewModel.searchResults.isEmpty {
-                break
-            }
-            try? await Task.sleep(for: .milliseconds(50))
+        // Wait on the completion signal — the stub's page arriving — then assert the exact
+        // state the debounced search must settle into. Polling for the assertion itself
+        // (`isSearching`) would make that assertion unable to fail.
+        let deadline = CFAbsoluteTimeGetCurrent() + 30.0
+        while viewModel.searchResults.isEmpty, CFAbsoluteTimeGetCurrent() < deadline {
+            try? await Task.sleep(for: .milliseconds(10))
         }
+        XCTAssertFalse(
+            viewModel.searchResults.isEmpty,
+            "the debounced search must publish its results within 30s of searchText being set"
+        )
 
         XCTAssertTrue(viewModel.isSearching, "search should be active after debounce")
         XCTAssertEqual(viewModel.searchResults.count, 1)

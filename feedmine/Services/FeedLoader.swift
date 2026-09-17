@@ -132,6 +132,9 @@ final class FeedLoader {
     var isUrgentFetching: Bool { store.isUrgentFetching }
     var startupFetchedSourceCount: Int { store.startupFetchedSourceCount }
     var startupTargetSourceCount: Int { store.startupTargetSourceCount }
+    var startupItemsReady: Int { store.startupItemsReady }
+    var isPreparingFilteredComposition: Bool { store.isPreparingFilteredComposition }
+    var startupItemsTarget: Int { store.startupItemsTarget }
     var startupTotalSourceCount: Int { store.startupTotalSourceCount }
     var startupRecentSourceNames: [String] { store.startupRecentSourceNames }
     var startupRunwayReady: Bool { store.startupRunwayReady }
@@ -1620,16 +1623,18 @@ final class FeedLoader {
     /// P0-04: Persist imported sources into user.sqlite instead of a fragile
     /// standalone JSON file. The SQLite store shares the transaction, migration,
     /// backup, and conflict rules used for all other user state.
+    ///
+    /// The legacy `imported_sources.json` is deliberately NOT deleted here.
+    /// This runs on every import — including a run whose registry has not been
+    /// restored yet, where saving would replace the table with an empty set and
+    /// the JSON would be the last copy of the user's sources.
+    /// `migrateImportedSourcesFromJSONIfNeeded()` owns that file: it commits the
+    /// rows and the completion marker in one transaction and removes the file
+    /// only after that commit.
     private func persistImportedSources() {
         let imported = store.registry.sources.filter { $0.region == "imported" }
         do {
             try store.userRepo.saveImportedSources(imported)
-            // Clean up legacy JSON file after successful SQLite write
-            let legacyURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                .appendingPathComponent("imported_sources.json")
-            if FileManager.default.fileExists(atPath: legacyURL.path) {
-                try? FileManager.default.removeItem(at: legacyURL)
-            }
         } catch {
             Log.import_.error("Failed to persist imported sources: \(error)")
         }

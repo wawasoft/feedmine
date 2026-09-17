@@ -39,7 +39,7 @@ actor ImportPipeline {
         config.timeoutIntervalForRequest = 10
         config.timeoutIntervalForResource = 15
         config.httpAdditionalHeaders = [
-            "User-Agent": "FeedminePrototype/1.0",
+            "User-Agent": "Feedmine/1.0",
             "Accept": "application/rss+xml, application/atom+xml, application/json, text/xml, */*"
         ]
         self.session = URLSession(configuration: config)

@@ -4,11 +4,50 @@ import XCTest
 @MainActor
 final class ReservoirTests: XCTestCase {
 
+    /// Two-phase seed used by the behaviour tests. Kept separate from
+    /// `computeSeed`/`commitSeed` on purpose: the store validates its
+    /// composition between the two calls, and
+    /// ``testComputeSeedDoesNotMutateReservoirUntilCommitted`` pins that
+    /// separation.
+    @discardableResult
+    private func seed(_ reservoir: Reservoir, _ items: [FeedItem]) async -> [FeedItem] {
+        let interleaved = await reservoir.computeSeed(items: items)
+        reservoir.commitSeed(interleaved)
+        return interleaved
+    }
+
     // MARK: - seed
+
+    /// Computing a seed must not touch reservoir state: the caller may discover,
+    /// after the off-main computation returns, that its composition was
+    /// superseded — and a superseded seed must not install items (nor persist
+    /// them as surfaced) into a reservoir that now belongs to another filter.
+    func testComputeSeedDoesNotMutateReservoirUntilCommitted() async {
+        let r = Reservoir()
+        let initial = makeItems(count: 30, sourceURL: "https://a.com/feed")
+        await seed(r, initial)
+
+        let visibleBefore = r.visibleItems.map(\.id)
+        let reservoirBefore = r.reservoirCount
+
+        let stale = makeItems(count: 30, sourceURL: "https://b.com/feed")
+        let interleaved = await r.computeSeed(items: stale)
+
+        XCTAssertEqual(r.visibleItems.map(\.id), visibleBefore,
+                       "computeSeed must not touch visibleItems")
+        XCTAssertEqual(r.reservoirCount, reservoirBefore,
+                       "computeSeed must not touch the reservoir")
+        XCTAssertFalse(interleaved.isEmpty, "the computation still returns its result")
+
+        // The commit is what installs it.
+        r.commitSeed(interleaved)
+        XCTAssertTrue(r.visibleItems.contains { $0.sourceURL == "https://b.com/feed" },
+                      "commitSeed is the step that installs the interleave")
+    }
 
     func testSeedEmpty() async {
         let r = Reservoir()
-        await r.seed(items: [])
+        await seed(r, [])
         XCTAssertTrue(r.visibleItems.isEmpty)
         XCTAssertEqual(r.reservoirCount, 0)
     }
@@ -16,7 +55,7 @@ final class ReservoirTests: XCTestCase {
     func testSeedSingleSource() async {
         let r = Reservoir()
         let items = makeItems(count: 30, sourceURL: "https://a.com/feed")
-        await r.seed(items: items)
+        await seed(r, items)
         XCTAssertFalse(r.visibleItems.isEmpty)
         XCTAssertEqual(r.reservoirCount, 30 - r.visibleItems.count)
     }
@@ -25,7 +64,7 @@ final class ReservoirTests: XCTestCase {
         let r = Reservoir()
         let a = makeItems(count: 10, sourceURL: "https://a.com/feed")
         let b = makeItems(count: 10, sourceURL: "https://b.com/feed")
-        await r.seed(items: a + b)
+        await seed(r, a + b)
         // Interleave should spread sources — no 3 consecutive from same source
         for i in 0..<(r.visibleItems.count - 3) {
             let slice = r.visibleItems[i..<(i + 3)]
@@ -39,7 +78,7 @@ final class ReservoirTests: XCTestCase {
     func testAppendDoesNotReorderVisible() async {
         let r = Reservoir()
         let initial = makeItems(count: 25, sourceURL: "https://a.com/feed")
-        await r.seed(items: initial)
+        await seed(r, initial)
         let before = r.visibleItems.map(\.id)
 
         let more = makeItems(count: 10, sourceURL: "https://b.com/feed")
@@ -57,13 +96,13 @@ final class ReservoirTests: XCTestCase {
     func testSeedProducesPageSize() async {
         let r = Reservoir()
         let items = makeItems(count: 100, sourceURL: "https://a.com/feed")
-        await r.seed(items: items)
+        await seed(r, items)
         XCTAssertLessThanOrEqual(r.visibleItems.count, Reservoir.pageSize)
     }
 
     func testReservoirCapped() async {
         let r = Reservoir()
-        await r.seed(items: makeItems(count: 600, sourceURL: "https://a.com/feed"))
+        await seed(r, makeItems(count: 600, sourceURL: "https://a.com/feed"))
         XCTAssertLessThanOrEqual(r.reservoirCount, Reservoir.maxReservoirSize)
     }
 

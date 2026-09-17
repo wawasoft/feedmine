@@ -39,6 +39,15 @@ final class SourceRegistry {
     }
     var sources: [FeedSource] = [] {
         didSet {
+            // A caller that derived the caches off the main actor (the OPML
+            // startup path, where the rebuild costs seconds over 77k sources)
+            // hands them over here instead of paying for them twice.
+            if let prepared = preparedCaches {
+                preparedCaches = nil
+                sharedCountrySourceURLs = prepared.sharedCountrySourceURLs
+                applyCaches(prepared)
+                return
+            }
             // Source replacements must not leave stale exclusions for URLs
             // that no longer exist in the current catalog.
             sharedCountrySourceURLs.formIntersection(Set(sources.map {
@@ -90,6 +99,14 @@ final class SourceRegistry {
     @ObservationIgnored private var activeCountsAreCurrent = false
     @ObservationIgnored private var saveStateTask: Task<Void, Never>?
     @ObservationIgnored private var activeCountsGeneration: UInt64 = 0
+    /// Normalised URL per source, in `sources` order, from the last derivation. Kept so
+    /// eligibility can be recomputed without normalising 77k URLs (regex) on the main actor.
+    @ObservationIgnored private var normalizedSourceURLs: [String] = []
+    /// Caches derived off the main actor by
+    /// `deriveCaches(from:sharedCountrySourceURLs:)` and consumed by the next
+    /// `sources` assignment, so the 77k-entry rebuild never runs on the main actor
+    /// during startup.
+    @ObservationIgnored private var preparedCaches: DerivedCaches?
     /// Group states changed in a bulk action. They can render immediately
     /// while the full derived-count snapshot is rebuilt after the interaction.
     @ObservationIgnored private var pendingDisabledGroupKeys: Set<String> = []
@@ -111,18 +128,49 @@ final class SourceRegistry {
     /// url → FeedSource, rebuilt when sources change
     private var sourceByURL: [String: FeedSource] = [:]
 
-    private func rebuildCaches() {
+    /// Derived state that is a pure function of `sources` and the shared-country
+    /// URL set. `deriveCaches` computes it (off the main actor when the caller can
+    /// afford it) and `applyCaches` installs it; the synchronous path uses both in
+    /// sequence, so there is exactly one implementation of the derivation.
+    struct DerivedCaches: Sendable {
+        var sourceByURL: [String: FeedSource] = [:]
+        var languageCounts: [String: Int] = [:]
+        var topicRegions: [String] = []
+        var countrySourceKeys: Set<String> = []
+        var topicSourceKeys: Set<String> = []
+        var sourceKeysByCategory: [String: Set<String>] = [:]
+        /// Normalised URL of each source, in `sources` order. The derivation already
+        /// computes them, so anything that would otherwise re-normalise the whole
+        /// catalogue (regex work) can look them up here instead.
+        var normalizedURLs: [String] = []
+        var sharedCountrySourceURLs: Set<String> = []
+    }
+
+    /// Pure and `nonisolated`, so a caller may run it in a detached task. Walks
+    /// every source — 77,443 entries in the bundled catalogue — together with the
+    /// URL normalisation that goes with each, which is why the startup path must
+    /// not run it on the main actor.
+    nonisolated static func deriveCaches(
+        from sources: [FeedSource],
+        sharedCountrySourceURLs: Set<String>
+    ) -> DerivedCaches {
         var byURL: [String: FeedSource] = [:]
         var languageCounts: [String: Int] = [:]
         var topicRegions = Set<String>()
         var countrySourceKeys = Set<String>()
         var topicSourceKeys = Set<String>()
         var sourceKeysByCategory: [String: Set<String>] = [:]
+        var normalizedURLs: [String] = []
         byURL.reserveCapacity(sources.count)
+        normalizedURLs.reserveCapacity(sources.count)
         for source in sources {
             let normalizedURL = OPMLParser.normalizeURL(source.url)
+            normalizedURLs.append(normalizedURL)
             if byURL[normalizedURL] == nil { byURL[normalizedURL] = source }
-            let sourceKey = Self.sourceKey(source.url)
+            // `sourceKey` is exactly "url:" + the normalised URL, so build it from the
+            // value just computed instead of normalising the same URL a second time —
+            // this runs on the startup path, over 77k URLs.
+            let sourceKey = "url:" + normalizedURL
             sourceKeysByCategory[source.category, default: []].insert(sourceKey)
             if source.isCountryFeed { countrySourceKeys.insert(sourceKey) }
             if source.region.hasPrefix("topic/") { topicSourceKeys.insert(sourceKey) }
@@ -133,10 +181,36 @@ final class SourceRegistry {
                 topicRegions.insert(source.region)
             }
         }
-        sourceByURL = byURL
-        totalLanguageCounts = languageCounts
-        availableLanguageCodes = Set(languageCounts.keys)
-        _allTopicRegions = topicRegions.sorted()
+        // Source replacements must not leave stale exclusions for URLs that no
+        // longer exist in the current catalog. `byURL`'s keys are exactly the set of
+        // normalised URLs just collected, so this costs nothing extra.
+        var sharedCountryURLs = sharedCountrySourceURLs
+        sharedCountryURLs.formIntersection(byURL.keys)
+        return DerivedCaches(
+            sourceByURL: byURL,
+            languageCounts: languageCounts,
+            topicRegions: topicRegions.sorted(),
+            countrySourceKeys: countrySourceKeys,
+            topicSourceKeys: topicSourceKeys,
+            sourceKeysByCategory: sourceKeysByCategory,
+            normalizedURLs: normalizedURLs,
+            sharedCountrySourceURLs: sharedCountryURLs
+        )
+    }
+
+    private func rebuildCaches() {
+        applyCaches(Self.deriveCaches(
+            from: sources,
+            sharedCountrySourceURLs: sharedCountrySourceURLs
+        ))
+    }
+
+    private func applyCaches(_ derived: DerivedCaches) {
+        sourceByURL = derived.sourceByURL
+        normalizedSourceURLs = derived.normalizedURLs
+        totalLanguageCounts = derived.languageCounts
+        availableLanguageCodes = Set(derived.languageCounts.keys)
+        _allTopicRegions = derived.topicRegions
         _regionMap = nil
         _languageMap = nil
         _enabledSources = nil
@@ -145,9 +219,9 @@ final class SourceRegistry {
         _uniqueRegions = nil
         _countrySources = nil
         _countryRegionKeys = nil
-        _countrySourceKeys = countrySourceKeys
-        _topicSourceKeys = topicSourceKeys
-        _sourceKeysByCategory = sourceKeysByCategory
+        _countrySourceKeys = derived.countrySourceKeys
+        _topicSourceKeys = derived.topicSourceKeys
+        _sourceKeysByCategory = derived.sourceKeysByCategory
         activeCount.removeAll()
         activeCountsAreCurrent = false
         activeCountsGeneration &+= 1
@@ -233,25 +307,94 @@ final class SourceRegistry {
         disabled.contains(Self.sourceKey(sourceURL))
     }
 
-    func isSourceEnabled(_ sourceURL: String) -> Bool {
-        let normalized = OPMLParser.normalizeURL(sourceURL)
-        guard let source = sourceByURL[normalized] else { return false }
-        let ownKey = Self.sourceKey(sourceURL)
+    /// The enablement decision as a pure function of its inputs, so the main-actor check
+    /// and the off-main derivation of the filter pass's eligibility sets cannot disagree.
+    /// `inCatalogue` is false only for a URL the registry does not know, which the
+    /// main-actor path answers as "not enabled".
+    nonisolated static func isEnabled(
+        source: FeedSource,
+        ownKey: String,
+        inCatalogue: Bool,
+        disabled: Set<String>,
+        enabledOverrides: Set<String>
+    ) -> Bool {
+        guard inCatalogue else { return false }
         if disabled.contains(ownKey) { return false }          // explicit OFF wins
         if enabledOverrides.contains(ownKey) { return true }   // explicit ON beats a disabled parent
         if !source.defaultEnabled { return false }              // curated freshness default
         // Region/country/category disable applies to ALL source types.
         // YouTube and podcasts are not exempt — disabling a country hides
         // its local-language media alongside its text content.
-        if disabled.contains(Self.regionKey(source.region)) { return false }
+        if disabled.contains(regionKey(source.region)) { return false }
         // Country check — parent of region
-        let parts = source.region.split(separator: "/").map(String.init)
+        let parts = source.region.split(separator: "/")
         if parts.count >= 2, parts[0] == "countries" {
-            let countryKey = Self.regionKey(parts.prefix(2).joined(separator: "/"))
+            let countryKey = regionKey(parts.prefix(2).joined(separator: "/"))
             if disabled.contains(countryKey) { return false }
         }
-        if disabled.contains(Self.categoryKey(source.category)) { return false }
+        if disabled.contains(categoryKey(source.category)) { return false }
         return true
+    }
+
+    func isSourceEnabled(_ sourceURL: String) -> Bool {
+        let normalized = OPMLParser.normalizeURL(sourceURL)
+        guard let source = sourceByURL[normalized] else { return false }
+        return Self.isEnabled(
+            source: source,
+            ownKey: Self.sourceKey(sourceURL),
+            inCatalogue: true,
+            disabled: disabled,
+            enabledOverrides: enabledOverrides
+        )
+    }
+
+    /// The two URL sets the off-main filter pass needs, as a pure function of the
+    /// catalogue and the enablement state.
+    ///
+    /// It is `nonisolated` on purpose: callers that can suspend run it in a detached
+    /// task, because the per-source URL normalisation is regex work that measured
+    /// **1,599 ms** over the 77,443-source catalogue on the main actor. `sources` and
+    /// `normalizedURLs` are copy-on-write, so handing them to another task costs a retain.
+    nonisolated static func eligibilitySets(
+        sources: [FeedSource],
+        normalizedURLs: [String],
+        disabled: Set<String>,
+        enabledOverrides: Set<String>
+    ) -> (disabled: Set<String>, explicitlyDisabled: Set<String>) {
+        let prefix = "url:"
+        // Explicitly disabled URL keys, read straight off `disabled` — O(|disabled|)
+        // instead of one key per source.
+        let explicitlyDisabledURLs = Set(disabled.compactMap { key -> String? in
+            guard key.hasPrefix(prefix) else { return nil }
+            return String(key.dropFirst(prefix.count))
+        })
+        var disabledURLs = Set<String>()
+        for (index, source) in sources.enumerated() {
+            let url = index < normalizedURLs.count
+                ? normalizedURLs[index]
+                : OPMLParser.normalizeURL(source.url)
+            if !Self.isEnabled(
+                source: source,
+                ownKey: prefix + url,
+                inCatalogue: true,
+                disabled: disabled,
+                enabledOverrides: enabledOverrides
+            ) {
+                disabledURLs.insert(url)
+            }
+        }
+        return (disabledURLs, explicitlyDisabledURLs)
+    }
+
+    /// Everything the off-main eligibility computation needs, so the caller can hand it to
+    /// a detached task. `sources` and `normalizedURLs` are copy-on-write.
+    func eligibilityInputs() -> (
+        sources: [FeedSource],
+        normalizedURLs: [String],
+        disabled: Set<String>,
+        enabledOverrides: Set<String>
+    ) {
+        (sources, normalizedSourceURLs, disabled, enabledOverrides)
     }
 
     func lookupSnapshot() -> LookupSnapshot {
@@ -492,6 +635,14 @@ final class SourceRegistry {
         _enabledSources = nil
         activeCountsAreCurrent = false
         activeCountsGeneration &+= 1
+        // NOTE: `enablementRevision` is deliberately NOT bumped here. It is bumped by
+        // `recomputeActiveCounts()`, which publishes it together with the counts it
+        // describes — and `LanguageCountSnapshot` hands both to callers. Bumping here
+        // would advertise a new revision while `enabledLanguageCounts`/`availableCategories`
+        // still hold the previous values, and a consumer pairing the two would read a
+        // mixture. Callers that need an immediately-valid signal (the filter pass's
+        // eligibility snapshot) compare the registry's own `disabled`/`enabledOverrides`
+        // sets instead — that cannot lag, because it is the state itself.
         let generation = activeCountsGeneration
         // Coalesce rapid changes so the switch and haptic render immediately.
         // The full cached count rebuild is delayed until the user pauses.
@@ -683,8 +834,21 @@ final class SourceRegistry {
 
     func loadFromOPML() async {
         let result = await OPMLParser.parseAll()
-        sharedCountrySourceURLs = result.sharedCountrySourceURLs
-        sources = result.sources   // didSet rebuilds caches
+        // The derived caches are a pure function of the parsed sources, and over
+        // 77,443 entries they used to cost ~6.5 s on the main actor right after
+        // the first page painted — the app looked ready and ignored taps for the
+        // rest of startup. Derive them off the main actor and hand them to the
+        // `sources` assignment, which installs them without recomputing.
+        let parsedSources = result.sources
+        let parsedSharedURLs = result.sharedCountrySourceURLs
+        let prepared = await Task.detached(priority: .userInitiated) {
+            SourceRegistry.deriveCaches(
+                from: parsedSources,
+                sharedCountrySourceURLs: parsedSharedURLs
+            )
+        }.value
+        preparedCaches = prepared
+        sources = result.sources   // didSet installs the prepared caches
         opmlFileCount = result.fileCount
         opmlErrorCount = result.failedFileCount
         invalidSourceCount = result.invalidSourceCount

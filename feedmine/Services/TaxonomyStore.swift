@@ -51,14 +51,29 @@ final class TaxonomyStore {
     /// generation at start and only applies its result if no newer build has
     /// begun since — so builds apply in call order, not task-completion order.
     @ObservationIgnored private var buildGeneration: UInt64 = 0
+    /// Most recent cache write, so a newer one can wait for an older one instead of the
+    /// two racing for the same file.
+    @ObservationIgnored private var pendingCacheWrite: Task<Void, Never>?
 
     // MARK: - Persistence
 
-    nonisolated private static let cacheURL: URL = {
+    /// The cache location production has always used: one process-wide file under Caches.
+    nonisolated static let defaultCacheURL: URL = {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("taxonomy_cache.json")
     }()
     nonisolated private static let cacheSchemaVersion = 3
+
+    /// Where this instance reads and writes its tree. Defaults to `defaultCacheURL`, so the app
+    /// keeps exactly the single shared file it had before. It is injectable because cache writes
+    /// are queued *per instance* (`pendingCacheWrite`): two stores pointed at one path hold two
+    /// independent write queues, so whichever snapshot is written last wins regardless of which
+    /// one is newer. A caller that needs isolation (tests) must therefore own its path.
+    nonisolated let cacheURL: URL
+
+    init(cacheURL: URL = TaxonomyStore.defaultCacheURL) {
+        self.cacheURL = cacheURL
+    }
 
     // MARK: - Tree Building
 
@@ -117,16 +132,32 @@ final class TaxonomyStore {
         root = built.root
         coverageGroups = built.coverageGroups
 
-        // Persist off main — encoding ~10K nodes is expensive too.
-        Task.detached(priority: .background) {
+        // Persist off main — encoding ~10K nodes is expensive too — and *ordered*, not
+        // blocking: each write waits for the previous one, so the file always ends up
+        // holding the newest snapshot instead of whichever detached encode finished last
+        // (finding 8: "serializar gravações e rejeitar snapshots obsoletos"). `build()`
+        // itself does not wait: its callers are startup and background refresh, and the
+        // ordering guarantee is about the writes, not about every builder. Tests that
+        // need the file to be on disk call `awaitCacheWrite()`.
+        let previousWrite = pendingCacheWrite
+        let write = Task.detached(priority: .background) {
+            await previousWrite?.value
             Self.persistCache(
                 root: built.root,
                 flatIndex: built.flatIndex,
                 feedToNodeID: built.feedToNodeID,
                 sources: sources,
-                sharedCountrySourceURLs: sharedCountrySourceURLs
+                sharedCountrySourceURLs: sharedCountrySourceURLs,
+                cacheURL: self.cacheURL
             )
         }
+        pendingCacheWrite = write
+    }
+
+    /// Wait for the cache writes queued so far. Exists so a warm-cache reader can know the
+    /// file is current instead of polling for it; nothing in the app waits on this.
+    func awaitCacheWrite() async {
+        await pendingCacheWrite?.value
     }
 
     /// Pure computation of the taxonomy tree. No shared instance state —
@@ -473,14 +504,7 @@ final class TaxonomyStore {
     }
 
     private func rebuildCoverageGroups() {
-        coverageGroups = flatIndex.values.compactMap { node in
-            guard node.id != TaxonomyNode.rootID,
-                  node.childrenCount == 0,
-                  node.feedCount > 0,
-                  let urls = nodeToFeedURLs[node.id],
-                  !urls.isEmpty else { return nil }
-            return CoverageGroup(id: node.id, feedURLs: urls)
-        }.sorted { $0.id < $1.id }
+        coverageGroups = Self.coverageGroups(flatIndex: flatIndex, nodeToFeedURLs: nodeToFeedURLs)
     }
 
     /// Search flat index by name. Case-insensitive. Returns up to 50 results.
@@ -579,65 +603,129 @@ final class TaxonomyStore {
 
     /// Invalidate disk cache — call when OPML manifest changes.
     func invalidateCache() {
-        try? FileManager.default.removeItem(at: Self.cacheURL)
+        try? FileManager.default.removeItem(at: cacheURL)
     }
 
     /// Try to load from disk cache. Returns true if cache was valid.
     /// Validates both sourceCount (fast pre-check) and sourceFingerprint
     /// (guards against equal-count URL swaps). Rejects old caches without
     /// a fingerprint so stale data never survives an upgrade.
+    /// Load the persisted tree for `sources`. Every CPU- and disk-bound step — the
+    /// fingerprint over 77k sources, the cache read, the JSON decode, the index
+    /// rebuilds and the coverage groups — runs off the main actor: inside this
+    /// `@MainActor` method they monopolised it for ~1.7 s right after the first
+    /// page painted, which is exactly when the feed must stay interactive.
     func loadFromCache(
         sources: [FeedSource],
         sharedCountrySourceURLs: Set<String> = []
-    ) -> Bool {
+    ) async -> Bool {
+        let prepared = await Task.detached(priority: .userInitiated) {
+            Self.prepareCache(
+                from: sources,
+                sharedCountrySourceURLs: sharedCountrySourceURLs,
+                cacheURL: self.cacheURL
+            )
+        }.value
+        guard let prepared else { return false }
+        applyPreparedTree(prepared)
+        return true
+    }
+
+    nonisolated private static func prepareCache(
+        from sources: [FeedSource],
+        sharedCountrySourceURLs: Set<String>,
+        cacheURL: URL
+    ) -> PreparedTree? {
         let count = sources.count
         let fingerprint = Self.sourceFingerprint(
             for: sources,
             sharedCountrySourceURLs: sharedCountrySourceURLs
         )
-        guard let data = try? Data(contentsOf: Self.cacheURL),
+        guard let data = try? Data(contentsOf: cacheURL),
               let cached = try? JSONDecoder().decode(CachedTree.self, from: data) else {
-            return false
+            return nil
         }
-        guard cached.schemaVersion == Self.cacheSchemaVersion else { return false }
+        guard cached.schemaVersion == Self.cacheSchemaVersion else { return nil }
         // Fast pre-check — count mismatch is a cheap rejection
-        guard cached.sourceCount == count else { return false }
+        guard cached.sourceCount == count else { return nil }
         // Reject old caches that predate fingerprint persistence
-        guard let cachedFingerprint = cached.sourceFingerprint else { return false }
+        guard let cachedFingerprint = cached.sourceFingerprint else { return nil }
         // Content-level validation — same count, different URLs
-        guard cachedFingerprint == fingerprint else { return false }
+        guard cachedFingerprint == fingerprint else { return nil }
 
-        self.flatIndex = cached.flatIndex
-        self.feedToNodeID = cached.feedToNodeID
         // Rebuild children index from restored flatIndex
-        self.childrenIndex.removeAll()
-        self.sortedChildrenCache.removeAll()
-        for (nodeID, node) in self.flatIndex {
+        var childrenIndex: [String: [String]] = [:]
+        for (nodeID, node) in cached.flatIndex {
             guard let parentID = node.parentId else { continue }
-            self.childrenIndex[parentID, default: []].append(nodeID)
+            childrenIndex[parentID, default: []].append(nodeID)
         }
         // Rebuild reverse index (nodeToFeedURLs) from restored feedToNodeID.
         // Must replicate the bottom-up propagation from build() so that
         // feedURLs(inSubtreesOf:) works correctly on the warm-cache path.
-        self.nodeToFeedURLs.removeAll()
-        for (feedURL, nodeID) in self.feedToNodeID {
-            self.nodeToFeedURLs[nodeID, default: []].insert(feedURL)
+        var nodeToFeedURLs: [String: Set<String>] = [:]
+        for (feedURL, nodeID) in cached.feedToNodeID {
+            nodeToFeedURLs[nodeID, default: []].insert(feedURL)
         }
         // Bottom-up: propagate child URLs to parents, sorted by descending level
-        let sortedIDs = self.flatIndex.keys.sorted {
-            (self.flatIndex[$0]?.level ?? 0) > (self.flatIndex[$1]?.level ?? 0)
+        let sortedIDs = cached.flatIndex.keys.sorted {
+            (cached.flatIndex[$0]?.level ?? 0) > (cached.flatIndex[$1]?.level ?? 0)
         }
         for nodeID in sortedIDs {
-            guard let childIDs = self.childrenIndex[nodeID] else { continue }
+            guard let childIDs = childrenIndex[nodeID] else { continue }
             for childID in childIDs {
-                if let childURLs = self.nodeToFeedURLs[childID] {
-                    self.nodeToFeedURLs[nodeID, default: []].formUnion(childURLs)
+                if let childURLs = nodeToFeedURLs[childID] {
+                    nodeToFeedURLs[nodeID, default: []].formUnion(childURLs)
                 }
             }
         }
-        rebuildCoverageGroups()
-        self.root = cached.root
-        return true
+        return PreparedTree(
+            root: cached.root,
+            flatIndex: cached.flatIndex,
+            feedToNodeID: cached.feedToNodeID,
+            childrenIndex: childrenIndex,
+            nodeToFeedURLs: nodeToFeedURLs,
+            coverageGroups: Self.coverageGroups(
+                flatIndex: cached.flatIndex,
+                nodeToFeedURLs: nodeToFeedURLs
+            )
+        )
+    }
+
+    private func applyPreparedTree(_ prepared: PreparedTree) {
+        flatIndex = prepared.flatIndex
+        feedToNodeID = prepared.feedToNodeID
+        childrenIndex = prepared.childrenIndex
+        sortedChildrenCache.removeAll()
+        nodeToFeedURLs = prepared.nodeToFeedURLs
+        coverageGroups = prepared.coverageGroups
+        root = prepared.root
+    }
+
+    /// Coverage groups are a pure function of the restored indexes, shared by the
+    /// cache path (off-main) and `build()` (on main) so one definition serves both.
+    nonisolated private static func coverageGroups(
+        flatIndex: [String: TaxonomyNode],
+        nodeToFeedURLs: [String: Set<String>]
+    ) -> [CoverageGroup] {
+        flatIndex.values.compactMap { node in
+            guard node.id != TaxonomyNode.rootID,
+                  node.childrenCount == 0,
+                  node.feedCount > 0,
+                  let urls = nodeToFeedURLs[node.id],
+                  !urls.isEmpty else { return nil }
+            return CoverageGroup(id: node.id, feedURLs: urls)
+        }.sorted { $0.id < $1.id }
+    }
+
+    /// Everything the warm-cache path computes, carried across the actor boundary
+    /// so the main actor only performs assignments.
+    struct PreparedTree: Sendable {
+        var root: TaxonomyNode?
+        var flatIndex: [String: TaxonomyNode]
+        var feedToNodeID: [String: String]
+        var childrenIndex: [String: [String]]
+        var nodeToFeedURLs: [String: Set<String>]
+        var coverageGroups: [CoverageGroup]
     }
 
     /// Persist a finished build to disk. Pure function of the build
@@ -648,7 +736,8 @@ final class TaxonomyStore {
         flatIndex: [String: TaxonomyNode],
         feedToNodeID: [String: String],
         sources: [FeedSource],
-        sharedCountrySourceURLs: Set<String>
+        sharedCountrySourceURLs: Set<String>,
+        cacheURL: URL
     ) {
         let fingerprint = Self.sourceFingerprint(
             for: sources,
@@ -663,7 +752,7 @@ final class TaxonomyStore {
             sourceFingerprint: fingerprint
         )
         guard let data = try? JSONEncoder().encode(cached) else { return }
-        try? data.write(to: Self.cacheURL, options: .atomic)
+        try? data.write(to: cacheURL, options: .atomic)
     }
 }
 

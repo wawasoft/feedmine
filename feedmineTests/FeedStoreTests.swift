@@ -1,14 +1,114 @@
 import XCTest
 import GRDB
+import OSLog
+import UIKit
 @testable import feedmine
+
+// MARK: - Wait instrumentation
+//
+// Lives here rather than in Support/TestHelpers.swift: that file is not a member of the
+// feedmineTests target (it is absent from project.pbxproj, and nothing referenced its symbols, so it
+// never failed a build). These two are used by other test files, which resolve them module-wide.
+
+private let waitLog = Logger(subsystem: "com.feedmine.tests", category: "Wait")
+
+/// Records how long a wait in a test actually took, and flags a slow one as a stall.
+///
+/// Test waits are bounded generously so a stalled process cannot fail an assertion that is about to
+/// become true — but a generous deadline would also hide a *cold path* that genuinely took seconds.
+/// So every widened wait reports its duration, and anything past `stallThreshold` is logged as a
+/// stall to carry into the cold-path record instead of passing silently. This suite has logged an
+/// 18.6 s one (run 1: 21:46:00.244 → 21:46:18.911, immediately before the app's own
+/// "progressiveFetch starting: 200 filtered/diverse sources").
+@MainActor
+func recordWait(_ label: String, since start: CFAbsoluteTime, stallThreshold: TimeInterval = 2) {
+    let waited = CFAbsoluteTimeGetCurrent() - start
+    let rendered = String(format: "%.3f", waited)
+    waitLog.info("WAIT \(label) — \(rendered)s")
+    if waited > stallThreshold {
+        waitLog.warning("WAIT STALL \(label) — \(rendered)s — too slow to be load; keep this window in the cold-path record")
+    }
+}
+
+/// Wait for the async filter reload to publish a page — the condition the seeding helpers in
+/// `FeedComposerPreviewTests`, `FeedLoaderCacheTests` and `FeedPreviewPipelineTests` assert on.
+/// A condition with a bounded deadline, not a duration; the measured duration is recorded by
+/// `recordWait`, and the caller asserts the exact page afterwards.
+@MainActor
+@discardableResult
+func awaitPagePublication(
+    of store: FeedStore,
+    label: String,
+    deadlineSeconds: TimeInterval = 30,
+    stallThreshold: TimeInterval = 2
+) async -> TimeInterval {
+    let start = CFAbsoluteTimeGetCurrent()
+    let deadline = Date().addingTimeInterval(deadlineSeconds)
+    while store.visibleItems.isEmpty, Date() < deadline {
+        try? await Task.sleep(for: .milliseconds(10))
+    }
+    recordWait("\(label) page publication (seeding)", since: start, stallThreshold: stallThreshold)
+    return CFAbsoluteTimeGetCurrent() - start
+}
+
+/// The process-wide state every suite must normalize before it builds a `FeedStore`.
+///
+/// A new `FeedStore` reads its whole baseline from UserDefaults-backed `Settings` plus the shared taxonomy, so both
+/// have to be reset or one suite's filter/taxonomy state (and any of its tasks still in flight) decides whether the
+/// next suite's reload can even load its items — the failing leg then reads `loaded=0 … taxonomyURLs=N`. Measured on
+/// this tree: `FeedLoaderCacheTests.testFilteredDateSectionsPreserveProviderOrderAcrossDates` inherited a taxonomy
+/// selection, its reload excluded its own 4 items, and `awaitPagePublication`'s 30 s deadline expired — 5 assertion
+/// failures in two of three gate runs (gate 2 today, 35.7 s; gate 3, 36.7 s) for a suite that never selects a
+/// taxonomy node. Same list as `resetFiltersForUITestLaunch()` in the app.
+///
+/// This lives in `FeedStoreTests.swift` rather than `Support/TestHelpers.swift` because the latter is not a member of
+/// the committed test target (see the project-file gap in `docs/release/HANDOFF.md`).
+@MainActor
+func normalizeSharedFilterStateForTests() {
+    Settings.activePreset = .everything
+    Settings.filterRegion = nil
+    Settings.filterTaxonomyNodes = []
+    Settings.filterContentType = FeedLoader.ContentType.all.rawValue
+    Settings.filterLanguages = []
+    Settings.filterMood = FeedLoader.MoodFilter.all.rawValue
+    Settings.filterSetAt = 0
+    Settings.hasInitializedLanguageDefault = true
+    TaxonomyStore.shared.clearSelection()
+}
 
 @MainActor
 final class FeedStoreTests: XCTestCase {
+
+    override func setUp() {
+        super.setUp()
+        normalizeSharedFilterStateForTests()
+    }
 
     override func tearDown() async throws {
         // Reset TaxonomyStore singleton between tests to avoid state leakage
         TaxonomyStore.shared.clearSelection()
         try await super.tearDown()
+    }
+
+    /// Poll `condition` until it holds, or `timeout` elapses. The waits in this file gate
+    /// assertions on state an async write produces (a SQLite flush, a persisted seen/click
+    /// timestamp); polling the readiness signal is what holds under full-suite load, where a
+    /// fixed 50ms does not. Returns whether the condition held.
+    private func waitUntil(
+        timeout: TimeInterval = 30,
+        _ condition: @escaping @MainActor () async -> Bool
+    ) async -> Bool {
+        let start = CFAbsoluteTimeGetCurrent()
+        let deadline = Date().addingTimeInterval(timeout)
+        while !(await condition()) {
+            guard Date() < deadline else {
+                recordWait("\(self.name) persistence condition (timed out)", since: start)
+                return false
+            }
+            try? await Task.sleep(for: .milliseconds(10))
+        }
+        recordWait("\(self.name) persistence condition", since: start)
+        return true
     }
 
     func testStartupProgressCountsOnlyDistinctSuccessfulSources() throws {
@@ -186,10 +286,12 @@ final class FeedStoreTests: XCTestCase {
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
 
         // Poll for result with timeout instead of a fixed sleep (avoids CI flakiness).
-        let deadline = Date().addingTimeInterval(5)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty, Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
 
         // Verify only matching item appears
         XCTAssertEqual(store.visibleItems.count, 1)
@@ -675,11 +777,17 @@ final class FeedStoreTests: XCTestCase {
         // Set taxonomy filter (simulates selecting Acoustics node)
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
 
-        // Poll for pipeline flush
-        let deadline = Date().addingTimeInterval(5)
+        // Settle signal, not a sampled duration: the assertions below read state the flush
+        // writes, so wait for the pipeline to reach idle and then assert that it did — a
+        // timeout here used to be silent and surfaced later as a confusing content mismatch.
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.loadingState != .idle && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) pipeline settle", since: waitStart)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "the feed pipeline must settle (loadingState == .idle) within 30s of the filter change")
 
         // All four should now be visible as eligible (category bypassed, none individually disabled)
         // Insert test items for these sources and verify they pass the REAL applyFilters
@@ -719,10 +827,17 @@ final class FeedStoreTests: XCTestCase {
         // Select Acoustics node
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
 
-        let deadline = Date().addingTimeInterval(5)
+        // Settle signal, not a sampled duration: the assertions below read state the flush
+        // writes, so wait for the pipeline to reach idle and then assert that it did — a
+        // timeout here used to be silent and surfaced later as a confusing content mismatch.
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.loadingState != .idle && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) pipeline settle", since: waitStart)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "the feed pipeline must settle (loadingState == .idle) within 30s of the filter change")
 
         // S1 individually disabled → must be blocked
         // S2 category-disabled but taxonomy overrides → must be eligible
@@ -765,16 +880,28 @@ final class FeedStoreTests: XCTestCase {
 
         // Select taxonomy → temporarily eligible
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
+        // Settle signal, not a sampled duration: the assertions below read state the flush
+        // writes, so wait for the pipeline to reach idle and then assert that it did — a
+        // timeout here used to be silent and surfaced later as a confusing content mismatch.
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.loadingState != .idle && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) pipeline settle", since: waitStart)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "the feed pipeline must settle (loadingState == .idle) within 30s of the filter change")
 
         // Clear filters → normal enablement restored
         store.clearAllFilters()
-        while store.loadingState != .idle && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+        let clearDeadline = Date().addingTimeInterval(30)
+        let waitStart2 = CFAbsoluteTimeGetCurrent()
+        while store.loadingState != .idle && Date() < clearDeadline {
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) pipeline settle", since: waitStart2)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "clearing the filters must settle the pipeline (loadingState == .idle) within 30s")
 
         // Source should be disabled again (category still off, no taxonomy override)
         XCTAssertFalse(store.registry.isSourceEnabled("https://s1.com/feed"),
@@ -854,11 +981,17 @@ final class FeedStoreTests: XCTestCase {
         // Select Acoustics
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
 
-        // Wait for pipeline
-        let deadline = Date().addingTimeInterval(5)
+        // Settle signal, not a sampled duration: the assertions below read state the flush
+        // writes, so wait for the pipeline to reach idle and then assert that it did — a
+        // timeout here used to be silent and surfaced later as a confusing content mismatch.
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.loadingState != .idle && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) pipeline settle", since: waitStart)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "the feed pipeline must settle (loadingState == .idle) within 30s of the filter change")
 
         // Create test items for all 4 sources
         let items = sources.map { src in
@@ -892,10 +1025,17 @@ final class FeedStoreTests: XCTestCase {
         let nodeID = try XCTUnwrap(TaxonomyStore.shared.nodeID(for: "https://acousticstoday.org/feed/"))
 
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
+        // Settle signal, not a sampled duration: the assertions below read state the flush
+        // writes, so wait for the pipeline to reach idle and then assert that it did — a
+        // timeout here used to be silent and surfaced later as a confusing content mismatch.
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.loadingState != .idle && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) pipeline settle", since: waitStart)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "the feed pipeline must settle (loadingState == .idle) within 30s of the filter change")
 
         let items = sources.map { src in
             FeedItem(id: FeedItem.generateID(sourceURL: src.url, guid: src.url, link: nil),
@@ -947,10 +1087,12 @@ final class FeedStoreTests: XCTestCase {
         let nodeID = try XCTUnwrap(TaxonomyStore.shared.nodeID(for: "https://acousticalsociety.org/rss/"))
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
 
-        let deadline = Date().addingTimeInterval(5)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
 
         XCTAssertEqual(store.visibleItems.count, 2, "Should load 2 Acoustics items from SQLite")
         XCTAssertTrue(store.visibleItems.allSatisfy { $0.sourceURL.contains("acoustic") || $0.sourceURL.contains("aes") },
@@ -994,10 +1136,12 @@ final class FeedStoreTests: XCTestCase {
         // Apply filter
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
 
-        let deadline = Date().addingTimeInterval(5)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
 
         // Final assertions
         let eligibleSources = store.registry.sources.filter {
@@ -1035,10 +1179,12 @@ final class FeedStoreTests: XCTestCase {
         // Apply Acoustics filter
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
 
-        let deadline = Date().addingTimeInterval(5)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
 
         let itemsAfterAcoustics = store.visibleItems.count
         XCTAssertEqual(itemsAfterAcoustics, 1, "Should have 1 ASA item")
@@ -1046,10 +1192,14 @@ final class FeedStoreTests: XCTestCase {
         // Clear filters → all items should be visible again (no taxonomy filter)
         // The ASA item from SQLite will appear since clearAllFilters reloads without taxonomy restriction
         store.clearAllFilters()
-        let clearDeadline = Date().addingTimeInterval(5)
+        let clearDeadline = Date().addingTimeInterval(30)
+        let waitStart2 = CFAbsoluteTimeGetCurrent()
         while store.loadingState != .idle && Date() < clearDeadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) pipeline settle", since: waitStart2)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "clearing the filters must settle the pipeline (loadingState == .idle) within 30s")
 
         // After clearing filters, the ASA item should still be visible (no taxonomy filter = show all)
         XCTAssertGreaterThan(store.visibleItems.count, 0, "Items should remain visible after clearing filters")
@@ -1077,8 +1227,10 @@ final class FeedStoreTests: XCTestCase {
         try await store.db.write { db in try item.insert(db) }
 
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
-        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(50)) }
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(10)) }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.count, 1, "Single-feed category must show exactly 1 item")
     }
 
@@ -1110,8 +1262,10 @@ final class FeedStoreTests: XCTestCase {
         try await store.db.write { db in for item in items { try item.insert(db) } }
 
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
-        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(50)) }
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(10)) }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.count, 20, "Many-feeds category must show all 20 items")
     }
 
@@ -1137,8 +1291,10 @@ final class FeedStoreTests: XCTestCase {
         try await store.db.write { db in try item.insert(db) }
 
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
-        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(50)) }
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(10)) }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.count, 1)
         XCTAssertTrue(store.visibleItems.first?.isPodcast ?? false, "Item must be identified as podcast")
     }
@@ -1163,8 +1319,10 @@ final class FeedStoreTests: XCTestCase {
         try await store.db.write { db in try item.insert(db) }
 
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
-        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(50)) }
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(10)) }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.count, 1)
         XCTAssertTrue(store.visibleItems.first?.isYouTube ?? false, "Item must be identified as YouTube video")
     }
@@ -1199,8 +1357,10 @@ final class FeedStoreTests: XCTestCase {
         try await store.db.write { db in for item in items { try item.insert(db) } }
 
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
-        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(50)) }
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while store.visibleItems.isEmpty && Date() < deadline { try await Task.sleep(for: .milliseconds(10)) }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.count, 2)
     }
 
@@ -1221,8 +1381,12 @@ final class FeedStoreTests: XCTestCase {
         let nodeID = try XCTUnwrap(TaxonomyStore.shared.nodeID(for: "https://acousticstoday.org/feed/"))
 
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
-        while store.loadingState != .idle && Date() < deadline { try await Task.sleep(for: .milliseconds(50)) }
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while store.loadingState != .idle && Date() < deadline { try await Task.sleep(for: .milliseconds(10)) }
+        recordWait("\(self.name) pipeline settle", since: waitStart)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "the feed pipeline must settle (loadingState == .idle) within 30s of the filter change")
 
         let items = sources.map { src in
             FeedItem(id: FeedItem.generateID(sourceURL: src.url, guid: src.url, link: nil),
@@ -1254,8 +1418,12 @@ final class FeedStoreTests: XCTestCase {
 
         // No items in SQLite → filter should show empty state gracefully
         store.setFilter(region: nil, nodeIDs: [nodeID], type: .all, mood: .all, languages: [])
-        let deadline = Date().addingTimeInterval(5)
-        while store.loadingState != .idle && Date() < deadline { try await Task.sleep(for: .milliseconds(50)) }
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while store.loadingState != .idle && Date() < deadline { try await Task.sleep(for: .milliseconds(10)) }
+        recordWait("\(self.name) pipeline settle", since: waitStart)
+        XCTAssertEqual(store.loadingState, .idle,
+                       "the feed pipeline must settle (loadingState == .idle) within 30s of the filter change")
         XCTAssertEqual(store.visibleItems.count, 0, "Category with no items must show 0 visible items")
         // App must not crash, loadingState must settle
         XCTAssertEqual(store.loadingState, .idle, "Loading state must settle even with empty results")
@@ -1627,10 +1795,12 @@ final class FeedStoreTests: XCTestCase {
         store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: ["en"])
 
         // Wait for async filter reload to complete.
-        let deadline = Date().addingTimeInterval(3)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.count < 1 && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication (count)", since: waitStart)
 
         XCTAssertEqual(store.visibleItems.map(\.id), ["en-visible"],
                        "Selecting English should show only English items after reload")
@@ -1872,10 +2042,12 @@ final class FeedStoreTests: XCTestCase {
 
         store.setFilter(region: nil, nodeIDs: [], type: .video, mood: .all, languages: ["pt"])
 
-        let deadline = Date().addingTimeInterval(5)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty, Date() < deadline {
-            try await Task.sleep(for: .milliseconds(50))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
 
         XCTAssertEqual(store.visibleItems.map(\.id), ["pt-video-db"],
                        "SQLite reload must not include unknown-language videos for an active language filter")
@@ -2166,10 +2338,12 @@ final class FeedStoreTests: XCTestCase {
             collectionName: "Private"
         ))
 
-        let deadline = Date().addingTimeInterval(2)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
-            try await Task.sleep(for: .milliseconds(20))
+            try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
 
         XCTAssertEqual(store.visibleItems.map(\.id), [cachedItem.id])
         XCTAssertEqual(
@@ -2340,10 +2514,12 @@ final class FeedStoreTests: XCTestCase {
 
         // Enter collection preset — must find the read post via exact-URL query.
         store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
-        var deadline = Date().addingTimeInterval(3)
+        var deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-fast"],
                        "Collection should hydrate the read post from cache")
 
@@ -2355,10 +2531,12 @@ final class FeedStoreTests: XCTestCase {
         try await Task.sleep(for: .milliseconds(10))
 
         store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
-        deadline = Date().addingTimeInterval(3)
+        deadline = Date().addingTimeInterval(30)
+        let waitStart2 = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart2)
         XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-fast"],
                        "Fast return to collection must restore the cached post")
         // Cancel any in-flight work before the store is deallocated.
@@ -2381,10 +2559,12 @@ final class FeedStoreTests: XCTestCase {
 
         // Enter collection.
         store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
-        var deadline = Date().addingTimeInterval(3)
+        var deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-slow"])
 
         // Switch to editorial and WAIT longer than the 300 ms source-enablement
@@ -2395,10 +2575,12 @@ final class FeedStoreTests: XCTestCase {
 
         // Now switch back to the collection.
         store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
-        deadline = Date().addingTimeInterval(3)
+        deadline = Date().addingTimeInterval(30)
+        let waitStart2 = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart2)
         XCTAssertEqual(store.visibleItems.map(\.id), ["roundtrip-slow"],
                        "Slow return must survive the 300 ms editorial flush")
         XCTAssertEqual(
@@ -2433,10 +2615,12 @@ final class FeedStoreTests: XCTestCase {
 
         // Enter collection preset (simulating user selecting it in the picker)
         store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
-        let deadline = Date().addingTimeInterval(3)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.map(\.id), ["filtersheet-sim"])
 
         // Simulate FilterSheetView.onDisappear: set the same filters (no actual
@@ -2477,18 +2661,22 @@ final class FeedStoreTests: XCTestCase {
 
         // Open collection A.
         store.setPreset(.collection(collectionID: collA, collectionName: "Collection A"))
-        var deadline = Date().addingTimeInterval(3)
+        var deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
         XCTAssertEqual(store.visibleItems.map(\.id), ["post-a"])
 
         // Switch to collection B.
         store.setPreset(.collection(collectionID: collB, collectionName: "Collection B"))
-        deadline = Date().addingTimeInterval(3)
+        deadline = Date().addingTimeInterval(30)
+        let waitStart2 = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.map(\.id) != ["post-b"] && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication (composition)", since: waitStart2)
         XCTAssertEqual(store.visibleItems.map(\.id), ["post-b"],
                        "Collection B should show only its own content")
 
@@ -2532,17 +2720,33 @@ final class FeedStoreTests: XCTestCase {
 
         // Open collection (all languages).
         store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
-        let deadline = Date().addingTimeInterval(3)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.count < 2 && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication (count)", since: waitStart)
         XCTAssertEqual(Set(store.visibleItems.map(\.id)), ["post-en", "post-pt"])
 
         // Apply Portuguese-only language filter.
         store.beginFilterEditing()
         store.setFilter(region: nil, nodeIDs: [], type: .all, languages: ["pt"])
         store.endFilterEditing()
-        try await Task.sleep(for: .milliseconds(200))
+        // Signal, not a duration: `setFilter` clears the page synchronously, so the reload's
+        // first non-empty publication *is* the filtered composition. Waiting for that
+        // publication (instead of sampling a fixed delay) is what makes this hold under suite
+        // load; the exact page is asserted below, so a wrong composition still fails here
+        // rather than being polled away.
+        let publicationDeadline = Date().addingTimeInterval(30)
+        let waitStart2 = CFAbsoluteTimeGetCurrent()
+        while store.visibleItems.isEmpty, Date() < publicationDeadline {
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        recordWait("\(self.name) page publication", since: waitStart2)
+        XCTAssertFalse(
+            store.visibleItems.isEmpty,
+            "the filter reload must publish a page within 30s of endFilterEditing (setFilter cleared it synchronously and nothing came back)"
+        )
 
         XCTAssertEqual(store.visibleItems.map(\.id), ["post-pt"],
                        "Language filter should apply over the collection allowlist")
@@ -2574,10 +2778,12 @@ final class FeedStoreTests: XCTestCase {
         try await insertReadPost(store: store, id: "non-member-post", sourceURL: nonMemberURL, sourceTitle: "Non-Member")
 
         store.setPreset(.collection(collectionID: collectionID, collectionName: "Private"))
-        let deadline = Date().addingTimeInterval(3)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.isEmpty && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication", since: waitStart)
 
         XCTAssertEqual(store.visibleItems.map(\.id), ["member-post"],
                        "Only collection member content should appear")
@@ -2634,7 +2840,20 @@ final class FeedStoreTests: XCTestCase {
         _ = await store.persistFetchedItems([item])
 
         store.markAsSeen(item.id)
-        try await Task.sleep(for: .milliseconds(50))
+        // `markAsSeen` persists in a fire-and-forget task; wait for that write to land (the
+        // readiness signal) instead of assuming 50ms covers it under suite load, then assert
+        // the exact row state.
+        let persisted = await waitUntil {
+            let consumedAt = try? await store.db.read { db -> Int? in
+                try Int.fetchOne(
+                    db,
+                    sql: "SELECT consumed_at FROM feed_item WHERE id = ?",
+                    arguments: [item.id]
+                )
+            }
+            return consumedAt.flatMap { $0 } != nil
+        }
+        XCTAssertTrue(persisted, "markAsSeen must persist consumed_at within 30s")
 
         let state = try await store.db.read { db -> (Int?, Int?, Int?) in
             let row = try Row.fetchOne(
@@ -2676,15 +2895,34 @@ final class FeedStoreTests: XCTestCase {
         _ = await store.persistFetchedItems(items)
 
         store.markAsClicked("older-click")
-        try await Task.sleep(for: .seconds(1))
+        // `clicked_at` has second resolution, so the two clicks must land in different seconds
+        // for the ordering assertion to mean anything. Wait for the clock to tick — a signal —
+        // instead of sleeping a blind second.
+        let firstClickSecond = Int(Date().timeIntervalSince1970)
+        let ticked = await waitUntil { Int(Date().timeIntervalSince1970) > firstClickSecond }
+        XCTAssertTrue(ticked, "the wall clock must reach a new second before the second click")
+
         store.markAsClicked("newer-click")
-        try await Task.sleep(for: .milliseconds(50))
+        // Both clicks must be persisted before the preset reads them back out of SQLite.
+        let bothPersisted = await waitUntil {
+            let clicked = try? await store.db.read { db -> Int? in
+                try Int.fetchOne(
+                    db,
+                    sql: "SELECT COUNT(*) FROM feed_item WHERE clicked_at IS NOT NULL"
+                )
+            }
+            return clicked.flatMap { $0 } == 2
+        }
+        XCTAssertTrue(bothPersisted, "both clicks must be persisted (clicked_at set) within 30s")
+
         store.setPreset(.lastClicked)
 
-        let deadline = Date().addingTimeInterval(1)
+        let deadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.count < 2 && Date() < deadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication (count)", since: waitStart)
         XCTAssertEqual(store.visibleItems.map(\.id), ["newer-click", "older-click"])
     }
 
@@ -2756,10 +2994,12 @@ final class FeedStoreTests: XCTestCase {
             smartFeedID: smartFeed.id,
             smartFeedName: smartFeed.name
         ))
-        let loadDeadline = Date().addingTimeInterval(1)
+        let loadDeadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
         while store.visibleItems.count < 2 && Date() < loadDeadline {
             try await Task.sleep(for: .milliseconds(10))
         }
+        recordWait("\(self.name) page publication (count)", since: waitStart)
         XCTAssertEqual(
             store.visibleItems.map(\.id),
             [newer.id, older.id],
@@ -2767,12 +3007,21 @@ final class FeedStoreTests: XCTestCase {
         )
 
         store.markAsSeen(newer.id)
-        try await Task.sleep(for: .milliseconds(50))
+        // The order on screen is synchronous — assert it before any wait, so the claim is about
+        // visibility tracking rather than about how fast the cache write happens to be.
         XCTAssertEqual(
             store.visibleItems.map(\.id),
             [newer.id, older.id],
             "Visibility tracking must not move the card under the user's scroll position"
         )
+
+        // The cache rewrite is what needs waiting for: wait for the seen item to leave the head
+        // of the cached queue (the write landing), then assert the exact queue order.
+        let queueMoved = await waitUntil {
+            let cached = try? await store.smartFeedStore.cachedItems(smartFeedID: smartFeed.id)
+            return cached?.first?.id != newer.id
+        }
+        XCTAssertTrue(queueMoved, "the seen item must be moved off the cached queue head within 30s")
 
         let reloadedQueue = try await store.smartFeedStore.cachedItems(
             smartFeedID: smartFeed.id
@@ -3391,5 +3640,290 @@ final class FeedStoreTests: XCTestCase {
         )
         XCTAssertEqual(migrated.requiredSearchTerms, ["Madonna", "tour"])
         XCTAssertEqual(migrated.excludedSearchTerms, [])
+    }
+
+    // MARK: - Content filters: main-actor vs off-main parity
+
+    /// `applyFiltersAsync` runs on startup, on filter changes and on
+    /// append/refresh, so it must hide exactly what the synchronous pass hides.
+    /// When the two paths disagree, an item the user just hid through a content
+    /// filter comes straight back through the off-main path.
+    func testOffMainFilterAppliesContentFiltersLikeMainActorPass() async throws {
+        let store = try FeedStore(inMemory: true)
+        let sourceURL = "https://blog.example/feed"
+        store.registry.sources = [
+            FeedSource(title: "Blog", url: sourceURL, category: "News",
+                       region: "global", language: "en"),
+        ]
+        let items = [
+            contentFilterItem(id: "crypto",
+                              title: "Bitcoin surges past its previous high",
+                              sourceURL: sourceURL),
+            contentFilterItem(id: "cats",
+                              title: "Cat photos go viral",
+                              sourceURL: sourceURL),
+        ]
+
+        let filters = ContentFilterStore.shared
+        let isEnabledBefore = filters.isEnabled
+        let idsBefore = Set(filters.filters.map(\.id))
+        filters.isEnabled = true
+        filters.addCustom(name: "Crypto", keywords: ["bitcoin"])
+        let cryptoFilter = try XCTUnwrap(filters.filters.first { !idsBefore.contains($0.id) })
+        defer {
+            filters.removeCustom(cryptoFilter.id)
+            filters.isEnabled = isEnabledBefore
+        }
+
+        XCTAssertEqual(store.applyFilters(items).map(\.id), ["cats"],
+                       "The main-actor pass hides filtered content")
+        let offMain = await store.applyFiltersAsync(items)
+        XCTAssertEqual(offMain.map(\.id), ["cats"],
+                       "The off-main pass must hide the same items")
+
+        // Changing the filter set must invalidate what the off-main pass cached,
+        // otherwise the next pass serves a verdict computed under the old filters.
+        filters.removeCustom(cryptoFilter.id)
+        filters.addCustom(name: "Cats", keywords: ["cat"])
+        let catFilter = try XCTUnwrap(filters.filters.first { !idsBefore.contains($0.id) })
+        defer { filters.removeCustom(catFilter.id) }
+
+        let afterChange = await store.applyFiltersAsync(items)
+        XCTAssertEqual(afterChange.map(\.id), ["crypto"],
+                       "A new filter set must not be served from the previous cache")
+    }
+
+    // MARK: - Published presentation freeze
+
+    /// An image that resolves after its card was published must not rewrite it.
+    ///
+    /// The hero slot is the card's only height difference, so a late image grows
+    /// the card and shifts everything below it under the reader. The resolved
+    /// image stays in `ImageCache` for the next composition instead. This test
+    /// **fails against 1.0 (5)**, where the delegate handler swapped the
+    /// published card to `.image` + `.hero`.
+    func test_lateImageResolutionDoesNotMutatePublishedCard() throws {
+        let store = try FeedStore(inMemory: true)
+        let imageURL = "https://late.example/image.jpg"
+        let item = FeedItem(
+            id: "late-1",
+            sourceTitle: "Blog",
+            sourceURL: "https://late.example/feed",
+            category: "News",
+            title: "Text only until the image shows up",
+            excerpt: "",
+            url: "https://late.example/1",
+            imageURL: imageURL,
+            publishedAt: Date(),
+            region: "global",
+            language: "en"
+        )
+        store.display.publishCards(
+            [FeedCardPresentation(item: item, media: .none, layout: .textOnly,
+                                  isRead: false, isBookmarked: false)],
+            items: [item],
+            readItemIDs: [],
+            bookmarkItemIDs: [],
+            isAppend: false
+        )
+
+        // The retry only fires this notification once the image is cached.
+        let url = try XCTUnwrap(URL(string: imageURL))
+        ImageCache.shared.setImage(Self.onePixelImage(), for: url)
+
+        store.imageResolutionQueue(didResolveImageFor: item.id)
+
+        let cards = store.visibleCards
+        XCTAssertEqual(cards.count, 1, "A late image must not insert or drop cards")
+        XCTAssertEqual(cards[0].id, item.id, "Ids and order stay put")
+        XCTAssertEqual(store.visibleItems.map(\.id), [item.id])
+        XCTAssertEqual(cards[0].layout, .textOnly,
+                       "A published card keeps the layout it was published with")
+        guard case .none = cards[0].media else {
+            return XCTFail("A published card must not gain media — the hero slot changes its height")
+        }
+    }
+
+    /// 1×1 image so the cache has something real to hand back.
+    private static func onePixelImage() -> UIImage {
+        UIGraphicsImageRenderer(size: CGSize(width: 1, height: 1)).image { context in
+            UIColor.red.setFill()
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        }
+    }
+
+    private func contentFilterItem(id: String, title: String, sourceURL: String) -> FeedItem {
+        FeedItem(
+            id: id,
+            sourceTitle: "Blog",
+            sourceURL: sourceURL,
+            category: "News",
+            title: title,
+            excerpt: "",
+            url: "https://example.com/\(id)",
+            imageURL: nil,
+            publishedAt: Date(),
+            region: "global",
+            language: "en"
+        )
+    }
+
+    /// The off-main filter pass must see an enablement change immediately. Its
+    /// disabled-source snapshot is now cached across calls (it used to be rebuilt per
+    /// call, walking the whole catalogue on the main actor), so the cache is only
+    /// correct if the registry's revisions invalidate it — this pins that, and the
+    /// enablement revision that every toggle funnels through.
+    func testFilterPassSeesSourceToggleImmediately() async throws {
+        let store = try FeedStore(inMemory: true)
+        defer { store.cancelAllWork() }
+        await store.registry.loadFromOPML()
+        let source = try XCTUnwrap(
+            store.registry.enabledSources.first,
+            "the bundled catalogue must offer an enabled source"
+        )
+        let items = [
+            contentFilterItem(id: "toggled", title: "Toggle story", sourceURL: source.url)
+        ]
+        let enabledPass = await store.applyFiltersAsync(items)
+        XCTAssertEqual(enabledPass.count, 1, "an enabled source must pass the filter")
+
+        store.registry.toggleSource(source.url)
+        let disabledPass = await store.applyFiltersAsync(items)
+        XCTAssertTrue(
+            disabledPass.isEmpty,
+            "a source turned off must stop passing the filter on the very next pass"
+        )
+
+        store.registry.toggleSource(source.url)
+        let reEnabledPass = await store.applyFiltersAsync(items)
+        XCTAssertEqual(reEnabledPass.count, 1, "turning the source back on must restore it")
+    }
+
+    /// A filter change must present the matching local articles immediately,
+    /// instead of holding them behind the network. The regression this pins: the
+    /// local reload published into `visibleItems` but `publishCards` refused to
+    /// leave `.preparing` while `loadingState` was `.refreshing`, so `FeedScreen`
+    /// kept rendering `InitialFeedLoadingView` — with a slow or unreachable server
+    /// the feed showed a spinner while matching articles were already in SQLite.
+    func testFilterChangeShowsMatchingLocalArticlesWithoutANetwork() async throws {
+        let store = try FeedStore(inMemory: true)
+        defer { store.cancelAllWork() }
+        // Local articles are only eligible when their source is in the catalogue:
+        // `isSourceEnabled` answers false for a URL it does not know, so a made-up
+        // source would be filtered out and the test would measure nothing.
+        await store.registry.loadFromOPML()
+        let sourceURL = try XCTUnwrap(
+            store.registry.enabledSources.first?.url,
+            "the bundled catalogue must offer an enabled source"
+        )
+        let articles = (0..<5).map {
+            contentFilterItem(
+                id: "local-\($0)",
+                title: "Local story \($0)",
+                sourceURL: sourceURL
+            )
+        }
+        let persisted = await store.persistFetchedItems(articles)
+        XCTAssertFalse(persisted.isEmpty, "the local articles must be stored")
+
+        // Apply a filter composition and let the pipeline hydrate from SQLite. No
+        // server is reachable from a test, which is the point of this test.
+        store.setFilter(region: nil, nodeIDs: [], type: .all, mood: .all, languages: nil)
+
+        var published = false
+        let publicationDeadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while Date() < publicationDeadline {
+            if !store.visibleItems.isEmpty, case .ready = store.feedDisplayPhase {
+                published = true
+                break
+            }
+            try await Task.sleep(for: .milliseconds(10))
+        }
+        recordWait("\(self.name) page publication", since: waitStart)
+        XCTAssertTrue(
+            published,
+            "matching local articles must be presented without waiting for the network"
+        )
+    }
+
+    /// A warm install must publish the page it already holds *before* the bundled
+    /// catalogue is parsed. The regression this pins: the cached page used to be
+    /// published only after `loadFromOPML()`, the taxonomy load, the filter
+    /// restore, the read state and the bookmarks — measured at ~23 s of
+    /// "Preparing your feed…" on a warm simulator container, against the release
+    /// target of one second for a *local* page.
+    func testWarmStartPublishesCachedPageBeforeTheCatalogueLoads() async throws {
+        let caches = try XCTUnwrap(
+            FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first,
+            "the app caches its first page in the caches directory"
+        )
+        func pageCacheFiles() -> [URL] {
+            let files = (try? FileManager.default.contentsOfDirectory(
+                at: caches, includingPropertiesForKeys: nil
+            )) ?? []
+            return files.filter { $0.lastPathComponent.hasPrefix("visible-page-cache") }
+        }
+        // These tests run inside the app's process on this simulator, so the container
+        // already holds real state — including a warm-start page cache. Snapshot it and
+        // put it back, rather than deleting it: wiping it would destroy the very state a
+        // warm-start measurement needs, which is not this test's business.
+        let saved = pageCacheFiles().map { ($0, try? Data(contentsOf: $0)) }
+        func clearPageCaches() { for file in pageCacheFiles() { try? FileManager.default.removeItem(at: file) } }
+        clearPageCaches()
+        defer {
+            clearPageCaches()
+            for (url, data) in saved { if let data { try? data.write(to: url) } }
+        }
+
+        let store = try FeedStore(inMemory: true)
+        defer { store.cancelAllWork() }
+        XCTAssertEqual(store.registry.sourceCount, 0, "the catalogue starts unloaded")
+
+        // Arrange: the page a previous launch leaves behind, written through the
+        // real cache path and keyed with the signature `start()` will look for.
+        let previousLaunch = FeedDisplayState()
+        previousLaunch.setVisibleItems(
+            [FeedItem.makeMock(id: "cached-page")],
+            readItemIDs: [],
+            bookmarkItemIDs: [],
+            shouldCache: true,
+            filterSignature: store.pageCacheSignature
+        )
+        // The write is detached — wait until the cache is readable back, rather
+        // than assume the file landed.
+        var seeded = await previousLaunch.restoreCachedPage(filterSignature: store.pageCacheSignature) != nil
+        let seedDeadline = Date().addingTimeInterval(30)
+        let waitStart = CFAbsoluteTimeGetCurrent()
+        while !seeded, Date() < seedDeadline {
+            try await Task.sleep(for: .milliseconds(10))
+            seeded = await previousLaunch.restoreCachedPage(filterSignature: store.pageCacheSignature) != nil
+        }
+        recordWait("\(self.name) page publication", since: waitStart)
+        XCTAssertTrue(seeded, "the page cache must be readable before startup")
+
+        // Act: watch the first publication against the catalogue's own progress.
+        // Bounded by a spin count rather than the task's completion, which the
+        // test cannot poll; `started.value` joins it afterwards either way.
+        var sourceCountWhenPublished: Int?
+        var spins = 0
+        let started = Task { await store.start() }
+        while sourceCountWhenPublished == nil, store.registry.sourceCount == 0, spins < 200_000 {
+            if case .ready = store.feedDisplayPhase, !store.visibleItems.isEmpty {
+                sourceCountWhenPublished = store.registry.sourceCount
+            }
+            spins += 1
+            await Task.yield()
+        }
+        await started.value
+
+        XCTAssertGreaterThan(
+            store.registry.sourceCount, 0,
+            "precondition: the bundled catalogue loads in this environment"
+        )
+        XCTAssertEqual(
+            sourceCountWhenPublished, 0,
+            "the cached page must be published before the catalogue loads; nil means it was never published early"
+        )
     }
 }
