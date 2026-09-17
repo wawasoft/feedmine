@@ -119,9 +119,12 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
   earlier run leaked the lock. Both scripts use `release_lane()` plus a guarded `rm -rf` reclaim.
 - **Never trust `test-without-building` without a freshness check** (no source newer than the build product), and abort on
   any build `error:`.
-- Scripts: `/tmp/acceptance-final.sh` (gates ×3 + journey + basename validation + `REOPEN` lines, lock-guarded),
-  `/tmp/reopen-measure.sh` (journey only), `/tmp/filter-classify.sh` (classification probe **without** uninstalling),
-  `/tmp/perf-baseline.sh` (isolated timing baselines).
+- Scripts: **`scripts/release-acceptance.sh`** (the bar: gates ×3 + journey + basename validation + `REOPEN` lines,
+  lock-guarded, **exit 1** on any failed gate or missing surface) and **`scripts/release-journey.sh`** (the journey half
+  alone, same gate semantics) are **checked in** — the exit-status propagation that makes them gates rather than reports is
+  part of the repository, not of a `/tmp` file. Their `/tmp` predecessors (`/tmp/acceptance-final.sh`, `/tmp/reopen-measure.sh`)
+  and the probe helpers (`/tmp/filter-classify.sh`, `/tmp/perf-baseline.sh`) are ephemeral working copies; treat anything that
+  matters as living in the repo. Both scripts take `FEEDMINE_SIM_UDID` and write logs to `/tmp/feedmine-*.log`.
 - **Do not "fix" the flaky filter test in product code.** `FeedStore`/`applyFiltersOffMain` were correct; the flakes were
   test-side (fixed `Task.sleep(200ms)` sampling, a process-wide `taxonomy_cache.json`, and now the shared filter state —
   see `normalizeSharedFilterStateForTests()`).

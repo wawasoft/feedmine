@@ -38,6 +38,15 @@ final class PersonaExplorationUITests: XCTestCase {
 
         // 3. Tap first article to open reader
         if let firstCard = firstHittableCard() {
+            // One tap, and its failure is a **finding**, not a flake: a card tap that produces no reader while the start's
+            // pipeline is still running is exactly the ignored-tap class this harness exists to catch, so a retap would
+            // convert a real defect into a green journey. The diagnostics below are what makes the miss interpretable —
+            // which card, was it hittable, what state was the app in — and the failure branch keeps a screenshot so the
+            // question "tap ignored, or reader open and the signal missed?" is answered by pixels, not by inference.
+            let tappedID = firstCard.identifier
+            let tappedHittable = firstCard.isHittable
+            let tapAt = Date()
+            print("READER tap card_id=\(tappedID) hittable=\(tappedHittable) at=\(ISO8601DateFormatter().string(from: tapAt)) app_state=\(app.state.rawValue)")
             firstCard.tap()
             // Presentation first, content second. The pixel gate below cannot tell the reader from the *feed*: both are
             // ink-rich, so applying it straight after the tap returned true in 116 ms on the feed's own pixels and the
@@ -45,17 +54,7 @@ final class PersonaExplorationUITests: XCTestCase {
             // the PNGs, not by the gate). `ArticleReaderView` is a `.sheet` containing a `NavigationStack` and a
             // `WKWebView` (`FeedScreen.swift:260`), and the feed screen has no navigation bar and no web view, so either
             // signal — cheap, single-element queries — means the reader is up.
-            //
-            // One retap, because a first tap is sometimes swallowed while the start's pipeline is still running
-            // (measured: `presented=0` after 20 s on one cold run whose predecessor presented in 89 ms — the tap was
-            // synthesised and the sheet never appeared). The retry is *reported*, never silent: a second failed
-            // presentation is a failure, not something to paper over with a longer wait.
-            var presented = ensureReaderPresented(timeout: 6)
-            if !presented, firstCard.isHittable {
-                print("READER retap=1 reason=reader_not_presented_after_ms=6000")
-                firstCard.tap()
-                presented = ensureReaderPresented(timeout: 14)
-            }
+            let presented = ensureReaderPresented()
             if presented {
                 if waitForReaderContent() {
                     sleep(1)
@@ -80,8 +79,12 @@ final class PersonaExplorationUITests: XCTestCase {
                 }
             } else {
                 // No presentation, no surface: capturing the feed under a reader's name is the fabrication this harness
-                // exists to avoid, and the basename validator reports the pair as absent instead.
-                print("READER reader_not_presented=1 — 03-article-reader and 04-article-scrolled not captured (the reader surface was not exercised)")
+                // exists to avoid, and the basename validator reports the pair as absent instead. The diagnostic shot is
+                // what separates the two readings of a miss — **tap ignored** (the feed is still on screen: the
+                // responsiveness defect) from **reader open and the signal missed** (the reader is on screen: an
+                // instrument problem) — instead of inferring one of them from the absence of a query result.
+                capture("91-reader-missing")
+                print("READER reader_not_presented=1 — 03-article-reader and 04-article-scrolled not captured (the reader surface was not exercised); tapped_id=\(tappedID) hittable_at_tap=\(tappedHittable) tap_to_check_ms=\(Int(Date().timeIntervalSince(tapAt) * 1000)) app_state_after=\(app.state.rawValue)")
                 XCTFail("reader never presented — 03-article-reader / 04-article-scrolled absent")
             }
             // Go back
