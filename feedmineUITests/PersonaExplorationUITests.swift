@@ -81,16 +81,24 @@ final class PersonaExplorationUITests: XCTestCase {
                 }
             } else {
                 // No presentation, no surface: capturing the feed under a reader's name is the fabrication this harness
-                // exists to avoid, and the basename validator reports the pair as absent instead. The diagnostic shot and
-                // the classification below are what separate the readings of a miss instead of inferring one of them:
-                //   * `search_opened` — the synthesized tap hit another control (measured 08:55: the shot showed the
-                //     search field with the keyboard up), i.e. a harness/element race, not an ignored gesture;
-                //   * `feed_unchanged` — the card was stable and hittable, the app foreground, and the same feed is still
-                //     on screen 20 s later: that one is the responsiveness finding.
+                // exists to avoid, and the basename validator reports the pair as absent instead. The classification stays
+                // strictly observational — it says what is on screen, never which control the tap hit:
+                //   * `search_opened` — the search field or a keyboard is up after the tap (the run of 08:55). That the
+                //     tap *caused* it is not proven; it is reported because it is what the pixels showed.
+                //   * `feed_unchanged_verified` — the same tapped card is still present, hittable and fully visible, and
+                //     nothing else appeared: the user-visible outcome of a lost tap.
+                //   * `unknown` — anything else (a different surface, an overlay, an element that vanished), left for the
+                //     `91-reader-missing.png` frame to explain rather than folded into a binary.
                 let searchField = app.textFields["unified-search-field"]
                 let searchOpened = searchField.exists || app.keyboards.count > 0
+                let sameCard = app.descendants(matching: .any)
+                    .matching(NSPredicate(format: "identifier == %@", tappedID)).firstMatch
+                let headerBottom = app.buttons["search-button"].exists ? app.buttons["search-button"].frame.maxY : 0
+                let cardStillThere = sameCard.exists && sameCard.isHittable
+                    && sameCard.frame.minY >= headerBottom + 8 && sameCard.frame.maxY <= app.frame.maxY - 8
+                let cause = searchOpened ? "search_opened" : (cardStillThere ? "feed_unchanged_verified" : "unknown")
                 capture("91-reader-missing")
-                print("READER reader_not_presented=1 miss_cause=\(searchOpened ? "search_opened" : "feed_unchanged") tapped_id=\(tappedID) hittable_at_tap=\(tappedHittable) frame_at_tap=\(tappedFrame) tap_to_check_ms=\(Int(Date().timeIntervalSince(tapAt) * 1000)) app_state_after=\(app.state.rawValue) search_field_present=\(searchField.exists ? 1 : 0) keyboards=\(app.keyboards.count) — 03-article-reader and 04-article-scrolled not captured (the reader surface was not exercised)")
+                print("READER reader_not_presented=1 miss_cause=\(cause) tapped_id=\(tappedID) hittable_at_tap=\(tappedHittable) frame_at_tap=\(tappedFrame) tap_to_check_ms=\(Int(Date().timeIntervalSince(tapAt) * 1000)) app_state_after=\(app.state.rawValue) search_field_present=\(searchField.exists ? 1 : 0) keyboards=\(app.keyboards.count) tapped_card_still_fully_visible=\(cardStillThere ? 1 : 0) sheets=\(app.sheets.count) — 03-article-reader and 04-article-scrolled not captured (the reader surface was not exercised)")
                 XCTFail("reader never presented — 03-article-reader / 04-article-scrolled absent")
             }
             // Go back
@@ -463,18 +471,23 @@ final class PersonaExplorationUITests: XCTestCase {
         return counted == 0 ? 0 : Double(inked) / Double(counted)
     }
 
-    /// The first card that can take the press **and is fully visible below the header**, resolved once its frame stops moving.
+    /// The first card that can take the press **and is fully visible below the header**, returned immediately after the
+    /// resolution that will be tapped.
     ///
-    /// Neither `firstHittableCard()` nor a frame-stability check is enough here. Measured on the bar runs of 2026-09-17:
-    /// the selected card's frame was `(0, -281.7, 393, 369.7)` — its only on-screen band was `y ∈ [0, 88]`, which lies
-    /// **under the header** where the search/bookmark/filter/more buttons live. `isHittable` was true and the frame was
-    /// stable, so both earlier guards passed, and the synthesized tap landed on header controls: one run opened the search
-    /// field with its keyboard, another hit a spot that did nothing, and both were briefly read as "the app ignored the
-    /// tap". This is viewport selection, not a product gesture loss.
+    /// Three properties are required, each one a measured failure mode of 2026-09-17:
+    /// 1. **Fully visible**: the selected card's frame was `(0, -281.7, 393, 369.7)`, so its only on-screen band was
+    ///    `y ∈ [0, 88]` — inside the header (`search-button.frame.maxY = 111`), where the search/bookmark/filter/more
+    ///    controls are. `isHittable` was true, so the sliver passed every guard that came before it and the tap resolved
+    ///    into the header band. Consistent with that, one miss left the search field open with its keyboard and another
+    ///    left the feed unchanged; the pixels are what said so, not an assumption about which control was hit.
+    /// 2. **Stable**: the same frame and hittability must survive a 400 ms sample, because the list is still being
+    ///    published and prepared at this point in the journey.
+    /// 3. **Re-checked after the last observation**: the pre-tap screenshot (`92-reader-pre-tap.png`) is taken *inside*
+    ///    this helper, between the two frame reads, so no query or capture runs between the final check and the caller's
+    ///    `tap()` — otherwise the guarantee expires in that gap and the very same race can return.
     ///
-    /// So: pick a card whose whole frame sits below the header and inside the window (scrolling toward earlier content
-    /// until one exists), then re-resolve that same card and re-check the frame immediately before the tap. A card that
-    /// satisfies all of that and *still* does not open the reader remains a genuine finding.
+    /// A card that satisfies all three and still does not open the reader remains a failure; nothing here retries a user
+    /// action.
     @discardableResult
     private func stableTappableCard(attempts: Int = 6) -> XCUIElement? {
         let predicate = NSPredicate(format: "identifier BEGINSWITH %@", "feed-item-")
@@ -496,6 +509,7 @@ final class PersonaExplorationUITests: XCTestCase {
             let id = card.identifier
             let frame = card.frame
             usleep(400_000)
+            capture("92-reader-pre-tap")  // last observation before synthesis, taken here on purpose
             let again = app.descendants(matching: .any).matching(predicate)
                 .matching(NSPredicate(format: "identifier == %@", id)).firstMatch
             let frameAfter = again.exists ? again.frame : CGRect.null

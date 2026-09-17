@@ -12,29 +12,33 @@
 # once made it restore a 1-item page slot.
 #
 # Usage: scripts/release-acceptance.sh
-#   env: FEEDMINE_SIM_UDID     simulator UDID; default: the first available iPhone
-#        FEEDMINE_DESTINATION  full xcodebuild -destination; default: platform=iOS Simulator,id=$UDID
+#   env: FEEDMINE_SIM_UDID  simulator UDID (required when more than one device matches FEEDMINE_SIM_NAME)
+#        FEEDMINE_SIM_NAME  model to use; default `iPhone 16`, the model every recorded measurement used
 set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
+# Device selection is exact, not "some iPhone": this journey asserts coordinates, frames and screenshots, so an SE or an
+# older runtime would silently change layout and timing. More than one match is an error, not a coin flip.
+SIM_NAME="${FEEDMINE_SIM_NAME:-iPhone 16}"
 discover_udid() {
-  # Prefer an already-booted iPhone, then the first available one: xcodebuild's own marker for this mode is
-  # `** TEST EXECUTE SUCCEEDED **`, so the exit status and that marker are the verdict — the device choice only has to be
-  # stable within a run, which selecting by UDID guarantees. Pin FEEDMINE_SIM_UDID to compare against the recorded numbers
-  # (those were taken on the iPhone 16 `2F70B5E4-DF56-428C-A7B9-0A769B6CAC3D`).
-  local booted
-  booted=$(xcrun simctl list devices booted 2>/dev/null | awk -F'[()]' '/iPhone/ {gsub(/ /, "", $2); print $2; exit}')
-  if [ -n "$booted" ]; then echo "$booted"; return; fi
-  xcrun simctl list devices available 2>/dev/null \
-    | awk -F'[()]' '/iPhone/ {gsub(/ /, "", $2); print $2; exit}'
+  local booted matches count
+  booted=$(xcrun simctl list devices booted 2>/dev/null | awk -F'[()]' -v n="$SIM_NAME" '$0 ~ n {gsub(/ /,"",$2); print $2; exit}')
+  if [ -n "$booted" ]; then echo "$booted"; return 0; fi
+  matches=$(xcrun simctl list devices available 2>/dev/null | awk -F'[()]' -v n="$SIM_NAME" '$0 ~ n {gsub(/ /,"",$2); print $2}')
+  count=$(printf '%s\n' "$matches" | grep -c . || true)
+  if [ "$count" -gt 1 ]; then
+    echo "ABORTADO: $count simulators match '$SIM_NAME' — set FEEDMINE_SIM_UDID to choose:" >&2
+    printf '%s\n' "$matches" | sed 's/^/  /' >&2
+    return 1
+  fi
+  printf '%s\n' "$matches" | head -1
 }
 S="${FEEDMINE_SIM_UDID:-$(discover_udid)}"
-if [ -z "$S" ]; then echo "ABORTADO: no iPhone simulator found — set FEEDMINE_SIM_UDID"; exit 9; fi
-# Select the device by UDID, never by name: with two runtimes or two devices named "iPhone 16", a name-based destination can
-# run the tests against a different container than the one this script boots and cleans, which invalidates both the
-# clean-container gate and the warm-reopen measurement.
-DEST="${FEEDMINE_DESTINATION:-platform=iOS Simulator,id=$S}"
+if [ -z "$S" ]; then echo "ABORTADO: no simulator matching 'iPhone 16' (FEEDMINE_SIM_NAME) — set FEEDMINE_SIM_UDID"; exit 9; fi
+# The destination is derived from $S and is not configurable: simctl cleans and boots the device this script names, so a
+# separate destination knob could clean one simulator while xcodebuild measured another.
+DEST="platform=iOS Simulator,id=$S"
 SHOTS=/tmp/feedmine-persona-screenshots
 LANE=/tmp/feedmine-lane.lock
 

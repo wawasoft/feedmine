@@ -15,8 +15,8 @@
 # cannot remove a non-empty directory, which is how earlier versions leaked the lock and blocked later lanes.
 #
 # Usage: scripts/release-journey.sh [journey-log] [build-log]
-#   env: FEEDMINE_SIM_UDID     simulator UDID; default: the first available iPhone
-#        FEEDMINE_DESTINATION  full xcodebuild -destination; default: platform=iOS Simulator,id=$UDID
+#   env: FEEDMINE_SIM_UDID  simulator UDID (required when more than one device matches FEEDMINE_SIM_NAME)
+#        FEEDMINE_SIM_NAME  model to use; default `iPhone 16`, the model every recorded measurement used
 #   The screenshot directory is NOT configurable here: `PersonaExplorationUITests.screenshotDir` hardcodes
 #   /tmp/feedmine-persona-screenshots, and the basename validation below must read exactly what the test wrote.
 # No `set -e`: the whole point of this script is to *report* a red run. A bare `xcodebuild` that exits 65 would otherwise
@@ -26,13 +26,24 @@ set -uo pipefail
 
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$REPO"
+SIM_NAME="${FEEDMINE_SIM_NAME:-iPhone 16}"
 discover_udid() {
-  xcrun simctl list devices available 2>/dev/null \
-    | awk -F'[()]' '/iPhone/ && /Booted|Shutdown/ {gsub(/ /, "", $2); print $2; exit}'
+  local booted matches count
+  booted=$(xcrun simctl list devices booted 2>/dev/null | awk -F'[()]' -v n="$SIM_NAME" '$0 ~ n {gsub(/ /,"",$2); print $2; exit}')
+  if [ -n "$booted" ]; then echo "$booted"; return 0; fi
+  matches=$(xcrun simctl list devices available 2>/dev/null | awk -F'[()]' -v n="$SIM_NAME" '$0 ~ n {gsub(/ /,"",$2); print $2}')
+  count=$(printf '%s\n' "$matches" | grep -c . || true)
+  if [ "$count" -gt 1 ]; then
+    echo "ABORTADO: $count simulators match '$SIM_NAME' — set FEEDMINE_SIM_UDID to choose:" >&2
+    printf '%s\n' "$matches" | sed 's/^/  /' >&2
+    return 1
+  fi
+  printf '%s\n' "$matches" | head -1
 }
 S="${FEEDMINE_SIM_UDID:-$(discover_udid)}"
-if [ -z "$S" ]; then echo "ABORTADO: no iPhone simulator found — set FEEDMINE_SIM_UDID"; exit 9; fi
-DEST="${FEEDMINE_DESTINATION:-platform=iOS Simulator,id=$S}"
+if [ -z "$S" ]; then echo "ABORTADO: no simulator matching '$SIM_NAME' — set FEEDMINE_SIM_UDID"; exit 9; fi
+# Derived from $S, never configurable — see release-acceptance.sh for why two knobs are a hazard.
+DEST="platform=iOS Simulator,id=$S"
 echo "simulator: $S | destination: $DEST"
 SHOTS=/tmp/feedmine-persona-screenshots
 LOG="${1:-/tmp/feedmine-journey.log}"
