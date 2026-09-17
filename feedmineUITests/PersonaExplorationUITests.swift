@@ -45,7 +45,17 @@ final class PersonaExplorationUITests: XCTestCase {
             // the PNGs, not by the gate). `ArticleReaderView` is a `.sheet` containing a `NavigationStack` and a
             // `WKWebView` (`FeedScreen.swift:260`), and the feed screen has no navigation bar and no web view, so either
             // signal — cheap, single-element queries — means the reader is up.
-            let presented = ensureReaderPresented()
+            //
+            // One retap, because a first tap is sometimes swallowed while the start's pipeline is still running
+            // (measured: `presented=0` after 20 s on one cold run whose predecessor presented in 89 ms — the tap was
+            // synthesised and the sheet never appeared). The retry is *reported*, never silent: a second failed
+            // presentation is a failure, not something to paper over with a longer wait.
+            var presented = ensureReaderPresented(timeout: 6)
+            if !presented, firstCard.isHittable {
+                print("READER retap=1 reason=reader_not_presented_after_ms=6000")
+                firstCard.tap()
+                presented = ensureReaderPresented(timeout: 14)
+            }
             if presented {
                 if waitForReaderContent() {
                     sleep(1)
@@ -63,11 +73,16 @@ final class PersonaExplorationUITests: XCTestCase {
                     // `9x` diagnostic keeps the frame for the human reading the run.
                     capture("90-reader-blank")
                     print("READER reader_blank=1 — 03-article-reader and 04-article-scrolled not captured (the reader was presented but its body never rendered)")
+                    // And the run must not be able to call itself green without them: `continueAfterFailure = true` keeps
+                    // the rest of the journey (and the diagnostics) running, while the case itself is recorded as failed,
+                    // so xcodebuild reports `TEST EXECUTE FAILED` and the acceptance script exits non-zero.
+                    XCTFail("reader presented but its body never rendered — 03-article-reader / 04-article-scrolled absent")
                 }
             } else {
                 // No presentation, no surface: capturing the feed under a reader's name is the fabrication this harness
                 // exists to avoid, and the basename validator reports the pair as absent instead.
                 print("READER reader_not_presented=1 — 03-article-reader and 04-article-scrolled not captured (the reader surface was not exercised)")
+                XCTFail("reader never presented — 03-article-reader / 04-article-scrolled absent")
             }
             // Go back
             dismissSheet(preferring: "back")

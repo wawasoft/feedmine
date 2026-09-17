@@ -92,9 +92,12 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
 
 ## Operational rules that cost or saved time here
 
-- **Certify a journey by its required basename set, never by a file count**: the reopen step writes two PNGs of its own, so
-  a count of 16 can be 14 real surfaces plus both reopen shots (exactly what one run produced). The scripts print
-  `superficies-obrigatorias=N/17 ausentes=[…]`.
+- **Certify a journey by its required basename set, never by a file count** — and let that set *decide the exit status*: the
+  reader step `XCTFail`s when the reader never presented or its body never rendered (leaving `03`/`04` absent and a
+  `90-reader-blank.png` diagnostic), and both acceptance scripts exit 1 on any missing required surface, on
+  `** TEST EXECUTE FAILED **` or on a failed gate. Both failure branches have been exercised end to end
+  (`superficies-obrigatorias=15/17 ausentes=[03-article-reader 04-article-scrolled]` ⇒ script exit 1). A printed
+  `ausentes=[…]` that still exits 0 is not a gate.
 - **Clean the app container between test runs.** The unit tests execute *inside the app's process* and write the app's
   UserDefaults and page caches; a run that inherits the previous run's container failed `FeedLoaderCacheTests
   .testFilteredDateSectionsPreserveProviderOrderAcrossDates` with a 36.9–37.1 s page-publication wait that normally takes
