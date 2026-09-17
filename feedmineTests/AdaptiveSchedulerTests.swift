@@ -4,6 +4,49 @@ import XCTest
 @MainActor
 final class AdaptiveSchedulerTests: XCTestCase {
 
+    // MARK: - Quality baseline (review P1.1)
+
+    /// Quality must be a **baseline** of the source priority, not a preset term.
+    ///
+    /// For `.everything` — and for `.lastClicked`/`.smartFeed` — `PresetScorer` returns no multipliers at all, so every
+    /// source reached the default 1.0 and "prefer high-quality sources" was implemented nowhere: the scheduler ranked by
+    /// region/category deficit, urgency and content type alone. Two sources identical in everything the scheduler can see
+    /// except `qualityScore`, an empty preset map, one slot: the better source leads.
+    func testQualityIsABaselineWhenThePresetIsSilent() {
+        let s = AdaptiveScheduler()
+        let sources: [String: [FeedSource]] = [
+            "global": [
+                FeedSource(title: "Low", url: "https://low.example/feed",
+                           category: "Tech", region: "global", qualityScore: 30),
+                FeedSource(title: "High", url: "https://high.example/feed",
+                           category: "Tech", region: "global", qualityScore: 95),
+            ]
+        ]
+        let batch = s.nextBatch(
+            reservoir: [], sourcesByRegion: sources, activeRegion: nil, activeCategory: nil,
+            activeContentType: "all", activeLanguages: [], minimumBatchSize: 1, presetMultipliers: [:]
+        )
+        XCTAssertEqual(batch.first?.url, "https://high.example/feed",
+                       "with no preset multipliers the higher-quality source must lead")
+    }
+
+    /// The band is bounded and monotonic: a preset can still out-rank it, and an undeclared score sits in the middle.
+    func testQualityFactorIsBoundedAndMonotonic() {
+        func factor(_ score: Int?) -> Double {
+            AdaptiveScheduler.qualityFactor(
+                for: FeedSource(title: "S", url: "https://s.example/feed", category: "Tech",
+                                region: "global", qualityScore: score)
+            )
+        }
+        XCTAssertLessThan(factor(0), factor(50))
+        XCTAssertLessThan(factor(50), factor(100))
+        XCTAssertEqual(factor(100), 1.15, accuracy: 0.0001)
+        XCTAssertEqual(factor(0), 0.85, accuracy: 0.0001)
+        XCTAssertEqual(factor(nil), factor(70), accuracy: 0.0001, "an undeclared score uses the app's default")
+        XCTAssertEqual(factor(500), factor(100), accuracy: 0.0001, "out-of-range scores clamp")
+        XCTAssertEqual(factor(-20), factor(0), accuracy: 0.0001)
+    }
+
     // MARK: - Gate Tests
 
     func testRetryAfterBlocksSource() {

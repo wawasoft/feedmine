@@ -159,7 +159,15 @@ final class AdaptiveScheduler {
                     // ADAPTIVE: urgency replaces hardcoded 30-min timeFactor
                     let u = urgency(validators: v, estimator: e, now: now)
 
+                    // Quality is a *baseline* term, not a preset term (review P1.1). For `.everything` — and for
+                    // `.lastClicked`/`.smartFeed` — `PresetScorer` returns no multipliers at all, so every source reached
+                    // the default 1.0 and "prefer high-quality sources" was implemented nowhere: this score ranked by
+                    // region/category deficit, urgency and content type alone. A preset still *overrides* the baseline
+                    // (its multiplier multiplies the product); it is simply no longer the only origin of priority.
+                    let qualityFactor = Self.qualityFactor(for: source)
+
                     let score = regionDeficit * catDeficit * u * contentTypeBoost * languageBoost
+                        * qualityFactor
                         * (presetMultipliers[source.url] ?? 1.0)
                     let finalScore = max(score, 0.01) * Double.random(in: 0.98...1.02)
                     if finalScore > 0 { scored.append((source, finalScore)) }
@@ -401,6 +409,18 @@ final class AdaptiveScheduler {
         let rate = Double(recent.count) / 120.0
         let target = Int(rate * 180)
         return max(50, min(500, target))
+    }
+
+    /// Quality as a **baseline** of the source priority: 0.85 at a score of 0 up to 1.15 at 100, with an undeclared score
+    /// sitting at the app's own default (70) in the middle of the band.
+    ///
+    /// The band is deliberately narrow. Quality has to lean the order and break ties — a reader asking for `.everything`
+    /// should meet the better sources first — without drowning the deficit, urgency and content-type signals that encode
+    /// *what was asked for*, and without letting a preset's explicit ranking be overridden by a score.
+    nonisolated static func qualityFactor(for source: FeedSource) -> Double {
+        let raw = Double(source.qualityScore ?? 70)
+        let normalised = min(100, max(0, raw)) / 100
+        return 0.85 + 0.3 * normalised
     }
 
     nonisolated static func diverseSources(
