@@ -85,6 +85,8 @@ struct FeedmineApp: App {
         } else if ProcessInfo.processInfo.arguments.contains("-UITestSkipOnboarding") {
             UserDefaults.standard.set(true, forKey: Keys.hasSeenOnboarding)
         }
+        // Journey-only instrument (review: ignored card tap). Off unless `-UITestTapTrace` is passed.
+        TapTrace.installIfRequested(ProcessInfo.processInfo.arguments)
         FeedMetrics.event("Process.started")
         FeedMetrics.memory("processStarted")
     }
@@ -181,4 +183,57 @@ struct FeedmineApp: App {
             }
         }
     }
+}
+
+/// Journey-only touch observer, installed **only** when `-UITestTapTrace` is passed.
+///
+/// Why it exists: a journey run showed a card that was hittable, fully visible below the header, and still in place 20 s
+/// after a synthesized tap — and the app logged no `card tap`, so the gesture never reached `FeedItemView.onTapGesture`.
+/// The evidence localises the miss to event delivery but cannot say *where* it was lost: the touch may never have reached
+/// the process (harness/HID) or it may have reached the window and been consumed by something above the card.
+///
+/// One window-level observer splits exactly that: `window tap` present with `card tap` absent means the app received the
+/// touch and the card's gesture did not fire; both absent means it never arrived. The recognizer is a pure observer —
+/// `cancelsTouchesInView = false` and simultaneous recognition — so the app's gesture graph behaves as if it were not
+/// there. It is never installed outside a journey, so production carries no extra recognizer.
+@MainActor
+final class TapTrace: NSObject, UIGestureRecognizerDelegate {
+    private static var installer: TapTrace?
+    private static var recognizer: UITapGestureRecognizer?
+
+    static func installIfRequested(_ arguments: [String]) {
+        guard arguments.contains("-UITestTapTrace"), installer == nil else { return }
+        let tracer = TapTrace()
+        let tap = UITapGestureRecognizer(target: tracer, action: #selector(TapTrace.handle(_:)))
+        tap.cancelsTouchesInView = false
+        tap.delegate = tracer
+        installer = tracer
+        recognizer = tap
+        NotificationCenter.default.addObserver(
+            forName: UIWindow.didBecomeVisibleNotification, object: nil, queue: .main
+        ) { note in
+            guard let window = note.object as? UIWindow else { return }
+            MainActor.assumeIsolated { TapTrace.attach(to: window) }
+        }
+        for scene in UIApplication.shared.connectedScenes {
+            guard let windowScene = scene as? UIWindowScene else { continue }
+            for window in windowScene.windows { attach(to: window) }
+        }
+        Log.ui.info("tap trace installed")
+    }
+
+    private static func attach(to window: UIWindow) {
+        guard let recognizer, window.gestureRecognizers?.contains(recognizer) != true else { return }
+        window.addGestureRecognizer(recognizer)
+    }
+
+    @objc private func handle(_ recognizer: UITapGestureRecognizer) {
+        let point = recognizer.location(in: recognizer.view)
+        Log.ui.info("window tap x=\(Int(point.x), privacy: .public) y=\(Int(point.y), privacy: .public)")
+    }
+
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer
+    ) -> Bool { true }
 }

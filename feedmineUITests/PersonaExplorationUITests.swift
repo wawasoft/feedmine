@@ -16,6 +16,10 @@ final class PersonaExplorationUITests: XCTestCase {
         app.launchArguments = [
             "-AppleLanguages", "(en)",
             "-UITestResetFilters", "-UITestSkipOnboarding",
+            // The journey judges the reader surfaces, and the miss it has hit intermittently is an ignored card tap.
+            // This turns on the window-level touch observer so a miss says whether the touch reached the app's window at
+            // all — see `TapTrace`. It is a pure observer and only ever installed in a journey.
+            "-UITestTapTrace",
         ]
         app.launch()
         try? FileManager.default.createDirectory(atPath: screenshotDir, withIntermediateDirectories: true, attributes: nil)
