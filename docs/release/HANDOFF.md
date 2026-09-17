@@ -31,7 +31,9 @@ children and the Sources phase, no build-setting/scheme/workspace edits, no UUID
   restores the morning's tree, not this one. Use it only to recover that earlier state; use `git` for anything after 00:33.
 - App Store Connect is at **1.0 (15)**; the tree carries **`CFBundleVersion` 16** (in `feedmine/Info.plist` and mirrored in
   `project.yml`). The **archive is already built and verified** at `.build/feedmine.xcarchive` (archived app reports
-  `1.0 (16)`, 0 errors) — only the upload is outstanding.
+  `1.0 (16)`, 0 errors) — only the upload is outstanding, and the two commits after it (`d56424cb`, `88f338f1`) touch
+  **only docs and `feedmineUITests/PersonaExplorationUITests.swift`** (`git diff --name-only 17a0051a..HEAD -- feedmine/` is
+  empty), so the archive still matches the tree's app target exactly.
 
 ## What is PROVEN (evidence exists; do not re-derive)
 
