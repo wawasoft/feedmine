@@ -437,6 +437,15 @@ final class FeedDisplayState {
 
     struct CachedCardMedia: Codable {
         let itemID: String
+        /// Terminal layout the pipeline decided for this card (`hero` / `thumb` / `text`).
+        ///
+        /// Persisted so a warm start restores the *prepared* page rather than re-deriving it: without it every card that
+        /// had a local image came back as `.hero`, so a reopened feed had different shapes than the session that wrote it
+        /// (review P0.2). Optional because a page written by an older build carries only `itemID` + `cacheKey`, and those
+        /// entries must keep decoding.
+        var layout: String?
+        /// `image` / `placeholder` / `none` at publication time — the presentation decision, not the asset.
+        var mediaKind: String?
         let cacheKey: String?
     }
 
@@ -454,8 +463,15 @@ final class FeedDisplayState {
         let fingerprint = Self.pageFingerprint(cards: visibleCards, items: visibleItems)
         guard fingerprint != lastCachedPageFingerprint else { return }
         lastCachedPageFingerprint = fingerprint
-        let projection: [CachedCardMedia]? = visibleCardCacheKeys.isEmpty ? nil : visibleItems.map {
-            CachedCardMedia(itemID: $0.id, cacheKey: visibleCardCacheKeys[$0.id])
+        let cardsByID = Dictionary(visibleCards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        let projection: [CachedCardMedia]? = visibleCardCacheKeys.isEmpty ? nil : visibleItems.map { item in
+            let card = cardsByID[item.id]
+            return CachedCardMedia(
+                itemID: item.id,
+                layout: card.map { Self.layoutKey($0.layout) },
+                mediaKind: card.map { Self.mediaKindKey($0.media) },
+                cacheKey: visibleCardCacheKeys[item.id]
+            )
         }
         let page = CachedPage(
             items: visibleItems,
@@ -489,18 +505,39 @@ final class FeedDisplayState {
 
     /// `id|layout|hasMedia` per card, in order — the key that decides whether the page cache is stale.
     static func pageFingerprint(cards: [FeedCardPresentation], items: [FeedItem]) -> String {
-        cards.map { card -> String in
-            let layout: String
-            switch card.layout {
-            case .hero: layout = "hero"
-            case .thumbnail: layout = "thumb"
-            case .textOnly: layout = "text"
-            }
-            let media: String
-            if case .image = card.media { media = "img" } else { media = "no" }
-            return "\(card.item.id)|\(layout)|\(media)"
+        cards.map { card in
+            "\(card.item.id)|\(layoutKey(card.layout))|\(mediaKindKey(card.media) == "image" ? "img" : "no")"
         }
         .joined(separator: ",")
+    }
+
+    /// The persisted spelling of a layout. Shared by the fingerprint and the persisted decision so the two can never
+    /// disagree about what "unchanged" means.
+    static func layoutKey(_ layout: FeedCardLayout) -> String {
+        switch layout {
+        case .hero: return "hero"
+        case .thumbnail: return "thumb"
+        case .textOnly: return "text"
+        }
+    }
+
+    /// The layout a persisted `layout` string names, or nil for pages written before layouts were persisted.
+    static func layout(from key: String) -> FeedCardLayout? {
+        switch key {
+        case "hero": return .hero
+        case "thumb", "thumbnail": return .thumbnail
+        case "text", "textOnly": return .textOnly
+        default: return nil
+        }
+    }
+
+    /// The persisted spelling of the media decision.
+    static func mediaKindKey(_ media: ResolvedCardMedia) -> String {
+        switch media {
+        case .image: return "image"
+        case .placeholder: return "placeholder"
+        case .none: return "none"
+        }
     }
 
     /// Whether a card carries a resolved image.

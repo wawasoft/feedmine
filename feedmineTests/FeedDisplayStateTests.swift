@@ -4,6 +4,76 @@ import XCTest
 @MainActor
 final class FeedDisplayStateTests: XCTestCase {
 
+    // MARK: - Prepared page snapshot (review P0.2)
+
+    /// The warm cache must carry the **terminal presentation decision**, not just an item list.
+    ///
+    /// Without it every card whose image resolved locally came back as `.hero`, so a reopened feed had different shapes
+    /// than the session that wrote the page — a card the pipeline published as `.thumb` reappeared full-width. The
+    /// assertion uses a signature of its own, so it neither reads nor disturbs whatever page the container already holds.
+    func test_persistedPageCarriesTerminalLayoutAndMediaKind() async throws {
+        let signature = "p02-\(UUID().uuidString)"
+        let display = FeedDisplayState()
+        let hero = FeedItem.makeMock(id: "p02-hero")
+        let thumb = FeedItem.makeMock(id: "p02-thumb")
+        let text = FeedItem.makeMock(id: "p02-text")
+        display.publishCards(
+            [
+                FeedCardPresentation(item: hero, media: .image(UIImage()), layout: .hero,
+                                     isRead: false, isBookmarked: false),
+                FeedCardPresentation(item: thumb, media: .image(UIImage()), layout: .thumbnail,
+                                     isRead: false, isBookmarked: false),
+                FeedCardPresentation(item: text, media: .none, layout: .textOnly,
+                                     isRead: false, isBookmarked: false),
+            ],
+            items: [hero, thumb, text],
+            readItemIDs: [],
+            bookmarkItemIDs: [],
+            isAppend: false,
+            shouldCache: true,
+            filterSignature: signature,
+            mediaCacheKeys: ["p02-hero": "key-hero", "p02-thumb": "key-thumb"]
+        )
+
+        // The write is detached — wait until the page is readable instead of assuming the file landed.
+        var restored = await display.restoreCachedPage(filterSignature: signature)
+        let deadline = Date().addingTimeInterval(30)
+        while restored == nil, Date() < deadline {
+            try await Task.sleep(for: .milliseconds(10))
+            restored = await display.restoreCachedPage(filterSignature: signature)
+        }
+        let page = try XCTUnwrap(restored, "the page cache must be readable back")
+        let cards = try XCTUnwrap(page.cards, "a page published with media keys carries a card projection")
+        let byID = Dictionary(cards.map { ($0.itemID, $0) }, uniquingKeysWith: { first, _ in first })
+
+        XCTAssertEqual(byID["p02-hero"]?.layout, "hero")
+        XCTAssertEqual(byID["p02-thumb"]?.layout, "thumb")
+        XCTAssertEqual(byID["p02-text"]?.layout, "text")
+        XCTAssertEqual(byID["p02-hero"]?.mediaKind, "image")
+        XCTAssertEqual(byID["p02-text"]?.mediaKind, "none")
+        XCTAssertEqual(byID["p02-hero"]?.cacheKey, "key-hero")
+        XCTAssertNil(byID["p02-text"]?.cacheKey)
+    }
+
+    /// A page written before layouts were persisted still decodes, and its entries simply have no decision to restore.
+    func test_persistedPageFromOlderBuildStillDecodes() throws {
+        let legacy = #"{"items":[],"visibleItemsGeneration":7,"cards":[{"itemID":"x","cacheKey":"k"}]}"#
+        let page = try JSONDecoder().decode(FeedDisplayState.CachedPage.self, from: Data(legacy.utf8))
+        XCTAssertEqual(page.visibleItemsGeneration, 7)
+        XCTAssertNil(page.cards?.first?.layout)
+        XCTAssertNil(page.cards?.first?.mediaKind)
+        XCTAssertEqual(page.cards?.first?.cacheKey, "k")
+    }
+
+    /// The persisted spelling is shared with the staleness fingerprint, so the two cannot disagree.
+    func test_layoutKeysRoundTripThroughThePersistedSpelling() {
+        for layout in [FeedCardLayout.hero, .thumbnail, .textOnly] {
+            let key = FeedDisplayState.layoutKey(layout)
+            XCTAssertEqual(FeedDisplayState.layout(from: key), layout, "\(key) must map back to \(layout)")
+        }
+        XCTAssertNil(FeedDisplayState.layout(from: "nonsense"))
+    }
+
     // MARK: - setVisibleItems stamping
 
     func test_setVisibleItems_stampsReadState() {

@@ -2351,6 +2351,11 @@ final class FeedStore {
         var keys = (projection ?? []).reduce(into: [String: String]()) { acc, entry in
             if let key = entry.cacheKey { acc[entry.itemID] = key }
         }
+        // The persisted terminal layout, when the page was written by a build that records it (review P0.2). A card whose
+        // image decodes locally keeps the shape the previous session published instead of being re-derived as `.hero`.
+        let persistedLayouts = (projection ?? []).reduce(into: [String: FeedCardLayout]()) { acc, entry in
+            if let key = entry.layout, let layout = FeedDisplayState.layout(from: key) { acc[entry.itemID] = layout }
+        }
         // Decode concurrently and only what can be on screen: on a cold launch every lookup is a
         // memory miss (actor hop + disk read) and the cached page holds the whole previous page, so
         // decoding it sequentially would sit directly in front of the first frame. Rows past the
@@ -2375,7 +2380,10 @@ final class FeedStore {
             let read = item.isRead
             let bookmarked = item.isBookmarked
             if let image = decoded[item.id] {
-                cards.append(FeedCardPresentation(item: item, media: .image(image), layout: .hero,
+                // The persisted decision wins; pages written before layouts were persisted keep the previous behaviour
+                // (`.hero`), so an old cache and a new one restore the same way.
+                let layout = persistedLayouts[item.id] ?? .hero
+                cards.append(FeedCardPresentation(item: item, media: .image(image), layout: layout,
                                                   isRead: read, isBookmarked: bookmarked))
             } else {
                 cards.append(FeedCardPresentation(item: item, media: .none, layout: .textOnly,
