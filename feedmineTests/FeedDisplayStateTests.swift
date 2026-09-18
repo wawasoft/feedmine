@@ -74,6 +74,147 @@ final class FeedDisplayStateTests: XCTestCase {
         XCTAssertNil(FeedDisplayState.layout(from: "nonsense"))
     }
 
+    // MARK: - Page cache write policy (review P0.2/P0.3)
+
+    /// The cache must not persist a thin page while the cold-start runway is still being built.
+    ///
+    /// Measured defect this pins: on a clean container the first flush of a cold start publishes whatever the
+    /// reservoir holds — 2 items — and that snapshot was written to the cache and restored by the next launch
+    /// (`page[restore] items=2`) while the session that wrote it went on to a full page. The gate is the runway, not
+    /// the depth: once the runway has stopped preparing one, the same thin page *is* the composition and is written.
+    func test_thinPageIsNotPersistedWhileTheRunwayIsStillBuilding() async throws {
+        let signature = "p03-building-\(UUID().uuidString)"
+        let display = FeedDisplayState()
+        let items = [FeedItem.makeMock(id: "thin-1"), FeedItem.makeMock(id: "thin-2")]
+        display.setIsPreparingInitialRunway(true)
+
+        display.publishCards(
+            items.map { FeedCardPresentation.makeMock(id: $0.id, item: $0) },
+            items: items,
+            readItemIDs: [],
+            bookmarkItemIDs: [],
+            isAppend: false,
+            shouldCache: true,
+            filterSignature: signature
+        )
+
+        let duringRunway = await cachedPage(of: display, signature: signature, within: 0.5)
+        XCTAssertNil(duringRunway, "a partial cold-start page must not be persisted")
+
+        // The runway settles, the same page is published again: now it is the composition, so it is cached.
+        display.setIsPreparingInitialRunway(false)
+        display.publishCards(
+            items.map { FeedCardPresentation.makeMock(id: $0.id, item: $0) },
+            items: items,
+            readItemIDs: [],
+            bookmarkItemIDs: [],
+            isAppend: false,
+            shouldCache: true,
+            filterSignature: signature
+        )
+
+        let settled = await cachedPage(of: display, signature: signature, count: 2)
+        XCTAssertEqual(settled?.map(\.id), ["thin-1", "thin-2"],
+                       "a short page written once the runway is not preparing one is the composition")
+    }
+
+    /// The cache follows the page as the feed grows: appends deepen it, and a thinner publication cannot replace it.
+    ///
+    /// Appends are the only way a feed grows after its first page, and excluding them is what froze the cache at the
+    /// first flush — so this test fails against that rule at the *second* assertion (the page stays at 2 items).
+    func test_pageCacheFollowsGrowthAndNeverRegresses() async throws {
+        let signature = "p04-growth-\(UUID().uuidString)"
+        let display = FeedDisplayState()
+        let first = [FeedItem.makeMock(id: "grow-1"), FeedItem.makeMock(id: "grow-2")]
+
+        display.publishCards(
+            first.map { FeedCardPresentation.makeMock(id: $0.id, item: $0) },
+            items: first, readItemIDs: [], bookmarkItemIDs: [],
+            isAppend: false, shouldCache: true, filterSignature: signature
+        )
+        let initial = await cachedPage(of: display, signature: signature, count: 2)
+        XCTAssertEqual(initial?.count, 2, "the first publication is cached")
+
+        let appended = (3...5).map { FeedItem.makeMock(id: "grow-\($0)") }
+        display.publishCards(
+            appended.map { FeedCardPresentation.makeMock(id: $0.id, item: $0) },
+            items: appended, readItemIDs: [], bookmarkItemIDs: [],
+            isAppend: true, shouldCache: true, filterSignature: signature
+        )
+        let grown = await cachedPage(of: display, signature: signature, count: 5)
+        XCTAssertEqual(grown?.map(\.id), ["grow-1", "grow-2", "grow-3", "grow-4", "grow-5"],
+                       "an append must deepen the cached page, not leave it at the first flush")
+
+        // A user-initiated replace publishes a shorter page for the same signature: the deeper page stays.
+        let shorter = (6...8).map { FeedItem.makeMock(id: "grow-\($0)") }
+        display.publishCards(
+            shorter.map { FeedCardPresentation.makeMock(id: $0.id, item: $0) },
+            items: shorter, readItemIDs: [], bookmarkItemIDs: [],
+            isAppend: false, shouldCache: true, filterSignature: signature, isUserInitiated: true
+        )
+        XCTAssertEqual(display.visibleItems.map(\.id), ["grow-6", "grow-7", "grow-8"],
+                       "precondition: the replace really did shorten the published page")
+        let afterShrink = await cachedPage(of: display, signature: signature, count: 5)
+        XCTAssertEqual(afterShrink?.count, 5, "a thinner page must not replace the deeper one already written")
+    }
+
+    /// The warm page is a page, not the reader's scrollback.
+    func test_cachedPageIsBoundedToTheFirstPageDepth() async throws {
+        let signature = "p04-depth-\(UUID().uuidString)"
+        let display = FeedDisplayState()
+        let items = (1...25).map { FeedItem.makeMock(id: "deep-\($0)") }
+
+        display.publishCards(
+            items.map { FeedCardPresentation.makeMock(id: $0.id, item: $0) },
+            items: items, readItemIDs: [], bookmarkItemIDs: [],
+            isAppend: false, shouldCache: true, filterSignature: signature
+        )
+
+        let page = await cachedPage(of: display, signature: signature, count: Reservoir.pageSize)
+        XCTAssertEqual(page?.map(\.id), (1...Reservoir.pageSize).map { "deep-\($0)" },
+                       "the cache keeps the first page's depth, in order")
+    }
+
+    /// A page whose cards carry images but no cache keys is a page that lost its media: it is not persisted.
+    ///
+    /// Measured on a warm reopen, where the restore used to publish the restored cards without handing their keys
+    /// back: `page[restore] items=20 withMedia=17` and then `page[cache] write … mediaKeys=0`, so the *next* launch
+    /// restored 20 cards that could not rebuild a single image. The page already on disk is the better one.
+    func test_pageThatLostItsMediaIsNotPersisted() async throws {
+        let signature = "p04-lostmedia-\(UUID().uuidString)"
+        let display = FeedDisplayState()
+        let items = [FeedItem.makeMock(id: "media-1"), FeedItem.makeMock(id: "media-2")]
+
+        display.publishCards(
+            items.map { FeedCardPresentation(item: $0, media: .image(UIImage()), layout: .hero,
+                                             isRead: false, isBookmarked: false) },
+            items: items, readItemIDs: [], bookmarkItemIDs: [],
+            isAppend: false, shouldCache: true, filterSignature: signature
+        )
+
+        let page = await cachedPage(of: display, signature: signature, within: 0.5)
+        XCTAssertNil(page, "a page carrying media with no keys to rebuild it must not be persisted")
+    }
+
+    /// The cache write is detached, so a test polls for the page instead of assuming the file landed.
+    /// `count` waits for that depth, which is how "the deeper page landed" is told from "a page landed";
+    /// a short `within` with no count is the absence assertion the runway gate needs.
+    private func cachedPage(
+        of display: FeedDisplayState,
+        signature: String,
+        count: Int? = nil,
+        within seconds: TimeInterval = 30
+    ) async -> [FeedItem]? {
+        let deadline = Date().addingTimeInterval(seconds)
+        var page = await display.restoreCachedPage(filterSignature: signature)
+        while Date() < deadline {
+            if let page, count == nil || page.items.count == count! { return page.items }
+            try? await Task.sleep(for: .milliseconds(10))
+            page = await display.restoreCachedPage(filterSignature: signature)
+        }
+        return nil
+    }
+
     // MARK: - setVisibleItems stamping
 
     func test_setVisibleItems_stampsReadState() {

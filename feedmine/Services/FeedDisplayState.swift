@@ -85,8 +85,18 @@ final class FeedDisplayState {
         logger.info("filtered composition in flight: \(value)")
     }
 
-    /// Fingerprint of the page last written to the cache, so an unchanged page is not rewritten.
-    private var lastCachedPageFingerprint: String?
+    /// What this session has already written for each composition signature.
+    ///
+    /// Two facts, both about *not* regressing the page on disk: the fingerprint of the page last written (an
+    /// unchanged page is not rewritten) and its depth (a thinner publication cannot replace a deeper page — see
+    /// ``cacheVisiblePageIfNeeded(filterSignature:)``). Keyed by signature because one session writes several:
+    /// a single slot made two compositions invalidate each other's guard.
+    private var cachedPages: [String: WrittenPage] = [:]
+
+    private struct WrittenPage {
+        let fingerprint: String
+        let depth: Int
+    }
 
     /// Monotonic epoch incremented on every filter/preset change.
     /// Every async preparation task captures this; results are discarded
@@ -196,7 +206,7 @@ final class FeedDisplayState {
         // the assignment so the snapshot includes the published items. The
         // signature keys the file to the composition that produced it.
         if shouldCache, isFirstPaint {
-            cacheVisiblePageIfNeeded(isAppend: false, filterSignature: filterSignature)
+            cacheVisiblePageIfNeeded(filterSignature: filterSignature)
         }
     }
 
@@ -330,7 +340,7 @@ final class FeedDisplayState {
         // Cache with filter signature so filtered/config-specific pages
         // are also restored instantly on restart.
         if shouldCache {
-            cacheVisiblePageIfNeeded(isAppend: isAppend, filterSignature: filterSignature)
+            cacheVisiblePageIfNeeded(filterSignature: filterSignature)
         }
     }
 
@@ -408,6 +418,10 @@ final class FeedDisplayState {
             .first
     }()
 
+    /// How much of the page the cache keeps: one page, the same depth the pipeline publishes as its first page
+    /// (`RunwayPolicy.initialPublishedCount`). More than this is the reader scrolling, not the reader reopening.
+    nonisolated static let cachedPageDepth = Reservoir.pageSize
+
     /// Returns the cache URL for the given filter signature (empty = main).
     ///
     /// The signature is hashed with SHA-256, not `hashValue`: Swift seeds
@@ -449,22 +463,67 @@ final class FeedDisplayState {
         let cacheKey: String?
     }
 
-    /// Save the current first page so the next cold launch paints instantly.
-    /// Only caches replace-published pages (not appends) to avoid drifting.
+    /// Save the current first page so the next warm launch paints instantly.
+    ///
+    /// Four rules decide *which* page a signature keeps, each one a measured defect:
+    ///
+    /// 1. **Every publication writes, appends included.** Excluding appends froze the cache at the first flush of a
+    ///    session. On a clean container that flush publishes whatever the reservoir holds — measured **2 items**,
+    ///    written at first paint and never touched again, so the reopen restored `page[restore] items=2` while the
+    ///    reader of the session that wrote it had a full page (`visible-page-cache-ded4e5c9….json items=2`, mtime ==
+    ///    first paint, 2026-09-17). Everything a feed does *after* its first page is an append, so the append is
+    ///    exactly where a deeper page comes from.
+    /// 2. **A page, not the scrollback.** Only the first ``cachedPageDepth`` items are persisted — the depth the
+    ///    pipeline itself publishes as a page — so a long scroll cannot turn the next launch into a restore of
+    ///    hundreds of cards.
+    /// 3. **Never thinner.** A page with fewer items than the one already written for this signature is the
+    ///    composition arriving in pieces, not a smaller page.
+    /// 4. **Never a page that lost its media.** Cards that carry an image with no cache key to rebuild it would come
+    ///    back as placeholders on the next launch (measured: a warm reopen restored `withMedia=17` and the very next
+    ///    write persisted `cards: null`), so that write is refused and the page on disk stays.
+    ///
+    /// One publication is deliberately *not* persisted: a page below ``cachedPageDepth`` while the cold-start
+    /// runway is still being built. The composition is still arriving and the page gate is moments away — handing
+    /// that snapshot to the next launch is the `partial → better` sequence review P0.3 forbids, and it is how a
+    /// clean-container cold start left a 2-card page behind.
+    ///
+    /// That gate is best-effort by nature: promotion is async, so a cold-start flush can land its page after the
+    /// runway flag has already been cleared. Measured on a clean container (2026-09-17): a 7-item first paint was
+    /// written, the page reached 20 items **146 ms** later and rule 1 wrote that — which is the rule that actually
+    /// keeps the page honest here. Once the runway has stopped preparing one, a short page *is* the composition
+    /// (a narrow filter's own page) and is cached exactly as before.
+    ///
     /// JSON encode + write run off the main actor so the UI never freezes.
-    /// Now saves with filter signature so filtered/config-specific pages
-    /// are also cached for instant restore.
-    func cacheVisiblePageIfNeeded(isAppend: Bool, filterSignature: String = "") {
-        guard !isAppend, !visibleItems.isEmpty, let url = Self.pageCacheURL(filterSignature: filterSignature) else { return }
+    func cacheVisiblePageIfNeeded(filterSignature: String = "") {
+        guard !visibleItems.isEmpty, let url = Self.pageCacheURL(filterSignature: filterSignature) else { return }
+        let key = filterSignature.isEmpty ? "main" : "filtered"
+        let depth = min(visibleItems.count, Self.cachedPageDepth)
+        let written = cachedPages[filterSignature]
+        if let written, depth < written.depth {
+            logger.info("page[cache] skip sig=\(key) items=\(depth) reason=thinner-than-written kept=\(written.depth)")
+            return
+        }
+        if depth < Self.cachedPageDepth, isPreparingInitialRunway {
+            logger.info("page[cache] skip sig=\(key) items=\(depth) reason=runway-still-building")
+            return
+        }
+        let items = Array(visibleItems.prefix(depth))
+        let cards = Array(visibleCards.prefix(depth))
+        // A page whose cards carry media without the keys to rebuild it has *lost* its media: writing it would hand
+        // the next launch placeholders where this launch had images. Whatever is already on disk is the better page.
+        if visibleCardCacheKeys.isEmpty, cards.contains(where: { Self.cardHasMedia($0.media) }) {
+            logger.info("page[cache] skip sig=\(key) items=\(depth) reason=media-without-keys")
+            return
+        }
         // Skip the rewrite only when nothing about the page changed — keyed on the *full* fingerprint
         // (`id|layout|hasMedia`), never on the id list alone. The warm path's upgrade-only merge keeps
         // the ids and improves the media, so an id-keyed guard would decide "unchanged", keep a
         // media-less page cached, and hand the next launch the image pop-in it just fixed.
-        let fingerprint = Self.pageFingerprint(cards: visibleCards, items: visibleItems)
-        guard fingerprint != lastCachedPageFingerprint else { return }
-        lastCachedPageFingerprint = fingerprint
-        let cardsByID = Dictionary(visibleCards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
-        let projection: [CachedCardMedia]? = visibleCardCacheKeys.isEmpty ? nil : visibleItems.map { item in
+        let fingerprint = Self.pageFingerprint(cards: cards, items: items)
+        guard fingerprint != written?.fingerprint else { return }
+        cachedPages[filterSignature] = WrittenPage(fingerprint: fingerprint, depth: depth)
+        let cardsByID = Dictionary(cards.map { ($0.id, $0) }, uniquingKeysWith: { first, _ in first })
+        let projection: [CachedCardMedia]? = visibleCardCacheKeys.isEmpty ? nil : items.map { item in
             let card = cardsByID[item.id]
             return CachedCardMedia(
                 itemID: item.id,
@@ -474,10 +533,11 @@ final class FeedDisplayState {
             )
         }
         let page = CachedPage(
-            items: visibleItems,
+            items: items,
             visibleItemsGeneration: visibleItemsGeneration,
             cards: projection
         )
+        logger.info("page[cache] write sig=\(key) items=\(items.count) cards=\(cards.count) mediaKeys=\(self.visibleCardCacheKeys.count)")
         Task.detached(priority: .background) {
             do {
                 let data = try JSONEncoder().encode(page)

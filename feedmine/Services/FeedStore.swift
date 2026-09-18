@@ -1996,7 +1996,8 @@ final class FeedStore {
             display.publishCards(cards, items: stamped,
                                  readItemIDs: readItemIDs,
                                  bookmarkItemIDs: bookmarkedItemIDs,
-                                 isAppend: false)
+                                 isAppend: false,
+                                 mediaCacheKeys: Self.restoredMediaKeys(cached.cards))
             let withMedia = cards.filter { if case .image = $0.media { return true }; return false }.count
             Log.feed.info("restored cached page (late): items=\(stamped.count) withMedia=\(withMedia) generation=\(cached.generation)")
         }
@@ -2346,6 +2347,22 @@ final class FeedStore {
         return parts.joined(separator: ",")
     }
 
+    /// The media identity of a restored page: itemID → cache key, taken from the persisted projection.
+    ///
+    /// `publishCards` *replaces* `visibleCardCacheKeys` with what it is handed, so a restore that hands it nothing
+    /// leaves the display believing no card on the page has an image — and the next write then persists cards that
+    /// carry media with no way to rebuild it. Measured on a warm reopen: `page[restore] items=20 withMedia=17`
+    /// followed by `page[cache] write sig=filtered items=20 cards=20 mediaKeys=0`, i.e. the launch after that got a
+    /// page of placeholders where this one had images.
+    nonisolated static func restoredMediaKeys(
+        _ projection: [FeedDisplayState.CachedCardMedia]?
+    ) -> [String: String] {
+        (projection ?? []).reduce(into: [String: String]()) { keys, entry in
+            guard let key = entry.cacheKey else { return }
+            keys[entry.itemID] = key
+        }
+    }
+
     /// Publish the prepared page for the **current** composition from disk, if the repository holds one.
     ///
     /// One lookup serves both entry points, because the page cache is keyed by the composition signature (review P0.2):
@@ -2370,7 +2387,8 @@ final class FeedStore {
         display.publishCards(cards, items: stamped,
                              readItemIDs: readItemIDs,
                              bookmarkItemIDs: bookmarkedItemIDs,
-                             isAppend: false)
+                             isAppend: false,
+                             mediaCacheKeys: Self.restoredMediaKeys(cached.cards))
         display.setIsPreparingInitialRunway(false)
         display.setLoadingState(.idle)
         display.setFeedDisplayPhase(.ready(contextID: presentationEpoch))
@@ -2541,7 +2559,10 @@ final class FeedStore {
         display.publishCards(cards, items: items,
             readItemIDs: readItemIDs, bookmarkItemIDs: bookmarkedItemIDs,
             isAppend: isAppend,
-            shouldCache: isAppend ? false : currentMode == .main,
+            // Appends are published too, not only replaces: a feed grows after its first page, so an append-only
+            // writer freezes the cache at whatever the first flush happened to hold (measured: 2 items). The
+            // display owns the depth, the no-shrink and the still-building-runway rules.
+            shouldCache: currentMode == .main,
             filterSignature: pageCacheSignature,
             isUserInitiated: isUserInitiated,
             mediaCacheKeys: mediaKeys)
