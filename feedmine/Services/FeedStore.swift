@@ -1991,9 +1991,8 @@ final class FeedStore {
            !activePreset.isCuratedFeed,
            let cached = await display.restoreCachedPage() {
             let stamped = await applyFiltersAsync(cached.items)
-            let cards = await restoredCards(for: stamped, projection: cached.cards,
-                                            readItemIDs: readItemIDs,
-                                            bookmarkItemIDs: bookmarkedItemIDs)
+            let cards = await PreparedPageRestoration.cards(for: stamped, projection: cached.cards,
+                                                            mediaAssets: mediaAssetStore)
             display.publishCards(cards, items: stamped,
                                  readItemIDs: readItemIDs,
                                  bookmarkItemIDs: bookmarkedItemIDs,
@@ -2365,9 +2364,8 @@ final class FeedStore {
               generation == filterGeneration else { return false }
         let stamped = await applyFiltersAsync(cached.items)
         guard generation == filterGeneration, !stamped.isEmpty else { return false }
-        let cards = await restoredCards(for: stamped, projection: cached.cards,
-                                        readItemIDs: readItemIDs,
-                                        bookmarkItemIDs: bookmarkedItemIDs)
+        let cards = await PreparedPageRestoration.cards(for: stamped, projection: cached.cards,
+                                                        mediaAssets: mediaAssetStore)
         guard generation == filterGeneration else { return false }
         display.publishCards(cards, items: stamped,
                              readItemIDs: readItemIDs,
@@ -2380,63 +2378,6 @@ final class FeedStore {
         Log.feed.info("page[restore] items=\(stamped.count) withMedia=\(withMedia) fp=\(self.pageFingerprint(cards, prefix: 20)) reason=\(reason)")
         return true
     }
-
-    private func restoredCards(
-        for items: [FeedItem],
-        projection: [FeedDisplayState.CachedCardMedia]?,
-        readItemIDs: Set<String>,
-        bookmarkItemIDs: Set<String>
-    ) async -> [FeedCardPresentation] {
-        // `reduce(into:)`, never `Dictionary(uniqueKeysWithValues:)`: a duplicated id must not be a
-        // crash. That is exactly how the reverted append-merge died (`Duplicate values for key`).
-        var keys = (projection ?? []).reduce(into: [String: String]()) { acc, entry in
-            if let key = entry.cacheKey { acc[entry.itemID] = key }
-        }
-        // The persisted terminal layout, when the page was written by a build that records it (review P0.2). A card whose
-        // image decodes locally keeps the shape the previous session published instead of being re-derived as `.hero`.
-        let persistedLayouts = (projection ?? []).reduce(into: [String: FeedCardLayout]()) { acc, entry in
-            if let key = entry.layout, let layout = FeedDisplayState.layout(from: key) { acc[entry.itemID] = layout }
-        }
-        // Decode concurrently and only what can be on screen: on a cold launch every lookup is a
-        // memory miss (actor hop + disk read) and the cached page holds the whole previous page, so
-        // decoding it sequentially would sit directly in front of the first frame. Rows past the
-        // bound stay text-only and are published by the pipeline moments later, off screen.
-        let decodable = items.prefix(Self.restoredMediaDecodeLimit)
-        var decoded: [String: UIImage] = [:]
-        await withTaskGroup(of: (String, UIImage?).self) { group in
-            for item in decodable {
-                guard let key = keys[item.id] else { continue }
-                group.addTask { [mediaAssetStore] in (item.id, await mediaAssetStore.decodedImage(for: key)) }
-            }
-            for await (id, image) in group {
-                if let image { decoded[id] = image }
-            }
-        }
-
-        // Rebuild in item order: the display keeps `visibleItems` and `visibleCards` 1:1, so the
-        // cards must follow the caller's (already filtered) list, never the cached projection.
-        var cards: [FeedCardPresentation] = []
-        cards.reserveCapacity(items.count)
-        for item in items {
-            let read = item.isRead
-            let bookmarked = item.isBookmarked
-            if let image = decoded[item.id] {
-                // The persisted decision wins; pages written before layouts were persisted keep the previous behaviour
-                // (`.hero`), so an old cache and a new one restore the same way.
-                let layout = persistedLayouts[item.id] ?? .hero
-                cards.append(FeedCardPresentation(item: item, media: .image(image), layout: layout,
-                                                  isRead: read, isBookmarked: bookmarked))
-            } else {
-                cards.append(FeedCardPresentation(item: item, media: .none, layout: .textOnly,
-                                                  isRead: read, isBookmarked: bookmarked))
-            }
-        }
-        return cards
-    }
-
-    /// How many rows of a restored page get their media decoded before the first paint. Beyond this,
-    /// rows render text-only and the pipeline fills them in as it reaches them.
-    private static let restoredMediaDecodeLimit = 30
 
     /// How many fetched items are enough to paint the first page instead of waiting for the full
     /// cold-start source target. A screen, not a budget: the runway can keep filling behind it.

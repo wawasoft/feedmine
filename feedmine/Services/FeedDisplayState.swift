@@ -522,7 +522,10 @@ final class FeedDisplayState {
     }
 
     /// The layout a persisted `layout` string names, or nil for pages written before layouts were persisted.
-    static func layout(from key: String) -> FeedCardLayout? {
+    ///
+    /// `nonisolated` because it is a pure mapping with no state: the restored-page path (`PreparedPageRestoration`)
+    /// rebuilds cards off the main actor, and a string→enum switch has no business forcing a hop back onto it.
+    nonisolated static func layout(from key: String) -> FeedCardLayout? {
         switch key {
         case "hero": return .hero
         case "thumb", "thumbnail": return .thumbnail
